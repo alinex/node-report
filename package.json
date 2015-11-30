@@ -1,10 +1,14 @@
 {
   "name": "alinex-report",
   "version": "0.0.0",
-  "description": "",
+  "description": "Easy report generating using markdown.",
   "copyright": "Alexander Schilling 2015",
   "private": false,
-  "keywords": [],
+  "keywords": [
+    "markdown",
+    "report",
+    "html"
+  ],
   "homepage": "http://alinex.github.io/node-report/",
   "repository": {
     "type": "git",
@@ -26,7 +30,11 @@
   "directories": {
     "lib": "./lib"
   },
-  "dependencies": {},
+  "dependencies": {
+    "alinex-util": "^0.3.10",
+    "chalk": "^1.1.1",
+    "debug": "^2.2.0"
+  },
   "devDependencies": {
     "alinex-builder": "1.x",
     "chai": "2.x"
