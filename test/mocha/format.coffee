@@ -66,6 +66,11 @@ describe "format", ->
     it "should make a quoted paragraph in sevcond level", ->
       equal Report.quote("This is a short text.", 2), "\n> > This is a short text.\n"
 
+    it "should make a code paragraph", ->
+      equal Report.code("My code\ncomes here."), "\n    My code\n    comes here.\n"
+    it "should make a language paragraph", ->
+      equal Report.code("My code\ncomes here.", 'coffee'), "\n``` coffee\nMy code\ncomes here.\n```\n"
+
   describe "lists", ->
 
     list = ['one', 'two', "and this is a long text because i can't only write numbers down here to show

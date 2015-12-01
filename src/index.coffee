@@ -18,6 +18,105 @@ block = (text, start, indent, width) ->
   text = '\n' + start + text.replace(/\n/g, indent) + '\n'
   string.wordwrap text, width, indent
 
+# ### Convert object to markdown table
+# obj = list of row-map; col = map of settings; sort = map (key: 'asc'||'desc')
+# obj = list of array;   col = array;           sort = list
+# obj = map;             col = map;             sort = key
+# col: title, align, width
+table = (obj, col, sort), ->
+  return '' unless Object.keys(obj).length
+  # transform sort order
+  if typeof sort is 'string'
+    n = {}
+    n[sort] = 'asc'
+    sort = n
+  else if Array.isArray sort
+    n = {}
+    n[key] = 'asc' for key in sort
+    sort = n
+  # transform column definition
+  if Array.isArray col
+    n = {}
+    n[num] = {title: val, width: val.length} for num, val of col
+    col = n
+  # col = map
+  # no col
+
+
+  # transform object
+
+
+  # sort rows
+
+
+  # calculate column width
+
+
+  # write header
+
+
+  # write line
+
+
+  # write rows
+
+
+  # check columns
+  unless col
+    col = {}
+    if Array.isArray obj
+      head = obj.shift()
+      col[k] = {title: k} for k in head
+    else
+      col[k] = {title: k} for k in Object.keys obj
+  # calculate table width
+  def.width = key.length for key, def in col
+  if Array.isArray obj
+    for row in obj
+      for val in row
+        def.width = val.length if val.length > def.width
+  else
+
+
+
+  result = ''
+  unless Array.isArray obj
+    # single object
+    keys = Object.keys obj
+    # get length of heading
+    maxlen = []
+    for n in keys
+      maxlen[0] = n.length if maxlen[0] < n.length
+      maxlen[1] = obj[n].length if maxlen[1] < obj[n].length
+    # create table
+    result = "| #{string.rpad 'Name', maxlen[0]} | #{string.lpad 'Value', maxlen[1]} |\n"
+    result = "| #{string.repeat '-', maxlen[0]} | #{string.repeat '-', maxlen[1]} |\n"
+    for n, v in obj
+      result = "| #{string.rpad n, maxlen[0]} | #{string.lpad formatValue(v), maxlen[1]} |\n"
+  else if obj.length
+    # List of objects
+    keys = Object.keys obj[0]
+    # get length of heading
+    maxlen = {}
+    for n in keys
+      maxlen[n] = n.length
+    for e in obj
+      for n in keys
+        maxlen[n] = e[n].length if maxlen[n] < e[n].length
+    # create table
+    row = keys.map (n) ->
+      string.lpad string.ucFirst(n), maxlen[n]
+    result = "| #{row.join ' | '} |\n"
+    row = keys.map (n) ->
+      string.repeat '-', maxlen[n] - 1
+    result += "| #{row.join ': | '}: |\n"
+    for e in obj
+      row = keys.map (n) ->
+        string.lpad formatValue(e[n]), maxlen[n]
+      result += "| #{row.join ' | '} |\n"
+  # return result
+  result
+
 # Report class
 # -------------------------------------------------
 
@@ -55,6 +154,11 @@ class Report
   @quote: (text, depth = 1, width) ->
     indent = string.repeat '> ', depth
     block text, indent, indent, width ? @width
+  @code: (text, lang) ->
+    if lang
+      return "\n``` #{lang}\n#{text.trim()}\n```\n"
+    indent = '    '
+    block text, indent, indent, width ? @width
 
   # ### lists
   @ul: (list, width) ->
@@ -71,14 +175,10 @@ class Report
     .join('\n') + '\n'
   @dl: (obj, width) ->
 
-  @code: (text, lang) ->
-    if lang
-      return "\n``` #{lang}\n#{text.trim()}\n```\n"
-    indent = '\n    '
-    indent + text.replace('\n', indent) + '\n'
-
-  @table: (col, obj) ->
+  # ### specials
+  @table: table
   @abbrv: (obj, width) ->
+
 
 
   # Create instance
@@ -118,6 +218,9 @@ class Report
     this
   quote: (text, depth) ->
     @body += Report.quote text, depth, @width
+    this
+  code: (text, lang) ->
+    @body += Report.code text, lang
     this
 
   # ### lists

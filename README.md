@@ -92,46 +92,41 @@ The following methods are available:
 - h5 - heading level 5
 - h6 - heading level 6
 
-### inline (only available on static call)
+### inline
+
+These are only available on static calls not on a report instance!
 
 - b - bold
 - i - italic
 - del - delete
 - tt - typewriter
 - link - create a link
-- img -
-- footnote:
+- img - add an image
+- footnote - add a footnode
 
-  # ### paragraphs
-  @p: (text, width) -> "\n#{string.wordwrap text, width ? @width}\n"
-  @hr: -> "\n---\n"
-  @quote: (text, depth = 1, width) ->
-    indent = string.repeat '> ', depth
-    block text, indent, indent, width ? @width
+### paragraphs
 
-  # ### lists
-  @ul: (list, width) ->
-    '\n' + list.map (text) ->
-      block(text, '- ', '  ', width ? @width).trim()
-    .join('\n') + '\n'
-  @ol: (list, width) ->
-    length = list.length.toString().length + 2
-    indent = string.repeat ' ', length
-    num = 0
-    '\n' + list.map (text) ->
-      start = string.rpad "#{++num}.", length
-      block(text, start, indent, width ? @width).trim()
-    .join('\n') + '\n'
-  @dl: (obj, width) ->
+p - add a text paragraph
+hr - add a horizontal rule as separation
+quote - add quoted text multiple level depth (second parameter)
+code - add a code block (language as additional parameter)
+abbrv - add an abreviation entry (after the text)
 
-  @code: (text, lang) ->
-    if lang
-      return "\n``` #{lang}\n#{text.trim()}\n```\n"
-    indent = '\n    '
-    indent + text.replace('\n', indent) + '\n'
+### lists
 
-  @table: (col, obj) ->
-  @abbrv: (obj, width) ->
+ul - unordered list from array
+ol - ordered list from array
+dl - definitiuon list from object
+
+### table
+
+Output a table (data object and optional column object needed)
+
+The column object should contain the keys of the columns to output with:
+
+- title
+- orientation
+
 
 
 License
