@@ -10,6 +10,14 @@ chalk = require 'chalk'
 # include more alinex modules
 {string} = require 'alinex-util'
 
+# Helper methods
+# -------------------------------------------------
+
+block = (text, start, indent, width) ->
+  indent = '\n' + indent
+  text = '\n' + start + text.replace(/\n/g, indent) + '\n'
+  string.wordwrap text, width, indent
+
 # Report class
 # -------------------------------------------------
 
@@ -35,6 +43,7 @@ class Report
   # ### inline
   @b: (text) -> "__#{text}__"
   @i: (text) -> "_#{text}_"
+  @del: (text) -> "~~#{text}~~"
   @tt: (text) -> "`#{text}`"
   @link: (text, url) ->
   @img: (text, source) ->
@@ -44,20 +53,22 @@ class Report
   @p: (text, width) -> "\n#{string.wordwrap text, width ? @width}\n"
   @hr: -> "\n---\n"
   @quote: (text, depth = 1, width) ->
-    indent = "\n#{string.repeat '> ', depth}"
-    text = indent + text.replace('\n', indent) + '\n'
-    string.wordwrap text, width ? @width
+    indent = string.repeat '> ', depth
+    block text, indent, indent, width ? @width
 
   # ### lists
   @ul: (list, width) ->
-    '\n' + list.map (e) ->
-      "- #{string.wordwrap e, (width ? @width) - 2}\n"
-    .join '\n'
+    '\n' + list.map (text) ->
+      block(text, '- ', '  ', width ? @width).trim()
+    .join('\n') + '\n'
   @ol: (list, width) ->
+    length = list.length.toString().length + 2
+    indent = string.repeat ' ', length
     num = 0
-    '\n' + list.map (e) ->
-      "#{++num}. #{string.wordwrap e, (width ? @width) - 3}\n"
-    .join '\n'
+    '\n' + list.map (text) ->
+      start = string.rpad "#{++num}.", length
+      block(text, start, indent, width ? @width).trim()
+    .join('\n') + '\n'
   @dl: (obj, width) ->
 
   @code: (text, lang) ->
@@ -74,47 +85,57 @@ class Report
   # -------------------------------------------------
   constructor: (setup) ->
     @width = setup?.width ? 80
-    @md = ''
+    @body = ''
     @abbrv = ''
     @foot = ''
 
   # ### headings
   h1: (text) ->
-    @md += Report.h1 text, @width
+    @body += Report.h1 text, @width
     this
   h2: (text) ->
-    @md += Report.h2 text, @width
+    @body += Report.h2 text, @width
     this
   h3: (text) ->
-    @md += Report.h3 text, @width
+    @body += Report.h3 text, @width
     this
   h4: (text) ->
-    @md += Report.h4 text, @width
+    @body += Report.h4 text, @width
     this
   h5: (text) ->
-    @md += Report.h5 text, @width
+    @body += Report.h5 text, @width
     this
   h6: (text) ->
-    @md += Report.h6 text, @width
+    @body += Report.h6 text, @width
     this
 
   # ### paragraphs
   p: (text) ->
-    @md += Report.p text, @width
+    @body += Report.p text, @width
     this
   hr: ->
-    @md += Report.hr text, @width
+    @body += Report.hr text, @width
     this
   quote: (text, depth) ->
-    @md += Report.quote text, depth, @width
+    @body += Report.quote text, depth, @width
     this
 
+  # ### lists
+  ul: (list) ->
+    @body += Report.ul list, @width
+    this
+  ol: (list) ->
+    @body += Report.ol list, @width
+    this
+  dl: (obj) ->
+    @body += Report.dl obj, @width
+    this
 
   # Extract report
   # -------------------------------------------------
 
   # ### as markdown text
-  toString: -> @md.replace(/\s+/, '') + @abbrv + @foot
+  toString: -> @body.replace(/\s+/, '') + @abbrv + @foot
 
   # ### as html
   toHtml: ->

@@ -70,6 +70,69 @@ console.log report # same as report.toString()
 html = report.toHtml()
 ```
 
+Instead of creating a report you can also let this module convert single elements
+on the fly:
+
+``` coffee
+console.log Report.ul ['one', 'two', 'three']
+console.log Report.p "This text contains a #{Result.b 'bold'} word."
+```
+
+
+Formatter
+-------------------------------------------------
+The following methods are available:
+
+### headings
+
+- h1 - heading level 1
+- h2 - heading level 2
+- h3 - heading level 3
+- h4 - heading level 4
+- h5 - heading level 5
+- h6 - heading level 6
+
+### inline (only available on static call)
+
+- b - bold
+- i - italic
+- del - delete
+- tt - typewriter
+- link - create a link
+- img -
+- footnote:
+
+  # ### paragraphs
+  @p: (text, width) -> "\n#{string.wordwrap text, width ? @width}\n"
+  @hr: -> "\n---\n"
+  @quote: (text, depth = 1, width) ->
+    indent = string.repeat '> ', depth
+    block text, indent, indent, width ? @width
+
+  # ### lists
+  @ul: (list, width) ->
+    '\n' + list.map (text) ->
+      block(text, '- ', '  ', width ? @width).trim()
+    .join('\n') + '\n'
+  @ol: (list, width) ->
+    length = list.length.toString().length + 2
+    indent = string.repeat ' ', length
+    num = 0
+    '\n' + list.map (text) ->
+      start = string.rpad "#{++num}.", length
+      block(text, start, indent, width ? @width).trim()
+    .join('\n') + '\n'
+  @dl: (obj, width) ->
+
+  @code: (text, lang) ->
+    if lang
+      return "\n``` #{lang}\n#{text.trim()}\n```\n"
+    indent = '\n    '
+    indent + text.replace('\n', indent) + '\n'
+
+  @table: (col, obj) ->
+  @abbrv: (obj, width) ->
+
 
 License
 -------------------------------------------------
