@@ -128,6 +128,34 @@ The column object should contain the keys of the columns to output with:
 - orientation
 
 
+Roadmap
+-------------------------------------------------
+
+- report helper
+  - headings, paragraphs
+  - test
+  - auto toString()
+  - quote '> '
+  - code
+  - lists
+  - make tables from objects automatically
+  - add time results of fields within the warn or fail conditions
+  - ? save to db: report
+  - create sensor reports with this
+  - create controller reports
+  - create explorer reports
+  - toHtml() method
+    - markdown ->
+      html https://markdown-it.github.io
+      https://www.npmjs.com/package/markdown-it-highlightjs
+      https://www.npmjs.com/package/markdown-it-lazy-headers
+      https://www.npmjs.com/package/markdown-it-table-of-contents
+      https://www.npmjs.com/package/markdown-it-checkbox
+      https://www.npmjs.com/package/markdown-it-deflist
+      https://www.npmjs.com/package/markdown-it-abbr
+      https://github.com/Welfenlab/dot-processor
+  - toPdf() method
+
 
 License
 -------------------------------------------------
