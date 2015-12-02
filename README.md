@@ -120,12 +120,23 @@ dl - definitiuon list from object
 
 ### table
 
-Output a table (data object and optional column object needed)
+Output a table (data object and optional column object needed). This can be called
+with different kind of objects making it easy to use nearly everything you have.
 
-The column object should contain the keys of the columns to output with:
+    Syntax: table <object>, <columns>, <sort>
 
-- title
-- orientation
+The complexest format will be shown at first:
+
+    <object>  : a list of row maps like returned from a database
+    <columns> : a map of column id to use as columns with the options:
+                - title - heading text
+                - align - orientation (one of 'left', 'center', 'right')
+                - width - the minimum width of the column (optional)
+    <sort>    : a map of sort conditions defining the column id and order ('asc', 'desc')
+
+All other formats will be converted into this filling missing information with
+default values.
+
 
 
 Roadmap

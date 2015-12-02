@@ -71,7 +71,7 @@ describe "format", ->
     it "should make a language paragraph", ->
       equal Report.code("My code\ncomes here.", 'coffee'), "\n``` coffee\nMy code\ncomes here.\n```\n"
 
-  describe "lists", ->
+  describe "list", ->
 
     list = ['one', 'two', "and this is a long text because i can't only write numbers down here to show
     the proper use of the lists also with long text lines", 'last\ntwo lines']
@@ -91,6 +91,47 @@ describe "format", ->
          the proper use of the lists also with long text lines
       4. last
          two lines\n"""
+
+  describe.only "table", ->
+
+    objListMap = [
+      {id: 1, en: 'one', de: 'eins'}
+      {id: 2, en: 'two', de: 'zwei'}
+      {id: 3, en: 'three', de: 'drei'}
+      {id: 12, en: 'twelve', de: 'zwölf'}
+    ]
+    colMapMap =
+      id:
+        title: 'ID'
+        align: 'right'
+      de:
+        title: 'German'
+      en:
+        title: 'English'
+    sortMap =
+      de: 'asc'
+
+    it "should format obj-list-map with col-map-map", ->
+      equal Report.table(objListMap, colMapMap), """
+      \n| ID | German | English |
+      | -: | -----: | ------: |
+      |  1 |   eins |     one |
+      |  2 |   zwei |     two |
+      |  3 |   drei |   three |
+      | 12 |  zwölf |  twelve |\n"""
+    it "should resort list using sort-map", ->
+      equal Report.table(objListMap, colMapMap, sortMap), """
+      \n| ID | German | English |
+      | -: | -----: | ------: |
+      |  3 |   drei |   three |
+      |  1 |   eins |     one |
+      |  2 |   zwei |     two |
+      | 12 |  zwölf |  twelve |\n"""
+
+# obj = list of row-map; col = map of settings; sort = map (key: 'asc'||'desc')
+# obj = list of array;   col = array;           sort = list
+# obj = map;             col = map;             sort = key
+# col: title, align, width
 
   describe "instance", ->
 
