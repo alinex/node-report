@@ -100,6 +100,17 @@ describe "format", ->
       {id: 3, en: 'three', de: 'drei'}
       {id: 12, en: 'twelve', de: 'zwölf'}
     ]
+    objListArray = [
+      [1, 'one', 'eins']
+      [2, 'two', 'zwei']
+      [3, 'three', 'drei']
+      [12, 'twelve', 'zwölf']
+    ]
+    objMap =
+      id: '001'
+      name: 'alex'
+      position: 'developer'
+
     colMapMap =
       id:
         title: 'ID'
@@ -108,6 +119,19 @@ describe "format", ->
         title: 'German'
       en:
         title: 'English'
+    colList = ['ID', 'English', 'German']
+    colListArray = [
+      ['id', 'en']
+      ['ID', 'English']
+    ]
+    colArrayArray = [
+      [0, 'en']
+      [1, 'English']
+    ]
+    colMap =
+      id: 'ID'
+      en: 'English'
+
 
     sortMap = {de: 'desc'}
     sortList = ['de']
@@ -121,6 +145,31 @@ describe "format", ->
       |  2 |   zwei |     two |
       |  3 |   drei |   three |
       | 12 |  zwölf |  twelve |\n"""
+    it "should format obj-list-map with col-list-array", ->
+      equal Report.table(objListMap, colListArray), """
+      \n| ID | English |
+      | --:| -------:|
+      |  1 |     one |
+      |  2 |     two |
+      |  3 |   three |
+      | 12 |  twelve |\n"""
+    it "should format obj-list-map with col-list", ->
+      equal Report.table(objListMap, colList), """
+      \n| ID | English | German |
+      | --:| -------:| ------:|
+      |  1 |     one |   eins |
+      |  2 |     two |   zwei |
+      |  3 |   three |   drei |
+      | 12 |  twelve |  zwölf |\n"""
+    it "should format obj-list-map with col-map", ->
+      equal Report.table(objListMap, colMap), """
+      \n| ID | English |
+      | --:| -------:|
+      |  1 |     one |
+      |  2 |     two |
+      |  3 |   three |
+      | 12 |  twelve |\n"""
+
     it "should resort list using sort-map", ->
       equal Report.table(objListMap, colMapMap, sortMap), """
       \n| ID | German | English |
@@ -145,11 +194,39 @@ describe "format", ->
       |  1 |   eins |     one |
       |  2 |   zwei |     two |
       | 12 |  zwölf |  twelve |\n"""
+    it "should format obj-list-map without col", ->
+      equal Report.table(objListMap), """
+      \n| id |     en |    de |
+      | --:| ------:| -----:|
+      |  1 |    one |  eins |
+      |  2 |    two |  zwei |
+      |  3 |  three |  drei |
+      | 12 | twelve | zwölf |\n"""
 
-# obj = list of row-map; col = map of settings; sort = map (key: 'asc'||'desc')
-# obj = list of array;   col = array;           sort = list
-# obj = map;             col = map;             sort = key
-# col: title, align, width
+    it "should format obj-list-array", ->
+      equal Report.table(objListArray), """
+      \n|  0 |      1 |     2 |
+      | --:| ------:| -----:|
+      |  1 |    one |  eins |
+      |  2 |    two |  zwei |
+      |  3 |  three |  drei |
+      | 12 | twelve | zwölf |\n"""
+    it "should format obj-list-array with col-list", ->
+      equal Report.table(objListArray, colList), """
+      \n| ID | English | German |
+      | --:| -------:| ------:|
+      |  1 |     one |   eins |
+      |  2 |     two |   zwei |
+      |  3 |   three |   drei |
+      | 12 |  twelve |  zwölf |\n"""
+    it "should format obj-list-array with col-array-array", ->
+      equal Report.table(objListArray, colArrayArray), """
+      \n| ID | English | German |
+      | --:| -------:| ------:|
+      |  1 |     one |   eins |
+      |  2 |     two |   zwei |
+      |  3 |   three |   drei |
+      | 12 |  twelve |  zwölf |\n"""
 
   describe "instance", ->
 

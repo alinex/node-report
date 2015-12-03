@@ -25,6 +25,33 @@ block = (text, start, indent, width) ->
 # col: title, align, width
 table = (obj, col, sort) ->
   return '' unless Object.keys(obj).length
+  # transform object
+
+  # obj-list-array
+
+  # obj-map
+
+
+  # transform column definition
+  if col
+    if Array.isArray col
+      unless Array.isArray col[0]
+        col = [
+          Object.keys obj[0]
+          col
+        ]
+      n = {}
+      for name, num in col[0]
+        break unless val = col[1][num]
+        n[name] = {title: val}
+      col = n
+    else if typeof col[Object.keys(col)[0]] isnt 'object'
+      n = {}
+      n[name] = {title: title} for name, title of col
+      col = n
+  else
+    col = {}
+    col[name] = {title: name} for name of obj[0]
   # transform sort order
   if typeof sort is 'string'
     n = {}
@@ -34,34 +61,27 @@ table = (obj, col, sort) ->
     n = {}
     n[key] = 'asc' for key in sort
     sort = n
-  # transform column definition
-  if Array.isArray col
+  # transform values
+  obj = obj.map (row) ->
     n = {}
-    n[num] = {title: val, width: val.length} for num, val of col
-    col = n
-
-  # col = map
-  # no col
-
-
-  # transform object
-
-
+    n[name] = val.toString() for name, val of row
+    n
+  # calculate column width
+  for key of col
+    col[key].width = col[key].title.toString().length
+    for row in obj
+      continue unless row[key]?
+      col[key].width = row[key].length if row[key].length > col[key].width
+      col[key].align ?= 'right'
   # sort rows
   if sort
+    obj = obj.slice()
     obj.sort (a, b) ->
       for name, order of sort
         res = a[name].localeCompare b[name]
         res = res * -1 if order is 'desc'
         return res if res
       0
-  # calculate column width
-  for key of col
-    col[key].width = col[key].title.length
-    for row in obj
-      continue unless row[key]?
-      col[key].width = row[key].length if row[key].length > col[key].width
-      col[key].align ?= 'right'
 
   console.log 'OBJECT:', obj
   console.log 'COLUMN:', col
