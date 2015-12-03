@@ -108,13 +108,15 @@ describe "format", ->
         title: 'German'
       en:
         title: 'English'
-    sortMap =
-      de: 'asc'
+
+    sortMap = {de: 'desc'}
+    sortList = ['de']
+    sortKey = 'de'
 
     it "should format obj-list-map with col-map-map", ->
       equal Report.table(objListMap, colMapMap), """
       \n| ID | German | English |
-      | -: | -----: | ------: |
+      | --:| ------:| -------:|
       |  1 |   eins |     one |
       |  2 |   zwei |     two |
       |  3 |   drei |   three |
@@ -122,7 +124,23 @@ describe "format", ->
     it "should resort list using sort-map", ->
       equal Report.table(objListMap, colMapMap, sortMap), """
       \n| ID | German | English |
-      | -: | -----: | ------: |
+      | --:| ------:| -------:|
+      | 12 |  zwölf |  twelve |
+      |  2 |   zwei |     two |
+      |  1 |   eins |     one |
+      |  3 |   drei |   three |\n"""
+    it "should resort list using sort-list", ->
+      equal Report.table(objListMap, colMapMap, sortList), """
+      \n| ID | German | English |
+      | --:| ------:| -------:|
+      |  3 |   drei |   three |
+      |  1 |   eins |     one |
+      |  2 |   zwei |     two |
+      | 12 |  zwölf |  twelve |\n"""
+    it "should resort list using sort-key", ->
+      equal Report.table(objListMap, colMapMap, sortKey), """
+      \n| ID | German | English |
+      | --:| ------:| -------:|
       |  3 |   drei |   three |
       |  1 |   eins |     one |
       |  2 |   zwei |     two |

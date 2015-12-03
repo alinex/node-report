@@ -52,6 +52,7 @@ table = (obj, col, sort) ->
     obj.sort (a, b) ->
       for name, order of sort
         res = a[name].localeCompare b[name]
+        res = res * -1 if order is 'desc'
         return res if res
       0
   # calculate column width
@@ -76,17 +77,17 @@ table = (obj, col, sort) ->
     .join ' | '
   ) + ' |'
   # write line
-  text += '\n| ' + (
+  text += '\n|' + (
     Object.keys(col).map (e) ->
       switch col[e].align
         when 'right'
-          string.repeat('-', col[e].width-1) + ':'
+          " #{string.repeat '-', col[e].width}:"
         when 'left'
-          ':' + string.repeat('-', col[e].width-1)
+          ":#{string.repeat '-', col[e].width} "
         when 'center'
-          ':' + string.repeat('-', col[e].width-2) + ':'
-    .join ' | '
-  ) + ' |'
+          ":#{string.repeat '-', col[e].width}:"
+    .join '|'
+  ) + '|'
   # write rows
   for row in obj
     text += '\n| ' + (
@@ -116,15 +117,15 @@ class Report
 
   # ### headings
   @h1: (text, width) ->
-    """\n\n#{string.wordwrap text, width ? @width}
+    """\n\n#{text}
     #{string.repeat '=', width ? @width}\n"""
   @h2: (text, width) ->
-    """\n\n#{string.wordwrap text, width ? @width}
+    """\n\n#{text}
     #{string.repeat '-', width ? @width}\n"""
-  @h3: (text, width) -> "\n### #{string.wordwrap text, (width ? @width) - 3}\n"
-  @h4: (text, width) -> "\n#### #{string.wordwrap text, (width ? @width) - 4}\n"
-  @h5: (text, width) -> "\n##### #{string.wordwrap text, (width ? @width) - 5}\n"
-  @h6: (text, width) -> "\n###### #{string.wordwrap text, (width ? @width) - 6}\n"
+  @h3: (text, width) -> "\n### #{text}\n"
+  @h4: (text, width) -> "\n#### #{text}\n"
+  @h5: (text, width) -> "\n##### #{text}\n"
+  @h6: (text, width) -> "\n###### #{text}\n"
 
   # ### inline
   @b: (text) -> "__#{text}__"
@@ -148,6 +149,7 @@ class Report
     block text, indent, indent, width ? @width
 
   # ### lists
+  # maybe use '\\\n' at the end of line for breaks
   @ul: (list, width) ->
     '\n' + list.map (text) ->
       block(text, '- ', '  ', width ? @width).trim()
