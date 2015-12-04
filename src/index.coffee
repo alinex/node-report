@@ -76,10 +76,6 @@ table = (obj, col, sort) ->
         res = res * -1 if order is 'desc'
         return res if res
       0
-
-  console.log 'OBJECT:', obj
-  console.log 'COLUMN:', col
-  console.log 'ORDER :', sort
   # write header
   text = '\n| ' + (
     Object.keys(col).map (e) ->
@@ -113,9 +109,6 @@ table = (obj, col, sort) ->
         string["#{pad}pad"] row[e], col[e].width
       .join ' | '
     ) + ' |'
-
-
-  console.log 'TEXT:', text
   text + '\n'
 
 
@@ -188,58 +181,41 @@ class Report
   # -------------------------------------------------
   constructor: (setup) ->
     @width = setup?.width ? 80
+    @log = setup?.log
+    # content elements
     @body = ''
     @abbrv = ''
     @foot = ''
 
+  # Add elements
+  # -------------------------------------------------
+
+  # ### direct markdown addition
+  raw: (text) ->
+    @log text if @log
+    @body += text
+    this
+
   # ### headings
-  h1: (text) ->
-    @body += Report.h1 text, @width
-    this
-  h2: (text) ->
-    @body += Report.h2 text, @width
-    this
-  h3: (text) ->
-    @body += Report.h3 text, @width
-    this
-  h4: (text) ->
-    @body += Report.h4 text, @width
-    this
-  h5: (text) ->
-    @body += Report.h5 text, @width
-    this
-  h6: (text) ->
-    @body += Report.h6 text, @width
-    this
+  h1: (text) -> @raw Report.h1 text, @width
+  h2: (text) -> @raw Report.h2 text, @width
+  h3: (text) -> @raw Report.h3 text, @width
+  h4: (text) -> @raw Report.h4 text, @width
+  h5: (text) -> @raw Report.h5 text, @width
+  h6: (text) -> @raw Report.h6 text, @width
 
   # ### paragraphs
-  p: (text) ->
-    @body += Report.p text, @width
-    this
-  hr: ->
-    @body += Report.hr text, @width
-    this
-  quote: (text, depth) ->
-    @body += Report.quote text, depth, @width
-    this
-  code: (text, lang) ->
-    @body += Report.code text, lang
-    this
+  p: (text) -> @raw Report.p text, @width
+  hr: -> @raw Report.hr()
+  quote: (text, depth) -> @raw Report.quote text, depth, @width
+  code: (text, lang) -> @raw Report.code text, lang, @width
 
   # ### lists
-  ul: (list) ->
-    @body += Report.ul list, @width
-    this
-  ol: (list) ->
-    @body += Report.ol list, @width
-    this
-  dl: (obj) ->
-    @body += Report.dl obj, @width
-    this
+  ul: (list) -> @raw Report.ul list, @width
+  ol: (list) -> @raw Report.ol list, @width
+  dl: (obj) -> @raw Report.dl obj, @width
 
-  table: (obj, col, sort) ->
-    @body += Report.table obj, col, sort
-    this
+  table: (obj, col, sort) -> @raw Report.table obj, col, sort
 
 
   # Extract report

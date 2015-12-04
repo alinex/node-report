@@ -43,13 +43,22 @@ Always have a look at the latest [changes](Changelog.md).
 Usage
 -------------------------------------------------
 
-The first step is to create a new object:
+The first step is to load the module:
 
 ``` coffee
 Report = require 'alinex-report'
+```
 
+And now you create a new object:
+
+``` coffee
 report = new Report()
 ```
+
+You may also give some of the following options:
+
+- `width` - the width for line breaks (default: 80)
+- `log` - a function called each time something is added with the added text
 
 Now you may add content to your report:
 

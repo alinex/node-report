@@ -1,14 +1,15 @@
 chai = require 'chai'
 expect = chai.expect
 util = require 'util'
+debug = require('debug')('test:format')
 
 Report = require '../../src/index'
 {string} = require 'alinex-util'
 
 equal = (a, b) ->
-  console.log a
-  console.log util.inspect a
-  console.log util.inspect b
+  debug "result", a
+#  console.log util.inspect a
+#  console.log util.inspect b
   expect(a, 'result').to.equal b
 
 describe "format", ->
