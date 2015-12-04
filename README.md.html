@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="doc-style.css" />
+  <script src="doc-filelist.js"></script>
+  <script>
+    var relativeDir = "", thisFile = "home/alex/a3/node-report/READMEmd", defaultSidebar = true;
+  </script>
+  <script src="doc-script.js"></script>
+  <script src="fileSearch.js"></script>
+  <script src="goToLine.js"></script>
+  <link rel="stylesheet" href="fileSearch.css" />
+  <link rel="stylesheet" href="goToLine.css" />
+</head>
+<body>
+  <nav>
+<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="lllogo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+  </a>
+  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+</div>
+<div class="links">
+  <a href="http://alinex.github.io/blog" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
+  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+</div>
+</nav><div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+      <div class="heading h1">
+        <a href="#package%3A%20alinex-report">Package: alinex-report</a>
+      </div>
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+      <div class="heading h2">
+        <a href="#formatter">Formatter</a>
+      </div>
+      <div class="heading h3">
+        <a href="#headings">headings</a>
+      </div>
+      <div class="heading h3">
+        <a href="#inline">inline</a>
+      </div>
+      <div class="heading h3">
+        <a href="#paragraphs">paragraphs</a>
+      </div>
+      <div class="heading h3">
+        <a href="#lists">lists</a>
+      </div>
+      <div class="heading h3">
+        <a href="#table">table</a>
+      </div>
+      <div class="heading h2">
+        <a href="#roadmap">Roadmap</a>
+      </div>
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-report" title="Fork me on GitHub"></a><div class="docs markdown">
+<div class="pilwrap" id="package%3A%20alinex-report">
+  <h1>
+    <a href="#package%3A%20alinex-report" name="package%3A%20alinex-report" class="pilcrow">&#182;</a>
+    Package: alinex-report
+  </h1>
+</div>
+
+
+<p><a href="https://travis-ci.org/alinex/node-report"><img src="https://travis-ci.org/alinex/node-report.svg?branch=master" alt="Build Status" title="" /></a>
+<a href="https://coveralls.io/r/alinex/node-report?branch=master"><img src="https://coveralls.io/repos/alinex/node-report/badge.png?branch=master" alt="Coverage Status" title="" /></a>
+<a href="https://gemnasium.com/alinex/node-report"><img src="https://gemnasium.com/alinex/node-report.png" alt="Dependency Status" title="" /></a></p>
+
+<p>This report module should help you create complexe text/html reports in an easy
+way. You create a new object and append different text objects step by step. At last
+you may access the markdown text or get it converted to html.</p>
+
+<p>The key features are:</p>
+
+<ul>
+<li>easy markdown writing</li>
+<li>export as html</li>
+</ul>
+
+<blockquote>
+  <p>It is one of the modules of the <a href="http://alinex.github.io/code.html">Alinex Universe</a>
+  following the code standards defined in the <a href="http://alinex.github.io/node-alinex">General Docs</a>.</p>
+</blockquote>
+
+
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow">&#182;</a>
+    Install
+  </h2>
+</div>
+
+
+<p><a href="https://www.npmjs.com/package/alinex-database"><img src="https://nodei.co/npm/alinex-database.png?downloads=true&amp;downloadRank=true&amp;stars=true" alt="NPM" title="" />
+ <img src="https://nodei.co/npm-dl/alinex-database.png?months=9&amp;height=3" alt="Downloads" title="" />
+</a></p>
+
+<p>The easiest way is to let npm add the module directly to your modules
+(from within you node modules directory):</p>
+
+
+<div class="highlight"><pre><code>npm install alinex-report --save
+</code></pre></div>
+
+
+
+<p>And update it to the latest version later:</p>
+
+
+<div class="highlight"><pre><code>npm update alinex-report --save
+</code></pre></div>
+
+
+
+<p>Always have a look at the latest <a href="Changelog.md.html">changes</a>.</p>
+
+
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow">&#182;</a>
+    Usage
+  </h2>
+</div>
+
+
+<p>The first step is to create a new object:</p>
+
+
+<div class="highlight"><pre><code><span class="nv">Report = </span><span class="nx">require</span> <span class="s">&#39;alinex-report&#39;</span>
+
+<span class="nv">report = </span><span class="k">new</span> <span class="nx">Report</span><span class="p">()</span>
+</code></pre></div>
+
+
+
+<p>Now you may add content to your report:</p>
+
+
+<div class="highlight"><pre><code><span class="nx">report</span><span class="p">.</span><span class="nx">h1</span> <span class="s">&quot;My Test&quot;</span>
+<span class="nx">report</span><span class="p">.</span><span class="nx">p</span> <span class="s">&quot;This is a short demonstrative test with:&quot;</span>
+<span class="nx">report</span><span class="p">.</span><span class="nx">list</span> <span class="p">[</span>
+  <span class="s">&quot;headings&quot;</span>
+  <span class="s">&quot;text blocks&quot;</span>
+  <span class="s">&quot;unnumbered lists&quot;</span>
+<span class="p">]</span>
+</code></pre></div>
+
+
+
+<p>And finally get the complete result:</p>
+
+
+<div class="highlight"><pre><code><span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">report</span> <span class="c1"># same as report.toString()</span>
+<span class="nv">html = </span><span class="nx">report</span><span class="p">.</span><span class="nx">toHtml</span><span class="p">()</span>
+</code></pre></div>
+
+
+
+<p>Instead of creating a report you can also let this module convert single elements
+on the fly:</p>
+
+
+<div class="highlight"><pre><code><span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">ul</span> <span class="p">[</span><span class="s">&#39;one&#39;</span><span class="p">,</span> <span class="s">&#39;two&#39;</span><span class="p">,</span> <span class="s">&#39;three&#39;</span><span class="p">]</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">p</span> <span class="s">&quot;This text contains a </span><span class="si">#{</span><span class="nx">Result</span><span class="p">.</span><span class="nx">b</span> <span class="s">&#39;bold&#39;</span><span class="si">}</span><span class="s"> word.&quot;</span>
+</code></pre></div>
+
+
+
+
+<div class="pilwrap" id="formatter">
+  <h2>
+    <a href="#formatter" name="formatter" class="pilcrow">&#182;</a>
+    Formatter
+  </h2>
+</div>
+
+
+<p>The following methods are available:</p>
+
+
+<div class="pilwrap" id="headings">
+  <h3>
+    <a href="#headings" name="headings" class="pilcrow">&#182;</a>
+    headings
+  </h3>
+</div>
+
+
+<ul>
+<li>h1 - heading level 1</li>
+<li>h2 - heading level 2</li>
+<li>h3 - heading level 3</li>
+<li>h4 - heading level 4</li>
+<li>h5 - heading level 5</li>
+<li>h6 - heading level 6</li>
+</ul>
+
+
+<div class="pilwrap" id="inline">
+  <h3>
+    <a href="#inline" name="inline" class="pilcrow">&#182;</a>
+    inline
+  </h3>
+</div>
+
+
+<p>These are only available on static calls not on a report instance!</p>
+
+<ul>
+<li>b - bold</li>
+<li>i - italic</li>
+<li>del - delete</li>
+<li>tt - typewriter</li>
+<li>link - create a link</li>
+<li>img - add an image</li>
+<li>footnote - add a footnode</li>
+</ul>
+
+
+<div class="pilwrap" id="paragraphs">
+  <h3>
+    <a href="#paragraphs" name="paragraphs" class="pilcrow">&#182;</a>
+    paragraphs
+  </h3>
+</div>
+
+
+<p>p - add a text paragraph
+hr - add a horizontal rule as separation
+quote - add quoted text multiple level depth (second parameter)
+code - add a code block (language as additional parameter)
+abbrv - add an abreviation entry (after the text)</p>
+
+
+<div class="pilwrap" id="lists">
+  <h3>
+    <a href="#lists" name="lists" class="pilcrow">&#182;</a>
+    lists
+  </h3>
+</div>
+
+
+<p>ul - unordered list from array
+ol - ordered list from array
+dl - definitiuon list from object</p>
+
+
+<div class="pilwrap" id="table">
+  <h3>
+    <a href="#table" name="table" class="pilcrow">&#182;</a>
+    table
+  </h3>
+</div>
+
+
+<p>Output a table (data object and optional column object needed). This can be called
+with different kind of objects making it easy to use nearly everything you have.</p>
+
+
+<div class="highlight"><pre><code><span class="nx">Syntax</span><span class="o">:</span> <span class="nx">table</span> <span class="o">&lt;</span><span class="nx">object</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="nx">columns</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="nx">sort</span><span class="o">&gt;</span>
+</code></pre></div>
+
+
+
+<p>The complexest format will be shown at first:</p>
+
+
+<div class="highlight"><pre><code><span class="o">&lt;</span><span class="nx">object</span><span class="o">&gt;</span>  <span class="o">:</span> <span class="nx">a</span> <span class="nx">list</span> <span class="nx">of</span> <span class="nx">row</span> <span class="nx">maps</span> <span class="nx">like</span> <span class="nx">returned</span> <span class="nx">from</span> <span class="nx">a</span> <span class="nx">database</span>
+<span class="o">&lt;</span><span class="nx">columns</span><span class="o">&gt;</span> <span class="o">:</span> <span class="nx">a</span> <span class="nx">map</span> <span class="nx">of</span> <span class="nx">column</span> <span class="nx">id</span> <span class="nx">to</span> <span class="nx">use</span> <span class="nx">as</span> <span class="nx">columns</span> <span class="kd">with</span> <span class="nx">the</span> <span class="nx">options</span><span class="o">:</span>
+            <span class="o">-</span> <span class="nx">title</span> <span class="o">-</span> <span class="nx">heading</span> <span class="nx">text</span>
+            <span class="o">-</span> <span class="nx">align</span> <span class="o">-</span> <span class="nx">orientation</span> <span class="p">(</span><span class="nx">one</span> <span class="nx">of</span> <span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="s1">&#39;right&#39;</span><span class="p">)</span>
+            <span class="o">-</span> <span class="nx">width</span> <span class="o">-</span> <span class="nx">the</span> <span class="nx">minimum</span> <span class="nx">width</span> <span class="nx">of</span> <span class="nx">the</span> <span class="nx">column</span> <span class="p">(</span><span class="nx">optional</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="nx">sort</span><span class="o">&gt;</span>    <span class="o">:</span> <span class="nx">a</span> <span class="nx">map</span> <span class="nx">of</span> <span class="nx">sort</span> <span class="nx">conditions</span> <span class="nx">defining</span> <span class="nx">the</span> <span class="nx">column</span> <span class="nx">id</span> <span class="nx">and</span> <span class="nx">order</span> <span class="p">(</span><span class="s1">&#39;asc&#39;</span><span class="p">,</span> <span class="s1">&#39;desc&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+
+
+<p>All other formats will be converted into this filling missing information with
+default values.</p>
+
+
+<div class="pilwrap" id="roadmap">
+  <h2>
+    <a href="#roadmap" name="roadmap" class="pilcrow">&#182;</a>
+    Roadmap
+  </h2>
+</div>
+
+
+<ul>
+<li>report helper
+<ul><li>headings, paragraphs</li>
+<li>test</li>
+<li>auto toString()</li>
+<li>quote '> '</li>
+<li>code</li>
+<li>lists</li>
+<li>make tables from objects automatically</li>
+<li>add time results of fields within the warn or fail conditions</li>
+<li>? save to db: report</li>
+<li>create sensor reports with this</li>
+<li>create controller reports</li>
+<li>create explorer reports</li>
+<li>toHtml() method</li>
+<li>markdown ->
+html <a href='https://markdown-it.github.io'>https://markdown-it.github.io</a>
+<a href='https://www.npmjs.com/package/markdown-it-highlightjs'>https://www.npmjs.com/package/markdown-it-highlightjs</a>
+<a href='https://www.npmjs.com/package/markdown-it-lazy-headers'>https://www.npmjs.com/package/markdown-it-lazy-headers</a>
+<a href='https://www.npmjs.com/package/markdown-it-table-of-contents'>https://www.npmjs.com/package/markdown-it-table-of-contents</a>
+<a href='https://www.npmjs.com/package/markdown-it-checkbox'>https://www.npmjs.com/package/markdown-it-checkbox</a>
+<a href='https://www.npmjs.com/package/markdown-it-deflist'>https://www.npmjs.com/package/markdown-it-deflist</a>
+<a href='https://www.npmjs.com/package/markdown-it-abbr'>https://www.npmjs.com/package/markdown-it-abbr</a>
+<a href='https://github.com/Welfenlab/dot-processor'>https://github.com/Welfenlab/dot-processor</a></li>
+<li>toPdf() method</li></ul></li>
+</ul>
+
+
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow">&#182;</a>
+    License
+  </h2>
+</div>
+
+
+<p>Copyright 2015 Alexander Schilling</p>
+
+<p>Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at</p>
+
+<blockquote>
+  <p><a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p>
+</blockquote>
+
+<p>Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.</p></div>
+  </div>
+</body>
+</html>

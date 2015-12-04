@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../doc-style.css" />
+  <script src="../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../", thisFile = "home/alex/a3/node-report/src/indexcoffee", defaultSidebar = true;
+  </script>
+  <script src="../doc-script.js"></script>
+  <script src="../fileSearch.js"></script>
+  <script src="../goToLine.js"></script>
+  <link rel="stylesheet" href="../fileSearch.css" />
+  <link rel="stylesheet" href="../goToLine.css" />
+</head>
+<body>
+  <nav>
+<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="lllogo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+  </a>
+  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+</div>
+<div class="links">
+  <a href="http://alinex.github.io/blog" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
+  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+</div>
+</nav><div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+      <div class="heading h1">
+        <a href="#report%20generation">Report generation</a>
+      </div>
+      <div class="heading h2">
+        <a href="#node%20modules">Node Modules</a>
+      </div>
+      <div class="heading h2">
+        <a href="#helper%20methods">Helper methods</a>
+      </div>
+      <div class="heading h3">
+        <a href="#convert%20object%20to%20markdown%20table">Convert object to markdown table</a>
+      </div>
+      <div class="heading h2">
+        <a href="#report%20class">Report class</a>
+      </div>
+      <div class="heading h2">
+        <a href="#static%20methods">Static Methods</a>
+      </div>
+      <div class="heading h3">
+        <a href="#headings">headings</a>
+      </div>
+      <div class="heading h3">
+        <a href="#inline">inline</a>
+      </div>
+      <div class="heading h3">
+        <a href="#paragraphs">paragraphs</a>
+      </div>
+      <div class="heading h3">
+        <a href="#lists">lists</a>
+      </div>
+      <div class="heading h3">
+        <a href="#specials">specials</a>
+      </div>
+      <div class="heading h2">
+        <a href="#create%20instance">Create instance</a>
+      </div>
+      <div class="heading h3">
+        <a href="#headings">headings</a>
+      </div>
+      <div class="heading h3">
+        <a href="#paragraphs">paragraphs</a>
+      </div>
+      <div class="heading h3">
+        <a href="#lists">lists</a>
+      </div>
+      <div class="heading h2">
+        <a href="#extract%20report">Extract report</a>
+      </div>
+      <div class="heading h3">
+        <a href="#as%20markdown%20text">as markdown text</a>
+      </div>
+      <div class="heading h3">
+        <a href="#as%20html">as html</a>
+      </div>
+      <div class="heading h2">
+        <a href="#export%20class">Export class</a>
+      </div>
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-report" title="Fork me on GitHub"></a><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="report%20generation">
+  <h1>
+    <a href="#report%20generation" name="report%20generation" class="pilcrow">&#182;</a>
+    Report generation
+  </h1>
+</div>
+
+
+<p>This package will give you an easy and robust way to access mysql databases.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre></pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="node%20modules">
+  <h2>
+    <a href="#node%20modules" name="node%20modules" class="pilcrow">&#182;</a>
+    Node Modules
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+<span class="nv">debug = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;report&#39;</span><span class="p">)</span>
+<span class="nv">chalk = </span><span class="nx">require</span> <span class="s">&#39;chalk&#39;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+</div>
+<p>include more alinex modules</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="p">{</span><span class="nx">string</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;alinex-util&#39;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="helper%20methods">
+  <h2>
+    <a href="#helper%20methods" name="helper%20methods" class="pilcrow">&#182;</a>
+    Helper methods
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+<span class="nv">block = </span><span class="nf">(text, start, indent, width) -&gt;</span>
+  <span class="nv">indent = </span><span class="s">&#39;\n&#39;</span> <span class="o">+</span> <span class="nx">indent</span>
+  <span class="nv">text = </span><span class="s">&#39;\n&#39;</span> <span class="o">+</span> <span class="nx">start</span> <span class="o">+</span> <span class="nx">text</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/\n/g</span><span class="p">,</span> <span class="nx">indent</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;\n&#39;</span>
+  <span class="nx">string</span><span class="p">.</span><span class="nx">wordwrap</span> <span class="nx">text</span><span class="p">,</span> <span class="nx">width</span><span class="p">,</span> <span class="nx">indent</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="convert%20object%20to%20markdown%20table">
+  <h3>
+    <a href="#convert%20object%20to%20markdown%20table" name="convert%20object%20to%20markdown%20table" class="pilcrow">&#182;</a>
+    Convert object to markdown table
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">table = </span><span class="nf">(obj, col, sort) -&gt;</span>
+  <span class="k">return</span> <span class="s">&#39;&#39;</span> <span class="k">unless</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">obj</span><span class="p">).</span><span class="nx">length</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6">&#182;</a>
+</div>
+<p>transform object</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="k">if</span> <span class="k">typeof</span> <span class="nx">obj</span> <span class="o">is</span> <span class="s">&#39;object&#39;</span> <span class="o">and</span> <span class="o">not</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span> <span class="nx">obj</span>
+    <span class="nv">n = </span><span class="p">[]</span>
+    <span class="nx">n</span><span class="p">.</span><span class="nx">push</span> <span class="p">[</span><span class="nx">name</span><span class="p">,</span> <span class="nx">val</span><span class="p">]</span> <span class="k">for</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">val</span> <span class="k">of</span> <span class="nx">obj</span>
+    <span class="nv">obj = </span><span class="nx">n</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7">&#182;</a>
+</div>
+<p>transform column definition</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="k">if</span> <span class="nx">col</span>
+    <span class="k">if</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span> <span class="nx">col</span>
+      <span class="k">unless</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span> <span class="nx">col</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="nv">col = </span><span class="p">[</span>
+          <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span> <span class="nx">obj</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+          <span class="nx">col</span>
+        <span class="p">]</span>
+      <span class="nv">n = </span><span class="p">{}</span>
+      <span class="k">for</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">num</span> <span class="k">in</span> <span class="nx">col</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">break</span> <span class="k">unless</span> <span class="nv">val = </span><span class="nx">col</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="nx">num</span><span class="p">]</span>
+        <span class="nx">n</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="nv">title: </span><span class="nx">val</span><span class="p">}</span>
+      <span class="nv">col = </span><span class="nx">n</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="k">typeof</span> <span class="nx">col</span><span class="p">[</span><span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">col</span><span class="p">)[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">isnt</span> <span class="s">&#39;object&#39;</span>
+      <span class="nv">n = </span><span class="p">{}</span>
+      <span class="nx">n</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="nv">title: </span><span class="nx">title</span><span class="p">}</span> <span class="k">for</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">title</span> <span class="k">of</span> <span class="nx">col</span>
+      <span class="nv">col = </span><span class="nx">n</span>
+  <span class="k">else</span>
+    <span class="nv">col = </span><span class="p">{}</span>
+    <span class="nx">col</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="nv">title: </span><span class="nx">name</span><span class="p">}</span> <span class="k">for</span> <span class="nx">name</span> <span class="k">of</span> <span class="nx">obj</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
+</div>
+<p>transform sort order</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="k">if</span> <span class="k">typeof</span> <span class="nx">sort</span> <span class="o">is</span> <span class="s">&#39;string&#39;</span>
+    <span class="nv">n = </span><span class="p">{}</span>
+    <span class="nx">n</span><span class="p">[</span><span class="nx">sort</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;asc&#39;</span>
+    <span class="nv">sort = </span><span class="nx">n</span>
+  <span class="k">else</span> <span class="k">if</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span> <span class="nx">sort</span>
+    <span class="nv">n = </span><span class="p">{}</span>
+    <span class="nx">n</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;asc&#39;</span> <span class="k">for</span> <span class="nx">key</span> <span class="k">in</span> <span class="nx">sort</span>
+    <span class="nv">sort = </span><span class="nx">n</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9">&#182;</a>
+</div>
+<p>transform values</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nv">obj = </span><span class="nx">obj</span><span class="p">.</span><span class="nx">map</span> <span class="nf">(row) -&gt;</span>
+    <span class="nv">n = </span><span class="p">{}</span>
+    <span class="nx">n</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="nx">val</span><span class="p">.</span><span class="nx">toString</span><span class="p">()</span> <span class="k">for</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">val</span> <span class="k">of</span> <span class="nx">row</span>
+    <span class="nx">n</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-10" id="section-10">&#182;</a>
+</div>
+<p>calculate column width</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="k">for</span> <span class="nx">key</span> <span class="k">of</span> <span class="nx">col</span>
+    <span class="nx">col</span><span class="p">[</span><span class="nx">key</span><span class="p">].</span><span class="nv">width = </span><span class="nx">col</span><span class="p">[</span><span class="nx">key</span><span class="p">].</span><span class="nx">title</span><span class="p">.</span><span class="nx">toString</span><span class="p">().</span><span class="nx">length</span>
+    <span class="k">for</span> <span class="nx">row</span> <span class="k">in</span> <span class="nx">obj</span>
+      <span class="k">continue</span> <span class="k">unless</span> <span class="nx">row</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span><span class="o">?</span>
+      <span class="nx">col</span><span class="p">[</span><span class="nx">key</span><span class="p">].</span><span class="nv">width = </span><span class="nx">row</span><span class="p">[</span><span class="nx">key</span><span class="p">].</span><span class="nx">length</span> <span class="k">if</span> <span class="nx">row</span><span class="p">[</span><span class="nx">key</span><span class="p">].</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="nx">col</span><span class="p">[</span><span class="nx">key</span><span class="p">].</span><span class="nx">width</span>
+      <span class="nx">col</span><span class="p">[</span><span class="nx">key</span><span class="p">].</span><span class="nx">align</span> <span class="o">?=</span> <span class="s">&#39;left&#39;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11">&#182;</a>
+</div>
+<p>sort rows</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="k">if</span> <span class="nx">sort</span>
+    <span class="nv">obj = </span><span class="nx">obj</span><span class="p">.</span><span class="nx">slice</span><span class="p">()</span>
+    <span class="nx">obj</span><span class="p">.</span><span class="nx">sort</span> <span class="nf">(a, b) -&gt;</span>
+      <span class="k">for</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">order</span> <span class="k">of</span> <span class="nx">sort</span>
+        <span class="nv">res = </span><span class="nx">a</span><span class="p">[</span><span class="nx">name</span><span class="p">].</span><span class="nx">localeCompare</span> <span class="nx">b</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span>
+        <span class="nv">res = </span><span class="nx">res</span> <span class="o">*</span> <span class="o">-</span><span class="mi">1</span> <span class="k">if</span> <span class="nx">order</span> <span class="o">is</span> <span class="s">&#39;desc&#39;</span>
+        <span class="k">return</span> <span class="nx">res</span> <span class="k">if</span> <span class="nx">res</span>
+      <span class="mi">0</span>
+
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;OBJECT:&#39;</span><span class="p">,</span> <span class="nx">obj</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;COLUMN:&#39;</span><span class="p">,</span> <span class="nx">col</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;ORDER :&#39;</span><span class="p">,</span> <span class="nx">sort</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
+</div>
+<p>write header</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nv">text = </span><span class="s">&#39;\n| &#39;</span> <span class="o">+</span> <span class="p">(</span>
+    <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">col</span><span class="p">).</span><span class="nx">map</span> <span class="nf">(e) -&gt;</span>
+      <span class="nv">pad = </span><span class="k">switch</span> <span class="nx">col</span><span class="p">[</span><span class="nx">e</span><span class="p">].</span><span class="nx">align</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">when</span> <span class="s">&#39;r&#39;</span> <span class="k">then</span> <span class="s">&#39;l&#39;</span>
+        <span class="k">when</span> <span class="s">&#39;l&#39;</span> <span class="k">then</span> <span class="s">&#39;r&#39;</span>
+        <span class="k">else</span> <span class="s">&#39;c&#39;</span>
+      <span class="nx">string</span><span class="p">[</span><span class="s">&quot;</span><span class="si">#{</span><span class="nx">pad</span><span class="si">}</span><span class="s">pad&quot;</span><span class="p">]</span> <span class="nx">col</span><span class="p">[</span><span class="nx">e</span><span class="p">].</span><span class="nx">title</span><span class="p">,</span> <span class="nx">col</span><span class="p">[</span><span class="nx">e</span><span class="p">].</span><span class="nx">width</span>
+    <span class="p">.</span><span class="nx">join</span> <span class="s">&#39; | &#39;</span>
+  <span class="p">)</span> <span class="o">+</span> <span class="s">&#39; |&#39;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-13" id="section-13">&#182;</a>
+</div>
+<p>write line</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nx">text</span> <span class="o">+=</span> <span class="s">&#39;\n|&#39;</span> <span class="o">+</span> <span class="p">(</span>
+    <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">col</span><span class="p">).</span><span class="nx">map</span> <span class="nf">(e) -&gt;</span>
+      <span class="k">switch</span> <span class="nx">col</span><span class="p">[</span><span class="nx">e</span><span class="p">].</span><span class="nx">align</span>
+        <span class="k">when</span> <span class="s">&#39;right&#39;</span>
+          <span class="s">&quot; </span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">repeat</span> <span class="s">&#39;-&#39;</span><span class="p">,</span> <span class="nx">col</span><span class="p">[</span><span class="nx">e</span><span class="p">].</span><span class="nx">width</span><span class="si">}</span><span class="s">:&quot;</span>
+        <span class="k">when</span> <span class="s">&#39;left&#39;</span>
+          <span class="s">&quot;:</span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">repeat</span> <span class="s">&#39;-&#39;</span><span class="p">,</span> <span class="nx">col</span><span class="p">[</span><span class="nx">e</span><span class="p">].</span><span class="nx">width</span><span class="si">}</span><span class="s"> &quot;</span>
+        <span class="k">when</span> <span class="s">&#39;center&#39;</span>
+          <span class="s">&quot;:</span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">repeat</span> <span class="s">&#39;-&#39;</span><span class="p">,</span> <span class="nx">col</span><span class="p">[</span><span class="nx">e</span><span class="p">].</span><span class="nx">width</span><span class="si">}</span><span class="s">:&quot;</span>
+    <span class="p">.</span><span class="nx">join</span> <span class="s">&#39;|&#39;</span>
+  <span class="p">)</span> <span class="o">+</span> <span class="s">&#39;|&#39;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-14" id="section-14">&#182;</a>
+</div>
+<p>write rows</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="k">for</span> <span class="nx">row</span> <span class="k">in</span> <span class="nx">obj</span>
+    <span class="nx">text</span> <span class="o">+=</span> <span class="s">&#39;\n| &#39;</span> <span class="o">+</span> <span class="p">(</span>
+      <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">col</span><span class="p">).</span><span class="nx">map</span> <span class="nf">(e) -&gt;</span>
+        <span class="nv">pad = </span><span class="k">switch</span> <span class="nx">col</span><span class="p">[</span><span class="nx">e</span><span class="p">].</span><span class="nx">align</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+          <span class="k">when</span> <span class="s">&#39;r&#39;</span> <span class="k">then</span> <span class="s">&#39;l&#39;</span>
+          <span class="k">when</span> <span class="s">&#39;l&#39;</span> <span class="k">then</span> <span class="s">&#39;r&#39;</span>
+          <span class="k">else</span> <span class="s">&#39;c&#39;</span>
+        <span class="nx">string</span><span class="p">[</span><span class="s">&quot;</span><span class="si">#{</span><span class="nx">pad</span><span class="si">}</span><span class="s">pad&quot;</span><span class="p">]</span> <span class="nx">row</span><span class="p">[</span><span class="nx">e</span><span class="p">],</span> <span class="nx">col</span><span class="p">[</span><span class="nx">e</span><span class="p">].</span><span class="nx">width</span>
+      <span class="p">.</span><span class="nx">join</span> <span class="s">&#39; | &#39;</span>
+    <span class="p">)</span> <span class="o">+</span> <span class="s">&#39; |&#39;</span>
+
+
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;TEXT:&#39;</span><span class="p">,</span> <span class="nx">text</span>
+  <span class="nx">text</span> <span class="o">+</span> <span class="s">&#39;\n&#39;</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="report%20class">
+  <h2>
+    <a href="#report%20class" name="report%20class" class="pilcrow">&#182;</a>
+    Report class
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+<span class="k">class</span> <span class="nx">Report</span>
+
+  <span class="vi">@width: </span><span class="mi">80</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="static%20methods">
+  <h2>
+    <a href="#static%20methods" name="static%20methods" class="pilcrow">&#182;</a>
+    Static Methods
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="headings">
+  <h3>
+    <a href="#headings" name="headings" class="pilcrow">&#182;</a>
+    headings
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="vi">@h1: </span><span class="nf">(text, width) -&gt;</span>
+    <span class="s">&quot;&quot;&quot;\n\n</span><span class="si">#{</span><span class="nx">text</span><span class="si">}</span><span class="s"></span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
+</div>
+<p>{string.repeat '=', width ? @width}\n"""</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="s">  @h2: (text, width) -&gt;</span>
+<span class="s">    &quot;&quot;&quot;</span><span class="err">\</span><span class="nx">n</span><span class="err">\</span><span class="nx">n</span><span class="c1">#{text}</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
+</div>
+<p>{string.repeat '-', width ? @width}\n"""</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="vi">@h3: </span><span class="nf">(text, width) -&gt;</span> <span class="s">&quot;\n</span><span class="err">###</span><span class="s"> </span><span class="si">#{</span><span class="nx">text</span><span class="si">}</span><span class="s">\n&quot;</span>
+  <span class="vi">@h4: </span><span class="nf">(text, width) -&gt;</span> <span class="s">&quot;\n</span><span class="err">####</span><span class="s"> </span><span class="si">#{</span><span class="nx">text</span><span class="si">}</span><span class="s">\n&quot;</span>
+  <span class="vi">@h5: </span><span class="nf">(text, width) -&gt;</span> <span class="s">&quot;\n</span><span class="err">#####</span><span class="s"> </span><span class="si">#{</span><span class="nx">text</span><span class="si">}</span><span class="s">\n&quot;</span>
+  <span class="vi">@h6: </span><span class="nf">(text, width) -&gt;</span> <span class="s">&quot;\n</span><span class="err">######</span><span class="s"> </span><span class="si">#{</span><span class="nx">text</span><span class="si">}</span><span class="s">\n&quot;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="inline">
+  <h3>
+    <a href="#inline" name="inline" class="pilcrow">&#182;</a>
+    inline
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="vi">@b: </span><span class="nf">(text) -&gt;</span> <span class="s">&quot;__</span><span class="si">#{</span><span class="nx">text</span><span class="si">}</span><span class="s">__&quot;</span>
+  <span class="vi">@i: </span><span class="nf">(text) -&gt;</span> <span class="s">&quot;_</span><span class="si">#{</span><span class="nx">text</span><span class="si">}</span><span class="s">_&quot;</span>
+  <span class="vi">@del: </span><span class="nf">(text) -&gt;</span> <span class="s">&quot;~~</span><span class="si">#{</span><span class="nx">text</span><span class="si">}</span><span class="s">~~&quot;</span>
+  <span class="vi">@tt: </span><span class="nf">(text) -&gt;</span> <span class="s">&quot;`</span><span class="si">#{</span><span class="nx">text</span><span class="si">}</span><span class="s">`&quot;</span>
+  <span class="vi">@link: </span><span class="nf">(text, url) -&gt;</span>
+  <span class="vi">@img: </span><span class="nf">(text, source) -&gt;</span>
+  <span class="vi">@footnote: </span><span class="nf">(text) -&gt;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="paragraphs">
+  <h3>
+    <a href="#paragraphs" name="paragraphs" class="pilcrow">&#182;</a>
+    paragraphs
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="vi">@p: </span><span class="nf">(text, width) -&gt;</span> <span class="s">&quot;\n</span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">wordwrap</span> <span class="nx">text</span><span class="p">,</span> <span class="nx">width</span> <span class="o">?</span> <span class="nx">@width</span><span class="si">}</span><span class="s">\n&quot;</span>
+  <span class="vi">@hr: </span><span class="nf">-&gt;</span> <span class="s">&quot;\n---\n&quot;</span>
+  <span class="vi">@quote: </span><span class="nf">(text, depth = 1, width) -&gt;</span>
+    <span class="nv">indent = </span><span class="nx">string</span><span class="p">.</span><span class="nx">repeat</span> <span class="s">&#39;&gt; &#39;</span><span class="p">,</span> <span class="nx">depth</span>
+    <span class="nx">block</span> <span class="nx">text</span><span class="p">,</span> <span class="nx">indent</span><span class="p">,</span> <span class="nx">indent</span><span class="p">,</span> <span class="nx">width</span> <span class="o">?</span> <span class="nx">@width</span>
+  <span class="vi">@code: </span><span class="nf">(text, lang) -&gt;</span>
+    <span class="k">if</span> <span class="nx">lang</span>
+      <span class="k">return</span> <span class="s">&quot;\n``` </span><span class="si">#{</span><span class="nx">lang</span><span class="si">}</span><span class="s">\n</span><span class="si">#{</span><span class="nx">text</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span><span class="si">}</span><span class="s">\n```\n&quot;</span>
+    <span class="nv">indent = </span><span class="s">&#39;    &#39;</span>
+    <span class="nx">block</span> <span class="nx">text</span><span class="p">,</span> <span class="nx">indent</span><span class="p">,</span> <span class="nx">indent</span><span class="p">,</span> <span class="nx">width</span> <span class="o">?</span> <span class="nx">@width</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="lists">
+  <h3>
+    <a href="#lists" name="lists" class="pilcrow">&#182;</a>
+    lists
+  </h3>
+</div>
+
+
+<p>maybe use '\\n' at the end of line for breaks</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="vi">@ul: </span><span class="nf">(list, width) -&gt;</span>
+    <span class="s">&#39;\n&#39;</span> <span class="o">+</span> <span class="nx">list</span><span class="p">.</span><span class="nx">map</span> <span class="nf">(text) -&gt;</span>
+      <span class="nx">block</span><span class="p">(</span><span class="nx">text</span><span class="p">,</span> <span class="s">&#39;- &#39;</span><span class="p">,</span> <span class="s">&#39;  &#39;</span><span class="p">,</span> <span class="nx">width</span> <span class="o">?</span> <span class="nx">@width</span><span class="p">).</span><span class="nx">trim</span><span class="p">()</span>
+    <span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s">&#39;\n&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;\n&#39;</span>
+  <span class="vi">@ol: </span><span class="nf">(list, width) -&gt;</span>
+    <span class="nv">length = </span><span class="nx">list</span><span class="p">.</span><span class="nx">length</span><span class="p">.</span><span class="nx">toString</span><span class="p">().</span><span class="nx">length</span> <span class="o">+</span> <span class="mi">2</span>
+    <span class="nv">indent = </span><span class="nx">string</span><span class="p">.</span><span class="nx">repeat</span> <span class="s">&#39; &#39;</span><span class="p">,</span> <span class="nx">length</span>
+    <span class="nv">num = </span><span class="mi">0</span>
+    <span class="s">&#39;\n&#39;</span> <span class="o">+</span> <span class="nx">list</span><span class="p">.</span><span class="nx">map</span> <span class="nf">(text) -&gt;</span>
+      <span class="nv">start = </span><span class="nx">string</span><span class="p">.</span><span class="nx">rpad</span> <span class="s">&quot;</span><span class="si">#{</span><span class="o">++</span><span class="nx">num</span><span class="si">}</span><span class="s">.&quot;</span><span class="p">,</span> <span class="nx">length</span>
+      <span class="nx">block</span><span class="p">(</span><span class="nx">text</span><span class="p">,</span> <span class="nx">start</span><span class="p">,</span> <span class="nx">indent</span><span class="p">,</span> <span class="nx">width</span> <span class="o">?</span> <span class="nx">@width</span><span class="p">).</span><span class="nx">trim</span><span class="p">()</span>
+    <span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s">&#39;\n&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;\n&#39;</span>
+  <span class="vi">@dl: </span><span class="nf">(obj, width) -&gt;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="specials">
+  <h3>
+    <a href="#specials" name="specials" class="pilcrow">&#182;</a>
+    specials
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="vi">@table: </span><span class="nx">table</span>
+  <span class="vi">@abbrv: </span><span class="nf">(obj, width) -&gt;</span>
+
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="create%20instance">
+  <h2>
+    <a href="#create%20instance" name="create%20instance" class="pilcrow">&#182;</a>
+    Create instance
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nv">constructor: </span><span class="nf">(setup) -&gt;</span>
+    <span class="vi">@width = </span><span class="nx">setup</span><span class="o">?</span><span class="p">.</span><span class="nx">width</span> <span class="o">?</span> <span class="mi">80</span>
+    <span class="vi">@body = </span><span class="s">&#39;&#39;</span>
+    <span class="vi">@abbrv = </span><span class="s">&#39;&#39;</span>
+    <span class="vi">@foot = </span><span class="s">&#39;&#39;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="headings">
+  <h3>
+    <a href="#headings" name="headings" class="pilcrow">&#182;</a>
+    headings
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nv">h1: </span><span class="nf">(text) -&gt;</span>
+    <span class="nx">@body</span> <span class="o">+=</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">h1</span> <span class="nx">text</span><span class="p">,</span> <span class="nx">@width</span>
+    <span class="k">this</span>
+  <span class="nv">h2: </span><span class="nf">(text) -&gt;</span>
+    <span class="nx">@body</span> <span class="o">+=</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">h2</span> <span class="nx">text</span><span class="p">,</span> <span class="nx">@width</span>
+    <span class="k">this</span>
+  <span class="nv">h3: </span><span class="nf">(text) -&gt;</span>
+    <span class="nx">@body</span> <span class="o">+=</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">h3</span> <span class="nx">text</span><span class="p">,</span> <span class="nx">@width</span>
+    <span class="k">this</span>
+  <span class="nv">h4: </span><span class="nf">(text) -&gt;</span>
+    <span class="nx">@body</span> <span class="o">+=</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">h4</span> <span class="nx">text</span><span class="p">,</span> <span class="nx">@width</span>
+    <span class="k">this</span>
+  <span class="nv">h5: </span><span class="nf">(text) -&gt;</span>
+    <span class="nx">@body</span> <span class="o">+=</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">h5</span> <span class="nx">text</span><span class="p">,</span> <span class="nx">@width</span>
+    <span class="k">this</span>
+  <span class="nv">h6: </span><span class="nf">(text) -&gt;</span>
+    <span class="nx">@body</span> <span class="o">+=</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">h6</span> <span class="nx">text</span><span class="p">,</span> <span class="nx">@width</span>
+    <span class="k">this</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="paragraphs">
+  <h3>
+    <a href="#paragraphs" name="paragraphs" class="pilcrow">&#182;</a>
+    paragraphs
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nv">p: </span><span class="nf">(text) -&gt;</span>
+    <span class="nx">@body</span> <span class="o">+=</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">p</span> <span class="nx">text</span><span class="p">,</span> <span class="nx">@width</span>
+    <span class="k">this</span>
+  <span class="nv">hr: </span><span class="nf">-&gt;</span>
+    <span class="nx">@body</span> <span class="o">+=</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">hr</span> <span class="nx">text</span><span class="p">,</span> <span class="nx">@width</span>
+    <span class="k">this</span>
+  <span class="nv">quote: </span><span class="nf">(text, depth) -&gt;</span>
+    <span class="nx">@body</span> <span class="o">+=</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">quote</span> <span class="nx">text</span><span class="p">,</span> <span class="nx">depth</span><span class="p">,</span> <span class="nx">@width</span>
+    <span class="k">this</span>
+  <span class="nv">code: </span><span class="nf">(text, lang) -&gt;</span>
+    <span class="nx">@body</span> <span class="o">+=</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">code</span> <span class="nx">text</span><span class="p">,</span> <span class="nx">lang</span>
+    <span class="k">this</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="lists">
+  <h3>
+    <a href="#lists" name="lists" class="pilcrow">&#182;</a>
+    lists
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nv">ul: </span><span class="nf">(list) -&gt;</span>
+    <span class="nx">@body</span> <span class="o">+=</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">ul</span> <span class="nx">list</span><span class="p">,</span> <span class="nx">@width</span>
+    <span class="k">this</span>
+  <span class="nv">ol: </span><span class="nf">(list) -&gt;</span>
+    <span class="nx">@body</span> <span class="o">+=</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">ol</span> <span class="nx">list</span><span class="p">,</span> <span class="nx">@width</span>
+    <span class="k">this</span>
+  <span class="nv">dl: </span><span class="nf">(obj) -&gt;</span>
+    <span class="nx">@body</span> <span class="o">+=</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">dl</span> <span class="nx">obj</span><span class="p">,</span> <span class="nx">@width</span>
+    <span class="k">this</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="extract%20report">
+  <h2>
+    <a href="#extract%20report" name="extract%20report" class="pilcrow">&#182;</a>
+    Extract report
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="as%20markdown%20text">
+  <h3>
+    <a href="#as%20markdown%20text" name="as%20markdown%20text" class="pilcrow">&#182;</a>
+    as markdown text
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nv">toString: </span><span class="nf">-&gt;</span> <span class="nx">@body</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/\s+/</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="nx">@abbrv</span> <span class="o">+</span> <span class="nx">@foot</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="as%20html">
+  <h3>
+    <a href="#as%20html" name="as%20html" class="pilcrow">&#182;</a>
+    as html
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nv">toHtml: </span><span class="nf">-&gt;</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="export%20class">
+  <h2>
+    <a href="#export%20class" name="export%20class" class="pilcrow">&#182;</a>
+    Export class
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">module.exports = </span><span class="nx">Report</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>
