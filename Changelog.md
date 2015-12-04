@@ -4,6 +4,11 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 0.1.2 (2015-12-04)
+-------------------------------------------------
+- Added option to preload source into new instance.
+- Add log support to the report class.
+
 Version 0.1.1 (2015-12-04)
 -------------------------------------------------
 - Added table to instance methods.
