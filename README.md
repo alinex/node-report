@@ -60,6 +60,7 @@ You may also give some of the following options:
 - `source` - markdown text to preload
 - `log` - a function called each time something is added with the added text
 - `width` - the width for line breaks (default: 80)
+- `color` - set to true if console colors should be used
 
 Now you may add content to your report:
 

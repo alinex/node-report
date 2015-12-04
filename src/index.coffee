@@ -182,6 +182,7 @@ class Report
   constructor: (setup) ->
     @width = setup?.width ? 80
     @log = setup?.log
+    @color = setup?.color
     # content elements
     @body = setup?.source ? ''
     @abbrv = ''
@@ -192,13 +193,19 @@ class Report
 
   # ### direct markdown addition
   raw: (text) ->
+    if @color
+      text = text.replace /__(.*?)__/g, chalk.bold '$1'
     @log text if @log
     @body += text
     this
 
   # ### headings
-  h1: (text) -> @raw Report.h1 text, @width
-  h2: (text) -> @raw Report.h2 text, @width
+  h1: (text) ->
+    text = Report.h1 text, @width
+    @raw unless @color then text else chalk.bold.yellow text
+  h2: (text) ->
+    text = Report.h2 text, @width
+    @raw unless @color then text else chalk.bold text
   h3: (text) -> @raw Report.h3 text, @width
   h4: (text) -> @raw Report.h4 text, @width
   h5: (text) -> @raw Report.h5 text, @width
