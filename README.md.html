@@ -138,15 +138,29 @@ you may access the markdown text or get it converted to html.</p>
 </div>
 
 
-<p>The first step is to create a new object:</p>
+<p>The first step is to load the module:</p>
 
 
 <div class="highlight"><pre><code><span class="nv">Report = </span><span class="nx">require</span> <span class="s">&#39;alinex-report&#39;</span>
-
-<span class="nv">report = </span><span class="k">new</span> <span class="nx">Report</span><span class="p">()</span>
 </code></pre></div>
 
 
+
+<p>And now you create a new object:</p>
+
+
+<div class="highlight"><pre><code><span class="nv">report = </span><span class="k">new</span> <span class="nx">Report</span><span class="p">()</span>
+</code></pre></div>
+
+
+
+<p>You may also give some of the following options:</p>
+
+<ul>
+<li><code>source</code> - markdown text to preload</li>
+<li><code>log</code> - a function called each time something is added with the added text</li>
+<li><code>width</code> - the width for line breaks (default: 80)</li>
+</ul>
 
 <p>Now you may add content to your report:</p>
 

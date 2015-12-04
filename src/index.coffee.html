@@ -68,6 +68,12 @@
       <div class="heading h2">
         <a href="#create%20instance">Create instance</a>
       </div>
+      <div class="heading h2">
+        <a href="#add%20elements">Add elements</a>
+      </div>
+      <div class="heading h3">
+        <a href="#direct%20markdown%20addition">direct markdown addition</a>
+      </div>
       <div class="heading h3">
         <a href="#headings">headings</a>
       </div>
@@ -298,10 +304,6 @@
         <span class="k">return</span> <span class="nx">res</span> <span class="k">if</span> <span class="nx">res</span>
       <span class="mi">0</span>
 
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;OBJECT:&#39;</span><span class="p">,</span> <span class="nx">obj</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;COLUMN:&#39;</span><span class="p">,</span> <span class="nx">col</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;ORDER :&#39;</span><span class="p">,</span> <span class="nx">sort</span>
-
 </pre></div>
         </td>
       </tr>
@@ -367,9 +369,6 @@
         <span class="nx">string</span><span class="p">[</span><span class="s">&quot;</span><span class="si">#{</span><span class="nx">pad</span><span class="si">}</span><span class="s">pad&quot;</span><span class="p">]</span> <span class="nx">row</span><span class="p">[</span><span class="nx">e</span><span class="p">],</span> <span class="nx">col</span><span class="p">[</span><span class="nx">e</span><span class="p">].</span><span class="nx">width</span>
       <span class="p">.</span><span class="nx">join</span> <span class="s">&#39; | &#39;</span>
     <span class="p">)</span> <span class="o">+</span> <span class="s">&#39; |&#39;</span>
-
-
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;TEXT:&#39;</span><span class="p">,</span> <span class="nx">text</span>
   <span class="nx">text</span> <span class="o">+</span> <span class="s">&#39;\n&#39;</span>
 
 
@@ -574,9 +573,58 @@
         <td class="code highlight"><div class="highlight"><pre>
   <span class="nv">constructor: </span><span class="nf">(setup) -&gt;</span>
     <span class="vi">@width = </span><span class="nx">setup</span><span class="o">?</span><span class="p">.</span><span class="nx">width</span> <span class="o">?</span> <span class="mi">80</span>
-    <span class="vi">@body = </span><span class="s">&#39;&#39;</span>
+    <span class="vi">@log = </span><span class="nx">setup</span><span class="o">?</span><span class="p">.</span><span class="nx">log</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-25" id="section-25">&#182;</a>
+</div>
+<p>content elements</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="vi">@body = </span><span class="nx">setup</span><span class="o">?</span><span class="p">.</span><span class="nx">source</span> <span class="o">?</span> <span class="s">&#39;&#39;</span>
     <span class="vi">@abbrv = </span><span class="s">&#39;&#39;</span>
     <span class="vi">@foot = </span><span class="s">&#39;&#39;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="add%20elements">
+  <h2>
+    <a href="#add%20elements" name="add%20elements" class="pilcrow">&#182;</a>
+    Add elements
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="direct%20markdown%20addition">
+  <h3>
+    <a href="#direct%20markdown%20addition" name="direct%20markdown%20addition" class="pilcrow">&#182;</a>
+    direct markdown addition
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nv">raw: </span><span class="nf">(text) -&gt;</span>
+    <span class="nx">@log</span> <span class="nx">text</span> <span class="k">if</span> <span class="nx">@log</span>
+    <span class="nx">@body</span> <span class="o">+=</span> <span class="nx">text</span>
+    <span class="k">this</span>
 
 
 </pre></div>
@@ -593,24 +641,12 @@
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">h1: </span><span class="nf">(text) -&gt;</span>
-    <span class="nx">@body</span> <span class="o">+=</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">h1</span> <span class="nx">text</span><span class="p">,</span> <span class="nx">@width</span>
-    <span class="k">this</span>
-  <span class="nv">h2: </span><span class="nf">(text) -&gt;</span>
-    <span class="nx">@body</span> <span class="o">+=</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">h2</span> <span class="nx">text</span><span class="p">,</span> <span class="nx">@width</span>
-    <span class="k">this</span>
-  <span class="nv">h3: </span><span class="nf">(text) -&gt;</span>
-    <span class="nx">@body</span> <span class="o">+=</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">h3</span> <span class="nx">text</span><span class="p">,</span> <span class="nx">@width</span>
-    <span class="k">this</span>
-  <span class="nv">h4: </span><span class="nf">(text) -&gt;</span>
-    <span class="nx">@body</span> <span class="o">+=</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">h4</span> <span class="nx">text</span><span class="p">,</span> <span class="nx">@width</span>
-    <span class="k">this</span>
-  <span class="nv">h5: </span><span class="nf">(text) -&gt;</span>
-    <span class="nx">@body</span> <span class="o">+=</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">h5</span> <span class="nx">text</span><span class="p">,</span> <span class="nx">@width</span>
-    <span class="k">this</span>
-  <span class="nv">h6: </span><span class="nf">(text) -&gt;</span>
-    <span class="nx">@body</span> <span class="o">+=</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">h6</span> <span class="nx">text</span><span class="p">,</span> <span class="nx">@width</span>
-    <span class="k">this</span>
+  <span class="nv">h1: </span><span class="nf">(text) -&gt;</span> <span class="nx">@raw</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">h1</span> <span class="nx">text</span><span class="p">,</span> <span class="nx">@width</span>
+  <span class="nv">h2: </span><span class="nf">(text) -&gt;</span> <span class="nx">@raw</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">h2</span> <span class="nx">text</span><span class="p">,</span> <span class="nx">@width</span>
+  <span class="nv">h3: </span><span class="nf">(text) -&gt;</span> <span class="nx">@raw</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">h3</span> <span class="nx">text</span><span class="p">,</span> <span class="nx">@width</span>
+  <span class="nv">h4: </span><span class="nf">(text) -&gt;</span> <span class="nx">@raw</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">h4</span> <span class="nx">text</span><span class="p">,</span> <span class="nx">@width</span>
+  <span class="nv">h5: </span><span class="nf">(text) -&gt;</span> <span class="nx">@raw</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">h5</span> <span class="nx">text</span><span class="p">,</span> <span class="nx">@width</span>
+  <span class="nv">h6: </span><span class="nf">(text) -&gt;</span> <span class="nx">@raw</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">h6</span> <span class="nx">text</span><span class="p">,</span> <span class="nx">@width</span>
 
 
 </pre></div>
@@ -627,18 +663,10 @@
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">p: </span><span class="nf">(text) -&gt;</span>
-    <span class="nx">@body</span> <span class="o">+=</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">p</span> <span class="nx">text</span><span class="p">,</span> <span class="nx">@width</span>
-    <span class="k">this</span>
-  <span class="nv">hr: </span><span class="nf">-&gt;</span>
-    <span class="nx">@body</span> <span class="o">+=</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">hr</span> <span class="nx">text</span><span class="p">,</span> <span class="nx">@width</span>
-    <span class="k">this</span>
-  <span class="nv">quote: </span><span class="nf">(text, depth) -&gt;</span>
-    <span class="nx">@body</span> <span class="o">+=</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">quote</span> <span class="nx">text</span><span class="p">,</span> <span class="nx">depth</span><span class="p">,</span> <span class="nx">@width</span>
-    <span class="k">this</span>
-  <span class="nv">code: </span><span class="nf">(text, lang) -&gt;</span>
-    <span class="nx">@body</span> <span class="o">+=</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">code</span> <span class="nx">text</span><span class="p">,</span> <span class="nx">lang</span>
-    <span class="k">this</span>
+  <span class="nv">p: </span><span class="nf">(text) -&gt;</span> <span class="nx">@raw</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">p</span> <span class="nx">text</span><span class="p">,</span> <span class="nx">@width</span>
+  <span class="nv">hr: </span><span class="nf">-&gt;</span> <span class="nx">@raw</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">hr</span><span class="p">()</span>
+  <span class="nv">quote: </span><span class="nf">(text, depth) -&gt;</span> <span class="nx">@raw</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">quote</span> <span class="nx">text</span><span class="p">,</span> <span class="nx">depth</span><span class="p">,</span> <span class="nx">@width</span>
+  <span class="nv">code: </span><span class="nf">(text, lang) -&gt;</span> <span class="nx">@raw</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">code</span> <span class="nx">text</span><span class="p">,</span> <span class="nx">lang</span><span class="p">,</span> <span class="nx">@width</span>
 
 
 </pre></div>
@@ -655,19 +683,11 @@
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">ul: </span><span class="nf">(list) -&gt;</span>
-    <span class="nx">@body</span> <span class="o">+=</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">ul</span> <span class="nx">list</span><span class="p">,</span> <span class="nx">@width</span>
-    <span class="k">this</span>
-  <span class="nv">ol: </span><span class="nf">(list) -&gt;</span>
-    <span class="nx">@body</span> <span class="o">+=</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">ol</span> <span class="nx">list</span><span class="p">,</span> <span class="nx">@width</span>
-    <span class="k">this</span>
-  <span class="nv">dl: </span><span class="nf">(obj) -&gt;</span>
-    <span class="nx">@body</span> <span class="o">+=</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">dl</span> <span class="nx">obj</span><span class="p">,</span> <span class="nx">@width</span>
-    <span class="k">this</span>
+  <span class="nv">ul: </span><span class="nf">(list) -&gt;</span> <span class="nx">@raw</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">ul</span> <span class="nx">list</span><span class="p">,</span> <span class="nx">@width</span>
+  <span class="nv">ol: </span><span class="nf">(list) -&gt;</span> <span class="nx">@raw</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">ol</span> <span class="nx">list</span><span class="p">,</span> <span class="nx">@width</span>
+  <span class="nv">dl: </span><span class="nf">(obj) -&gt;</span> <span class="nx">@raw</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">dl</span> <span class="nx">obj</span><span class="p">,</span> <span class="nx">@width</span>
 
-  <span class="nv">table: </span><span class="nf">(obj, col, sort) -&gt;</span>
-    <span class="nx">@body</span> <span class="o">+=</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">table</span> <span class="nx">obj</span><span class="p">,</span> <span class="nx">col</span><span class="p">,</span> <span class="nx">sort</span>
-    <span class="k">this</span>
+  <span class="nv">table: </span><span class="nf">(obj, col, sort) -&gt;</span> <span class="nx">@raw</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">table</span> <span class="nx">obj</span><span class="p">,</span> <span class="nx">col</span><span class="p">,</span> <span class="nx">sort</span>
 
 
 
