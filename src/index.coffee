@@ -237,6 +237,11 @@ class Report
     @body += Report.dl obj, @width
     this
 
+  table: (obj, col, sort) ->
+    @body += Report.table obj, col, sort
+    this
+
+
   # Extract report
   # -------------------------------------------------
 
