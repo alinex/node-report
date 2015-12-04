@@ -19,10 +19,6 @@ block = (text, start, indent, width) ->
   string.wordwrap text, width, indent
 
 # ### Convert object to markdown table
-# obj = list of row-map; col = map of settings; sort = map (key: 'asc'||'desc')
-# obj = list of array;   col = array;           sort = list
-# obj = map;             col = map;             sort = key
-# col: title, align, width
 table = (obj, col, sort) ->
   return '' unless Object.keys(obj).length
   # transform object
@@ -30,8 +26,6 @@ table = (obj, col, sort) ->
     n = []
     n.push [name, val] for name, val of obj
     obj = n
-
-
   # transform column definition
   if col
     if Array.isArray col
