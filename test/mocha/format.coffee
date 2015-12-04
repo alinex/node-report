@@ -92,7 +92,7 @@ describe "format", ->
       4. last
          two lines\n"""
 
-  describe.only "table", ->
+  describe "table", ->
 
     objListMap = [
       {id: 1, en: 'one', de: 'eins'}
@@ -125,8 +125,8 @@ describe "format", ->
       ['ID', 'English']
     ]
     colArrayArray = [
-      [0, 'en']
-      [1, 'English']
+      [0, 1]
+      ['ID', 'English']
     ]
     colMap =
       id: 'ID'
@@ -140,93 +140,108 @@ describe "format", ->
     it "should format obj-list-map with col-map-map", ->
       equal Report.table(objListMap, colMapMap), """
       \n| ID | German | English |
-      | --:| ------:| -------:|
-      |  1 |   eins |     one |
-      |  2 |   zwei |     two |
-      |  3 |   drei |   three |
-      | 12 |  zwölf |  twelve |\n"""
+      | --:|:------ |:------- |
+      |  1 | eins   | one     |
+      |  2 | zwei   | two     |
+      |  3 | drei   | three   |
+      | 12 | zwölf  | twelve  |\n"""
     it "should format obj-list-map with col-list-array", ->
       equal Report.table(objListMap, colListArray), """
       \n| ID | English |
-      | --:| -------:|
-      |  1 |     one |
-      |  2 |     two |
-      |  3 |   three |
-      | 12 |  twelve |\n"""
+      |:-- |:------- |
+      | 1  | one     |
+      | 2  | two     |
+      | 3  | three   |
+      | 12 | twelve  |\n"""
     it "should format obj-list-map with col-list", ->
       equal Report.table(objListMap, colList), """
       \n| ID | English | German |
-      | --:| -------:| ------:|
-      |  1 |     one |   eins |
-      |  2 |     two |   zwei |
-      |  3 |   three |   drei |
-      | 12 |  twelve |  zwölf |\n"""
+      |:-- |:------- |:------ |
+      | 1  | one     | eins   |
+      | 2  | two     | zwei   |
+      | 3  | three   | drei   |
+      | 12 | twelve  | zwölf  |\n"""
     it "should format obj-list-map with col-map", ->
       equal Report.table(objListMap, colMap), """
       \n| ID | English |
-      | --:| -------:|
-      |  1 |     one |
-      |  2 |     two |
-      |  3 |   three |
-      | 12 |  twelve |\n"""
+      |:-- |:------- |
+      | 1  | one     |
+      | 2  | two     |
+      | 3  | three   |
+      | 12 | twelve  |\n"""
 
     it "should resort list using sort-map", ->
       equal Report.table(objListMap, colMapMap, sortMap), """
       \n| ID | German | English |
-      | --:| ------:| -------:|
-      | 12 |  zwölf |  twelve |
-      |  2 |   zwei |     two |
-      |  1 |   eins |     one |
-      |  3 |   drei |   three |\n"""
+      | --:|:------ |:------- |
+      | 12 | zwölf  | twelve  |
+      |  2 | zwei   | two     |
+      |  1 | eins   | one     |
+      |  3 | drei   | three   |\n"""
     it "should resort list using sort-list", ->
       equal Report.table(objListMap, colMapMap, sortList), """
       \n| ID | German | English |
-      | --:| ------:| -------:|
-      |  3 |   drei |   three |
-      |  1 |   eins |     one |
-      |  2 |   zwei |     two |
-      | 12 |  zwölf |  twelve |\n"""
+      | --:|:------ |:------- |
+      |  3 | drei   | three   |
+      |  1 | eins   | one     |
+      |  2 | zwei   | two     |
+      | 12 | zwölf  | twelve  |\n"""
     it "should resort list using sort-key", ->
       equal Report.table(objListMap, colMapMap, sortKey), """
       \n| ID | German | English |
-      | --:| ------:| -------:|
-      |  3 |   drei |   three |
-      |  1 |   eins |     one |
-      |  2 |   zwei |     two |
-      | 12 |  zwölf |  twelve |\n"""
+      | --:|:------ |:------- |
+      |  3 | drei   | three   |
+      |  1 | eins   | one     |
+      |  2 | zwei   | two     |
+      | 12 | zwölf  | twelve  |\n"""
     it "should format obj-list-map without col", ->
       equal Report.table(objListMap), """
-      \n| id |     en |    de |
-      | --:| ------:| -----:|
-      |  1 |    one |  eins |
-      |  2 |    two |  zwei |
-      |  3 |  three |  drei |
+      \n| id | en     | de    |
+      |:-- |:------ |:----- |
+      | 1  | one    | eins  |
+      | 2  | two    | zwei  |
+      | 3  | three  | drei  |
       | 12 | twelve | zwölf |\n"""
 
     it "should format obj-list-array", ->
       equal Report.table(objListArray), """
-      \n|  0 |      1 |     2 |
-      | --:| ------:| -----:|
-      |  1 |    one |  eins |
-      |  2 |    two |  zwei |
-      |  3 |  three |  drei |
+      \n| 0  | 1      | 2     |
+      |:-- |:------ |:----- |
+      | 1  | one    | eins  |
+      | 2  | two    | zwei  |
+      | 3  | three  | drei  |
       | 12 | twelve | zwölf |\n"""
     it "should format obj-list-array with col-list", ->
       equal Report.table(objListArray, colList), """
       \n| ID | English | German |
-      | --:| -------:| ------:|
-      |  1 |     one |   eins |
-      |  2 |     two |   zwei |
-      |  3 |   three |   drei |
-      | 12 |  twelve |  zwölf |\n"""
+      |:-- |:------- |:------ |
+      | 1  | one     | eins   |
+      | 2  | two     | zwei   |
+      | 3  | three   | drei   |
+      | 12 | twelve  | zwölf  |\n"""
     it "should format obj-list-array with col-array-array", ->
       equal Report.table(objListArray, colArrayArray), """
-      \n| ID | English | German |
-      | --:| -------:| ------:|
-      |  1 |     one |   eins |
-      |  2 |     two |   zwei |
-      |  3 |   three |   drei |
-      | 12 |  twelve |  zwölf |\n"""
+      \n| ID | English |
+      |:-- |:------- |
+      | 1  | one     |
+      | 2  | two     |
+      | 3  | three   |
+      | 12 | twelve  |\n"""
+
+    it "should format obj-map", ->
+      equal Report.table(objMap), """
+      \n| 0        | 1         |
+      |:-------- |:--------- |
+      | id       | 001       |
+      | name     | alex      |
+      | position | developer |\n"""
+    it "should format obj-map with col-array", ->
+      equal Report.table(objMap, ['Name', 'Value']), """
+      \n| Name     | Value     |
+      |:-------- |:--------- |
+      | id       | 001       |
+      | name     | alex      |
+      | position | developer |\n"""
 
   describe "instance", ->
 

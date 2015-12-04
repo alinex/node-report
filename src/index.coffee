@@ -26,10 +26,10 @@ block = (text, start, indent, width) ->
 table = (obj, col, sort) ->
   return '' unless Object.keys(obj).length
   # transform object
-
-  # obj-list-array
-
-  # obj-map
+  if typeof obj is 'object' and not Array.isArray obj
+    n = []
+    n.push [name, val] for name, val of obj
+    obj = n
 
 
   # transform column definition
@@ -72,7 +72,7 @@ table = (obj, col, sort) ->
     for row in obj
       continue unless row[key]?
       col[key].width = row[key].length if row[key].length > col[key].width
-      col[key].align ?= 'right'
+      col[key].align ?= 'left'
   # sort rows
   if sort
     obj = obj.slice()
