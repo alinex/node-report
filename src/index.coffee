@@ -183,7 +183,7 @@ class Report
     @width = setup?.width ? 80
     @log = setup?.log
     # content elements
-    @body = ''
+    @body = setup?.source ? ''
     @abbrv = ''
     @foot = ''
 
