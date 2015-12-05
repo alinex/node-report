@@ -4,6 +4,12 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 0.1.3 (2015-12-05)
+-------------------------------------------------
+- Separate instance tests.
+- Change console color mode to work at last using toConsole().
+- Support optional color mode for console output.
+
 Version 0.1.2 (2015-12-04)
 -------------------------------------------------
 - Added option to preload source into new instance.
