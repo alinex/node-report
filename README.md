@@ -60,7 +60,6 @@ You may also give some of the following options:
 - `source` - markdown text to preload
 - `log` - a function called each time something is added with the added text
 - `width` - the width for line breaks (default: 80)
-- `color` - set to true if console colors should be used
 
 Now you may add content to your report:
 
@@ -78,7 +77,9 @@ And finally get the complete result:
 
 ``` coffee
 console.log report # same as report.toString()
-html = report.toHtml()
+text = report.toString() # markdown syntax
+html = report.toHtml()   # html
+log = report.toConsole() # text with ansi colors
 ```
 
 Instead of creating a report you can also let this module convert single elements
