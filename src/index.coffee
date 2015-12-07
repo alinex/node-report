@@ -9,6 +9,8 @@ debug = require('debug')('report')
 chalk = require 'chalk'
 # include more alinex modules
 {string} = require 'alinex-util'
+async = require 'alinex-async'
+
 
 # Helper methods
 # -------------------------------------------------
@@ -139,9 +141,18 @@ class Report
   @i: (text) -> "_#{text}_"
   @del: (text) -> "~~#{text}~~"
   @tt: (text) -> "`#{text}`"
-  @link: (text, url) ->
-  @img: (text, source) ->
-  @footnote: (text) ->
+  @a: (text, url, title) ->
+    "[#{text}](#{url}#{if title then ' "'+title+'"' else ''})"
+  @img: (text, url, title) ->
+    "![#{text}](#{url}#{if title then ' "'+title+'"' else ''})"
+  @sub: (text) -> "~#{text}~"
+  @sup: (text) -> "^#{text}^"
+  @mark: (text) -> "==#{text}=="
+  @br: -> '\\\n'
+
+  # ### Multi element
+  @footnote: (id, text) ->
+    ["[^#{id}]", "\n[^#{id}]: #{text}\n"]
 
   # ### paragraphs
   @p: (text, width) -> "\n#{string.wordwrap text, width ? @width}\n"
@@ -158,14 +169,20 @@ class Report
   # ### lists
   # maybe use '\\\n' at the end of line for breaks
   @ul: (list, width) ->
-    '\n' + list.map (text) ->
+    '\n' + list.map (text) =>
+      if Array.isArray text
+        text = @ul text, width
+        return '  ' + text.replace '\n', '\n  '
       block(text, '- ', '  ', width ? @width).trim()
     .join('\n') + '\n'
   @ol: (list, width) ->
     length = list.length.toString().length + 2
     indent = string.repeat ' ', length
     num = 0
-    '\n' + list.map (text) ->
+    '\n' + list.map (text) =>
+      if Array.isArray text
+        text = @ol text, width
+        return indent + text.replace '\n', '\n' + indent
       start = string.rpad "#{++num}.", length
       block(text, start, indent, width ? @width).trim()
     .join('\n') + '\n'
@@ -233,6 +250,24 @@ class Report
 
   # ### as html
   toHtml: ->
+    md = @initHtml()
+    return md.render @toString()
+
+  initHtml: async.once ->
+    # setup markdown it
+    hljs = require 'highlight.js'
+    md = require('markdown-it')
+      html: true
+      linkify: true
+      typographer: true
+      xhtmlOut: true
+      highlight: (str, lang) ->
+        if lang and hljs.getLanguage lang
+          try
+            return hljs.highlight(lang, str).value
+        try
+          return hljs.highlightAuto(str).value
+        return '' # use external default escaping
 
 
 # Export class

@@ -31,9 +31,12 @@
     "lib": "./lib"
   },
   "dependencies": {
+    "alinex-async": "^0.2.5",
     "alinex-util": "^0.3.10",
     "chalk": "^1.1.1",
-    "debug": "^2.2.0"
+    "debug": "^2.2.0",
+    "highlight.js": "^9.0.0",
+    "markdown-it": "^5.0.2"
   },
   "devDependencies": {
     "alinex-builder": "1.x",

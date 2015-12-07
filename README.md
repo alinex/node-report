@@ -104,6 +104,11 @@ The following methods are available:
 - h5 - heading level 5
 - h6 - heading level 6
 
+### Separation
+
+- hr - horizontal line
+- br - line break
+
 ### inline
 
 These are only available on static calls not on a report instance!
@@ -111,24 +116,27 @@ These are only available on static calls not on a report instance!
 - b - bold
 - i - italic
 - del - delete
+- sub - subscript
+- sup - superscript
 - tt - typewriter
-- link - create a link
+- a - create a link
 - img - add an image
+- mark - marked text
 - footnote - add a footnode
 
 ### paragraphs
 
-p - add a text paragraph
-hr - add a horizontal rule as separation
-quote - add quoted text multiple level depth (second parameter)
-code - add a code block (language as additional parameter)
-abbrv - add an abreviation entry (after the text)
+- p - add a text paragraph
+- hr - add a horizontal rule as separation
+- quote - add quoted text multiple level depth (second parameter)
+- code - add a code block (language as additional parameter)
+- abbrv - add an abreviation entry (after the text)
 
 ### lists
 
-ul - unordered list from array
-ol - ordered list from array
-dl - definitiuon list from object
+- ul - unordered list from array
+- ol - ordered list from array
+- dl - definitiuon list from object
 
 ### table
 

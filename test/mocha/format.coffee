@@ -43,6 +43,18 @@ describe "format", ->
       equal Report.i("italic"), "_italic_"
     it "should make text italic", ->
       equal Report.del("old"), "~~old~~"
+    it "should make typewriter text", ->
+      equal Report.tt("variable"), "`variable`"
+    it "should make link text", ->
+      equal Report.a("google", "http://google.de"), "[google](http://google.de)"
+    it "should add an external image", ->
+      equal Report.img("google", "http://google.de/favicon.ico"), "![google](http://google.de/favicon.ico)"
+    it "should make text subscript", ->
+      equal Report.sub("2"), "~2~"
+    it "should make text superscript", ->
+      equal Report.sup("th"), "^th^"
+    it "should make text marked", ->
+      equal Report.mark("mandatory"), "==mandatory=="
 
   describe "paragraph", ->
 
@@ -53,9 +65,6 @@ describe "format", ->
         multiple lines by the report module."), """
       \nAnd now comes a very long line to test if it will be broken into multiple lines
       by the report module.\n"""
-
-    it "should make a horizontal line", ->
-      equal Report.hr(), "\n---\n"
 
     it "should make a quoted paragraph", ->
       equal Report.quote("This is a short text."), "\n> This is a short text.\n"
@@ -72,10 +81,19 @@ describe "format", ->
     it "should make a language paragraph", ->
       equal Report.code("My code\ncomes here.", 'coffee'), "\n``` coffee\nMy code\ncomes here.\n```\n"
 
+  describe "separation", ->
+
+    it "should make a horizontal line", ->
+      equal Report.hr(), "\n---\n"
+    it "should allow breaks in paragraphs", ->
+      equal Report.p("My first line #{Report.br()} and the ongoing second line."),
+      "\nMy first line \\\n and the ongoing second line.\n"
+
   describe "list", ->
 
     list = ['one', 'two', "and this is a long text because i can't only write numbers down here to show
     the proper use of the lists also with long text lines", 'last\ntwo lines']
+    sublist = ['one', 'two', ['subline', 'and more'], 'three']
     it "should make an unordered list", ->
       equal Report.ul(list), """
       \n- one
@@ -92,6 +110,13 @@ describe "format", ->
          the proper use of the lists also with long text lines
       4. last
          two lines\n"""
+    it "should make an unordered sublist", ->
+      equal Report.ul(sublist), """
+      \n- one
+      - two
+        - subline
+        - and more
+      - three\n"""
 
   describe "table", ->
 
