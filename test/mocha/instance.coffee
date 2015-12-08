@@ -134,4 +134,10 @@ describe "instance", ->
     report.p "Shortcuts (emoticons): :-) :-( 8-) ;)"
 
     it "should return html", ->
-      debug report.toHtml()
+      console.log report.toString()
+      fs = require 'fs'
+      fd = fs.createWriteStream '/home/alex/test.html'#, {encoding: 'utf8'}
+      fd.write """<html><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"></head><body>"""
+      fd.write report.toHtml()
+      fd.end()
+

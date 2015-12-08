@@ -18,7 +18,7 @@ async = require 'alinex-async'
 block = (text, start, indent, width) ->
   indent = '\n' + indent
   text = '\n' + start + text.replace(/\n/g, indent) + '\n'
-  string.wordwrap text, width, indent
+  string.wordwrap text, width, indent, 2
 
 # ### Convert object to markdown table
 table = (obj, col, sort) ->
@@ -172,7 +172,7 @@ class Report
     '\n' + list.map (text) =>
       if Array.isArray text
         text = @ul text, width
-        return '  ' + text.replace '\n', '\n  '
+        return '  ' + text.trim().replace '\n', '\n  '
       block(text, '- ', '  ', width ? @width).trim()
     .join('\n') + '\n'
   @ol: (list, width) ->
@@ -182,7 +182,7 @@ class Report
     '\n' + list.map (text) =>
       if Array.isArray text
         text = @ol text, width
-        return indent + text.replace '\n', '\n' + indent
+        return indent + text.trim().replace '\n', '\n' + indent
       start = string.rpad "#{++num}.", length
       block(text, start, indent, width ? @width).trim()
     .join('\n') + '\n'
