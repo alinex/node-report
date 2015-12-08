@@ -134,6 +134,7 @@ describe "instance", ->
     report.p "Shortcuts (emoticons): :-) :-( 8-) ;)"
 
     it "should return html", ->
+      @timeout 20000
       console.log report.toString()
       fs = require 'fs'
       fd = fs.createWriteStream '/home/alex/test.html'#, {encoding: 'utf8'}
