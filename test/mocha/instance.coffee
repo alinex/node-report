@@ -135,10 +135,10 @@ describe "instance", ->
 
     it "should return html", ->
       @timeout 20000
-      console.log report.toString()
       fs = require 'fs'
       fd = fs.createWriteStream '/home/alex/test.html'#, {encoding: 'utf8'}
       fd.write """<html><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"></head><body>"""
       fd.write report.toHtml()
       fd.end()
+      console.log report.toString()
 
