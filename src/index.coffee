@@ -238,6 +238,14 @@ class Report
     @body += text
     this
 
+  # ### add contents of other report instance
+  add: (report) ->
+    @log @report.body if @log
+    @body += @report.body
+    @abbrv += @report.abbrv
+    @foot += @report.foot
+    this
+
   # ### headings
   h1: (text) -> @raw Report.h1 text, @width
   h2: (text) -> @raw Report.h2 text, @width
