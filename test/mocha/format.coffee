@@ -117,6 +117,18 @@ describe "format", ->
         - subline
         - and more
       - three\n"""
+    it "should make a definition list", ->
+      equal Report.dl(
+        html: 'Markup language for internet pages'
+        css: 'Style language to bring the layout into html'
+      ), """
+      \nhtml
+
+      : Markup language for internet pages
+
+      css
+
+      : Style language to bring the layout into html\n"""
 
   describe "table", ->
 

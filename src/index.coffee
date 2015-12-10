@@ -210,7 +210,7 @@ class Report
       content = content.trim().split(/\n\n/).map (e) ->
         ": #{string.wordwrap e, '\n', width ? @width}"
       .join '\n\n'
-      text += "\n#{name}\n\n#{text}\n"
+      text += "\n#{name}\n\n#{content}\n"
     text
 
   # ### specials
