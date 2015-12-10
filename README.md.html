@@ -48,6 +48,9 @@
         <a href="#headings">headings</a>
       </div>
       <div class="heading h3">
+        <a href="#separation">Separation</a>
+      </div>
+      <div class="heading h3">
         <a href="#inline">inline</a>
       </div>
       <div class="heading h3">
@@ -55,6 +58,9 @@
       </div>
       <div class="heading h3">
         <a href="#lists">lists</a>
+      </div>
+      <div class="heading h3">
+        <a href="#special%20elements">special elements</a>
       </div>
       <div class="heading h3">
         <a href="#table">table</a>
@@ -180,7 +186,9 @@ you may access the markdown text or get it converted to html.</p>
 
 
 <div class="highlight"><pre><code><span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">report</span> <span class="c1"># same as report.toString()</span>
-<span class="nv">html = </span><span class="nx">report</span><span class="p">.</span><span class="nx">toHtml</span><span class="p">()</span>
+<span class="nv">text = </span><span class="nx">report</span><span class="p">.</span><span class="nx">toString</span><span class="p">()</span> <span class="c1"># markdown syntax</span>
+<span class="nv">html = </span><span class="nx">report</span><span class="p">.</span><span class="nx">toHtml</span><span class="p">()</span>   <span class="c1"># html</span>
+<span class="nv">log = </span><span class="nx">report</span><span class="p">.</span><span class="nx">toConsole</span><span class="p">()</span> <span class="c1"># text with ansi colors</span>
 </code></pre></div>
 
 
@@ -225,6 +233,20 @@ on the fly:</p>
 </ul>
 
 
+<div class="pilwrap" id="separation">
+  <h3>
+    <a href="#separation" name="separation" class="pilcrow">&#182;</a>
+    Separation
+  </h3>
+</div>
+
+
+<ul>
+<li>hr - horizontal line</li>
+<li>br - line break</li>
+</ul>
+
+
 <div class="pilwrap" id="inline">
   <h3>
     <a href="#inline" name="inline" class="pilcrow">&#182;</a>
@@ -239,9 +261,12 @@ on the fly:</p>
 <li>b - bold</li>
 <li>i - italic</li>
 <li>del - delete</li>
+<li>sub - subscript</li>
+<li>sup - superscript</li>
 <li>tt - typewriter</li>
-<li>link - create a link</li>
+<li>a - create a link</li>
 <li>img - add an image</li>
+<li>mark - marked text</li>
 <li>footnote - add a footnode</li>
 </ul>
 
@@ -254,11 +279,12 @@ on the fly:</p>
 </div>
 
 
-<p>p - add a text paragraph
-hr - add a horizontal rule as separation
-quote - add quoted text multiple level depth (second parameter)
-code - add a code block (language as additional parameter)
-abbrv - add an abreviation entry (after the text)</p>
+<ul>
+<li>p - add a text paragraph</li>
+<li>hr - add a horizontal rule as separation</li>
+<li>quote - add quoted text multiple level depth (second parameter)</li>
+<li>code - add a code block (language as additional parameter)</li>
+</ul>
 
 
 <div class="pilwrap" id="lists">
@@ -269,9 +295,25 @@ abbrv - add an abreviation entry (after the text)</p>
 </div>
 
 
-<p>ul - unordered list from array
-ol - ordered list from array
-dl - definitiuon list from object</p>
+<ul>
+<li>ul - unordered list from array</li>
+<li>ol - ordered list from array</li>
+<li>dl - definitiuon list from object</li>
+</ul>
+
+
+<div class="pilwrap" id="special%20elements">
+  <h3>
+    <a href="#special%20elements" name="special%20elements" class="pilcrow">&#182;</a>
+    special elements
+  </h3>
+</div>
+
+
+<ul>
+<li>footnote - add a footnote text</li>
+<li>abbrv - add an abbreviation entry (after the text)</li>
+</ul>
 
 
 <div class="pilwrap" id="table">
@@ -334,13 +376,23 @@ default values.</p>
 <li>markdown ->
 html <a href='https://markdown-it.github.io'>https://markdown-it.github.io</a>
 <a href='https://www.npmjs.com/package/markdown-it-highlightjs'>https://www.npmjs.com/package/markdown-it-highlightjs</a>
-<a href='https://www.npmjs.com/package/markdown-it-lazy-headers'>https://www.npmjs.com/package/markdown-it-lazy-headers</a>
-<a href='https://www.npmjs.com/package/markdown-it-table-of-contents'>https://www.npmjs.com/package/markdown-it-table-of-contents</a>
-<a href='https://www.npmjs.com/package/markdown-it-checkbox'>https://www.npmjs.com/package/markdown-it-checkbox</a>
 <a href='https://www.npmjs.com/package/markdown-it-deflist'>https://www.npmjs.com/package/markdown-it-deflist</a>
-<a href='https://www.npmjs.com/package/markdown-it-abbr'>https://www.npmjs.com/package/markdown-it-abbr</a>
-<a href='https://github.com/Welfenlab/dot-processor'>https://github.com/Welfenlab/dot-processor</a></li>
-<li>toPdf() method</li></ul></li>
+<a href='https://github.com/markdown-it/markdown-it-footnote'>https://github.com/markdown-it/markdown-it-footnote</a>
+<a href='https://www.npmjs.com/package/markdown-it-abbr'>https://www.npmjs.com/package/markdown-it-abbr</a></li></ul></li>
+</ul>
+
+
+<div class="highlight"><pre><code>  <span class="nx">https</span><span class="o">:</span><span class="c1">//www.npmjs.com/package/markdown-it-lazy-headers</span>
+  <span class="nx">https</span><span class="o">:</span><span class="c1">//www.npmjs.com/package/markdown-it-table-of-contents</span>
+  <span class="nx">https</span><span class="o">:</span><span class="c1">//www.npmjs.com/package/markdown-it-checkbox</span>
+  <span class="nx">https</span><span class="o">:</span><span class="c1">//github.com/Welfenlab/dot-processor</span>
+  <span class="nx">https</span><span class="o">:</span><span class="c1">//github.com/markdown-it/markdown-it-container</span>
+</code></pre></div>
+
+
+
+<ul>
+<li>toPdf() method</li>
 </ul>
 
 
