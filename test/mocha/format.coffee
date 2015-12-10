@@ -268,3 +268,18 @@ describe "format", ->
       | id       | 001       |
       | name     | alex      |
       | position | developer |\n"""
+
+    it "should format obj-map with list and object contents", ->
+      obj =
+        number: [1..8]
+        name: 'alex'
+        data:
+          type: 'developer'
+          lang: 'javascript'
+      equal Report.table(obj, ['Name', 'Value']), """
+      \n| Name      | Value                  |
+      |:--------- |:---------------------- |
+      | number    | 1, 2, 3, 4, 5, 6, 7, 8 |
+      | name      | alex                   |
+      | data.type | developer              |
+      | data.lang | javascript             |\n"""

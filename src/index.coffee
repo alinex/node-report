@@ -31,7 +31,17 @@ table = (obj, col, sort) ->
   # transform object
   if typeof obj is 'object' and not Array.isArray obj
     n = []
-    n.push [name, val] for name, val of obj
+    for name, val of obj
+      console.log name
+      if typeof val is 'object'
+        if Array.isArray(val) and val.length < 10
+          n.push [name, val.join ', ']
+        else
+          for k, v of val
+            n.push ["#{name}.#{k}", v]
+      else
+        n.push [name, val]
+      # make multiple rows for objects
     obj = n
   # transform column definition
   if col
@@ -113,7 +123,10 @@ table = (obj, col, sort) ->
           when 'r' then 'l'
           when 'l' then 'r'
           else 'c'
-        string["#{pad}pad"] row[e], col[e].width
+        val = row[e]
+        if typeof val isnt 'string'
+          val = util.inspect(val).replace /\s+/g, ' '
+        string["#{pad}pad"] val, col[e].width
       .join ' | '
     ) + ' |'
   text + '\n'
@@ -320,4 +333,3 @@ class Report
 # Export class
 # -------------------------------------------------
 module.exports = Report
-
