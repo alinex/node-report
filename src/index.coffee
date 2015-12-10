@@ -226,8 +226,11 @@ class Report
     @log = setup?.log
     # content elements
     @body = setup?.source ? ''
-    @abbrv = ''
-    @foot = ''
+    @parts =
+      abbr: []
+      footnote: []
+    @state =
+      footnote: 0
 
   # Add elements
   # -------------------------------------------------
@@ -240,10 +243,10 @@ class Report
 
   # ### add contents of other report instance
   add: (report) ->
-    @log @report.body if @log
-    @body += @report.body
-    @abbrv += @report.abbrv
-    @foot += @report.foot
+    @log report.body if @log
+    @body += report.body
+    for key of @parts
+      @parts[key] = @parts[key].concat report.parts[key]
     this
 
   # ### headings
@@ -267,13 +270,25 @@ class Report
 
   table: (obj, col, sort) -> @raw Report.table obj, col, sort
 
+  footnote: (text, id) ->
+    id ?= ++@state.footnote
+    @parts.footnote.push "[^#{id}]: #{text.trim()}"
+    return "[^#{id}]"
+
+  abbr: (abbr, text) ->
+    @parts.abbr.push "*[#{abbr}]: #{text.trim()}"
+    this
 
   # Extract report
   # -------------------------------------------------
 
   # ### as markdown text
   toString: ->
-    @body.replace(/\s+/, '') + @abbrv + @foot
+    text = @body.replace /\s+/, ''
+    for key in ['abbr', 'footnote']
+      continue unless @parts[key].length
+      text += "\n#{@parts[key].join '\n'}\n"
+    text
 
   # ### as colorful console text
   toConsole: ->
@@ -331,6 +346,8 @@ class Report
     .use(require 'markdown-it-mark')
     .use(require 'markdown-it-emoji')
     .use(require 'markdown-it-deflist')
+    .use(require 'markdown-it-abbr')
+    .use(require 'markdown-it-footnote')
     twemoji = require('twemoji')
     # set base to allow also access from local page display
     twemoji.base = 'https://twemoji.maxcdn.com/'

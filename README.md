@@ -130,13 +130,17 @@ These are only available on static calls not on a report instance!
 - hr - add a horizontal rule as separation
 - quote - add quoted text multiple level depth (second parameter)
 - code - add a code block (language as additional parameter)
-- abbrv - add an abreviation entry (after the text)
 
 ### lists
 
 - ul - unordered list from array
 - ol - ordered list from array
 - dl - definitiuon list from object
+
+### special elements
+
+- footnote - add a footnote text
+- abbrv - add an abbreviation entry (after the text)
 
 ### table
 
@@ -179,12 +183,16 @@ Roadmap
     - markdown ->
       html https://markdown-it.github.io
       https://www.npmjs.com/package/markdown-it-highlightjs
+      https://www.npmjs.com/package/markdown-it-deflist
+      https://github.com/markdown-it/markdown-it-footnote
+      https://www.npmjs.com/package/markdown-it-abbr
+
       https://www.npmjs.com/package/markdown-it-lazy-headers
       https://www.npmjs.com/package/markdown-it-table-of-contents
       https://www.npmjs.com/package/markdown-it-checkbox
-      https://www.npmjs.com/package/markdown-it-deflist
-      https://www.npmjs.com/package/markdown-it-abbr
       https://github.com/Welfenlab/dot-processor
+      https://github.com/markdown-it/markdown-it-container
+
   - toPdf() method
 
 

@@ -66,6 +66,26 @@ describe "instance", ->
       - three\n
       """
 
+  describe "special elements", ->
+
+
+    it "should add a fotnote", ->
+      report = new Report()
+      report.p "This is a test#{report.footnote 'simple test only'} to demonstrate
+      footnotes."
+      equal report.toString(), """
+      This is a test[^1] to demonstrate footnotes.
+
+      [^1]: simple test only\n
+      """
+
+    it "should add an abbreviation", ->
+      report = new Report()
+      report.abbr 'HTTP', 'Hyper Text Transfer Protocol'
+      equal report.toString(), """
+      \n*[HTTP]: Hyper Text Transfer Protocol\n
+      """
+
   describe "convert", ->
 
     report = new Report()
