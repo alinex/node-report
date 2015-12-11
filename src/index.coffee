@@ -32,7 +32,6 @@ table = (obj, col, sort) ->
   if typeof obj is 'object' and not Array.isArray obj
     n = []
     for name, val of obj
-      console.log name
       if typeof val is 'object'
         if Array.isArray(val) and val.length < 10
           n.push [name, val.join ', ']
@@ -41,7 +40,6 @@ table = (obj, col, sort) ->
             n.push ["#{name}.#{k}", v]
       else
         n.push [name, val]
-      # make multiple rows for objects
     obj = n
   # transform column definition
   if col
