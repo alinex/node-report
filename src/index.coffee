@@ -210,6 +210,11 @@ class Report
       .join '\n\n'
       text += "\n#{name}\n\n#{content}\n"
     text
+  @check: (map) ->
+    text = ''
+    for name, val of map
+      text += "\n[#{if val then 'x' else ' '}] #{name}"
+    text + '\n'
 
   # ### specials
   @table: table
@@ -265,6 +270,7 @@ class Report
   ul: (list) -> @raw Report.ul list, @width
   ol: (list) -> @raw Report.ol list, @width
   dl: (obj) -> @raw Report.dl obj, @width
+  check: (map) -> @raw Report.check map
 
   table: (obj, col, sort) -> @raw Report.table obj, col, sort
 
@@ -274,7 +280,7 @@ class Report
     return "[^#{id}]"
 
   abbr: (abbr, text) ->
-    @parts.abbr.push "*[#{abbr}]: #{text.trim()}"
+    @body += "\n*[#{abbr}]: #{text.trim()}"
     this
 
   # Extract report
@@ -349,6 +355,7 @@ class Report
     .use(require 'markdown-it-deflist')
     .use(require 'markdown-it-abbr')
     .use(require 'markdown-it-footnote')
+    .use(require('markdown-it-checkbox'), {divWrap: true, divClass: 'cb'})
     twemoji = require('twemoji')
     # set base to allow also access from local page display
     twemoji.base = 'https://twemoji.maxcdn.com/'

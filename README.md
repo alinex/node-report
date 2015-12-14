@@ -140,7 +140,8 @@ These are only available on static calls not on a report instance!
 ### special elements
 
 - footnote - add a footnote text
-- abbrv - add an abbreviation entry (after the text)
+- abbr - add an abbreviation entry (before use in the text)
+- check - add a map of elements
 
 ### table
 
@@ -186,10 +187,10 @@ Roadmap
       https://www.npmjs.com/package/markdown-it-deflist
       https://github.com/markdown-it/markdown-it-footnote
       https://www.npmjs.com/package/markdown-it-abbr
+      https://www.npmjs.com/package/markdown-it-checkbox
 
       https://www.npmjs.com/package/markdown-it-lazy-headers
       https://www.npmjs.com/package/markdown-it-table-of-contents
-      https://www.npmjs.com/package/markdown-it-checkbox
       https://github.com/Welfenlab/dot-processor
       https://github.com/markdown-it/markdown-it-container
 

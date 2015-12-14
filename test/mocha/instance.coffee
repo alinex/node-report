@@ -162,6 +162,11 @@ describe "instance", ->
     report.abbr 'HTTP', 'Hyper Text Transfer Protocol'
     report.p "The HTTP protocol is used for transferring web content."
 
+    report.check
+      'make new module': true
+      'allow html transformation': true
+      'allow docx transformation': false
+
     it "should return html", ->
       @timeout 20000
       fs = require 'fs'
