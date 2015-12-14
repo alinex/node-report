@@ -83,8 +83,7 @@ describe "instance", ->
       report = new Report()
       report.abbr 'HTTP', 'Hyper Text Transfer Protocol'
       equal report.toString(), """
-      \n*[HTTP]: Hyper Text Transfer Protocol\n
-      """
+      *[HTTP]: Hyper Text Transfer Protocol"""
 
   describe "convert", ->
 
@@ -114,6 +113,11 @@ describe "instance", ->
     list = ['one', 'two', ['subline', 'and more'], 'three']
     report.ul list
     report.ol list
+    report.dl
+      HTML: 'Markup language for the web'
+      CSS: 'Styling language for web pages'
+      JavaScript: 'Coding not only for web pages'
+
 
     report.h3 "Code"
     report.code """
@@ -152,6 +156,11 @@ describe "instance", ->
     report.h3 "Emoticons"
     report.p "Classic markup: :wink: :crush: :cry: :tear: :laughing: :yum:"
     report.p "Shortcuts (emoticons): :-) :-( 8-) ;)"
+
+    report.h3 "Specialities"
+    report.p "This is a test#{report.footnote 'simple test only'} to demonstrate footnotes."
+    report.abbr 'HTTP', 'Hyper Text Transfer Protocol'
+    report.p "The HTTP protocol is used for transferring web content."
 
     it "should return html", ->
       @timeout 20000
