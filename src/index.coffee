@@ -296,7 +296,11 @@ class Report
 
   # ### as html
   toHtml: (setup) ->
-    title = setup?.title ? 'Unknown'
+    # create html
+    md = @initHtml()
+    content = md.render @toString()
+    match = content.match /<h[1-6]>(.*?)<\/h/
+    title = setup?.title ? match[1] ? 'Report'
     style = setup?.style ? 'default'
     # get css
     css = switch
@@ -308,8 +312,7 @@ class Report
       else
         css = fs.readFileSync style, 'utf8'
         "<style>#{css}</style>"
-    # create html
-    md = @initHtml()
+    # return complete html
     """
     <!DOCTYPE html>
     <html>
@@ -320,7 +323,7 @@ class Report
         8.5.0/styles/solarized_light.min.css" />
         #{css}
       </head>
-      <body>#{md.render @toString()}</body>
+      <body>#{content}</body>
     </html>
     """
 
