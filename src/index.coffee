@@ -218,8 +218,8 @@ class Report
 
   # ### specials
   @table: table
-  @abbrv: (obj, width) ->
-
+  @abbr: (abbr, text) -> "\n*[#{abbr}]: #{text.trim()}"
+  @toc: -> '\n[[toc]]\n'
 
 
   # Create instance
@@ -279,9 +279,8 @@ class Report
     @parts.footnote.push "[^#{id}]: #{text.trim()}"
     return "[^#{id}]"
 
-  abbr: (abbr, text) ->
-    @body += "\n*[#{abbr}]: #{text.trim()}"
-    this
+  abbr: (abbr, text) -> @raw Report.abbr abbr, text
+  toc: -> @raw Report.toc()
 
   # Extract report
   # -------------------------------------------------
@@ -306,7 +305,7 @@ class Report
     md = @initHtml()
     content = md.render @toString()
     match = content.match /<h[1-6]>(.*?)<\/h/
-    title = setup?.title ? match[1] ? 'Report'
+    title = setup?.title ? match?[1] ? 'Report'
     style = setup?.style ? 'default'
     # get css
     css = switch
@@ -356,6 +355,8 @@ class Report
     .use(require 'markdown-it-abbr')
     .use(require 'markdown-it-footnote')
     .use(require('markdown-it-checkbox'), {divWrap: true, divClass: 'cb'})
+    .use(require 'markdown-it-anchor')
+    .use(require 'markdown-it-table-of-contents')
     twemoji = require('twemoji')
     # set base to allow also access from local page display
     twemoji.base = 'https://twemoji.maxcdn.com/'

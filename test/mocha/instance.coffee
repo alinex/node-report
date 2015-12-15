@@ -89,6 +89,7 @@ describe "instance", ->
 
     report = new Report()
     report.h1 "h1 Heading"
+    report.toc()
     report.h2 "h2 Heading"
     report.h3 "h3 Heading"
     report.h4 "h4 Heading"

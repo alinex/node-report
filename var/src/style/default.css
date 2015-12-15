@@ -87,6 +87,13 @@ abbr, acronym {
   border-bottom: dotted 1px;
 }
 
+.table-of-contents {
+  border: 2px dotted #ddd;
+  float: right;
+  padding: 10px 10px 10px 0;
+  background: #fafafa;
+}
+
 /* Tomorrow Night Theme */
 /* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
 /* Original theme - https://github.com/chriskempson/tomorrow-theme */

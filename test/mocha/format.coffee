@@ -295,3 +295,8 @@ describe "format", ->
       | name      | alex                   |
       | data.type | developer              |
       | data.lang | javascript             |\n"""
+
+  describe "special", ->
+
+    it "should make a table of contents in html", ->
+      equal Report.toc(), "\n[[toc]]\n"

@@ -167,32 +167,10 @@ default values.
 Roadmap
 -------------------------------------------------
 
-- report helper
-  - headings, paragraphs
-  - test
-  - auto toString()
-  - quote '> '
-  - code
-  - lists
-  - make tables from objects automatically
-  - add time results of fields within the warn or fail conditions
-  - ? save to db: report
-  - create sensor reports with this
-  - create controller reports
-  - create explorer reports
-  - toHtml() method
-    - markdown ->
-      html https://markdown-it.github.io
-      https://www.npmjs.com/package/markdown-it-highlightjs
-      https://www.npmjs.com/package/markdown-it-deflist
-      https://github.com/markdown-it/markdown-it-footnote
-      https://www.npmjs.com/package/markdown-it-abbr
-      https://www.npmjs.com/package/markdown-it-checkbox
+  - https://github.com/Welfenlab/dot-processor
 
-      https://www.npmjs.com/package/markdown-it-lazy-headers
-      https://www.npmjs.com/package/markdown-it-table-of-contents
-      https://github.com/Welfenlab/dot-processor
-      https://github.com/markdown-it/markdown-it-container
+  - https://www.npmjs.com/package/markdown-it-lazy-headers
+  - https://github.com/markdown-it/markdown-it-container
 
   - toPdf() method
 
