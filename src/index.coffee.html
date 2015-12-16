@@ -213,7 +213,6 @@
   <span class="k">if</span> <span class="k">typeof</span> <span class="nx">obj</span> <span class="o">is</span> <span class="s">&#39;object&#39;</span> <span class="o">and</span> <span class="o">not</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span> <span class="nx">obj</span>
     <span class="nv">n = </span><span class="p">[]</span>
     <span class="k">for</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">val</span> <span class="k">of</span> <span class="nx">obj</span>
-      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">name</span>
       <span class="k">if</span> <span class="k">typeof</span> <span class="nx">val</span> <span class="o">is</span> <span class="s">&#39;object&#39;</span>
         <span class="k">if</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">val</span><span class="p">)</span> <span class="o">and</span> <span class="nx">val</span><span class="p">.</span><span class="nx">length</span> <span class="o">&lt;</span> <span class="mi">10</span>
           <span class="nx">n</span><span class="p">.</span><span class="nx">push</span> <span class="p">[</span><span class="nx">name</span><span class="p">,</span> <span class="nx">val</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39;, &#39;</span><span class="p">]</span>
@@ -222,18 +221,6 @@
             <span class="nx">n</span><span class="p">.</span><span class="nx">push</span> <span class="p">[</span><span class="s">&quot;</span><span class="si">#{</span><span class="nx">name</span><span class="si">}</span><span class="s">.</span><span class="si">#{</span><span class="nx">k</span><span class="si">}</span><span class="s">&quot;</span><span class="p">,</span> <span class="nx">v</span><span class="p">]</span>
       <span class="k">else</span>
         <span class="nx">n</span><span class="p">.</span><span class="nx">push</span> <span class="p">[</span><span class="nx">name</span><span class="p">,</span> <span class="nx">val</span><span class="p">]</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-7" id="section-7">&#182;</a>
-</div>
-<p>make multiple rows for objects</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
     <span class="nv">obj = </span><span class="nx">n</span>
 
 </pre></div>
@@ -242,7 +229,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
+  <a class="pilcrow" href="#section-7" id="section-7">&#182;</a>
 </div>
 <p>transform column definition</p>
         </td>
@@ -273,7 +260,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-9" id="section-9">&#182;</a>
+  <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
 </div>
 <p>transform sort order</p>
         </td>
@@ -293,7 +280,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-10" id="section-10">&#182;</a>
+  <a class="pilcrow" href="#section-9" id="section-9">&#182;</a>
 </div>
 <p>transform values</p>
         </td>
@@ -309,7 +296,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-11" id="section-11">&#182;</a>
+  <a class="pilcrow" href="#section-10" id="section-10">&#182;</a>
 </div>
 <p>calculate column width</p>
         </td>
@@ -327,7 +314,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
+  <a class="pilcrow" href="#section-11" id="section-11">&#182;</a>
 </div>
 <p>sort rows</p>
         </td>
@@ -347,7 +334,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-13" id="section-13">&#182;</a>
+  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
 </div>
 <p>write header</p>
         </td>
@@ -368,7 +355,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-14" id="section-14">&#182;</a>
+  <a class="pilcrow" href="#section-13" id="section-13">&#182;</a>
 </div>
 <p>write line</p>
         </td>
@@ -391,7 +378,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-15" id="section-15">&#182;</a>
+  <a class="pilcrow" href="#section-14" id="section-14">&#182;</a>
 </div>
 <p>write rows</p>
         </td>
@@ -472,7 +459,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
+  <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
 </div>
 <p>{string.repeat '=', width ? @width}\n"""</p>
         </td>
@@ -486,7 +473,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-20" id="section-20">&#182;</a>
+  <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
 </div>
 <p>{string.repeat '-', width ? @width}\n"""</p>
         </td>
@@ -611,6 +598,11 @@
       <span class="p">.</span><span class="nx">join</span> <span class="s">&#39;\n\n&#39;</span>
       <span class="nx">text</span> <span class="o">+=</span> <span class="s">&quot;\n</span><span class="si">#{</span><span class="nx">name</span><span class="si">}</span><span class="s">\n\n</span><span class="si">#{</span><span class="nx">content</span><span class="si">}</span><span class="s">\n&quot;</span>
     <span class="nx">text</span>
+  <span class="vi">@check: </span><span class="nf">(map) -&gt;</span>
+    <span class="nv">text = </span><span class="s">&#39;&#39;</span>
+    <span class="k">for</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">val</span> <span class="k">of</span> <span class="nx">map</span>
+      <span class="nx">text</span> <span class="o">+=</span> <span class="s">&quot;\n[</span><span class="si">#{</span><span class="k">if</span> <span class="nx">val</span> <span class="k">then</span> <span class="s">&#39;x&#39;</span> <span class="k">else</span> <span class="s">&#39; &#39;</span><span class="si">}</span><span class="s">] </span><span class="si">#{</span><span class="nx">name</span><span class="si">}</span><span class="s">&quot;</span>
+    <span class="nx">text</span> <span class="o">+</span> <span class="s">&#39;\n&#39;</span>
 
 
 </pre></div>
@@ -628,8 +620,8 @@
         </td>
         <td class="code highlight"><div class="highlight"><pre>
   <span class="vi">@table: </span><span class="nx">table</span>
-  <span class="vi">@abbrv: </span><span class="nf">(obj, width) -&gt;</span>
-
+  <span class="vi">@abbr: </span><span class="nf">(abbr, text) -&gt;</span> <span class="s">&quot;\n*[</span><span class="si">#{</span><span class="nx">abbr</span><span class="si">}</span><span class="s">]: </span><span class="si">#{</span><span class="nx">text</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span><span class="si">}</span><span class="s">&quot;</span>
+  <span class="vi">@toc: </span><span class="nf">-&gt;</span> <span class="s">&#39;\n[[toc]]\n&#39;</span>
 
 
 
@@ -657,7 +649,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-27" id="section-27">&#182;</a>
+  <a class="pilcrow" href="#section-26" id="section-26">&#182;</a>
 </div>
 <p>content elements</p>
         </td>
@@ -787,6 +779,7 @@
   <span class="nv">ul: </span><span class="nf">(list) -&gt;</span> <span class="nx">@raw</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">ul</span> <span class="nx">list</span><span class="p">,</span> <span class="nx">@width</span>
   <span class="nv">ol: </span><span class="nf">(list) -&gt;</span> <span class="nx">@raw</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">ol</span> <span class="nx">list</span><span class="p">,</span> <span class="nx">@width</span>
   <span class="nv">dl: </span><span class="nf">(obj) -&gt;</span> <span class="nx">@raw</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">dl</span> <span class="nx">obj</span><span class="p">,</span> <span class="nx">@width</span>
+  <span class="nv">check: </span><span class="nf">(map) -&gt;</span> <span class="nx">@raw</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">check</span> <span class="nx">map</span>
 
   <span class="nv">table: </span><span class="nf">(obj, col, sort) -&gt;</span> <span class="nx">@raw</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">table</span> <span class="nx">obj</span><span class="p">,</span> <span class="nx">col</span><span class="p">,</span> <span class="nx">sort</span>
 
@@ -795,9 +788,8 @@
     <span class="nx">@parts</span><span class="p">.</span><span class="nx">footnote</span><span class="p">.</span><span class="nx">push</span> <span class="s">&quot;[^</span><span class="si">#{</span><span class="nx">id</span><span class="si">}</span><span class="s">]: </span><span class="si">#{</span><span class="nx">text</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span><span class="si">}</span><span class="s">&quot;</span>
     <span class="k">return</span> <span class="s">&quot;[^</span><span class="si">#{</span><span class="nx">id</span><span class="si">}</span><span class="s">]&quot;</span>
 
-  <span class="nv">abbr: </span><span class="nf">(abbr, text) -&gt;</span>
-    <span class="nx">@parts</span><span class="p">.</span><span class="nx">abbr</span><span class="p">.</span><span class="nx">push</span> <span class="s">&quot;*[</span><span class="si">#{</span><span class="nx">abbr</span><span class="si">}</span><span class="s">]: </span><span class="si">#{</span><span class="nx">text</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span><span class="si">}</span><span class="s">&quot;</span>
-    <span class="k">this</span>
+  <span class="nv">abbr: </span><span class="nf">(abbr, text) -&gt;</span> <span class="nx">@raw</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">abbr</span> <span class="nx">abbr</span><span class="p">,</span> <span class="nx">text</span>
+  <span class="nv">toc: </span><span class="nf">-&gt;</span> <span class="nx">@raw</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">toc</span><span class="p">()</span>
 
 
 </pre></div>
@@ -854,8 +846,8 @@
         <td class="code highlight"><div class="highlight"><pre>
   <span class="nv">toConsole: </span><span class="nf">-&gt;</span>
     <span class="nv">text = </span><span class="nx">@toString</span><span class="p">()</span>
-    <span class="nv">text = </span><span class="nx">text</span><span class="p">.</span><span class="nx">replace</span> <span class="sr">/(+*?)__/g</span><span class="p">,</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="s">&#39;$1&#39;</span>
-    <span class="nv">text = </span><span class="nx">text</span><span class="p">.</span><span class="nx">replace</span> <span class="sr">/__(+*?)__/g</span><span class="p">,</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="s">&#39;$1&#39;</span>
+    <span class="nv">text = </span><span class="nx">text</span><span class="p">.</span><span class="nx">replace</span> <span class="sr">/\*\*(.*?)\*\*/g</span><span class="p">,</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="s">&#39;$1&#39;</span>
+    <span class="nv">text = </span><span class="nx">text</span><span class="p">.</span><span class="nx">replace</span> <span class="sr">/__(.*?)__/g</span><span class="p">,</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="s">&#39;$1&#39;</span>
 
 
 </pre></div>
@@ -873,7 +865,22 @@
         </td>
         <td class="code highlight"><div class="highlight"><pre>
   <span class="nv">toHtml: </span><span class="nf">(setup) -&gt;</span>
-    <span class="nv">title = </span><span class="nx">setup</span><span class="o">?</span><span class="p">.</span><span class="nx">title</span> <span class="o">?</span> <span class="s">&#39;Unknown&#39;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-37" id="section-37">&#182;</a>
+</div>
+<p>create html</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nv">md = </span><span class="nx">@initHtml</span><span class="p">()</span>
+    <span class="nv">content = </span><span class="nx">md</span><span class="p">.</span><span class="nx">render</span> <span class="nx">@toString</span><span class="p">()</span>
+    <span class="nv">match = </span><span class="nx">content</span><span class="p">.</span><span class="nx">match</span> <span class="sr">/&lt;h[1-6]&gt;(.*?)&lt;\/h/</span>
+    <span class="nv">title = </span><span class="nx">setup</span><span class="o">?</span><span class="p">.</span><span class="nx">title</span> <span class="o">?</span> <span class="nx">match</span><span class="o">?</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">?</span> <span class="s">&#39;Report&#39;</span>
     <span class="nv">style = </span><span class="nx">setup</span><span class="o">?</span><span class="p">.</span><span class="nx">style</span> <span class="o">?</span> <span class="s">&#39;default&#39;</span>
 
 </pre></div>
@@ -905,10 +912,9 @@
 <div class="pilwrap">
   <a class="pilcrow" href="#section-39" id="section-39">&#182;</a>
 </div>
-<p>create html</p>
+<p>return complete html</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="nv">md = </span><span class="nx">@initHtml</span><span class="p">()</span>
     <span class="s">&quot;&quot;&quot;</span>
 <span class="s">    &lt;!DOCTYPE html&gt;</span>
 <span class="s">    &lt;html&gt;</span>
@@ -930,7 +936,7 @@
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="s">      &lt;/head&gt;</span>
-<span class="s">      &lt;body&gt;</span><span class="si">#{</span><span class="nx">md</span><span class="p">.</span><span class="nx">render</span> <span class="nx">@toString</span><span class="p">()</span><span class="si">}</span><span class="s">&lt;/body&gt;</span>
+<span class="s">      &lt;body&gt;</span><span class="si">#{</span><span class="nx">content</span><span class="si">}</span><span class="s">&lt;/body&gt;</span>
 <span class="s">    &lt;/html&gt;</span>
 <span class="s">    &quot;&quot;&quot;</span>
 
@@ -967,6 +973,9 @@
     <span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">require</span> <span class="s">&#39;markdown-it-deflist&#39;</span><span class="p">)</span>
     <span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">require</span> <span class="s">&#39;markdown-it-abbr&#39;</span><span class="p">)</span>
     <span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">require</span> <span class="s">&#39;markdown-it-footnote&#39;</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;markdown-it-checkbox&#39;</span><span class="p">),</span> <span class="p">{</span><span class="nv">divWrap: </span><span class="kc">true</span><span class="p">,</span> <span class="nv">divClass: </span><span class="s">&#39;cb&#39;</span><span class="p">})</span>
+    <span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">require</span> <span class="s">&#39;markdown-it-anchor&#39;</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">require</span> <span class="s">&#39;markdown-it-table-of-contents&#39;</span><span class="p">)</span>
     <span class="nv">twemoji = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;twemoji&#39;</span><span class="p">)</span>
 
 </pre></div>
