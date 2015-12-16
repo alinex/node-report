@@ -4,6 +4,15 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.0.1 (2015-12-16)
+-------------------------------------------------
+- Fixed bug in console.log output converter for bold elements.
+- Added support for table of contents.
+- Add checkbox formatting.
+- Fix abbreviation transform.
+- Automatically extract title from html content.
+- Remove console.log debugging output.
+
 Version 1.0.0 (2015-12-10)
 -------------------------------------------------
 - Adding support for abbr() and footnote().
