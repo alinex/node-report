@@ -296,8 +296,8 @@ class Report
   # ### as colorful console text
   toConsole: ->
     text = @toString()
-    text = text.replace /(+*?)__/g, chalk.bold '$1'
-    text = text.replace /__(+*?)__/g, chalk.bold '$1'
+    text = text.replace /\*\*(.*?)\*\*/g, chalk.bold '$1'
+    text = text.replace /__(.*?)__/g, chalk.bold '$1'
 
   # ### as html
   toHtml: (setup) ->
