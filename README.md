@@ -91,9 +91,19 @@ console.log Report.p "This text contains a #{Result.b 'bold'} word."
 ```
 
 
-Formatter
+Formatter Overview
 -------------------------------------------------
-The following methods are available:
+
+Settings to be done before using the reporter:
+
+- width - maximum character size per line in markdown style
+
+This setting will define the maximum line length (default is 80 characters). All
+methods which use it have the ability to overwrite this default setting with an
+individual number.
+
+You may also set the width on the instance instead of globally giving it as a
+parameter to the constructor. See the usage above.
 
 ### headings
 
@@ -104,10 +114,38 @@ The following methods are available:
 - h5 - heading level 5
 - h6 - heading level 6
 
+They are all called with a text and an optional width parameter. The width will
+only specify the width of the lines in the markdown output (h1 and h2 only).
+
+``` coffee
+report = new Report()
+report.h1 'My Title'
+report.h2 'Subheading with specific width', 120
+```
+
+### Paragraphs
+
+- p - add a text paragraph
+- quote - add quoted text multiple level depth (second parameter)
+- code - add a code block (language as additional parameter)
+
+All this methods need a text and an optional width used for automatic line breaks
+in markdown style.
+
+``` coffee
+report.p 'A new paragraph.'
+report.quote 'My home is my castle!', 40
+```
+
 ### Separation
 
-- hr - horizontal line
+- hr - add a horizontal rule as separation
 - br - line break
+
+``` coffee
+report.hr()
+report.p "This paragraph should have a #{Report.br()} line break visible also in html."
+```
 
 ### inline
 
@@ -119,17 +157,12 @@ These are only available on static calls not on a report instance!
 - sub - subscript
 - sup - superscript
 - tt - typewriter
+- mark - marked text
+
 - a - create a link
 - img - add an image
-- mark - marked text
+
 - footnote - add a footnode
-
-### paragraphs
-
-- p - add a text paragraph
-- hr - add a horizontal rule as separation
-- quote - add quoted text multiple level depth (second parameter)
-- code - add a code block (language as additional parameter)
 
 ### lists
 
@@ -170,13 +203,13 @@ Roadmap
 
   - https://github.com/Welfenlab/dot-processor
 
-  - https://github.com/markdown-it/markdown-it-container
 
   - toPdf() method
 
+https://github.com/markdown-it/markdown-it-container
 https://github.com/nunof07/markdown-it-fontawesome
-
-
+https://www.npmjs.com/package/markdown-it-math
+https://www.npmjs.com/package/markdown-it-decorate
 
 License
 -------------------------------------------------
