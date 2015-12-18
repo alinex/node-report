@@ -40,8 +40,7 @@ code, tt {
 pre code, pre tt {
   background: none;
 }
-pre code.language-js::before {
-    content: 'JavaScript Code';
+pre code.language::before {
     color: #505050;
     font-weight: bold;
     display: block;
@@ -52,30 +51,9 @@ pre code.language-js::before {
     margin: -10px -10px 5px -10px;
     padding: 5px;
 }
-pre code.language-coffee::before {
-    content: 'CoffeeScript Code';
-    color: #505050;
-    font-weight: bold;
-    display: block;
-    background: rgba(225, 135, 40, 0.38);
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
-    margin-bottom: 5px;
-    margin: -10px -10px 5px -10px;
-    padding: 5px;
-}
-pre code.language-bash::before {
-    content: 'Bash Code';
-    color: #505050;
-    font-weight: bold;
-    display: block;
-    background: rgba(225, 135, 40, 0.38);
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
-    margin-bottom: 5px;
-    margin: -10px -10px 5px -10px;
-    padding: 5px;
-}
+pre code.language.js::before { content: 'JavaScript Code'; }
+pre code.language.coffee::before { content: 'CoffeeScript Code'; }
+pre code.language-bash::before { content: 'Bash Code'; }
 
 *:first-child {
   margin-top: 0 !important;

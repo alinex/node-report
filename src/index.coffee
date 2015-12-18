@@ -340,6 +340,7 @@ class Report
       linkify: true
       typographer: true
       xhtmlOut: true
+      langPrefix: 'language '
       highlight: (str, lang) ->
         if lang and hljs.getLanguage lang
           try
