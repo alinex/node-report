@@ -25,7 +25,7 @@ blockquote {
 pre {
   background-color: rgba(0, 0, 0, 0.04);
   border-radius: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid #a4a4a4;
   font-size: 85%;
   margin: 20px;
   padding: 10px;
@@ -39,6 +39,42 @@ code, tt {
 }
 pre code, pre tt {
   background: none;
+}
+pre code.language-js::before {
+    content: 'JavaScript Code';
+    color: #505050;
+    font-weight: bold;
+    display: block;
+    background: rgba(225, 135, 40, 0.38);
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    margin-bottom: 5px;
+    margin: -10px -10px 5px -10px;
+    padding: 5px;
+}
+pre code.language-coffee::before {
+    content: 'CoffeeScript Code';
+    color: #505050;
+    font-weight: bold;
+    display: block;
+    background: rgba(225, 135, 40, 0.38);
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    margin-bottom: 5px;
+    margin: -10px -10px 5px -10px;
+    padding: 5px;
+}
+pre code.language-bash::before {
+    content: 'Bash Code';
+    color: #505050;
+    font-weight: bold;
+    display: block;
+    background: rgba(225, 135, 40, 0.38);
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    margin-bottom: 5px;
+    margin: -10px -10px 5px -10px;
+    padding: 5px;
 }
 
 *:first-child {

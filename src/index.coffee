@@ -303,9 +303,9 @@ class Report
   toHtml: (setup) ->
     # create html
     md = @initHtml()
-    content = md.render @toString()
-    match = content.match /<h[1-6]>(.*?)<\/h/
-    title = setup?.title ? match?[1] ? 'Report'
+    data = {}
+    content = md.render @toString(), data
+    title = setup?.title ? data.title ? 'Report'
     style = setup?.style ? 'default'
     # get css
     css = switch
@@ -347,16 +347,17 @@ class Report
         try
           return hljs.highlightAuto(str).value
         return '' # use external default escaping
-    .use(require 'markdown-it-sub')
-    .use(require 'markdown-it-sup')
-    .use(require 'markdown-it-mark')
-    .use(require 'markdown-it-emoji')
-    .use(require 'markdown-it-deflist')
-    .use(require 'markdown-it-abbr')
-    .use(require 'markdown-it-footnote')
+    .use(require 'markdown-it-title') #extracting title from source (first heading)
+    .use(require 'markdown-it-sub') # subscript support
+    .use(require 'markdown-it-sup') # superscript support
+    .use(require 'markdown-it-mark') # add text as "marked"
+    .use(require 'markdown-it-emoji') # add graphical emojis
+    .use(require 'markdown-it-deflist') # definition lists
+    .use(require 'markdown-it-abbr') # abbreviations (auto added)
+    .use(require 'markdown-it-footnote') # footnotes (auto linked)
     .use(require('markdown-it-checkbox'), {divWrap: true, divClass: 'cb'})
-    .use(require 'markdown-it-anchor')
-    .use(require 'markdown-it-table-of-contents')
+    .use(require 'markdown-it-anchor') # adding heading anchors
+    .use(require 'markdown-it-table-of-contents') # possibility to add TOC
     twemoji = require('twemoji')
     # set base to allow also access from local page display
     twemoji.base = 'https://twemoji.maxcdn.com/'

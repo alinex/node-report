@@ -47,6 +47,7 @@
     "markdown-it-sub": "^1.0.0",
     "markdown-it-sup": "^1.0.0",
     "markdown-it-table-of-contents": "^0.1.2",
+    "markdown-it-title": "^1.0.4",
     "twemoji": "^1.4.1"
   },
   "devDependencies": {

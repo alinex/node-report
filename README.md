@@ -142,6 +142,7 @@ These are only available on static calls not on a report instance!
 - footnote - add a footnote text
 - abbr - add an abbreviation entry (before use in the text)
 - check - add a map of elements
+- toc - add a table of contents entry (visible only after rendering)
 
 ### table
 
@@ -169,10 +170,12 @@ Roadmap
 
   - https://github.com/Welfenlab/dot-processor
 
-  - https://www.npmjs.com/package/markdown-it-lazy-headers
   - https://github.com/markdown-it/markdown-it-container
 
   - toPdf() method
+
+https://github.com/nunof07/markdown-it-fontawesome
+
 
 
 License
