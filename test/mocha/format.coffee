@@ -81,6 +81,9 @@ describe "format", ->
     it "should make a language paragraph", ->
       equal Report.code("My code\ncomes here.", 'coffee'), "\n``` coffee\nMy code\ncomes here.\n```\n"
 
+    it "should make a special box", ->
+      equal Report.box("This is important.", 'warning'), "\n::: warning\nThis is important.\n:::\n"
+
   describe "separation", ->
 
     it "should make a horizontal line", ->
@@ -100,16 +103,14 @@ describe "format", ->
       - two
       - and this is a long text because i can't only write numbers down here to show
         the proper use of the lists also with long text lines
-      - last
-        two lines\n"""
+      - last two lines\n"""
     it "should make an ordered list", ->
       equal Report.ol(list), """
       \n1. one
       2. two
       3. and this is a long text because i can't only write numbers down here to show
          the proper use of the lists also with long text lines
-      4. last
-         two lines\n"""
+      4. last two lines\n"""
     it "should make an unordered sublist", ->
       equal Report.ul(sublist), """
       \n- one
@@ -299,4 +300,4 @@ describe "format", ->
   describe "special", ->
 
     it "should make a table of contents in html", ->
-      equal Report.toc(), "\n[[toc]]\n"
+      equal Report.toc(), "\n@[toc]\n"

@@ -197,19 +197,10 @@ All other formats will be converted into this filling missing information with
 default values.
 
 
-
-Roadmap
--------------------------------------------------
-
-  - https://github.com/Welfenlab/dot-processor
-
-
-  - toPdf() method
-
-https://github.com/markdown-it/markdown-it-container
 https://github.com/nunof07/markdown-it-fontawesome
 https://www.npmjs.com/package/markdown-it-math
 https://www.npmjs.com/package/markdown-it-decorate
+https://github.com/Welfenlab/dot-processor
 
 License
 -------------------------------------------------

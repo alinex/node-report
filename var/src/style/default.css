@@ -20,7 +20,8 @@ body > h1 {
 blockquote {
   border-left: 4px solid #ddd;
   color: #777;
-  padding: 0 15px;
+  padding: 3px 15px;
+  margin: 0 15px;
 }
 pre {
   background-color: rgba(0, 0, 0, 0.04);
@@ -54,6 +55,31 @@ pre code.language::before {
 pre code.language.js::before { content: 'JavaScript Code'; }
 pre code.language.coffee::before { content: 'CoffeeScript Code'; }
 pre code.language-bash::before { content: 'Bash Code'; }
+
+div.detail {
+  background-color: #eee;
+  border: 2px solid #ddd;
+  padding: 10px;
+  margin: 5px 0;
+}
+div.info {
+  background-color: #ffff99;
+  border: 2px solid #dd9999;
+  padding: 10px;
+  margin: 5px 0;
+}
+div.warning {
+  background-color: #ffcc99;
+  border: 2px solid #dd6666;
+  padding: 10px;
+  margin: 5px 0;
+}
+div.alert {
+  background-color: #ff9999;
+  border: 2px solid #dd0000;
+  padding: 10px;
+  margin: 5px 0;
+}
 
 *:first-child {
   margin-top: 0 !important;
@@ -101,11 +127,25 @@ abbr, acronym {
   border-bottom: dotted 1px;
 }
 
+.table-of-contents::before {
+    content: "Contents";
+    font-weight: bold;
+    display: block;
+    background: #ddd;
+    margin: -10px -10px 4px -25px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    padding: 3px 10px;
+}
 .table-of-contents {
-  border: 2px dotted #ddd;
+  border: 2px solid #ddd;
+  border-radius: 10px;
   float: right;
-  padding: 10px 10px 10px 0;
+  padding: 10px 10px 10px 25px;
   background: #fafafa;
+}
+.table-of-contents ul {
+  padding-left: 15px;
 }
 
 /* Tomorrow Night Theme */

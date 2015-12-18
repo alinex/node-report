@@ -88,8 +88,8 @@ describe "instance", ->
   describe "convert", ->
 
     report = new Report()
-    report.h1 "h1 Heading"
     report.toc()
+    report.h1 "h1 Heading"
     report.h2 "h2 Heading"
     report.h3 "h3 Heading"
     report.h4 "h4 Heading"
@@ -133,6 +133,20 @@ describe "instance", ->
     };
     console.log(foo(5));
     """, 'js'
+
+    report.h3 "Special Boxes"
+    report.box """
+    Some more details here...
+    """, 'detail'
+    report.box """
+    A short note.
+    """, 'info'
+    report.box """
+    This is important!
+    """, 'warning'
+    report.box """
+    Something went wrong!
+    """, 'alert'
 
     report.h3 "Tables"
     report.table [

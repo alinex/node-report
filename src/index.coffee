@@ -20,10 +20,9 @@ HTML_STYLES =
 # Helper methods
 # -------------------------------------------------
 
-block = (text, start, indent, width) ->
+block = (text, start, indent, width, pre = false) ->
   indent = '\n' + indent
-  text = text.trim().replace /(\S)[ \r\t]*\n[ \r\t]*(\S)/g, '$1 $2'
-
+  text = text.trim().replace /([^\\\s])[ \r\t]*\n[ \r\t]*(\S)/g, '$1 $2' unless pre
   text = '\n' + start + text.replace(/\n/g, indent) + '\n'
   string.wordwrap text, width, indent, 2
 
@@ -174,15 +173,20 @@ class Report
 
   # ### paragraphs
   @p: (text, width) -> block text, '', '', width ? @width
-  @hr: -> "\n---\n"
   @quote: (text, depth = 1, width) ->
     indent = string.repeat '> ', depth
     block text, indent, indent, width ? @width
-  @code: (text, lang) ->
+  @code: (text, lang, width) ->
     if lang
       return "\n``` #{lang}\n#{text.trim()}\n```\n"
     indent = '    '
+    block text, indent, indent, width ? @width, true
+  @box: (text, type, width) ->
+    return @p text unless type
+    return "\n::: #{type}\n#{text.trim()}\n:::\n"
+    indent = ''
     block text, indent, indent, width ? @width
+  @hr: -> "\n---\n"
 
   # ### lists
   # maybe use '\\\n' at the end of line for breaks
@@ -221,7 +225,7 @@ class Report
   # ### specials
   @table: table
   @abbr: (abbr, text) -> "\n*[#{abbr}]: #{text.trim()}"
-  @toc: -> '\n[[toc]]\n'
+  @toc: -> '\n@[toc]\n'
 
 
   # Create instance
@@ -267,6 +271,7 @@ class Report
   hr: -> @raw Report.hr()
   quote: (text, depth) -> @raw Report.quote text, depth, @width
   code: (text, lang) -> @raw Report.code text, lang, @width
+  box: (text, type) -> @raw Report.box text, type, @width
 
   # ### lists
   ul: (list) -> @raw Report.ul list, @width
@@ -337,6 +342,7 @@ class Report
   initHtml: async.once ->
     # setup markdown it
     hljs = require 'highlight.js'
+    container = require 'markdown-it-container'
     md = require('markdown-it')
       html: true
       linkify: true
@@ -353,14 +359,22 @@ class Report
     .use(require 'markdown-it-title') #extracting title from source (first heading)
     .use(require 'markdown-it-sub') # subscript support
     .use(require 'markdown-it-sup') # superscript support
+    .use(container, 'detail') # special boxes
+    .use(container, 'info') # special boxes
+    .use(container, 'warning') # special boxes
+    .use(container, 'alert') # special boxes
     .use(require 'markdown-it-mark') # add text as "marked"
     .use(require 'markdown-it-emoji') # add graphical emojis
     .use(require 'markdown-it-deflist') # definition lists
     .use(require 'markdown-it-abbr') # abbreviations (auto added)
     .use(require 'markdown-it-footnote') # footnotes (auto linked)
     .use(require('markdown-it-checkbox'), {divWrap: true, divClass: 'cb'})
-    .use(require 'markdown-it-anchor') # adding heading anchors
-    .use(require 'markdown-it-table-of-contents') # possibility to add TOC
+    .use require('markdown-it-toc-and-anchor'), # possibility to add TOC
+      tocClassName: 'table-of-contents'
+      tocFirstLevel: 2
+      anchorLink: false
+#    .use(require 'markdown-it-anchor') # adding heading anchors
+#    .use(require 'markdown-it-table-of-contents') # possibility to add TOC
     twemoji = require('twemoji')
     # set base to allow also access from local page display
     twemoji.base = 'https://twemoji.maxcdn.com/'
