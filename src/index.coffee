@@ -22,6 +22,8 @@ HTML_STYLES =
 
 block = (text, start, indent, width) ->
   indent = '\n' + indent
+  text = text.trim().replace /(\S)[ \r\t]*\n[ \r\t]*(\S)/g, '$1 $2'
+
   text = '\n' + start + text.replace(/\n/g, indent) + '\n'
   string.wordwrap text, width, indent, 2
 
@@ -171,7 +173,7 @@ class Report
     ["[^#{id}]", "\n[^#{id}]: #{text}\n"]
 
   # ### paragraphs
-  @p: (text, width) -> "\n#{string.wordwrap text, width ? @width}\n"
+  @p: (text, width) -> block text, '', '', width ? @width
   @hr: -> "\n---\n"
   @quote: (text, depth = 1, width) ->
     indent = string.repeat '> ', depth
