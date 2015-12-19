@@ -17,6 +17,11 @@ body > h1 {
   margin-top: 0;
 }
 
+dt {
+  font-weight: bold;
+  margin-top: 8px;
+}
+
 blockquote {
   border-left: 4px solid #ddd;
   color: #777;
@@ -56,29 +61,47 @@ pre code.language.js::before { content: 'JavaScript Code'; }
 pre code.language.coffee::before { content: 'CoffeeScript Code'; }
 pre code.language-bash::before { content: 'Bash Code'; }
 
-div.detail {
-  background-color: #eee;
-  border: 2px solid #ddd;
-  padding: 10px;
+div.detail, div.info, div.warning, div.alert {
+  padding: 30px 10px 6px 10px;
   margin: 5px 0;
+}
+div.info::before, div.warning::before, div.alert::before {
+  font-weight: bold;
+  position: absolute;
+  margin-top: -30px;
+  margin-left: -10px;
+  padding: 3px 20px 3px 10px;
+  border-bottom-right-radius: 18px;
+  color: white;
+}
+div.detail {
+  background-color: #fafafa;
+  border: 2px solid #ddd;
+  padding-top: 10px;
 }
 div.info {
   background-color: #ffff99;
-  border: 2px solid #dd9999;
-  padding: 10px;
-  margin: 5px 0;
+  border: 2px solid #eebd66;
+}
+div.info::before {
+  content: 'Info';
+  background-color: #eebb66;
 }
 div.warning {
   background-color: #ffcc99;
-  border: 2px solid #dd6666;
-  padding: 10px;
-  margin: 5px 0;
+  border: 2px solid #ee8866;
+}
+div.warning::before {
+  content: 'Warning';
+  background-color: #ee8866;
 }
 div.alert {
   background-color: #ff9999;
-  border: 2px solid #dd0000;
-  padding: 10px;
-  margin: 5px 0;
+  border: 2px solid #cc0000;
+}
+div.alert::before {
+  content: 'Attention';
+  background-color: #cc0000;
 }
 
 *:first-child {
@@ -128,14 +151,15 @@ abbr, acronym {
 }
 
 .table-of-contents::before {
-    content: "Contents";
-    font-weight: bold;
-    display: block;
-    background: #ddd;
-    margin: -10px -10px 4px -25px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    padding: 3px 10px;
+  content: "Contents";
+  font-weight: bold;
+  font-size: 120%;
+  display: block;
+  background: #ddd;
+  margin: -10px -10px 4px -25px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  padding: 3px 10px;
 }
 .table-of-contents {
   border: 2px solid #ddd;
@@ -143,9 +167,13 @@ abbr, acronym {
   float: right;
   padding: 10px 10px 10px 25px;
   background: #fafafa;
+  font-size: 90%;
 }
 .table-of-contents ul {
   padding-left: 15px;
+}
+.table-of-contents a {
+  text-decoration: none;
 }
 
 /* Tomorrow Night Theme */

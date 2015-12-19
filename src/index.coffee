@@ -182,6 +182,8 @@ class Report
     indent = '    '
     block text, indent, indent, width ? @width, true
   @box: (text, type, width) ->
+    unless type in ['detail', 'info', 'warning', 'alert']
+      throw new Error "Unknown box type #{type} for report"
     return @p text unless type
     return "\n::: #{type}\n#{text.trim()}\n:::\n"
     indent = ''
@@ -300,6 +302,12 @@ class Report
       text += "\n#{@parts[key].join '\n'}\n"
     text
 
+   # ### as simplified text
+  toText: ->
+    @toString().replace ///
+    \n@\[toc\]\n
+    ///g, ''
+
   # ### as colorful console text
   toConsole: ->
     text = @toString()
@@ -312,6 +320,7 @@ class Report
     md = @initHtml()
     data = {}
     content = md.render @toString(), data
+    content = content.replace /<p>\n(<ul class="table-of-contents">[\s\S]*?<\/ul>)\n<\/p>/g, '$1'
     title = setup?.title ? data.title ? 'Report'
     style = setup?.style ? 'default'
     # get css
