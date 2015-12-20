@@ -129,12 +129,25 @@ report.h2 'Subheading with specific width', 120
 - quote - add quoted text multiple level depth (second parameter)
 - code - add a code block (language as additional parameter)
 
-All this methods need a text and an optional width used for automatic line breaks
-in markdown style.
+All this methods need a text and an optional width as last parameter used for
+automatic line breaks in markdown style.
 
 ``` coffee
 report.p 'A new paragraph.'
-report.quote 'My home is my castle!', 40
+report.p 'A long text may be automatically broken into multiple lines.', 40
+```
+
+For quoted text you can give the depth level as number (default is 1):
+
+``` coffee
+report.quote 'My home is my castle!', 1
+```
+
+And for code you give the language which is used for syntax highlighting (default
+is text):
+
+``` coffee
+report.code 'va x = Math.round(f);', 'js'
 ```
 
 ### Separation
@@ -142,12 +155,15 @@ report.quote 'My home is my castle!', 40
 - hr - add a horizontal rule as separation
 - br - line break
 
+You may separate lines using `br` breaks (while normal single newlines are ignored in
+markdown) and for paragraph separation you may use horizontal lines:
+
 ``` coffee
 report.hr()
 report.p "This paragraph should have a #{Report.br()} line break visible also in html."
 ```
 
-### inline
+### Inline Formats
 
 These are only available on static calls not on a report instance!
 
@@ -157,27 +173,25 @@ These are only available on static calls not on a report instance!
 - sub - subscript
 - sup - superscript
 - tt - typewriter
-- mark - marked text
+- mark - marked text like highlighted with an text marker
+
+``` coffee
+report.p "This paragraoh is #{Report.p 'important'}. " + Report.i 'Alex'
+```
+
+### Links and Images
 
 - a - create a link
 - img - add an image
 
-- footnote - add a footnode
 
-### lists
+### Lists
 
 - ul - unordered list from array
 - ol - ordered list from array
 - dl - definitiuon list from object
 
-### special elements
-
-- footnote - add a footnote text
-- abbr - add an abbreviation entry (before use in the text)
-- check - add a map of elements
-- toc - add a table of contents entry (visible only after rendering)
-
-### table
+### Table
 
 Output a table (data object and optional column object needed). This can be called
 with different kind of objects making it easy to use nearly everything you have.
@@ -195,6 +209,13 @@ The complexest format will be shown at first:
 
 All other formats will be converted into this filling missing information with
 default values.
+
+### Special Elements
+
+- footnote - add a footnote text
+- abbr - add an abbreviation entry (before use in the text)
+- check - add a map of elements
+- toc - add a table of contents entry (visible only after rendering)
 
 
 https://github.com/nunof07/markdown-it-fontawesome

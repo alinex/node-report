@@ -158,14 +158,14 @@ class Report
   @i: (text) -> "_#{text}_"
   @del: (text) -> "~~#{text}~~"
   @tt: (text) -> "`#{text}`"
-  @a: (text, url, title) ->
-    "[#{text}](#{url}#{if title then ' "'+title+'"' else ''})"
-  @img: (text, url, title) ->
-    "![#{text}](#{url}#{if title then ' "'+title+'"' else ''})"
   @sub: (text) -> "~#{text}~"
   @sup: (text) -> "^#{text}^"
   @mark: (text) -> "==#{text}=="
   @br: -> '\\\n'
+  @a: (text, url, title) ->
+    "[#{text}](#{url}#{if title then ' "'+title+'"' else ''})"
+  @img: (text, url, title) ->
+    "![#{text}](#{url}#{if title then ' "'+title+'"' else ''})"
 
   # ### Multi element
   @footnote: (id, text) ->
@@ -310,7 +310,7 @@ class Report
 
   # ### as colorful console text
   toConsole: ->
-    text = @toString()
+    text = @toText()
     text = text.replace /\*\*(.*?)\*\*/g, chalk.bold '$1'
     text = text.replace /__(.*?)__/g, chalk.bold '$1'
 
