@@ -4,6 +4,23 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.0.2 (2015-12-21)
+-------------------------------------------------
+- Don't trim in toString().
+- Git text and markdown working, too.
+- Now got the link working to display html as is.
+- Changed link to examples.
+- Added example and optimized html layout style.
+- Add sort option to all lists.
+- Fixed wrong word breaks in dl lists.
+- Updated documentation.
+- Optimized style of html output.
+- Replace toc module and optimize formatting.
+- Use block function for paragraphs which will optimize already breaking blocks.
+- Added some more usage examples.
+- Optimize highlighter to support shorter css styles.
+- Get html title through plugin and optimize code style.
+
 Version 1.0.1 (2015-12-16)
 -------------------------------------------------
 - Fixed bug in console.log output converter for bold elements.
