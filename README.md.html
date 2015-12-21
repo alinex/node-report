@@ -42,31 +42,31 @@
         <a href="#usage">Usage</a>
       </div>
       <div class="heading h2">
-        <a href="#formatter">Formatter</a>
+        <a href="#formatter%20overview">Formatter Overview</a>
       </div>
       <div class="heading h3">
         <a href="#headings">headings</a>
       </div>
       <div class="heading h3">
+        <a href="#paragraphs">Paragraphs</a>
+      </div>
+      <div class="heading h3">
         <a href="#separation">Separation</a>
       </div>
       <div class="heading h3">
-        <a href="#inline">inline</a>
+        <a href="#inline%20formats">Inline Formats</a>
       </div>
       <div class="heading h3">
-        <a href="#paragraphs">paragraphs</a>
+        <a href="#links%20and%20images">Links and Images</a>
       </div>
       <div class="heading h3">
-        <a href="#lists">lists</a>
+        <a href="#lists">Lists</a>
       </div>
       <div class="heading h3">
-        <a href="#special%20elements">special elements</a>
+        <a href="#table">Table</a>
       </div>
       <div class="heading h3">
-        <a href="#table">table</a>
-      </div>
-      <div class="heading h2">
-        <a href="#roadmap">Roadmap</a>
+        <a href="#special%20elements">Special Elements</a>
       </div>
       <div class="heading h2">
         <a href="#license">License</a>
@@ -95,8 +95,13 @@ you may access the markdown text or get it converted to html.</p>
 
 <ul>
 <li>easy markdown writing</li>
-<li>export as html</li>
+<li>export as text or html</li>
+<li>console formatting support</li>
 </ul>
+
+<p>See example output in <a href="https://raw.githubusercontent.com/alinex/node-report/master/src/doc/test.txt">text</a>
+, <a href="https://raw.githubusercontent.com/alinex/node-report/master/src/doc/test.md">markdown</a>
+and <a href="http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/doc/test.html">html</a> format.</p>
 
 <blockquote>
   <p>It is one of the modules of the <a href="http://alinex.github.io/code.html">Alinex Universe</a>
@@ -204,15 +209,26 @@ on the fly:</p>
 
 
 
-<div class="pilwrap" id="formatter">
+<div class="pilwrap" id="formatter%20overview">
   <h2>
-    <a href="#formatter" name="formatter" class="pilcrow">&#182;</a>
-    Formatter
+    <a href="#formatter%20overview" name="formatter%20overview" class="pilcrow">&#182;</a>
+    Formatter Overview
   </h2>
 </div>
 
 
-<p>The following methods are available:</p>
+<p>Settings to be done before using the reporter:</p>
+
+<ul>
+<li>width - maximum character size per line in markdown style</li>
+</ul>
+
+<p>This setting will define the maximum line length (default is 80 characters). All
+methods which use it have the ability to overwrite this default setting with an
+individual number.</p>
+
+<p>You may also set the width on the instance instead of globally giving it as a
+parameter to the constructor. See the usage above.</p>
 
 
 <div class="pilwrap" id="headings">
@@ -232,6 +248,59 @@ on the fly:</p>
 <li>h6 - heading level 6</li>
 </ul>
 
+<p>They are all called with a text and an optional width parameter. The width will
+only specify the width of the lines in the markdown output (h1 and h2 only).</p>
+
+
+<div class="highlight"><pre><code><span class="nv">report = </span><span class="k">new</span> <span class="nx">Report</span><span class="p">()</span>
+<span class="nx">report</span><span class="p">.</span><span class="nx">h1</span> <span class="s">&#39;My Title&#39;</span>
+<span class="nx">report</span><span class="p">.</span><span class="nx">h2</span> <span class="s">&#39;Subheading with specific width&#39;</span><span class="p">,</span> <span class="mi">120</span>
+</code></pre></div>
+
+
+
+
+<div class="pilwrap" id="paragraphs">
+  <h3>
+    <a href="#paragraphs" name="paragraphs" class="pilcrow">&#182;</a>
+    Paragraphs
+  </h3>
+</div>
+
+
+<ul>
+<li>p - add a text paragraph</li>
+<li>quote - add quoted text multiple level depth (second parameter)</li>
+<li>code - add a code block (language as additional parameter)</li>
+</ul>
+
+<p>All this methods need a text and an optional width as last parameter used for
+automatic line breaks in markdown style.</p>
+
+
+<div class="highlight"><pre><code><span class="nx">report</span><span class="p">.</span><span class="nx">p</span> <span class="s">&#39;A new paragraph.&#39;</span>
+<span class="nx">report</span><span class="p">.</span><span class="nx">p</span> <span class="s">&#39;A long text may be automatically broken into multiple lines.&#39;</span><span class="p">,</span> <span class="mi">40</span>
+</code></pre></div>
+
+
+
+<p>For quoted text you can give the depth level as number (default is 1):</p>
+
+
+<div class="highlight"><pre><code><span class="nx">report</span><span class="p">.</span><span class="nx">quote</span> <span class="s">&#39;My home is my castle!&#39;</span><span class="p">,</span> <span class="mi">1</span>
+</code></pre></div>
+
+
+
+<p>And for code you give the language which is used for syntax highlighting (default
+is text):</p>
+
+
+<div class="highlight"><pre><code><span class="nx">report</span><span class="p">.</span><span class="nx">code</span> <span class="s">&#39;va x = Math.round(f);&#39;</span><span class="p">,</span> <span class="s">&#39;js&#39;</span>
+</code></pre></div>
+
+
+
 
 <div class="pilwrap" id="separation">
   <h3>
@@ -242,15 +311,25 @@ on the fly:</p>
 
 
 <ul>
-<li>hr - horizontal line</li>
+<li>hr - add a horizontal rule as separation</li>
 <li>br - line break</li>
 </ul>
 
+<p>You may separate lines using <code>br</code> breaks (while normal single newlines are ignored in
+markdown) and for paragraph separation you may use horizontal lines:</p>
 
-<div class="pilwrap" id="inline">
+
+<div class="highlight"><pre><code><span class="nx">report</span><span class="p">.</span><span class="nx">hr</span><span class="p">()</span>
+<span class="nx">report</span><span class="p">.</span><span class="nx">p</span> <span class="s">&quot;This paragraph should have a </span><span class="si">#{</span><span class="nx">Report</span><span class="p">.</span><span class="nx">br</span><span class="p">()</span><span class="si">}</span><span class="s"> line break visible also in html.&quot;</span>
+</code></pre></div>
+
+
+
+
+<div class="pilwrap" id="inline%20formats">
   <h3>
-    <a href="#inline" name="inline" class="pilcrow">&#182;</a>
-    inline
+    <a href="#inline%20formats" name="inline%20formats" class="pilcrow">&#182;</a>
+    Inline Formats
   </h3>
 </div>
 
@@ -264,33 +343,34 @@ on the fly:</p>
 <li>sub - subscript</li>
 <li>sup - superscript</li>
 <li>tt - typewriter</li>
-<li>a - create a link</li>
-<li>img - add an image</li>
-<li>mark - marked text</li>
-<li>footnote - add a footnode</li>
+<li>mark - marked text like highlighted with an text marker</li>
 </ul>
 
 
-<div class="pilwrap" id="paragraphs">
+<div class="highlight"><pre><code><span class="nx">report</span><span class="p">.</span><span class="nx">p</span> <span class="s">&quot;This paragraoh is </span><span class="si">#{</span><span class="nx">Report</span><span class="p">.</span><span class="nx">p</span> <span class="s">&#39;important&#39;</span><span class="si">}</span><span class="s">. &quot;</span> <span class="o">+</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">i</span> <span class="s">&#39;Alex&#39;</span>
+</code></pre></div>
+
+
+
+
+<div class="pilwrap" id="links%20and%20images">
   <h3>
-    <a href="#paragraphs" name="paragraphs" class="pilcrow">&#182;</a>
-    paragraphs
+    <a href="#links%20and%20images" name="links%20and%20images" class="pilcrow">&#182;</a>
+    Links and Images
   </h3>
 </div>
 
 
 <ul>
-<li>p - add a text paragraph</li>
-<li>hr - add a horizontal rule as separation</li>
-<li>quote - add quoted text multiple level depth (second parameter)</li>
-<li>code - add a code block (language as additional parameter)</li>
+<li>a - create a link</li>
+<li>img - add an image</li>
 </ul>
 
 
 <div class="pilwrap" id="lists">
   <h3>
     <a href="#lists" name="lists" class="pilcrow">&#182;</a>
-    lists
+    Lists
   </h3>
 </div>
 
@@ -301,26 +381,14 @@ on the fly:</p>
 <li>dl - definitiuon list from object</li>
 </ul>
 
-
-<div class="pilwrap" id="special%20elements">
-  <h3>
-    <a href="#special%20elements" name="special%20elements" class="pilcrow">&#182;</a>
-    special elements
-  </h3>
-</div>
-
-
-<ul>
-<li>footnote - add a footnote text</li>
-<li>abbr - add an abbreviation entry (before use in the text)</li>
-<li>check - add a map of elements</li>
-</ul>
+<p>All this lists allow for alphanumeric sorting. Give <code>true</code> as second parameter or
+<code>false</code> for reverse sorting.</p>
 
 
 <div class="pilwrap" id="table">
   <h3>
     <a href="#table" name="table" class="pilcrow">&#182;</a>
-    table
+    Table
   </h3>
 </div>
 
@@ -351,20 +419,25 @@ with different kind of objects making it easy to use nearly everything you have.
 default values.</p>
 
 
-<div class="pilwrap" id="roadmap">
-  <h2>
-    <a href="#roadmap" name="roadmap" class="pilcrow">&#182;</a>
-    Roadmap
-  </h2>
+<div class="pilwrap" id="special%20elements">
+  <h3>
+    <a href="#special%20elements" name="special%20elements" class="pilcrow">&#182;</a>
+    Special Elements
+  </h3>
 </div>
 
 
 <ul>
-<li><p><a href='https://github.com/Welfenlab/dot-processor'>https://github.com/Welfenlab/dot-processor</a></p></li>
-<li><p><a href='https://www.npmjs.com/package/markdown-it-lazy-headers'>https://www.npmjs.com/package/markdown-it-lazy-headers</a></p></li>
-<li><p><a href='https://github.com/markdown-it/markdown-it-container'>https://github.com/markdown-it/markdown-it-container</a></p></li>
-<li><p>toPdf() method</p></li>
+<li>footnote - add a footnote text</li>
+<li>abbr - add an abbreviation entry (before use in the text)</li>
+<li>check - add a map of elements</li>
+<li>toc - add a table of contents entry (visible only after rendering)</li>
 </ul>
+
+<p><a href='https://github.com/nunof07/markdown-it-fontawesome'>https://github.com/nunof07/markdown-it-fontawesome</a>
+<a href='https://www.npmjs.com/package/markdown-it-math'>https://www.npmjs.com/package/markdown-it-math</a>
+<a href='https://www.npmjs.com/package/markdown-it-decorate'>https://www.npmjs.com/package/markdown-it-decorate</a>
+<a href='https://github.com/Welfenlab/dot-processor'>https://github.com/Welfenlab/dot-processor</a></p>
 
 
 <div class="pilwrap" id="license">

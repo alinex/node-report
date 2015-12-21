@@ -1,1 +1,1 @@
-var tree={"files":[".travis.yml","Changelog.md","README.md"],"dirs":{"src":{"files":["index.coffee"]},"var":{"dirs":{"src":{"dirs":{"style":{"files":["default.css"]}}}}}}};
+var tree={"files":[".travis.yml","Changelog.md","README.md"],"dirs":{"src":{"dirs":{"doc":{"files":["test.html","test.md"]}},"files":["index.coffee"]},"var":{"dirs":{"src":{"dirs":{"style":{"files":["default.css"]}}}}}}};
