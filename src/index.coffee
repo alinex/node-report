@@ -192,14 +192,22 @@ class Report
 
   # ### lists
   # maybe use '\\\n' at the end of line for breaks
-  @ul: (list, width) ->
+  @ul: (list, sort, width) ->
+    if sort?
+      list = list[0..]
+      list.sort()
+      list.reverse() unless sort
     '\n' + list.map (text) =>
       if Array.isArray text
         text = @ul text, width
         return '  ' + text.trim().replace '\n', '\n  '
       block(text, '- ', '  ', width ? @width).trim()
     .join('\n') + '\n'
-  @ol: (list, width) ->
+  @ol: (list, sort, width) ->
+    if sort?
+      list = list[0..]
+      list.sort()
+      list.reverse() unless sort
     length = list.length.toString().length + 2
     indent = string.repeat ' ', length
     num = 0
@@ -210,10 +218,15 @@ class Report
       start = string.rpad "#{++num}.", length
       block(text, start, indent, width ? @width).trim()
     .join('\n') + '\n'
-  @dl: (obj, width) ->
+  @dl: (obj, sort, width) ->
+    list = Object.keys obj
+    if sort?
+      list = list[0..]
+      list.sort()
+      list.reverse() unless sort
     text = ''
-    for name, content of obj
-      content = content.trim().split(/\n\n/).map (e) ->
+    for name in list
+      content = obj[name].trim().split(/\n\n/).map (e) ->
         ": #{string.wordwrap e, width ? @width, '\n'}"
       .join '\n\n'
       text += "\n#{name}\n\n#{content}\n"
@@ -276,9 +289,9 @@ class Report
   box: (text, type) -> @raw Report.box text, type, @width
 
   # ### lists
-  ul: (list) -> @raw Report.ul list, @width
-  ol: (list) -> @raw Report.ol list, @width
-  dl: (obj) -> @raw Report.dl obj, @width
+  ul: (list, sort) -> @raw Report.ul list, sort, @width
+  ol: (list, sort) -> @raw Report.ol list, sort, @width
+  dl: (obj, sort) -> @raw Report.dl obj, sort, @width
   check: (map) -> @raw Report.check map
 
   table: (obj, col, sort) -> @raw Report.table obj, col, sort

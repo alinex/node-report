@@ -191,6 +191,9 @@ report.p "This paragraoh is #{Report.p 'important'}. " + Report.i 'Alex'
 - ol - ordered list from array
 - dl - definitiuon list from object
 
+All this lists allow for alphanumeric sorting. Give `true` as second parameter or
+`false` for reverse sorting.
+
 ### Table
 
 Output a table (data object and optional column object needed). This can be called
