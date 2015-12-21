@@ -313,13 +313,15 @@ class Report
     for key in ['abbr', 'footnote']
       continue unless @parts[key].length
       text += "\n#{@parts[key].join '\n'}\n"
-    text
+    text.trim()
 
    # ### as simplified text
   toText: ->
     @toString().replace ///
-    \n@\[toc\]\n
+    (^|\n)      # start or after new line
+    @\[toc\]\n  # table of contents
     ///g, ''
+    .trim()
 
   # ### as colorful console text
   toConsole: ->

@@ -17,6 +17,22 @@ body > h1 {
   margin-top: 0;
 }
 
+h1 {
+  border-bottom: 3px solid black;
+  padding-bottom: 5px;
+}
+h2 {
+  border-bottom: 2px dotted black;
+  padding-bottom: 3px;
+}
+h3 {
+  border-bottom: 1px dotted gray;
+  padding-bottom: 2px;
+}
+a {
+  color: darkblue;
+}
+
 dt {
   font-weight: bold;
   margin-top: 8px;
@@ -72,7 +88,6 @@ div.info::before, div.warning::before, div.alert::before {
   margin-left: -10px;
   padding: 3px 20px 3px 10px;
   border-bottom-right-radius: 18px;
-  color: white;
 }
 div.detail {
   background-color: #fafafa;
@@ -102,6 +117,7 @@ div.alert {
 div.alert::before {
   content: 'Attention';
   background-color: #cc0000;
+  color: white;
 }
 
 *:first-child {

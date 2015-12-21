@@ -185,9 +185,15 @@ describe "instance", ->
     it "should return html", ->
       @timeout 20000
       fs = require 'fs'
-      fd = fs.createWriteStream '/home/alex/test.html'#, {encoding: 'utf8'}
+      fd = fs.createWriteStream "#{__dirname}/../../src/doc/test.md"
+      fd.write report.toString()
+      fd.end()
+      fd = fs.createWriteStream "#{__dirname}/../../src/doc/test.txt"
+      fd.write report.toText()
+      fd.end()
+      fd = fs.createWriteStream "#{__dirname}/../../src/doc/test.html" #, {encoding: 'utf8'}
       fd.write """<html><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"></head><body>"""
       fd.write report.toHtml()
+      fd.write """</body></html>"""
       fd.end()
-      console.log report.toString()
 

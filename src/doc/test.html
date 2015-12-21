@@ -1,0 +1,460 @@
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"></head><body><!DOCTYPE html>
+<html>
+  <head>
+    <title>h1 Heading</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/8.5.0/styles/solarized_light.min.css" />
+    <style>html {
+  background: #eee;
+}
+body {
+  font-family: "Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+  font-size: 16px;
+  line-height: 1.2;
+  word-wrap: break-word;
+  border: 2px solid #aaa;
+  box-shadow: 10px 10px 5px #888888;
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 17px;
+  background: #fff;
+}
+body > h1 {
+  margin-top: 0;
+}
+
+h1 {
+  border-bottom: 3px solid black;
+  padding-bottom: 5px;
+}
+h2 {
+  border-bottom: 2px dotted black;
+  padding-bottom: 3px;
+}
+h3 {
+  border-bottom: 1px dotted gray;
+  padding-bottom: 2px;
+}
+a {
+  color: darkblue;
+}
+
+dt {
+  font-weight: bold;
+  margin-top: 8px;
+}
+
+blockquote {
+  border-left: 4px solid #ddd;
+  color: #777;
+  padding: 3px 15px;
+  margin: 0 15px;
+}
+pre {
+  background-color: rgba(0, 0, 0, 0.04);
+  border-radius: 10px;
+  border: 1px solid #a4a4a4;
+  font-size: 85%;
+  margin: 20px;
+  padding: 10px;
+}
+code, tt {
+  background-color: rgba(0, 0, 0, 0.04);
+  border-radius: 4px;
+  font-size: 85%;
+  margin: 0;
+  padding: 0.2em 0;
+}
+pre code, pre tt {
+  background: none;
+}
+pre code.language::before {
+    color: #505050;
+    font-weight: bold;
+    display: block;
+    background: rgba(225, 135, 40, 0.38);
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    margin-bottom: 5px;
+    margin: -10px -10px 5px -10px;
+    padding: 5px;
+}
+pre code.language.js::before { content: 'JavaScript Code'; }
+pre code.language.coffee::before { content: 'CoffeeScript Code'; }
+pre code.language-bash::before { content: 'Bash Code'; }
+
+div.detail, div.info, div.warning, div.alert {
+  padding: 30px 10px 6px 10px;
+  margin: 5px 0;
+}
+div.info::before, div.warning::before, div.alert::before {
+  font-weight: bold;
+  position: absolute;
+  margin-top: -30px;
+  margin-left: -10px;
+  padding: 3px 20px 3px 10px;
+  border-bottom-right-radius: 18px;
+}
+div.detail {
+  background-color: #fafafa;
+  border: 2px solid #ddd;
+  padding-top: 10px;
+}
+div.info {
+  background-color: #ffff99;
+  border: 2px solid #eebd66;
+}
+div.info::before {
+  content: 'Info';
+  background-color: #eebb66;
+}
+div.warning {
+  background-color: #ffcc99;
+  border: 2px solid #ee8866;
+}
+div.warning::before {
+  content: 'Warning';
+  background-color: #ee8866;
+}
+div.alert {
+  background-color: #ff9999;
+  border: 2px solid #cc0000;
+}
+div.alert::before {
+  content: 'Attention';
+  background-color: #cc0000;
+  color: white;
+}
+
+*:first-child {
+  margin-top: 0 !important;
+}
+
+*:last-child {
+  margin-bottom: 0 !important;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  display: block;
+  width: 100%;
+  overflow: auto;
+  word-break: normal;
+  word-break: keep-all;
+}
+
+table th,
+table td {
+  padding: 6px 13px;
+  border: 1px solid #ddd;
+}
+table th {
+  background-color: rgba(0, 0, 0, 0.04);
+  font-weight: bold;
+  border-bottom: 3px solid #999;
+}
+table tr {
+  background-color: #fff;
+  border-top: 1px solid #ccc;
+}
+table tr:nth-child(2n) {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+img {
+  vertical-align: middle;
+}
+.emoji {
+  height: 1em;
+}
+abbr, acronym {
+  border-bottom: dotted 1px;
+}
+
+.table-of-contents::before {
+  content: "Contents";
+  font-weight: bold;
+  font-size: 120%;
+  display: block;
+  background: #ddd;
+  margin: -10px -10px 4px -25px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  padding: 3px 10px;
+}
+.table-of-contents {
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  float: right;
+  padding: 10px 10px 10px 25px;
+  background: #fafafa;
+  font-size: 90%;
+}
+.table-of-contents ul {
+  padding-left: 15px;
+}
+.table-of-contents a {
+  text-decoration: none;
+}
+
+/* Tomorrow Night Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+  color: #969896;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+  color: #cc6666;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+  color: #de935f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+  color: #f0c674;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+  color: #b5bd68;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+  color: #81a2be;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+  color: #b294bb;
+}
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  background: #1d1f21;
+  color: #c5c8c6;
+  padding: 0.5em;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}</style>
+  </head>
+  <body><ul class="table-of-contents">
+  <li>
+    <a href="#h2-heading">h2 Heading</a>
+    <ul>
+      <li>
+        <a href="#h3-heading">h3 Heading</a>
+        <ul>
+          <li>
+            <a href="#h4-heading">h4 Heading</a>
+            <ul>
+              <li>
+                <a href="#h5-heading">h5 Heading</a>
+                <ul>
+                  <li>
+                    <a href="#h6-heading">h6 Heading</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="#typographer">Typographer</a>
+      </li>
+      <li>
+        <a href="#inline-formatting">Inline Formatting</a>
+      </li>
+      <li>
+        <a href="#block-formatting">Block Formatting</a>
+      </li>
+      <li>
+        <a href="#lists">Lists</a>
+      </li>
+      <li>
+        <a href="#code">Code</a>
+      </li>
+      <li>
+        <a href="#special-boxes">Special Boxes</a>
+      </li>
+      <li>
+        <a href="#tables">Tables</a>
+      </li>
+      <li>
+        <a href="#links-images">Links / Images</a>
+      </li>
+      <li>
+        <a href="#emoticons">Emoticons</a>
+      </li>
+      <li>
+        <a href="#specialities">Specialities</a>
+      </li>
+    </ul>
+  </li>
+</ul>
+<h1 id="h1-heading">h1 Heading</h1>
+<h2 id="h2-heading">h2 Heading</h2>
+<h3 id="h3-heading">h3 Heading</h3>
+<h4 id="h4-heading">h4 Heading</h4>
+<h5 id="h5-heading">h5 Heading</h5>
+<h6 id="h6-heading">h6 Heading</h6>
+<hr />
+<h3 id="typographer">Typographer</h3>
+<p>Typographer auto conversion: © © ® ® ™ ™ § § ±</p>
+<h3 id="inline-formatting">Inline Formatting</h3>
+<p>Text may be <strong>bold</strong> <em>italic</em> <s>strikethrough</s></p>
+<p>19<sup>th</sup> or H<sub>2</sub>O</p>
+<p><mark>Marked Text</mark></p>
+<h3 id="block-formatting">Block Formatting</h3>
+<blockquote>
+<p>Blockquotes can also be nested…</p>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>…by using additional greater-than signs right next to each other.</p>
+</blockquote>
+</blockquote>
+<h3 id="lists">Lists</h3>
+<ul>
+<li>one</li>
+<li>two
+<ul>
+<li>and more</li>
+<li>subline</li>
+</ul>
+</li>
+<li>three</li>
+</ul>
+<ol>
+<li>one</li>
+<li>two
+<ol>
+<li>and more</li>
+<li>subline</li>
+</ol>
+</li>
+<li>three</li>
+</ol>
+<dl>
+<dt>HTML</dt>
+<dd>Markup language for the web</dd>
+<dt>CSS</dt>
+<dd>Styling language for web pages</dd>
+<dt>JavaScript</dt>
+<dd>Coding not only for web pages</dd>
+</dl>
+<h3 id="code">Code</h3>
+<pre><code>// Some comments
+line 1 of code
+line 2 of code
+line 3 of code
+</code></pre>
+<pre><code class="language js"><span class="hljs-keyword">var</span> foo = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">bar</span>) </span>{
+  <span class="hljs-keyword">return</span> bar++;
+};
+<span class="hljs-built_in">console</span>.log(foo(<span class="hljs-number">5</span>));
+</code></pre>
+<h3 id="special-boxes">Special Boxes</h3>
+<div class="detail">
+<p>Some more details here…</p>
+</div>
+<div class="info">
+<p>A short note.</p>
+</div>
+<div class="warning">
+<p>This is important!</p>
+</div>
+<div class="alert">
+<p>Something went wrong!</p>
+</div>
+<h3 id="tables">Tables</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:right">ID</th>
+<th style="text-align:left">German</th>
+<th style="text-align:left">English</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">1</td>
+<td style="text-align:left">eins</td>
+<td style="text-align:left">one</td>
+</tr>
+<tr>
+<td style="text-align:right">2</td>
+<td style="text-align:left">zwei</td>
+<td style="text-align:left">two</td>
+</tr>
+<tr>
+<td style="text-align:right">3</td>
+<td style="text-align:left">drei</td>
+<td style="text-align:left">three</td>
+</tr>
+<tr>
+<td style="text-align:right">12</td>
+<td style="text-align:left">zwölf</td>
+<td style="text-align:left">twelve</td>
+</tr>
+</tbody>
+</table>
+<h3 id="links-images">Links / Images</h3>
+<p><a href="http://google.com">google</a></p>
+<p>Autoconverted link to <a href="http://alinex.github.io">http://alinex.github.io</a></p>
+<p><img src="https://www.google.de/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png" alt="google" /></p>
+<h3 id="emoticons">Emoticons</h3>
+<p>Classic markup: <img class="emoji" draggable="false" alt="😉" src="https://twemoji.maxcdn.com/36x36/1f609.png"> :crush: <img class="emoji" draggable="false" alt="😢" src="https://twemoji.maxcdn.com/36x36/1f622.png"> :tear: <img class="emoji" draggable="false" alt="😆" src="https://twemoji.maxcdn.com/36x36/1f606.png"> <img class="emoji" draggable="false" alt="😋" src="https://twemoji.maxcdn.com/36x36/1f60b.png"></p>
+<p>Shortcuts (emoticons): <img class="emoji" draggable="false" alt="😃" src="https://twemoji.maxcdn.com/36x36/1f603.png"> <img class="emoji" draggable="false" alt="😦" src="https://twemoji.maxcdn.com/36x36/1f626.png"> <img class="emoji" draggable="false" alt="😎" src="https://twemoji.maxcdn.com/36x36/1f60e.png"> <img class="emoji" draggable="false" alt="😉" src="https://twemoji.maxcdn.com/36x36/1f609.png"></p>
+<h3 id="specialities">Specialities</h3>
+<p>This is a test<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup> to demonstrate footnotes.</p>
+<p>The <abbr title="Hyper Text Transfer Protocol">HTTP</abbr> protocol is used for transferring web content.</p>
+<p><div class="cb"><input type="checkbox" id="checkbox2" checked="true" /><label for="checkbox2">make new module</label></div>
+<div class="cb"><input type="checkbox" id="checkbox1" checked="true" /><label for="checkbox1">allow html transformation</label></div>
+<div class="cb"><input type="checkbox" id="checkbox0" /><label for="checkbox0">allow docx transformation</label></div></p>
+<hr class="footnotes-sep" />
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1"  class="footnote-item"><p>simple test only <a href="#fnref1" class="footnote-backref">↩</a></p>
+</li>
+</ol>
+</section>
+</body>
+</html></body></html>
