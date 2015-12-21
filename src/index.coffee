@@ -313,7 +313,7 @@ class Report
     for key in ['abbr', 'footnote']
       continue unless @parts[key].length
       text += "\n#{@parts[key].join '\n'}\n"
-    text.trim()
+    text
 
    # ### as simplified text
   toText: ->
