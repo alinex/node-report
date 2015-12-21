@@ -15,8 +15,8 @@ The key features are:
 - export as text or html
 - console formatting support
 
-See example output in [text](https://raw.githubusercontent.com/alinex/node-report/master/src/doc/test.txt)
-or [html](https://raw.githubusercontent.com/alinex/node-report/master/src/doc/test.html) format.
+See example output in [text](http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/doc/test.txt)
+or [html](http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/doc/test.html) format.
 
 > It is one of the modules of the [Alinex Universe](http://alinex.github.io/code.html)
 > following the code standards defined in the [General Docs](http://alinex.github.io/node-alinex).
