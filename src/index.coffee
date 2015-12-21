@@ -214,7 +214,7 @@ class Report
     text = ''
     for name, content of obj
       content = content.trim().split(/\n\n/).map (e) ->
-        ": #{string.wordwrap e, '\n', width ? @width}"
+        ": #{string.wordwrap e, width ? @width, '\n'}"
       .join '\n\n'
       text += "\n#{name}\n\n#{content}\n"
     text
