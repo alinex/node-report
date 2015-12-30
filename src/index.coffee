@@ -328,12 +328,30 @@ class Report
     text = @toText()
     text = text.replace /\*\*(.*?)\*\*/g, chalk.bold '$1'
     text = text.replace /__(.*?)__/g, chalk.bold '$1'
+    # replace table with ascii art table
+    text.replace /\n\n\|[\s\S]*?\|\n\n/, (table) ->
+      lines = table.trim().split /\n/
+      head = lines[0].split /\|/
+      # header
+      line = '┌'
+      line += string.repeat('─', col.length) + '┬' for col in head[1..head.length-2]
+      ascii = chalk.grey line[0..line.length-2] + '┐'
+      ascii += chalk.grey '\n│'
+      ascii += col + chalk.grey('│') for col in head[1..head.length-2]
+      line = '\n├'
+      line += string.repeat('─', col.length) + '┼' for col in head[1..head.length-2]
+      ascii += chalk.grey line[0..line.length-2] + '┤'
+      # lines
+      for l in lines[2..]
+        cols = l.split /\|/
+        ascii += chalk.grey '\n│'
+        ascii += col + chalk.grey('│') for col in cols[1..cols.length-2]
+      # footer
+      line = '\n└'
+      line += string.repeat('─', col.length) + '┴' for col in head[1..head.length-2]
+      ascii += chalk.grey line[0..line.length-2] + '┘'
+      "\n\n#{ascii}\n\n"
 
-#┌──────────┬────┬──────┬───────┬────────┬─────────┬────────┬─────────────┬──────────┐
-#│ App name │ id │ mode │ pid   │ status │ restart │ uptime │ memory      │ watching │
-#├──────────┼────┼──────┼───────┼────────┼─────────┼────────┼─────────────┼──────────┤
-#│ monitor  │ 1  │ fork │ 22402 │ online │ 1       │ 4s     │ 76.023 MB   │ disabled │
-#└──────────┴────┴──────┴───────┴────────┴─────────┴────────┴─────────────┴──────────┘
 
   # ### as html
   toHtml: (setup) ->
