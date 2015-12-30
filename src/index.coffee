@@ -329,6 +329,12 @@ class Report
     text = text.replace /\*\*(.*?)\*\*/g, chalk.bold '$1'
     text = text.replace /__(.*?)__/g, chalk.bold '$1'
 
+#┌──────────┬────┬──────┬───────┬────────┬─────────┬────────┬─────────────┬──────────┐
+#│ App name │ id │ mode │ pid   │ status │ restart │ uptime │ memory      │ watching │
+#├──────────┼────┼──────┼───────┼────────┼─────────┼────────┼─────────────┼──────────┤
+#│ monitor  │ 1  │ fork │ 22402 │ online │ 1       │ 4s     │ 76.023 MB   │ disabled │
+#└──────────┴────┴──────┴───────┴────────┴─────────┴────────┴─────────────┴──────────┘
+
   # ### as html
   toHtml: (setup) ->
     # create html
