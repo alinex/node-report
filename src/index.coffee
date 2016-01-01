@@ -345,6 +345,14 @@ class Report
       '™': /\(tm\)/gi
       '§': /\(p\)/gi
       '±': /\+-/g
+      '😉': /:wink:/g
+      '😢': /:cry:/g
+      '😆': /:laughing:/g
+      '😋': /:yum:/g
+      '😃': /:-\)/g
+      '😦': /:-\(/g
+      '😎': /8-\)/g
+      '😉': /;\)/g
     for sign, re of replace
       text = text.replace re, sign
     # marked text
