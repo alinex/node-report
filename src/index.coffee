@@ -347,6 +347,13 @@ class Report
       '±': /\+-/g
     for sign, re of replace
       text = text.replace re, sign
+    # marked text
+    text = text.replace /==([\S\s]*?)==/g, (all, marked) ->
+      chalk.yellow.inverse marked
+    text = text.replace /~~([\S\s]*?)~~/g, (all, marked) ->
+      chalk.strikethrough marked
+    text = text.replace /_([\S\s]*?)_/g, (all, marked) ->
+      chalk.italic marked
     # replace code
     text = text.replace /\n\n``` ([^\n])\s*\n([\s\S]*?)```/g, (all, lang, code) =>
       "\n\n#{chalk.yellow lang}\n#{block code, '    ', '    ', @width, true}"
