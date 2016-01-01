@@ -335,6 +335,21 @@ class Report
       "#{start}#{chalk.bold text}\n#{line.replace /-/g, '─'}\n"
     text = text.replace /(^|\n\n)###+ ([^\n]+)(?=\n\n)/g, (heading, start, text) ->
       "#{start}#{chalk.bold.underline text}"
+    # hr
+    text = text.replace /\n\n---+\n/g, =>
+      "\n\n#{string.repeat '─', @width}\n"
+    # typographic
+    replace =
+      '©': /\(c\)/gi
+      '®': /\(r\)/gi
+      '™': /\(tm\)/gi
+      '§': /\(p\)/gi
+      '±': /\+-/g
+    for sign, re of replace
+      text = text.replace re, sign
+    # replace code
+    text = text.replace /\n\n``` ([^\n])\s*\n([\s\S]*?)```/g, (all, lang, code) =>
+      "\n\n#{chalk.yellow lang}\n#{block code, '    ', '    ', @width, true}"
     # replace table with ascii art table
     text.replace /\n\n\|[\s\S]*?\|\n\n/g, (table) ->
       lines = table.trim().split /\n/
