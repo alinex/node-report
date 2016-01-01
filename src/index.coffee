@@ -353,6 +353,8 @@ class Report
       '😦': /:-\(/g
       '😎': /8-\)/g
       '😉': /;\)/g
+      '\n☑': /\n\[x\]/g
+      '\n☐': /\n\[ \]/g
     for sign, re of replace
       text = text.replace re, sign
     # marked text

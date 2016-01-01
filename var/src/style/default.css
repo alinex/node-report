@@ -95,12 +95,12 @@ div.detail {
   padding-top: 10px;
 }
 div.info {
-  background-color: #ffff99;
-  border: 2px solid #eebd66;
+  background-color: #99ff99;
+  border: 2px solid #66ff66;
 }
 div.info::before {
   content: 'Info';
-  background-color: #eebb66;
+  background-color: #66ff66;
 }
 div.warning {
   background-color: #ffcc99;
