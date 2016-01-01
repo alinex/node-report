@@ -355,8 +355,25 @@ class Report
     text = text.replace /_([\S\s]*?)_/g, (all, marked) ->
       chalk.italic marked
     # replace code
-    text = text.replace /\n\n``` (\w+)\s*?\n([\s\S]*?)```/g, (all, lang, code) =>
+    text = text.replace /\n\n``` (\w+)\s*?\n([\s\S]*?)\n```\s*?\n/g, (all, lang, code) =>
       "\n\n#{chalk.yellow lang}:#{block code, '    ', '    ', @width, true}"
+    # boxes
+    text = text.replace /\n\n::: (\w+)\s*?\n([\s\S]*?)\n:::\s*?/g, (all, type, text) ->
+      # get max length
+      maxlen = 0
+      for line in text.split /\n/
+        maxlen = line.length if line.length > maxlen
+      maxlen += 2
+      color = {
+        detail: 'gray'
+        info: 'green'
+        warning: 'yellow'
+        alert: 'red'
+      }[type] ? 'gray'
+      """\n\n#{chalk[color] '╔' + string.repeat('═', maxlen) + '╗'}
+      #{chalk[color] '║'} #{text.replace(/\n/, chalk[color] ' ║\n║ ')} #{chalk[color] '║'}
+      #{chalk[color] '╚' + string.repeat('═', maxlen) + '╝'}"""
+
     # replace table with ascii art table
     text.replace /\n\n\|[\s\S]*?\|\n\n/g, (table) ->
       lines = table.trim().split /\n/
