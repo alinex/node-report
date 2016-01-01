@@ -184,6 +184,7 @@ describe "instance", ->
 
     it "should return html", ->
       @timeout 20000
+      console.log report.toConsole()
       fs = require 'fs'
       fd = fs.createWriteStream "#{__dirname}/../../src/doc/test.md"
       fd.write report.toString()

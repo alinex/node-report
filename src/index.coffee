@@ -328,8 +328,15 @@ class Report
     text = @toText()
     text = text.replace /\*\*(.*?)\*\*/g, chalk.bold '$1'
     text = text.replace /__(.*?)__/g, chalk.bold '$1'
+    # replace headings
+    text = text.replace /(^|\n\n)([^\n]+)\n(====+)\n/g, (heading, start, text, line) ->
+      "#{start}#{chalk.bold text}\n#{line.replace /=/g, '═'}\n"
+    text = text.replace /(^|\n\n)([^\n]+)\n(----+)\n/g, (heading, start, text, line) ->
+      "#{start}#{chalk.bold text}\n#{line.replace /-/g, '─'}\n"
+    text = text.replace /(^|\n\n)###+ ([^\n]+)(?=\n\n)/g, (heading, start, text) ->
+      "#{start}#{chalk.bold.underline text}"
     # replace table with ascii art table
-    text.replace /\n\n\|[\s\S]*?\|\n\n/, (table) ->
+    text.replace /\n\n\|[\s\S]*?\|\n\n/g, (table) ->
       lines = table.trim().split /\n/
       head = lines[0].split /\|/
       # header
