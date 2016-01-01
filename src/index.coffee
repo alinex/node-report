@@ -355,8 +355,8 @@ class Report
     text = text.replace /_([\S\s]*?)_/g, (all, marked) ->
       chalk.italic marked
     # replace code
-    text = text.replace /\n\n``` ([^\n])\s*\n([\s\S]*?)```/g, (all, lang, code) =>
-      "\n\n#{chalk.yellow lang}\n#{block code, '    ', '    ', @width, true}"
+    text = text.replace /\n\n``` (\w+)\s*?\n([\s\S]*?)```/g, (all, lang, code) =>
+      "\n\n#{chalk.yellow lang}:#{block code, '    ', '    ', @width, true}"
     # replace table with ascii art table
     text.replace /\n\n\|[\s\S]*?\|\n\n/g, (table) ->
       lines = table.trim().split /\n/
