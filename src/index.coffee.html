@@ -896,6 +896,217 @@
     <span class="nv">text = </span><span class="nx">text</span><span class="p">.</span><span class="nx">replace</span> <span class="sr">/\*\*(.*?)\*\*/g</span><span class="p">,</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="s">&#39;$1&#39;</span>
     <span class="nv">text = </span><span class="nx">text</span><span class="p">.</span><span class="nx">replace</span> <span class="sr">/__(.*?)__/g</span><span class="p">,</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="s">&#39;$1&#39;</span>
 
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-37" id="section-37">&#182;</a>
+</div>
+<p>replace headings</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nv">text = </span><span class="nx">text</span><span class="p">.</span><span class="nx">replace</span> <span class="sr">/(^|\n\n)([^\n]+)\n(====+)\n/g</span><span class="p">,</span> <span class="nf">(heading, start, text, line) -&gt;</span>
+      <span class="s">&quot;</span><span class="si">#{</span><span class="nx">start</span><span class="si">}#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="nx">text</span><span class="si">}</span><span class="s">\n</span><span class="si">#{</span><span class="nx">line</span><span class="p">.</span><span class="nx">replace</span> <span class="sr">/=/g</span><span class="p">,</span> <span class="s">&#39;═&#39;</span><span class="si">}</span><span class="s">\n&quot;</span>
+    <span class="nv">text = </span><span class="nx">text</span><span class="p">.</span><span class="nx">replace</span> <span class="sr">/(^|\n\n)([^\n]+)\n(----+)\n/g</span><span class="p">,</span> <span class="nf">(heading, start, text, line) -&gt;</span>
+      <span class="s">&quot;</span><span class="si">#{</span><span class="nx">start</span><span class="si">}#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="nx">text</span><span class="si">}</span><span class="s">\n</span><span class="si">#{</span><span class="nx">line</span><span class="p">.</span><span class="nx">replace</span> <span class="sr">/-/g</span><span class="p">,</span> <span class="s">&#39;─&#39;</span><span class="si">}</span><span class="s">\n&quot;</span>
+    <span class="nv">text = </span><span class="nx">text</span><span class="p">.</span><span class="nx">replace</span> <span class="sr">/(^|\n\n)###+ ([^\n]+)(?=\n\n)/g</span><span class="p">,</span> <span class="nf">(heading, start, text) -&gt;</span>
+      <span class="s">&quot;</span><span class="si">#{</span><span class="nx">start</span><span class="si">}#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span><span class="p">.</span><span class="nx">underline</span> <span class="nx">text</span><span class="si">}</span><span class="s">&quot;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-38" id="section-38">&#182;</a>
+</div>
+<p>hr</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nv">text = </span><span class="nx">text</span><span class="p">.</span><span class="nx">replace</span> <span class="sr">/\n\n---+\n/g</span><span class="p">,</span> <span class="o">=&gt;</span>
+      <span class="s">&quot;\n\n</span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">repeat</span> <span class="s">&#39;─&#39;</span><span class="p">,</span> <span class="nx">@width</span><span class="si">}</span><span class="s">\n&quot;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-39" id="section-39">&#182;</a>
+</div>
+<p>typographic</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nv">replace =</span>
+      <span class="s">&#39;©&#39;</span><span class="o">:</span> <span class="sr">/\(c\)/gi</span>
+      <span class="s">&#39;®&#39;</span><span class="o">:</span> <span class="sr">/\(r\)/gi</span>
+      <span class="s">&#39;™&#39;</span><span class="o">:</span> <span class="sr">/\(tm\)/gi</span>
+      <span class="s">&#39;§&#39;</span><span class="o">:</span> <span class="sr">/\(p\)/gi</span>
+      <span class="s">&#39;±&#39;</span><span class="o">:</span> <span class="sr">/\+-/g</span>
+      <span class="s">&#39;😉&#39;</span><span class="o">:</span> <span class="sr">/:wink:/g</span>
+      <span class="s">&#39;😢&#39;</span><span class="o">:</span> <span class="sr">/:cry:/g</span>
+      <span class="s">&#39;😆&#39;</span><span class="o">:</span> <span class="sr">/:laughing:/g</span>
+      <span class="s">&#39;😋&#39;</span><span class="o">:</span> <span class="sr">/:yum:/g</span>
+      <span class="s">&#39;😃&#39;</span><span class="o">:</span> <span class="sr">/:-\)/g</span>
+      <span class="s">&#39;😦&#39;</span><span class="o">:</span> <span class="sr">/:-\(/g</span>
+      <span class="s">&#39;😎&#39;</span><span class="o">:</span> <span class="sr">/8-\)/g</span>
+      <span class="s">&#39;😉&#39;</span><span class="o">:</span> <span class="sr">/;\)/g</span>
+      <span class="s">&#39;\n☑&#39;</span><span class="o">:</span> <span class="sr">/\n\[x\]/g</span>
+      <span class="s">&#39;\n☐&#39;</span><span class="o">:</span> <span class="sr">/\n\[ \]/g</span>
+    <span class="k">for</span> <span class="nx">sign</span><span class="p">,</span> <span class="nx">re</span> <span class="k">of</span> <span class="nx">replace</span>
+      <span class="nv">text = </span><span class="nx">text</span><span class="p">.</span><span class="nx">replace</span> <span class="nx">re</span><span class="p">,</span> <span class="nx">sign</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-40" id="section-40">&#182;</a>
+</div>
+<p>marked text</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nv">text = </span><span class="nx">text</span><span class="p">.</span><span class="nx">replace</span> <span class="sr">/==([\S\s]*?)==/g</span><span class="p">,</span> <span class="nf">(all, marked) -&gt;</span>
+      <span class="nx">chalk</span><span class="p">.</span><span class="nx">yellow</span><span class="p">.</span><span class="nx">inverse</span> <span class="nx">marked</span>
+    <span class="nv">text = </span><span class="nx">text</span><span class="p">.</span><span class="nx">replace</span> <span class="sr">/~~([\S\s]*?)~~/g</span><span class="p">,</span> <span class="nf">(all, marked) -&gt;</span>
+      <span class="nx">chalk</span><span class="p">.</span><span class="nx">strikethrough</span> <span class="nx">marked</span>
+    <span class="nv">text = </span><span class="nx">text</span><span class="p">.</span><span class="nx">replace</span> <span class="sr">/_([\S\s]*?)_/g</span><span class="p">,</span> <span class="nf">(all, marked) -&gt;</span>
+      <span class="nx">chalk</span><span class="p">.</span><span class="nx">italic</span> <span class="nx">marked</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-41" id="section-41">&#182;</a>
+</div>
+<p>replace code</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nv">text = </span><span class="nx">text</span><span class="p">.</span><span class="nx">replace</span> <span class="sr">/\n\n``` (\w+)\s*?\n([\s\S]*?)\n```\s*?\n/g</span><span class="p">,</span> <span class="nf">(all, lang, code) =&gt;</span>
+      <span class="s">&quot;\n\n</span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">yellow</span> <span class="nx">lang</span><span class="si">}</span><span class="s">:</span><span class="si">#{</span><span class="nx">block</span> <span class="nx">code</span><span class="p">,</span> <span class="s">&#39;    &#39;</span><span class="p">,</span> <span class="s">&#39;    &#39;</span><span class="p">,</span> <span class="nx">@width</span><span class="p">,</span> <span class="kc">true</span><span class="si">}</span><span class="s">&quot;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-42" id="section-42">&#182;</a>
+</div>
+<p>replace table with ascii art table</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nv">text = </span><span class="nx">text</span><span class="p">.</span><span class="nx">replace</span> <span class="sr">/\n\n\|[\s\S]*?\|\n\n/g</span><span class="p">,</span> <span class="nf">(table) -&gt;</span>
+      <span class="nv">lines = </span><span class="nx">table</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">split</span> <span class="sr">/\n/</span>
+      <span class="nv">head = </span><span class="nx">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">split</span> <span class="sr">/\|/</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-43" id="section-43">&#182;</a>
+</div>
+<p>header</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="nv">line = </span><span class="s">&#39;┌&#39;</span>
+      <span class="nx">line</span> <span class="o">+=</span> <span class="nx">string</span><span class="p">.</span><span class="nx">repeat</span><span class="p">(</span><span class="s">&#39;─&#39;</span><span class="p">,</span> <span class="nx">col</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;┬&#39;</span> <span class="k">for</span> <span class="nx">col</span> <span class="k">in</span> <span class="nx">head</span><span class="p">[</span><span class="mi">1</span><span class="p">..</span><span class="nx">head</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+      <span class="nv">ascii = </span><span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">line</span><span class="p">[</span><span class="mi">0</span><span class="p">..</span><span class="nx">line</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="s">&#39;┐&#39;</span>
+      <span class="nx">ascii</span> <span class="o">+=</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&#39;\n│&#39;</span>
+      <span class="nx">ascii</span> <span class="o">+=</span> <span class="nx">col</span> <span class="o">+</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span><span class="p">(</span><span class="s">&#39;│&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="nx">col</span> <span class="k">in</span> <span class="nx">head</span><span class="p">[</span><span class="mi">1</span><span class="p">..</span><span class="nx">head</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+      <span class="nv">line = </span><span class="s">&#39;\n├&#39;</span>
+      <span class="nx">line</span> <span class="o">+=</span> <span class="nx">string</span><span class="p">.</span><span class="nx">repeat</span><span class="p">(</span><span class="s">&#39;─&#39;</span><span class="p">,</span> <span class="nx">col</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;┼&#39;</span> <span class="k">for</span> <span class="nx">col</span> <span class="k">in</span> <span class="nx">head</span><span class="p">[</span><span class="mi">1</span><span class="p">..</span><span class="nx">head</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+      <span class="nx">ascii</span> <span class="o">+=</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">line</span><span class="p">[</span><span class="mi">0</span><span class="p">..</span><span class="nx">line</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="s">&#39;┤&#39;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-44" id="section-44">&#182;</a>
+</div>
+<p>lines</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="k">for</span> <span class="nx">l</span> <span class="k">in</span> <span class="nx">lines</span><span class="p">[</span><span class="mi">2</span><span class="p">..]</span>
+        <span class="nv">cols = </span><span class="nx">l</span><span class="p">.</span><span class="nx">split</span> <span class="sr">/\|/</span>
+        <span class="nx">ascii</span> <span class="o">+=</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&#39;\n│&#39;</span>
+        <span class="nx">ascii</span> <span class="o">+=</span> <span class="nx">col</span> <span class="o">+</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span><span class="p">(</span><span class="s">&#39;│&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="nx">col</span> <span class="k">in</span> <span class="nx">cols</span><span class="p">[</span><span class="mi">1</span><span class="p">..</span><span class="nx">cols</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-45" id="section-45">&#182;</a>
+</div>
+<p>footer</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="nv">line = </span><span class="s">&#39;\n└&#39;</span>
+      <span class="nx">line</span> <span class="o">+=</span> <span class="nx">string</span><span class="p">.</span><span class="nx">repeat</span><span class="p">(</span><span class="s">&#39;─&#39;</span><span class="p">,</span> <span class="nx">col</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;┴&#39;</span> <span class="k">for</span> <span class="nx">col</span> <span class="k">in</span> <span class="nx">head</span><span class="p">[</span><span class="mi">1</span><span class="p">..</span><span class="nx">head</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+      <span class="nx">ascii</span> <span class="o">+=</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">line</span><span class="p">[</span><span class="mi">0</span><span class="p">..</span><span class="nx">line</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="s">&#39;┘&#39;</span>
+      <span class="s">&quot;\n\n</span><span class="si">#{</span><span class="nx">ascii</span><span class="si">}</span><span class="s">\n\n&quot;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-46" id="section-46">&#182;</a>
+</div>
+<p>boxes</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nv">text = </span><span class="nx">text</span><span class="p">.</span><span class="nx">replace</span> <span class="sr">/\n\n::: (\w+)\s*?\n([\s\S]*?)\n:::\s*?/g</span><span class="p">,</span> <span class="nf">(all, type, text) -&gt;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-47" id="section-47">&#182;</a>
+</div>
+<p>get max length</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="nv">maxlen = </span><span class="mi">0</span>
+      <span class="k">for</span> <span class="nx">line</span> <span class="k">in</span> <span class="nx">text</span><span class="p">.</span><span class="nx">split</span> <span class="sr">/\n/</span>
+        <span class="nv">maxlen = </span><span class="nx">line</span><span class="p">.</span><span class="nx">length</span> <span class="k">if</span> <span class="nx">line</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="nx">maxlen</span>
+      <span class="nx">maxlen</span> <span class="o">+=</span> <span class="mi">2</span>
+      <span class="nv">color = </span><span class="p">{</span>
+        <span class="nv">detail: </span><span class="s">&#39;gray&#39;</span>
+        <span class="nv">info: </span><span class="s">&#39;green&#39;</span>
+        <span class="nv">warning: </span><span class="s">&#39;yellow&#39;</span>
+        <span class="nv">alert: </span><span class="s">&#39;red&#39;</span>
+      <span class="p">}[</span><span class="nx">type</span><span class="p">]</span> <span class="o">?</span> <span class="s">&#39;gray&#39;</span>
+      <span class="s">&quot;&quot;&quot;\n\n</span><span class="si">#{</span><span class="nx">chalk</span><span class="p">[</span><span class="nx">color</span><span class="p">]</span> <span class="s">&#39;╔&#39;</span> <span class="o">+</span> <span class="nx">string</span><span class="p">.</span><span class="nx">repeat</span><span class="p">(</span><span class="s">&#39;═&#39;</span><span class="p">,</span> <span class="nx">maxlen</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;╗&#39;</span><span class="si">}</span><span class="s"></span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-48" id="section-48">&#182;</a>
+</div>
+<p>{chalk[color] '║'} #{text.replace(/\n/, chalk[color] ' ║\n║ ')} #{chalk[color] '║'}
+{chalk[color] '╚' + string.repeat('═', maxlen) + '╝'}"""</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+
 
 </pre></div>
         </td>
@@ -911,7 +1122,7 @@
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">toHtml: </span><span class="nf">(setup) -&gt;</span>
+<span class="s">  toHtml: (setup) -&gt;</span>
 
 </pre></div>
         </td>
@@ -919,17 +1130,17 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-38" id="section-38">&#182;</a>
+  <a class="pilcrow" href="#section-50" id="section-50">&#182;</a>
 </div>
 <p>create html</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="nv">md = </span><span class="nx">@initHtml</span><span class="p">()</span>
-    <span class="nv">data = </span><span class="p">{}</span>
-    <span class="nv">content = </span><span class="nx">md</span><span class="p">.</span><span class="nx">render</span> <span class="nx">@toString</span><span class="p">(),</span> <span class="nx">data</span>
-    <span class="nv">content = </span><span class="nx">content</span><span class="p">.</span><span class="nx">replace</span> <span class="sr">/&lt;p&gt;\n(&lt;ul class=&quot;table-of-contents&quot;&gt;[\s\S]*?&lt;\/ul&gt;)\n&lt;\/p&gt;/g</span><span class="p">,</span> <span class="s">&#39;$1&#39;</span>
-    <span class="nv">title = </span><span class="nx">setup</span><span class="o">?</span><span class="p">.</span><span class="nx">title</span> <span class="o">?</span> <span class="nx">data</span><span class="p">.</span><span class="nx">title</span> <span class="o">?</span> <span class="s">&#39;Report&#39;</span>
-    <span class="nv">style = </span><span class="nx">setup</span><span class="o">?</span><span class="p">.</span><span class="nx">style</span> <span class="o">?</span> <span class="s">&#39;default&#39;</span>
+<span class="s">    md = @initHtml()</span>
+<span class="s">    data = {}</span>
+<span class="s">    content = md.render @toString(), data</span>
+<span class="s">    content = content.replace /&lt;p&gt;\n(&lt;ul class=&quot;table-of-contents&quot;&gt;[\s\S]*?&lt;\/ul&gt;)\n&lt;\/p&gt;/g, &#39;$1&#39;</span>
+<span class="s">    title = setup?.title ? data.title ? &#39;Report&#39;</span>
+<span class="s">    style = setup?.style ? &#39;default&#39;</span>
 
 </pre></div>
         </td>
@@ -937,20 +1148,20 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-39" id="section-39">&#182;</a>
+  <a class="pilcrow" href="#section-51" id="section-51">&#182;</a>
 </div>
 <p>get css</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="nv">css = </span><span class="k">switch</span>
-      <span class="k">when</span> <span class="nx">style</span> <span class="k">in</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span> <span class="nx">HTML_STYLES</span>
-        <span class="nv">css = </span><span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span> <span class="nx">HTML_STYLES</span><span class="p">[</span><span class="nx">style</span><span class="p">],</span> <span class="s">&#39;utf8&#39;</span>
-        <span class="s">&quot;&lt;style&gt;</span><span class="si">#{</span><span class="nx">css</span><span class="si">}</span><span class="s">&lt;/style&gt;&quot;</span>
-      <span class="k">when</span> <span class="nx">style</span><span class="p">.</span><span class="nx">match</span> <span class="sr">/^https?:\/\//</span>
-        <span class="s">&quot;&lt;link rel=\&quot;stylesheet\&quot; href=\&quot;</span><span class="si">#{</span><span class="nx">style</span><span class="si">}</span><span class="s">\&quot; /&gt;&quot;</span>
-      <span class="k">else</span>
-        <span class="nv">css = </span><span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span> <span class="nx">style</span><span class="p">,</span> <span class="s">&#39;utf8&#39;</span>
-        <span class="s">&quot;&lt;style&gt;</span><span class="si">#{</span><span class="nx">css</span><span class="si">}</span><span class="s">&lt;/style&gt;&quot;</span>
+<span class="s">    css = switch</span>
+<span class="s">      when style in Object.keys HTML_STYLES</span>
+<span class="s">        css = fs.readFileSync HTML_STYLES[style], &#39;utf8&#39;</span>
+<span class="s">        &quot;&lt;style&gt;</span><span class="si">#{</span><span class="nx">css</span><span class="si">}</span><span class="s">&lt;/style&gt;&quot;</span>
+<span class="s">      when style.match /^https?:\/\//</span>
+<span class="s">        &quot;&lt;link rel=\&quot;stylesheet\&quot; href=\&quot;</span><span class="si">#{</span><span class="nx">style</span><span class="si">}</span><span class="s">\&quot; /&gt;&quot;</span>
+<span class="s">      else</span>
+<span class="s">        css = fs.readFileSync style, &#39;utf8&#39;</span>
+<span class="s">        &quot;&lt;style&gt;</span><span class="si">#{</span><span class="nx">css</span><span class="si">}</span><span class="s">&lt;/style&gt;&quot;</span>
 
 </pre></div>
         </td>
@@ -958,19 +1169,21 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-40" id="section-40">&#182;</a>
+  <a class="pilcrow" href="#section-52" id="section-52">&#182;</a>
 </div>
 <p>return complete html</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="s">&quot;&quot;&quot;</span>
-<span class="s">    &lt;!DOCTYPE html&gt;</span>
-<span class="s">    &lt;html&gt;</span>
-<span class="s">      &lt;head&gt;</span>
-<span class="s">        &lt;title&gt;</span><span class="si">#{</span><span class="nx">title</span><span class="si">}</span><span class="s">&lt;/title&gt;</span>
-<span class="s">        &lt;meta charset=&quot;UTF-8&quot; /&gt;</span>
-<span class="s">        &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/highlight.js/\</span>
-<span class="s">        8.5.0/styles/solarized_light.min.css&quot; /&gt;</span>
+<span class="s">    &quot;&quot;&quot;</span>
+    <span class="o">&lt;!</span><span class="nx">DOCTYPE</span> <span class="nx">html</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">html</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">head</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">title</span><span class="o">&gt;</span><span class="c1">#{title}&lt;/title&gt;</span>
+        <span class="o">&lt;</span><span class="nx">meta</span> <span class="nx">charset</span><span class="o">=</span><span class="s">&quot;UTF-8&quot;</span> <span class="o">/&gt;</span>
+        <span class="o">&lt;</span><span class="nx">link</span> <span class="nx">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="nx">href</span><span class="o">=</span><span class="s">&quot;https://cdn.jsdelivr.net/highlight.js/\</span>
+<span class="s">        8.5.0/styles/solarized_light.min.css&quot;</span> <span class="o">/&gt;</span>
+        <span class="o">&lt;</span><span class="nx">link</span> <span class="nx">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="nx">href</span><span class="o">=</span><span class="s">&quot;https://maxcdn.bootstrapcdn.com/font-awesome/\</span>
+<span class="s">        4.5.0/css/font-awesome.min.css&quot;</span> <span class="o">/&gt;</span>
 
 </pre></div>
         </td>
@@ -978,17 +1191,17 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-41" id="section-41">&#182;</a>
+  <a class="pilcrow" href="#section-53" id="section-53">&#182;</a>
 </div>
 <p>{css}</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="s">      &lt;/head&gt;</span>
-<span class="s">      &lt;body&gt;</span><span class="si">#{</span><span class="nx">content</span><span class="si">}</span><span class="s">&lt;/body&gt;</span>
-<span class="s">    &lt;/html&gt;</span>
-<span class="s">    &quot;&quot;&quot;</span>
+      <span class="o">&lt;/</span><span class="nx">head</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">body</span><span class="o">&gt;</span><span class="c1">#{content}&lt;/body&gt;</span>
+    <span class="o">&lt;/</span><span class="nx">html</span><span class="o">&gt;</span>
+    <span class="s">&quot;&quot;&quot;</span>
 
-  <span class="nv">initHtml: </span><span class="nx">async</span><span class="p">.</span><span class="nx">once</span> <span class="nf">-&gt;</span>
+<span class="s">  initHtml: async.once -&gt;</span>
 
 </pre></div>
         </td>
@@ -996,43 +1209,40 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-42" id="section-42">&#182;</a>
+  <a class="pilcrow" href="#section-54" id="section-54">&#182;</a>
 </div>
 <p>setup markdown it</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="nv">hljs = </span><span class="nx">require</span> <span class="s">&#39;highlight.js&#39;</span>
-    <span class="nv">container = </span><span class="nx">require</span> <span class="s">&#39;markdown-it-container&#39;</span>
-    <span class="nv">md = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;markdown-it&#39;</span><span class="p">)</span>
-      <span class="nv">html: </span><span class="kc">true</span>
-      <span class="nv">linkify: </span><span class="kc">true</span>
-      <span class="nv">typographer: </span><span class="kc">true</span>
-      <span class="nv">xhtmlOut: </span><span class="kc">true</span>
-      <span class="nv">langPrefix: </span><span class="s">&#39;language &#39;</span>
-      <span class="nv">highlight: </span><span class="nf">(str, lang) -&gt;</span>
-        <span class="k">if</span> <span class="nx">lang</span> <span class="o">and</span> <span class="nx">hljs</span><span class="p">.</span><span class="nx">getLanguage</span> <span class="nx">lang</span>
-          <span class="k">try</span>
-            <span class="k">return</span> <span class="nx">hljs</span><span class="p">.</span><span class="nx">highlight</span><span class="p">(</span><span class="nx">lang</span><span class="p">,</span> <span class="nx">str</span><span class="p">).</span><span class="nx">value</span>
-        <span class="k">try</span>
-          <span class="k">return</span> <span class="nx">hljs</span><span class="p">.</span><span class="nx">highlightAuto</span><span class="p">(</span><span class="nx">str</span><span class="p">).</span><span class="nx">value</span>
-        <span class="k">return</span> <span class="s">&#39;&#39;</span> <span class="c1"># use external default escaping</span>
-    <span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">require</span> <span class="s">&#39;markdown-it-title&#39;</span><span class="p">)</span> <span class="c1">#extracting title from source (first heading)</span>
-    <span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">require</span> <span class="s">&#39;markdown-it-sub&#39;</span><span class="p">)</span> <span class="c1"># subscript support</span>
-    <span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">require</span> <span class="s">&#39;markdown-it-sup&#39;</span><span class="p">)</span> <span class="c1"># superscript support</span>
-    <span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">container</span><span class="p">,</span> <span class="s">&#39;detail&#39;</span><span class="p">)</span> <span class="c1"># special boxes</span>
-    <span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">container</span><span class="p">,</span> <span class="s">&#39;info&#39;</span><span class="p">)</span> <span class="c1"># special boxes</span>
-    <span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">container</span><span class="p">,</span> <span class="s">&#39;warning&#39;</span><span class="p">)</span> <span class="c1"># special boxes</span>
-    <span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">container</span><span class="p">,</span> <span class="s">&#39;alert&#39;</span><span class="p">)</span> <span class="c1"># special boxes</span>
-    <span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">require</span> <span class="s">&#39;markdown-it-mark&#39;</span><span class="p">)</span> <span class="c1"># add text as &quot;marked&quot;</span>
-    <span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">require</span> <span class="s">&#39;markdown-it-emoji&#39;</span><span class="p">)</span> <span class="c1"># add graphical emojis</span>
-    <span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">require</span> <span class="s">&#39;markdown-it-deflist&#39;</span><span class="p">)</span> <span class="c1"># definition lists</span>
-    <span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">require</span> <span class="s">&#39;markdown-it-abbr&#39;</span><span class="p">)</span> <span class="c1"># abbreviations (auto added)</span>
-    <span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">require</span> <span class="s">&#39;markdown-it-footnote&#39;</span><span class="p">)</span> <span class="c1"># footnotes (auto linked)</span>
-    <span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;markdown-it-checkbox&#39;</span><span class="p">),</span> <span class="p">{</span><span class="nv">divWrap: </span><span class="kc">true</span><span class="p">,</span> <span class="nv">divClass: </span><span class="s">&#39;cb&#39;</span><span class="p">})</span>
-    <span class="p">.</span><span class="nx">use</span> <span class="nx">require</span><span class="p">(</span><span class="s">&#39;markdown-it-toc-and-anchor&#39;</span><span class="p">),</span> <span class="c1"># possibility to add TOC</span>
-      <span class="nv">tocClassName: </span><span class="s">&#39;table-of-contents&#39;</span>
-      <span class="nv">tocFirstLevel: </span><span class="mi">2</span>
-      <span class="nv">anchorLink: </span><span class="kc">false</span>
+<span class="s">    hljs = require &#39;highlight.js&#39;</span>
+<span class="s">    container = require &#39;markdown-it-container&#39;</span>
+<span class="s">    md = require(&#39;markdown-it&#39;)</span>
+<span class="s">      html: true</span>
+<span class="s">      linkify: true</span>
+<span class="s">      typographer: true</span>
+<span class="s">      xhtmlOut: true</span>
+<span class="s">      langPrefix: &#39;language &#39;</span>
+<span class="s">      highlight: (str, lang) -&gt;</span>
+<span class="s">        if lang and hljs.getLanguage lang</span>
+<span class="s">          try</span>
+<span class="s">            return hljs.highlight(lang, str).value</span>
+<span class="s">        try</span>
+<span class="s">          return hljs.highlightAuto(str).value</span>
+<span class="s">        return &#39;&#39; </span><span class="err">#</span><span class="s"> use external default escaping</span>
+<span class="s">    .use(require &#39;markdown-it-title&#39;) </span><span class="err">#</span><span class="s">extracting title from source (first heading)</span>
+<span class="s">    .use(require &#39;markdown-it-sub&#39;) </span><span class="err">#</span><span class="s"> subscript support</span>
+<span class="s">    .use(require &#39;markdown-it-sup&#39;) </span><span class="err">#</span><span class="s"> superscript support</span>
+<span class="s">    .use(container, &#39;detail&#39;) </span><span class="err">#</span><span class="s"> special boxes</span>
+<span class="s">    .use(container, &#39;info&#39;) </span><span class="err">#</span><span class="s"> special boxes</span>
+<span class="s">    .use(container, &#39;warning&#39;) </span><span class="err">#</span><span class="s"> special boxes</span>
+<span class="s">    .use(container, &#39;alert&#39;) </span><span class="err">#</span><span class="s"> special boxes</span>
+<span class="s">    .use(require &#39;markdown-it-mark&#39;) </span><span class="err">#</span><span class="s"> add text as &quot;marked&quot;</span>
+<span class="s">    .use(require &#39;markdown-it-emoji&#39;) </span><span class="err">#</span><span class="s"> add graphical emojis</span>
+<span class="s">    .use(require &#39;markdown-it-fontawesome&#39;)</span>
+<span class="s">    .use(require &#39;markdown-it-deflist&#39;) </span><span class="err">#</span><span class="s"> definition lists</span>
+<span class="s">    .use(require &#39;markdown-it-abbr&#39;) </span><span class="err">#</span><span class="s"> abbreviations (auto added)</span>
+<span class="s">    .use(require &#39;markdown-it-footnote&#39;) </span><span class="err">#</span><span class="s"> footnotes (auto linked)</span>
+<span class="s">    .use(require(&#39;markdown-it-checkbox&#39;), {divWrap: true, divClass: &#39;cb&#39;})</span>
 
 </pre></div>
         </td>
@@ -1040,13 +1250,29 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-43" id="section-43">&#182;</a>
+  <a class="pilcrow" href="#section-55" id="section-55">&#182;</a>
+</div>
+<p>.use(require 'markdown-it-decorate') # add css classes</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="s">    .use require(&#39;markdown-it-toc-and-anchor&#39;), </span><span class="err">#</span><span class="s"> possibility to add TOC</span>
+<span class="s">      tocClassName: &#39;table-of-contents&#39;</span>
+<span class="s">      tocFirstLevel: 2</span>
+<span class="s">      anchorLink: false</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-56" id="section-56">&#182;</a>
 </div>
 <p>.use(require 'markdown-it-anchor') # adding heading anchors
    .use(require 'markdown-it-table-of-contents') # possibility to add TOC</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="nv">twemoji = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;twemoji&#39;</span><span class="p">)</span>
+<span class="s">    twemoji = require(&#39;twemoji&#39;)</span>
 
 </pre></div>
         </td>
@@ -1054,15 +1280,15 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-44" id="section-44">&#182;</a>
+  <a class="pilcrow" href="#section-57" id="section-57">&#182;</a>
 </div>
 <p>set base to allow also access from local page display</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="nv">twemoji.base = </span><span class="s">&#39;https://twemoji.maxcdn.com/&#39;</span>
-    <span class="nv">md.renderer.rules.emoji = </span><span class="nf">(token, idx) -&gt;</span>
-      <span class="nx">twemoji</span><span class="p">.</span><span class="nx">parse</span> <span class="nx">token</span><span class="p">[</span><span class="nx">idx</span><span class="p">].</span><span class="nx">content</span>
-    <span class="nx">md</span>
+<span class="s">    twemoji.base = &#39;https://twemoji.maxcdn.com/&#39;</span>
+<span class="s">    md.renderer.rules.emoji = (token, idx) -&gt;</span>
+<span class="s">      twemoji.parse token[idx].content</span>
+<span class="s">    md</span>
 
 
 </pre></div>
@@ -1079,7 +1305,7 @@
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">module.exports = </span><span class="nx">Report</span>
+<span class="s">module.exports = Report</span>
 </pre></div>
         </td>
       </tr>
