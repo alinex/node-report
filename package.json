@@ -1,6 +1,6 @@
 {
   "name": "alinex-report",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "Easy report generating using markdown.",
   "copyright": "Alexander Schilling 2015",
   "private": false,

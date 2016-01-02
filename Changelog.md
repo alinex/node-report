@@ -4,6 +4,23 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.1.0 (2016-01-02)
+-------------------------------------------------
+- Deactivated decorate module because it has syntax errors.
+- Add decorator support.
+- Add fontawesome icons support.
+- Make info box green in html output.
+- Also convert checkboxes using utf-8 in toConsole().
+- Replace emoticons in toConsole().
+- Support boxes in toConsole().
+- Transform code blocks in toConsole() to indented text.
+- Support strikethrough, italic and marked in toConsole().
+- Replace hr and typographic signs in toConsole().
+- Transform headings for console out.
+- Update copyright.
+- Replace tables with ascii art table in toConsole().
+- Added example ascii art table for console in comment.
+
 Version 1.0.2 (2015-12-21)
 -------------------------------------------------
 - Don't trim in toString().
