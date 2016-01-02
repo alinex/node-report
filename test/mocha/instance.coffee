@@ -171,6 +171,7 @@ describe "instance", ->
     report.h3 "Emoticons"
     report.p "Classic markup: :wink: :crush: :cry: :tear: :laughing: :yum:"
     report.p "Shortcuts (emoticons): :-) :-( 8-) ;)"
+    report.p "[Font Awesome](https://fortawesome.github.io/Font-Awesome/): :fa-flag:"
 
     report.h3 "Specialities"
     report.p "This is a test#{report.footnote 'simple test only'} to demonstrate footnotes."

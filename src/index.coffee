@@ -367,25 +367,8 @@ class Report
     # replace code
     text = text.replace /\n\n``` (\w+)\s*?\n([\s\S]*?)\n```\s*?\n/g, (all, lang, code) =>
       "\n\n#{chalk.yellow lang}:#{block code, '    ', '    ', @width, true}"
-    # boxes
-    text = text.replace /\n\n::: (\w+)\s*?\n([\s\S]*?)\n:::\s*?/g, (all, type, text) ->
-      # get max length
-      maxlen = 0
-      for line in text.split /\n/
-        maxlen = line.length if line.length > maxlen
-      maxlen += 2
-      color = {
-        detail: 'gray'
-        info: 'green'
-        warning: 'yellow'
-        alert: 'red'
-      }[type] ? 'gray'
-      """\n\n#{chalk[color] '╔' + string.repeat('═', maxlen) + '╗'}
-      #{chalk[color] '║'} #{text.replace(/\n/, chalk[color] ' ║\n║ ')} #{chalk[color] '║'}
-      #{chalk[color] '╚' + string.repeat('═', maxlen) + '╝'}"""
-
     # replace table with ascii art table
-    text.replace /\n\n\|[\s\S]*?\|\n\n/g, (table) ->
+    text = text.replace /\n\n\|[\s\S]*?\|\n\n/g, (table) ->
       lines = table.trim().split /\n/
       head = lines[0].split /\|/
       # header
@@ -407,6 +390,22 @@ class Report
       line += string.repeat('─', col.length) + '┴' for col in head[1..head.length-2]
       ascii += chalk.grey line[0..line.length-2] + '┘'
       "\n\n#{ascii}\n\n"
+    # boxes
+    text = text.replace /\n\n::: (\w+)\s*?\n([\s\S]*?)\n:::\s*?/g, (all, type, text) ->
+      # get max length
+      maxlen = 0
+      for line in text.split /\n/
+        maxlen = line.length if line.length > maxlen
+      maxlen += 2
+      color = {
+        detail: 'gray'
+        info: 'green'
+        warning: 'yellow'
+        alert: 'red'
+      }[type] ? 'gray'
+      """\n\n#{chalk[color] '╔' + string.repeat('═', maxlen) + '╗'}
+      #{chalk[color] '║'} #{text.replace(/\n/, chalk[color] ' ║\n║ ')} #{chalk[color] '║'}
+      #{chalk[color] '╚' + string.repeat('═', maxlen) + '╝'}"""
 
 
   # ### as html
@@ -437,6 +436,8 @@ class Report
         <meta charset="UTF-8" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/\
         8.5.0/styles/solarized_light.min.css" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/\
+        4.5.0/css/font-awesome.min.css" />
         #{css}
       </head>
       <body>#{content}</body>
@@ -469,6 +470,7 @@ class Report
     .use(container, 'alert') # special boxes
     .use(require 'markdown-it-mark') # add text as "marked"
     .use(require 'markdown-it-emoji') # add graphical emojis
+    .use(require 'markdown-it-fontawesome')
     .use(require 'markdown-it-deflist') # definition lists
     .use(require 'markdown-it-abbr') # abbreviations (auto added)
     .use(require 'markdown-it-footnote') # footnotes (auto linked)

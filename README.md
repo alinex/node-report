@@ -156,6 +156,15 @@ is text):
 report.code 'va x = Math.round(f);', 'js'
 ```
 
+### Special Signs
+
+You may also include some
+- classic typographs like: (c) (C) (r) (R) (tm) (TM) (p) (P) +-
+- emoji: :wink: :crush: :cry: :tear: :laughing: :yum:
+- emoji shortcuts: :-) :-( 8-) ;)
+- [Font Awesome](https://fortawesome.github.io/Font-Awesome/): :fa-flag:
+
+
 ### Separation
 
 - hr - add a horizontal rule as separation
@@ -200,6 +209,7 @@ report.p "This paragraoh is #{Report.p 'important'}. " + Report.i 'Alex'
 All this lists allow for alphanumeric sorting. Give `true` as second parameter or
 `false` for reverse sorting.
 
+
 ### Table
 
 Output a table (data object and optional column object needed). This can be called
@@ -219,6 +229,7 @@ The complexest format will be shown at first:
 All other formats will be converted into this filling missing information with
 default values.
 
+
 ### Special Elements
 
 - footnote - add a footnote text
@@ -227,7 +238,6 @@ default values.
 - toc - add a table of contents entry (visible only after rendering)
 
 
-https://github.com/nunof07/markdown-it-fontawesome
 https://www.npmjs.com/package/markdown-it-math
 https://www.npmjs.com/package/markdown-it-decorate
 https://github.com/Welfenlab/dot-processor

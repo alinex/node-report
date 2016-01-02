@@ -114,6 +114,8 @@ Classic markup: :wink: :crush: :cry: :tear: :laughing: :yum:
 
 Shortcuts (emoticons): :-) :-( 8-) ;)
 
+[Font Awesome](https://fortawesome.github.io/Font-Awesome/): :fa-flag fa-5x:
+
 ### Specialities
 
 This is a test[^1] to demonstrate footnotes.
