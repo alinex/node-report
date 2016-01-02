@@ -475,6 +475,7 @@ class Report
     .use(require 'markdown-it-abbr') # abbreviations (auto added)
     .use(require 'markdown-it-footnote') # footnotes (auto linked)
     .use(require('markdown-it-checkbox'), {divWrap: true, divClass: 'cb'})
+    .use(require 'markdown-it-decorate') # add css classes
     .use require('markdown-it-toc-and-anchor'), # possibility to add TOC
       tocClassName: 'table-of-contents'
       tocFirstLevel: 2

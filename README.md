@@ -238,9 +238,40 @@ default values.
 - toc - add a table of contents entry (visible only after rendering)
 
 
-https://www.npmjs.com/package/markdown-it-math
-https://www.npmjs.com/package/markdown-it-decorate
-https://github.com/Welfenlab/dot-processor
+### Specify element properties
+
+With this you can specify some special classes but only if they are supported in
+the stylesheet:
+
+``` html
+Text <!-- {.center} -->
+<p class='center'>Text</p>
+
+# Hola <!-- {.center.red} -->
+<h1 class='center red'>Hola</h1>
+
+# Hola <!-- {#top .hide} -->
+<h1 id='top' class='hide'>Hola</h1>
+
+# Hola <!-- {data-show="true"} -->
+<h1 data-show='true'>Hola</h1>
+
+![Image](img.jpg)<!-- {width=20} -->
+<img src='img.jpg' alt='Image' width='20'>
+
+> * [Continue](#continue)
+<!-- {a:.button} -->
+<!-- {li:.wide} -->
+<!-- {blockquote:.bordered} -->
+<blockquote class="bordered">
+  <ul>
+    <li class="wide">
+      <a href="#continue" class="button">Continue</a>
+    </li>
+  </ul>
+</blockquote>
+```
+
 
 License
 -------------------------------------------------
