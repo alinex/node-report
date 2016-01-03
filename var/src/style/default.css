@@ -192,6 +192,14 @@ abbr, acronym {
   text-decoration: none;
 }
 
+.center {
+  text-align: center;
+}
+.red {
+  color: red;
+}
+
+
 /* Tomorrow Night Theme */
 /* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
 /* Original theme - https://github.com/chriskempson/tomorrow-theme */

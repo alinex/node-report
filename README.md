@@ -102,7 +102,13 @@ Formatter Overview
 
 Settings to be done before using the reporter:
 
-- width - maximum character size per line in markdown style
+``` coffee
+# globally
+Report.width = 80
+# only for instance
+report = new Report()
+report.width = 80
+```
 
 This setting will define the maximum line length (default is 80 characters). All
 methods which use it have the ability to overwrite this default setting with an
@@ -111,7 +117,7 @@ individual number.
 You may also set the width on the instance instead of globally giving it as a
 parameter to the constructor. See the usage above.
 
-### headings
+### Headings
 
 - h1 - heading level 1
 - h2 - heading level 2
@@ -159,10 +165,11 @@ report.code 'va x = Math.round(f);', 'js'
 ### Special Signs
 
 You may also include some
-- classic typographs like: (c) (C) (r) (R) (tm) (TM) (p) (P) +-
-- emoji: :wink: :crush: :cry: :tear: :laughing: :yum:
-- emoji shortcuts: :-) :-( 8-) ;)
-- [Font Awesome](https://fortawesome.github.io/Font-Awesome/): :fa-flag:
+
+- classic typographs like: `(c) (C) (r) (R) (tm) (TM) (p) (P) +-`
+- emoji: `:wink: :crush: :cry: :tear: :laughing: :yum:`
+- emoji shortcuts: `:-) :-( 8-) ;)`
+- [Font Awesome](https://fortawesome.github.io/Font-Awesome/): `:fa-flag:`
 
 
 ### Separation
@@ -199,16 +206,39 @@ report.p "This paragraoh is #{Report.p 'important'}. " + Report.i 'Alex'
 - a - create a link
 - img - add an image
 
+``` coffee
+report = new Report()
+report.p Report.a 'google', 'http://google.com'
+report.p "Autoconverted link to http://alinex.github.io"
+report.p Report.img 'google', 'https://www.google.de/images/branding\
+/googlelogo/2x/googlelogo_color_272x92dp.png'
+```
 
 ### Lists
 
 - ul - unordered list from array
 - ol - ordered list from array
-- dl - definitiuon list from object
+- dl - definition list from object
 
 All this lists allow for alphanumeric sorting. Give `true` as second parameter or
 `false` for reverse sorting.
 
+``` coffee
+report = new Report()
+list = ['one', 'two', ['sub line', 'and more'], 'three']
+report.ul list
+report.ol list
+```
+
+And a definition list takes an object as argument:
+
+``` coffee
+report = new Report()
+report.dl
+  HTML: 'Markup language for the web'
+  CSS: 'Styling language for web pages'
+  JavaScript: 'Coding not only for web pages'
+```
 
 ### Table
 
@@ -233,44 +263,73 @@ default values.
 ### Special Elements
 
 - footnote - add a footnote text
+
+``` coffee
+report = new Report()
+report.p "This is a test#{report.footnote 'simple test only'} to demonstrate footnotes."
+```
+
 - abbr - add an abbreviation entry (before use in the text)
+
+``` coffee
+report = new Report()
+report.abbr 'HTTP', 'Hyper Text Transfer Protocol'
+report.p "The HTTP protocol is used for transferring web content."
+```
+
 - check - add a map of elements
+
+``` coffee
+report = new Report()
+report.check
+  'make new module': true
+  'allow html transformation': true
+  'allow docx transformation': false
+```
+
 - toc - add a table of contents entry (visible only after rendering)
 
+``` coffee
+report = new Report()
+report.toc()
+```
+
+### Boxes
+
+The following code makes a colored box around a markup text which may contain of
+any markup.
+
+``` coffee
+report = new Report()
+report.box "Some more details here...", 'detail'
+report.box "A short note.", 'info'
+report.box "This is important!", 'warning'
+report.box "Something went wrong!", 'alert'
+```
 
 ### Specify element properties
 
 With this you can specify some special classes but only if they are supported in
 the stylesheet:
 
-``` html
-Text <!-- {.center} -->
-<p class='center'>Text</p>
-
-# Hola <!-- {.center.red} -->
-<h1 class='center red'>Hola</h1>
-
-# Hola <!-- {#top .hide} -->
-<h1 id='top' class='hide'>Hola</h1>
-
-# Hola <!-- {data-show="true"} -->
-<h1 data-show='true'>Hola</h1>
-
-![Image](img.jpg)<!-- {width=20} -->
-<img src='img.jpg' alt='Image' width='20'>
-
-> * [Continue](#continue)
-<!-- {a:.button} -->
-<!-- {li:.wide} -->
-<!-- {blockquote:.bordered} -->
-<blockquote class="bordered">
-  <ul>
-    <li class="wide">
-      <a href="#continue" class="button">Continue</a>
-    </li>
-  </ul>
-</blockquote>
+``` coffee
+report = new Report()
+report.p "Make this centered (using class)..." + Report.style '.center'
+report.p "Make this centered and red (using classes)..." + Report.style '.center.red'
+report.p "Set an id and class..." + Report.style '#top .hide'
+report.p "Set an specific attriubute" + Report.img('google', 'https://www.google.de/images/branding\
+/googlelogo/2x/googlelogo_color_272x92dp.png') + Report.style 'width=20'
 ```
+
+This applies the given style to the innermost previous element. But you may also
+specify the type of element:
+
+``` coffee
+report = new Report()
+report.p "Make this #{Report.b 'bold'}..." + Report.style 'p:.center'
+```
+
+Here the class didn't go to the bold text but to the previous paragraph.
 
 
 License

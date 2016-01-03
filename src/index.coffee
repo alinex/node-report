@@ -241,6 +241,7 @@ class Report
   @table: table
   @abbr: (abbr, text) -> "\n*[#{abbr}]: #{text.trim()}"
   @toc: -> '\n@[toc]\n'
+  @style: (style) -> "<!-- {#{style}} -->"
 
 
   # Create instance
@@ -318,8 +319,12 @@ class Report
    # ### as simplified text
   toText: ->
     @toString().replace ///
-    (^|\n)      # start or after new line
-    @\[toc\]\n  # table of contents
+    (
+      (^|\n)          # start or after new line
+      @\[toc\]\n      # table of contents
+    |
+      <!--[\s\S]*?--> # decorator rules
+    )
     ///g, ''
     .trim()
 
@@ -480,8 +485,6 @@ class Report
       tocClassName: 'table-of-contents'
       tocFirstLevel: 2
       anchorLink: false
-#    .use(require 'markdown-it-anchor') # adding heading anchors
-#    .use(require 'markdown-it-table-of-contents') # possibility to add TOC
     twemoji = require('twemoji')
     # set base to allow also access from local page display
     twemoji.base = 'https://twemoji.maxcdn.com/'
