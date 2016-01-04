@@ -183,19 +183,20 @@ markdown) and for paragraph separation you may use horizontal lines:
 ``` coffee
 report.hr()
 report.p "This paragraph should have a #{Report.br()} line break visible also in html."
+# like: report.p "This paragraph should have a\\\nline break visible also in html."
 ```
 
 ### Inline Formats
 
 These are only available on static calls not on a report instance!
 
-- b - bold
-- i - italic
-- del - delete
-- sub - subscript
-- sup - superscript
-- tt - typewriter
-- mark - marked text like highlighted with an text marker
+- b - bold like `__bold__`
+- i - italic like `_italic_`
+- del - delete like `~~delete~~`
+- sub - subscript like `~subscript~`
+- sup - superscript like `^superscript^`
+- tt - typewriter like `\`typewriter\``
+- mark - marked text like highlighted with an text marker like `==marked==`
 
 ``` coffee
 report.p "This paragraoh is #{Report.p 'important'}. " + Report.i 'Alex'
