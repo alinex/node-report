@@ -119,7 +119,6 @@ describe "instance", ->
       CSS: 'Styling language for web pages'
       JavaScript: 'Coding not only for web pages'
 
-
     report.h3 "Code"
     report.code """
     // Some comments
@@ -177,7 +176,6 @@ describe "instance", ->
     report.p "This is a test#{report.footnote 'simple test only'} to demonstrate footnotes."
     report.abbr 'HTTP', 'Hyper Text Transfer Protocol'
     report.p "The HTTP protocol is used for transferring web content."
-
     report.check
       'make new module': true
       'allow html transformation': true
