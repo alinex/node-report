@@ -126,8 +126,8 @@ This is a test[^1] to demonstrate footnotes.
 *[HTTP]: Hyper Text Transfer Protocol
 The HTTP protocol is used for transferring web content.
 
-[x] make new module
-[x] allow html transformation
-[ ] allow docx transformation
+[x] make new module <!-- {.fg-4x} -->
+[x] allow html transformation <!-- {.fg-4x} -->
+[ ] allow docx transformation <!-- {.fg-4x} -->
 
 [^1]: simple test only

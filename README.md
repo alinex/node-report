@@ -331,6 +331,14 @@ report.p "Make this #{Report.b 'bold'}..." + Report.style 'p:.center'
 
 Here the class didn't go to the bold text but to the previous paragraph.
 
+The following classes may be used:
+
+|  STYLE  | RESULT         |
+|:-------:|:-------------- |
+| .bold   | make text bold |
+| .red    | make text red  |
+| .center | center text    |
+
 
 License
 -------------------------------------------------
