@@ -333,6 +333,7 @@ class Report
     text = @toText()
     text = text.replace /\*\*(.*?)\*\*/g, chalk.bold '$1'
     text = text.replace /__(.*?)__/g, chalk.bold '$1'
+    text = text.replace /`(.*?)`/g, chalk.dim.inverse '$1'
     # replace headings
     text = text.replace /(^|\n\n)([^\n]+)\n(====+)\n/g, (heading, start, text, line) ->
       "#{start}#{chalk.bold text}\n#{line.replace /=/g, '═'}\n"
@@ -400,7 +401,8 @@ class Report
       # get max length
       maxlen = 0
       for line in text.split /\n/
-        maxlen = line.length if line.length > maxlen
+        len = stripAnsi(line).length
+        maxlen = len if len > maxlen
       maxlen += 2
       color = {
         detail: 'gray'
@@ -492,6 +494,15 @@ class Report
       twemoji.parse token[idx].content
     md
 
+
 # Export class
 # -------------------------------------------------
 module.exports = Report
+
+
+# Helper methods
+# -------------------------------------------------
+
+# ### strip ansi color codes
+stripAnsi = (text) ->
+  text.replace  /[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g, ''
