@@ -45,7 +45,7 @@
         <a href="#formatter%20overview">Formatter Overview</a>
       </div>
       <div class="heading h3">
-        <a href="#headings">headings</a>
+        <a href="#headings">Headings</a>
       </div>
       <div class="heading h3">
         <a href="#paragraphs">Paragraphs</a>
@@ -70,6 +70,9 @@
       </div>
       <div class="heading h3">
         <a href="#special%20elements">Special Elements</a>
+      </div>
+      <div class="heading h3">
+        <a href="#boxes">Boxes</a>
       </div>
       <div class="heading h3">
         <a href="#specify%20element%20properties">Specify element properties</a>
@@ -225,9 +228,15 @@ on the fly:</p>
 
 <p>Settings to be done before using the reporter:</p>
 
-<ul>
-<li>width - maximum character size per line in markdown style</li>
-</ul>
+
+<div class="highlight"><pre><code><span class="c1"># globally</span>
+<span class="nv">Report.width = </span><span class="mi">80</span>
+<span class="c1"># only for instance</span>
+<span class="nv">report = </span><span class="k">new</span> <span class="nx">Report</span><span class="p">()</span>
+<span class="nv">report.width = </span><span class="mi">80</span>
+</code></pre></div>
+
+
 
 <p>This setting will define the maximum line length (default is 80 characters). All
 methods which use it have the ability to overwrite this default setting with an
@@ -240,7 +249,7 @@ parameter to the constructor. See the usage above.</p>
 <div class="pilwrap" id="headings">
   <h3>
     <a href="#headings" name="headings" class="pilcrow">&#182;</a>
-    headings
+    Headings
   </h3>
 </div>
 
@@ -316,11 +325,14 @@ is text):</p>
 </div>
 
 
-<p>You may also include some
-- classic typographs like: (c) (C) (r) (R) (tm) (TM) (p) (P) +-
-- emoji: :wink: :crush: :cry: :tear: :laughing: :yum:
-- emoji shortcuts: :-) :-( 8-) ;)
-- <a href="https://fortawesome.github.io/Font-Awesome/">Font Awesome</a>: :fa-flag:</p>
+<p>You may also include some</p>
+
+<ul>
+<li>classic typographs like: <code>(c) (C) (r) (R) (tm) (TM) (p) (P) +-</code></li>
+<li>emoji: <code>:wink: :crush: :cry: :tear: :laughing: :yum:</code></li>
+<li>emoji shortcuts: <code>:-) :-( 8-) ;)</code></li>
+<li><a href="https://fortawesome.github.io/Font-Awesome/">Font Awesome</a>: <code>:fa-flag:</code></li>
+</ul>
 
 
 <div class="pilwrap" id="separation">
@@ -388,6 +400,16 @@ markdown) and for paragraph separation you may use horizontal lines:</p>
 </ul>
 
 
+<div class="highlight"><pre><code><span class="nv">report = </span><span class="k">new</span> <span class="nx">Report</span><span class="p">()</span>
+<span class="nx">report</span><span class="p">.</span><span class="nx">p</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">a</span> <span class="s">&#39;google&#39;</span><span class="p">,</span> <span class="s">&#39;http://google.com&#39;</span>
+<span class="nx">report</span><span class="p">.</span><span class="nx">p</span> <span class="s">&quot;Autoconverted link to http://alinex.github.io&quot;</span>
+<span class="nx">report</span><span class="p">.</span><span class="nx">p</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">img</span> <span class="s">&#39;google&#39;</span><span class="p">,</span> <span class="s">&#39;https://www.google.de/images/branding\</span>
+<span class="s">/googlelogo/2x/googlelogo_color_272x92dp.png&#39;</span>
+</code></pre></div>
+
+
+
+
 <div class="pilwrap" id="lists">
   <h3>
     <a href="#lists" name="lists" class="pilcrow">&#182;</a>
@@ -399,11 +421,32 @@ markdown) and for paragraph separation you may use horizontal lines:</p>
 <ul>
 <li>ul - unordered list from array</li>
 <li>ol - ordered list from array</li>
-<li>dl - definitiuon list from object</li>
+<li>dl - definition list from object</li>
 </ul>
 
 <p>All this lists allow for alphanumeric sorting. Give <code>true</code> as second parameter or
 <code>false</code> for reverse sorting.</p>
+
+
+<div class="highlight"><pre><code><span class="nv">report = </span><span class="k">new</span> <span class="nx">Report</span><span class="p">()</span>
+<span class="nv">list = </span><span class="p">[</span><span class="s">&#39;one&#39;</span><span class="p">,</span> <span class="s">&#39;two&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s">&#39;sub line&#39;</span><span class="p">,</span> <span class="s">&#39;and more&#39;</span><span class="p">],</span> <span class="s">&#39;three&#39;</span><span class="p">]</span>
+<span class="nx">report</span><span class="p">.</span><span class="nx">ul</span> <span class="nx">list</span>
+<span class="nx">report</span><span class="p">.</span><span class="nx">ol</span> <span class="nx">list</span>
+</code></pre></div>
+
+
+
+<p>And a definition list takes an object as argument:</p>
+
+
+<div class="highlight"><pre><code><span class="nv">report = </span><span class="k">new</span> <span class="nx">Report</span><span class="p">()</span>
+<span class="nx">report</span><span class="p">.</span><span class="nx">dl</span>
+  <span class="nv">HTML: </span><span class="s">&#39;Markup language for the web&#39;</span>
+  <span class="nv">CSS: </span><span class="s">&#39;Styling language for web pages&#39;</span>
+  <span class="nv">JavaScript: </span><span class="s">&#39;Coding not only for web pages&#39;</span>
+</code></pre></div>
+
+
 
 
 <div class="pilwrap" id="table">
@@ -450,10 +493,73 @@ default values.</p>
 
 <ul>
 <li>footnote - add a footnote text</li>
+</ul>
+
+
+<div class="highlight"><pre><code><span class="nv">report = </span><span class="k">new</span> <span class="nx">Report</span><span class="p">()</span>
+<span class="nx">report</span><span class="p">.</span><span class="nx">p</span> <span class="s">&quot;This is a test</span><span class="si">#{</span><span class="nx">report</span><span class="p">.</span><span class="nx">footnote</span> <span class="s">&#39;simple test only&#39;</span><span class="si">}</span><span class="s"> to demonstrate footnotes.&quot;</span>
+</code></pre></div>
+
+
+
+<ul>
 <li>abbr - add an abbreviation entry (before use in the text)</li>
+</ul>
+
+
+<div class="highlight"><pre><code><span class="nv">report = </span><span class="k">new</span> <span class="nx">Report</span><span class="p">()</span>
+<span class="nx">report</span><span class="p">.</span><span class="nx">abbr</span> <span class="s">&#39;HTTP&#39;</span><span class="p">,</span> <span class="s">&#39;Hyper Text Transfer Protocol&#39;</span>
+<span class="nx">report</span><span class="p">.</span><span class="nx">p</span> <span class="s">&quot;The HTTP protocol is used for transferring web content.&quot;</span>
+</code></pre></div>
+
+
+
+<ul>
 <li>check - add a map of elements</li>
+</ul>
+
+
+<div class="highlight"><pre><code><span class="nv">report = </span><span class="k">new</span> <span class="nx">Report</span><span class="p">()</span>
+<span class="nx">report</span><span class="p">.</span><span class="nx">check</span>
+  <span class="s">&#39;make new module&#39;</span><span class="o">:</span> <span class="kc">true</span>
+  <span class="s">&#39;allow html transformation&#39;</span><span class="o">:</span> <span class="kc">true</span>
+  <span class="s">&#39;allow docx transformation&#39;</span><span class="o">:</span> <span class="kc">false</span>
+</code></pre></div>
+
+
+
+<ul>
 <li>toc - add a table of contents entry (visible only after rendering)</li>
 </ul>
+
+
+<div class="highlight"><pre><code><span class="nv">report = </span><span class="k">new</span> <span class="nx">Report</span><span class="p">()</span>
+<span class="nx">report</span><span class="p">.</span><span class="nx">toc</span><span class="p">()</span>
+</code></pre></div>
+
+
+
+
+<div class="pilwrap" id="boxes">
+  <h3>
+    <a href="#boxes" name="boxes" class="pilcrow">&#182;</a>
+    Boxes
+  </h3>
+</div>
+
+
+<p>The following code makes a colored box around a markup text which may contain of
+any markup.</p>
+
+
+<div class="highlight"><pre><code><span class="nv">report = </span><span class="k">new</span> <span class="nx">Report</span><span class="p">()</span>
+<span class="nx">report</span><span class="p">.</span><span class="nx">box</span> <span class="s">&quot;Some more details here...&quot;</span><span class="p">,</span> <span class="s">&#39;detail&#39;</span>
+<span class="nx">report</span><span class="p">.</span><span class="nx">box</span> <span class="s">&quot;A short note.&quot;</span><span class="p">,</span> <span class="s">&#39;info&#39;</span>
+<span class="nx">report</span><span class="p">.</span><span class="nx">box</span> <span class="s">&quot;This is important!&quot;</span><span class="p">,</span> <span class="s">&#39;warning&#39;</span>
+<span class="nx">report</span><span class="p">.</span><span class="nx">box</span> <span class="s">&quot;Something went wrong!&quot;</span><span class="p">,</span> <span class="s">&#39;alert&#39;</span>
+</code></pre></div>
+
+
 
 
 <div class="pilwrap" id="specify%20element%20properties">
@@ -468,35 +574,35 @@ default values.</p>
 the stylesheet:</p>
 
 
-<div class="highlight"><pre><code>Text <span class="c">&lt;!-- {.center} --&gt;</span>
-<span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">&#39;center&#39;</span><span class="nt">&gt;</span>Text<span class="nt">&lt;/p&gt;</span>
-
-# Hola <span class="c">&lt;!-- {.center.red} --&gt;</span>
-<span class="nt">&lt;h1</span> <span class="na">class=</span><span class="s">&#39;center red&#39;</span><span class="nt">&gt;</span>Hola<span class="nt">&lt;/h1&gt;</span>
-
-# Hola <span class="c">&lt;!-- {#top .hide} --&gt;</span>
-<span class="nt">&lt;h1</span> <span class="na">id=</span><span class="s">&#39;top&#39;</span> <span class="na">class=</span><span class="s">&#39;hide&#39;</span><span class="nt">&gt;</span>Hola<span class="nt">&lt;/h1&gt;</span>
-
-# Hola <span class="c">&lt;!-- {data-show=&quot;true&quot;} --&gt;</span>
-<span class="nt">&lt;h1</span> <span class="na">data-show=</span><span class="s">&#39;true&#39;</span><span class="nt">&gt;</span>Hola<span class="nt">&lt;/h1&gt;</span>
-
-![Image](img.jpg)<span class="c">&lt;!-- {width=20} --&gt;</span>
-<span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">&#39;img.jpg&#39;</span> <span class="na">alt=</span><span class="s">&#39;Image&#39;</span> <span class="na">width=</span><span class="s">&#39;20&#39;</span><span class="nt">&gt;</span>
-
-&gt; * [Continue](#continue)
-<span class="c">&lt;!-- {a:.button} --&gt;</span>
-<span class="c">&lt;!-- {li:.wide} --&gt;</span>
-<span class="c">&lt;!-- {blockquote:.bordered} --&gt;</span>
-<span class="nt">&lt;blockquote</span> <span class="na">class=</span><span class="s">&quot;bordered&quot;</span><span class="nt">&gt;</span>
-  <span class="nt">&lt;ul&gt;</span>
-    <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">&quot;wide&quot;</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;#continue&quot;</span> <span class="na">class=</span><span class="s">&quot;button&quot;</span><span class="nt">&gt;</span>Continue<span class="nt">&lt;/a&gt;</span>
-    <span class="nt">&lt;/li&gt;</span>
-  <span class="nt">&lt;/ul&gt;</span>
-<span class="nt">&lt;/blockquote&gt;</span>
+<div class="highlight"><pre><code><span class="nv">report = </span><span class="k">new</span> <span class="nx">Report</span><span class="p">()</span>
+<span class="nx">report</span><span class="p">.</span><span class="nx">p</span> <span class="s">&quot;Make this centered (using class)...&quot;</span> <span class="o">+</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">style</span> <span class="s">&#39;.center&#39;</span>
+<span class="nx">report</span><span class="p">.</span><span class="nx">p</span> <span class="s">&quot;Make this centered and red (using classes)...&quot;</span> <span class="o">+</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">style</span> <span class="s">&#39;.center.red&#39;</span>
+<span class="nx">report</span><span class="p">.</span><span class="nx">p</span> <span class="s">&quot;Set an id and class...&quot;</span> <span class="o">+</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">style</span> <span class="s">&#39;#top .hide&#39;</span>
+<span class="nx">report</span><span class="p">.</span><span class="nx">p</span> <span class="s">&quot;Set an specific attriubute&quot;</span> <span class="o">+</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">img</span><span class="p">(</span><span class="s">&#39;google&#39;</span><span class="p">,</span> <span class="s">&#39;https://www.google.de/images/branding\</span>
+<span class="s">/googlelogo/2x/googlelogo_color_272x92dp.png&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">style</span> <span class="s">&#39;width=20&#39;</span>
 </code></pre></div>
 
 
+
+<p>This applies the given style to the innermost previous element. But you may also
+specify the type of element:</p>
+
+
+<div class="highlight"><pre><code><span class="nv">report = </span><span class="k">new</span> <span class="nx">Report</span><span class="p">()</span>
+<span class="nx">report</span><span class="p">.</span><span class="nx">p</span> <span class="s">&quot;Make this </span><span class="si">#{</span><span class="nx">Report</span><span class="p">.</span><span class="nx">b</span> <span class="s">&#39;bold&#39;</span><span class="si">}</span><span class="s">...&quot;</span> <span class="o">+</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">style</span> <span class="s">&#39;p:.center&#39;</span>
+</code></pre></div>
+
+
+
+<p>Here the class didn't go to the bold text but to the previous paragraph.</p>
+
+<p>The following classes may be used:</p>
+
+<p style="font-family:monospace;white-space:pre">|  STYLE  | RESULT         |
+|:-------:|:-------------- |
+| .bold   | make text bold |
+| .red    | make text red  |
+| .center | center text    |</p>
 
 
 <div class="pilwrap" id="license">

@@ -646,6 +646,7 @@
   <span class="vi">@table: </span><span class="nx">table</span>
   <span class="vi">@abbr: </span><span class="nf">(abbr, text) -&gt;</span> <span class="s">&quot;\n*[</span><span class="si">#{</span><span class="nx">abbr</span><span class="si">}</span><span class="s">]: </span><span class="si">#{</span><span class="nx">text</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span><span class="si">}</span><span class="s">&quot;</span>
   <span class="vi">@toc: </span><span class="nf">-&gt;</span> <span class="s">&#39;\n@[toc]\n&#39;</span>
+  <span class="vi">@style: </span><span class="nf">(style) -&gt;</span> <span class="s">&quot;&lt;!-- {</span><span class="si">#{</span><span class="nx">style</span><span class="si">}</span><span class="s">} --&gt;&quot;</span>
 
 
 
@@ -871,8 +872,12 @@
         <td class="code highlight"><div class="highlight"><pre>
   <span class="nv">toText: </span><span class="nf">-&gt;</span>
     <span class="nx">@toString</span><span class="p">().</span><span class="nx">replace</span> <span class="sr">///</span>
-<span class="sr">    (^|\n)      # start or after new line</span>
-<span class="sr">    @\[toc\]\n  # table of contents</span>
+<span class="sr">    (</span>
+<span class="sr">      (^|\n)          # start or after new line</span>
+<span class="sr">      @\[toc\]\n      # table of contents</span>
+<span class="sr">    |</span>
+<span class="sr">      &lt;!--[\s\S]*?--&gt; # decorator rules</span>
+<span class="sr">    )</span>
 <span class="sr">    ///g</span><span class="p">,</span> <span class="s">&#39;&#39;</span>
     <span class="p">.</span><span class="nx">trim</span><span class="p">()</span>
 
@@ -1243,35 +1248,11 @@
 <span class="s">    .use(require &#39;markdown-it-abbr&#39;) </span><span class="err">#</span><span class="s"> abbreviations (auto added)</span>
 <span class="s">    .use(require &#39;markdown-it-footnote&#39;) </span><span class="err">#</span><span class="s"> footnotes (auto linked)</span>
 <span class="s">    .use(require(&#39;markdown-it-checkbox&#39;), {divWrap: true, divClass: &#39;cb&#39;})</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-55" id="section-55">&#182;</a>
-</div>
-<p>.use(require 'markdown-it-decorate') # add css classes</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
+<span class="s">    .use(require &#39;markdown-it-decorate&#39;) </span><span class="err">#</span><span class="s"> add css classes</span>
 <span class="s">    .use require(&#39;markdown-it-toc-and-anchor&#39;), </span><span class="err">#</span><span class="s"> possibility to add TOC</span>
 <span class="s">      tocClassName: &#39;table-of-contents&#39;</span>
 <span class="s">      tocFirstLevel: 2</span>
 <span class="s">      anchorLink: false</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-56" id="section-56">&#182;</a>
-</div>
-<p>.use(require 'markdown-it-anchor') # adding heading anchors
-   .use(require 'markdown-it-table-of-contents') # possibility to add TOC</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
 <span class="s">    twemoji = require(&#39;twemoji&#39;)</span>
 
 </pre></div>
@@ -1280,7 +1261,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-57" id="section-57">&#182;</a>
+  <a class="pilcrow" href="#section-55" id="section-55">&#182;</a>
 </div>
 <p>set base to allow also access from local page display</p>
         </td>
