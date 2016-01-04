@@ -4,6 +4,13 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.1.1 (2016-01-04)
+-------------------------------------------------
+- Updated test.
+- Updated documentation.
+- Added Report.style() method for decoration.
+- Reenable decorator after it is better backward compatible with es3.
+
 Version 1.1.0 (2016-01-02)
 -------------------------------------------------
 - Deactivated decorate module because it has syntax errors.
