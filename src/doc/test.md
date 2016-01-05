@@ -40,14 +40,16 @@ Text may be __bold__ _italic_ ~~strikethrough~~
 
 - one
 - two
-  - and more
-  - subline
+  - and two\
+    more
+- subline
 - three
 
 1. one
 2. two
-   1. and more
-   2. subline
+   1. and two\
+      more
+2. subline
 3. three
 
 HTML

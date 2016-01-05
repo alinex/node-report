@@ -22,7 +22,7 @@ HTML_STYLES =
 
 block = (text, start, indent, width, pre = false) ->
   indent = '\n' + indent
-  text = text.trim().replace /([^\\\s])[ \r\t]*\n[ \r\t]*(\S)/g, '$1 $2' unless pre
+  text = text.trim().replace /([^\\\s])[ \r\t]*\n[ \r\t]*(\S)/g, '$1\n$2' unless pre
   text = '\n' + start + text.replace(/\n/g, indent) + '\n'
   string.wordwrap text, width, indent, 2
 
@@ -201,7 +201,8 @@ class Report
       if Array.isArray text
         text = @ul text, width
         return '  ' + text.trim().replace '\n', '\n  '
-      block(text, '- ', '  ', width ? @width).trim()
+      text = block(text, '- ', '  ', width ? @width).trim()
+      text
     .join('\n') + '\n'
   @ol: (list, sort, width) ->
     if sort?
@@ -324,6 +325,8 @@ class Report
       @\[toc\]\n      # table of contents
     |
       <!--[\s\S]*?--> # decorator rules
+    |
+      \\(?=\n)        # backslash at end of line
     )
     ///g, ''
     .trim()

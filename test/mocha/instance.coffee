@@ -111,7 +111,7 @@ describe "instance", ->
     report.quote "...by using additional greater-than signs right next to each other.", 2
 
     report.h3 "Lists"
-    list = ['one', 'two', ['subline', 'and more'], 'three']
+    list = ['one', 'two', ['subline', 'and two\\\nmore'], 'three']
     report.ul list
     report.ol list
     report.dl
