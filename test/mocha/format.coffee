@@ -103,14 +103,16 @@ describe "format", ->
       - two
       - and this is a long text because i can't only write numbers down here to show
         the proper use of the lists also with long text lines
-      - last two lines\n"""
+      - last
+        two lines\n"""
     it "should make an ordered list", ->
       equal Report.ol(list), """
       \n1. one
       2. two
       3. and this is a long text because i can't only write numbers down here to show
          the proper use of the lists also with long text lines
-      4. last two lines\n"""
+      4. last
+         two lines\n"""
     it "should make an unordered sublist", ->
       equal Report.ul(sublist), """
       \n- one
