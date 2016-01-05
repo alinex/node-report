@@ -411,7 +411,7 @@ class Report
         alert: 'red'
       }[type] ? 'gray'
       text = text.split(/\n/).map (e) ->
-        "#{chalk[color] '║'} #{string.rpad e, maxlen-2} #{chalk[color] '║'}"
+        "#{chalk[color] '║'}#{e}#{string.repeat ' ', maxlen-stripAnsi(e).length}#{chalk[color] '║'}"
       """\n\n#{chalk[color] '╔' + string.repeat('═', maxlen) + '╗'}
       #{text.join '\n'}
       #{chalk[color] '╚' + string.repeat('═', maxlen) + '╝'}"""
