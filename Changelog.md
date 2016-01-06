@@ -4,6 +4,16 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.1.2 (2016-01-06)
+-------------------------------------------------
+- Optimized regex for emoji.
+- Fixed tests for new possibilities in lists.
+- Allow multiline entries in lists.
+- Fix length calculation for box in toConsole().
+- Fixed bug in multiline boxes.
+- Added direct markdown support for inline elements.
+- Format tt text for console and fixed length calculation in boxes for console out.
+
 Version 1.1.1 (2016-01-04)
 -------------------------------------------------
 - Updated test.
