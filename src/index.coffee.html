@@ -107,6 +107,12 @@
       <div class="heading h2">
         <a href="#export%20class">Export class</a>
       </div>
+      <div class="heading h2">
+        <a href="#helper%20methods">Helper methods</a>
+      </div>
+      <div class="heading h3">
+        <a href="#strip%20ansi%20color%20codes">strip ansi color codes</a>
+      </div>
     </div>
   </div>
   <div id="sidebar-toggle"></div>
@@ -181,7 +187,7 @@
 
 <span class="nv">block = </span><span class="nf">(text, start, indent, width, pre = false) -&gt;</span>
   <span class="nv">indent = </span><span class="s">&#39;\n&#39;</span> <span class="o">+</span> <span class="nx">indent</span>
-  <span class="nv">text = </span><span class="nx">text</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">replace</span> <span class="sr">/([^\\\s])[ \r\t]*\n[ \r\t]*(\S)/g</span><span class="p">,</span> <span class="s">&#39;$1 $2&#39;</span> <span class="k">unless</span> <span class="nx">pre</span>
+  <span class="nv">text = </span><span class="nx">text</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">replace</span> <span class="sr">/([^\\\s])[ \r\t]*\n[ \r\t]*(\S)/g</span><span class="p">,</span> <span class="s">&#39;$1\n$2&#39;</span> <span class="k">unless</span> <span class="nx">pre</span>
   <span class="nv">text = </span><span class="s">&#39;\n&#39;</span> <span class="o">+</span> <span class="nx">start</span> <span class="o">+</span> <span class="nx">text</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/\n/g</span><span class="p">,</span> <span class="nx">indent</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;\n&#39;</span>
   <span class="nx">string</span><span class="p">.</span><span class="nx">wordwrap</span> <span class="nx">text</span><span class="p">,</span> <span class="nx">width</span><span class="p">,</span> <span class="nx">indent</span><span class="p">,</span> <span class="mi">2</span>
 
@@ -592,7 +598,8 @@
       <span class="k">if</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span> <span class="nx">text</span>
         <span class="nv">text = </span><span class="nx">@ul</span> <span class="nx">text</span><span class="p">,</span> <span class="nx">width</span>
         <span class="k">return</span> <span class="s">&#39;  &#39;</span> <span class="o">+</span> <span class="nx">text</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">replace</span> <span class="s">&#39;\n&#39;</span><span class="p">,</span> <span class="s">&#39;\n  &#39;</span>
-      <span class="nx">block</span><span class="p">(</span><span class="nx">text</span><span class="p">,</span> <span class="s">&#39;- &#39;</span><span class="p">,</span> <span class="s">&#39;  &#39;</span><span class="p">,</span> <span class="nx">width</span> <span class="o">?</span> <span class="nx">@width</span><span class="p">).</span><span class="nx">trim</span><span class="p">()</span>
+      <span class="nv">text = </span><span class="nx">block</span><span class="p">(</span><span class="nx">text</span><span class="p">,</span> <span class="s">&#39;- &#39;</span><span class="p">,</span> <span class="s">&#39;  &#39;</span><span class="p">,</span> <span class="nx">width</span> <span class="o">?</span> <span class="nx">@width</span><span class="p">).</span><span class="nx">trim</span><span class="p">()</span>
+      <span class="nx">text</span>
     <span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s">&#39;\n&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;\n&#39;</span>
   <span class="vi">@ol: </span><span class="nf">(list, sort, width) -&gt;</span>
     <span class="k">if</span> <span class="nx">sort</span><span class="o">?</span>
@@ -877,6 +884,8 @@
 <span class="sr">      @\[toc\]\n      # table of contents</span>
 <span class="sr">    |</span>
 <span class="sr">      &lt;!--[\s\S]*?--&gt; # decorator rules</span>
+<span class="sr">    |</span>
+<span class="sr">      \\(?=\n)        # backslash at end of line</span>
 <span class="sr">    )</span>
 <span class="sr">    ///g</span><span class="p">,</span> <span class="s">&#39;&#39;</span>
     <span class="p">.</span><span class="nx">trim</span><span class="p">()</span>
@@ -900,6 +909,7 @@
     <span class="nv">text = </span><span class="nx">@toText</span><span class="p">()</span>
     <span class="nv">text = </span><span class="nx">text</span><span class="p">.</span><span class="nx">replace</span> <span class="sr">/\*\*(.*?)\*\*/g</span><span class="p">,</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="s">&#39;$1&#39;</span>
     <span class="nv">text = </span><span class="nx">text</span><span class="p">.</span><span class="nx">replace</span> <span class="sr">/__(.*?)__/g</span><span class="p">,</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="s">&#39;$1&#39;</span>
+    <span class="nv">text = </span><span class="nx">text</span><span class="p">.</span><span class="nx">replace</span> <span class="sr">/`(.*?)`/g</span><span class="p">,</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">dim</span><span class="p">.</span><span class="nx">inverse</span> <span class="s">&#39;$1&#39;</span>
 
 </pre></div>
         </td>
@@ -950,14 +960,12 @@
       <span class="s">&#39;™&#39;</span><span class="o">:</span> <span class="sr">/\(tm\)/gi</span>
       <span class="s">&#39;§&#39;</span><span class="o">:</span> <span class="sr">/\(p\)/gi</span>
       <span class="s">&#39;±&#39;</span><span class="o">:</span> <span class="sr">/\+-/g</span>
-      <span class="s">&#39;😉&#39;</span><span class="o">:</span> <span class="sr">/:wink:/g</span>
-      <span class="s">&#39;😢&#39;</span><span class="o">:</span> <span class="sr">/:cry:/g</span>
-      <span class="s">&#39;😆&#39;</span><span class="o">:</span> <span class="sr">/:laughing:/g</span>
       <span class="s">&#39;😋&#39;</span><span class="o">:</span> <span class="sr">/:yum:/g</span>
-      <span class="s">&#39;😃&#39;</span><span class="o">:</span> <span class="sr">/:-\)/g</span>
-      <span class="s">&#39;😦&#39;</span><span class="o">:</span> <span class="sr">/:-\(/g</span>
+      <span class="s">&#39;😉&#39;</span><span class="o">:</span> <span class="sr">/;\)|:wink:/g</span>
+      <span class="s">&#39;😃&#39;</span><span class="o">:</span> <span class="sr">/:-\)|:laughing:/g</span>
+      <span class="s">&#39;😢&#39;</span><span class="o">:</span> <span class="sr">/:-\(|:cry:/g</span>
+      <span class="s">&#39;😦&#39;</span><span class="o">:</span> <span class="sr">/:-O/g</span>
       <span class="s">&#39;😎&#39;</span><span class="o">:</span> <span class="sr">/8-\)/g</span>
-      <span class="s">&#39;😉&#39;</span><span class="o">:</span> <span class="sr">/;\)/g</span>
       <span class="s">&#39;\n☑&#39;</span><span class="o">:</span> <span class="sr">/\n\[x\]/g</span>
       <span class="s">&#39;\n☐&#39;</span><span class="o">:</span> <span class="sr">/\n\[ \]/g</span>
     <span class="k">for</span> <span class="nx">sign</span><span class="p">,</span> <span class="nx">re</span> <span class="k">of</span> <span class="nx">replace</span>
@@ -1088,7 +1096,8 @@
         <td class="code highlight"><div class="highlight"><pre>
       <span class="nv">maxlen = </span><span class="mi">0</span>
       <span class="k">for</span> <span class="nx">line</span> <span class="k">in</span> <span class="nx">text</span><span class="p">.</span><span class="nx">split</span> <span class="sr">/\n/</span>
-        <span class="nv">maxlen = </span><span class="nx">line</span><span class="p">.</span><span class="nx">length</span> <span class="k">if</span> <span class="nx">line</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="nx">maxlen</span>
+        <span class="nv">len = </span><span class="nx">stripAnsi</span><span class="p">(</span><span class="nx">line</span><span class="p">).</span><span class="nx">length</span>
+        <span class="nv">maxlen = </span><span class="nx">len</span> <span class="k">if</span> <span class="nx">len</span> <span class="o">&gt;</span> <span class="nx">maxlen</span>
       <span class="nx">maxlen</span> <span class="o">+=</span> <span class="mi">2</span>
       <span class="nv">color = </span><span class="p">{</span>
         <span class="nv">detail: </span><span class="s">&#39;gray&#39;</span>
@@ -1096,6 +1105,8 @@
         <span class="nv">warning: </span><span class="s">&#39;yellow&#39;</span>
         <span class="nv">alert: </span><span class="s">&#39;red&#39;</span>
       <span class="p">}[</span><span class="nx">type</span><span class="p">]</span> <span class="o">?</span> <span class="s">&#39;gray&#39;</span>
+      <span class="nv">text = </span><span class="nx">text</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="sr">/\n/</span><span class="p">).</span><span class="nx">map</span> <span class="nf">(e) -&gt;</span>
+        <span class="s">&quot;</span><span class="si">#{</span><span class="nx">chalk</span><span class="p">[</span><span class="nx">color</span><span class="p">]</span> <span class="s">&#39;║&#39;</span><span class="si">}#{</span><span class="nx">e</span><span class="si">}#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">repeat</span> <span class="s">&#39; &#39;</span><span class="p">,</span> <span class="nx">maxlen</span><span class="o">-</span><span class="nx">stripAnsi</span><span class="p">(</span><span class="nx">e</span><span class="p">).</span><span class="nx">length</span><span class="si">}#{</span><span class="nx">chalk</span><span class="p">[</span><span class="nx">color</span><span class="p">]</span> <span class="s">&#39;║&#39;</span><span class="si">}</span><span class="s">&quot;</span>
       <span class="s">&quot;&quot;&quot;\n\n</span><span class="si">#{</span><span class="nx">chalk</span><span class="p">[</span><span class="nx">color</span><span class="p">]</span> <span class="s">&#39;╔&#39;</span> <span class="o">+</span> <span class="nx">string</span><span class="p">.</span><span class="nx">repeat</span><span class="p">(</span><span class="s">&#39;═&#39;</span><span class="p">,</span> <span class="nx">maxlen</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;╗&#39;</span><span class="si">}</span><span class="s"></span>
 
 </pre></div>
@@ -1106,7 +1117,7 @@
 <div class="pilwrap">
   <a class="pilcrow" href="#section-48" id="section-48">&#182;</a>
 </div>
-<p>{chalk[color] '║'} #{text.replace(/\n/, chalk[color] ' ║\n║ ')} #{chalk[color] '║'}
+<p>{text.join '\n'}
 {chalk[color] '╚' + string.repeat('═', maxlen) + '╝'}"""</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
@@ -1272,6 +1283,7 @@
 <span class="s">    md</span>
 
 
+
 </pre></div>
         </td>
       </tr>
@@ -1287,6 +1299,41 @@
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="s">module.exports = Report</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="helper%20methods">
+  <h2>
+    <a href="#helper%20methods" name="helper%20methods" class="pilcrow">&#182;</a>
+    Helper methods
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="strip%20ansi%20color%20codes">
+  <h3>
+    <a href="#strip%20ansi%20color%20codes" name="strip%20ansi%20color%20codes" class="pilcrow">&#182;</a>
+    strip ansi color codes
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="s">stripAnsi = (text) -&gt;</span>
+<span class="s">  text.replace  /[\u001b\u009b][[()</span><span class="err">#</span><span class="s">;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=&gt;&lt;]/g, &#39;&#39;</span>
 </pre></div>
         </td>
       </tr>

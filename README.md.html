@@ -354,6 +354,7 @@ markdown) and for paragraph separation you may use horizontal lines:</p>
 
 <div class="highlight"><pre><code><span class="nx">report</span><span class="p">.</span><span class="nx">hr</span><span class="p">()</span>
 <span class="nx">report</span><span class="p">.</span><span class="nx">p</span> <span class="s">&quot;This paragraph should have a </span><span class="si">#{</span><span class="nx">Report</span><span class="p">.</span><span class="nx">br</span><span class="p">()</span><span class="si">}</span><span class="s"> line break visible also in html.&quot;</span>
+<span class="c1"># like: report.p &quot;This paragraph should have a\\\nline break visible also in html.&quot;</span>
 </code></pre></div>
 
 
@@ -370,13 +371,13 @@ markdown) and for paragraph separation you may use horizontal lines:</p>
 <p>These are only available on static calls not on a report instance!</p>
 
 <ul>
-<li>b - bold</li>
-<li>i - italic</li>
-<li>del - delete</li>
-<li>sub - subscript</li>
-<li>sup - superscript</li>
-<li>tt - typewriter</li>
-<li>mark - marked text like highlighted with an text marker</li>
+<li>b - bold like <code>__bold__</code></li>
+<li>i - italic like <code>_italic_</code></li>
+<li>del - delete like <code>~~delete~~</code></li>
+<li>sub - subscript like <code>~subscript~</code></li>
+<li>sup - superscript like <code>^superscript^</code></li>
+<li>tt - typewriter like <code>\</code>typewriter``</li>
+<li>mark - marked text like highlighted with an text marker like <code>==marked==</code></li>
 </ul>
 
 
