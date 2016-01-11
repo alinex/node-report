@@ -360,7 +360,7 @@ class Report
       '😢': /:-\(|:cry:/g
       '😦': /:-O/g
       '😎': /8-\)/g
-      '\n☑': /\n\[x\]/g
+      '\n✘': /\n\[x\]/g # alternatives: ☑
       '\n☐': /\n\[ \]/g
     for sign, re of replace
       text = text.replace re, sign
