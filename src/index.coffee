@@ -417,11 +417,10 @@ class Report
       #{text.join '\n'}
       #{chalk[color] '╚' + string.repeat('═', maxlen) + '╝'}"""
 
-
   # ### as html
   toHtml: (setup) ->
     # create html
-    md = @initHtml()
+    md = initHtml()
     data = {}
     content = md.render @toString(), data
     content = content.replace /<p>\n(<ul class="table-of-contents">[\s\S]*?<\/ul>)\n<\/p>/g, '$1'
@@ -454,49 +453,6 @@ class Report
     </html>
     """
 
-  initHtml: async.once ->
-    # setup markdown it
-    hljs = require 'highlight.js'
-    container = require 'markdown-it-container'
-    md = require('markdown-it')
-      html: true
-      linkify: true
-      typographer: true
-      xhtmlOut: true
-      langPrefix: 'language '
-      highlight: (str, lang) ->
-        if lang and hljs.getLanguage lang
-          try
-            return hljs.highlight(lang, str).value
-        try
-          return hljs.highlightAuto(str).value
-        return '' # use external default escaping
-    .use(require 'markdown-it-title') #extracting title from source (first heading)
-    .use(require 'markdown-it-sub') # subscript support
-    .use(require 'markdown-it-sup') # superscript support
-    .use(container, 'detail') # special boxes
-    .use(container, 'info') # special boxes
-    .use(container, 'warning') # special boxes
-    .use(container, 'alert') # special boxes
-    .use(require 'markdown-it-mark') # add text as "marked"
-    .use(require 'markdown-it-emoji') # add graphical emojis
-    .use(require 'markdown-it-fontawesome')
-    .use(require 'markdown-it-deflist') # definition lists
-    .use(require 'markdown-it-abbr') # abbreviations (auto added)
-    .use(require 'markdown-it-footnote') # footnotes (auto linked)
-    .use(require('markdown-it-checkbox'), {divWrap: true, divClass: 'cb'})
-    .use(require 'markdown-it-decorate') # add css classes
-    .use require('markdown-it-toc-and-anchor'), # possibility to add TOC
-      tocClassName: 'table-of-contents'
-      tocFirstLevel: 2
-      anchorLink: false
-    twemoji = require('twemoji')
-    # set base to allow also access from local page display
-    twemoji.base = 'https://twemoji.maxcdn.com/'
-    md.renderer.rules.emoji = (token, idx) ->
-      twemoji.parse token[idx].content
-    md
-
 
 # Export class
 # -------------------------------------------------
@@ -509,3 +465,49 @@ module.exports = Report
 # ### strip ansi color codes
 stripAnsi = (text) ->
   text.replace  /[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g, ''
+
+# ### initialize markdown to html converter
+md2html = null
+initHtml = -> #async.once ->
+  return md if md?
+  # setup markdown it
+  hljs = require 'highlight.js'
+  container = require 'markdown-it-container'
+  md2html = require('markdown-it')
+    html: true
+    linkify: true
+    typographer: true
+    xhtmlOut: true
+    langPrefix: 'language '
+    highlight: (str, lang) ->
+      if lang and hljs.getLanguage lang
+        try
+          return hljs.highlight(lang, str).value
+      try
+        return hljs.highlightAuto(str).value
+      return '' # use external default escaping
+  .use(require 'markdown-it-title') #extracting title from source (first heading)
+  .use(require 'markdown-it-sub') # subscript support
+  .use(require 'markdown-it-sup') # superscript support
+  .use(container, 'detail') # special boxes
+  .use(container, 'info') # special boxes
+  .use(container, 'warning') # special boxes
+  .use(container, 'alert') # special boxes
+  .use(require 'markdown-it-mark') # add text as "marked"
+  .use(require 'markdown-it-emoji') # add graphical emojis
+  .use(require 'markdown-it-fontawesome')
+  .use(require 'markdown-it-deflist') # definition lists
+  .use(require 'markdown-it-abbr') # abbreviations (auto added)
+  .use(require 'markdown-it-footnote') # footnotes (auto linked)
+  .use(require('markdown-it-checkbox'), {divWrap: true, divClass: 'cb'})
+  .use(require 'markdown-it-decorate') # add css classes
+  .use require('markdown-it-toc-and-anchor'), # possibility to add TOC
+    tocClassName: 'table-of-contents'
+    tocFirstLevel: 2
+    anchorLink: false
+  twemoji = require('twemoji')
+  # set base to allow also access from local page display
+  twemoji.base = 'https://twemoji.maxcdn.com/'
+  md2html.renderer.rules.emoji = (token, idx) ->
+    twemoji.parse token[idx].content
+  md2html

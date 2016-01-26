@@ -102,6 +102,6 @@ Version 0.1.0 (2015-12-04)
 - Added code support.
 - Enable lists and quoted paragraphs.
 - Made first methods runable.
-- Made inistial structure for class oriented design.
+- Made initial structure for class oriented design.
 - Initial commit
 
