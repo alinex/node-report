@@ -1,10 +1,9 @@
 chai = require 'chai'
 expect = chai.expect
-util = require 'util'
-debug = require('debug')('test:instance')
+### eslint-env node, mocha ###
 
+debug = require('debug')('test:instance')
 Report = require '../../src/index'
-{string} = require 'alinex-util'
 
 equal = (a, b) ->
   debug "result", a
@@ -165,7 +164,8 @@ describe "instance", ->
     report.h3 "Links / Images"
     report.p Report.a 'google', 'http://google.com'
     report.p "Autoconverted link to http://alinex.github.io"
-    report.p Report.img 'google', 'https://www.google.de/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png'
+    report.p Report.img 'google', 'https://www.google.de/images/branding/\
+      googlelogo/2x/googlelogo_color_272x92dp.png'
 
     report.h3 "Emoticons"
     report.p "Classic markup: :wink: :crush: :cry: :tear: :laughing: :yum:"
@@ -192,8 +192,8 @@ describe "instance", ->
       fd.write report.toText()
       fd.end()
       fd = fs.createWriteStream "#{__dirname}/../../src/doc/test.html" #, {encoding: 'utf8'}
-      fd.write """<html><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"></head><body>"""
+      fd.write "<html><head><meta http-equiv=\"Content-Type\"
+        content=\"text/html;charset=UTF-8\"></head><body>"
       fd.write report.toHtml()
       fd.write """</body></html>"""
       fd.end()
-

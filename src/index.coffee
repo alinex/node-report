@@ -5,13 +5,11 @@
 # Node Modules
 # -------------------------------------------------
 
-debug = require('debug')('report')
 chalk = require 'chalk'
 fs = require 'fs'
-path = require 'path'
+util = require 'util'
 # include more alinex modules
 {string} = require 'alinex-util'
-async = require 'alinex-async'
 
 
 HTML_STYLES =
@@ -148,10 +146,10 @@ class Report
   @h2: (text, width) ->
     """\n\n#{text}
     #{string.repeat '-', width ? @width}\n"""
-  @h3: (text, width) -> "\n### #{text}\n"
-  @h4: (text, width) -> "\n#### #{text}\n"
-  @h5: (text, width) -> "\n##### #{text}\n"
-  @h6: (text, width) -> "\n###### #{text}\n"
+  @h3: (text) -> "\n### #{text}\n"
+  @h4: (text) -> "\n#### #{text}\n"
+  @h5: (text) -> "\n##### #{text}\n"
+  @h6: (text) -> "\n###### #{text}\n"
 
   # ### inline
   @b: (text) -> "__#{text}__"
@@ -469,7 +467,7 @@ stripAnsi = (text) ->
 # ### initialize markdown to html converter
 md2html = null
 initHtml = -> #async.once ->
-  return md if md?
+  return md2html if md2html?
   # setup markdown it
   hljs = require 'highlight.js'
   container = require 'markdown-it-container'

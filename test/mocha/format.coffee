@@ -1,10 +1,9 @@
 chai = require 'chai'
 expect = chai.expect
-util = require 'util'
-debug = require('debug')('test:format')
+### eslint-env node, mocha ###
 
+debug = require('debug')('test:format')
 Report = require '../../src/index'
-{string} = require 'alinex-util'
 
 equal = (a, b) ->
   debug "result", a
@@ -48,7 +47,8 @@ describe "format", ->
     it "should make link text", ->
       equal Report.a("google", "http://google.de"), "[google](http://google.de)"
     it "should add an external image", ->
-      equal Report.img("google", "http://google.de/favicon.ico"), "![google](http://google.de/favicon.ico)"
+      equal Report.img("google", "http://google.de/favicon.ico"),
+        "![google](http://google.de/favicon.ico)"
     it "should make text subscript", ->
       equal Report.sub("2"), "~2~"
     it "should make text superscript", ->
@@ -79,7 +79,8 @@ describe "format", ->
     it "should make a code paragraph", ->
       equal Report.code("My code\ncomes here."), "\n    My code\n    comes here.\n"
     it "should make a language paragraph", ->
-      equal Report.code("My code\ncomes here.", 'coffee'), "\n``` coffee\nMy code\ncomes here.\n```\n"
+      equal Report.code("My code\ncomes here.", 'coffee'),
+        "\n``` coffee\nMy code\ncomes here.\n```\n"
 
     it "should make a special box", ->
       equal Report.box("This is important.", 'warning'), "\n::: warning\nThis is important.\n:::\n"
@@ -94,8 +95,8 @@ describe "format", ->
 
   describe "list", ->
 
-    list = ['one', 'two', "and this is a long text because i can't only write numbers down here to show
-    the proper use of the lists also with long text lines", 'last\ntwo lines']
+    list = ['one', 'two', "and this is a long text because i can't only write numbers
+    down here to show the proper use of the lists also with long text lines", 'last\ntwo lines']
     sublist = ['one', 'two', ['subline', 'and more'], 'three']
     it "should make an unordered list", ->
       equal Report.ul(list), """
