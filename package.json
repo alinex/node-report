@@ -44,18 +44,18 @@
     "markdown-it-decorate": "^1.2.0",
     "markdown-it-deflist": "^2.0.0",
     "markdown-it-emoji": "^1.1.0",
-    "markdown-it-fontawesome": "^0.1.0",
+    "markdown-it-fontawesome": "^0.2.0",
     "markdown-it-footnote": "^2.0.0",
     "markdown-it-mark": "^2.0.0",
     "markdown-it-sub": "^1.0.0",
     "markdown-it-sup": "^1.0.0",
     "markdown-it-title": "^1.0.4",
-    "markdown-it-toc-and-anchor": "^2.0.0",
+    "markdown-it-toc-and-anchor": "2.0.0",
     "twemoji": "^1.4.1"
   },
   "devDependencies": {
     "alinex-builder": "1.x",
-    "chai": "2.x"
+    "chai": "^3.4.1"
   },
   "optionalDependencies": {},
   "engines": {

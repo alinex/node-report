@@ -467,7 +467,7 @@ stripAnsi = (text) ->
 # ### initialize markdown to html converter
 md2html = null
 initHtml = -> #async.once ->
-  return md2html if md2html?
+  return md2html if md2html
   # setup markdown it
   hljs = require 'highlight.js'
   container = require 'markdown-it-container'
