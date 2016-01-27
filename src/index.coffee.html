@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "home/alex/a3/node-report/src/indexcoffee", defaultSidebar = true;
+    var relativeDir = "../", thisFile = "home/alex/github/node-report/src/indexcoffee", defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
   <script src="../fileSearch.js"></script>
@@ -113,6 +113,9 @@
       <div class="heading h3">
         <a href="#strip%20ansi%20color%20codes">strip ansi color codes</a>
       </div>
+      <div class="heading h3">
+        <a href="#initialize%20markdown%20to%20html%20converter">initialize markdown to html converter</a>
+      </div>
     </div>
   </div>
   <div id="sidebar-toggle"></div>
@@ -146,10 +149,9 @@
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 
-<span class="nv">debug = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;report&#39;</span><span class="p">)</span>
 <span class="nv">chalk = </span><span class="nx">require</span> <span class="s">&#39;chalk&#39;</span>
 <span class="nv">fs = </span><span class="nx">require</span> <span class="s">&#39;fs&#39;</span>
-<span class="nv">path = </span><span class="nx">require</span> <span class="s">&#39;path&#39;</span>
+<span class="nv">util = </span><span class="nx">require</span> <span class="s">&#39;util&#39;</span>
 
 </pre></div>
         </td>
@@ -163,7 +165,6 @@
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="p">{</span><span class="nx">string</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;alinex-util&#39;</span>
-<span class="nv">async = </span><span class="nx">require</span> <span class="s">&#39;alinex-async&#39;</span>
 
 
 <span class="nv">HTML_STYLES =</span>
@@ -488,10 +489,10 @@
 <p>{string.repeat '-', width ? @width}\n"""</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-  <span class="vi">@h3: </span><span class="nf">(text, width) -&gt;</span> <span class="s">&quot;\n</span><span class="err">###</span><span class="s"> </span><span class="si">#{</span><span class="nx">text</span><span class="si">}</span><span class="s">\n&quot;</span>
-  <span class="vi">@h4: </span><span class="nf">(text, width) -&gt;</span> <span class="s">&quot;\n</span><span class="err">####</span><span class="s"> </span><span class="si">#{</span><span class="nx">text</span><span class="si">}</span><span class="s">\n&quot;</span>
-  <span class="vi">@h5: </span><span class="nf">(text, width) -&gt;</span> <span class="s">&quot;\n</span><span class="err">#####</span><span class="s"> </span><span class="si">#{</span><span class="nx">text</span><span class="si">}</span><span class="s">\n&quot;</span>
-  <span class="vi">@h6: </span><span class="nf">(text, width) -&gt;</span> <span class="s">&quot;\n</span><span class="err">######</span><span class="s"> </span><span class="si">#{</span><span class="nx">text</span><span class="si">}</span><span class="s">\n&quot;</span>
+  <span class="vi">@h3: </span><span class="nf">(text) -&gt;</span> <span class="s">&quot;\n</span><span class="err">###</span><span class="s"> </span><span class="si">#{</span><span class="nx">text</span><span class="si">}</span><span class="s">\n&quot;</span>
+  <span class="vi">@h4: </span><span class="nf">(text) -&gt;</span> <span class="s">&quot;\n</span><span class="err">####</span><span class="s"> </span><span class="si">#{</span><span class="nx">text</span><span class="si">}</span><span class="s">\n&quot;</span>
+  <span class="vi">@h5: </span><span class="nf">(text) -&gt;</span> <span class="s">&quot;\n</span><span class="err">#####</span><span class="s"> </span><span class="si">#{</span><span class="nx">text</span><span class="si">}</span><span class="s">\n&quot;</span>
+  <span class="vi">@h6: </span><span class="nf">(text) -&gt;</span> <span class="s">&quot;\n</span><span class="err">######</span><span class="s"> </span><span class="si">#{</span><span class="nx">text</span><span class="si">}</span><span class="s">\n&quot;</span>
 
 
 </pre></div>
@@ -966,7 +967,7 @@
       <span class="s">&#39;😢&#39;</span><span class="o">:</span> <span class="sr">/:-\(|:cry:/g</span>
       <span class="s">&#39;😦&#39;</span><span class="o">:</span> <span class="sr">/:-O/g</span>
       <span class="s">&#39;😎&#39;</span><span class="o">:</span> <span class="sr">/8-\)/g</span>
-      <span class="s">&#39;\n☑&#39;</span><span class="o">:</span> <span class="sr">/\n\[x\]/g</span>
+      <span class="s">&#39;\n✘&#39;</span><span class="o">:</span> <span class="sr">/\n\[x\]/g</span> <span class="c1"># alternatives: ☑</span>
       <span class="s">&#39;\n☐&#39;</span><span class="o">:</span> <span class="sr">/\n\[ \]/g</span>
     <span class="k">for</span> <span class="nx">sign</span><span class="p">,</span> <span class="nx">re</span> <span class="k">of</span> <span class="nx">replace</span>
       <span class="nv">text = </span><span class="nx">text</span><span class="p">.</span><span class="nx">replace</span> <span class="nx">re</span><span class="p">,</span> <span class="nx">sign</span>
@@ -1123,7 +1124,6 @@
         <td class="code highlight"><div class="highlight"><pre>
 
 
-
 </pre></div>
         </td>
       </tr>
@@ -1151,7 +1151,7 @@
 <p>create html</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="s">    md = @initHtml()</span>
+<span class="s">    md = initHtml()</span>
 <span class="s">    data = {}</span>
 <span class="s">    content = md.render @toString(), data</span>
 <span class="s">    content = content.replace /&lt;p&gt;\n(&lt;ul class=&quot;table-of-contents&quot;&gt;[\s\S]*?&lt;\/ul&gt;)\n&lt;\/p&gt;/g, &#39;$1&#39;</span>
@@ -1217,71 +1217,6 @@
     <span class="o">&lt;/</span><span class="nx">html</span><span class="o">&gt;</span>
     <span class="s">&quot;&quot;&quot;</span>
 
-<span class="s">  initHtml: async.once -&gt;</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-54" id="section-54">&#182;</a>
-</div>
-<p>setup markdown it</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="s">    hljs = require &#39;highlight.js&#39;</span>
-<span class="s">    container = require &#39;markdown-it-container&#39;</span>
-<span class="s">    md = require(&#39;markdown-it&#39;)</span>
-<span class="s">      html: true</span>
-<span class="s">      linkify: true</span>
-<span class="s">      typographer: true</span>
-<span class="s">      xhtmlOut: true</span>
-<span class="s">      langPrefix: &#39;language &#39;</span>
-<span class="s">      highlight: (str, lang) -&gt;</span>
-<span class="s">        if lang and hljs.getLanguage lang</span>
-<span class="s">          try</span>
-<span class="s">            return hljs.highlight(lang, str).value</span>
-<span class="s">        try</span>
-<span class="s">          return hljs.highlightAuto(str).value</span>
-<span class="s">        return &#39;&#39; </span><span class="err">#</span><span class="s"> use external default escaping</span>
-<span class="s">    .use(require &#39;markdown-it-title&#39;) </span><span class="err">#</span><span class="s">extracting title from source (first heading)</span>
-<span class="s">    .use(require &#39;markdown-it-sub&#39;) </span><span class="err">#</span><span class="s"> subscript support</span>
-<span class="s">    .use(require &#39;markdown-it-sup&#39;) </span><span class="err">#</span><span class="s"> superscript support</span>
-<span class="s">    .use(container, &#39;detail&#39;) </span><span class="err">#</span><span class="s"> special boxes</span>
-<span class="s">    .use(container, &#39;info&#39;) </span><span class="err">#</span><span class="s"> special boxes</span>
-<span class="s">    .use(container, &#39;warning&#39;) </span><span class="err">#</span><span class="s"> special boxes</span>
-<span class="s">    .use(container, &#39;alert&#39;) </span><span class="err">#</span><span class="s"> special boxes</span>
-<span class="s">    .use(require &#39;markdown-it-mark&#39;) </span><span class="err">#</span><span class="s"> add text as &quot;marked&quot;</span>
-<span class="s">    .use(require &#39;markdown-it-emoji&#39;) </span><span class="err">#</span><span class="s"> add graphical emojis</span>
-<span class="s">    .use(require &#39;markdown-it-fontawesome&#39;)</span>
-<span class="s">    .use(require &#39;markdown-it-deflist&#39;) </span><span class="err">#</span><span class="s"> definition lists</span>
-<span class="s">    .use(require &#39;markdown-it-abbr&#39;) </span><span class="err">#</span><span class="s"> abbreviations (auto added)</span>
-<span class="s">    .use(require &#39;markdown-it-footnote&#39;) </span><span class="err">#</span><span class="s"> footnotes (auto linked)</span>
-<span class="s">    .use(require(&#39;markdown-it-checkbox&#39;), {divWrap: true, divClass: &#39;cb&#39;})</span>
-<span class="s">    .use(require &#39;markdown-it-decorate&#39;) </span><span class="err">#</span><span class="s"> add css classes</span>
-<span class="s">    .use require(&#39;markdown-it-toc-and-anchor&#39;), </span><span class="err">#</span><span class="s"> possibility to add TOC</span>
-<span class="s">      tocClassName: &#39;table-of-contents&#39;</span>
-<span class="s">      tocFirstLevel: 2</span>
-<span class="s">      anchorLink: false</span>
-<span class="s">    twemoji = require(&#39;twemoji&#39;)</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-55" id="section-55">&#182;</a>
-</div>
-<p>set base to allow also access from local page display</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="s">    twemoji.base = &#39;https://twemoji.maxcdn.com/&#39;</span>
-<span class="s">    md.renderer.rules.emoji = (token, idx) -&gt;</span>
-<span class="s">      twemoji.parse token[idx].content</span>
-<span class="s">    md</span>
-
 
 
 </pre></div>
@@ -1334,6 +1269,88 @@
         <td class="code highlight"><div class="highlight"><pre>
 <span class="s">stripAnsi = (text) -&gt;</span>
 <span class="s">  text.replace  /[\u001b\u009b][[()</span><span class="err">#</span><span class="s">;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=&gt;&lt;]/g, &#39;&#39;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="initialize%20markdown%20to%20html%20converter">
+  <h3>
+    <a href="#initialize%20markdown%20to%20html%20converter" name="initialize%20markdown%20to%20html%20converter" class="pilcrow">&#182;</a>
+    initialize markdown to html converter
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="s">md2html = null</span>
+<span class="s">initHtml = -&gt; </span><span class="err">#</span><span class="s">async.once -&gt;</span>
+<span class="s">  return md2html if md2html</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-58" id="section-58">&#182;</a>
+</div>
+<p>setup markdown it</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="s">  hljs = require &#39;highlight.js&#39;</span>
+<span class="s">  container = require &#39;markdown-it-container&#39;</span>
+<span class="s">  md2html = require(&#39;markdown-it&#39;)</span>
+<span class="s">    html: true</span>
+<span class="s">    linkify: true</span>
+<span class="s">    typographer: true</span>
+<span class="s">    xhtmlOut: true</span>
+<span class="s">    langPrefix: &#39;language &#39;</span>
+<span class="s">    highlight: (str, lang) -&gt;</span>
+<span class="s">      if lang and hljs.getLanguage lang</span>
+<span class="s">        try</span>
+<span class="s">          return hljs.highlight(lang, str).value</span>
+<span class="s">      try</span>
+<span class="s">        return hljs.highlightAuto(str).value</span>
+<span class="s">      return &#39;&#39; </span><span class="err">#</span><span class="s"> use external default escaping</span>
+<span class="s">  .use(require &#39;markdown-it-title&#39;) </span><span class="err">#</span><span class="s">extracting title from source (first heading)</span>
+<span class="s">  .use(require &#39;markdown-it-sub&#39;) </span><span class="err">#</span><span class="s"> subscript support</span>
+<span class="s">  .use(require &#39;markdown-it-sup&#39;) </span><span class="err">#</span><span class="s"> superscript support</span>
+<span class="s">  .use(container, &#39;detail&#39;) </span><span class="err">#</span><span class="s"> special boxes</span>
+<span class="s">  .use(container, &#39;info&#39;) </span><span class="err">#</span><span class="s"> special boxes</span>
+<span class="s">  .use(container, &#39;warning&#39;) </span><span class="err">#</span><span class="s"> special boxes</span>
+<span class="s">  .use(container, &#39;alert&#39;) </span><span class="err">#</span><span class="s"> special boxes</span>
+<span class="s">  .use(require &#39;markdown-it-mark&#39;) </span><span class="err">#</span><span class="s"> add text as &quot;marked&quot;</span>
+<span class="s">  .use(require &#39;markdown-it-emoji&#39;) </span><span class="err">#</span><span class="s"> add graphical emojis</span>
+<span class="s">  .use(require &#39;markdown-it-fontawesome&#39;)</span>
+<span class="s">  .use(require &#39;markdown-it-deflist&#39;) </span><span class="err">#</span><span class="s"> definition lists</span>
+<span class="s">  .use(require &#39;markdown-it-abbr&#39;) </span><span class="err">#</span><span class="s"> abbreviations (auto added)</span>
+<span class="s">  .use(require &#39;markdown-it-footnote&#39;) </span><span class="err">#</span><span class="s"> footnotes (auto linked)</span>
+<span class="s">  .use(require(&#39;markdown-it-checkbox&#39;), {divWrap: true, divClass: &#39;cb&#39;})</span>
+<span class="s">  .use(require &#39;markdown-it-decorate&#39;) </span><span class="err">#</span><span class="s"> add css classes</span>
+<span class="s">  .use require(&#39;markdown-it-toc-and-anchor&#39;), </span><span class="err">#</span><span class="s"> possibility to add TOC</span>
+<span class="s">    tocClassName: &#39;table-of-contents&#39;</span>
+<span class="s">    tocFirstLevel: 2</span>
+<span class="s">    anchorLink: false</span>
+<span class="s">  twemoji = require(&#39;twemoji&#39;)</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-59" id="section-59">&#182;</a>
+</div>
+<p>set base to allow also access from local page display</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="s">  twemoji.base = &#39;https://twemoji.maxcdn.com/&#39;</span>
+<span class="s">  md2html.renderer.rules.emoji = (token, idx) -&gt;</span>
+<span class="s">    twemoji.parse token[idx].content</span>
+<span class="s">  md2html</span>
 </pre></div>
         </td>
       </tr>
