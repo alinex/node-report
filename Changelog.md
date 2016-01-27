@@ -4,6 +4,13 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.1.3 (2016-01-27)
+-------------------------------------------------
+- Stick markdown-it-toc-and-anchor to version 2.0.0 because it breaks in version 2.1.0.
+- Remove unused variables from script.
+- Fixed html conversion to work on second run without reinitializing, too.
+- Make checked checkbox in toText() better visible.
+
 Version 1.1.2 (2016-01-06)
 -------------------------------------------------
 - Optimized regex for emoji.
