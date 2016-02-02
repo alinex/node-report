@@ -12,6 +12,7 @@ you may access the markdown text or get it converted to html.
 The key features are:
 
 - easy markdown writing
+- feature rich markdown
 - export as text or html
 - console formatting support
 
@@ -339,6 +340,62 @@ The following classes may be used:
 | .bold   | make text bold |
 | .red    | make text red  |
 | .center | center text    |
+
+
+Output
+-------------------------------------------------
+You have multiple possibilities to output the created markdown object.
+
+### Markdown
+
+Example: [markdown](https://raw.githubusercontent.com/alinex/node-report/master/src/doc/test.md)
+
+To get this native output you can directly convert the object to a string:
+
+``` coffee
+report.toString()
+```
+
+### Text Output
+
+Example: [text](https://raw.githubusercontent.com/alinex/node-report/master/src/doc/test.txt)
+
+``` coffee
+report.toText()
+```
+
+Here all non presentable elements are removed to get a clean plain text output.
+This means the table of contents, decorator rules and backslashes at the end of line
+are removed as well as image sources.
+
+### Console Output
+
+``` coffee
+report.toConsole()
+```
+
+This is targeted to output on the console. Therefore the plain text from above will
+be marked with ascii escape sequences to add color highlighting. All markup which
+is possible in console like bold, strikethrough, italic... will be used.
+
+Tables will be drawn using ASCII art grid lines.
+
+### HTML Document
+
+Example: [html](http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/doc/test.html)
+
+``` coffee
+report.toHtml()
+```
+
+This is the most powerful output method. In which all markdown elements will be
+supported and interpreted. It will create one HTML file to be used in emails...
+
+Only links to internet resources like images and css are kept as they are. local
+links in the format 'file:///....' will be replaced with their content included
+as data uri in the document. This makes the document larger but helps to keep
+everything in one file. In emails you may extract these again and replace them
+with cid uri to the now attached resource.
 
 
 License

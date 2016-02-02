@@ -51,6 +51,7 @@
     "markdown-it-sup": "^1.0.0",
     "markdown-it-title": "^1.0.4",
     "markdown-it-toc-and-anchor": "2.0.0",
+    "mime": "^1.3.4",
     "twemoji": "^1.4.1"
   },
   "devDependencies": {

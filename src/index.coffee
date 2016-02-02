@@ -8,6 +8,8 @@
 chalk = require 'chalk'
 fs = require 'fs'
 util = require 'util'
+path = require 'path'
+fs = require 'alinex-fs'
 # include more alinex modules
 {string} = require 'alinex-util'
 
@@ -317,7 +319,9 @@ class Report
 
    # ### as simplified text
   toText: ->
-    @toString().replace ///
+    text = @toString()
+    # remove some parts
+    text = text.replace ///
     (
       (^|\n)          # start or after new line
       @\[toc\]\n      # table of contents
@@ -328,6 +332,14 @@ class Report
     )
     ///g, ''
     .trim()
+    # replace images with descriptions
+    text = text.replace ///
+    !\[(.*?)\]       # image alt text
+    \(
+      ([^ ]*?)        # image source
+      (?: "(.*?)")?   # title text
+    \)
+    ///g, '[IMAGE $1]'
 
   # ### as colorful console text
   toConsole: ->
@@ -420,7 +432,26 @@ class Report
     # create html
     md = initHtml()
     data = {}
-    content = md.render @toString(), data
+    content = @toString()
+    # make local files inline
+    # replace local images with base64
+    content = content.replace ///
+      (                 # before:
+        !\[.*?\]        #   image alt text
+        \(              #   opening url
+      )file://(         # file:
+        [^ ]*?          #   image source
+      )(                # after:
+        (?: ".*?")?     #   title text
+        \)              #   closing url
+      )
+      ///, (_, b, f, a) ->
+      f = path.resolve __dirname, '../', f
+      data = new Buffer(fs.readFileSync f).toString 'base64'
+      mime = require 'mime'
+      "#{b}data:#{mime.lookup f};base64,#{data}#{a}"
+    # transform to html
+    content = md.render content, data
     content = content.replace /<p>\n(<ul class="table-of-contents">[\s\S]*?<\/ul>)\n<\/p>/g, '$1'
     title = setup?.title ? data.title ? 'Report'
     style = setup?.style ? 'default'
@@ -434,6 +465,7 @@ class Report
       else
         css = fs.readFileSync style, 'utf8'
         "<style>#{css}</style>"
+
     # return complete html
     """
     <!DOCTYPE html>
