@@ -32,12 +32,11 @@
     "lib": "./lib"
   },
   "dependencies": {
-    "alinex-async": "^0.2.5",
-    "alinex-util": "^0.3.10",
+    "alinex-util": "^0.3.14",
     "chalk": "^1.1.1",
     "debug": "^2.2.0",
     "highlight.js": "^9.0.0",
-    "markdown-it": "^5.0.2",
+    "markdown-it": "^5.1.0",
     "markdown-it-abbr": "^1.0.0",
     "markdown-it-checkbox": "^1.1.0",
     "markdown-it-container": "^2.0.0",
