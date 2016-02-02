@@ -13,7 +13,7 @@ equal = (a, b) ->
 #  console.log util.inspect b
   expect(a, 'result').to.equal b
 
-describe.only "image", ->
+describe "image", ->
 
   describe "inline", ->
 
