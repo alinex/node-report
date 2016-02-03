@@ -58,7 +58,8 @@ describe "image", ->
       report = new Report()
       report.p Report.img "google", "http://google.de/favicon.ico", 'Google Logo'
       body = report.toHtml().match(/<body>([\s\S]*?)<\/body>/)[1].trim()
-      equal body, '<p><img src="http://google.de/favicon.ico" alt="google" title="Google Logo" /></p>'
+      equal body, '<p><img src="http://google.de/favicon.ico" alt="google"
+      title="Google Logo" /></p>'
 
     it "should convert local image", ->
       report = new Report()
