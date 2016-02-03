@@ -2,7 +2,6 @@
 .settings
 .DS_Store
 *.sublime-*
-.travis.yml
 /coverage
 /data
 /doc
