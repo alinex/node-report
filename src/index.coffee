@@ -252,7 +252,7 @@ class Report
     @log = setup?.log
     # content elements
     @body = ''
-    @body = '\n\n' + @setup.source if @setup?.source
+    @body = '\n\n' + setup.source if setup?.source
     @parts =
       abbr: []
       footnote: []
