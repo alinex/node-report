@@ -4,6 +4,19 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.1.4 (2016-02-04)
+-------------------------------------------------
+- Fixed small bug in tests.
+- Load initial markup with starting newlines.
+- updated ignore files.
+- Fixed style of test cases.
+- Updated meta data of package and travis build versions.
+- Removed async package because no longer used.
+- Upgraded markdown anchor module.
+- Allow all tests to run.
+- Include local resources locally in html as data uri.
+- Updated copyright, travis and npmignore.
+
 Version 1.1.3 (2016-01-27)
 -------------------------------------------------
 - Stick markdown-it-toc-and-anchor to version 2.0.0 because it breaks in version 2.1.0.
