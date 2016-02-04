@@ -6,13 +6,9 @@
   <link rel="stylesheet" media="all" href="doc-style.css" />
   <script src="doc-filelist.js"></script>
   <script>
-    var relativeDir = "", thisFile = "home/alex/github/node-report/READMEmd", defaultSidebar = true;
+    var relativeDir = "", thisFile = "home/alex/github/node-report/README.md", defaultSidebar = true;
   </script>
   <script src="doc-script.js"></script>
-  <script src="fileSearch.js"></script>
-  <script src="goToLine.js"></script>
-  <link rel="stylesheet" href="fileSearch.css" />
-  <link rel="stylesheet" href="goToLine.css" />
 </head>
 <body>
   <nav>
@@ -78,6 +74,21 @@
         <a href="#specify%20element%20properties">Specify element properties</a>
       </div>
       <div class="heading h2">
+        <a href="#output">Output</a>
+      </div>
+      <div class="heading h3">
+        <a href="#markdown">Markdown</a>
+      </div>
+      <div class="heading h3">
+        <a href="#text%20output">Text Output</a>
+      </div>
+      <div class="heading h3">
+        <a href="#console%20output">Console Output</a>
+      </div>
+      <div class="heading h3">
+        <a href="#html%20document">HTML Document</a>
+      </div>
+      <div class="heading h2">
         <a href="#license">License</a>
       </div>
     </div>
@@ -104,6 +115,7 @@ you may access the markdown text or get it converted to html.</p>
 
 <ul>
 <li>easy markdown writing</li>
+<li>feature rich markdown</li>
 <li>export as text or html</li>
 <li>console formatting support</li>
 </ul>
@@ -604,6 +616,104 @@ specify the type of element:</p>
 | .bold   | make text bold |
 | .red    | make text red  |
 | .center | center text    |</p>
+
+
+<div class="pilwrap" id="output">
+  <h2>
+    <a href="#output" name="output" class="pilcrow">&#182;</a>
+    Output
+  </h2>
+</div>
+
+
+<p>You have multiple possibilities to output the created markdown object.</p>
+
+
+<div class="pilwrap" id="markdown">
+  <h3>
+    <a href="#markdown" name="markdown" class="pilcrow">&#182;</a>
+    Markdown
+  </h3>
+</div>
+
+
+<p>Example: <a href="https://raw.githubusercontent.com/alinex/node-report/master/src/doc/test.md">markdown</a></p>
+
+<p>To get this native output you can directly convert the object to a string:</p>
+
+
+<div class="highlight"><pre><code><span class="nx">report</span><span class="p">.</span><span class="nx">toString</span><span class="p">()</span>
+</code></pre></div>
+
+
+
+
+<div class="pilwrap" id="text%20output">
+  <h3>
+    <a href="#text%20output" name="text%20output" class="pilcrow">&#182;</a>
+    Text Output
+  </h3>
+</div>
+
+
+<p>Example: <a href="https://raw.githubusercontent.com/alinex/node-report/master/src/doc/test.txt">text</a></p>
+
+
+<div class="highlight"><pre><code><span class="nx">report</span><span class="p">.</span><span class="nx">toText</span><span class="p">()</span>
+</code></pre></div>
+
+
+
+<p>Here all non presentable elements are removed to get a clean plain text output.
+This means the table of contents, decorator rules and backslashes at the end of line
+are removed as well as image sources.</p>
+
+
+<div class="pilwrap" id="console%20output">
+  <h3>
+    <a href="#console%20output" name="console%20output" class="pilcrow">&#182;</a>
+    Console Output
+  </h3>
+</div>
+
+
+
+<div class="highlight"><pre><code><span class="nx">report</span><span class="p">.</span><span class="nx">toConsole</span><span class="p">()</span>
+</code></pre></div>
+
+
+
+<p>This is targeted to output on the console. Therefore the plain text from above will
+be marked with ascii escape sequences to add color highlighting. All markup which
+is possible in console like bold, strikethrough, italic... will be used.</p>
+
+<p>Tables will be drawn using ASCII art grid lines.</p>
+
+
+<div class="pilwrap" id="html%20document">
+  <h3>
+    <a href="#html%20document" name="html%20document" class="pilcrow">&#182;</a>
+    HTML Document
+  </h3>
+</div>
+
+
+<p>Example: <a href="http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/doc/test.html">html</a></p>
+
+
+<div class="highlight"><pre><code><span class="nx">report</span><span class="p">.</span><span class="nx">toHtml</span><span class="p">()</span>
+</code></pre></div>
+
+
+
+<p>This is the most powerful output method. In which all markdown elements will be
+supported and interpreted. It will create one HTML file to be used in emails...</p>
+
+<p>Only links to internet resources like images and css are kept as they are. local
+links in the format 'file:///....' will be replaced with their content included
+as data uri in the document. This makes the document larger but helps to keep
+everything in one file. In emails you may extract these again and replace them
+with cid uri to the now attached resource.</p>
 
 
 <div class="pilwrap" id="license">

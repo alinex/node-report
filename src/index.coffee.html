@@ -6,13 +6,9 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "home/alex/github/node-report/src/indexcoffee", defaultSidebar = true;
+    var relativeDir = "../", thisFile = "home/alex/github/node-report/src/index.coffee", defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
-  <script src="../fileSearch.js"></script>
-  <script src="../goToLine.js"></script>
-  <link rel="stylesheet" href="../fileSearch.css" />
-  <link rel="stylesheet" href="../goToLine.css" />
 </head>
 <body>
   <nav>
@@ -152,6 +148,8 @@
 <span class="nv">chalk = </span><span class="nx">require</span> <span class="s">&#39;chalk&#39;</span>
 <span class="nv">fs = </span><span class="nx">require</span> <span class="s">&#39;fs&#39;</span>
 <span class="nv">util = </span><span class="nx">require</span> <span class="s">&#39;util&#39;</span>
+<span class="nv">path = </span><span class="nx">require</span> <span class="s">&#39;path&#39;</span>
+<span class="nv">fs = </span><span class="nx">require</span> <span class="s">&#39;alinex-fs&#39;</span>
 
 </pre></div>
         </td>
@@ -687,7 +685,8 @@
 <p>content elements</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="vi">@body = </span><span class="nx">setup</span><span class="o">?</span><span class="p">.</span><span class="nx">source</span> <span class="o">?</span> <span class="s">&#39;&#39;</span>
+    <span class="vi">@body = </span><span class="s">&#39;&#39;</span>
+    <span class="vi">@body = </span><span class="s">&#39;\n\n&#39;</span> <span class="o">+</span> <span class="nx">@setup</span><span class="p">.</span><span class="nx">source</span> <span class="k">if</span> <span class="nx">@setup</span><span class="o">?</span><span class="p">.</span><span class="nx">source</span>
     <span class="vi">@parts =</span>
       <span class="nv">abbr: </span><span class="p">[]</span>
       <span class="nv">footnote: </span><span class="p">[]</span>
@@ -879,7 +878,20 @@
         </td>
         <td class="code highlight"><div class="highlight"><pre>
   <span class="nv">toText: </span><span class="nf">-&gt;</span>
-    <span class="nx">@toString</span><span class="p">().</span><span class="nx">replace</span> <span class="sr">///</span>
+    <span class="nv">text = </span><span class="nx">@toString</span><span class="p">()</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-36" id="section-36">&#182;</a>
+</div>
+<p>remove some parts</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nv">text = </span><span class="nx">text</span><span class="p">.</span><span class="nx">replace</span> <span class="sr">///</span>
 <span class="sr">    (</span>
 <span class="sr">      (^|\n)          # start or after new line</span>
 <span class="sr">      @\[toc\]\n      # table of contents</span>
@@ -890,6 +902,25 @@
 <span class="sr">    )</span>
 <span class="sr">    ///g</span><span class="p">,</span> <span class="s">&#39;&#39;</span>
     <span class="p">.</span><span class="nx">trim</span><span class="p">()</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-37" id="section-37">&#182;</a>
+</div>
+<p>replace images with descriptions</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nv">text = </span><span class="nx">text</span><span class="p">.</span><span class="nx">replace</span> <span class="sr">///</span>
+<span class="sr">    !\[(.*?)\]       # image alt text</span>
+<span class="sr">    \(</span>
+<span class="sr">      ([^ ]*?)        # image source</span>
+<span class="sr">      (?: &quot;(.*?)&quot;)?   # title text</span>
+<span class="sr">    \)</span>
+<span class="sr">    ///g</span><span class="p">,</span> <span class="s">&#39;[IMAGE $1]&#39;</span>
 
 
 </pre></div>
@@ -918,7 +949,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-37" id="section-37">&#182;</a>
+  <a class="pilcrow" href="#section-39" id="section-39">&#182;</a>
 </div>
 <p>replace headings</p>
         </td>
@@ -936,7 +967,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-38" id="section-38">&#182;</a>
+  <a class="pilcrow" href="#section-40" id="section-40">&#182;</a>
 </div>
 <p>hr</p>
         </td>
@@ -950,7 +981,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-39" id="section-39">&#182;</a>
+  <a class="pilcrow" href="#section-41" id="section-41">&#182;</a>
 </div>
 <p>typographic</p>
         </td>
@@ -978,7 +1009,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-40" id="section-40">&#182;</a>
+  <a class="pilcrow" href="#section-42" id="section-42">&#182;</a>
 </div>
 <p>marked text</p>
         </td>
@@ -996,7 +1027,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-41" id="section-41">&#182;</a>
+  <a class="pilcrow" href="#section-43" id="section-43">&#182;</a>
 </div>
 <p>replace code</p>
         </td>
@@ -1010,7 +1041,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-42" id="section-42">&#182;</a>
+  <a class="pilcrow" href="#section-44" id="section-44">&#182;</a>
 </div>
 <p>replace table with ascii art table</p>
         </td>
@@ -1025,7 +1056,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-43" id="section-43">&#182;</a>
+  <a class="pilcrow" href="#section-45" id="section-45">&#182;</a>
 </div>
 <p>header</p>
         </td>
@@ -1045,7 +1076,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-44" id="section-44">&#182;</a>
+  <a class="pilcrow" href="#section-46" id="section-46">&#182;</a>
 </div>
 <p>lines</p>
         </td>
@@ -1061,7 +1092,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-45" id="section-45">&#182;</a>
+  <a class="pilcrow" href="#section-47" id="section-47">&#182;</a>
 </div>
 <p>footer</p>
         </td>
@@ -1077,7 +1108,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-46" id="section-46">&#182;</a>
+  <a class="pilcrow" href="#section-48" id="section-48">&#182;</a>
 </div>
 <p>boxes</p>
         </td>
@@ -1090,7 +1121,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-47" id="section-47">&#182;</a>
+  <a class="pilcrow" href="#section-49" id="section-49">&#182;</a>
 </div>
 <p>get max length</p>
         </td>
@@ -1116,7 +1147,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-48" id="section-48">&#182;</a>
+  <a class="pilcrow" href="#section-50" id="section-50">&#182;</a>
 </div>
 <p>{text.join '\n'}
 {chalk[color] '╚' + string.repeat('═', maxlen) + '╝'}"""</p>
@@ -1146,14 +1177,55 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-50" id="section-50">&#182;</a>
+  <a class="pilcrow" href="#section-52" id="section-52">&#182;</a>
 </div>
 <p>create html</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="s">    md = initHtml()</span>
 <span class="s">    data = {}</span>
-<span class="s">    content = md.render @toString(), data</span>
+<span class="s">    content = @toString()</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-53" id="section-53">&#182;</a>
+</div>
+<p>make local files inline
+replace local images with base64</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="s">    content = content.replace ///</span>
+<span class="s">      (                 </span><span class="err">#</span><span class="s"> before:</span>
+<span class="s">        !\[.*?\]        </span><span class="err">#</span><span class="s">   image alt text</span>
+<span class="s">        \(              </span><span class="err">#</span><span class="s">   opening url</span>
+<span class="s">      )file://(         </span><span class="err">#</span><span class="s"> file:</span>
+<span class="s">        [^ ]*?          </span><span class="err">#</span><span class="s">   image source</span>
+<span class="s">      )(                </span><span class="err">#</span><span class="s"> after:</span>
+<span class="s">        (?: &quot;.*?&quot;)?     </span><span class="err">#</span><span class="s">   title text</span>
+<span class="s">        \)              </span><span class="err">#</span><span class="s">   closing url</span>
+<span class="s">      )</span>
+<span class="s">      ///, (_, b, f, a) -&gt;</span>
+<span class="s">      f = path.resolve __dirname, &#39;../&#39;, f</span>
+<span class="s">      data = new Buffer(fs.readFileSync f).toString &#39;base64&#39;</span>
+<span class="s">      mime = require &#39;mime&#39;</span>
+<span class="s">      &quot;</span><span class="si">#{</span><span class="nx">b</span><span class="si">}</span><span class="s">data:</span><span class="si">#{</span><span class="nx">mime</span><span class="p">.</span><span class="nx">lookup</span> <span class="nx">f</span><span class="si">}</span><span class="s">;base64,</span><span class="si">#{</span><span class="nx">data</span><span class="si">}#{</span><span class="nx">a</span><span class="si">}</span><span class="s">&quot;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-54" id="section-54">&#182;</a>
+</div>
+<p>transform to html</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="s">    content = md.render content, data</span>
 <span class="s">    content = content.replace /&lt;p&gt;\n(&lt;ul class=&quot;table-of-contents&quot;&gt;[\s\S]*?&lt;\/ul&gt;)\n&lt;\/p&gt;/g, &#39;$1&#39;</span>
 <span class="s">    title = setup?.title ? data.title ? &#39;Report&#39;</span>
 <span class="s">    style = setup?.style ? &#39;default&#39;</span>
@@ -1164,7 +1236,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-51" id="section-51">&#182;</a>
+  <a class="pilcrow" href="#section-55" id="section-55">&#182;</a>
 </div>
 <p>get css</p>
         </td>
@@ -1179,13 +1251,14 @@
 <span class="s">        css = fs.readFileSync style, &#39;utf8&#39;</span>
 <span class="s">        &quot;&lt;style&gt;</span><span class="si">#{</span><span class="nx">css</span><span class="si">}</span><span class="s">&lt;/style&gt;&quot;</span>
 
+
 </pre></div>
         </td>
       </tr>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-52" id="section-52">&#182;</a>
+  <a class="pilcrow" href="#section-56" id="section-56">&#182;</a>
 </div>
 <p>return complete html</p>
         </td>
@@ -1207,7 +1280,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-53" id="section-53">&#182;</a>
+  <a class="pilcrow" href="#section-57" id="section-57">&#182;</a>
 </div>
 <p>{css}</p>
         </td>
@@ -1295,7 +1368,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-58" id="section-58">&#182;</a>
+  <a class="pilcrow" href="#section-62" id="section-62">&#182;</a>
 </div>
 <p>setup markdown it</p>
         </td>
@@ -1342,7 +1415,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-59" id="section-59">&#182;</a>
+  <a class="pilcrow" href="#section-63" id="section-63">&#182;</a>
 </div>
 <p>set base to allow also access from local page display</p>
         </td>
