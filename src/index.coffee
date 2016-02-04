@@ -251,7 +251,8 @@ class Report
     @width = setup?.width ? 80
     @log = setup?.log
     # content elements
-    @body = setup?.source ? ''
+    @body = ''
+    @body = '\n\n' + @setup.source if @setup.source
     @parts =
       abbr: []
       footnote: []
