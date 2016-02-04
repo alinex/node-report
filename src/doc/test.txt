@@ -108,7 +108,7 @@ Something went wrong!
 
 Autoconverted link to http://alinex.github.io
 
-![google](https://www.google.de/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png)
+[IMAGE google]
 
 ### Emoticons
 
