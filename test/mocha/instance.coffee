@@ -19,24 +19,24 @@ describe "instance", ->
 
     it "should add a heading 1", ->
       report.h1 'My Test'
-      equal report.toString(), """
+      equal report.toString().trim(), """
       My Test
-      ================================================================================\n
+      ================================================================================
       """
     it "should add a heading 2", ->
       report.h2 'Subheading'
-      equal report.toString(), """
+      equal report.toString().trim(), """
       My Test
       ================================================================================
 
 
       Subheading
-      --------------------------------------------------------------------------------\n
+      --------------------------------------------------------------------------------
       """
     it "should add a paragraph", ->
       report.p 'This is my first paragraph in this example which will show how it will break in
       markdown syntax.'
-      equal report.toString(), """
+      equal report.toString().trim(), """
       My Test
       ================================================================================
 
@@ -45,11 +45,11 @@ describe "instance", ->
       --------------------------------------------------------------------------------
 
       This is my first paragraph in this example which will show how it will break in
-      markdown syntax.\n
+      markdown syntax.
       """
     it "should add a list", ->
       report.ul ['one', 'two', 'three']
-      equal report.toString(), """
+      equal report.toString().trim(), """
       My Test
       ================================================================================
 
@@ -62,7 +62,7 @@ describe "instance", ->
 
       - one
       - two
-      - three\n
+      - three
       """
 
   describe "special elements", ->
@@ -72,16 +72,16 @@ describe "instance", ->
       report = new Report()
       report.p "This is a test#{report.footnote 'simple test only'} to demonstrate
       footnotes."
-      equal report.toString(), """
+      equal report.toString().trim(), """
       This is a test[^1] to demonstrate footnotes.
 
-      [^1]: simple test only\n
+      [^1]: simple test only
       """
 
     it "should add an abbreviation", ->
       report = new Report()
       report.abbr 'HTTP', 'Hyper Text Transfer Protocol'
-      equal report.toString(), """
+      equal report.toString().trim(), """
       *[HTTP]: Hyper Text Transfer Protocol"""
 
   describe "convert", ->
@@ -186,7 +186,7 @@ describe "instance", ->
       console.log report.toConsole()
       fs = require 'fs'
       fd = fs.createWriteStream "#{__dirname}/../../src/doc/test.md"
-      fd.write report.toString()
+      fd.write report.toString().trim()
       fd.end()
       fd = fs.createWriteStream "#{__dirname}/../../src/doc/test.txt"
       fd.write report.toText()

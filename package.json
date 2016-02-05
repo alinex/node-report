@@ -54,7 +54,7 @@
     "twemoji": "^1.4.1"
   },
   "devDependencies": {
-    "alinex-builder": "1.x",
+    "alinex-builder": "^1.2.0",
     "chai": "^3.4.1"
   },
   "optionalDependencies": {},
