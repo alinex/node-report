@@ -9,6 +9,9 @@ This report module should help you create complexe text/html reports in an easy
 way. You create a new object and append different text objects step by step. At last
 you may access the markdown text or get it converted to html.
 
+But you may also use it to simply convert full-featured markdown into html or other
+formats.
+
 The key features are:
 
 - easy markdown writing
@@ -95,6 +98,12 @@ on the fly:
 ``` coffee
 console.log Report.ul ['one', 'two', 'three']
 console.log Report.p "This text contains a #{Result.b 'bold'} word."
+```
+
+If you want to only convert existing markdown into html do this like:
+
+``` coffee
+html = new Report({source: markdownText}).toHtml()
 ```
 
 
