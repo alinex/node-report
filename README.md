@@ -5,11 +5,11 @@ Package: alinex-report
 [![Coverage Status](https://coveralls.io/repos/alinex/node-report/badge.png?branch=master)](https://coveralls.io/r/alinex/node-report?branch=master)
 [![Dependency Status](https://gemnasium.com/alinex/node-report.png)](https://gemnasium.com/alinex/node-report)
 
-This report module should help you create complexe text/html reports in an easy
+This report module should help you create complex reports in an easy
 way. You create a new object and append different text objects step by step. At last
-you may access the markdown text or get it converted to html.
+you may access the markdown text or get it converted to HTML.
 
-But you may also use it to simply convert full-featured markdown into html or other
+But you may also use it to simply convert full-featured markdown into HTML or other
 formats.
 
 The key features are:
@@ -23,8 +23,12 @@ The key features are:
 See example output in [text](https://raw.githubusercontent.com/alinex/node-report/master/src/doc/test.txt)
 , [markdown](https://raw.githubusercontent.com/alinex/node-report/master/src/doc/test.md), [HTML](http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/doc/test.html),
 [PDF](https://raw.githubusercontent.com/alinex/node-report/master/src/doc/test.pdf),
-[PNG](https://raw.githubusercontent.com/alinex/node-report/master/src/doc/test.png))
+[PNG](https://raw.githubusercontent.com/alinex/node-report/master/src/doc/test.png)
 and [JPG](https://raw.githubusercontent.com/alinex/node-report/master/src/doc/test.jpg) format.
+
+Internally this works with a markdown syntax which has a limited number of possibilities
+but is easy to transform in nearly any other format. If you know markdown you will
+find the possibilities here enormous.
 
 > It is one of the modules of the [Alinex Universe](http://alinex.github.io/code.html)
 > following the code standards defined in the [General Docs](http://alinex.github.io/node-alinex).
