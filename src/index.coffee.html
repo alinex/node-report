@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "home/alex/github/node-report/src/index.coffee", defaultSidebar = true;
+    var relativeDir = "../", thisFile = "home/alex/github/node-report/src/indexcoffee", defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
 </head>
@@ -230,7 +230,9 @@
             <span class="nx">n</span><span class="p">.</span><span class="nx">push</span> <span class="p">[</span><span class="s">&quot;</span><span class="si">#{</span><span class="nx">name</span><span class="si">}</span><span class="s">.</span><span class="si">#{</span><span class="nx">k</span><span class="si">}</span><span class="s">&quot;</span><span class="p">,</span> <span class="nx">v</span><span class="p">]</span>
       <span class="k">else</span>
         <span class="nx">n</span><span class="p">.</span><span class="nx">push</span> <span class="p">[</span><span class="nx">name</span><span class="p">,</span> <span class="nx">val</span><span class="p">]</span>
-    <span class="nv">obj = </span><span class="nx">n</span>
+    <span class="nv">obj = </span><span class="nx">n</span><span class="p">.</span><span class="nx">map</span> <span class="nf">(r) -&gt;</span>
+      <span class="nx">r</span><span class="p">.</span><span class="nx">map</span> <span class="nf">(c) -&gt;</span>
+        <span class="k">if</span> <span class="k">typeof</span> <span class="nx">c</span> <span class="o">is</span> <span class="s">&#39;string&#39;</span> <span class="k">then</span> <span class="nx">c</span><span class="p">.</span><span class="nx">replace</span> <span class="sr">/\s*\n\s*/g</span><span class="p">,</span> <span class="s">&#39; &#39;</span> <span class="k">else</span> <span class="nx">c</span>
 
 </pre></div>
         </td>
@@ -686,7 +688,7 @@
         </td>
         <td class="code highlight"><div class="highlight"><pre>
     <span class="vi">@body = </span><span class="s">&#39;&#39;</span>
-    <span class="vi">@body = </span><span class="s">&#39;\n\n&#39;</span> <span class="o">+</span> <span class="nx">@setup</span><span class="p">.</span><span class="nx">source</span> <span class="k">if</span> <span class="nx">@setup</span><span class="o">?</span><span class="p">.</span><span class="nx">source</span>
+    <span class="nx">@body</span> <span class="o">+=</span> <span class="nx">setup</span><span class="p">.</span><span class="nx">source</span> <span class="k">if</span> <span class="nx">setup</span><span class="o">?</span><span class="p">.</span><span class="nx">source</span>
     <span class="vi">@parts =</span>
       <span class="nv">abbr: </span><span class="p">[]</span>
       <span class="nv">footnote: </span><span class="p">[]</span>
@@ -856,7 +858,7 @@
         </td>
         <td class="code highlight"><div class="highlight"><pre>
   <span class="nv">toString: </span><span class="nf">-&gt;</span>
-    <span class="nv">text = </span><span class="nx">@body</span><span class="p">.</span><span class="nx">replace</span> <span class="sr">/\s+/</span><span class="p">,</span> <span class="s">&#39;&#39;</span>
+    <span class="nv">text = </span><span class="nx">@body</span>
     <span class="k">for</span> <span class="nx">key</span> <span class="k">in</span> <span class="p">[</span><span class="s">&#39;abbr&#39;</span><span class="p">,</span> <span class="s">&#39;footnote&#39;</span><span class="p">]</span>
       <span class="k">continue</span> <span class="k">unless</span> <span class="nx">@parts</span><span class="p">[</span><span class="nx">key</span><span class="p">].</span><span class="nx">length</span>
       <span class="nx">text</span> <span class="o">+=</span> <span class="s">&quot;\n</span><span class="si">#{</span><span class="nx">@parts</span><span class="p">[</span><span class="nx">key</span><span class="p">].</span><span class="nx">join</span> <span class="s">&#39;\n&#39;</span><span class="si">}</span><span class="s">\n&quot;</span>
@@ -902,6 +904,7 @@
 <span class="sr">    )</span>
 <span class="sr">    ///g</span><span class="p">,</span> <span class="s">&#39;&#39;</span>
     <span class="p">.</span><span class="nx">trim</span><span class="p">()</span>
+
 
 </pre></div>
         </td>
@@ -1222,7 +1225,8 @@ replace local images with base64</p>
 <div class="pilwrap">
   <a class="pilcrow" href="#section-54" id="section-54">&#182;</a>
 </div>
-<p>transform to html</p>
+<p>transform to html
+   content = conten.replace /(@[toc])/</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="s">    content = md.render content, data</span>
