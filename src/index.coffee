@@ -41,7 +41,9 @@ table = (obj, col, sort) ->
             n.push ["#{name}.#{k}", v]
       else
         n.push [name, val]
-    obj = n
+    obj = n.map (r) ->
+      r.map (c) ->
+        if typeof c is 'string' then c.replace /\s*\n\s*/g, ' ' else c
   # transform column definition
   if col
     if Array.isArray col
@@ -252,7 +254,7 @@ class Report
     @log = setup?.log
     # content elements
     @body = ''
-    @body = '\n\n' + setup.source if setup?.source
+    @body += setup.source if setup?.source
     @parts =
       abbr: []
       footnote: []
@@ -312,7 +314,7 @@ class Report
 
   # ### as markdown text
   toString: ->
-    text = @body.replace /\s+/, ''
+    text = @body
     for key in ['abbr', 'footnote']
       continue unless @parts[key].length
       text += "\n#{@parts[key].join '\n'}\n"
@@ -333,6 +335,7 @@ class Report
     )
     ///g, ''
     .trim()
+
     # replace images with descriptions
     text = text.replace ///
     !\[(.*?)\]       # image alt text
@@ -452,6 +455,7 @@ class Report
       mime = require 'mime'
       "#{b}data:#{mime.lookup f};base64,#{data}#{a}"
     # transform to html
+#    content = conten.replace /(@\[toc\])/
     content = md.render content, data
     content = content.replace /<p>\n(<ul class="table-of-contents">[\s\S]*?<\/ul>)\n<\/p>/g, '$1'
     title = setup?.title ? data.title ? 'Report'
