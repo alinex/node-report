@@ -17,11 +17,14 @@ The key features are:
 - easy markdown writing
 - feature rich markdown
 - export as text or html
+- export as pdf, png or jpg
 - console formatting support
 
 See example output in [text](https://raw.githubusercontent.com/alinex/node-report/master/src/doc/test.txt)
-, [markdown](https://raw.githubusercontent.com/alinex/node-report/master/src/doc/test.md)
-and [html](http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/doc/test.html) format.
+, [markdown](https://raw.githubusercontent.com/alinex/node-report/master/src/doc/test.md), [HTML](http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/doc/test.html),
+[PDF](https://raw.githubusercontent.com/alinex/node-report/master/src/doc/test.pdf),
+[PNG](https://raw.githubusercontent.com/alinex/node-report/master/src/doc/test.png))
+and [JPG](https://raw.githubusercontent.com/alinex/node-report/master/src/doc/test.jpg) format.
 
 > It is one of the modules of the [Alinex Universe](http://alinex.github.io/code.html)
 > following the code standards defined in the [General Docs](http://alinex.github.io/node-alinex).
@@ -46,6 +49,9 @@ And update it to the latest version later:
 ``` sh
 npm update alinex-report --save
 ```
+
+This package will install a lot of subpackages to ensure the full functionality
+but only the ones really needed are loaded on demand.
 
 Always have a look at the latest [changes](Changelog.md).
 
@@ -405,6 +411,54 @@ links in the format 'file:///....' will be replaced with their content included
 as data uri in the document. This makes the document larger but helps to keep
 everything in one file. In emails you may extract these again and replace them
 with cid uri to the now attached resource.
+
+### PDF Document
+
+Example: [PDF](https://raw.githubusercontent.com/alinex/node-report/master/src/doc/test.pdf)
+
+``` coffee
+report.toPdf (err, data) ->
+  # you may store this to a file
+```
+
+You can also give some options:
+
+``` coffee
+report.toPdf options, (err, data) ->
+  # you may store this to a file
+```
+
+Possible options are:
+
+- format - A3, A4, A5, Legal, Letter or Tabloid
+- height - like "10.5in" allowed units: mm, cm, in, px
+- width - like "8in" allowed units: mm, cm, in, px
+- orientation - portrait or landscape
+- border - like "0" allowed units: mm, cm, in, px \
+  or as an object with top, right, bottom nad left settings
+
+
+### Image
+
+Example: [PNG](https://raw.githubusercontent.com/alinex/node-report/master/src/doc/test.png)
+and [JPG](https://raw.githubusercontent.com/alinex/node-report/master/src/doc/test.jpg)
+
+``` coffee
+report.toImage (err, data) ->
+  # you may store this to a file
+```
+
+You can also give some options:
+
+``` coffee
+report.toImage options, (err, data) ->
+  # you may store this to a file
+```
+
+Possible options are:
+
+- type - png or jpg
+- quality - integer between 0 and 100 as best quality default is 75
 
 
 License

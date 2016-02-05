@@ -1,6 +1,7 @@
 chai = require 'chai'
 expect = chai.expect
 ### eslint-env node, mocha ###
+async = require 'alinex-async'
 
 debug = require('debug')('test:instance')
 Report = require '../../src/index'
@@ -181,7 +182,7 @@ describe "instance", ->
       'allow html transformation': true
       'allow docx transformation': false
 
-    it "should return html", ->
+    it "should write all formats", (done) ->
       @timeout 20000
       console.log report.toConsole()
       fs = require 'fs'
@@ -191,9 +192,26 @@ describe "instance", ->
       fd = fs.createWriteStream "#{__dirname}/../../src/doc/test.txt"
       fd.write report.toText()
       fd.end()
-      fd = fs.createWriteStream "#{__dirname}/../../src/doc/test.html" #, {encoding: 'utf8'}
-      fd.write "<html><head><meta http-equiv=\"Content-Type\"
-        content=\"text/html;charset=UTF-8\"></head><body>"
+      fd = fs.createWriteStream "#{__dirname}/../../src/doc/test.html"
       fd.write report.toHtml()
-      fd.write """</body></html>"""
       fd.end()
+      async.series [
+        (cb) ->
+          report.toPdf (err, data) ->
+            fd = fs.createWriteStream "#{__dirname}/../../src/doc/test.pdf"
+            fd.write data
+            fd.end()
+            cb()
+        (cb) ->
+          report.toImage (err, data) ->
+            fd = fs.createWriteStream "#{__dirname}/../../src/doc/test.png"
+            fd.write data
+            fd.end()
+            cb()
+        (cb) ->
+          report.toImage {type: 'jpg'}, (err, data) ->
+            fd = fs.createWriteStream "#{__dirname}/../../src/doc/test.jpg"
+            fd.write data
+            fd.end()
+            cb()
+      ], done

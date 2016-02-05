@@ -488,6 +488,33 @@ class Report
     </html>
     """
 
+  # ### as pdf
+  toPdf: (options, cb) ->
+    if typeof options is 'function'
+      cb = options
+      options = {}
+    options ?= {}
+    options.format ?= 'A4'
+    options.border ?=
+      top: "1cm"
+      right: "1cm"
+      bottom: "1cm"
+      left: "2cm"
+    options.type ?= "pdf"           # allowed file types: png, jpeg, pdf
+    pdf = require 'html-pdf'
+    pdf.create(@toHtml(), options).toBuffer cb
+
+  # ### as image (png/jpeg)
+  toImage: (options, cb) ->
+    if typeof options is 'function'
+      cb = options
+      options = {}
+    options ?= {}
+    options.type ?= "png"           # allowed file types: png, jpeg, pdf
+    options.quality ?= 75           # only used for types png & jpeg
+    pdf = require 'html-pdf'
+    pdf.create(@toHtml(), options).toBuffer cb
+
 
 # Export class
 # -------------------------------------------------
