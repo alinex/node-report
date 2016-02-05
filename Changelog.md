@@ -4,6 +4,13 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.1.5 (2016-02-05)
+-------------------------------------------------
+- Upgraded alinex-builder.
+- Fixed style to display sql code.
+- Fixed layout of html.
+- Fixed constructor with source to work.
+
 Version 1.1.4 (2016-02-04)
 -------------------------------------------------
 - Fixed small bug in tests.
