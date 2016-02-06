@@ -4,6 +4,13 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.2.0 (2016-02-06)
+-------------------------------------------------
+- Support newest toc plugin.
+- Extended documentation.
+- Added pdf, png and jpg export.
+- Add example for simple convert.
+
 Version 1.1.5 (2016-02-05)
 -------------------------------------------------
 - Upgraded alinex-builder.
