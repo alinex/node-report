@@ -88,6 +88,12 @@
       <div class="heading h3">
         <a href="#html%20document">HTML Document</a>
       </div>
+      <div class="heading h3">
+        <a href="#pdf%20document">PDF Document</a>
+      </div>
+      <div class="heading h3">
+        <a href="#image">Image</a>
+      </div>
       <div class="heading h2">
         <a href="#license">License</a>
       </div>
@@ -107,9 +113,12 @@
 <a href="https://coveralls.io/r/alinex/node-report?branch=master"><img src="https://coveralls.io/repos/alinex/node-report/badge.png?branch=master" alt="Coverage Status" title="" /></a>
 <a href="https://gemnasium.com/alinex/node-report"><img src="https://gemnasium.com/alinex/node-report.png" alt="Dependency Status" title="" /></a></p>
 
-<p>This report module should help you create complexe text/html reports in an easy
+<p>This report module should help you create complex reports in an easy
 way. You create a new object and append different text objects step by step. At last
-you may access the markdown text or get it converted to html.</p>
+you may access the markdown text or get it converted to HTML.</p>
+
+<p>But you may also use it to simply convert full-featured markdown into HTML or other
+formats.</p>
 
 <p>The key features are:</p>
 
@@ -117,12 +126,19 @@ you may access the markdown text or get it converted to html.</p>
 <li>easy markdown writing</li>
 <li>feature rich markdown</li>
 <li>export as text or html</li>
+<li>export as pdf, png or jpg</li>
 <li>console formatting support</li>
 </ul>
 
 <p>See example output in <a href="https://raw.githubusercontent.com/alinex/node-report/master/src/doc/test.txt">text</a>
-, <a href="https://raw.githubusercontent.com/alinex/node-report/master/src/doc/test.md">markdown</a>
-and <a href="http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/doc/test.html">html</a> format.</p>
+, <a href="https://raw.githubusercontent.com/alinex/node-report/master/src/doc/test.md">markdown</a>, <a href="http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/doc/test.html">HTML</a>,
+<a href="https://raw.githubusercontent.com/alinex/node-report/master/src/doc/test.pdf">PDF</a>,
+<a href="https://raw.githubusercontent.com/alinex/node-report/master/src/doc/test.png">PNG</a>
+and <a href="https://raw.githubusercontent.com/alinex/node-report/master/src/doc/test.jpg">JPG</a> format.</p>
+
+<p>Internally this works with a markdown syntax which has a limited number of possibilities
+but is easy to transform in nearly any other format. If you know markdown you will
+find the possibilities here enormous.</p>
 
 <blockquote>
   <p>It is one of the modules of the <a href="http://alinex.github.io/code.html">Alinex Universe</a>
@@ -158,6 +174,9 @@ and <a href="http://htmlpreview.github.io/?https://github.com/alinex/node-report
 </code></pre></div>
 
 
+
+<p>This package will install a lot of subpackages to ensure the full functionality
+but only the ones really needed are loaded on demand.</p>
 
 <p>Always have a look at the latest <a href="Changelog.md.html">changes</a>.</p>
 
@@ -225,6 +244,14 @@ on the fly:</p>
 
 <div class="highlight"><pre><code><span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">ul</span> <span class="p">[</span><span class="s">&#39;one&#39;</span><span class="p">,</span> <span class="s">&#39;two&#39;</span><span class="p">,</span> <span class="s">&#39;three&#39;</span><span class="p">]</span>
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">p</span> <span class="s">&quot;This text contains a </span><span class="si">#{</span><span class="nx">Result</span><span class="p">.</span><span class="nx">b</span> <span class="s">&#39;bold&#39;</span><span class="si">}</span><span class="s"> word.&quot;</span>
+</code></pre></div>
+
+
+
+<p>If you want to only convert existing markdown into html do this like:</p>
+
+
+<div class="highlight"><pre><code><span class="nv">html = </span><span class="k">new</span> <span class="nx">Report</span><span class="p">({</span><span class="nv">source: </span><span class="nx">markdownText</span><span class="p">}).</span><span class="nx">toHtml</span><span class="p">()</span>
 </code></pre></div>
 
 
@@ -714,6 +741,79 @@ links in the format 'file:///....' will be replaced with their content included
 as data uri in the document. This makes the document larger but helps to keep
 everything in one file. In emails you may extract these again and replace them
 with cid uri to the now attached resource.</p>
+
+
+<div class="pilwrap" id="pdf%20document">
+  <h3>
+    <a href="#pdf%20document" name="pdf%20document" class="pilcrow">&#182;</a>
+    PDF Document
+  </h3>
+</div>
+
+
+<p>Example: <a href="https://raw.githubusercontent.com/alinex/node-report/master/src/doc/test.pdf">PDF</a></p>
+
+
+<div class="highlight"><pre><code><span class="nx">report</span><span class="p">.</span><span class="nx">toPdf</span> <span class="nf">(err, data) -&gt;</span>
+  <span class="c1"># you may store this to a file</span>
+</code></pre></div>
+
+
+
+<p>You can also give some options:</p>
+
+
+<div class="highlight"><pre><code><span class="nx">report</span><span class="p">.</span><span class="nx">toPdf</span> <span class="nx">options</span><span class="p">,</span> <span class="nf">(err, data) -&gt;</span>
+  <span class="c1"># you may store this to a file</span>
+</code></pre></div>
+
+
+
+<p>Possible options are:</p>
+
+<ul>
+<li>format - A3, A4, A5, Legal, Letter or Tabloid</li>
+<li>height - like "10.5in" allowed units: mm, cm, in, px</li>
+<li>width - like "8in" allowed units: mm, cm, in, px</li>
+<li>orientation - portrait or landscape</li>
+<li>border - like "0" allowed units: mm, cm, in, px \
+or as an object with top, right, bottom nad left settings</li>
+</ul>
+
+
+<div class="pilwrap" id="image">
+  <h3>
+    <a href="#image" name="image" class="pilcrow">&#182;</a>
+    Image
+  </h3>
+</div>
+
+
+<p>Example: <a href="https://raw.githubusercontent.com/alinex/node-report/master/src/doc/test.png">PNG</a>
+and <a href="https://raw.githubusercontent.com/alinex/node-report/master/src/doc/test.jpg">JPG</a></p>
+
+
+<div class="highlight"><pre><code><span class="nx">report</span><span class="p">.</span><span class="nx">toImage</span> <span class="nf">(err, data) -&gt;</span>
+  <span class="c1"># you may store this to a file</span>
+</code></pre></div>
+
+
+
+<p>You can also give some options:</p>
+
+
+<div class="highlight"><pre><code><span class="nx">report</span><span class="p">.</span><span class="nx">toImage</span> <span class="nx">options</span><span class="p">,</span> <span class="nf">(err, data) -&gt;</span>
+  <span class="c1"># you may store this to a file</span>
+</code></pre></div>
+
+
+
+<p>Possible options are:</p>
+
+<ul>
+<li>type - png or jpg</li>
+<li>quality - integer between 0 and 100 as best quality default is 75</li>
+</ul>
 
 
 <div class="pilwrap" id="license">

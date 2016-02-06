@@ -100,6 +100,12 @@
       <div class="heading h3">
         <a href="#as%20html">as html</a>
       </div>
+      <div class="heading h3">
+        <a href="#as%20pdf">as pdf</a>
+      </div>
+      <div class="heading h3">
+        <a href="#as%20image%20(png%2Fjpeg)">as image (png/jpeg)</a>
+      </div>
       <div class="heading h2">
         <a href="#export%20class">Export class</a>
       </div>
@@ -1295,6 +1301,61 @@ replace local images with base64</p>
     <span class="s">&quot;&quot;&quot;</span>
 
 
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="as%20pdf">
+  <h3>
+    <a href="#as%20pdf" name="as%20pdf" class="pilcrow">&#182;</a>
+    as pdf
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="s">  toPdf: (options, cb) -&gt;</span>
+<span class="s">    if typeof options is &#39;function&#39;</span>
+<span class="s">      cb = options</span>
+<span class="s">      options = {}</span>
+<span class="s">    options ?= {}</span>
+<span class="s">    options.format ?= &#39;A4&#39;</span>
+<span class="s">    options.border ?=</span>
+<span class="s">      top: &quot;1cm&quot;</span>
+<span class="s">      right: &quot;1cm&quot;</span>
+<span class="s">      bottom: &quot;1cm&quot;</span>
+<span class="s">      left: &quot;2cm&quot;</span>
+<span class="s">    options.type ?= &quot;pdf&quot;           </span><span class="err">#</span><span class="s"> allowed file types: png, jpeg, pdf</span>
+<span class="s">    pdf = require &#39;html-pdf&#39;</span>
+<span class="s">    pdf.create(@toHtml(), options).toBuffer cb</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="as%20image%20(png%2Fjpeg)">
+  <h3>
+    <a href="#as%20image%20(png%2Fjpeg)" name="as%20image%20(png%2Fjpeg)" class="pilcrow">&#182;</a>
+    as image (png/jpeg)
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="s">  toImage: (options, cb) -&gt;</span>
+<span class="s">    if typeof options is &#39;function&#39;</span>
+<span class="s">      cb = options</span>
+<span class="s">      options = {}</span>
+<span class="s">    options ?= {}</span>
+<span class="s">    options.type ?= &quot;png&quot;           </span><span class="err">#</span><span class="s"> allowed file types: png, jpeg, pdf</span>
+<span class="s">    options.quality ?= 75           </span><span class="err">#</span><span class="s"> only used for types png &amp; jpeg</span>
+<span class="s">    pdf = require &#39;html-pdf&#39;</span>
+<span class="s">    pdf.create(@toHtml(), options).toBuffer cb</span>
+
+
 
 </pre></div>
         </td>
@@ -1372,7 +1433,7 @@ replace local images with base64</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-62" id="section-62">&#182;</a>
+  <a class="pilcrow" href="#section-64" id="section-64">&#182;</a>
 </div>
 <p>setup markdown it</p>
         </td>
@@ -1407,7 +1468,7 @@ replace local images with base64</p>
 <span class="s">  .use(require &#39;markdown-it-footnote&#39;) </span><span class="err">#</span><span class="s"> footnotes (auto linked)</span>
 <span class="s">  .use(require(&#39;markdown-it-checkbox&#39;), {divWrap: true, divClass: &#39;cb&#39;})</span>
 <span class="s">  .use(require &#39;markdown-it-decorate&#39;) </span><span class="err">#</span><span class="s"> add css classes</span>
-<span class="s">  .use require(&#39;markdown-it-toc-and-anchor&#39;), </span><span class="err">#</span><span class="s"> possibility to add TOC</span>
+<span class="s">  .use require(&#39;markdown-it-toc-and-anchor&#39;).default, </span><span class="err">#</span><span class="s"> possibility to add TOC</span>
 <span class="s">    tocClassName: &#39;table-of-contents&#39;</span>
 <span class="s">    tocFirstLevel: 2</span>
 <span class="s">    anchorLink: false</span>
@@ -1419,7 +1480,7 @@ replace local images with base64</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-63" id="section-63">&#182;</a>
+  <a class="pilcrow" href="#section-65" id="section-65">&#182;</a>
 </div>
 <p>set base to allow also access from local page display</p>
         </td>
