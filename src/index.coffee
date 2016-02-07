@@ -563,6 +563,7 @@ initHtml = -> #async.once ->
   .use(require 'markdown-it-footnote') # footnotes (auto linked)
   .use(require('markdown-it-checkbox'), {divWrap: true, divClass: 'cb'})
   .use(require 'markdown-it-decorate') # add css classes
+#  .use(require './plugin')
   .use require('markdown-it-toc-and-anchor').default, # possibility to add TOC
     tocClassName: 'table-of-contents'
     tocFirstLevel: 2
