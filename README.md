@@ -219,7 +219,7 @@ These are only available on static calls not on a report instance!
 - del - delete like `~~delete~~`
 - sub - subscript like `~subscript~`
 - sup - superscript like `^superscript^`
-- tt - typewriter like `\`typewriter\``
+- tt - typewriter like \`typewriter\`
 - mark - marked text like highlighted with an text marker like `==marked==`
 
 ``` coffee
@@ -604,6 +604,12 @@ Compact style
       ~ Definition 2a
       ~ Definition 2b
 
+Check Lists
+
+    [x] todo list
+    [x] with elements done
+    [ ] and something todo
+
 ### Code
 
     Inline `code`
@@ -669,13 +675,18 @@ With a reference later in the document defining the URL location:
 
     [id]: https://octodex.github.com/images/dojocat.jpg  "The Dojocat"
 
-### Emojies
+### Emojies and Signs
 
 A lot of emojies will be replaced with special UTF characters or colorful images:
 
     Classic markup: :wink: :crush: :cry: :tear: :laughing: :yum:
 
     Shortcuts (emoticons): :-) :-( 8-) ;)
+
+Also the [fontawesome](https://fortawesome.github.io/Font-Awesome/icons/) icons
+may be used like:
+
+    :fa-anchor:
 
 ### Footnotes
 
@@ -718,6 +729,23 @@ A lot of emojies will be replaced with special UTF characters or colorful images
     ::: alert
     *here be dragons*
     :::
+
+### Table of Contents
+The following code will add an table of contents in some output types.
+
+    @[toc]
+
+### Specific Style
+
+For html and, pdf and image output a specific style can be set. This belongs to
+the element atrated in front of the style definition.
+
+    <!-- {color:red} -->
+
+    <!-- {p:.center} -->
+
+The second example specifies the prviouse <p> tag and sets the style class
+'.center' for it.
 
 
 License
