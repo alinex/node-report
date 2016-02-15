@@ -45,7 +45,7 @@ blockquote {
   margin: 0 15px;
 }
 pre {
-  background-color: rgba(0, 0, 0, 0.04);
+  background-color: #fafafa;
   border-radius: 10px;
   border: 1px solid #a4a4a4;
   font-size: 85%;
@@ -53,7 +53,7 @@ pre {
   padding: 10px;
 }
 code, tt {
-  background-color: rgba(0, 0, 0, 0.04);
+  background-color: #fafafa;
   border-radius: 4px;
   font-size: 85%;
   margin: 0;
@@ -62,7 +62,7 @@ code, tt {
 pre code, pre tt {
   background: none;
 }
-pre code.language::before {
+pre code.language header {
     color: #505050;
     font-weight: bold;
     display: block;
@@ -73,19 +73,18 @@ pre code.language::before {
     margin: -10px -10px 5px -10px;
     padding: 5px;
 }
-pre code.language.js::before { content: 'JavaScript Code'; }
-pre code.language.coffee::before { content: 'CoffeeScript Code'; }
-pre code.language.bash::before { content: 'Bash Code'; }
-pre code.language.sql::before { content: 'SQL Code'; }
 
 div.detail, div.info, div.warning, div.alert {
-  padding: 30px 10px 6px 10px;
-  margin: 5px 0;
+  padding: 20px 10px 6px 10px;
+  margin: 5px 0 0 0;
 }
-div.info::before, div.warning::before, div.alert::before {
+div.detail>p, div.info>p, div.warning>p, div.alert>p {
+  margin-bottom: 0;
+}
+div.info header, div.warning header, div.alert header {
   font-weight: bold;
   position: absolute;
-  margin-top: -30px;
+  margin-top: -20px;
   margin-left: -10px;
   padding: 3px 20px 3px 10px;
   border-bottom-right-radius: 18px;
@@ -93,40 +92,29 @@ div.info::before, div.warning::before, div.alert::before {
 div.detail {
   background-color: #fafafa;
   border: 2px solid #ddd;
-  padding-top: 10px;
+  padding-top: 0;
 }
 div.info {
   background-color: #99ff99;
   border: 2px solid #66dd66;
 }
-div.info::before {
-  content: 'Info';
+div.info header {
   background-color: #66dd66;
 }
 div.warning {
   background-color: #ffcc99;
   border: 2px solid #ee8866;
 }
-div.warning::before {
-  content: 'Warning';
+div.warning header {
   background-color: #ee8866;
 }
 div.alert {
   background-color: #ff9999;
   border: 2px solid #cc0000;
 }
-div.alert::before {
-  content: 'Attention';
+div.alert header {
   background-color: #cc0000;
   color: white;
-}
-
-*:first-child {
-  margin-top: 0 !important;
-}
-
-*:last-child {
-  margin-bottom: 0 !important;
 }
 
 table {
@@ -167,8 +155,7 @@ abbr, acronym {
   border-bottom: dotted 1px;
 }
 
-.table-of-contents::before {
-  content: "Contents";
+.table-of-contents header {
   font-weight: bold;
   font-size: 120%;
   display: block;
@@ -182,6 +169,7 @@ abbr, acronym {
   border: 2px solid #ddd;
   border-radius: 10px;
   float: right;
+  margin-top: 0;
   padding: 10px 10px 10px 25px;
   background: #fafafa;
   font-size: 90%;

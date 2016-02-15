@@ -368,14 +368,14 @@ class Report
       '™': /\(tm\)/gi
       '§': /\(p\)/gi
       '±': /\+-/g
-      '😋': /:yum:/g
-      '😉': /;\)|:wink:/g
-      '😃': /:-\)|:laughing:/g
-      '😢': /:-\(|:cry:/g
-      '😦': /:-O/g
-      '😎': /8-\)/g
+#      '😋': /:yum:/g
+#      '😉': /;\)|:wink:/g
+#      '😃': /:-\)|:laughing:/g
+#      '😢': /:-\(|:cry:/g
+#      '😦': /:-O/g
+#      '😎': /8-\)/g
       '\n✘': /\n\[x\]/g # alternatives: ☑
-      '\n☐': /\n\[ \]/g
+      '\n□': /\n\[ \]/g
     for sign, re of replace
       text = text.replace re, sign
     # marked text
@@ -432,7 +432,10 @@ class Report
       #{chalk[color] '╚' + string.repeat('═', maxlen) + '╝'}"""
 
   # ### as html
-  toHtml: (setup) ->
+  toHtml: (setup, cb) ->
+    if typeof setup is 'function'
+      cb = setup
+      setup = null
     # create html
     md = initHtml()
     data = {}
@@ -456,8 +459,7 @@ class Report
       "#{b}data:#{mime.lookup f};base64,#{data}#{a}"
     # transform to html
 #    content = conten.replace /(@\[toc\])/
-    content = md.render content, data
-    content = content.replace /<p>\n(<ul class="table-of-contents">[\s\S]*?<\/ul>)\n<\/p>/g, '$1'
+    content = optimizeHtml md.render content, data
     title = setup?.title ? data.title ? 'Report'
     style = setup?.style ? 'default'
     # get css
@@ -470,9 +472,8 @@ class Report
       else
         css = fs.readFileSync style, 'utf8'
         "<style>#{css}</style>"
-
-    # return complete html
-    """
+    # complete html
+    html = """
     <!DOCTYPE html>
     <html>
       <head>
@@ -487,6 +488,17 @@ class Report
       <body>#{content}</body>
     </html>
     """
+    unless cb
+#      no deprecation warning because used in tests
+#      console.warn "sync call to toHtml() is deprectaed, please use async call"
+      return html
+    cb null, html unless setup?.inlineCss
+    # make css inline
+    require('inline-css') html,
+      url: 'index.html'
+    .then (html) ->
+      cb null, html
+
 
   # ### as pdf
   toPdf: (options, cb) ->
@@ -574,3 +586,34 @@ initHtml = -> #async.once ->
   md2html.renderer.rules.emoji = (token, idx) ->
     twemoji.parse token[idx].content
   md2html
+
+optimizeHtml = (html) ->
+  re = [
+    [/<p>\n(<ul class="table-of-contents">)([\s\S]*?<\/ul>)\n<\/p>/g, '$1<header>Contents</header>$2']
+  ]
+  # code
+  lang =
+    js: 'JavaScript Code'
+    coffee: 'CoffeeScript Code'
+    bash: 'Bash Code'
+    sql: 'SQL Code'
+  for l, t of lang
+    re.push [
+      new RegExp '(<code class="language ' + l + '">)', 'g'
+      '$1<header>' + t + '</header>'
+    ]
+  # boxes
+  boxes =
+    info: 'Info'
+    warning: 'Warning'
+    alert: 'Alert'
+  for l, t of boxes
+    re.push [
+      new RegExp '(<div class="' + l + '">)', 'g'
+      '$1<header>' + t + '</header>'
+    ]
+  # replacement
+  for [s, r] in re
+    html = html.replace s, r
+  # return result
+  html

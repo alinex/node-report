@@ -197,6 +197,14 @@ describe "instance", ->
       fd.end()
       async.series [
         (cb) ->
+          report.toHtml
+            inlineCss: true
+          , (err, data) ->
+            fd = fs.createWriteStream "#{__dirname}/../../src/doc/test-inline.html"
+            fd.write data
+            fd.end()
+            cb()
+        (cb) ->
           report.toPdf (err, data) ->
             fd = fs.createWriteStream "#{__dirname}/../../src/doc/test.pdf"
             fd.write data

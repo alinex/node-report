@@ -408,8 +408,17 @@ Tables will be drawn using ASCII art grid lines.
 Example: [html](http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/doc/test.html)
 
 ``` coffee
-report.toHtml()
+report.toHtml() # deprectaed syntax without inline css support
+
+report.toHtml options, (err, html) ->
+  # use the html
 ```
+
+Options are:
+
+- title (string) - to be used instead of h1 content
+- style (string) - reference to the used style under src/style/xxx.css
+- inlineCss (boolean) - move css from head to the tags as styles (useful for mails)
 
 This is the most powerful output method. In which all markdown elements will be
 supported and interpreted. It will create one HTML file to be used in emails...
