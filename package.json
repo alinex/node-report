@@ -8,7 +8,9 @@
     "report",
     "markdown",
     "console",
-    "html"
+    "html",
+    "pdf",
+    "image"
   ],
   "homepage": "http://alinex.github.io/node-report/",
   "repository": {

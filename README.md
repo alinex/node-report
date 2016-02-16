@@ -16,7 +16,7 @@ The key features are:
 
 - easy markdown writing
 - feature rich markdown
-- export as text or html
+- export as text or html (also optimized for email)
 - export as pdf, png or jpg
 - console formatting support
 
@@ -29,6 +29,10 @@ and [JPG](https://raw.githubusercontent.com/alinex/node-report/master/src/doc/te
 Internally this works with a markdown syntax which has a limited number of possibilities
 but is easy to transform in nearly any other format. If you know markdown you will
 find the possibilities here enormous.
+
+The html export can also be optimized for email using `ìnlineCss` option. With
+this the styles from the head section will moved into the document because
+webmail client will remove the head section completely.
 
 > It is one of the modules of the [Alinex Universe](http://alinex.github.io/code.html)
 > following the code standards defined in the [General Docs](http://alinex.github.io/node-alinex).
