@@ -266,7 +266,7 @@ replace local images with base64</p>
         <td class="code highlight"><div class="highlight"><pre>
   <span class="nv">html = </span><span class="s">&quot;&quot;&quot;</span>
 <span class="s">  &lt;!DOCTYPE html&gt;</span>
-<span class="s">  &lt;html lang=&quot;</span><span class="si">#{</span><span class="nx">setup</span><span class="o">?</span><span class="p">.</span><span class="nx">locale</span> <span class="o">?</span> <span class="s">&#39;en&#39;</span><span class="si">}</span><span class="s">&quot;&gt;</span>
+<span class="s">  &lt;html lang=&quot;</span><span class="si">#{</span><span class="k">if</span> <span class="nx">setup</span><span class="o">?</span><span class="p">.</span><span class="nx">locale</span> <span class="k">then</span> <span class="nx">setup</span><span class="p">.</span><span class="nx">locale</span><span class="p">[</span><span class="mi">0</span><span class="p">..</span><span class="mi">1</span><span class="p">]</span> <span class="k">else</span> <span class="s">&#39;en&#39;</span><span class="si">}</span><span class="s">&quot;&gt;</span>
 <span class="s">    &lt;head&gt;</span>
 <span class="s">      &lt;title&gt;</span><span class="si">#{</span><span class="nx">title</span><span class="si">}</span><span class="s">&lt;/title&gt;</span>
 <span class="s">      &lt;meta charset=&quot;UTF-8&quot; /&gt;</span>
@@ -408,7 +408,7 @@ replace local images with base64</p>
 <span class="nv">text = </span><span class="nf">(tag, locale, tr = trans) -&gt;</span>
   <span class="nv">parts = </span><span class="nx">tag</span><span class="p">.</span><span class="nx">split</span> <span class="sr">/\./</span>
   <span class="k">return</span> <span class="nx">text</span> <span class="nx">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">..].</span><span class="nx">join</span><span class="p">(</span><span class="s">&#39;.&#39;</span><span class="p">),</span> <span class="nx">locale</span><span class="p">,</span> <span class="nx">tr</span><span class="p">[</span><span class="nx">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="k">unless</span> <span class="nx">parts</span><span class="p">.</span><span class="nx">length</span> <span class="o">is</span> <span class="mi">1</span>
-  <span class="nx">tr</span><span class="p">[</span><span class="nx">tag</span><span class="p">][</span><span class="nx">locale</span><span class="p">]</span> <span class="o">?</span> <span class="nx">tr</span><span class="p">[</span><span class="nx">tag</span><span class="p">].</span><span class="nx">en</span>
+  <span class="nx">tr</span><span class="p">[</span><span class="nx">tag</span><span class="p">][</span><span class="nx">locale</span><span class="p">]</span> <span class="o">?</span> <span class="nx">tr</span><span class="p">[</span><span class="nx">tag</span><span class="p">][</span><span class="nx">locale</span><span class="p">[</span><span class="mi">0</span><span class="p">..</span><span class="mi">1</span><span class="p">]]</span> <span class="o">?</span> <span class="nx">tr</span><span class="p">[</span><span class="nx">tag</span><span class="p">].</span><span class="nx">en</span>
 
 <span class="nv">optimizeHtml = </span><span class="nf">(html, locale = &#39;en&#39;) -&gt;</span>
   <span class="nv">re = </span><span class="p">[</span>
