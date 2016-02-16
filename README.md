@@ -418,6 +418,7 @@ Options are:
 
 - title (string) - to be used instead of h1 content
 - style (string) - reference to the used style under src/style/xxx.css
+- locale (string) - language to use like 'de'
 - inlineCss (boolean) - move css from head to the tags as styles (useful for mails)
 
 This is the most powerful output method. In which all markdown elements will be

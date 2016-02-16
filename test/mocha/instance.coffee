@@ -199,6 +199,7 @@ describe "instance", ->
         (cb) ->
           report.toHtml
             inlineCss: true
+            locale: 'de'
           , (err, data) ->
             fd = fs.createWriteStream "#{__dirname}/../../src/doc/test-inline.html"
             fd.write data

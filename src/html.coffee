@@ -33,6 +33,29 @@ twemoji = require 'twemoji'
 HTML_STYLES =
   default: "#{__dirname}/../var/src/style/default.css"
 
+trans =
+  content:
+    en: 'Content'
+    de: 'Inhalt'
+  lang:
+    js:
+      en: 'JavaScript Code'
+    coffee:
+      en: 'CoffeeScript Code'
+    bash:
+      en: 'Bash Code'
+    sql:
+      en: 'SQL Code'
+  boxes:
+    info:
+      en: 'Info'
+    warning:
+      en: 'Warning'
+      de: 'Warnung'
+    alert:
+      en: 'Attention'
+      de: 'Achtung'
+
 
 # Convert into HTML
 # -------------------------------------------------
@@ -61,7 +84,7 @@ module.exports = (report, setup, cb) ->
     data = new Buffer(fs.readFileSync f).toString 'base64'
     "#{b}data:#{mime.lookup f};base64,#{data}#{a}"
   # transform to html
-  content = optimizeHtml md.render content, data
+  content = optimizeHtml md.render(content, data), setup?.locale
   title = setup?.title ? data.title ? 'Report'
   style = setup?.style ? 'default'
   # get css
@@ -77,7 +100,7 @@ module.exports = (report, setup, cb) ->
   # complete html
   html = """
   <!DOCTYPE html>
-  <html>
+  <html lang="#{setup?.locale ? 'en'}">
     <head>
       <title>#{title}</title>
       <meta charset="UTF-8" />
@@ -145,33 +168,29 @@ initHtml = -> #async.once ->
     twemoji.parse token[idx].content
   md2html
 
-optimizeHtml = (html) ->
+text = (tag, locale, tr = trans) ->
+  parts = tag.split /\./
+  return text parts[1..].join('.'), locale, tr[parts[0]] unless parts.length is 1
+  tr[tag][locale] ? tr[tag].en
+
+optimizeHtml = (html, locale = 'en') ->
   re = [
     [
       /<p>\n(<ul class="table-of-contents">)([\s\S]*?<\/ul>)\n<\/p>/g
-      '$1<header>Contents</header>$2'
+      "$1<header>#{text 'content', locale}</header>$2"
     ]
   ]
   # code
-  lang =
-    js: 'JavaScript Code'
-    coffee: 'CoffeeScript Code'
-    bash: 'Bash Code'
-    sql: 'SQL Code'
-  for l, t of lang
+  for tag of trans.lang
     re.push [
-      new RegExp '(<code class="language ' + l + '">)', 'g'
-      '$1<header>' + t + '</header>'
+      new RegExp '(<code class="language ' + tag + '">)', 'g'
+      "$1<header>#{text tag, locale, trans.lang}</header>"
     ]
   # boxes
-  boxes =
-    info: 'Info'
-    warning: 'Warning'
-    alert: 'Alert'
-  for l, t of boxes
+  for tag of trans.boxes
     re.push [
-      new RegExp '(<div class="' + l + '">)', 'g'
-      '$1<header>' + t + '</header>'
+      new RegExp '(<div class="' + tag + '">)', 'g'
+      "$1<header>#{text tag, locale, trans.boxes}</header>"
     ]
   # replacement
   for [s, r] in re
