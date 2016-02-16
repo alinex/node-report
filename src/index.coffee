@@ -340,7 +340,7 @@ class Report
 
   # ### as colorful console text
   toConsole: ->
-    text = @toText()
+    text = @toText() + '\n\n'
     text = text.replace /\*\*(.*?)\*\*/g, chalk.bold '$1'
     text = text.replace /__(.*?)__/g, chalk.bold '$1'
     text = text.replace /`(.*?)`/g, chalk.dim.inverse '$1'
@@ -390,7 +390,7 @@ class Report
       line += string.repeat('─', col.length) + '┬' for col in head[1..head.length-2]
       ascii = chalk.grey line[0..line.length-2] + '┐'
       ascii += chalk.grey '\n│'
-      ascii += col + chalk.grey('│') for col in head[1..head.length-2]
+      ascii += chalk.bold(col) + chalk.grey('│') for col in head[1..head.length-2]
       line = '\n├'
       line += string.repeat('─', col.length) + '┼' for col in head[1..head.length-2]
       ascii += chalk.grey line[0..line.length-2] + '┤'
@@ -423,6 +423,7 @@ class Report
       """\n\n#{chalk[color] '╔' + string.repeat('═', maxlen) + '╗'}
       #{text.join '\n'}
       #{chalk[color] '╚' + string.repeat('═', maxlen) + '╝'}"""
+    text.trim()
 
   # ### as html
   html = null
