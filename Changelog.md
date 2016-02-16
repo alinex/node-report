@@ -4,6 +4,18 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.3.0 (2016-02-16)
+-------------------------------------------------
+- Upgraded markdown-it package.
+- Support locale-option with german language.
+- Extract html handling into separate module.
+- Add inline css support.
+- Updated pdf example.
+- Added new test plugin for markdown-it.
+- Completed documentation of direct markdown.
+- Added description of markup style.
+- Added example pdf and images.
+
 Version 1.2.0 (2016-02-06)
 -------------------------------------------------
 - Support newest toc plugin.
