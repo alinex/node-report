@@ -100,7 +100,7 @@ module.exports = (report, setup, cb) ->
   # complete html
   html = """
   <!DOCTYPE html>
-  <html lang="#{setup?.locale ? 'en'}">
+  <html lang="#{if setup?.locale then setup.locale[0..1] else 'en'}">
     <head>
       <title>#{title}</title>
       <meta charset="UTF-8" />
@@ -171,7 +171,7 @@ initHtml = -> #async.once ->
 text = (tag, locale, tr = trans) ->
   parts = tag.split /\./
   return text parts[1..].join('.'), locale, tr[parts[0]] unless parts.length is 1
-  tr[tag][locale] ? tr[tag].en
+  tr[tag][locale] ? tr[tag][locale[0..1]] ? tr[tag].en
 
 optimizeHtml = (html, locale = 'en') ->
   re = [
