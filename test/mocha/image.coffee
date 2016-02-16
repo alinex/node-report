@@ -47,6 +47,7 @@ describe "image", ->
       equal report.toText(), "[IMAGE alinex]"
 
   describe "toHTML", ->
+    @timeout 5000
 
     it "should convert external image", ->
       report = new Report()

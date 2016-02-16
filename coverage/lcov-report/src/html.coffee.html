@@ -1,0 +1,662 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/html.coffee</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">all files</a> / <a href="index.html">src/</a> html.coffee
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">86.67% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>91/105</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">64.71% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>11/17</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>8/8</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">90.36% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>75/83</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">40×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">72×</span>
+<span class="cline-any cline-yes">72×</span>
+<span class="cline-any cline-yes">72×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-yes">36×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">36×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-yes">27×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">27×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-yes">72×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"># Report generation
+# =================================================
+# This package will give you an easy and robust way to access mysql databases.
+&nbsp;
+# Node Modules
+# -------------------------------------------------
+fs = require 'fs'
+path = require 'path'
+fs = require 'alinex-fs'
+mime = require 'mime'
+inlineCss = require 'inline-css'
+# markdown
+md = require('markdown-it')
+hljs = require 'highlight.js'
+mdContainer = require 'markdown-it-container'
+mdTitle = require 'markdown-it-title' #extracting title from source (first heading)
+mdSub = require 'markdown-it-sub' # subscript support
+mdSup = require 'markdown-it-sup' # superscript support
+mdMark = require 'markdown-it-mark' # add text as "marked"
+mdEmoji = require 'markdown-it-emoji' # add graphical emojis
+mdFontawesome = require 'markdown-it-fontawesome'
+mdDeflist = require 'markdown-it-deflist' # definition lists
+mdAbbr = require 'markdown-it-abbr' # abbreviations (auto added)
+mdFootnote = require 'markdown-it-footnote' # footnotes (auto linked)
+mdCheckbox = require 'markdown-it-checkbox'
+mdDecorate = require 'markdown-it-decorate' # add css classes
+mdToc = require 'markdown-it-toc-and-anchor'
+twemoji = require 'twemoji'
+&nbsp;
+&nbsp;
+# Configuration
+# -------------------------------------------------
+HTML_STYLES =
+  default: "#{__dirname}/../var/src/style/default.css"
+&nbsp;
+trans =
+  content:
+    en: 'Content'
+    de: 'Inhalt'
+  lang:
+    js:
+      en: 'JavaScript Code'
+    coffee:
+      en: 'CoffeeScript Code'
+    bash:
+      en: 'Bash Code'
+    sql:
+      en: 'SQL Code'
+  boxes:
+    info:
+      en: 'Info'
+    warning:
+      en: 'Warning'
+      de: 'Warnung'
+    alert:
+      en: 'Attention'
+      de: 'Achtung'
+&nbsp;
+&nbsp;
+# Convert into HTML
+# -------------------------------------------------
+module.exports = (report, setup, cb) -&gt;
+  <span class="missing-if-branch" title="if path not taken" >I</span>if typeof setup is 'function'
+<span class="cstat-no" title="statement not covered" >    cb = setup</span>
+<span class="cstat-no" title="statement not covered" >    setup = null</span>
+  # create html
+  md = initHtml()
+  data = {}
+  content = report.toString()
+  # make local files inline
+  # replace local images with base64
+  content = content.replace ///
+    (                 # before:
+      !\[.*?\]        #   image alt text
+      \(              #   opening url
+    )file://(         # file:
+      [^ ]*?          #   image source
+    )(                # after:
+      (?: ".*?")?     #   title text
+      \)              #   closing url
+    )
+    ///, (_, b, f, a) -&gt;
+    f = path.resolve __dirname, '../', f
+    data = new Buffer(fs.readFileSync f).toString 'base64'
+    "#{b}data:#{mime.lookup f};base64,#{data}#{a}"
+  # transform to html
+  content = optimizeHtml md.render(content, data), setup?.locale
+  title = setup?.title ? data.title ? 'Report'
+  style = setup?.style ? 'default'
+  # get css
+  css = switch
+    when style in Object.keys HTML_STYLES
+      css = fs.readFileSync HTML_STYLES[style], 'utf8'
+      "&lt;style&gt;#{css}&lt;/style&gt;"
+<span class="branch-1 cbranch-no" title="branch not covered" >    when style.match /^https?:\/\//</span>
+<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" >      "&lt;link rel=\"stylesheet\" href=\"#{<span class="cstat-no" title="statement not covered" >style</span>}\" /&gt;"</span></span>
+    else
+<span class="cstat-no" title="statement not covered" ><span class="branch-2 cbranch-no" title="branch not covered" >      css = fs.readFileSync style, 'utf8'</span></span>
+<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" >      "&lt;style&gt;#{<span class="cstat-no" title="statement not covered" >css</span>}&lt;/style&gt;"</span></span>
+  # complete html
+  html = """
+  &lt;!DOCTYPE html&gt;
+  &lt;html lang="#{if setup?.locale then setup.locale[0..1] else 'en'}"&gt;
+    &lt;head&gt;
+      &lt;title&gt;#{title}&lt;/title&gt;
+      &lt;meta charset="UTF-8" /&gt;
+      &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/\
+      8.5.0/styles/solarized_light.min.css" /&gt;
+      &lt;link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/\
+      4.5.0/css/font-awesome.min.css" /&gt;
+      #{css}
+    &lt;/head&gt;
+    &lt;body&gt;#{content}&lt;/body&gt;
+  &lt;/html&gt;
+  """
+  return html unless cb
+<span class="cstat-no" title="statement not covered" >  <span class="missing-if-branch" title="if path not taken" >I</span>cb null, html</span> unless setup?.inlineCss
+  # make css inline
+  inlineCss html,
+    url: 'index.html'
+  .then (html) -&gt;
+    cb null, html
+&nbsp;
+&nbsp;
+# Helper methods
+# -------------------------------------------------
+&nbsp;
+# ### initialize markdown to html converter
+md2html = null
+initHtml = -&gt; #async.once -&gt;
+  return md2html if md2html
+  # setup markdown it
+  md2html = md
+    html: true
+    linkify: true
+    typographer: true
+    xhtmlOut: true
+    langPrefix: 'language '
+    highlight: (str, lang) -&gt;
+      <span class="missing-if-branch" title="else path not taken" >E</span>if lang and hljs.getLanguage lang
+        try
+          return hljs.highlight(lang, str).value
+<span class="cstat-no" title="statement not covered" >      try</span>
+<span class="cstat-no" title="statement not covered" >        return hljs.highlightAuto(str).value</span>
+<span class="cstat-no" title="statement not covered" >      return ''</span> # use external default escaping
+  .use mdTitle #extracting title from source (first heading)
+  .use mdSub # subscript support
+  .use mdSup # superscript support
+  .use mdContainer, 'detail' # special boxes
+  .use mdContainer, 'info' # special boxes
+  .use mdContainer, 'warning' # special boxes
+  .use mdContainer, 'alert' # special boxes
+  .use mdMark # add text as "marked"
+  .use mdEmoji # add graphical emojis
+  .use mdFontawesome
+  .use mdDeflist # definition lists
+  .use mdAbbr # abbreviations (auto added)
+  .use mdFootnote # footnotes (auto linked)
+  .use mdCheckbox, {divWrap: true, divClass: 'cb'}
+  .use mdDecorate # add css classes
+  .use mdToc.default, # possibility to add TOC
+    tocClassName: 'table-of-contents'
+    tocFirstLevel: 2
+    anchorLink: false
+  # set base to allow also access from local page display
+  twemoji.base = 'https://twemoji.maxcdn.com/'
+  md2html.renderer.rules.emoji = (token, idx) -&gt;
+    twemoji.parse token[idx].content
+  md2html
+&nbsp;
+text = (tag, locale, tr = trans) -&gt;
+  parts = tag.split /\./
+<span class="cstat-no" title="statement not covered" >  <span class="missing-if-branch" title="if path not taken" >I</span>return text parts[1..].join('.'), locale, tr[parts[0]]</span> unless parts.length is 1
+  tr[tag][locale] ? tr[tag][locale[0..1]] ? tr[tag].en
+&nbsp;
+optimizeHtml = (html, locale = 'en') -&gt;
+  re = [
+    [
+      /&lt;p&gt;\n(&lt;ul class="table-of-contents"&gt;)([\s\S]*?&lt;\/ul&gt;)\n&lt;\/p&gt;/g
+      "$1&lt;header&gt;#{text 'content', locale}&lt;/header&gt;$2"
+    ]
+  ]
+  # code
+  for tag of trans.lang
+    re.push [
+      new RegExp '(&lt;code class="language ' + tag + '"&gt;)', 'g'
+      "$1&lt;header&gt;#{text tag, locale, trans.lang}&lt;/header&gt;"
+    ]
+  # boxes
+  for tag of trans.boxes
+    re.push [
+      new RegExp '(&lt;div class="' + tag + '"&gt;)', 'g'
+      "$1&lt;header&gt;#{text tag, locale, trans.boxes}&lt;/header&gt;"
+    ]
+  # replacement
+  for [s, r] in re
+    html = html.replace s, r
+  # return result
+  html
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Feb 16 2016 11:41:54 GMT+0100 (CET)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>
