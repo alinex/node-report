@@ -38,7 +38,7 @@
         <a href="#usage">Usage</a>
       </div>
       <div class="heading h2">
-        <a href="#formatter%20overview">Formatter Overview</a>
+        <a href="#report%20builder">Report Builder</a>
       </div>
       <div class="heading h3">
         <a href="#headings">Headings</a>
@@ -93,6 +93,60 @@
       </div>
       <div class="heading h3">
         <a href="#image">Image</a>
+      </div>
+      <div class="heading h2">
+        <a href="#markup%20syntax">Markup Syntax</a>
+      </div>
+      <div class="heading h3">
+        <a href="#text%20blocks">Text blocks</a>
+      </div>
+      <div class="heading h3">
+        <a href="#headings">Headings</a>
+      </div>
+      <div class="heading h3">
+        <a href="#horizontal%20rules">Horizontal Rules</a>
+      </div>
+      <div class="heading h3">
+        <a href="#typographic%20replacements">Typographic Replacements</a>
+      </div>
+      <div class="heading h3">
+        <a href="#character%20format">Character Format</a>
+      </div>
+      <div class="heading h3">
+        <a href="#blockquotes">Blockquotes</a>
+      </div>
+      <div class="heading h3">
+        <a href="#lists">Lists</a>
+      </div>
+      <div class="heading h3">
+        <a href="#code">Code</a>
+      </div>
+      <div class="heading h3">
+        <a href="#tables">Tables</a>
+      </div>
+      <div class="heading h3">
+        <a href="#links">Links</a>
+      </div>
+      <div class="heading h3">
+        <a href="#images">Images</a>
+      </div>
+      <div class="heading h3">
+        <a href="#emojies%20and%20signs">Emojies and Signs</a>
+      </div>
+      <div class="heading h3">
+        <a href="#footnotes">Footnotes</a>
+      </div>
+      <div class="heading h3">
+        <a href="#abbreviations">Abbreviations</a>
+      </div>
+      <div class="heading h3">
+        <a href="#boxes">Boxes</a>
+      </div>
+      <div class="heading h3">
+        <a href="#table%20of%20contents">Table of Contents</a>
+      </div>
+      <div class="heading h3">
+        <a href="#specific%20style">Specific Style</a>
       </div>
       <div class="heading h2">
         <a href="#license">License</a>
@@ -257,13 +311,18 @@ on the fly:</p>
 
 
 
-<div class="pilwrap" id="formatter%20overview">
+<div class="pilwrap" id="report%20builder">
   <h2>
-    <a href="#formatter%20overview" name="formatter%20overview" class="pilcrow">&#182;</a>
-    Formatter Overview
+    <a href="#report%20builder" name="report%20builder" class="pilcrow">&#182;</a>
+    Report Builder
   </h2>
 </div>
 
+
+<p>The report builder is a collection of methods used to easily create the needed
+markup. They often are handy to convert your objects into formatted text. In
+contrast you may define the markup by yourself (see below) and use the <code>raw()</code>
+method to add it.</p>
 
 <p>Settings to be done before using the reporter:</p>
 
@@ -415,7 +474,7 @@ markdown) and for paragraph separation you may use horizontal lines:</p>
 <li>del - delete like <code>~~delete~~</code></li>
 <li>sub - subscript like <code>~subscript~</code></li>
 <li>sup - superscript like <code>^superscript^</code></li>
-<li>tt - typewriter like <code>\</code>typewriter``</li>
+<li>tt - typewriter like `typewriter`</li>
 <li>mark - marked text like highlighted with an text marker like <code>==marked==</code></li>
 </ul>
 
@@ -728,10 +787,22 @@ is possible in console like bold, strikethrough, italic... will be used.</p>
 <p>Example: <a href="http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/doc/test.html">html</a></p>
 
 
-<div class="highlight"><pre><code><span class="nx">report</span><span class="p">.</span><span class="nx">toHtml</span><span class="p">()</span>
+<div class="highlight"><pre><code><span class="nx">report</span><span class="p">.</span><span class="nx">toHtml</span><span class="p">()</span> <span class="c1"># deprectaed syntax without inline css support</span>
+
+<span class="nx">report</span><span class="p">.</span><span class="nx">toHtml</span> <span class="nx">options</span><span class="p">,</span> <span class="nf">(err, html) -&gt;</span>
+  <span class="c1"># use the html</span>
 </code></pre></div>
 
 
+
+<p>Options are:</p>
+
+<ul>
+<li>title (string) - to be used instead of h1 content</li>
+<li>style (string) - reference to the used style under src/style/xxx.css</li>
+<li>locale (string) - language to use like 'de'</li>
+<li>inlineCss (boolean) - move css from head to the tags as styles (useful for mails)</li>
+</ul>
 
 <p>This is the most powerful output method. In which all markdown elements will be
 supported and interpreted. It will create one HTML file to be used in emails...</p>
@@ -814,6 +885,525 @@ and <a href="https://raw.githubusercontent.com/alinex/node-report/master/src/doc
 <li>type - png or jpg</li>
 <li>quality - integer between 0 and 100 as best quality default is 75</li>
 </ul>
+
+
+<div class="pilwrap" id="markup%20syntax">
+  <h2>
+    <a href="#markup%20syntax" name="markup%20syntax" class="pilcrow">&#182;</a>
+    Markup Syntax
+  </h2>
+</div>
+
+
+<p>The following syntax may be used alternatively to create your report. To add
+it use the 'source' option of the constructor or the 'raw()' method.</p>
+
+
+<div class="pilwrap" id="text%20blocks">
+  <h3>
+    <a href="#text%20blocks" name="text%20blocks" class="pilcrow">&#182;</a>
+    Text blocks
+  </h3>
+</div>
+
+
+<p>You write your text directly, line breaks will not be held but made like needed.
+An empty line starts a new paragraph but if you need a line break on a specific
+position use a slash at the end:</p>
+
+
+<div class="highlight"><pre><code><span class="nx">This</span> <span class="nx">is</span> <span class="nx">an</span> <span class="nx">example</span> <span class="nx">paragraph</span> <span class="nx">which</span> <span class="nx">will</span> <span class="nx">not</span> <span class="k">break</span> <span class="nx">here</span>
+<span class="nx">but</span> <span class="nx">at</span> <span class="nx">the</span> <span class="nx">position</span> <span class="nx">there</span> <span class="nx">it</span> <span class="nx">is</span> <span class="nx">optimal</span> <span class="nx">but</span> <span class="nx">here</span> <span class="o">\</span>
+<span class="nx">a</span> <span class="k">break</span> <span class="nx">will</span> <span class="nx">be</span> <span class="nx">kept</span><span class="p">.</span>
+
+<span class="nx">And</span> <span class="k">this</span> <span class="nx">is</span> <span class="nx">the</span> <span class="nx">next</span> <span class="nx">paragraph</span><span class="p">.</span>
+</code></pre></div>
+
+
+
+
+<div class="pilwrap" id="headings_1">
+  <h3>
+    <a href="#headings_1" name="headings_1" class="pilcrow">&#182;</a>
+    Headings
+  </h3>
+</div>
+
+
+<p>There are six levels of heading to be used. But only the biggest two can have a
+specific alternative format:</p>
+
+
+<div class="highlight"><pre><code><span class="err">#</span> <span class="nx">h1</span> <span class="nx">Heading</span>
+<span class="err">##</span> <span class="nx">h2</span> <span class="nx">Heading</span>
+<span class="err">###</span> <span class="nx">h3</span> <span class="nx">Heading</span>
+<span class="err">####</span> <span class="nx">h4</span> <span class="nx">Heading</span>
+<span class="err">#####</span> <span class="nx">h5</span> <span class="nx">Heading</span>
+<span class="err">######</span> <span class="nx">h6</span> <span class="nx">Heading</span>
+
+<span class="nx">h1</span> <span class="nx">Heading</span>
+<span class="o">==========================================================================</span>
+
+<span class="nx">h2</span> <span class="nx">Heading</span>
+<span class="o">--------------------------------------------------------------------------</span>
+</code></pre></div>
+
+
+
+
+<div class="pilwrap" id="horizontal%20rules">
+  <h3>
+    <a href="#horizontal%20rules" name="horizontal%20rules" class="pilcrow">&#182;</a>
+    Horizontal Rules
+  </h3>
+</div>
+
+
+<p>All of the following types with 3 or more characters are recognized as lines and
+all will look the same in most output formats.</p>
+
+
+<div class="highlight"><pre><code><span class="nx">___</span>
+
+<span class="o">---</span>
+
+<span class="o">***</span>
+</code></pre></div>
+
+
+
+
+<div class="pilwrap" id="typographic%20replacements">
+  <h3>
+    <a href="#typographic%20replacements" name="typographic%20replacements" class="pilcrow">&#182;</a>
+    Typographic Replacements
+  </h3>
+</div>
+
+
+<p>Some special typographic elements will automatically be converted into their specific
+character:</p>
+
+
+<div class="highlight"><pre><code><span class="p">(</span><span class="nx">c</span><span class="p">)</span> <span class="p">(</span><span class="nx">C</span><span class="p">)</span> <span class="p">(</span><span class="nx">r</span><span class="p">)</span> <span class="p">(</span><span class="nx">R</span><span class="p">)</span> <span class="p">(</span><span class="nx">tm</span><span class="p">)</span> <span class="p">(</span><span class="nx">TM</span><span class="p">)</span> <span class="p">(</span><span class="nx">p</span><span class="p">)</span> <span class="p">(</span><span class="nx">P</span><span class="p">)</span> <span class="o">+-</span>
+
+<span class="nx">test</span><span class="p">...</span> <span class="nx">test</span><span class="p">.....</span> <span class="nx">test</span><span class="o">?</span><span class="p">.....</span> <span class="nx">test</span><span class="o">!</span><span class="p">....</span>
+
+<span class="o">--</span> <span class="o">---</span>
+</code></pre></div>
+
+
+
+
+<div class="pilwrap" id="character%20format">
+  <h3>
+    <a href="#character%20format" name="character%20format" class="pilcrow">&#182;</a>
+    Character Format
+  </h3>
+</div>
+
+
+
+<div class="highlight"><pre><code><span class="o">**</span><span class="nx">This</span> <span class="nx">is</span> <span class="nx">bold</span> <span class="nx">text</span><span class="o">**</span>
+
+<span class="nx">__This</span> <span class="nx">is</span> <span class="nx">bold</span> <span class="nx">text__</span>
+
+<span class="o">*</span><span class="nx">This</span> <span class="nx">is</span> <span class="nx">italic</span> <span class="nx">text</span><span class="o">*</span>
+
+<span class="nx">_This</span> <span class="nx">is</span> <span class="nx">italic</span> <span class="nx">text_</span>
+
+<span class="o">~~</span><span class="nx">Strikethrough</span><span class="o">~~</span>
+
+<span class="o">++</span><span class="nx">Inserted</span> <span class="nx">text</span><span class="o">++</span>
+
+<span class="o">==</span><span class="nx">Marked</span> <span class="nx">text</span><span class="o">==</span>
+
+<span class="mi">19</span><span class="o">^</span><span class="nx">th</span><span class="o">^</span> <span class="kd">with</span> <span class="nx">superscript</span>
+
+<span class="nx">H</span><span class="o">~</span><span class="mi">2</span><span class="o">~</span><span class="nx">O</span> <span class="kd">with</span> <span class="nx">subscript</span>
+</code></pre></div>
+
+
+
+
+<div class="pilwrap" id="blockquotes">
+  <h3>
+    <a href="#blockquotes" name="blockquotes" class="pilcrow">&#182;</a>
+    Blockquotes
+  </h3>
+</div>
+
+
+
+<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">Blockquotes</span> <span class="nx">can</span> <span class="nx">also</span> <span class="nx">be</span> <span class="nx">nested</span><span class="p">...</span>
+<span class="o">&gt;&gt;</span> <span class="p">...</span><span class="nx">by</span> <span class="nx">using</span> <span class="nx">additional</span> <span class="nx">greater</span><span class="o">-</span><span class="nx">than</span> <span class="nx">signs</span> <span class="nx">right</span> <span class="nx">next</span> <span class="nx">to</span> <span class="nx">each</span> <span class="nx">other</span><span class="p">...</span>
+<span class="o">&gt;</span> <span class="o">&gt;</span> <span class="o">&gt;</span> <span class="p">...</span><span class="nx">or</span> <span class="kd">with</span> <span class="nx">spaces</span> <span class="nx">between</span> <span class="nx">arrows</span><span class="p">.</span>
+</code></pre></div>
+
+
+
+
+<div class="pilwrap" id="lists_1">
+  <h3>
+    <a href="#lists_1" name="lists_1" class="pilcrow">&#182;</a>
+    Lists
+  </h3>
+</div>
+
+
+<p>Unordered</p>
+
+
+<div class="highlight"><pre><code><span class="o">+</span> <span class="nx">Create</span> <span class="nx">a</span> <span class="nx">list</span> <span class="nx">by</span> <span class="nx">starting</span> <span class="nx">a</span> <span class="nx">line</span> <span class="kd">with</span> <span class="err">`</span><span class="o">+</span><span class="err">`</span><span class="p">,</span> <span class="err">`</span><span class="o">-</span><span class="err">`</span><span class="p">,</span> <span class="nx">or</span> <span class="err">`</span><span class="o">*</span><span class="err">`</span>
+<span class="o">+</span> <span class="nx">Sub</span><span class="o">-</span><span class="nx">lists</span> <span class="nx">are</span> <span class="nx">made</span> <span class="nx">by</span> <span class="nx">indenting</span> <span class="mi">2</span> <span class="nx">spaces</span><span class="o">:</span>
+  <span class="o">-</span> <span class="nx">Marker</span> <span class="nx">character</span> <span class="nx">change</span> <span class="nx">forces</span> <span class="k">new</span> <span class="nx">list</span> <span class="nx">start</span><span class="o">:</span>
+    <span class="o">*</span> <span class="nx">Ac</span> <span class="nx">tristique</span> <span class="nx">libero</span> <span class="nx">volutpat</span> <span class="nx">at</span>
+    <span class="o">+</span> <span class="nx">Facilisis</span> <span class="k">in</span> <span class="nx">pretium</span> <span class="nx">nisl</span> <span class="nx">aliquet</span>
+    <span class="o">-</span> <span class="nx">Nulla</span> <span class="nx">volutpat</span> <span class="nx">aliquam</span> <span class="nx">velit</span>
+<span class="o">+</span> <span class="nx">Very</span> <span class="nx">easy</span><span class="o">!</span>
+</code></pre></div>
+
+
+
+<p>Ordered</p>
+
+
+<div class="highlight"><pre><code><span class="mi">1</span><span class="p">.</span> <span class="nx">Lorem</span> <span class="nx">ipsum</span> <span class="nx">dolor</span> <span class="nx">sit</span> <span class="nx">amet</span>
+<span class="mi">2</span><span class="p">.</span> <span class="nx">Consectetur</span> <span class="nx">adipiscing</span> <span class="nx">elit</span>
+<span class="mi">3</span><span class="p">.</span> <span class="nx">Integer</span> <span class="nx">molestie</span> <span class="nx">lorem</span> <span class="nx">at</span> <span class="nx">massa</span>
+
+
+<span class="mi">1</span><span class="p">.</span> <span class="nx">You</span> <span class="nx">can</span> <span class="nx">use</span> <span class="nx">sequential</span> <span class="nx">numbers</span><span class="p">...</span>
+<span class="mi">1</span><span class="p">.</span> <span class="p">...</span><span class="nx">or</span> <span class="nx">keep</span> <span class="nx">all</span> <span class="nx">the</span> <span class="nx">numbers</span> <span class="nx">as</span> <span class="err">`</span><span class="mi">1</span><span class="p">.</span><span class="err">`</span>
+</code></pre></div>
+
+
+
+<p>Start numbering with offset:</p>
+
+
+<div class="highlight"><pre><code><span class="mi">57</span><span class="p">.</span> <span class="nx">foo</span>
+<span class="mi">1</span><span class="p">.</span> <span class="nx">bar</span>
+</code></pre></div>
+
+
+
+<p>Definition lists</p>
+
+
+<div class="highlight"><pre><code><span class="nx">Term</span> <span class="mi">1</span>
+
+<span class="o">:</span>   <span class="nx">Definition</span> <span class="mi">1</span>
+<span class="kd">with</span> <span class="nx">lazy</span> <span class="nx">continuation</span><span class="p">.</span>
+
+<span class="nx">Term</span> <span class="mi">2</span> <span class="kd">with</span> <span class="o">*</span><span class="nx">inline</span> <span class="nx">markup</span><span class="o">*</span>
+
+<span class="o">:</span>   <span class="nx">Definition</span> <span class="mi">2</span>
+
+        <span class="p">{</span> <span class="nx">some</span> <span class="nx">code</span><span class="p">,</span> <span class="nx">part</span> <span class="nx">of</span> <span class="nx">Definition</span> <span class="mi">2</span> <span class="p">}</span>
+
+    <span class="nx">Third</span> <span class="nx">paragraph</span> <span class="nx">of</span> <span class="nx">definition</span> <span class="mi">2</span><span class="p">.</span>
+</code></pre></div>
+
+
+
+<p>Compact style</p>
+
+
+<div class="highlight"><pre><code><span class="nx">Term</span> <span class="mi">1</span>
+  <span class="o">~</span> <span class="nx">Definition</span> <span class="mi">1</span>
+
+<span class="nx">Term</span> <span class="mi">2</span>
+  <span class="o">~</span> <span class="nx">Definition</span> <span class="mi">2</span><span class="nx">a</span>
+  <span class="o">~</span> <span class="nx">Definition</span> <span class="mi">2</span><span class="nx">b</span>
+</code></pre></div>
+
+
+
+<p>Check Lists</p>
+
+
+<div class="highlight"><pre><code><span class="p">[</span><span class="nx">x</span><span class="p">]</span> <span class="nx">todo</span> <span class="nx">list</span>
+<span class="p">[</span><span class="nx">x</span><span class="p">]</span> <span class="kd">with</span> <span class="nx">elements</span> <span class="nx">done</span>
+<span class="p">[</span> <span class="p">]</span> <span class="nx">and</span> <span class="nx">something</span> <span class="nx">todo</span>
+</code></pre></div>
+
+
+
+
+<div class="pilwrap" id="code">
+  <h3>
+    <a href="#code" name="code" class="pilcrow">&#182;</a>
+    Code
+  </h3>
+</div>
+
+
+
+<div class="highlight"><pre><code><span class="nx">Inline</span> <span class="err">`</span><span class="nx">code</span><span class="err">`</span>
+</code></pre></div>
+
+
+
+<p>Indented code</p>
+
+
+<div class="highlight"><pre><code>    <span class="c1">// Some comments</span>
+    <span class="nx">line</span> <span class="mi">1</span> <span class="nx">of</span> <span class="nx">code</span>
+    <span class="nx">line</span> <span class="mi">2</span> <span class="nx">of</span> <span class="nx">code</span>
+    <span class="nx">line</span> <span class="mi">3</span> <span class="nx">of</span> <span class="nx">code</span>
+</code></pre></div>
+
+
+
+<p>Block code "fences"</p>
+
+
+<div class="highlight"><pre><code><span class="err">```</span>
+<span class="nx">Sample</span> <span class="nx">text</span> <span class="nx">here</span><span class="p">...</span>
+<span class="err">```</span>
+</code></pre></div>
+
+
+
+<p>Syntax highlighting</p>
+
+
+<div class="highlight"><pre><code><span class="err">```</span> <span class="nx">js</span>
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">bar</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">bar</span><span class="o">++</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">foo</span><span class="p">(</span><span class="mi">5</span><span class="p">));</span>
+<span class="err">```</span>
+</code></pre></div>
+
+
+
+
+<div class="pilwrap" id="tables">
+  <h3>
+    <a href="#tables" name="tables" class="pilcrow">&#182;</a>
+    Tables
+  </h3>
+</div>
+
+
+
+<div class="highlight"><pre><code><span class="o">|</span> <span class="nx">Option</span> <span class="o">|</span> <span class="nx">Description</span> <span class="o">|</span>
+<span class="o">|</span> <span class="o">------</span> <span class="o">|</span> <span class="o">-----------</span> <span class="o">|</span>
+<span class="o">|</span> <span class="nx">data</span>   <span class="o">|</span> <span class="nx">path</span> <span class="nx">to</span> <span class="nx">data</span> <span class="nx">files</span> <span class="nx">to</span> <span class="nx">supply</span> <span class="nx">the</span> <span class="nx">data</span> <span class="nx">that</span> <span class="nx">will</span> <span class="nx">be</span> <span class="nx">passed</span> <span class="nx">into</span> <span class="nx">templates</span><span class="p">.</span> <span class="o">|</span>
+<span class="o">|</span> <span class="nx">engine</span> <span class="o">|</span> <span class="nx">engine</span> <span class="nx">to</span> <span class="nx">be</span> <span class="nx">used</span> <span class="k">for</span> <span class="nx">processing</span> <span class="nx">templates</span><span class="p">.</span> <span class="nx">Handlebars</span> <span class="nx">is</span> <span class="nx">the</span> <span class="k">default</span><span class="p">.</span> <span class="o">|</span>
+<span class="o">|</span> <span class="nx">ext</span>    <span class="o">|</span> <span class="nx">extension</span> <span class="nx">to</span> <span class="nx">be</span> <span class="nx">used</span> <span class="k">for</span> <span class="nx">dest</span> <span class="nx">files</span><span class="p">.</span> <span class="o">|</span>
+</code></pre></div>
+
+
+
+<p>Right aligned columns</p>
+
+
+<div class="highlight"><pre><code><span class="o">|</span> <span class="nx">Option</span> <span class="o">|</span> <span class="nx">Description</span> <span class="o">|</span>
+<span class="o">|</span> <span class="o">------:|</span> <span class="o">-----------:|</span>
+<span class="o">|</span> <span class="nx">data</span>   <span class="o">|</span> <span class="nx">path</span> <span class="nx">to</span> <span class="nx">data</span> <span class="nx">files</span> <span class="nx">to</span> <span class="nx">supply</span> <span class="nx">the</span> <span class="nx">data</span> <span class="nx">that</span> <span class="nx">will</span> <span class="nx">be</span> <span class="nx">passed</span> <span class="nx">into</span> <span class="nx">templates</span><span class="p">.</span> <span class="o">|</span>
+<span class="o">|</span> <span class="nx">engine</span> <span class="o">|</span> <span class="nx">engine</span> <span class="nx">to</span> <span class="nx">be</span> <span class="nx">used</span> <span class="k">for</span> <span class="nx">processing</span> <span class="nx">templates</span><span class="p">.</span> <span class="nx">Handlebars</span> <span class="nx">is</span> <span class="nx">the</span> <span class="k">default</span><span class="p">.</span> <span class="o">|</span>
+<span class="o">|</span> <span class="nx">ext</span>    <span class="o">|</span> <span class="nx">extension</span> <span class="nx">to</span> <span class="nx">be</span> <span class="nx">used</span> <span class="k">for</span> <span class="nx">dest</span> <span class="nx">files</span><span class="p">.</span> <span class="o">|</span>
+</code></pre></div>
+
+
+
+
+<div class="pilwrap" id="links">
+  <h3>
+    <a href="#links" name="links" class="pilcrow">&#182;</a>
+    Links
+  </h3>
+</div>
+
+
+
+<div class="highlight"><pre><code><span class="p">[</span><span class="nx">link</span> <span class="nx">text</span><span class="p">](</span><span class="nx">http</span><span class="o">:</span><span class="c1">//dev.nodeca.com)</span>
+
+<span class="p">[</span><span class="nx">link</span> <span class="kd">with</span> <span class="nx">title</span><span class="p">](</span><span class="nx">http</span><span class="o">:</span><span class="c1">//nodeca.github.io/pica/demo/ &quot;title text!&quot;)</span>
+
+<span class="nx">Autoconverted</span> <span class="nx">link</span> <span class="nx">https</span><span class="o">:</span><span class="c1">//github.com/nodeca/pica</span>
+</code></pre></div>
+
+
+
+
+<div class="pilwrap" id="images">
+  <h3>
+    <a href="#images" name="images" class="pilcrow">&#182;</a>
+    Images
+  </h3>
+</div>
+
+
+
+<div class="highlight"><pre><code><span class="o">!</span><span class="p">[</span><span class="nx">Minion</span><span class="p">](</span><span class="nx">https</span><span class="o">:</span><span class="c1">//octodex.github.com/images/minion.png)</span>
+<span class="o">!</span><span class="p">[</span><span class="nx">Stormtroopocat</span><span class="p">](</span><span class="nx">https</span><span class="o">:</span><span class="c1">//octodex.github.com/images/stormtroopocat.jpg &quot;The Stormtroopocat&quot;)</span>
+</code></pre></div>
+
+
+
+<p>Like links, Images also have a footnote style syntax</p>
+
+
+<div class="highlight"><pre><code><span class="o">!</span><span class="p">[</span><span class="nx">Alt</span> <span class="nx">text</span><span class="p">][</span><span class="nx">id</span><span class="p">]</span>
+</code></pre></div>
+
+
+
+<p>With a reference later in the document defining the URL location:</p>
+
+
+<div class="highlight"><pre><code><span class="p">[</span><span class="nx">id</span><span class="p">]</span><span class="o">:</span> <span class="nx">https</span><span class="o">:</span><span class="c1">//octodex.github.com/images/dojocat.jpg  &quot;The Dojocat&quot;</span>
+</code></pre></div>
+
+
+
+
+<div class="pilwrap" id="emojies%20and%20signs">
+  <h3>
+    <a href="#emojies%20and%20signs" name="emojies%20and%20signs" class="pilcrow">&#182;</a>
+    Emojies and Signs
+  </h3>
+</div>
+
+
+<p>A lot of emojies will be replaced with special UTF characters or colorful images:</p>
+
+
+<div class="highlight"><pre><code><span class="nx">Classic</span> <span class="nx">markup</span><span class="o">:</span> <span class="o">:</span><span class="nx">wink</span><span class="o">:</span> <span class="o">:</span><span class="nx">crush</span><span class="o">:</span> <span class="o">:</span><span class="nx">cry</span><span class="o">:</span> <span class="o">:</span><span class="nx">tear</span><span class="o">:</span> <span class="o">:</span><span class="nx">laughing</span><span class="o">:</span> <span class="o">:</span><span class="nx">yum</span><span class="o">:</span>
+
+<span class="nx">Shortcuts</span> <span class="p">(</span><span class="nx">emoticons</span><span class="p">)</span><span class="o">:</span> <span class="o">:-</span><span class="p">)</span> <span class="o">:-</span><span class="p">(</span> <span class="mi">8</span><span class="o">-</span><span class="p">)</span> <span class="p">;)</span>
+</code></pre></div>
+
+
+
+<p>Also the <a href="https://fortawesome.github.io/Font-Awesome/icons/">fontawesome</a> icons
+may be used like:</p>
+
+
+<div class="highlight"><pre><code><span class="o">:</span><span class="nx">fa</span><span class="o">-</span><span class="nx">anchor</span><span class="o">:</span>
+</code></pre></div>
+
+
+
+
+<div class="pilwrap" id="footnotes">
+  <h3>
+    <a href="#footnotes" name="footnotes" class="pilcrow">&#182;</a>
+    Footnotes
+  </h3>
+</div>
+
+
+
+<div class="highlight"><pre><code><span class="nx">Footnote</span> <span class="mi">1</span> <span class="nx">link</span><span class="p">[</span><span class="o">^</span><span class="nx">first</span><span class="p">].</span>
+
+<span class="nx">Footnote</span> <span class="mi">2</span> <span class="nx">link</span><span class="p">[</span><span class="o">^</span><span class="nx">second</span><span class="p">].</span>
+
+<span class="nx">Inline</span> <span class="nx">footnote</span><span class="o">^</span><span class="p">[</span><span class="nx">Text</span> <span class="nx">of</span> <span class="nx">inline</span> <span class="nx">footnote</span><span class="p">]</span> <span class="nx">definition</span><span class="p">.</span>
+
+<span class="nx">Duplicated</span> <span class="nx">footnote</span> <span class="nx">reference</span><span class="p">[</span><span class="o">^</span><span class="nx">second</span><span class="p">].</span>
+
+<span class="p">[</span><span class="o">^</span><span class="nx">first</span><span class="p">]</span><span class="o">:</span> <span class="nx">Footnote</span> <span class="o">**</span><span class="nx">can</span> <span class="nx">have</span> <span class="nx">markup</span><span class="o">**</span>
+
+    <span class="nx">and</span> <span class="nx">multiple</span> <span class="nx">paragraphs</span><span class="p">.</span>
+
+<span class="p">[</span><span class="o">^</span><span class="nx">second</span><span class="p">]</span><span class="o">:</span> <span class="nx">Footnote</span> <span class="nx">text</span><span class="p">.</span>
+</code></pre></div>
+
+
+
+
+<div class="pilwrap" id="abbreviations">
+  <h3>
+    <a href="#abbreviations" name="abbreviations" class="pilcrow">&#182;</a>
+    Abbreviations
+  </h3>
+</div>
+
+
+
+<div class="highlight"><pre><code><span class="nx">This</span> <span class="nx">is</span> <span class="nx">HTML</span> <span class="nx">abbreviation</span> <span class="nx">example</span><span class="p">.</span>
+
+<span class="nx">It</span> <span class="nx">converts</span> <span class="s2">&quot;HTML&quot;</span><span class="p">,</span> <span class="nx">but</span> <span class="nx">keep</span> <span class="nx">intact</span> <span class="nx">partial</span> <span class="nx">entries</span> <span class="nx">like</span> <span class="s2">&quot;xxxHTMLyyy&quot;</span> <span class="nx">and</span> <span class="nx">so</span> <span class="nx">on</span><span class="p">.</span>
+
+<span class="o">*</span><span class="p">[</span><span class="nx">HTML</span><span class="p">]</span><span class="o">:</span> <span class="nx">Hyper</span> <span class="nx">Text</span> <span class="nx">Markup</span> <span class="nx">Language</span>
+</code></pre></div>
+
+
+
+
+<div class="pilwrap" id="boxes_1">
+  <h3>
+    <a href="#boxes_1" name="boxes_1" class="pilcrow">&#182;</a>
+    Boxes
+  </h3>
+</div>
+
+
+
+<div class="highlight"><pre><code><span class="o">:::</span> <span class="nx">detail</span>
+<span class="o">*</span><span class="nx">here</span> <span class="nx">be</span> <span class="nx">dragons</span><span class="o">*</span>
+<span class="o">:::</span>
+
+<span class="o">:::</span> <span class="nx">info</span>
+<span class="o">*</span><span class="nx">here</span> <span class="nx">be</span> <span class="nx">dragons</span><span class="o">*</span>
+<span class="o">:::</span>
+
+<span class="o">:::</span> <span class="nx">warning</span>
+<span class="o">*</span><span class="nx">here</span> <span class="nx">be</span> <span class="nx">dragons</span><span class="o">*</span>
+<span class="o">:::</span>
+
+<span class="o">:::</span> <span class="nx">alert</span>
+<span class="o">*</span><span class="nx">here</span> <span class="nx">be</span> <span class="nx">dragons</span><span class="o">*</span>
+<span class="o">:::</span>
+</code></pre></div>
+
+
+
+
+<div class="pilwrap" id="table%20of%20contents">
+  <h3>
+    <a href="#table%20of%20contents" name="table%20of%20contents" class="pilcrow">&#182;</a>
+    Table of Contents
+  </h3>
+</div>
+
+
+<p>The following code will add an table of contents in some output types.</p>
+
+
+<div class="highlight"><pre><code><span class="err">@</span><span class="p">[</span><span class="nx">toc</span><span class="p">]</span>
+</code></pre></div>
+
+
+
+
+<div class="pilwrap" id="specific%20style">
+  <h3>
+    <a href="#specific%20style" name="specific%20style" class="pilcrow">&#182;</a>
+    Specific Style
+  </h3>
+</div>
+
+
+<p>For html and, pdf and image output a specific style can be set. This belongs to
+the element atrated in front of the style definition.</p>
+
+
+<div class="highlight"><pre><code><span class="c">&lt;!--</span> <span class="p">{</span><span class="nx">color</span><span class="o">:</span><span class="nx">red</span><span class="p">}</span> <span class="o">--&gt;</span>
+
+<span class="c">&lt;!--</span> <span class="p">{</span><span class="nx">p</span><span class="o">:</span><span class="p">.</span><span class="nx">center</span><span class="p">}</span> <span class="o">--&gt;</span>
+</code></pre></div>
+
+
+
+<p>The second example specifies the prviouse <p> tag and sets the style class
+'.center' for it.</p>
 
 
 <div class="pilwrap" id="license">
