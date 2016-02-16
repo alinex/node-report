@@ -4,18 +4,11 @@
 
 # Node Modules
 # -------------------------------------------------
-
 chalk = require 'chalk'
-fs = require 'fs'
 util = require 'util'
-path = require 'path'
-fs = require 'alinex-fs'
 # include more alinex modules
 {string} = require 'alinex-util'
 
-
-HTML_STYLES =
-  default: "#{__dirname}/../var/src/style/default.css"
 
 # Helper methods
 # -------------------------------------------------
@@ -368,12 +361,12 @@ class Report
       '™': /\(tm\)/gi
       '§': /\(p\)/gi
       '±': /\+-/g
-#      '😋': /:yum:/g
-#      '😉': /;\)|:wink:/g
-#      '😃': /:-\)|:laughing:/g
-#      '😢': /:-\(|:cry:/g
-#      '😦': /:-O/g
-#      '😎': /8-\)/g
+      '😋': /:yum:/g
+      '😉': /;\)|:wink:/g
+      '😃': /:-\)|:laughing:/g
+      '😢': /:-\(|:cry:/g
+      '😦': /:-O/g
+      '😎': /8-\)/g
       '\n✘': /\n\[x\]/g # alternatives: ☑
       '\n□': /\n\[ \]/g
     for sign, re of replace
@@ -432,73 +425,10 @@ class Report
       #{chalk[color] '╚' + string.repeat('═', maxlen) + '╝'}"""
 
   # ### as html
-  toHtml: (setup, cb) ->
-    if typeof setup is 'function'
-      cb = setup
-      setup = null
-    # create html
-    md = initHtml()
-    data = {}
-    content = @toString()
-    # make local files inline
-    # replace local images with base64
-    content = content.replace ///
-      (                 # before:
-        !\[.*?\]        #   image alt text
-        \(              #   opening url
-      )file://(         # file:
-        [^ ]*?          #   image source
-      )(                # after:
-        (?: ".*?")?     #   title text
-        \)              #   closing url
-      )
-      ///, (_, b, f, a) ->
-      f = path.resolve __dirname, '../', f
-      data = new Buffer(fs.readFileSync f).toString 'base64'
-      mime = require 'mime'
-      "#{b}data:#{mime.lookup f};base64,#{data}#{a}"
-    # transform to html
-#    content = conten.replace /(@\[toc\])/
-    content = optimizeHtml md.render content, data
-    title = setup?.title ? data.title ? 'Report'
-    style = setup?.style ? 'default'
-    # get css
-    css = switch
-      when style in Object.keys HTML_STYLES
-        css = fs.readFileSync HTML_STYLES[style], 'utf8'
-        "<style>#{css}</style>"
-      when style.match /^https?:\/\//
-        "<link rel=\"stylesheet\" href=\"#{style}\" />"
-      else
-        css = fs.readFileSync style, 'utf8'
-        "<style>#{css}</style>"
-    # complete html
-    html = """
-    <!DOCTYPE html>
-    <html>
-      <head>
-        <title>#{title}</title>
-        <meta charset="UTF-8" />
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/\
-        8.5.0/styles/solarized_light.min.css" />
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/\
-        4.5.0/css/font-awesome.min.css" />
-        #{css}
-      </head>
-      <body>#{content}</body>
-    </html>
-    """
-    unless cb
-#      no deprecation warning because used in tests
-#      console.warn "sync call to toHtml() is deprectaed, please use async call"
-      return html
-    cb null, html unless setup?.inlineCss
-    # make css inline
-    require('inline-css') html,
-      url: 'index.html'
-    .then (html) ->
-      cb null, html
-
+  html = null
+  toHtml: (options, cb) ->
+    html = require './html' unless html
+    html this, options, cb
 
   # ### as pdf
   toPdf: (options, cb) ->
@@ -539,81 +469,3 @@ module.exports = Report
 # ### strip ansi color codes
 stripAnsi = (text) ->
   text.replace  /[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g, ''
-
-# ### initialize markdown to html converter
-md2html = null
-initHtml = -> #async.once ->
-  return md2html if md2html
-  # setup markdown it
-  hljs = require 'highlight.js'
-  container = require 'markdown-it-container'
-  md2html = require('markdown-it')
-    html: true
-    linkify: true
-    typographer: true
-    xhtmlOut: true
-    langPrefix: 'language '
-    highlight: (str, lang) ->
-      if lang and hljs.getLanguage lang
-        try
-          return hljs.highlight(lang, str).value
-      try
-        return hljs.highlightAuto(str).value
-      return '' # use external default escaping
-  .use(require 'markdown-it-title') #extracting title from source (first heading)
-  .use(require 'markdown-it-sub') # subscript support
-  .use(require 'markdown-it-sup') # superscript support
-  .use(container, 'detail') # special boxes
-  .use(container, 'info') # special boxes
-  .use(container, 'warning') # special boxes
-  .use(container, 'alert') # special boxes
-  .use(require 'markdown-it-mark') # add text as "marked"
-  .use(require 'markdown-it-emoji') # add graphical emojis
-  .use(require 'markdown-it-fontawesome')
-  .use(require 'markdown-it-deflist') # definition lists
-  .use(require 'markdown-it-abbr') # abbreviations (auto added)
-  .use(require 'markdown-it-footnote') # footnotes (auto linked)
-  .use(require('markdown-it-checkbox'), {divWrap: true, divClass: 'cb'})
-  .use(require 'markdown-it-decorate') # add css classes
-#  .use(require './plugin')
-  .use require('markdown-it-toc-and-anchor').default, # possibility to add TOC
-    tocClassName: 'table-of-contents'
-    tocFirstLevel: 2
-    anchorLink: false
-  twemoji = require('twemoji')
-  # set base to allow also access from local page display
-  twemoji.base = 'https://twemoji.maxcdn.com/'
-  md2html.renderer.rules.emoji = (token, idx) ->
-    twemoji.parse token[idx].content
-  md2html
-
-optimizeHtml = (html) ->
-  re = [
-    [/<p>\n(<ul class="table-of-contents">)([\s\S]*?<\/ul>)\n<\/p>/g, '$1<header>Contents</header>$2']
-  ]
-  # code
-  lang =
-    js: 'JavaScript Code'
-    coffee: 'CoffeeScript Code'
-    bash: 'Bash Code'
-    sql: 'SQL Code'
-  for l, t of lang
-    re.push [
-      new RegExp '(<code class="language ' + l + '">)', 'g'
-      '$1<header>' + t + '</header>'
-    ]
-  # boxes
-  boxes =
-    info: 'Info'
-    warning: 'Warning'
-    alert: 'Alert'
-  for l, t of boxes
-    re.push [
-      new RegExp '(<div class="' + l + '">)', 'g'
-      '$1<header>' + t + '</header>'
-    ]
-  # replacement
-  for [s, r] in re
-    html = html.replace s, r
-  # return result
-  html
