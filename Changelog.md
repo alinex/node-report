@@ -4,6 +4,11 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.3.3 (2016-02-18)
+-------------------------------------------------
+- Upgraded pdf creation.
+- Added specific decorator styles.
+
 Version 1.3.2 (2016-02-16)
 -------------------------------------------------
 - Make table header bold in console output.
