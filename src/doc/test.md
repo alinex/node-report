@@ -1,3 +1,5 @@
+![divibib Logo](http://www.ekz-gruppe.de/media/images/logo_divibib.png) <!-- {p:.right.bg-white} -->
+
 @[toc]
 
 
