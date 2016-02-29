@@ -6,20 +6,31 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "home/alex/github/node-report/src/htmlcoffee", defaultSidebar = true;
+    var relativeDir = "../";
+    var thisFile = "home/alex/github/node-report/src/html.coffee";
+    var defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
-</head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0" /></head
 <body>
   <nav>
-<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='https://alinex.github.io/images/Alinex-black-200.png'">
-  <img name="lllogo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+<div class="logo"><a href="http://alinex.github.io"
+  onmouseover="logo.src='https://alinex.github.io/images/Alinex-200.png'"
+  onmouseout="logo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="logo" src="https://alinex.github.io/images/Alinex-black-200.png"
+    width="150" title="Alinex Universe Homepage" />
   </a>
-  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+  <img src="http://alinex.github.io/images/Alinex-200.png"
+    style="display:none" alt="preloading" />
 </div>
 <div class="links">
-  <a href="http://alinex.github.io/blog" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
-  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+  <a href="http://alinex.github.io/blog"
+    class="btn btn-primary"><span class="glyphicon-pencil"></span> Blog</a>
+  <a href="http://alinex.github.io/develop"
+    class="btn btn-primary"><span class="glyphicon-book"></span> Develop</a>
+  <a href="http://alinex.github.io/code.html"
+    class="btn btn-warning"><span class="glyphicon-cog"></span> Code</a>
 </div>
 </nav><div id="sidebar_wrapper">
     <div id="sidebar_switch">
@@ -28,461 +39,490 @@
     </div>
     <div id="tree"></div>
     <div id="headings">
+
       <div class="heading h1">
-        <a href="#report%20generation">Report generation</a>
+        <a href="#report-generation">Report generation</a>
       </div>
+
       <div class="heading h2">
-        <a href="#node%20modules">Node Modules</a>
+        <a href="#node-modules">Node Modules</a>
       </div>
+
       <div class="heading h2">
         <a href="#configuration">Configuration</a>
       </div>
+
       <div class="heading h2">
-        <a href="#convert%20into%20html">Convert into HTML</a>
+        <a href="#convert-into-html">Convert into HTML</a>
       </div>
+
       <div class="heading h2">
-        <a href="#helper%20methods">Helper methods</a>
+        <a href="#helper-methods">Helper methods</a>
       </div>
+
       <div class="heading h3">
-        <a href="#initialize%20markdown%20to%20html%20converter">initialize markdown to html converter</a>
+        <a href="#initialize-markdown-to-html-converter">initialize markdown to html converter</a>
       </div>
+
     </div>
   </div>
   <div id="sidebar-toggle"></div>
-  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-report" title="Fork me on GitHub"></a><div class="background highlight"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-report" title="Fork me on GitHub"></a>
+    <div class="background highlight"></div>
 <table cellpadding="0" cellspacing="0">
   <tbody>
+    
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="report%20generation">
+          <div class="pilwrap" id="report-generation">
   <h1>
-    <a href="#report%20generation" name="report%20generation" class="pilcrow">&#182;</a>
-    Report generation
+    <a href="#report-generation" name="report-generation" class="pilcrow"></a>
+Report generation
   </h1>
 </div>
-
-
 <p>This package will give you an easy and robust way to access mysql databases.</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre></pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="node%20modules">
+          <div class="pilwrap" id="node-modules">
   <h2>
-    <a href="#node%20modules" name="node%20modules" class="pilcrow">&#182;</a>
-    Node Modules
+    <a href="#node-modules" name="node-modules" class="pilcrow"></a>
+Node Modules
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">fs = </span><span class="nx">require</span> <span class="s">&#39;fs&#39;</span>
-<span class="nv">path = </span><span class="nx">require</span> <span class="s">&#39;path&#39;</span>
-<span class="nv">fs = </span><span class="nx">require</span> <span class="s">&#39;alinex-fs&#39;</span>
-<span class="nv">mime = </span><span class="nx">require</span> <span class="s">&#39;mime&#39;</span>
-<span class="nv">inlineCss = </span><span class="nx">require</span> <span class="s">&#39;inline-css&#39;</span>
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'fs'</span>
+path = <span class="hljs-built_in">require</span> <span class="hljs-string">'path'</span>
+fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-fs'</span>
+mime = <span class="hljs-built_in">require</span> <span class="hljs-string">'mime'</span>
+inlineCss = <span class="hljs-built_in">require</span> <span class="hljs-string">'inline-css'</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
 </div>
 <p>markdown</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">md = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;markdown-it&#39;</span><span class="p">)</span>
-<span class="nv">hljs = </span><span class="nx">require</span> <span class="s">&#39;highlight.js&#39;</span>
-<span class="nv">mdContainer = </span><span class="nx">require</span> <span class="s">&#39;markdown-it-container&#39;</span>
-<span class="nv">mdTitle = </span><span class="nx">require</span> <span class="s">&#39;markdown-it-title&#39;</span> <span class="c1">#extracting title from source (first heading)</span>
-<span class="nv">mdSub = </span><span class="nx">require</span> <span class="s">&#39;markdown-it-sub&#39;</span> <span class="c1"># subscript support</span>
-<span class="nv">mdSup = </span><span class="nx">require</span> <span class="s">&#39;markdown-it-sup&#39;</span> <span class="c1"># superscript support</span>
-<span class="nv">mdMark = </span><span class="nx">require</span> <span class="s">&#39;markdown-it-mark&#39;</span> <span class="c1"># add text as &quot;marked&quot;</span>
-<span class="nv">mdEmoji = </span><span class="nx">require</span> <span class="s">&#39;markdown-it-emoji&#39;</span> <span class="c1"># add graphical emojis</span>
-<span class="nv">mdFontawesome = </span><span class="nx">require</span> <span class="s">&#39;markdown-it-fontawesome&#39;</span>
-<span class="nv">mdDeflist = </span><span class="nx">require</span> <span class="s">&#39;markdown-it-deflist&#39;</span> <span class="c1"># definition lists</span>
-<span class="nv">mdAbbr = </span><span class="nx">require</span> <span class="s">&#39;markdown-it-abbr&#39;</span> <span class="c1"># abbreviations (auto added)</span>
-<span class="nv">mdFootnote = </span><span class="nx">require</span> <span class="s">&#39;markdown-it-footnote&#39;</span> <span class="c1"># footnotes (auto linked)</span>
-<span class="nv">mdCheckbox = </span><span class="nx">require</span> <span class="s">&#39;markdown-it-checkbox&#39;</span>
-<span class="nv">mdDecorate = </span><span class="nx">require</span> <span class="s">&#39;markdown-it-decorate&#39;</span> <span class="c1"># add css classes</span>
-<span class="nv">mdToc = </span><span class="nx">require</span> <span class="s">&#39;markdown-it-toc-and-anchor&#39;</span>
-<span class="nv">twemoji = </span><span class="nx">require</span> <span class="s">&#39;twemoji&#39;</span>
+        <td class="code highlight">
+          <pre class="coffeescript">md = <span class="hljs-built_in">require</span>(<span class="hljs-string">'markdown-it'</span>)
+hljs = <span class="hljs-built_in">require</span> <span class="hljs-string">'highlight.js'</span>
+mdContainer = <span class="hljs-built_in">require</span> <span class="hljs-string">'markdown-it-container'</span>
+mdTitle = <span class="hljs-built_in">require</span> <span class="hljs-string">'markdown-it-title'</span> <span class="hljs-comment">#extracting title from source (first heading)</span>
+mdSub = <span class="hljs-built_in">require</span> <span class="hljs-string">'markdown-it-sub'</span> <span class="hljs-comment"># subscript support</span>
+mdSup = <span class="hljs-built_in">require</span> <span class="hljs-string">'markdown-it-sup'</span> <span class="hljs-comment"># superscript support</span>
+mdMark = <span class="hljs-built_in">require</span> <span class="hljs-string">'markdown-it-mark'</span> <span class="hljs-comment"># add text as "marked"</span>
+mdEmoji = <span class="hljs-built_in">require</span> <span class="hljs-string">'markdown-it-emoji'</span> <span class="hljs-comment"># add graphical emojis</span>
+mdFontawesome = <span class="hljs-built_in">require</span> <span class="hljs-string">'markdown-it-fontawesome'</span>
+mdDeflist = <span class="hljs-built_in">require</span> <span class="hljs-string">'markdown-it-deflist'</span> <span class="hljs-comment"># definition lists</span>
+mdAbbr = <span class="hljs-built_in">require</span> <span class="hljs-string">'markdown-it-abbr'</span> <span class="hljs-comment"># abbreviations (auto added)</span>
+mdFootnote = <span class="hljs-built_in">require</span> <span class="hljs-string">'markdown-it-footnote'</span> <span class="hljs-comment"># footnotes (auto linked)</span>
+mdCheckbox = <span class="hljs-built_in">require</span> <span class="hljs-string">'markdown-it-checkbox'</span>
+mdDecorate = <span class="hljs-built_in">require</span> <span class="hljs-string">'markdown-it-decorate'</span> <span class="hljs-comment"># add css classes</span>
+mdToc = <span class="hljs-built_in">require</span> <span class="hljs-string">'markdown-it-toc-and-anchor'</span>
+twemoji = <span class="hljs-built_in">require</span> <span class="hljs-string">'twemoji'</span>
 
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="configuration">
+          <div class="pilwrap" id="configuration">
   <h2>
-    <a href="#configuration" name="configuration" class="pilcrow">&#182;</a>
-    Configuration
+    <a href="#configuration" name="configuration" class="pilcrow"></a>
+Configuration
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">HTML_STYLES =</span>
-  <span class="nv">default: </span><span class="s">&quot;</span><span class="si">#{</span><span class="nx">__dirname</span><span class="si">}</span><span class="s">/../var/src/style/default.css&quot;</span>
+        <td class="code highlight">
+          <pre class="coffeescript">HTML_STYLES =
+  <span class="hljs-attribute">default</span>: <span class="hljs-string">"<span class="hljs-subst">#{__dirname}</span>/../var/src/style/default.css"</span>
 
-<span class="nv">trans =</span>
-  <span class="nv">content:</span>
-    <span class="nv">en: </span><span class="s">&#39;Content&#39;</span>
-    <span class="nv">de: </span><span class="s">&#39;Inhalt&#39;</span>
-  <span class="nv">lang:</span>
-    <span class="nv">js:</span>
-      <span class="nv">en: </span><span class="s">&#39;JavaScript Code&#39;</span>
-    <span class="nv">coffee:</span>
-      <span class="nv">en: </span><span class="s">&#39;CoffeeScript Code&#39;</span>
-    <span class="nv">bash:</span>
-      <span class="nv">en: </span><span class="s">&#39;Bash Code&#39;</span>
-    <span class="nv">sql:</span>
-      <span class="nv">en: </span><span class="s">&#39;SQL Code&#39;</span>
-  <span class="nv">boxes:</span>
-    <span class="nv">info:</span>
-      <span class="nv">en: </span><span class="s">&#39;Info&#39;</span>
-    <span class="nv">warning:</span>
-      <span class="nv">en: </span><span class="s">&#39;Warning&#39;</span>
-      <span class="nv">de: </span><span class="s">&#39;Warnung&#39;</span>
-    <span class="nv">alert:</span>
-      <span class="nv">en: </span><span class="s">&#39;Attention&#39;</span>
-      <span class="nv">de: </span><span class="s">&#39;Achtung&#39;</span>
+trans =
+  <span class="hljs-attribute">content</span>:
+    <span class="hljs-attribute">en</span>: <span class="hljs-string">'Content'</span>
+    <span class="hljs-attribute">de</span>: <span class="hljs-string">'Inhalt'</span>
+  <span class="hljs-attribute">lang</span>:
+    <span class="hljs-attribute">js</span>:
+      <span class="hljs-attribute">en</span>: <span class="hljs-string">'JavaScript Code'</span>
+    <span class="hljs-attribute">coffee</span>:
+      <span class="hljs-attribute">en</span>: <span class="hljs-string">'CoffeeScript Code'</span>
+    <span class="hljs-attribute">bash</span>:
+      <span class="hljs-attribute">en</span>: <span class="hljs-string">'Bash Code'</span>
+    <span class="hljs-attribute">sql</span>:
+      <span class="hljs-attribute">en</span>: <span class="hljs-string">'SQL Code'</span>
+  <span class="hljs-attribute">boxes</span>:
+    <span class="hljs-attribute">info</span>:
+      <span class="hljs-attribute">en</span>: <span class="hljs-string">'Info'</span>
+    <span class="hljs-attribute">warning</span>:
+      <span class="hljs-attribute">en</span>: <span class="hljs-string">'Warning'</span>
+      <span class="hljs-attribute">de</span>: <span class="hljs-string">'Warnung'</span>
+    <span class="hljs-attribute">alert</span>:
+      <span class="hljs-attribute">en</span>: <span class="hljs-string">'Attention'</span>
+      <span class="hljs-attribute">de</span>: <span class="hljs-string">'Achtung'</span>
 
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="convert%20into%20html">
+          <div class="pilwrap" id="convert-into-html">
   <h2>
-    <a href="#convert%20into%20html" name="convert%20into%20html" class="pilcrow">&#182;</a>
-    Convert into HTML
+    <a href="#convert-into-html" name="convert-into-html" class="pilcrow"></a>
+Convert into HTML
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">module.exports = </span><span class="nf">(report, setup, cb) -&gt;</span>
-  <span class="k">if</span> <span class="k">typeof</span> <span class="nx">setup</span> <span class="o">is</span> <span class="s">&#39;function&#39;</span>
-    <span class="nv">cb = </span><span class="nx">setup</span>
-    <span class="nv">setup = </span><span class="kc">null</span>
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-params">(report, setup, cb)</span> -&gt;</span>
+  <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> setup <span class="hljs-keyword">is</span> <span class="hljs-string">'function'</span>
+    cb = setup
+    setup = <span class="hljs-literal">null</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-6" id="section-6">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
 </div>
 <p>create html</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">md = </span><span class="nx">initHtml</span><span class="p">()</span>
-  <span class="nv">data = </span><span class="p">{}</span>
-  <span class="nv">content = </span><span class="nx">report</span><span class="p">.</span><span class="nx">toString</span><span class="p">()</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  md = initHtml()
+  data = {}
+  content = report.toString()
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-7" id="section-7">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
 </div>
 <p>make local files inline
 replace local images with base64</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">content = </span><span class="nx">content</span><span class="p">.</span><span class="nx">replace</span> <span class="sr">///</span>
-<span class="sr">    (                 # before:</span>
-<span class="sr">      !\[.*?\]        #   image alt text</span>
-<span class="sr">      \(              #   opening url</span>
-<span class="sr">    )file://(         # file:</span>
-<span class="sr">      [^ ]*?          #   image source</span>
-<span class="sr">    )(                # after:</span>
-<span class="sr">      (?: &quot;.*?&quot;)?     #   title text</span>
-<span class="sr">      \)              #   closing url</span>
-<span class="sr">    )</span>
-<span class="sr">    ///</span><span class="p">,</span> <span class="nf">(_, b, f, a) -&gt;</span>
-    <span class="nv">f = </span><span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span> <span class="nx">__dirname</span><span class="p">,</span> <span class="s">&#39;../&#39;</span><span class="p">,</span> <span class="nx">f</span>
-    <span class="nv">data = </span><span class="k">new</span> <span class="nx">Buffer</span><span class="p">(</span><span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span> <span class="nx">f</span><span class="p">).</span><span class="nx">toString</span> <span class="s">&#39;base64&#39;</span>
-    <span class="s">&quot;</span><span class="si">#{</span><span class="nx">b</span><span class="si">}</span><span class="s">data:</span><span class="si">#{</span><span class="nx">mime</span><span class="p">.</span><span class="nx">lookup</span> <span class="nx">f</span><span class="si">}</span><span class="s">;base64,</span><span class="si">#{</span><span class="nx">data</span><span class="si">}#{</span><span class="nx">a</span><span class="si">}</span><span class="s">&quot;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  content = content.replace <span class="hljs-regexp">///
+    (                 <span class="hljs-comment"># before:</span>
+      !\[.*?\]        <span class="hljs-comment">#   image alt text</span>
+      \(              <span class="hljs-comment">#   opening url</span>
+    )file://(         <span class="hljs-comment"># file:</span>
+      [^ ]*?          <span class="hljs-comment">#   image source</span>
+    )(                <span class="hljs-comment"># after:</span>
+      (?: ".*?")?     <span class="hljs-comment">#   title text</span>
+      \)              <span class="hljs-comment">#   closing url</span>
+    )
+    ///</span>, <span class="hljs-function"><span class="hljs-params">(_, b, f, a)</span> -&gt;</span>
+    f = path.resolve __dirname, <span class="hljs-string">'../'</span>, f
+    data = <span class="hljs-keyword">new</span> Buffer(fs.readFileSync f).toString <span class="hljs-string">'base64'</span>
+    <span class="hljs-string">"<span class="hljs-subst">#{b}</span>data:<span class="hljs-subst">#{mime.lookup f}</span>;base64,<span class="hljs-subst">#{data}</span><span class="hljs-subst">#{a}</span>"</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8"></a>
 </div>
 <p>transform to html</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">content = </span><span class="nx">optimizeHtml</span> <span class="nx">md</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="nx">content</span><span class="p">,</span> <span class="nx">data</span><span class="p">),</span> <span class="nx">setup</span><span class="o">?</span><span class="p">.</span><span class="nx">locale</span>
-  <span class="nv">title = </span><span class="nx">setup</span><span class="o">?</span><span class="p">.</span><span class="nx">title</span> <span class="o">?</span> <span class="nx">data</span><span class="p">.</span><span class="nx">title</span> <span class="o">?</span> <span class="s">&#39;Report&#39;</span>
-  <span class="nv">style = </span><span class="nx">setup</span><span class="o">?</span><span class="p">.</span><span class="nx">style</span> <span class="o">?</span> <span class="s">&#39;default&#39;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  content = optimizeHtml md.render(content, data), setup?.locale
+  title = setup?.title ? data.title ? <span class="hljs-string">'Report'</span>
+  style = setup?.style ? <span class="hljs-string">'default'</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-9" id="section-9">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9"></a>
 </div>
 <p>get css</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">css = </span><span class="k">switch</span>
-    <span class="k">when</span> <span class="nx">style</span> <span class="k">in</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span> <span class="nx">HTML_STYLES</span>
-      <span class="nv">css = </span><span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span> <span class="nx">HTML_STYLES</span><span class="p">[</span><span class="nx">style</span><span class="p">],</span> <span class="s">&#39;utf8&#39;</span>
-      <span class="s">&quot;&lt;style&gt;</span><span class="si">#{</span><span class="nx">css</span><span class="si">}</span><span class="s">&lt;/style&gt;&quot;</span>
-    <span class="k">when</span> <span class="nx">style</span><span class="p">.</span><span class="nx">match</span> <span class="sr">/^https?:\/\//</span>
-      <span class="s">&quot;&lt;link rel=\&quot;stylesheet\&quot; href=\&quot;</span><span class="si">#{</span><span class="nx">style</span><span class="si">}</span><span class="s">\&quot; /&gt;&quot;</span>
-    <span class="k">else</span>
-      <span class="nv">css = </span><span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span> <span class="nx">style</span><span class="p">,</span> <span class="s">&#39;utf8&#39;</span>
-      <span class="s">&quot;&lt;style&gt;</span><span class="si">#{</span><span class="nx">css</span><span class="si">}</span><span class="s">&lt;/style&gt;&quot;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  css = <span class="hljs-keyword">switch</span>
+    <span class="hljs-keyword">when</span> style <span class="hljs-keyword">in</span> Object.keys HTML_STYLES
+      css = fs.readFileSync HTML_STYLES[style], <span class="hljs-string">'utf8'</span>
+      <span class="hljs-string">"&lt;style&gt;<span class="hljs-subst">#{css}</span>&lt;/style&gt;"</span>
+    <span class="hljs-keyword">when</span> style.match <span class="hljs-regexp">/^https?:\/\//</span>
+      <span class="hljs-string">"&lt;link rel=\"stylesheet\" href=\"<span class="hljs-subst">#{style}</span>\" /&gt;"</span>
+    <span class="hljs-keyword">else</span>
+      css = fs.readFileSync style, <span class="hljs-string">'utf8'</span>
+      <span class="hljs-string">"&lt;style&gt;<span class="hljs-subst">#{css}</span>&lt;/style&gt;"</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-10" id="section-10">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-10" id="section-10"></a>
 </div>
 <p>complete html</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">html = </span><span class="s">&quot;&quot;&quot;</span>
-<span class="s">  &lt;!DOCTYPE html&gt;</span>
-<span class="s">  &lt;html lang=&quot;</span><span class="si">#{</span><span class="k">if</span> <span class="nx">setup</span><span class="o">?</span><span class="p">.</span><span class="nx">locale</span> <span class="k">then</span> <span class="nx">setup</span><span class="p">.</span><span class="nx">locale</span><span class="p">[</span><span class="mi">0</span><span class="p">..</span><span class="mi">1</span><span class="p">]</span> <span class="k">else</span> <span class="s">&#39;en&#39;</span><span class="si">}</span><span class="s">&quot;&gt;</span>
-<span class="s">    &lt;head&gt;</span>
-<span class="s">      &lt;title&gt;</span><span class="si">#{</span><span class="nx">title</span><span class="si">}</span><span class="s">&lt;/title&gt;</span>
-<span class="s">      &lt;meta charset=&quot;UTF-8&quot; /&gt;</span>
-<span class="s">      &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/highlight.js/\</span>
-<span class="s">      8.5.0/styles/solarized_light.min.css&quot; /&gt;</span>
-<span class="s">      &lt;link rel=&quot;stylesheet&quot; href=&quot;https://maxcdn.bootstrapcdn.com/font-awesome/\</span>
-<span class="s">      4.5.0/css/font-awesome.min.css&quot; /&gt;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  html = <span class="hljs-string">"""
+  &lt;!DOCTYPE html&gt;
+  &lt;html lang="<span class="hljs-subst">#{<span class="hljs-keyword">if</span> setup?.locale <span class="hljs-keyword">then</span> setup.locale[<span class="hljs-number">0.</span><span class="hljs-number">.1</span>] <span class="hljs-keyword">else</span> <span class="hljs-string">'en'</span>}</span>"&gt;
+    &lt;head&gt;
+      &lt;title&gt;<span class="hljs-subst">#{title}</span>&lt;/title&gt;
+      &lt;meta charset="UTF-8" /&gt;
+      &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/\
+      8.5.0/styles/solarized_light.min.css" /&gt;
+      &lt;link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/\
+      4.5.0/css/font-awesome.min.css" /&gt;
+</span></pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-11" id="section-11">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11"></a>
 </div>
 <p>{css}</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="s">    &lt;/head&gt;</span>
-<span class="s">    &lt;body&gt;</span><span class="si">#{</span><span class="nx">content</span><span class="si">}</span><span class="s">&lt;/body&gt;</span>
-<span class="s">  &lt;/html&gt;</span>
-<span class="s">  &quot;&quot;&quot;</span>
-  <span class="k">return</span> <span class="nx">html</span> <span class="k">unless</span> <span class="nx">cb</span>
-  <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">html</span> <span class="k">unless</span> <span class="nx">setup</span><span class="o">?</span><span class="p">.</span><span class="nx">inlineCss</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    &lt;/head&gt;
+    &lt;body&gt;<span class="hljs-comment">#{content}&lt;/body&gt;</span>
+  &lt;/html&gt;
+  <span class="hljs-string">"""
+  return html unless cb
+  cb null, html unless setup?.inlineCss
+</span></pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12"></a>
 </div>
 <p>make css inline</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nx">inlineCss</span> <span class="nx">html</span><span class="p">,</span>
-    <span class="nv">url: </span><span class="s">&#39;index.html&#39;</span>
-  <span class="p">.</span><span class="nx">then</span> <span class="nf">(html) -&gt;</span>
-    <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">html</span>
+        <td class="code highlight">
+          <pre class="coffeescript">  inlineCss html,
+    <span class="hljs-attribute">url</span>: <span class="hljs-string">'index.html'</span>
+  .<span class="hljs-keyword">then</span> (html) -&gt;
+    cb <span class="hljs-literal">null</span>, html
 
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="helper%20methods">
+          <div class="pilwrap" id="helper-methods">
   <h2>
-    <a href="#helper%20methods" name="helper%20methods" class="pilcrow">&#182;</a>
-    Helper methods
+    <a href="#helper-methods" name="helper-methods" class="pilcrow"></a>
+Helper methods
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="initialize%20markdown%20to%20html%20converter">
+          <div class="pilwrap" id="initialize-markdown-to-html-converter">
   <h3>
-    <a href="#initialize%20markdown%20to%20html%20converter" name="initialize%20markdown%20to%20html%20converter" class="pilcrow">&#182;</a>
-    initialize markdown to html converter
+    <a href="#initialize-markdown-to-html-converter" name="initialize-markdown-to-html-converter" class="pilcrow"></a>
+initialize markdown to html converter
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">md2html = </span><span class="kc">null</span>
-<span class="nv">initHtml = </span><span class="nf">-&gt;</span> <span class="c1">#async.once -&gt;</span>
-  <span class="k">return</span> <span class="nx">md2html</span> <span class="k">if</span> <span class="nx">md2html</span>
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">md2html = <span class="hljs-literal">null</span>
+<span class="hljs-function"><span class="hljs-title">initHtml</span> = -&gt;</span> <span class="hljs-comment">#async.once -&gt;</span>
+  <span class="hljs-keyword">return</span> md2html <span class="hljs-keyword">if</span> md2html
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-15" id="section-15">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-15" id="section-15"></a>
 </div>
 <p>setup markdown it</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">md2html = </span><span class="nx">md</span>
-    <span class="nv">html: </span><span class="kc">true</span>
-    <span class="nv">linkify: </span><span class="kc">true</span>
-    <span class="nv">typographer: </span><span class="kc">true</span>
-    <span class="nv">xhtmlOut: </span><span class="kc">true</span>
-    <span class="nv">langPrefix: </span><span class="s">&#39;language &#39;</span>
-    <span class="nv">highlight: </span><span class="nf">(str, lang) -&gt;</span>
-      <span class="k">if</span> <span class="nx">lang</span> <span class="o">and</span> <span class="nx">hljs</span><span class="p">.</span><span class="nx">getLanguage</span> <span class="nx">lang</span>
-        <span class="k">try</span>
-          <span class="k">return</span> <span class="nx">hljs</span><span class="p">.</span><span class="nx">highlight</span><span class="p">(</span><span class="nx">lang</span><span class="p">,</span> <span class="nx">str</span><span class="p">).</span><span class="nx">value</span>
-      <span class="k">try</span>
-        <span class="k">return</span> <span class="nx">hljs</span><span class="p">.</span><span class="nx">highlightAuto</span><span class="p">(</span><span class="nx">str</span><span class="p">).</span><span class="nx">value</span>
-      <span class="k">return</span> <span class="s">&#39;&#39;</span> <span class="c1"># use external default escaping</span>
-  <span class="p">.</span><span class="nx">use</span> <span class="nx">mdTitle</span> <span class="c1">#extracting title from source (first heading)</span>
-  <span class="p">.</span><span class="nx">use</span> <span class="nx">mdSub</span> <span class="c1"># subscript support</span>
-  <span class="p">.</span><span class="nx">use</span> <span class="nx">mdSup</span> <span class="c1"># superscript support</span>
-  <span class="p">.</span><span class="nx">use</span> <span class="nx">mdContainer</span><span class="p">,</span> <span class="s">&#39;detail&#39;</span> <span class="c1"># special boxes</span>
-  <span class="p">.</span><span class="nx">use</span> <span class="nx">mdContainer</span><span class="p">,</span> <span class="s">&#39;info&#39;</span> <span class="c1"># special boxes</span>
-  <span class="p">.</span><span class="nx">use</span> <span class="nx">mdContainer</span><span class="p">,</span> <span class="s">&#39;warning&#39;</span> <span class="c1"># special boxes</span>
-  <span class="p">.</span><span class="nx">use</span> <span class="nx">mdContainer</span><span class="p">,</span> <span class="s">&#39;alert&#39;</span> <span class="c1"># special boxes</span>
-  <span class="p">.</span><span class="nx">use</span> <span class="nx">mdMark</span> <span class="c1"># add text as &quot;marked&quot;</span>
-  <span class="p">.</span><span class="nx">use</span> <span class="nx">mdEmoji</span> <span class="c1"># add graphical emojis</span>
-  <span class="p">.</span><span class="nx">use</span> <span class="nx">mdFontawesome</span>
-  <span class="p">.</span><span class="nx">use</span> <span class="nx">mdDeflist</span> <span class="c1"># definition lists</span>
-  <span class="p">.</span><span class="nx">use</span> <span class="nx">mdAbbr</span> <span class="c1"># abbreviations (auto added)</span>
-  <span class="p">.</span><span class="nx">use</span> <span class="nx">mdFootnote</span> <span class="c1"># footnotes (auto linked)</span>
-  <span class="p">.</span><span class="nx">use</span> <span class="nx">mdCheckbox</span><span class="p">,</span> <span class="p">{</span><span class="nv">divWrap: </span><span class="kc">true</span><span class="p">,</span> <span class="nv">divClass: </span><span class="s">&#39;cb&#39;</span><span class="p">}</span>
-  <span class="p">.</span><span class="nx">use</span> <span class="nx">mdDecorate</span> <span class="c1"># add css classes</span>
-  <span class="p">.</span><span class="nx">use</span> <span class="nx">mdToc</span><span class="p">.</span><span class="nx">default</span><span class="p">,</span> <span class="c1"># possibility to add TOC</span>
-    <span class="nv">tocClassName: </span><span class="s">&#39;table-of-contents&#39;</span>
-    <span class="nv">tocFirstLevel: </span><span class="mi">2</span>
-    <span class="nv">anchorLink: </span><span class="kc">false</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  md2html = md
+    <span class="hljs-attribute">html</span>: <span class="hljs-literal">true</span>
+    <span class="hljs-attribute">linkify</span>: <span class="hljs-literal">true</span>
+    <span class="hljs-attribute">typographer</span>: <span class="hljs-literal">true</span>
+    <span class="hljs-attribute">xhtmlOut</span>: <span class="hljs-literal">true</span>
+    <span class="hljs-attribute">langPrefix</span>: <span class="hljs-string">'language '</span>
+    <span class="hljs-attribute">highlight</span>: <span class="hljs-function"><span class="hljs-params">(str, lang)</span> -&gt;</span>
+      <span class="hljs-keyword">if</span> lang <span class="hljs-keyword">and</span> hljs.getLanguage lang
+        <span class="hljs-keyword">try</span>
+          <span class="hljs-keyword">return</span> hljs.highlight(lang, str).value
+      <span class="hljs-keyword">try</span>
+        <span class="hljs-keyword">return</span> hljs.highlightAuto(str).value
+      <span class="hljs-keyword">return</span> <span class="hljs-string">''</span> <span class="hljs-comment"># use external default escaping</span>
+  .use mdTitle <span class="hljs-comment">#extracting title from source (first heading)</span>
+  .use mdSub <span class="hljs-comment"># subscript support</span>
+  .use mdSup <span class="hljs-comment"># superscript support</span>
+  .use mdContainer, <span class="hljs-string">'detail'</span> <span class="hljs-comment"># special boxes</span>
+  .use mdContainer, <span class="hljs-string">'info'</span> <span class="hljs-comment"># special boxes</span>
+  .use mdContainer, <span class="hljs-string">'warning'</span> <span class="hljs-comment"># special boxes</span>
+  .use mdContainer, <span class="hljs-string">'alert'</span> <span class="hljs-comment"># special boxes</span>
+  .use mdMark <span class="hljs-comment"># add text as "marked"</span>
+  .use mdEmoji <span class="hljs-comment"># add graphical emojis</span>
+  .use mdFontawesome
+  .use mdDeflist <span class="hljs-comment"># definition lists</span>
+  .use mdAbbr <span class="hljs-comment"># abbreviations (auto added)</span>
+  .use mdFootnote <span class="hljs-comment"># footnotes (auto linked)</span>
+  .use mdCheckbox, {<span class="hljs-attribute">divWrap</span>: <span class="hljs-literal">true</span>, <span class="hljs-attribute">divClass</span>: <span class="hljs-string">'cb'</span>}
+  .use mdDecorate <span class="hljs-comment"># add css classes</span>
+  .use mdToc.default, <span class="hljs-comment"># possibility to add TOC</span>
+    <span class="hljs-attribute">tocClassName</span>: <span class="hljs-string">'table-of-contents'</span>
+    <span class="hljs-attribute">tocFirstLevel</span>: <span class="hljs-number">2</span>
+    <span class="hljs-attribute">anchorLink</span>: <span class="hljs-literal">false</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-16" id="section-16">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-16" id="section-16"></a>
 </div>
 <p>set base to allow also access from local page display</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">twemoji.base = </span><span class="s">&#39;https://twemoji.maxcdn.com/&#39;</span>
-  <span class="nv">md2html.renderer.rules.emoji = </span><span class="nf">(token, idx) -&gt;</span>
-    <span class="nx">twemoji</span><span class="p">.</span><span class="nx">parse</span> <span class="nx">token</span><span class="p">[</span><span class="nx">idx</span><span class="p">].</span><span class="nx">content</span>
-  <span class="nx">md2html</span>
-
-<span class="nv">text = </span><span class="nf">(tag, locale, tr = trans) -&gt;</span>
-  <span class="nv">parts = </span><span class="nx">tag</span><span class="p">.</span><span class="nx">split</span> <span class="sr">/\./</span>
-  <span class="k">return</span> <span class="nx">text</span> <span class="nx">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">..].</span><span class="nx">join</span><span class="p">(</span><span class="s">&#39;.&#39;</span><span class="p">),</span> <span class="nx">locale</span><span class="p">,</span> <span class="nx">tr</span><span class="p">[</span><span class="nx">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="k">unless</span> <span class="nx">parts</span><span class="p">.</span><span class="nx">length</span> <span class="o">is</span> <span class="mi">1</span>
-  <span class="nx">tr</span><span class="p">[</span><span class="nx">tag</span><span class="p">][</span><span class="nx">locale</span><span class="p">]</span> <span class="o">?</span> <span class="nx">tr</span><span class="p">[</span><span class="nx">tag</span><span class="p">][</span><span class="nx">locale</span><span class="p">[</span><span class="mi">0</span><span class="p">..</span><span class="mi">1</span><span class="p">]]</span> <span class="o">?</span> <span class="nx">tr</span><span class="p">[</span><span class="nx">tag</span><span class="p">].</span><span class="nx">en</span>
-
-<span class="nv">optimizeHtml = </span><span class="nf">(html, locale = &#39;en&#39;) -&gt;</span>
-  <span class="nv">re = </span><span class="p">[</span>
-    <span class="p">[</span>
-      <span class="sr">/&lt;p&gt;\n(&lt;ul class=&quot;table-of-contents&quot;&gt;)([\s\S]*?&lt;\/ul&gt;)\n&lt;\/p&gt;/g</span>
-      <span class="s">&quot;$1&lt;header&gt;</span><span class="si">#{</span><span class="nx">text</span> <span class="s">&#39;content&#39;</span><span class="p">,</span> <span class="nx">locale</span><span class="si">}</span><span class="s">&lt;/header&gt;$2&quot;</span>
-    <span class="p">]</span>
-  <span class="p">]</span>
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">  twemoji.base = <span class="hljs-string">'https://twemoji.maxcdn.com/'</span>
+  md2html.renderer.rules.emoji = <span class="hljs-function"><span class="hljs-params">(token, idx)</span> -&gt;</span>
+    twemoji.parse token[idx].content
+  md2html
+<span class="hljs-function">
+<span class="hljs-title">text</span> = <span class="hljs-params">(tag, locale, tr = trans)</span> -&gt;</span>
+  parts = tag.split <span class="hljs-regexp">/\./</span>
+  <span class="hljs-keyword">return</span> text parts[<span class="hljs-number">1.</span>.].join(<span class="hljs-string">'.'</span>), locale, tr[parts[<span class="hljs-number">0</span>]] <span class="hljs-keyword">unless</span> parts.length <span class="hljs-keyword">is</span> <span class="hljs-number">1</span>
+  tr[tag][locale] ? tr[tag][locale[<span class="hljs-number">0.</span><span class="hljs-number">.1</span>]] ? tr[tag].en
+<span class="hljs-function">
+<span class="hljs-title">optimizeHtml</span> = <span class="hljs-params">(html, locale = <span class="hljs-string">'en'</span>)</span> -&gt;</span>
+  re = [
+    [
+      <span class="hljs-regexp">/&lt;p&gt;\n(&lt;ul class="table-of-contents"&gt;)([\s\S]*?&lt;\/ul&gt;)\n&lt;\/p&gt;/g</span>
+      <span class="hljs-string">"$1&lt;header&gt;<span class="hljs-subst">#{text <span class="hljs-string">'content'</span>, locale}</span>&lt;/header&gt;$2"</span>
+    ]
+  ]
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-17" id="section-17">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-17" id="section-17"></a>
 </div>
 <p>code</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="k">for</span> <span class="nx">tag</span> <span class="k">of</span> <span class="nx">trans</span><span class="p">.</span><span class="nx">lang</span>
-    <span class="nx">re</span><span class="p">.</span><span class="nx">push</span> <span class="p">[</span>
-      <span class="k">new</span> <span class="nb">RegExp</span> <span class="s">&#39;(&lt;code class=&quot;language &#39;</span> <span class="o">+</span> <span class="nx">tag</span> <span class="o">+</span> <span class="s">&#39;&quot;&gt;)&#39;</span><span class="p">,</span> <span class="s">&#39;g&#39;</span>
-      <span class="s">&quot;$1&lt;header&gt;</span><span class="si">#{</span><span class="nx">text</span> <span class="nx">tag</span><span class="p">,</span> <span class="nx">locale</span><span class="p">,</span> <span class="nx">trans</span><span class="p">.</span><span class="nx">lang</span><span class="si">}</span><span class="s">&lt;/header&gt;&quot;</span>
-    <span class="p">]</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-keyword">for</span> tag <span class="hljs-keyword">of</span> trans.lang
+    re.push [
+      <span class="hljs-keyword">new</span> RegExp <span class="hljs-string">'(&lt;code class="language '</span> + tag + <span class="hljs-string">'"&gt;)'</span>, <span class="hljs-string">'g'</span>
+      <span class="hljs-string">"$1&lt;header&gt;<span class="hljs-subst">#{text tag, locale, trans.lang}</span>&lt;/header&gt;"</span>
+    ]
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-18" id="section-18"></a>
 </div>
 <p>boxes</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="k">for</span> <span class="nx">tag</span> <span class="k">of</span> <span class="nx">trans</span><span class="p">.</span><span class="nx">boxes</span>
-    <span class="nx">re</span><span class="p">.</span><span class="nx">push</span> <span class="p">[</span>
-      <span class="k">new</span> <span class="nb">RegExp</span> <span class="s">&#39;(&lt;div class=&quot;&#39;</span> <span class="o">+</span> <span class="nx">tag</span> <span class="o">+</span> <span class="s">&#39;&quot;&gt;)&#39;</span><span class="p">,</span> <span class="s">&#39;g&#39;</span>
-      <span class="s">&quot;$1&lt;header&gt;</span><span class="si">#{</span><span class="nx">text</span> <span class="nx">tag</span><span class="p">,</span> <span class="nx">locale</span><span class="p">,</span> <span class="nx">trans</span><span class="p">.</span><span class="nx">boxes</span><span class="si">}</span><span class="s">&lt;/header&gt;&quot;</span>
-    <span class="p">]</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-keyword">for</span> tag <span class="hljs-keyword">of</span> trans.boxes
+    re.push [
+      <span class="hljs-keyword">new</span> RegExp <span class="hljs-string">'(&lt;div class="'</span> + tag + <span class="hljs-string">'"&gt;)'</span>, <span class="hljs-string">'g'</span>
+      <span class="hljs-string">"$1&lt;header&gt;<span class="hljs-subst">#{text tag, locale, trans.boxes}</span>&lt;/header&gt;"</span>
+    ]
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-19" id="section-19"></a>
 </div>
 <p>replacement</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="k">for</span> <span class="p">[</span><span class="nx">s</span><span class="p">,</span> <span class="nx">r</span><span class="p">]</span> <span class="k">in</span> <span class="nx">re</span>
-    <span class="nv">html = </span><span class="nx">html</span><span class="p">.</span><span class="nx">replace</span> <span class="nx">s</span><span class="p">,</span> <span class="nx">r</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-keyword">for</span> [s, r] <span class="hljs-keyword">in</span> re
+    html = html.replace s, r
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-20" id="section-20">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-20" id="section-20"></a>
 </div>
 <p>return result</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nx">html</span>
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">  html
+
+</pre>
         </td>
       </tr>
+    
   </tbody>
 </table>
+
   </div>
 </body>
 </html>
