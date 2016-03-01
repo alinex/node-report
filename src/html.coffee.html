@@ -104,8 +104,7 @@ Node Modules
 path = <span class="hljs-built_in">require</span> <span class="hljs-string">'path'</span>
 fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-fs'</span>
 mime = <span class="hljs-built_in">require</span> <span class="hljs-string">'mime'</span>
-inlineCss = <span class="hljs-built_in">require</span> <span class="hljs-string">'inline-css'</span>
-</pre>
+inlineCss = <span class="hljs-built_in">require</span> <span class="hljs-string">'inline-css'</span></pre>
         </td>
       </tr>
     
@@ -133,10 +132,7 @@ mdFootnote = <span class="hljs-built_in">require</span> <span class="hljs-string
 mdCheckbox = <span class="hljs-built_in">require</span> <span class="hljs-string">'markdown-it-checkbox'</span>
 mdDecorate = <span class="hljs-built_in">require</span> <span class="hljs-string">'markdown-it-decorate'</span> <span class="hljs-comment"># add css classes</span>
 mdToc = <span class="hljs-built_in">require</span> <span class="hljs-string">'markdown-it-toc-and-anchor'</span>
-twemoji = <span class="hljs-built_in">require</span> <span class="hljs-string">'twemoji'</span>
-
-
-</pre>
+twemoji = <span class="hljs-built_in">require</span> <span class="hljs-string">'twemoji'</span></pre>
         </td>
       </tr>
     
@@ -175,10 +171,7 @@ trans =
       <span class="hljs-attribute">de</span>: <span class="hljs-string">'Warnung'</span>
     <span class="hljs-attribute">alert</span>:
       <span class="hljs-attribute">en</span>: <span class="hljs-string">'Attention'</span>
-      <span class="hljs-attribute">de</span>: <span class="hljs-string">'Achtung'</span>
-
-
-</pre>
+      <span class="hljs-attribute">de</span>: <span class="hljs-string">'Achtung'</span></pre>
         </td>
       </tr>
     
@@ -196,8 +189,7 @@ Convert into HTML
           <pre class="coffeescript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-params">(report, setup, cb)</span> -&gt;</span>
   <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> setup <span class="hljs-keyword">is</span> <span class="hljs-string">'function'</span>
     cb = setup
-    setup = <span class="hljs-literal">null</span>
-</pre>
+    setup = <span class="hljs-literal">null</span></pre>
         </td>
       </tr>
     
@@ -212,8 +204,7 @@ Convert into HTML
         <td class="code highlight">
           <pre class="coffeescript">  md = initHtml()
   data = {}
-  content = report.toString()
-</pre>
+  content = report.toString()</pre>
         </td>
       </tr>
     
@@ -240,8 +231,7 @@ replace local images with base64</p>
     ///</span>, <span class="hljs-function"><span class="hljs-params">(_, b, f, a)</span> -&gt;</span>
     f = path.resolve __dirname, <span class="hljs-string">'../'</span>, f
     data = <span class="hljs-keyword">new</span> Buffer(fs.readFileSync f).toString <span class="hljs-string">'base64'</span>
-    <span class="hljs-string">"<span class="hljs-subst">#{b}</span>data:<span class="hljs-subst">#{mime.lookup f}</span>;base64,<span class="hljs-subst">#{data}</span><span class="hljs-subst">#{a}</span>"</span>
-</pre>
+    <span class="hljs-string">"<span class="hljs-subst">#{b}</span>data:<span class="hljs-subst">#{mime.lookup f}</span>;base64,<span class="hljs-subst">#{data}</span><span class="hljs-subst">#{a}</span>"</span></pre>
         </td>
       </tr>
     
@@ -256,8 +246,7 @@ replace local images with base64</p>
         <td class="code highlight">
           <pre class="coffeescript">  content = optimizeHtml md.render(content, data), setup?.locale
   title = setup?.title ? data.title ? <span class="hljs-string">'Report'</span>
-  style = setup?.style ? <span class="hljs-string">'default'</span>
-</pre>
+  style = setup?.style ? <span class="hljs-string">'default'</span></pre>
         </td>
       </tr>
     
@@ -278,8 +267,7 @@ replace local images with base64</p>
       <span class="hljs-string">"&lt;link rel=\"stylesheet\" href=\"<span class="hljs-subst">#{style}</span>\" /&gt;"</span>
     <span class="hljs-keyword">else</span>
       css = fs.readFileSync style, <span class="hljs-string">'utf8'</span>
-      <span class="hljs-string">"&lt;style&gt;<span class="hljs-subst">#{css}</span>&lt;/style&gt;"</span>
-</pre>
+      <span class="hljs-string">"&lt;style&gt;<span class="hljs-subst">#{css}</span>&lt;/style&gt;"</span></pre>
         </td>
       </tr>
     
@@ -337,10 +325,7 @@ replace local images with base64</p>
           <pre class="coffeescript">  inlineCss html,
     <span class="hljs-attribute">url</span>: <span class="hljs-string">'index.html'</span>
   .<span class="hljs-keyword">then</span> (html) -&gt;
-    cb <span class="hljs-literal">null</span>, html
-
-
-</pre>
+    cb <span class="hljs-literal">null</span>, html</pre>
         </td>
       </tr>
     
@@ -372,8 +357,7 @@ initialize markdown to html converter
         <td class="code highlight">
           <pre class="coffeescript">md2html = <span class="hljs-literal">null</span>
 <span class="hljs-function"><span class="hljs-title">initHtml</span> = -&gt;</span> <span class="hljs-comment">#async.once -&gt;</span>
-  <span class="hljs-keyword">return</span> md2html <span class="hljs-keyword">if</span> md2html
-</pre>
+  <span class="hljs-keyword">return</span> md2html <span class="hljs-keyword">if</span> md2html</pre>
         </td>
       </tr>
     
@@ -417,8 +401,7 @@ initialize markdown to html converter
   .use mdToc.default, <span class="hljs-comment"># possibility to add TOC</span>
     <span class="hljs-attribute">tocClassName</span>: <span class="hljs-string">'table-of-contents'</span>
     <span class="hljs-attribute">tocFirstLevel</span>: <span class="hljs-number">2</span>
-    <span class="hljs-attribute">anchorLink</span>: <span class="hljs-literal">false</span>
-</pre>
+    <span class="hljs-attribute">anchorLink</span>: <span class="hljs-literal">false</span></pre>
         </td>
       </tr>
     
@@ -447,8 +430,7 @@ initialize markdown to html converter
       <span class="hljs-regexp">/&lt;p&gt;\n(&lt;ul class="table-of-contents"&gt;)([\s\S]*?&lt;\/ul&gt;)\n&lt;\/p&gt;/g</span>
       <span class="hljs-string">"$1&lt;header&gt;<span class="hljs-subst">#{text <span class="hljs-string">'content'</span>, locale}</span>&lt;/header&gt;$2"</span>
     ]
-  ]
-</pre>
+  ]</pre>
         </td>
       </tr>
     
@@ -465,8 +447,7 @@ initialize markdown to html converter
     re.push [
       <span class="hljs-keyword">new</span> RegExp <span class="hljs-string">'(&lt;code class="language '</span> + tag + <span class="hljs-string">'"&gt;)'</span>, <span class="hljs-string">'g'</span>
       <span class="hljs-string">"$1&lt;header&gt;<span class="hljs-subst">#{text tag, locale, trans.lang}</span>&lt;/header&gt;"</span>
-    ]
-</pre>
+    ]</pre>
         </td>
       </tr>
     
@@ -483,8 +464,7 @@ initialize markdown to html converter
     re.push [
       <span class="hljs-keyword">new</span> RegExp <span class="hljs-string">'(&lt;div class="'</span> + tag + <span class="hljs-string">'"&gt;)'</span>, <span class="hljs-string">'g'</span>
       <span class="hljs-string">"$1&lt;header&gt;<span class="hljs-subst">#{text tag, locale, trans.boxes}</span>&lt;/header&gt;"</span>
-    ]
-</pre>
+    ]</pre>
         </td>
       </tr>
     
@@ -498,8 +478,7 @@ initialize markdown to html converter
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  <span class="hljs-keyword">for</span> [s, r] <span class="hljs-keyword">in</span> re
-    html = html.replace s, r
-</pre>
+    html = html.replace s, r</pre>
         </td>
       </tr>
     
@@ -512,9 +491,7 @@ initialize markdown to html converter
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  html
-
-</pre>
+          <pre class="coffeescript">  html</pre>
         </td>
       </tr>
     

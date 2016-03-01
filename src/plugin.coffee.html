@@ -77,8 +77,7 @@
   <span class="hljs-title">validateDefault</span> = <span class="hljs-params">(params)</span> -&gt;</span>
     params.trim().split(<span class="hljs-string">' '</span>, <span class="hljs-number">2</span>)[<span class="hljs-number">0</span>] == name
 <span class="hljs-function">
-  <span class="hljs-title">renderDefault</span> = <span class="hljs-params">(tokens, idx, _options, env, self)</span> -&gt;</span>
-</pre>
+  <span class="hljs-title">renderDefault</span> = <span class="hljs-params">(tokens, idx, _options, env, self)</span> -&gt;</span></pre>
         </td>
       </tr>
     
@@ -109,8 +108,7 @@
     old_line_max = <span class="hljs-literal">undefined</span>
     auto_closed = <span class="hljs-literal">false</span>
     start = state.bMarks[startLine] + state.tShift[startLine]
-    max = state.eMarks[startLine]
-</pre>
+    max = state.eMarks[startLine]</pre>
         </td>
       </tr>
     
@@ -125,8 +123,7 @@ this should filter out most of non-containers</p>
         </td>
         <td class="code highlight">
           <pre class="coffeescript">    <span class="hljs-keyword">if</span> marker_char != state.src.charCodeAt(start)
-      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>
-</pre>
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span></pre>
         </td>
       </tr>
     
@@ -151,8 +148,7 @@ this should filter out most of non-containers</p>
     markup = state.src.slice(start, pos)
     params = state.src.slice(pos, max)
     <span class="hljs-keyword">if</span> !validate(params)
-      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>
-</pre>
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span></pre>
         </td>
       </tr>
     
@@ -166,8 +162,7 @@ this should filter out most of non-containers</p>
         </td>
         <td class="code highlight">
           <pre class="coffeescript">    <span class="hljs-keyword">if</span> silent
-      <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
-</pre>
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span></pre>
         </td>
       </tr>
     
@@ -183,8 +178,7 @@ this should filter out most of non-containers</p>
           <pre class="coffeescript">    nextLine = startLine
     <span class="hljs-keyword">loop</span>
       nextLine++
-      <span class="hljs-keyword">if</span> nextLine &gt;= endLine
-</pre>
+      <span class="hljs-keyword">if</span> nextLine &gt;= endLine</pre>
         </td>
       </tr>
     
@@ -201,8 +195,7 @@ also block seems to be autoclosed by end of parent</p>
           <pre class="coffeescript">        <span class="hljs-keyword">break</span>
       start = state.bMarks[nextLine] + state.tShift[nextLine]
       max = state.eMarks[nextLine]
-      <span class="hljs-keyword">if</span> start &lt; max <span class="hljs-keyword">and</span> state.sCount[nextLine] &lt; state.blkIndent
-</pre>
+      <span class="hljs-keyword">if</span> start &lt; max <span class="hljs-keyword">and</span> state.sCount[nextLine] &lt; state.blkIndent</pre>
         </td>
       </tr>
     
@@ -224,8 +217,7 @@ also block seems to be autoclosed by end of parent</p>
           <pre class="coffeescript">        <span class="hljs-keyword">break</span>
       <span class="hljs-keyword">if</span> marker_char != state.src.charCodeAt(start)
         <span class="hljs-keyword">continue</span>
-      <span class="hljs-keyword">if</span> state.sCount[nextLine] - (state.blkIndent) &gt;= <span class="hljs-number">4</span>
-</pre>
+      <span class="hljs-keyword">if</span> state.sCount[nextLine] - (state.blkIndent) &gt;= <span class="hljs-number">4</span></pre>
         </td>
       </tr>
     
@@ -243,8 +235,7 @@ also block seems to be autoclosed by end of parent</p>
       <span class="hljs-keyword">while</span> pos &lt;= max
         <span class="hljs-keyword">if</span> marker_str[(pos - start) % marker_len] != state.src[pos]
           <span class="hljs-keyword">break</span>
-        pos++
-</pre>
+        pos++</pre>
         </td>
       </tr>
     
@@ -259,8 +250,7 @@ also block seems to be autoclosed by end of parent</p>
         <td class="code highlight">
           <pre class="coffeescript">      <span class="hljs-keyword">if</span> Math.floor((pos - start) / marker_len) &lt; marker_count
         pos++
-        <span class="hljs-keyword">continue</span>
-</pre>
+        <span class="hljs-keyword">continue</span></pre>
         </td>
       </tr>
     
@@ -277,8 +267,7 @@ also block seems to be autoclosed by end of parent</p>
       pos = state.skipSpaces(pos)
       <span class="hljs-keyword">if</span> pos &lt; max
         pos++
-        <span class="hljs-keyword">continue</span>
-</pre>
+        <span class="hljs-keyword">continue</span></pre>
         </td>
       </tr>
     
@@ -295,8 +284,7 @@ also block seems to be autoclosed by end of parent</p>
       <span class="hljs-keyword">break</span>
     old_parent = state.parentType
     old_line_max = state.lineMax
-    state.parentType = <span class="hljs-string">'container'</span>
-</pre>
+    state.parentType = <span class="hljs-string">'container'</span></pre>
         </td>
       </tr>
     
@@ -342,9 +330,7 @@ also block seems to be autoclosed by end of parent</p>
   ]
   md.renderer.rules[<span class="hljs-string">'container_'</span> + name + <span class="hljs-string">'_open'</span>] = render
   md.renderer.rules[<span class="hljs-string">'container_'</span> + name + <span class="hljs-string">'_close'</span>] = render
-  <span class="hljs-keyword">return</span>
-
-</pre>
+  <span class="hljs-keyword">return</span></pre>
         </td>
       </tr>
     
