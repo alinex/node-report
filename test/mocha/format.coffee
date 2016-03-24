@@ -148,6 +148,12 @@ describe "format", ->
       [3, 'three', 'drei']
       [12, 'twelve', 'zwölf']
     ]
+    objListArrayEmpty = [
+      [1, 'one', 'eins']
+      [2, '', 'zwei']
+      [3, null, 'drei']
+      [12, undefined, 'zwölf']
+    ]
     objMap =
       id: '001'
       name: 'alex'
@@ -269,6 +275,14 @@ describe "format", ->
       | 2  | two     |
       | 3  | three   |
       | 12 | twelve  |\n"""
+    it "should format obj-list-array with empty fields", ->
+      equal Report.table(objListArrayEmpty), """
+      \n| 0  | 1   | 2     |
+      |:-- |:--- |:----- |
+      | 1  | one | eins  |
+      | 2  |     | zwei  |
+      | 3  |     | drei  |
+      | 12 |     | zwölf |\n"""
 
     it "should format obj-map", ->
       equal Report.table(objMap), """
