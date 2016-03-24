@@ -334,7 +334,8 @@ Convert object to markdown table
         <td class="code highlight">
           <pre class="coffeescript">  obj = obj.map (row) -&gt;
     n = {}
-    n[name] = val.toString() <span class="hljs-keyword">for</span> name, val <span class="hljs-keyword">of</span> row
+    <span class="hljs-keyword">for</span> name, val <span class="hljs-keyword">of</span> row
+      n[name] = <span class="hljs-keyword">if</span> val? <span class="hljs-keyword">then</span> val.toString() <span class="hljs-keyword">else</span> <span class="hljs-string">''</span>
     n</pre>
         </td>
       </tr>
@@ -940,7 +941,7 @@ as colorful console text
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  <span class="hljs-attribute">toConsole</span>: <span class="hljs-function">-&gt;</span>
-    text = <span class="hljs-property">@toText</span>() + <span class="hljs-string">'\n\n'</span>
+    text = <span class="hljs-string">'\n\n'</span> + <span class="hljs-property">@toText</span>() + <span class="hljs-string">'\n\n'</span>
     text = text.replace <span class="hljs-regexp">/\*\*(.*?)\*\*/g</span>, chalk.bold <span class="hljs-string">'$1'</span>
     text = text.replace <span class="hljs-regexp">/__(.*?)__/g</span>, chalk.bold <span class="hljs-string">'$1'</span>
     text = text.replace <span class="hljs-regexp">/`(.*?)`/g</span>, chalk.dim.inverse <span class="hljs-string">'$1'</span></pre>
