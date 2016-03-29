@@ -334,8 +334,7 @@ Convert object to markdown table
         <td class="code highlight">
           <pre class="coffeescript">  obj = obj.map (row) -&gt;
     n = {}
-    <span class="hljs-keyword">for</span> name, val <span class="hljs-keyword">of</span> row
-      n[name] = <span class="hljs-keyword">if</span> val? <span class="hljs-keyword">then</span> val.toString() <span class="hljs-keyword">else</span> <span class="hljs-string">''</span>
+    n[name] = val?.toString() ? <span class="hljs-string">''</span> <span class="hljs-keyword">for</span> name, val <span class="hljs-keyword">of</span> row
     n</pre>
         </td>
       </tr>
@@ -350,7 +349,7 @@ Convert object to markdown table
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  <span class="hljs-keyword">for</span> key <span class="hljs-keyword">of</span> col
-    col[key].width = col[key].title.toString().length
+    col[key].width = col[key].title?.toString().length ? <span class="hljs-number">0</span>
     <span class="hljs-keyword">for</span> row <span class="hljs-keyword">in</span> obj
       <span class="hljs-keyword">continue</span> <span class="hljs-keyword">unless</span> row[key]?
       col[key].width = row[key].length <span class="hljs-keyword">if</span> row[key].length &gt; col[key].width
