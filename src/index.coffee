@@ -299,7 +299,7 @@ class Report
   dl: (obj, sort) -> @raw Report.dl obj, sort, @width
   check: (map) -> @raw Report.check map
 
-  table: (obj, col, sort) -> @raw Report.table obj, col, sort
+  table: (obj, col, sort, mask) -> @raw Report.table obj, col, sort, mask
 
   footnote: (text, id) ->
     id ?= ++@state.footnote
