@@ -69,12 +69,7 @@ table = (obj, col, sort) ->
   # transform values
   obj = obj.map (row) ->
     n = {}
-<<<<<<< HEAD
-    n[name] = val?.toString() for name, val of row
-=======
-    for name, val of row
-      n[name] = if val? then val.toString() else ''
->>>>>>> fc913d8355e609b1bd338c92778b4ab7e1cfa602
+    n[name] = val?.toString() ? '' for name, val of row
     n
   # calculate column width
   for key of col
