@@ -972,8 +972,7 @@ as simplified text
         <td class="code highlight">
           <pre class="coffeescript">        <span class="hljs-keyword">else</span>
           line.replace demask, <span class="hljs-string">"$1"</span>
-      .join <span class="hljs-string">'\n'</span>
-      <span class="hljs-built_in">console</span>.log text</pre>
+      .join <span class="hljs-string">'\n'</span></pre>
         </td>
       </tr>
     
@@ -1008,10 +1007,7 @@ as colorful console text
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  <span class="hljs-attribute">toConsole</span>: <span class="hljs-function">-&gt;</span>
-    text = <span class="hljs-string">'\n\n'</span> + <span class="hljs-property">@toText</span>() + <span class="hljs-string">'\n\n'</span>
-    text = text.replace <span class="hljs-regexp">/\*\*(.*?)\*\*/g</span>, chalk.bold <span class="hljs-string">'$1'</span>
-    text = text.replace <span class="hljs-regexp">/__(.*?)__/g</span>, chalk.bold <span class="hljs-string">'$1'</span>
-    text = text.replace <span class="hljs-regexp">/`(.*?)`/g</span>, chalk.dim.inverse <span class="hljs-string">'$1'</span></pre>
+    text = <span class="hljs-property">@toString</span>()</pre>
         </td>
       </tr>
     
@@ -1019,6 +1015,42 @@ as colorful console text
         <td class="docs">
           <div class="pilwrap">
   <a class="pilcrow" href="#section-43" id="section-43"></a>
+</div>
+<p>remove some parts</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    text = text.replace <span class="hljs-regexp">///
+    (
+      (^|\n)          <span class="hljs-comment"># start or after new line</span>
+      @\[toc\]\n      <span class="hljs-comment"># table of contents</span>
+    |
+      &lt;!--[\s\S]*?--&gt; <span class="hljs-comment"># decorator rules</span>
+    |
+      \\(?=\n)        <span class="hljs-comment"># backslash at end of line</span>
+    )
+    ///</span>g, <span class="hljs-string">''</span>
+    .trim()</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-44" id="section-44"></a>
+</div>
+<p>interpret markdown</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    text = <span class="hljs-string">'\n\n'</span> + text + <span class="hljs-string">'\n\n'</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-45" id="section-45"></a>
 </div>
 <p>replace headings</p>
 
@@ -1036,7 +1068,7 @@ as colorful console text
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-44" id="section-44"></a>
+  <a class="pilcrow" href="#section-46" id="section-46"></a>
 </div>
 <p>hr</p>
 
@@ -1050,7 +1082,7 @@ as colorful console text
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-45" id="section-45"></a>
+  <a class="pilcrow" href="#section-47" id="section-47"></a>
 </div>
 <p>typographic</p>
 
@@ -1078,25 +1110,26 @@ as colorful console text
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-46" id="section-46"></a>
+  <a class="pilcrow" href="#section-48" id="section-48"></a>
 </div>
 <p>marked text</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">    text = text.replace <span class="hljs-regexp">/==([\S\s]*?)==/g</span>, <span class="hljs-function"><span class="hljs-params">(all, marked)</span> -&gt;</span>
-      chalk.yellow.inverse marked
-    text = text.replace <span class="hljs-regexp">/~~([\S\s]*?)~~/g</span>, <span class="hljs-function"><span class="hljs-params">(all, marked)</span> -&gt;</span>
-      chalk.strikethrough marked
-    text = text.replace <span class="hljs-regexp">/_([\S\s]*?)_/g</span>, <span class="hljs-function"><span class="hljs-params">(all, marked)</span> -&gt;</span>
-      chalk.italic marked</pre>
+          <pre class="coffeescript">    text = text.replace <span class="hljs-regexp">/(?:^|[^\\])\*\*(.*?)\*\*/g</span>, chalk.bold <span class="hljs-string">'$1'</span>
+    text = text.replace <span class="hljs-regexp">/(?:^|[^\\])__(.*?)__/g</span>, chalk.bold <span class="hljs-string">'$1'</span>
+    text = text.replace <span class="hljs-regexp">/(?:^|[^\\])\*(.*?)\*/g</span>, chalk.italic <span class="hljs-string">'$1'</span>
+    text = text.replace <span class="hljs-regexp">/(?:^|[^\\])_(.*?)_/g</span>, chalk.italic <span class="hljs-string">'$1'</span>
+    text = text.replace <span class="hljs-regexp">/(?:^|[^\\])`(.*?)`/g</span>, chalk.dim.inverse <span class="hljs-string">'$1'</span>
+    text = text.replace <span class="hljs-regexp">/(?:^|[^\\])==([\S\s]*?)==/g</span>, chalk.yellow.inverse <span class="hljs-string">'$1'</span>
+    text = text.replace <span class="hljs-regexp">/(?:^|[^\\])~~([\S\s]*?)~~/g</span>, chalk.strikethrough <span class="hljs-string">'$1'</span></pre>
         </td>
       </tr>
     
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-47" id="section-47"></a>
+  <a class="pilcrow" href="#section-49" id="section-49"></a>
 </div>
 <p>replace code</p>
 
@@ -1110,7 +1143,7 @@ as colorful console text
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-48" id="section-48"></a>
+  <a class="pilcrow" href="#section-50" id="section-50"></a>
 </div>
 <p>replace table with ascii art table</p>
 
@@ -1125,7 +1158,7 @@ as colorful console text
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-49" id="section-49"></a>
+  <a class="pilcrow" href="#section-51" id="section-51"></a>
 </div>
 <p>header</p>
 
@@ -1145,7 +1178,7 @@ as colorful console text
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-50" id="section-50"></a>
+  <a class="pilcrow" href="#section-52" id="section-52"></a>
 </div>
 <p>lines</p>
 
@@ -1161,7 +1194,7 @@ as colorful console text
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-51" id="section-51"></a>
+  <a class="pilcrow" href="#section-53" id="section-53"></a>
 </div>
 <p>footer</p>
 
@@ -1177,7 +1210,75 @@ as colorful console text
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-52" id="section-52"></a>
+  <a class="pilcrow" href="#section-54" id="section-54"></a>
+</div>
+<p>demask markdown syntax and add spaces</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-keyword">if</span> text.match <span class="hljs-regexp">/(^|[^\\])\\([*_~^`\\])/</span>
+      demask = <span class="hljs-regexp">/(^|[^\\])\\([*_~^`\\])/g</span>
+      text = string.toList(text).map (line) -&gt;</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-55" id="section-55"></a>
+</div>
+<p>demask in table</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">        <span class="hljs-keyword">if</span> line.match <span class="hljs-regexp">/^│/</span>
+          line.split(<span class="hljs-string">'│'</span>).map (cell) -&gt;
+            <span class="hljs-keyword">if</span> found = cell.match demask
+              cell.replace(demask, <span class="hljs-string">"$1$2"</span>) + string.repeat <span class="hljs-string">' '</span>, found.length
+            <span class="hljs-keyword">else</span>
+              cell
+          .join <span class="hljs-string">'│'</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-56" id="section-56"></a>
+</div>
+<p>normal demask</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">        <span class="hljs-keyword">else</span>
+          line.replace demask, <span class="hljs-string">"$1$2"</span>
+      .join <span class="hljs-string">'\n'</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-57" id="section-57"></a>
+</div>
+<p>replace images with descriptions</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    text = text.replace <span class="hljs-regexp">///
+    !\[(.*?)\]       <span class="hljs-comment"># image alt text</span>
+    \(
+      ([^ ]*?)        <span class="hljs-comment"># image source</span>
+      (?: "(.*?)")?   <span class="hljs-comment"># title text</span>
+    \)
+    ///</span>g, <span class="hljs-string">'[IMAGE $1]'</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-58" id="section-58"></a>
 </div>
 <p>boxes</p>
 
@@ -1190,7 +1291,7 @@ as colorful console text
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-53" id="section-53"></a>
+  <a class="pilcrow" href="#section-59" id="section-59"></a>
 </div>
 <p>get max length</p>
 
@@ -1217,7 +1318,7 @@ as colorful console text
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-54" id="section-54"></a>
+  <a class="pilcrow" href="#section-60" id="section-60"></a>
 </div>
 <p>{text.join '\n'}
 {chalk[color] '╚' + string.repeat('═', maxlen) + '╝'}&quot;&quot;&quot;</p>
