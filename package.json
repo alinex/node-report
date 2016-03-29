@@ -1,6 +1,6 @@
 {
   "name": "alinex-report",
-  "version": "1.3.3",
+  "version": "1.3.4",
   "description": "Easy report generating using markdown.",
   "copyright": "Alexander Schilling 2015-2016",
   "private": false,
@@ -34,19 +34,19 @@
     "lib": "./lib"
   },
   "dependencies": {
-    "alinex-util": "^0.3.15",
+    "alinex-util": "^1.1.2",
     "chalk": "^1.1.1",
     "debug": "^2.2.0",
-    "highlight.js": "^9.0.0",
-    "html-pdf": "^2.0.0",
-    "inline-css": "^2.1.1",
+    "highlight.js": "^9.2.0",
+    "html-pdf": "^2.0.1",
+    "inline-css": "^2.2.2",
     "markdown-it": "^6.0.0",
     "markdown-it-abbr": "^1.0.0",
     "markdown-it-checkbox": "^1.1.0",
     "markdown-it-container": "^2.0.0",
     "markdown-it-decorate": "^1.2.0",
-    "markdown-it-deflist": "^2.0.0",
-    "markdown-it-emoji": "^1.1.0",
+    "markdown-it-deflist": "^2.0.1",
+    "markdown-it-emoji": "^1.1.1",
     "markdown-it-fontawesome": "^0.2.0",
     "markdown-it-footnote": "^2.0.0",
     "markdown-it-mark": "^2.0.0",
@@ -55,10 +55,10 @@
     "markdown-it-title": "^1.0.4",
     "markdown-it-toc-and-anchor": "^2.1.0",
     "mime": "^1.3.4",
-    "twemoji": "^1.4.1"
+    "twemoji": "^2.0.5"
   },
   "devDependencies": {
-    "alinex-builder": "^1.2.0",
+    "alinex-builder": "^1.2.4",
     "chai": "^3.4.1"
   },
   "optionalDependencies": {},

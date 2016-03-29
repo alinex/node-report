@@ -4,6 +4,14 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.3.4 (2016-03-24)
+-------------------------------------------------
+- Update examples.
+- Update dependent packages twemoji, highlight, css, deflist, util and builder.
+- Fix rendering of tables with empty cells.
+- Merge branch 'master' of http://github.com/alinex/node-report
+- Updated examples.
+
 Version 1.3.3 (2016-02-18)
 -------------------------------------------------
 - Upgraded pdf creation.
