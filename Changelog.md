@@ -4,6 +4,10 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.3.8 (2016-03-29)
+-------------------------------------------------
+- Add mask to instance table creation.
+
 Version 1.3.7 (2016-03-29)
 -------------------------------------------------
 - Fix demask in toConsole().
