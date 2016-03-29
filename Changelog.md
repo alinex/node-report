@@ -4,6 +4,10 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.3.9 (2016-03-29)
+-------------------------------------------------
+- Fix format of list-map tables.
+
 Version 1.3.8 (2016-03-29)
 -------------------------------------------------
 - Add mask to instance table creation.
