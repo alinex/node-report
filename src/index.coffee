@@ -335,6 +335,23 @@ class Report
     )
     ///g, ''
     .trim()
+    # demask markdown syntax and add spaces
+    if text.match /\\([*_~^`])/
+      demask = /\\([*_~^`])/g
+      text = string.toList(text).map (line) ->
+        # demask in table
+        if line.match /^\|/
+          line.split('\|').map (cell) ->
+            if found = cell.match demask
+              cell.replace(demask, "$1") + string.repeat ' ', found.length
+            else
+              cell
+          .join '|'
+        # normal demask
+        else
+          line.replace demask, "$1"
+      .join '\n'
+      console.log text
     # replace images with descriptions
     text = text.replace ///
     !\[(.*?)\]       # image alt text

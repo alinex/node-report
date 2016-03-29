@@ -322,14 +322,23 @@ describe "format", ->
     it "should mask markdown elements", ->
       equal Report.mask("not **bold**"), "not \\*\\*bold\\*\\*"
 
-    it.only "should mask in table", ->
-      equal Report.table(
+    it "should mask in table", ->
+      md = Report.table
         id: '*001*'
         name: 'alex'
         position: 'developer'
-      , ['Name', 'Value'], null, true), """
+      , ['Name', 'Value'], null, true
+      equal md, """
       \n| Name     | Value     |
       |:-------- |:--------- |
       | id       | \\*001\\*   |
       | name     | alex      |
       | position | developer |\n"""
+      report = new Report
+        source: md
+      equal report.toText(), """
+      | Name     | Value     |
+      |:-------- |:--------- |
+      | id       | *001*     |
+      | name     | alex      |
+      | position | developer |"""
