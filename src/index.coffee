@@ -74,8 +74,12 @@ table = (obj, col, sort, mask) ->
   # mask values if needed
   if mask
     obj = obj.map (r) ->
-      Object.keys(r).map (k) ->
-        Report.mask r[k]
+      if Array.isArray r
+        r.map (c) -> Report.mask c
+      else
+        for key of r
+          r[key] = Report.mask r[key]
+        r
   # calculate column width
   for key of col
     col[key].width = col[key].title?.toString().length ? 0
@@ -95,7 +99,7 @@ table = (obj, col, sort, mask) ->
   # write header
   text = '\n| ' + (
     Object.keys(col).map (e) ->
-      pad = switch col[e].align[0]
+      pad = switch col[e].align?[0]
         when 'r' then 'l'
         when 'l' then 'r'
         else 'c'
@@ -118,7 +122,7 @@ table = (obj, col, sort, mask) ->
   for row in obj
     text += '\n| ' + (
       Object.keys(col).map (e) ->
-        pad = switch col[e].align[0]
+        pad = switch col[e].align?[0]
           when 'r' then 'l'
           when 'l' then 'r'
           else 'c'
