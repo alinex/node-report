@@ -4,6 +4,12 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.3.5 (2016-03-29)
+-------------------------------------------------
+- Fix more toString() conversion problems with undefined values.
+- Merge branch 'master' of https://github.com/alinex/node-report
+- Fix more toString() conversion problems with undefined values.
+
 Version 1.3.4 (2016-03-24)
 -------------------------------------------------
 - Update examples.
