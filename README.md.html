@@ -417,6 +417,8 @@ Inline Formats
 </ul>
 <pre><code class="coffee">report.p <span class="hljs-string">"This paragraoh is <span class="hljs-subst">#{Report.p <span class="hljs-string">'important'</span>}</span>. "</span> + Report.i <span class="hljs-string">'Alex'</span>
 </code></pre>
+<p>If you don't want to interpret is use <code>\\</code> before the sign or automatically
+mask them using <code>Report.mask text</code>.</p>
 <div class="pilwrap" id="links-and-images">
   <h3>
     <a href="#links-and-images" name="links-and-images" class="pilcrow"></a>
@@ -475,6 +477,7 @@ with different kind of objects making it easy to use nearly everything you have.
             - align - orientation (one of 'left', 'center', 'right')
             - width - the minimum width of the column (optional)
 &lt;sort&gt;    : a map of sort conditions defining the column id and order ('asc', 'desc')
+&lt;mask&gt;    : (boolean) use Report.mask() on each field value
 </code></pre>
 <p>All other formats will be converted into this filling missing information with
 default values.</p>
