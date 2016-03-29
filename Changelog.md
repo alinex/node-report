@@ -4,6 +4,11 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.3.6 (2016-03-29)
+-------------------------------------------------
+- Demask markdown for text output.
+- Add mask option to report and table format.
+
 Version 1.3.5 (2016-03-29)
 -------------------------------------------------
 - Fix more toString() conversion problems with undefined values.
