@@ -841,7 +841,7 @@ lists
   <span class="hljs-attribute">dl</span>: <span class="hljs-function"><span class="hljs-params">(obj, sort)</span> -&gt;</span> <span class="hljs-property">@raw</span> Report.dl obj, sort, <span class="hljs-property">@width</span>
   <span class="hljs-attribute">check</span>: <span class="hljs-function"><span class="hljs-params">(map)</span> -&gt;</span> <span class="hljs-property">@raw</span> Report.check map
 
-  <span class="hljs-attribute">table</span>: <span class="hljs-function"><span class="hljs-params">(obj, col, sort)</span> -&gt;</span> <span class="hljs-property">@raw</span> Report.table obj, col, sort
+  <span class="hljs-attribute">table</span>: <span class="hljs-function"><span class="hljs-params">(obj, col, sort, mask)</span> -&gt;</span> <span class="hljs-property">@raw</span> Report.table obj, col, sort, mask
 
   <span class="hljs-attribute">footnote</span>: <span class="hljs-function"><span class="hljs-params">(text, id)</span> -&gt;</span>
     id ?= ++<span class="hljs-property">@state</span>.footnote
