@@ -4,6 +4,10 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.3.7 (2016-03-29)
+-------------------------------------------------
+- Fix demask in toConsole().
+
 Version 1.3.6 (2016-03-29)
 -------------------------------------------------
 - Demask markdown for text output.
