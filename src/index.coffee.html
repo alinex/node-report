@@ -350,8 +350,12 @@ Convert object to markdown table
         <td class="code highlight">
           <pre class="coffeescript">  <span class="hljs-keyword">if</span> mask
     obj = obj.map (r) -&gt;
-      Object.keys(r).map (k) -&gt;
-        Report.mask r[k]</pre>
+      <span class="hljs-keyword">if</span> Array.isArray r
+        r.map (c) -&gt; Report.mask c
+      <span class="hljs-keyword">else</span>
+        <span class="hljs-keyword">for</span> key <span class="hljs-keyword">of</span> r
+          r[key] = Report.mask r[key]
+        r</pre>
         </td>
       </tr>
     
@@ -404,7 +408,7 @@ Convert object to markdown table
         <td class="code highlight">
           <pre class="coffeescript">  text = <span class="hljs-string">'\n| '</span> + (
     Object.keys(col).map (e) -&gt;
-      pad = <span class="hljs-keyword">switch</span> col[e].align[<span class="hljs-number">0</span>]
+      pad = <span class="hljs-keyword">switch</span> col[e].align?[<span class="hljs-number">0</span>]
         <span class="hljs-keyword">when</span> <span class="hljs-string">'r'</span> <span class="hljs-keyword">then</span> <span class="hljs-string">'l'</span>
         <span class="hljs-keyword">when</span> <span class="hljs-string">'l'</span> <span class="hljs-keyword">then</span> <span class="hljs-string">'r'</span>
         <span class="hljs-keyword">else</span> <span class="hljs-string">'c'</span>
@@ -449,7 +453,7 @@ Convert object to markdown table
           <pre class="coffeescript">  <span class="hljs-keyword">for</span> row <span class="hljs-keyword">in</span> obj
     text += <span class="hljs-string">'\n| '</span> + (
       Object.keys(col).map (e) -&gt;
-        pad = <span class="hljs-keyword">switch</span> col[e].align[<span class="hljs-number">0</span>]
+        pad = <span class="hljs-keyword">switch</span> col[e].align?[<span class="hljs-number">0</span>]
           <span class="hljs-keyword">when</span> <span class="hljs-string">'r'</span> <span class="hljs-keyword">then</span> <span class="hljs-string">'l'</span>
           <span class="hljs-keyword">when</span> <span class="hljs-string">'l'</span> <span class="hljs-keyword">then</span> <span class="hljs-string">'r'</span>
           <span class="hljs-keyword">else</span> <span class="hljs-string">'c'</span>
