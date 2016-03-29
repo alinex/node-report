@@ -351,7 +351,6 @@ class Report
         else
           line.replace demask, "$1"
       .join '\n'
-      console.log text
     # replace images with descriptions
     text = text.replace ///
     !\[(.*?)\]       # image alt text
@@ -363,10 +362,21 @@ class Report
 
   # ### as colorful console text
   toConsole: ->
-    text = '\n\n' + @toText() + '\n\n'
-    text = text.replace /\*\*(.*?)\*\*/g, chalk.bold '$1'
-    text = text.replace /__(.*?)__/g, chalk.bold '$1'
-    text = text.replace /`(.*?)`/g, chalk.dim.inverse '$1'
+    text = @toString()
+    # remove some parts
+    text = text.replace ///
+    (
+      (^|\n)          # start or after new line
+      @\[toc\]\n      # table of contents
+    |
+      <!--[\s\S]*?--> # decorator rules
+    |
+      \\(?=\n)        # backslash at end of line
+    )
+    ///g, ''
+    .trim()
+    # interpret markdown
+    text = '\n\n' + text + '\n\n'
     # replace headings
     text = text.replace /(^|\n\n)([^\n]+)\n(====+)\n/g, (heading, start, text, line) ->
       "#{start}#{chalk.bold text}\n#{line.replace /=/g, '═'}\n"
@@ -395,12 +405,13 @@ class Report
     for sign, re of replace
       text = text.replace re, sign
     # marked text
-    text = text.replace /==([\S\s]*?)==/g, (all, marked) ->
-      chalk.yellow.inverse marked
-    text = text.replace /~~([\S\s]*?)~~/g, (all, marked) ->
-      chalk.strikethrough marked
-    text = text.replace /_([\S\s]*?)_/g, (all, marked) ->
-      chalk.italic marked
+    text = text.replace /(?:^|[^\\])\*\*(.*?)\*\*/g, chalk.bold '$1'
+    text = text.replace /(?:^|[^\\])__(.*?)__/g, chalk.bold '$1'
+    text = text.replace /(?:^|[^\\])\*(.*?)\*/g, chalk.italic '$1'
+    text = text.replace /(?:^|[^\\])_(.*?)_/g, chalk.italic '$1'
+    text = text.replace /(?:^|[^\\])`(.*?)`/g, chalk.dim.inverse '$1'
+    text = text.replace /(?:^|[^\\])==([\S\s]*?)==/g, chalk.yellow.inverse '$1'
+    text = text.replace /(?:^|[^\\])~~([\S\s]*?)~~/g, chalk.strikethrough '$1'
     # replace code
     text = text.replace /\n\n``` (\w+)\s*?\n([\s\S]*?)\n```\s*?\n/g, (all, lang, code) =>
       "\n\n#{chalk.yellow lang}:#{block code, '    ', '    ', @width, true}"
@@ -427,6 +438,30 @@ class Report
       line += string.repeat('─', col.length) + '┴' for col in head[1..head.length-2]
       ascii += chalk.grey line[0..line.length-2] + '┘'
       "\n\n#{ascii}\n\n"
+    # demask markdown syntax and add spaces
+    if text.match /(^|[^\\])\\([*_~^`\\])/
+      demask = /(^|[^\\])\\([*_~^`\\])/g
+      text = string.toList(text).map (line) ->
+        # demask in table
+        if line.match /^│/
+          line.split('│').map (cell) ->
+            if found = cell.match demask
+              cell.replace(demask, "$1$2") + string.repeat ' ', found.length
+            else
+              cell
+          .join '│'
+        # normal demask
+        else
+          line.replace demask, "$1$2"
+      .join '\n'
+    # replace images with descriptions
+    text = text.replace ///
+    !\[(.*?)\]       # image alt text
+    \(
+      ([^ ]*?)        # image source
+      (?: "(.*?)")?   # title text
+    \)
+    ///g, '[IMAGE $1]'
     # boxes
     text = text.replace /\n\n::: (\w+)\s*?\n([\s\S]*?)\n:::\s*?/g, (all, type, text) ->
       # get max length

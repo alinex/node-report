@@ -322,7 +322,7 @@ describe "format", ->
     it "should mask markdown elements", ->
       equal Report.mask("not **bold**"), "not \\*\\*bold\\*\\*"
 
-    it "should mask in table", ->
+    it "should mask in table with map", ->
       md = Report.table
         id: '*001*'
         name: 'alex'
@@ -342,3 +342,27 @@ describe "format", ->
       | id       | *001*     |
       | name     | alex      |
       | position | developer |"""
+
+    it "should mask in table with array", ->
+      md = Report.table [
+        [1, 'one', 'eins']
+        [2, 't_w_o', 'zwei']
+        [3, 'three', 'drei']
+        [12, 'twelve', 'zwölf']
+      ], null, null, true
+      equal md, """
+      \n| 0  | 1       | 2     |
+      |:-- |:------- |:----- |
+      | 1  | one     | eins  |
+      | 2  | t\\_w\\_o | zwei  |
+      | 3  | three   | drei  |
+      | 12 | twelve  | zwölf |\n"""
+      report = new Report
+        source: md
+      equal report.toText(), """
+      | 0  | 1       | 2     |
+      |:-- |:------- |:----- |
+      | 1  | one     | eins  |
+      | 2  | t_w_o   | zwei  |
+      | 3  | three   | drei  |
+      | 12 | twelve  | zwölf |"""
