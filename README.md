@@ -229,6 +229,9 @@ These are only available on static calls not on a report instance!
 ``` coffee
 report.p "This paragraoh is #{Report.p 'important'}. " + Report.i 'Alex'
 ```
+If you don't want to interpret is use `\\` before the sign or automatically
+mask them using `Report.mask text`.
+
 
 ### Links and Images
 
@@ -284,6 +287,7 @@ The complexest format will be shown at first:
                 - align - orientation (one of 'left', 'center', 'right')
                 - width - the minimum width of the column (optional)
     <sort>    : a map of sort conditions defining the column id and order ('asc', 'desc')
+    <mask>    : (boolean) use Report.mask() on each field value
 
 All other formats will be converted into this filling missing information with
 default values.

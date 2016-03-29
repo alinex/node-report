@@ -20,7 +20,7 @@ block = (text, start, indent, width, pre = false) ->
   string.wordwrap text, width, indent, 2
 
 # ### Convert object to markdown table
-table = (obj, col, sort) ->
+table = (obj, col, sort, mask) ->
   return '' unless Object.keys(obj).length
   # transform object
   if typeof obj is 'object' and not Array.isArray obj
@@ -71,6 +71,11 @@ table = (obj, col, sort) ->
     n = {}
     n[name] = val?.toString() ? '' for name, val of row
     n
+  # mask values if needed
+  if mask
+    obj = obj.map (r) ->
+      Object.keys(r).map (k) ->
+        Report.mask r[k]
   # calculate column width
   for key of col
     col[key].width = col[key].title?.toString().length ? 0
@@ -136,6 +141,8 @@ class Report
   # Static Methods
   # -------------------------------------------------
 
+  @mask: (text) ->
+    text?.toString().replace /([*_~^`])/g, '\\$1'
   # ### headings
   @h1: (text, width) ->
     """\n\n#{text}
@@ -328,7 +335,6 @@ class Report
     )
     ///g, ''
     .trim()
-
     # replace images with descriptions
     text = text.replace ///
     !\[(.*?)\]       # image alt text

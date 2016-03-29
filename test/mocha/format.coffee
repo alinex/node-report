@@ -318,3 +318,18 @@ describe "format", ->
 
     it "should make a table of contents in html", ->
       equal Report.toc(), "\n@[toc]\n"
+
+    it "should mask markdown elements", ->
+      equal Report.mask("not **bold**"), "not \\*\\*bold\\*\\*"
+
+    it.only "should mask in table", ->
+      equal Report.table(
+        id: '*001*'
+        name: 'alex'
+        position: 'developer'
+      , ['Name', 'Value'], null, true), """
+      \n| Name     | Value     |
+      |:-------- |:--------- |
+      | id       | \\*001\\*   |
+      | name     | alex      |
+      | position | developer |\n"""
