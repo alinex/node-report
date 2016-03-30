@@ -68,18 +68,21 @@ table = (obj, col, sort, mask) ->
     sort = n
   # transform values
   obj = obj.map (row) ->
-    n = {}
-    n[name] = val?.toString() ? '' for name, val of row
-    n
+    if Array.isArray row
+      row.map (col) -> col?.toString() ? ''
+    else
+      for key of row
+        row[key] = row[key]?.toString() ? ''
+      row
   # mask values if needed
   if mask
-    obj = obj.map (r) ->
-      if Array.isArray r
-        r.map (c) -> Report.mask c
+    obj = obj.map (row) ->
+      if Array.isArray row
+        row.map (col) -> Report.mask col
       else
-        for key of r
-          r[key] = Report.mask r[key]
-        r
+        for key of row
+          row[key] = Report.mask row[key]
+        row
   # calculate column width
   for key of col
     col[key].width = col[key].title?.toString().length ? 0
@@ -127,7 +130,9 @@ table = (obj, col, sort, mask) ->
           when 'l' then 'r'
           else 'c'
         val = row[e]
-        if typeof val isnt 'string'
+        if typeof val is 'undefined'
+          val = ''
+        else if typeof val isnt 'string'
           val = util.inspect(val).replace /\s+/g, ' '
         string["#{pad}pad"] val, col[e].width
       .join ' | '
