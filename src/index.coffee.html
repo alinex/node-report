@@ -333,9 +333,12 @@ Convert object to markdown table
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  obj = obj.map (row) -&gt;
-    n = {}
-    n[name] = val?.toString() ? <span class="hljs-string">''</span> <span class="hljs-keyword">for</span> name, val <span class="hljs-keyword">of</span> row
-    n</pre>
+    <span class="hljs-keyword">if</span> Array.isArray row
+      row.map (col) -&gt; col?.toString() ? <span class="hljs-string">''</span>
+    <span class="hljs-keyword">else</span>
+      <span class="hljs-keyword">for</span> key <span class="hljs-keyword">of</span> row
+        row[key] = row[key]?.toString() ? <span class="hljs-string">''</span>
+      row</pre>
         </td>
       </tr>
     
@@ -349,13 +352,13 @@ Convert object to markdown table
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  <span class="hljs-keyword">if</span> mask
-    obj = obj.map (r) -&gt;
-      <span class="hljs-keyword">if</span> Array.isArray r
-        r.map (c) -&gt; Report.mask c
+    obj = obj.map (row) -&gt;
+      <span class="hljs-keyword">if</span> Array.isArray row
+        row.map (col) -&gt; Report.mask col
       <span class="hljs-keyword">else</span>
-        <span class="hljs-keyword">for</span> key <span class="hljs-keyword">of</span> r
-          r[key] = Report.mask r[key]
-        r</pre>
+        <span class="hljs-keyword">for</span> key <span class="hljs-keyword">of</span> row
+          row[key] = Report.mask row[key]
+        row</pre>
         </td>
       </tr>
     
@@ -458,7 +461,9 @@ Convert object to markdown table
           <span class="hljs-keyword">when</span> <span class="hljs-string">'l'</span> <span class="hljs-keyword">then</span> <span class="hljs-string">'r'</span>
           <span class="hljs-keyword">else</span> <span class="hljs-string">'c'</span>
         val = row[e]
-        <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> val <span class="hljs-keyword">isnt</span> <span class="hljs-string">'string'</span>
+        <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> val <span class="hljs-keyword">is</span> <span class="hljs-string">'undefined'</span>
+          val = <span class="hljs-string">''</span>
+        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> val <span class="hljs-keyword">isnt</span> <span class="hljs-string">'string'</span>
           val = util.inspect(val).replace <span class="hljs-regexp">/\s+/g</span>, <span class="hljs-string">' '</span>
         string[<span class="hljs-string">"<span class="hljs-subst">#{pad}</span>pad"</span>] val, col[e].width
       .join <span class="hljs-string">' | '</span>
