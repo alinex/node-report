@@ -4,6 +4,11 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.3.10 (2016-03-30)
+-------------------------------------------------
+- Fix wrong package in package.json.
+- Fixed display of undefined values.
+
 Version 1.3.9 (2016-03-29)
 -------------------------------------------------
 - Fix format of list-map tables.
