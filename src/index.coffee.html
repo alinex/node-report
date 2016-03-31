@@ -206,7 +206,7 @@ util = <span class="hljs-built_in">require</span> <span class="hljs-string">'uti
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">{string} = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-util'</span></pre>
+          <pre class="coffeescript">{string, object} = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-util'</span></pre>
         </td>
       </tr>
     
@@ -242,7 +242,8 @@ Convert object to markdown table
         </td>
         <td class="code highlight">
           <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">table</span> = <span class="hljs-params">(obj, col, sort, mask)</span> -&gt;</span>
-  <span class="hljs-keyword">return</span> <span class="hljs-string">''</span> <span class="hljs-keyword">unless</span> Object.keys(obj).length</pre>
+  <span class="hljs-keyword">return</span> <span class="hljs-string">''</span> <span class="hljs-keyword">unless</span> Object.keys(obj).length
+  obj = object.clone obj</pre>
         </td>
       </tr>
     
