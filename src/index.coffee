@@ -7,7 +7,7 @@
 chalk = require 'chalk'
 util = require 'util'
 # include more alinex modules
-{string} = require 'alinex-util'
+{string, object} = require 'alinex-util'
 
 
 # Helper methods
@@ -22,6 +22,7 @@ block = (text, start, indent, width, pre = false) ->
 # ### Convert object to markdown table
 table = (obj, col, sort, mask) ->
   return '' unless Object.keys(obj).length
+  obj = object.clone obj
   # transform object
   if typeof obj is 'object' and not Array.isArray obj
     n = []
