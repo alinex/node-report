@@ -4,6 +4,11 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.3.11 (2016-03-31)
+-------------------------------------------------
+- upgraded builder.
+- Clone object in table to prevent changes to the outside.
+
 Version 1.3.10 (2016-03-30)
 -------------------------------------------------
 - Fix wrong package in package.json.
