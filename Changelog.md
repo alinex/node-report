@@ -4,6 +4,11 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.3.12 (2016-04-06)
+-------------------------------------------------
+- Upgraded util, highlight, markdown-it and builder packages.
+- Fixed bug in transform marked text to console.
+
 Version 1.3.11 (2016-03-31)
 -------------------------------------------------
 - upgraded builder.
