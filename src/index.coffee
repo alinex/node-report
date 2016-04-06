@@ -190,7 +190,7 @@ class Report
     block text, indent, indent, width ? @width
   @code: (text, lang, width) ->
     if lang
-      return "\n``` #{lang}\n#{text.trim()}\n```\n"
+      return "\n``` #{lang}\n#{text.replace /^\s*\n|\n\s*$/, ''}\n```\n"
     indent = '    '
     block text, indent, indent, width ? @width, true
   @box: (text, type, width) ->
@@ -373,6 +373,11 @@ class Report
   # ### as colorful console text
   toConsole: ->
     text = @toString()
+    # replace code
+    removed = []
+    text = text.replace /\n\n``` (\w+)\s*?\n([\s\S]*?)\n```\s*?\n/g, (all, lang, code) =>
+      removed.push "\n\n#{chalk.yellow lang}:#{block code, '    ', '    ', @width, true}"
+      "$$$$$#{removed.length}$$$$$"
     # remove some parts
     text = text.replace ///
     (
@@ -422,9 +427,6 @@ class Report
     text = text.replace /(^|[^\\])`(.*?)`/g, '$1' + chalk.dim.inverse '$2'
     text = text.replace /(^|[^\\])==([\S\s]*?)==/g, '$1' + chalk.yellow.inverse '$2'
     text = text.replace /(^|[^\\])~~([\S\s]*?)~~/g, '$1' + chalk.strikethrough '$2'
-    # replace code
-    text = text.replace /\n\n``` (\w+)\s*?\n([\s\S]*?)\n```\s*?\n/g, (all, lang, code) =>
-      "\n\n#{chalk.yellow lang}:#{block code, '    ', '    ', @width, true}"
     # replace table with ascii art table
     text = text.replace /\n\n\|[\s\S]*?\|\n\n/g, (table) ->
       lines = table.trim().split /\n/
@@ -491,6 +493,9 @@ class Report
       """\n\n#{chalk[color] '╔' + string.repeat('═', maxlen) + '╗'}
       #{text.join '\n'}
       #{chalk[color] '╚' + string.repeat('═', maxlen) + '╝'}"""
+    # readd removed parts
+    for value, num in removed
+      text = text.replace "$$$$$#{num+1}$$$$$", value
     text.trim()
 
   # ### as html

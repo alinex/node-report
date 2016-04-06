@@ -78,6 +78,10 @@ describe "format", ->
 
     it "should make a code paragraph", ->
       equal Report.code("My code\ncomes here."), "\n    My code\n    comes here.\n"
+    it "should make a code with long lines", ->
+      equal Report.code("My code comes a very long line which should be broken into
+      multiple lines in the markdown document."), "    My code comes a very long
+      line which should be broken into multiple lines in\n    the markdown document.\n"
     it "should make a language paragraph", ->
       equal Report.code("My code\ncomes here.", 'coffee'),
         "\n``` coffee\nMy code\ncomes here.\n```\n"
