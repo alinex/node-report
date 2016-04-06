@@ -615,7 +615,7 @@ paragraphs
     block text, indent, indent, width ? <span class="hljs-property">@width</span>
   <span class="hljs-property">@code</span>: <span class="hljs-function"><span class="hljs-params">(text, lang, width)</span> -&gt;</span>
     <span class="hljs-keyword">if</span> lang
-      <span class="hljs-keyword">return</span> <span class="hljs-string">"\n``` <span class="hljs-subst">#{lang}</span>\n<span class="hljs-subst">#{text.trim()}</span>\n```\n"</span>
+      <span class="hljs-keyword">return</span> <span class="hljs-string">"\n``` <span class="hljs-subst">#{lang}</span>\n<span class="hljs-subst">#{text.replace <span class="hljs-regexp">/^\s*\n|\n\s*$/</span>, <span class="hljs-string">''</span>}</span>\n```\n"</span>
     indent = <span class="hljs-string">'    '</span>
     block text, indent, indent, width ? <span class="hljs-property">@width</span>, <span class="hljs-literal">true</span>
   <span class="hljs-property">@box</span>: <span class="hljs-function"><span class="hljs-params">(text, type, width)</span> -&gt;</span>
@@ -1026,6 +1026,22 @@ as colorful console text
           <div class="pilwrap">
   <a class="pilcrow" href="#section-43" id="section-43"></a>
 </div>
+<p>replace code</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    removed = []
+    text = text.replace <span class="hljs-regexp">/\n\n``` (\w+)\s*?\n([\s\S]*?)\n```\s*?\n/g</span>, <span class="hljs-function"><span class="hljs-params">(all, lang, code)</span> =&gt;</span>
+      removed.push <span class="hljs-string">"\n\n<span class="hljs-subst">#{chalk.yellow lang}</span>:<span class="hljs-subst">#{block code, <span class="hljs-string">'    '</span>, <span class="hljs-string">'    '</span>, <span class="hljs-property">@width</span>, <span class="hljs-literal">true</span>}</span>"</span>
+      <span class="hljs-string">"$$$$$<span class="hljs-subst">#{removed.length}</span>$$$$$"</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-44" id="section-44"></a>
+</div>
 <p>remove some parts</p>
 
         </td>
@@ -1047,7 +1063,7 @@ as colorful console text
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-44" id="section-44"></a>
+  <a class="pilcrow" href="#section-45" id="section-45"></a>
 </div>
 <p>interpret markdown</p>
 
@@ -1060,7 +1076,7 @@ as colorful console text
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-45" id="section-45"></a>
+  <a class="pilcrow" href="#section-46" id="section-46"></a>
 </div>
 <p>replace headings</p>
 
@@ -1078,7 +1094,7 @@ as colorful console text
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-46" id="section-46"></a>
+  <a class="pilcrow" href="#section-47" id="section-47"></a>
 </div>
 <p>hr</p>
 
@@ -1092,7 +1108,7 @@ as colorful console text
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-47" id="section-47"></a>
+  <a class="pilcrow" href="#section-48" id="section-48"></a>
 </div>
 <p>typographic</p>
 
@@ -1120,7 +1136,7 @@ as colorful console text
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-48" id="section-48"></a>
+  <a class="pilcrow" href="#section-49" id="section-49"></a>
 </div>
 <p>marked text</p>
 
@@ -1133,20 +1149,6 @@ as colorful console text
     text = text.replace <span class="hljs-regexp">/(^|[^\\])`(.*?)`/g</span>, <span class="hljs-string">'$1'</span> + chalk.dim.inverse <span class="hljs-string">'$2'</span>
     text = text.replace <span class="hljs-regexp">/(^|[^\\])==([\S\s]*?)==/g</span>, <span class="hljs-string">'$1'</span> + chalk.yellow.inverse <span class="hljs-string">'$2'</span>
     text = text.replace <span class="hljs-regexp">/(^|[^\\])~~([\S\s]*?)~~/g</span>, <span class="hljs-string">'$1'</span> + chalk.strikethrough <span class="hljs-string">'$2'</span></pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-49" id="section-49"></a>
-</div>
-<p>replace code</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">    text = text.replace <span class="hljs-regexp">/\n\n``` (\w+)\s*?\n([\s\S]*?)\n```\s*?\n/g</span>, <span class="hljs-function"><span class="hljs-params">(all, lang, code)</span> =&gt;</span>
-      <span class="hljs-string">"\n\n<span class="hljs-subst">#{chalk.yellow lang}</span>:<span class="hljs-subst">#{block code, <span class="hljs-string">'    '</span>, <span class="hljs-string">'    '</span>, <span class="hljs-property">@width</span>, <span class="hljs-literal">true</span>}</span>"</span></pre>
         </td>
       </tr>
     
@@ -1331,11 +1333,14 @@ as colorful console text
   <a class="pilcrow" href="#section-60" id="section-60"></a>
 </div>
 <p>{text.join '\n'}
-{chalk[color] '╚' + string.repeat('═', maxlen) + '╝'}&quot;&quot;&quot;</p>
+{chalk[color] '╚' + string.repeat('═', maxlen) + '╝'}&quot;&quot;&quot;
+readd removed parts</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">    text.trim()</pre>
+          <pre class="coffeescript">    <span class="hljs-keyword">for</span> value, num <span class="hljs-keyword">in</span> removed
+      text = text.replace <span class="hljs-string">"$$$$$<span class="hljs-subst">#{num+<span class="hljs-number">1</span>}</span>$$$$$"</span>, value
+    text.trim()</pre>
         </td>
       </tr>
     
