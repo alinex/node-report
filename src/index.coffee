@@ -415,13 +415,13 @@ class Report
     for sign, re of replace
       text = text.replace re, sign
     # marked text
-    text = text.replace /(?:^|[^\\])\*\*(.*?)\*\*/g, chalk.bold '$1'
-    text = text.replace /(?:^|[^\\])__(.*?)__/g, chalk.bold '$1'
-    text = text.replace /(?:^|[^\\])\*(.*?)\*/g, chalk.italic '$1'
-    text = text.replace /(?:^|[^\\])_(.*?)_/g, chalk.italic '$1'
-    text = text.replace /(?:^|[^\\])`(.*?)`/g, chalk.dim.inverse '$1'
-    text = text.replace /(?:^|[^\\])==([\S\s]*?)==/g, chalk.yellow.inverse '$1'
-    text = text.replace /(?:^|[^\\])~~([\S\s]*?)~~/g, chalk.strikethrough '$1'
+    text = text.replace /(^|[^\\])\*\*(.*?)\*\*/g, '$1' + chalk.bold '$2'
+    text = text.replace /(^|[^\\])__(.*?)__/g, '$1' + chalk.bold '$2'
+    text = text.replace /(^|[^\\])\*(.*?)\*/g, '$1' + chalk.italic '$2'
+    text = text.replace /(^|[^\\])_(.*?)_/g, '$1' + chalk.italic '$2'
+    text = text.replace /(^|[^\\])`(.*?)`/g, '$1' + chalk.dim.inverse '$2'
+    text = text.replace /(^|[^\\])==([\S\s]*?)==/g, '$1' + chalk.yellow.inverse '$2'
+    text = text.replace /(^|[^\\])~~([\S\s]*?)~~/g, '$1' + chalk.strikethrough '$2'
     # replace code
     text = text.replace /\n\n``` (\w+)\s*?\n([\s\S]*?)\n```\s*?\n/g, (all, lang, code) =>
       "\n\n#{chalk.yellow lang}:#{block code, '    ', '    ', @width, true}"
