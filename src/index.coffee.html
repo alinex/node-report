@@ -1126,13 +1126,13 @@ as colorful console text
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">    text = text.replace <span class="hljs-regexp">/(?:^|[^\\])\*\*(.*?)\*\*/g</span>, chalk.bold <span class="hljs-string">'$1'</span>
-    text = text.replace <span class="hljs-regexp">/(?:^|[^\\])__(.*?)__/g</span>, chalk.bold <span class="hljs-string">'$1'</span>
-    text = text.replace <span class="hljs-regexp">/(?:^|[^\\])\*(.*?)\*/g</span>, chalk.italic <span class="hljs-string">'$1'</span>
-    text = text.replace <span class="hljs-regexp">/(?:^|[^\\])_(.*?)_/g</span>, chalk.italic <span class="hljs-string">'$1'</span>
-    text = text.replace <span class="hljs-regexp">/(?:^|[^\\])`(.*?)`/g</span>, chalk.dim.inverse <span class="hljs-string">'$1'</span>
-    text = text.replace <span class="hljs-regexp">/(?:^|[^\\])==([\S\s]*?)==/g</span>, chalk.yellow.inverse <span class="hljs-string">'$1'</span>
-    text = text.replace <span class="hljs-regexp">/(?:^|[^\\])~~([\S\s]*?)~~/g</span>, chalk.strikethrough <span class="hljs-string">'$1'</span></pre>
+          <pre class="coffeescript">    text = text.replace <span class="hljs-regexp">/(^|[^\\])\*\*(.*?)\*\*/g</span>, <span class="hljs-string">'$1'</span> + chalk.bold <span class="hljs-string">'$2'</span>
+    text = text.replace <span class="hljs-regexp">/(^|[^\\])__(.*?)__/g</span>, <span class="hljs-string">'$1'</span> + chalk.bold <span class="hljs-string">'$2'</span>
+    text = text.replace <span class="hljs-regexp">/(^|[^\\])\*(.*?)\*/g</span>, <span class="hljs-string">'$1'</span> + chalk.italic <span class="hljs-string">'$2'</span>
+    text = text.replace <span class="hljs-regexp">/(^|[^\\])_(.*?)_/g</span>, <span class="hljs-string">'$1'</span> + chalk.italic <span class="hljs-string">'$2'</span>
+    text = text.replace <span class="hljs-regexp">/(^|[^\\])`(.*?)`/g</span>, <span class="hljs-string">'$1'</span> + chalk.dim.inverse <span class="hljs-string">'$2'</span>
+    text = text.replace <span class="hljs-regexp">/(^|[^\\])==([\S\s]*?)==/g</span>, <span class="hljs-string">'$1'</span> + chalk.yellow.inverse <span class="hljs-string">'$2'</span>
+    text = text.replace <span class="hljs-regexp">/(^|[^\\])~~([\S\s]*?)~~/g</span>, <span class="hljs-string">'$1'</span> + chalk.strikethrough <span class="hljs-string">'$2'</span></pre>
         </td>
       </tr>
     
