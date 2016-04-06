@@ -4,6 +4,13 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.3.13 (2016-04-06)
+-------------------------------------------------
+- Fixes in console conversion.
+- Fixes in console conversion.
+- Fixes in console conversion.
+- Fix code formats within toConsole() conversion.
+
 Version 1.3.12 (2016-04-06)
 -------------------------------------------------
 - Upgraded util, highlight, markdown-it and builder packages.
