@@ -84,6 +84,7 @@ module.exports = (report, setup, cb) ->
     data = new Buffer(fs.readFileSync f).toString 'base64'
     "#{b}data:#{mime.lookup f};base64,#{data}#{a}"
   # transform to html
+  md.render(content, data)
   content = optimizeHtml md.render(content, data), setup?.locale
   title = setup?.title ? data.title ? 'Report'
   style = setup?.style ? 'default'
