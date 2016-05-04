@@ -1,7 +1,7 @@
 chai = require 'chai'
 expect = chai.expect
 ### eslint-env node, mocha ###
-async = require 'alinex-async'
+async = require 'async'
 
 debug = require('debug')('test:instance')
 Report = require '../../src/index'

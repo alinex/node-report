@@ -9,11 +9,11 @@ return
 module.exports = (md, name, options) ->
 
   validateDefault = (params) ->
-    params.trim().split(' ', 2)[0] == name
+    params.trim().split(' ', 2)[0] is name
 
   renderDefault = (tokens, idx, _options, env, self) ->
     # add a class to the opening tag
-    if tokens[idx].nesting == 1
+    if tokens[idx].nesting is 1
       tokens[idx].attrPush [
         'class'
         name
@@ -35,13 +35,13 @@ module.exports = (md, name, options) ->
     # Check out the first character quickly,
     # this should filter out most of non-containers
     #
-    if marker_char != state.src.charCodeAt(start)
+    unless marker_char is state.src.charCodeAt(start)
       return false
     # Check out the rest of the marker string
     #
     pos = start + 1
     while pos <= max
-      if marker_str[(pos - start) % marker_len] != state.src[pos]
+      if marker_str[(pos - start) % marker_len] isnt state.src[pos]
         break
       pos++
     marker_count = Math.floor((pos - start) / marker_len)
@@ -50,7 +50,7 @@ module.exports = (md, name, options) ->
     pos -= (pos - start) % marker_len
     markup = state.src.slice(start, pos)
     params = state.src.slice(pos, max)
-    if !validate(params)
+    if not validate(params)
       return false
     # Since start is found, we can report success here in validation mode
     #
@@ -72,14 +72,14 @@ module.exports = (md, name, options) ->
         # - ```
         #  test
         break
-      if marker_char != state.src.charCodeAt(start)
+      if marker_char isnt state.src.charCodeAt(start)
         continue
       if state.sCount[nextLine] - (state.blkIndent) >= 4
         # closing fence should be indented less than 4 spaces
         continue
       pos = start + 1
       while pos <= max
-        if marker_str[(pos - start) % marker_len] != state.src[pos]
+        if marker_str[(pos - start) % marker_len] isnt state.src[pos]
           break
         pos++
       # closing code fence must be at least as long as the opening one
@@ -124,12 +124,13 @@ module.exports = (md, name, options) ->
   marker_len = marker_str.length
   validate = options.validate or validateDefault
   render = options.render or renderDefault
-  md.block.ruler.before 'fence', 'container_' + name, container, alt: [
-    'paragraph'
-    'reference'
-    'blockquote'
-    'list'
-  ]
+  md.block.ruler.before 'fence', 'container_' + name, container,
+    alt: [
+      'paragraph'
+      'reference'
+      'blockquote'
+      'list'
+    ]
   md.renderer.rules['container_' + name + '_open'] = render
   md.renderer.rules['container_' + name + '_close'] = render
   return

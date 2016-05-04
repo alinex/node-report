@@ -5,9 +5,8 @@
 # Node Modules
 # -------------------------------------------------
 chalk = require 'chalk'
-util = require 'util'
 # include more alinex modules
-{string, object} = require 'alinex-util'
+util = require 'alinex-util'
 
 
 # Helper methods
@@ -17,12 +16,12 @@ block = (text, start, indent, width, pre = false) ->
   indent = '\n' + indent
   text = text.trim().replace /([^\\\s])[ \r\t]*\n[ \r\t]*(\S)/g, '$1\n$2' unless pre
   text = '\n' + start + text.replace(/\n/g, indent) + '\n'
-  string.wordwrap text, width, indent, 2
+  util.string.wordwrap text, width, indent, 2
 
 # ### Convert object to markdown table
 table = (obj, col, sort, mask) ->
   return '' unless Object.keys(obj).length
-  obj = object.clone obj
+  obj = util.clone obj
   # transform object
   if typeof obj is 'object' and not Array.isArray obj
     n = []
@@ -107,7 +106,7 @@ table = (obj, col, sort, mask) ->
         when 'r' then 'l'
         when 'l' then 'r'
         else 'c'
-      string["#{pad}pad"] col[e].title, col[e].width
+      util.string["#{pad}pad"] col[e].title, col[e].width
     .join ' | '
   ) + ' |'
   # write line
@@ -115,11 +114,11 @@ table = (obj, col, sort, mask) ->
     Object.keys(col).map (e) ->
       switch col[e].align
         when 'right'
-          " #{string.repeat '-', col[e].width}:"
+          " #{util.string.repeat '-', col[e].width}:"
         when 'left'
-          ":#{string.repeat '-', col[e].width} "
+          ":#{util.string.repeat '-', col[e].width} "
         when 'center'
-          ":#{string.repeat '-', col[e].width}:"
+          ":#{util.string.repeat '-', col[e].width}:"
     .join '|'
   ) + '|'
   # write rows
@@ -135,7 +134,7 @@ table = (obj, col, sort, mask) ->
           val = ''
         else if typeof val isnt 'string'
           val = util.inspect(val).replace /\s+/g, ' '
-        string["#{pad}pad"] val, col[e].width
+        util.string["#{pad}pad"] val, col[e].width
       .join ' | '
     ) + ' |'
   text + '\n'
@@ -156,10 +155,10 @@ class Report
   # ### headings
   @h1: (text, width) ->
     """\n\n#{text}
-    #{string.repeat '=', width ? @width}\n"""
+    #{util.string.repeat '=', width ? @width}\n"""
   @h2: (text, width) ->
     """\n\n#{text}
-    #{string.repeat '-', width ? @width}\n"""
+    #{util.string.repeat '-', width ? @width}\n"""
   @h3: (text) -> "\n### #{text}\n"
   @h4: (text) -> "\n#### #{text}\n"
   @h5: (text) -> "\n##### #{text}\n"
@@ -186,7 +185,7 @@ class Report
   # ### paragraphs
   @p: (text, width) -> block text, '', '', width ? @width
   @quote: (text, depth = 1, width) ->
-    indent = string.repeat '> ', depth
+    indent = util.string.repeat '> ', depth
     block text, indent, indent, width ? @width
   @code: (text, lang, width) ->
     if lang
@@ -222,13 +221,13 @@ class Report
       list.sort()
       list.reverse() unless sort
     length = list.length.toString().length + 2
-    indent = string.repeat ' ', length
+    indent = util.string.repeat ' ', length
     num = 0
     '\n' + list.map (text) =>
       if Array.isArray text
         text = @ol text, width
         return indent + text.trim().replace '\n', '\n' + indent
-      start = string.rpad "#{++num}.", length
+      start = util.string.rpad "#{++num}.", length
       block(text, start, indent, width ? @width).trim()
     .join('\n') + '\n'
   @dl: (obj, sort, width) ->
@@ -240,7 +239,7 @@ class Report
     text = ''
     for name in list
       content = obj[name].trim().split(/\n\n/).map (e) ->
-        ": #{string.wordwrap e, width ? @width, '\n'}"
+        ": #{util.string.wordwrap e, width ? @width, '\n'}"
       .join '\n\n'
       text += "\n#{name}\n\n#{content}\n"
     text
@@ -348,12 +347,12 @@ class Report
     # demask markdown syntax and add spaces
     if text.match /\\([*_~^`])/
       demask = /\\([*_~^`])/g
-      text = string.toList(text).map (line) ->
+      text = util.string.toList(text).map (line) ->
         # demask in table
         if line.match /^\|/
           line.split('\|').map (cell) ->
             if found = cell.match demask
-              cell.replace(demask, "$1") + string.repeat ' ', found.length
+              cell.replace(demask, "$1") + util.string.repeat ' ', found.length
             else
               cell
           .join '|'
@@ -401,7 +400,7 @@ class Report
       "#{start}#{chalk.bold.underline text}"
     # hr
     text = text.replace /\n\n---+\n/g, =>
-      "\n\n#{string.repeat '─', @width}\n"
+      "\n\n#{util.string.repeat '─', @width}\n"
     # typographic
     replace =
       '©': /\(c\)/gi
@@ -433,12 +432,12 @@ class Report
       head = lines[0].split /\|/
       # header
       line = '┌'
-      line += string.repeat('─', col.length) + '┬' for col in head[1..head.length-2]
+      line += util.string.repeat('─', col.length) + '┬' for col in head[1..head.length-2]
       ascii = chalk.grey line[0..line.length-2] + '┐'
       ascii += chalk.grey '\n│'
       ascii += chalk.bold(col) + chalk.grey('│') for col in head[1..head.length-2]
       line = '\n├'
-      line += string.repeat('─', col.length) + '┼' for col in head[1..head.length-2]
+      line += util.string.repeat('─', col.length) + '┼' for col in head[1..head.length-2]
       ascii += chalk.grey line[0..line.length-2] + '┤'
       # lines
       for l in lines[2..]
@@ -447,18 +446,18 @@ class Report
         ascii += col + chalk.grey('│') for col in cols[1..cols.length-2]
       # footer
       line = '\n└'
-      line += string.repeat('─', col.length) + '┴' for col in head[1..head.length-2]
+      line += util.string.repeat('─', col.length) + '┴' for col in head[1..head.length-2]
       ascii += chalk.grey line[0..line.length-2] + '┘'
       "\n\n#{ascii}\n\n"
     # demask markdown syntax and add spaces
     if text.match /(^|[^\\])\\([*_~^`\\])/
       demask = /(^|[^\\])\\([*_~^`\\])/g
-      text = string.toList(text).map (line) ->
+      text = util.string.toList(text).map (line) ->
         # demask in table
         if line.match /^│/
           line.split('│').map (cell) ->
             if found = cell.match demask
-              cell.replace(demask, "$1$2") + string.repeat ' ', found.length
+              cell.replace(demask, "$1$2") + util.string.repeat ' ', found.length
             else
               cell
           .join '│'
@@ -489,10 +488,11 @@ class Report
         alert: 'red'
       }[type] ? 'gray'
       text = text.split(/\n/).map (e) ->
-        "#{chalk[color] '║'}#{e}#{string.repeat ' ', maxlen-stripAnsi(e).length}#{chalk[color] '║'}"
-      """\n\n#{chalk[color] '╔' + string.repeat('═', maxlen) + '╗'}
+        "#{chalk[color] '║'}#{e}#{util.string.repeat ' ', maxlen-stripAnsi(e).length}\
+        #{chalk[color] '║'}"
+      """\n\n#{chalk[color] '╔' + util.string.repeat('═', maxlen) + '╗'}
       #{text.join '\n'}
-      #{chalk[color] '╚' + string.repeat('═', maxlen) + '╝'}"""
+      #{chalk[color] '╚' + util.string.repeat('═', maxlen) + '╝'}"""
     # readd removed parts
     for value, num in removed
       text = text.replace "$$$$$#{num+1}$$$$$", value
