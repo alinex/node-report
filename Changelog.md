@@ -4,6 +4,16 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.3.14 (2016-05-04)
+-------------------------------------------------
+- Fix console test (disabling autodetect color mode).
+- Downgrade markdown-it-toc-and-anchor because of problems.
+- Downgrade markdown-it-toc-and-anchor because of problems.
+- Update util and async calls.
+- Upgraded util, fs, markdownit-toc-and-anchor, builder packages.
+- Added v6 for travis but didn't activate, yet.
+- Add missing package alinex-fs.
+
 Version 1.3.13 (2016-04-06)
 -------------------------------------------------
 - Fixes in console conversion.
