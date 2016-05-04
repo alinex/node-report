@@ -2,8 +2,11 @@ chai = require 'chai'
 expect = chai.expect
 ### eslint-env node, mocha ###
 
+chalk = require 'chalk'
 debug = require('debug')('test:instance')
 Report = require '../../src/index'
+
+chalk.enabled = true
 
 equal = (a, b) ->
   debug "result", a
