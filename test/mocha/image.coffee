@@ -32,6 +32,7 @@ describe "image", ->
   describe "toText", ->
 
     it "should convert external image", ->
+      @timeout 10000
       report = new Report()
       report.p Report.img "google", "http://google.de/favicon.ico"
       equal report.toText(), "[IMAGE google]"
