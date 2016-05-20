@@ -257,9 +257,8 @@ describe "format", ->
 
     it "should format obj-list-array", ->
       equal Report.table(objListArray), """
-      \n| 0  | 1      | 2     |
+      \n| 1  | one    | eins  |
       |:-- |:------ |:----- |
-      | 1  | one    | eins  |
       | 2  | two    | zwei  |
       | 3  | three  | drei  |
       | 12 | twelve | zwölf |\n"""
@@ -281,23 +280,22 @@ describe "format", ->
       | 12 | twelve  |\n"""
     it "should format obj-list-array with empty fields", ->
       equal Report.table(objListArrayEmpty), """
-      \n| 0  | 1   | 2     |
+      \n| 1  | one | eins  |
       |:-- |:--- |:----- |
-      | 1  | one | eins  |
       | 2  |     | zwei  |
       | 3  |     | drei  |
       | 12 |     | zwölf |\n"""
 
     it "should format obj-map", ->
       equal Report.table(objMap), """
-      \n| 0        | 1         |
+      \n| Name     | Value     |
       |:-------- |:--------- |
       | id       | 001       |
       | name     | alex      |
       | position | developer |\n"""
     it "should format obj-map with col-array", ->
-      equal Report.table(objMap, ['Name', 'Value']), """
-      \n| Name     | Value     |
+      equal Report.table(objMap, ['NAME', 'VALUE']), """
+      \n| NAME     | VALUE     |
       |:-------- |:--------- |
       | id       | 001       |
       | name     | alex      |
@@ -355,18 +353,16 @@ describe "format", ->
         [12, 'twelve', 'zwölf']
       ], null, null, true
       equal md, """
-      \n| 0  | 1       | 2     |
+      \n| 1  | one     | eins  |
       |:-- |:------- |:----- |
-      | 1  | one     | eins  |
       | 2  | t\\_w\\_o | zwei  |
       | 3  | three   | drei  |
       | 12 | twelve  | zwölf |\n"""
       report = new Report
         source: md
       equal report.toText(), """
-      | 0  | 1       | 2     |
-      |:-- |:------- |:----- |
       | 1  | one     | eins  |
+      |:-- |:------- |:----- |
       | 2  | t_w_o   | zwei  |
       | 3  | three   | drei  |
       | 12 | twelve  | zwölf |"""

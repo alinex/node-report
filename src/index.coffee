@@ -24,7 +24,8 @@ table = (obj, col, sort, mask) ->
   obj = util.clone obj
   # transform object
   if typeof obj is 'object' and not Array.isArray obj
-    n = []
+    n = [(col ? ['Name', 'Value'])]
+    col = null
     for name, val of obj
       if typeof val is 'object'
         if Array.isArray(val) and val.length < 10
@@ -55,8 +56,18 @@ table = (obj, col, sort, mask) ->
       n[name] = {title: title} for name, title of col
       col = n
   else
-    col = {}
-    col[name] = {title: name} for name of obj[0]
+    if Array.isArray obj[0]
+      col = obj.shift()
+    else
+      col = {}
+      col[name] = {title: name} for name of obj[0]
+  console.log obj, col
+  # transform col array to object
+  if Array.isArray col
+    c = {}
+    for field, i in col
+      c[i] = if typeof field is 'object' then field else {title: field}
+    col = c
   # transform sort order
   if typeof sort is 'string'
     n = {}
