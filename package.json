@@ -35,14 +35,14 @@
   },
   "dependencies": {
     "alinex-fs": "^2.0.1",
-    "alinex-util": "^2.1.0",
+    "alinex-util": "^2.2.0",
     "async": "^2.0.0-rc.3",
     "chalk": "^1.1.1",
     "debug": "^2.2.0",
-    "highlight.js": "^9.3.0",
+    "highlight.js": "^9.4.0",
     "html-pdf": "^2.0.1",
     "inline-css": "^2.2.2",
-    "markdown-it": "^6.0.1",
+    "markdown-it": "^6.0.2",
     "markdown-it-abbr": "^1.0.0",
     "markdown-it-checkbox": "^1.1.0",
     "markdown-it-container": "^2.0.0",
@@ -60,7 +60,7 @@
     "twemoji": "^2.0.5"
   },
   "devDependencies": {
-    "alinex-builder": "^2.0.4",
+    "alinex-builder": "^2.1.2",
     "chai": "^3.4.1"
   },
   "optionalDependencies": {},
