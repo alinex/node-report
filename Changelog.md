@@ -4,6 +4,13 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.3.15 (2016-05-20)
+-------------------------------------------------
+- Upgraded util, highlight, markdown-it and builder packages.
+- Support new table format with header as first row.
+- Upgraded markdown-it-toc-and-anchor to now working new version.
+- Added test script for bug in toc package.
+
 Version 1.3.14 (2016-05-04)
 -------------------------------------------------
 - Fix console test (disabling autodetect color mode).
