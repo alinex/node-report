@@ -61,7 +61,6 @@ table = (obj, col, sort, mask) ->
     else
       col = {}
       col[name] = {title: name} for name of obj[0]
-  console.log obj, col
   # transform col array to object
   if Array.isArray col
     c = {}
