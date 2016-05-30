@@ -35,6 +35,7 @@
   },
   "dependencies": {
     "alinex-fs": "^2.0.1",
+    "alinex-table": "^1.2.1",
     "alinex-util": "^2.2.0",
     "async": "^2.0.0-rc.3",
     "chalk": "^1.1.1",

@@ -7,6 +7,7 @@
 chalk = require 'chalk'
 # include more alinex modules
 util = require 'alinex-util'
+Table = require 'alinex-table'
 
 
 # Helper methods
@@ -20,6 +21,15 @@ block = (text, start, indent, width, pre = false) ->
 
 # ### Convert object to markdown table
 table = (obj, col, sort, mask) ->
+  # table instance
+  if obj instanceof Table
+    table = obj
+    obj = table.data[1..]
+    col = []
+    for name, col in table.data[0]
+      res = table.getMeta null, col
+      res.title ?= name
+      col.push res 
   return '' unless Object.keys(obj).length
   obj = util.clone obj
   # transform object
@@ -40,7 +50,7 @@ table = (obj, col, sort, mask) ->
         if typeof c is 'string' then c.replace /\s*\n\s*/g, ' ' else c
   # transform column definition
   if col
-    if Array.isArray col
+    if Array.isArray(col)
       unless Array.isArray col[0]
         col = [
           Object.keys obj[0]
@@ -49,7 +59,7 @@ table = (obj, col, sort, mask) ->
       n = {}
       for name, num in col[0]
         break unless val = col[1][num]
-        n[name] = {title: val}
+        n[name] = if typeof val is 'object' then val else {title: val}
       col = n
     else if typeof col[Object.keys(col)[0]] isnt 'object'
       n = {}

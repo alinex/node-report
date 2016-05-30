@@ -183,7 +183,14 @@ describe "format", ->
     colMap =
       id: 'ID'
       en: 'English'
-
+    colArrayMap = [
+        title: 'ID'
+        align: 'right'
+      ,
+        title: 'English'
+      ,
+        title: 'German'
+      ]
 
     sortMap = {de: 'desc'}
     sortList = ['de']
@@ -278,6 +285,14 @@ describe "format", ->
       | 2  | two     |
       | 3  | three   |
       | 12 | twelve  |\n"""
+    it "should format obj-list-array with col-array-map", ->
+      equal Report.table(objListArray, colArrayMap), """
+      \n| ID | English | German |
+      | --:|:------- |:------ |
+      |  1 | one     | eins   |
+      |  2 | two     | zwei   |
+      |  3 | three   | drei   |
+      | 12 | twelve  | zwölf  |\n"""
     it "should format obj-list-array with empty fields", ->
       equal Report.table(objListArrayEmpty), """
       \n| 1  | one | eins  |
