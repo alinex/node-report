@@ -4,6 +4,15 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.4.0 (2016-05-31)
+-------------------------------------------------
+Now supporting http://alinex.github.io/node-table instances.
+
+- Added table examples to documentation.
+- Upgraded table, markdown-it and emoji support packages.
+- Add table instance support.
+- Remove debug output.
+
 Version 1.3.15 (2016-05-20)
 -------------------------------------------------
 - Upgraded util, highlight, markdown-it and builder packages.
