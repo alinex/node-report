@@ -26,8 +26,8 @@ table = (obj, col, sort, mask) ->
     table = obj
     obj = table.data[1..]
     col = []
-    for name, col in table.data[0]
-      res = table.getMeta null, col
+    for name, i in table.data[0]
+      res = table.getMeta null, i
       res.title ?= name
       col.push res
   return '' unless Object.keys(obj).length

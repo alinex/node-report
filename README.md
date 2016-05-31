@@ -292,6 +292,205 @@ The complexest format will be shown at first:
 All other formats will be converted into this filling missing information with
 default values.
 
+There are lots of ways to use this:
+
+__With a Table Instance__
+
+If you have a [table] (http://alinex.github.io/node-table) instance you may directly
+add this to your report. This supports 'align' settings on the columns or sheet:
+
+``` coffee
+# setup the table data
+Table = require 'alinex-table'
+table = new Table [
+  ['ID', 'English', 'German']
+  [1, 'one', 'eins']
+  [2, 'two', 'zwei']
+  [3, 'three', 'drei']
+  [12, 'twelve', 'zwölf']
+]
+table.style null, 'ID', {align: 'right'}
+# add them to existing report
+report.table table
+```
+
+Now in the report output you get something like:
+
+``` text
+| ID | English | German |
+| --:|:------- |:------ |
+|  1 | one     | eins   |
+|  2 | two     | zwei   |
+|  3 | three   | drei   |
+| 12 | twelve  | zwölf  |
+```
+
+__Direct table__
+
+Next you may add a table containing a header row itself:
+
+``` coffee
+report.table  [
+  ['ID', 'English', 'German']
+  [1, 'one', 'eins']
+  [2, 'two', 'zwei']
+  [3, 'three', 'drei']
+  [12, 'twelve', 'zwölf']
+]
+```
+
+__Full Options__
+
+Or at last give everything like you want it (all arguments above):
+
+``` coffee
+# obj-list-map
+report.table [
+  {id: 1, en: 'one', de: 'eins'}
+  {id: 2, en: 'two', de: 'zwei'}
+  {id: 3, en: 'three', de: 'drei'}
+  {id: 12, en: 'twelve', de: 'zwölf'}
+]
+# obj-list-map with col-map-map
+report.table [
+  {id: 1, en: 'one', de: 'eins'}
+  {id: 2, en: 'two', de: 'zwei'}
+  {id: 3, en: 'three', de: 'drei'}
+  {id: 12, en: 'twelve', de: 'zwölf'}
+],
+  id:
+    title: 'ID'
+    align: 'right'
+  de:
+    title: 'German'
+  en:
+    title: 'English'
+# obj-list-map with col-list-array
+report.table [
+  {id: 1, en: 'one', de: 'eins'}
+  {id: 2, en: 'two', de: 'zwei'}
+  {id: 3, en: 'three', de: 'drei'}
+  {id: 12, en: 'twelve', de: 'zwölf'}
+], [
+  ['id', 'en']
+  ['ID', 'English']
+]
+# obj-list-map with col-list
+report.table [
+  {id: 1, en: 'one', de: 'eins'}
+  {id: 2, en: 'two', de: 'zwei'}
+  {id: 3, en: 'three', de: 'drei'}
+  {id: 12, en: 'twelve', de: 'zwölf'}
+], ['ID', 'English', 'German']
+# obj-list-map with col-map
+report.table [
+  {id: 1, en: 'one', de: 'eins'}
+  {id: 2, en: 'two', de: 'zwei'}
+  {id: 3, en: 'three', de: 'drei'}
+  {id: 12, en: 'twelve', de: 'zwölf'}
+],
+  id: 'ID'
+  en: 'English'
+# obj-list-map with col-map-map using sort-map
+report.table [
+  {id: 1, en: 'one', de: 'eins'}
+  {id: 2, en: 'two', de: 'zwei'}
+  {id: 3, en: 'three', de: 'drei'}
+  {id: 12, en: 'twelve', de: 'zwölf'}
+],
+  id:
+    title: 'ID'
+    align: 'right'
+  de:
+    title: 'German'
+  en:
+    title: 'English'
+, {de: 'desc'}
+# obj-list-map with col-map-map using sort-list
+report.table [
+  {id: 1, en: 'one', de: 'eins'}
+  {id: 2, en: 'two', de: 'zwei'}
+  {id: 3, en: 'three', de: 'drei'}
+  {id: 12, en: 'twelve', de: 'zwölf'}
+],
+  id:
+    title: 'ID'
+    align: 'right'
+  de:
+    title: 'German'
+  en:
+    title: 'English'
+, ['de']
+# obj-list-map with col-map-map using sort-key
+report.table [
+  {id: 1, en: 'one', de: 'eins'}
+  {id: 2, en: 'two', de: 'zwei'}
+  {id: 3, en: 'three', de: 'drei'}
+  {id: 12, en: 'twelve', de: 'zwölf'}
+],
+  id:
+    title: 'ID'
+    align: 'right'
+  de:
+    title: 'German'
+  en:
+    title: 'English'
+, 'de'
+# obj-list-array
+report.table [
+  [1, 'one', 'eins']
+  [2, 'two', 'zwei']
+  [3, 'three', 'drei']
+  [12, 'twelve', 'zwölf']
+]
+# obj-list-array with col-list
+report.table [
+  [1, 'one', 'eins']
+  [2, 'two', 'zwei']
+  [3, 'three', 'drei']
+  [12, 'twelve', 'zwölf']
+], ['ID', 'English', 'German']
+# obj-list-array with col-array-array
+report.table [
+  [1, 'one', 'eins']
+  [2, 'two', 'zwei']
+  [3, 'three', 'drei']
+  [12, 'twelve', 'zwölf']
+], [
+  [0, 1]
+  ['ID', 'English']
+]
+# obj-list-array with col-array-map
+report.table [
+  [1, 'one', 'eins']
+  [2, 'two', 'zwei']
+  [3, 'three', 'drei']
+  [12, 'twelve', 'zwölf']
+], [
+    title: 'ID'
+    align: 'right'
+  ,
+    title: 'English'
+  ,
+    title: 'German'
+  ]
+# obj-map
+report.table
+  id: '001'
+  name: 'alex'
+  position: 'developer'
+# obj-map with col-array
+report.table
+  id: '001'
+  name: 'alex'
+  position: 'developer'
+, ['NAME', 'VALUE']
+# mask in table with array
+report.table
+  id: '*001*'
+  name: 'alex'
+, ['Name', 'Value'], null, true
+```
 
 ### Special Elements
 
