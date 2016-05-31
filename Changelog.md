@@ -4,6 +4,11 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.4.1 (2016-05-31)
+-------------------------------------------------
+- Fix bug with duplicate callback in toHtml().
+- Fix doxu style.
+
 Version 1.4.0 (2016-05-31)
 -------------------------------------------------
 Now supporting http://alinex.github.io/node-table instances.

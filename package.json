@@ -1,6 +1,6 @@
 {
   "name": "alinex-report",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Easy report generating using markdown.",
   "copyright": "Alexander Schilling 2015-2016",
   "private": false,
@@ -61,7 +61,7 @@
     "twemoji": "^2.0.5"
   },
   "devDependencies": {
-    "alinex-builder": "^2.1.2",
+    "alinex-builder": "^2.1.4",
     "chai": "^3.4.1"
   },
   "optionalDependencies": {},
