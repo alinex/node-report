@@ -857,19 +857,23 @@ Syntax highlighting
 
 ### Tables
 
-    | Option | Description |
-    | ------ | ----------- |
-    | data   | path to data files to supply the data that will be passed into templates. |
-    | engine | engine to be used for processing templates. Handlebars is the default. |
-    | ext    | extension to be used for dest files. |
+``` text
+| Option | Description |
+| ------ | ----------- |
+| data   | path to data files to supply the data that will be passed into templates. |
+| engine | engine to be used for processing templates. Handlebars is the default. |
+| ext    | extension to be used for dest files. |
+```
 
 Right aligned columns
 
-    | Option | Description |
-    | ------:| -----------:|
-    | data   | path to data files to supply the data that will be passed into templates. |
-    | engine | engine to be used for processing templates. Handlebars is the default. |
-    | ext    | extension to be used for dest files. |
+``` text
+| Option | Description |
+| ------:| -----------:|
+| data   | path to data files to supply the data that will be passed into templates. |
+| engine | engine to be used for processing templates. Handlebars is the default. |
+| ext    | extension to be used for dest files. |
+```
 
 ### Links
 
@@ -961,7 +965,7 @@ the element atrated in front of the style definition.
 
     <!-- {p:.center} -->
 
-The second example specifies the prviouse <p> tag and sets the style class
+The second example specifies the previouse &lt;p> tag and sets the style class
 '.center' for it.
 
 
