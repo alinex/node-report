@@ -7,7 +7,7 @@
   <script src="../doc-filelist.js"></script>
   <script>
     var relativeDir = "../";
-    var thisFile = "home/alex/github/node-report/src/plugin.coffee";
+    var thisFile = "src/plugin.coffee";
     var defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
@@ -75,7 +75,7 @@
 <span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-params">(md, name, options)</span> -&gt;</span>
 <span class="hljs-function">
   <span class="hljs-title">validateDefault</span> = <span class="hljs-params">(params)</span> -&gt;</span>
-    params.trim().split(<span class="hljs-string">' '</span>, <span class="hljs-number">2</span>)[<span class="hljs-number">0</span>] == name
+    params.trim().split(<span class="hljs-string">' '</span>, <span class="hljs-number">2</span>)[<span class="hljs-number">0</span>] <span class="hljs-keyword">is</span> name
 <span class="hljs-function">
   <span class="hljs-title">renderDefault</span> = <span class="hljs-params">(tokens, idx, _options, env, self)</span> -&gt;</span></pre>
         </td>
@@ -90,7 +90,7 @@
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">    <span class="hljs-keyword">if</span> tokens[idx].nesting == <span class="hljs-number">1</span>
+          <pre class="coffeescript">    <span class="hljs-keyword">if</span> tokens[idx].nesting <span class="hljs-keyword">is</span> <span class="hljs-number">1</span>
       tokens[idx].attrPush [
         <span class="hljs-string">'class'</span>
         name
@@ -122,7 +122,7 @@ this should filter out most of non-containers</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">    <span class="hljs-keyword">if</span> marker_char != state.src.charCodeAt(start)
+          <pre class="coffeescript">    <span class="hljs-keyword">unless</span> marker_char <span class="hljs-keyword">is</span> state.src.charCodeAt(start)
       <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span></pre>
         </td>
       </tr>
@@ -138,7 +138,7 @@ this should filter out most of non-containers</p>
         <td class="code highlight">
           <pre class="coffeescript">    pos = start + <span class="hljs-number">1</span>
     <span class="hljs-keyword">while</span> pos &lt;= max
-      <span class="hljs-keyword">if</span> marker_str[(pos - start) % marker_len] != state.src[pos]
+      <span class="hljs-keyword">if</span> marker_str[(pos - start) % marker_len] <span class="hljs-keyword">isnt</span> state.src[pos]
         <span class="hljs-keyword">break</span>
       pos++
     marker_count = Math.floor((pos - start) / marker_len)
@@ -147,7 +147,7 @@ this should filter out most of non-containers</p>
     pos -= (pos - start) % marker_len
     markup = state.src.slice(start, pos)
     params = state.src.slice(pos, max)
-    <span class="hljs-keyword">if</span> !validate(params)
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> validate(params)
       <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span></pre>
         </td>
       </tr>
@@ -215,7 +215,7 @@ also block seems to be autoclosed by end of parent</p>
         </td>
         <td class="code highlight">
           <pre class="coffeescript">        <span class="hljs-keyword">break</span>
-      <span class="hljs-keyword">if</span> marker_char != state.src.charCodeAt(start)
+      <span class="hljs-keyword">if</span> marker_char <span class="hljs-keyword">isnt</span> state.src.charCodeAt(start)
         <span class="hljs-keyword">continue</span>
       <span class="hljs-keyword">if</span> state.sCount[nextLine] - (state.blkIndent) &gt;= <span class="hljs-number">4</span></pre>
         </td>
@@ -233,7 +233,7 @@ also block seems to be autoclosed by end of parent</p>
           <pre class="coffeescript">        <span class="hljs-keyword">continue</span>
       pos = start + <span class="hljs-number">1</span>
       <span class="hljs-keyword">while</span> pos &lt;= max
-        <span class="hljs-keyword">if</span> marker_str[(pos - start) % marker_len] != state.src[pos]
+        <span class="hljs-keyword">if</span> marker_str[(pos - start) % marker_len] <span class="hljs-keyword">isnt</span> state.src[pos]
           <span class="hljs-keyword">break</span>
         pos++</pre>
         </td>
@@ -307,7 +307,7 @@ also block seems to be autoclosed by end of parent</p>
       nextLine
     ]
     state.md.block.tokenize state, startLine + <span class="hljs-number">1</span>, nextLine
-    token = state.push(<span class="hljs-string">'container_'</span> + name + <span class="hljs-string">'_close'</span>, <span class="hljs-string">'div'</span>, -<span class="hljs-number">1</span>)
+    token = state.push(<span class="hljs-string">'container_'</span> + name + <span class="hljs-string">'_close'</span>, <span class="hljs-string">'div'</span>, <span class="hljs-number">-1</span>)
     token.markup = state.src.slice(start, pos)
     token.block = <span class="hljs-literal">true</span>
     state.parentType = old_parent
@@ -322,12 +322,13 @@ also block seems to be autoclosed by end of parent</p>
   marker_len = marker_str.length
   validate = options.validate <span class="hljs-keyword">or</span> validateDefault
   render = options.render <span class="hljs-keyword">or</span> renderDefault
-  md.block.ruler.before <span class="hljs-string">'fence'</span>, <span class="hljs-string">'container_'</span> + name, container, <span class="hljs-attribute">alt</span>: [
-    <span class="hljs-string">'paragraph'</span>
-    <span class="hljs-string">'reference'</span>
-    <span class="hljs-string">'blockquote'</span>
-    <span class="hljs-string">'list'</span>
-  ]
+  md.block.ruler.before <span class="hljs-string">'fence'</span>, <span class="hljs-string">'container_'</span> + name, container,
+    alt: [
+      <span class="hljs-string">'paragraph'</span>
+      <span class="hljs-string">'reference'</span>
+      <span class="hljs-string">'blockquote'</span>
+      <span class="hljs-string">'list'</span>
+    ]
   md.renderer.rules[<span class="hljs-string">'container_'</span> + name + <span class="hljs-string">'_open'</span>] = render
   md.renderer.rules[<span class="hljs-string">'container_'</span> + name + <span class="hljs-string">'_close'</span>] = render
   <span class="hljs-keyword">return</span></pre>

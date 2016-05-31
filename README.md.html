@@ -7,7 +7,7 @@
   <script src="doc-filelist.js"></script>
   <script>
     var relativeDir = "";
-    var thisFile = "home/alex/github/node-report/README.md";
+    var thisFile = "README.md";
     var defaultSidebar = true;
   </script>
   <script src="doc-script.js"></script>
@@ -263,7 +263,7 @@ Install
 </code></pre>
 <p>This package will install a lot of subpackages to ensure the full functionality
 but only the ones really needed are loaded on demand.</p>
-<p>Always have a look at the latest <a href="Changelog.md.html.html">changes</a>.</p>
+<p>Always have a look at the latest <a href="Changelog.md.html">changes</a>.</p>
 <div class="pilwrap" id="usage">
   <h2>
     <a href="#usage" name="usage" class="pilcrow"></a>
@@ -303,7 +303,7 @@ on the fly:</p>
 <span class="hljs-built_in">console</span>.log Report.p <span class="hljs-string">"This text contains a <span class="hljs-subst">#{Result.b <span class="hljs-string">'bold'</span>}</span> word."</span>
 </code></pre>
 <p>If you want to only convert existing markdown into html do this like:</p>
-<pre><code class="coffee">html = <span class="hljs-keyword">new</span> Report({<span class="hljs-attribute">source</span>: markdownText}).toHtml()
+<pre><code class="coffee">html = <span class="hljs-keyword">new</span> Report({source: markdownText}).toHtml()
 </code></pre>
 <div class="pilwrap" id="report-builder">
   <h2>
@@ -456,9 +456,9 @@ report.ol list
 <p>And a definition list takes an object as argument:</p>
 <pre><code class="coffee">report = <span class="hljs-keyword">new</span> Report()
 report.dl
-  <span class="hljs-attribute">HTML</span>: <span class="hljs-string">'Markup language for the web'</span>
-  <span class="hljs-attribute">CSS</span>: <span class="hljs-string">'Styling language for web pages'</span>
-  <span class="hljs-attribute">JavaScript</span>: <span class="hljs-string">'Coding not only for web pages'</span>
+  HTML: <span class="hljs-string">'Markup language for the web'</span>
+  CSS: <span class="hljs-string">'Styling language for web pages'</span>
+  JavaScript: <span class="hljs-string">'Coding not only for web pages'</span>
 </code></pre>
 <div class="pilwrap" id="table">
   <h3>
@@ -481,6 +481,190 @@ with different kind of objects making it easy to use nearly everything you have.
 </code></pre>
 <p>All other formats will be converted into this filling missing information with
 default values.</p>
+<p>There are lots of ways to use this:</p>
+<p><strong>With a Table Instance</strong></p>
+<p>If you have a [table] (http://alinex.github.io/node-table) instance you may directly
+add this to your report. This supports 'align' settings on the columns or sheet:</p>
+<pre><code class="coffee"><span class="hljs-comment"># setup the table data</span>
+Table = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-table'</span>
+table = <span class="hljs-keyword">new</span> Table [
+  [<span class="hljs-string">'ID'</span>, <span class="hljs-string">'English'</span>, <span class="hljs-string">'German'</span>]
+  [<span class="hljs-number">1</span>, <span class="hljs-string">'one'</span>, <span class="hljs-string">'eins'</span>]
+  [<span class="hljs-number">2</span>, <span class="hljs-string">'two'</span>, <span class="hljs-string">'zwei'</span>]
+  [<span class="hljs-number">3</span>, <span class="hljs-string">'three'</span>, <span class="hljs-string">'drei'</span>]
+  [<span class="hljs-number">12</span>, <span class="hljs-string">'twelve'</span>, <span class="hljs-string">'zwölf'</span>]
+]
+table.style <span class="hljs-literal">null</span>, <span class="hljs-string">'ID'</span>, {align: <span class="hljs-string">'right'</span>}
+<span class="hljs-comment"># add them to existing report</span>
+report.table table
+</code></pre>
+<p>Now in the report output you get something like:</p>
+<pre><code class="text">| ID | English | German |
+| --:|:------- |:------ |
+|  1 | one     | eins   |
+|  2 | two     | zwei   |
+|  3 | three   | drei   |
+| 12 | twelve  | zwölf  |
+</code></pre>
+<p><strong>Direct table</strong></p>
+<p>Next you may add a table containing a header row itself:</p>
+<pre><code class="coffee">report.table  [
+  [<span class="hljs-string">'ID'</span>, <span class="hljs-string">'English'</span>, <span class="hljs-string">'German'</span>]
+  [<span class="hljs-number">1</span>, <span class="hljs-string">'one'</span>, <span class="hljs-string">'eins'</span>]
+  [<span class="hljs-number">2</span>, <span class="hljs-string">'two'</span>, <span class="hljs-string">'zwei'</span>]
+  [<span class="hljs-number">3</span>, <span class="hljs-string">'three'</span>, <span class="hljs-string">'drei'</span>]
+  [<span class="hljs-number">12</span>, <span class="hljs-string">'twelve'</span>, <span class="hljs-string">'zwölf'</span>]
+]
+</code></pre>
+<p><strong>Full Options</strong></p>
+<p>Or at last give everything like you want it (all arguments above):</p>
+<pre><code class="coffee"><span class="hljs-comment"># obj-list-map</span>
+report.table [
+  {id: <span class="hljs-number">1</span>, en: <span class="hljs-string">'one'</span>, de: <span class="hljs-string">'eins'</span>}
+  {id: <span class="hljs-number">2</span>, en: <span class="hljs-string">'two'</span>, de: <span class="hljs-string">'zwei'</span>}
+  {id: <span class="hljs-number">3</span>, en: <span class="hljs-string">'three'</span>, de: <span class="hljs-string">'drei'</span>}
+  {id: <span class="hljs-number">12</span>, en: <span class="hljs-string">'twelve'</span>, de: <span class="hljs-string">'zwölf'</span>}
+]
+<span class="hljs-comment"># obj-list-map with col-map-map</span>
+report.table [
+  {id: <span class="hljs-number">1</span>, en: <span class="hljs-string">'one'</span>, de: <span class="hljs-string">'eins'</span>}
+  {id: <span class="hljs-number">2</span>, en: <span class="hljs-string">'two'</span>, de: <span class="hljs-string">'zwei'</span>}
+  {id: <span class="hljs-number">3</span>, en: <span class="hljs-string">'three'</span>, de: <span class="hljs-string">'drei'</span>}
+  {id: <span class="hljs-number">12</span>, en: <span class="hljs-string">'twelve'</span>, de: <span class="hljs-string">'zwölf'</span>}
+],
+  id:
+    title: <span class="hljs-string">'ID'</span>
+    align: <span class="hljs-string">'right'</span>
+  de:
+    title: <span class="hljs-string">'German'</span>
+  en:
+    title: <span class="hljs-string">'English'</span>
+<span class="hljs-comment"># obj-list-map with col-list-array</span>
+report.table [
+  {id: <span class="hljs-number">1</span>, en: <span class="hljs-string">'one'</span>, de: <span class="hljs-string">'eins'</span>}
+  {id: <span class="hljs-number">2</span>, en: <span class="hljs-string">'two'</span>, de: <span class="hljs-string">'zwei'</span>}
+  {id: <span class="hljs-number">3</span>, en: <span class="hljs-string">'three'</span>, de: <span class="hljs-string">'drei'</span>}
+  {id: <span class="hljs-number">12</span>, en: <span class="hljs-string">'twelve'</span>, de: <span class="hljs-string">'zwölf'</span>}
+], [
+  [<span class="hljs-string">'id'</span>, <span class="hljs-string">'en'</span>]
+  [<span class="hljs-string">'ID'</span>, <span class="hljs-string">'English'</span>]
+]
+<span class="hljs-comment"># obj-list-map with col-list</span>
+report.table [
+  {id: <span class="hljs-number">1</span>, en: <span class="hljs-string">'one'</span>, de: <span class="hljs-string">'eins'</span>}
+  {id: <span class="hljs-number">2</span>, en: <span class="hljs-string">'two'</span>, de: <span class="hljs-string">'zwei'</span>}
+  {id: <span class="hljs-number">3</span>, en: <span class="hljs-string">'three'</span>, de: <span class="hljs-string">'drei'</span>}
+  {id: <span class="hljs-number">12</span>, en: <span class="hljs-string">'twelve'</span>, de: <span class="hljs-string">'zwölf'</span>}
+], [<span class="hljs-string">'ID'</span>, <span class="hljs-string">'English'</span>, <span class="hljs-string">'German'</span>]
+<span class="hljs-comment"># obj-list-map with col-map</span>
+report.table [
+  {id: <span class="hljs-number">1</span>, en: <span class="hljs-string">'one'</span>, de: <span class="hljs-string">'eins'</span>}
+  {id: <span class="hljs-number">2</span>, en: <span class="hljs-string">'two'</span>, de: <span class="hljs-string">'zwei'</span>}
+  {id: <span class="hljs-number">3</span>, en: <span class="hljs-string">'three'</span>, de: <span class="hljs-string">'drei'</span>}
+  {id: <span class="hljs-number">12</span>, en: <span class="hljs-string">'twelve'</span>, de: <span class="hljs-string">'zwölf'</span>}
+],
+  id: <span class="hljs-string">'ID'</span>
+  en: <span class="hljs-string">'English'</span>
+<span class="hljs-comment"># obj-list-map with col-map-map using sort-map</span>
+report.table [
+  {id: <span class="hljs-number">1</span>, en: <span class="hljs-string">'one'</span>, de: <span class="hljs-string">'eins'</span>}
+  {id: <span class="hljs-number">2</span>, en: <span class="hljs-string">'two'</span>, de: <span class="hljs-string">'zwei'</span>}
+  {id: <span class="hljs-number">3</span>, en: <span class="hljs-string">'three'</span>, de: <span class="hljs-string">'drei'</span>}
+  {id: <span class="hljs-number">12</span>, en: <span class="hljs-string">'twelve'</span>, de: <span class="hljs-string">'zwölf'</span>}
+],
+  id:
+    title: <span class="hljs-string">'ID'</span>
+    align: <span class="hljs-string">'right'</span>
+  de:
+    title: <span class="hljs-string">'German'</span>
+  en:
+    title: <span class="hljs-string">'English'</span>
+, {de: <span class="hljs-string">'desc'</span>}
+<span class="hljs-comment"># obj-list-map with col-map-map using sort-list</span>
+report.table [
+  {id: <span class="hljs-number">1</span>, en: <span class="hljs-string">'one'</span>, de: <span class="hljs-string">'eins'</span>}
+  {id: <span class="hljs-number">2</span>, en: <span class="hljs-string">'two'</span>, de: <span class="hljs-string">'zwei'</span>}
+  {id: <span class="hljs-number">3</span>, en: <span class="hljs-string">'three'</span>, de: <span class="hljs-string">'drei'</span>}
+  {id: <span class="hljs-number">12</span>, en: <span class="hljs-string">'twelve'</span>, de: <span class="hljs-string">'zwölf'</span>}
+],
+  id:
+    title: <span class="hljs-string">'ID'</span>
+    align: <span class="hljs-string">'right'</span>
+  de:
+    title: <span class="hljs-string">'German'</span>
+  en:
+    title: <span class="hljs-string">'English'</span>
+, [<span class="hljs-string">'de'</span>]
+<span class="hljs-comment"># obj-list-map with col-map-map using sort-key</span>
+report.table [
+  {id: <span class="hljs-number">1</span>, en: <span class="hljs-string">'one'</span>, de: <span class="hljs-string">'eins'</span>}
+  {id: <span class="hljs-number">2</span>, en: <span class="hljs-string">'two'</span>, de: <span class="hljs-string">'zwei'</span>}
+  {id: <span class="hljs-number">3</span>, en: <span class="hljs-string">'three'</span>, de: <span class="hljs-string">'drei'</span>}
+  {id: <span class="hljs-number">12</span>, en: <span class="hljs-string">'twelve'</span>, de: <span class="hljs-string">'zwölf'</span>}
+],
+  id:
+    title: <span class="hljs-string">'ID'</span>
+    align: <span class="hljs-string">'right'</span>
+  de:
+    title: <span class="hljs-string">'German'</span>
+  en:
+    title: <span class="hljs-string">'English'</span>
+, <span class="hljs-string">'de'</span>
+<span class="hljs-comment"># obj-list-array</span>
+report.table [
+  [<span class="hljs-number">1</span>, <span class="hljs-string">'one'</span>, <span class="hljs-string">'eins'</span>]
+  [<span class="hljs-number">2</span>, <span class="hljs-string">'two'</span>, <span class="hljs-string">'zwei'</span>]
+  [<span class="hljs-number">3</span>, <span class="hljs-string">'three'</span>, <span class="hljs-string">'drei'</span>]
+  [<span class="hljs-number">12</span>, <span class="hljs-string">'twelve'</span>, <span class="hljs-string">'zwölf'</span>]
+]
+<span class="hljs-comment"># obj-list-array with col-list</span>
+report.table [
+  [<span class="hljs-number">1</span>, <span class="hljs-string">'one'</span>, <span class="hljs-string">'eins'</span>]
+  [<span class="hljs-number">2</span>, <span class="hljs-string">'two'</span>, <span class="hljs-string">'zwei'</span>]
+  [<span class="hljs-number">3</span>, <span class="hljs-string">'three'</span>, <span class="hljs-string">'drei'</span>]
+  [<span class="hljs-number">12</span>, <span class="hljs-string">'twelve'</span>, <span class="hljs-string">'zwölf'</span>]
+], [<span class="hljs-string">'ID'</span>, <span class="hljs-string">'English'</span>, <span class="hljs-string">'German'</span>]
+<span class="hljs-comment"># obj-list-array with col-array-array</span>
+report.table [
+  [<span class="hljs-number">1</span>, <span class="hljs-string">'one'</span>, <span class="hljs-string">'eins'</span>]
+  [<span class="hljs-number">2</span>, <span class="hljs-string">'two'</span>, <span class="hljs-string">'zwei'</span>]
+  [<span class="hljs-number">3</span>, <span class="hljs-string">'three'</span>, <span class="hljs-string">'drei'</span>]
+  [<span class="hljs-number">12</span>, <span class="hljs-string">'twelve'</span>, <span class="hljs-string">'zwölf'</span>]
+], [
+  [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>]
+  [<span class="hljs-string">'ID'</span>, <span class="hljs-string">'English'</span>]
+]
+<span class="hljs-comment"># obj-list-array with col-array-map</span>
+report.table [
+  [<span class="hljs-number">1</span>, <span class="hljs-string">'one'</span>, <span class="hljs-string">'eins'</span>]
+  [<span class="hljs-number">2</span>, <span class="hljs-string">'two'</span>, <span class="hljs-string">'zwei'</span>]
+  [<span class="hljs-number">3</span>, <span class="hljs-string">'three'</span>, <span class="hljs-string">'drei'</span>]
+  [<span class="hljs-number">12</span>, <span class="hljs-string">'twelve'</span>, <span class="hljs-string">'zwölf'</span>]
+], [
+    title: <span class="hljs-string">'ID'</span>
+    align: <span class="hljs-string">'right'</span>
+  ,
+    title: <span class="hljs-string">'English'</span>
+  ,
+    title: <span class="hljs-string">'German'</span>
+  ]
+<span class="hljs-comment"># obj-map</span>
+report.table
+  id: <span class="hljs-string">'001'</span>
+  name: <span class="hljs-string">'alex'</span>
+  position: <span class="hljs-string">'developer'</span>
+<span class="hljs-comment"># obj-map with col-array</span>
+report.table
+  id: <span class="hljs-string">'001'</span>
+  name: <span class="hljs-string">'alex'</span>
+  position: <span class="hljs-string">'developer'</span>
+, [<span class="hljs-string">'NAME'</span>, <span class="hljs-string">'VALUE'</span>]
+<span class="hljs-comment"># mask in table with array</span>
+report.table
+  id: <span class="hljs-string">'*001*'</span>
+  name: <span class="hljs-string">'alex'</span>
+, [<span class="hljs-string">'Name'</span>, <span class="hljs-string">'Value'</span>], <span class="hljs-literal">null</span>, <span class="hljs-literal">true</span>
+</code></pre>
 <div class="pilwrap" id="special-elements">
   <h3>
     <a href="#special-elements" name="special-elements" class="pilcrow"></a>
@@ -878,19 +1062,51 @@ console.log(foo(5));
 Tables
   </h3>
 </div>
-<pre><code>| Option | Description |
-| ------ | ----------- |
-| data   | path to data files to supply the data that will be passed into templates. |
-| engine | engine to be used for processing templates. Handlebars is the default. |
-| ext    | extension to be used for dest files. |
-</code></pre>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>data</td>
+</tr>
+<tr>
+<td></td>
+<td>engine</td>
+</tr>
+<tr>
+<td></td>
+<td>ext</td>
+</tr>
+</tbody>
+</table>
 <p>Right aligned columns</p>
-<pre><code>| Option | Description |
-| ------:| -----------:|
-| data   | path to data files to supply the data that will be passed into templates. |
-| engine | engine to be used for processing templates. Handlebars is the default. |
-| ext    | extension to be used for dest files. |
-</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:right">Option</th>
+<th style="text-align:right">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right"></td>
+<td style="text-align:right">data</td>
+</tr>
+<tr>
+<td style="text-align:right"></td>
+<td style="text-align:right">engine</td>
+</tr>
+<tr>
+<td style="text-align:right"></td>
+<td style="text-align:right">ext</td>
+</tr>
+</tbody>
+</table>
 <div class="pilwrap" id="links">
   <h3>
     <a href="#links" name="links" class="pilcrow"></a>

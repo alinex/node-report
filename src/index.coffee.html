@@ -7,7 +7,7 @@
   <script src="../doc-filelist.js"></script>
   <script>
     var relativeDir = "../";
-    var thisFile = "home/alex/github/node-report/src/index.coffee";
+    var thisFile = "src/index.coffee";
     var defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
@@ -192,8 +192,7 @@ Node Modules
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">chalk = <span class="hljs-built_in">require</span> <span class="hljs-string">'chalk'</span>
-util = <span class="hljs-built_in">require</span> <span class="hljs-string">'util'</span></pre>
+          <pre class="coffeescript">chalk = <span class="hljs-built_in">require</span> <span class="hljs-string">'chalk'</span></pre>
         </td>
       </tr>
     
@@ -206,7 +205,8 @@ util = <span class="hljs-built_in">require</span> <span class="hljs-string">'uti
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">{string, object} = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-util'</span></pre>
+          <pre class="coffeescript">util = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-util'</span>
+Table = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-table'</span></pre>
         </td>
       </tr>
     
@@ -226,7 +226,7 @@ Helper methods
   indent = <span class="hljs-string">'\n'</span> + indent
   text = text.trim().replace <span class="hljs-regexp">/([^\\\s])[ \r\t]*\n[ \r\t]*(\S)/g</span>, <span class="hljs-string">'$1\n$2'</span> <span class="hljs-keyword">unless</span> pre
   text = <span class="hljs-string">'\n'</span> + start + text.replace(<span class="hljs-regexp">/\n/g</span>, indent) + <span class="hljs-string">'\n'</span>
-  string.wordwrap text, width, indent, <span class="hljs-number">2</span></pre>
+  util.string.wordwrap text, width, indent, <span class="hljs-number">2</span></pre>
         </td>
       </tr>
     
@@ -241,9 +241,7 @@ Convert object to markdown table
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">table</span> = <span class="hljs-params">(obj, col, sort, mask)</span> -&gt;</span>
-  <span class="hljs-keyword">return</span> <span class="hljs-string">''</span> <span class="hljs-keyword">unless</span> Object.keys(obj).length
-  obj = object.clone obj</pre>
+          <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">table</span> = <span class="hljs-params">(obj, col, sort, mask)</span> -&gt;</span></pre>
         </td>
       </tr>
     
@@ -252,12 +250,35 @@ Convert object to markdown table
           <div class="pilwrap">
   <a class="pilcrow" href="#section-6" id="section-6"></a>
 </div>
+<p>table instance</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-keyword">if</span> obj <span class="hljs-keyword">instanceof</span> Table
+    table = obj
+    obj = table.data[<span class="hljs-number">1.</span>.]
+    col = []
+    <span class="hljs-keyword">for</span> name, i <span class="hljs-keyword">in</span> table.data[<span class="hljs-number">0</span>]
+      res = table.getMeta <span class="hljs-literal">null</span>, i
+      res.title ?= name
+      col.push res
+  <span class="hljs-keyword">return</span> <span class="hljs-string">''</span> <span class="hljs-keyword">unless</span> Object.keys(obj).length
+  obj = util.clone obj</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
+</div>
 <p>transform object</p>
 
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> obj <span class="hljs-keyword">is</span> <span class="hljs-string">'object'</span> <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> Array.isArray obj
-    n = []
+    n = [(col ? [<span class="hljs-string">'Name'</span>, <span class="hljs-string">'Value'</span>])]
+    col = <span class="hljs-literal">null</span>
     <span class="hljs-keyword">for</span> name, val <span class="hljs-keyword">of</span> obj
       <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> val <span class="hljs-keyword">is</span> <span class="hljs-string">'object'</span>
         <span class="hljs-keyword">if</span> Array.isArray(val) <span class="hljs-keyword">and</span> val.length &lt; <span class="hljs-number">10</span>
@@ -276,14 +297,14 @@ Convert object to markdown table
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-7" id="section-7"></a>
+  <a class="pilcrow" href="#section-8" id="section-8"></a>
 </div>
 <p>transform column definition</p>
 
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  <span class="hljs-keyword">if</span> col
-    <span class="hljs-keyword">if</span> Array.isArray col
+    <span class="hljs-keyword">if</span> Array.isArray(col)
       <span class="hljs-keyword">unless</span> Array.isArray col[<span class="hljs-number">0</span>]
         col = [
           Object.keys obj[<span class="hljs-number">0</span>]
@@ -292,22 +313,42 @@ Convert object to markdown table
       n = {}
       <span class="hljs-keyword">for</span> name, num <span class="hljs-keyword">in</span> col[<span class="hljs-number">0</span>]
         <span class="hljs-keyword">break</span> <span class="hljs-keyword">unless</span> val = col[<span class="hljs-number">1</span>][num]
-        n[name] = {<span class="hljs-attribute">title</span>: val}
+        n[name] = <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> val <span class="hljs-keyword">is</span> <span class="hljs-string">'object'</span> <span class="hljs-keyword">then</span> val <span class="hljs-keyword">else</span> {title: val}
       col = n
     <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> col[Object.keys(col)[<span class="hljs-number">0</span>]] <span class="hljs-keyword">isnt</span> <span class="hljs-string">'object'</span>
       n = {}
-      n[name] = {<span class="hljs-attribute">title</span>: title} <span class="hljs-keyword">for</span> name, title <span class="hljs-keyword">of</span> col
+      n[name] = {title: title} <span class="hljs-keyword">for</span> name, title <span class="hljs-keyword">of</span> col
       col = n
   <span class="hljs-keyword">else</span>
-    col = {}
-    col[name] = {<span class="hljs-attribute">title</span>: name} <span class="hljs-keyword">for</span> name <span class="hljs-keyword">of</span> obj[<span class="hljs-number">0</span>]</pre>
+    <span class="hljs-keyword">if</span> Array.isArray obj[<span class="hljs-number">0</span>]
+      col = obj.shift()
+    <span class="hljs-keyword">else</span>
+      col = {}
+      col[name] = {title: name} <span class="hljs-keyword">for</span> name <span class="hljs-keyword">of</span> obj[<span class="hljs-number">0</span>]</pre>
         </td>
       </tr>
     
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-8" id="section-8"></a>
+  <a class="pilcrow" href="#section-9" id="section-9"></a>
+</div>
+<p>transform col array to object</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-keyword">if</span> Array.isArray col
+    c = {}
+    <span class="hljs-keyword">for</span> field, i <span class="hljs-keyword">in</span> col
+      c[i] = <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> field <span class="hljs-keyword">is</span> <span class="hljs-string">'object'</span> <span class="hljs-keyword">then</span> field <span class="hljs-keyword">else</span> {title: field}
+    col = c</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-10" id="section-10"></a>
 </div>
 <p>transform sort order</p>
 
@@ -327,7 +368,7 @@ Convert object to markdown table
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-9" id="section-9"></a>
+  <a class="pilcrow" href="#section-11" id="section-11"></a>
 </div>
 <p>transform values</p>
 
@@ -346,7 +387,7 @@ Convert object to markdown table
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-10" id="section-10"></a>
+  <a class="pilcrow" href="#section-12" id="section-12"></a>
 </div>
 <p>mask values if needed</p>
 
@@ -366,7 +407,7 @@ Convert object to markdown table
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-11" id="section-11"></a>
+  <a class="pilcrow" href="#section-13" id="section-13"></a>
 </div>
 <p>calculate column width</p>
 
@@ -384,7 +425,7 @@ Convert object to markdown table
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-12" id="section-12"></a>
+  <a class="pilcrow" href="#section-14" id="section-14"></a>
 </div>
 <p>sort rows</p>
 
@@ -395,7 +436,7 @@ Convert object to markdown table
     obj.sort (a, b) -&gt;
       <span class="hljs-keyword">for</span> name, order <span class="hljs-keyword">of</span> sort
         res = a[name].localeCompare b[name]
-        res = res * -<span class="hljs-number">1</span> <span class="hljs-keyword">if</span> order <span class="hljs-keyword">is</span> <span class="hljs-string">'desc'</span>
+        res = res * <span class="hljs-number">-1</span> <span class="hljs-keyword">if</span> order <span class="hljs-keyword">is</span> <span class="hljs-string">'desc'</span>
         <span class="hljs-keyword">return</span> res <span class="hljs-keyword">if</span> res
       <span class="hljs-number">0</span></pre>
         </td>
@@ -404,7 +445,7 @@ Convert object to markdown table
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-13" id="section-13"></a>
+  <a class="pilcrow" href="#section-15" id="section-15"></a>
 </div>
 <p>write header</p>
 
@@ -416,7 +457,7 @@ Convert object to markdown table
         <span class="hljs-keyword">when</span> <span class="hljs-string">'r'</span> <span class="hljs-keyword">then</span> <span class="hljs-string">'l'</span>
         <span class="hljs-keyword">when</span> <span class="hljs-string">'l'</span> <span class="hljs-keyword">then</span> <span class="hljs-string">'r'</span>
         <span class="hljs-keyword">else</span> <span class="hljs-string">'c'</span>
-      string[<span class="hljs-string">"<span class="hljs-subst">#{pad}</span>pad"</span>] col[e].title, col[e].width
+      util.string[<span class="hljs-string">"<span class="hljs-subst">#{pad}</span>pad"</span>] col[e].title, col[e].width
     .join <span class="hljs-string">' | '</span>
   ) + <span class="hljs-string">' |'</span></pre>
         </td>
@@ -425,7 +466,7 @@ Convert object to markdown table
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-14" id="section-14"></a>
+  <a class="pilcrow" href="#section-16" id="section-16"></a>
 </div>
 <p>write line</p>
 
@@ -435,11 +476,11 @@ Convert object to markdown table
     Object.keys(col).map (e) -&gt;
       <span class="hljs-keyword">switch</span> col[e].align
         <span class="hljs-keyword">when</span> <span class="hljs-string">'right'</span>
-          <span class="hljs-string">" <span class="hljs-subst">#{string.repeat <span class="hljs-string">'-'</span>, col[e].width}</span>:"</span>
+          <span class="hljs-string">" <span class="hljs-subst">#{util.string.repeat <span class="hljs-string">'-'</span>, col[e].width}</span>:"</span>
         <span class="hljs-keyword">when</span> <span class="hljs-string">'left'</span>
-          <span class="hljs-string">":<span class="hljs-subst">#{string.repeat <span class="hljs-string">'-'</span>, col[e].width}</span> "</span>
+          <span class="hljs-string">":<span class="hljs-subst">#{util.string.repeat <span class="hljs-string">'-'</span>, col[e].width}</span> "</span>
         <span class="hljs-keyword">when</span> <span class="hljs-string">'center'</span>
-          <span class="hljs-string">":<span class="hljs-subst">#{string.repeat <span class="hljs-string">'-'</span>, col[e].width}</span>:"</span>
+          <span class="hljs-string">":<span class="hljs-subst">#{util.string.repeat <span class="hljs-string">'-'</span>, col[e].width}</span>:"</span>
     .join <span class="hljs-string">'|'</span>
   ) + <span class="hljs-string">'|'</span></pre>
         </td>
@@ -448,7 +489,7 @@ Convert object to markdown table
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-15" id="section-15"></a>
+  <a class="pilcrow" href="#section-17" id="section-17"></a>
 </div>
 <p>write rows</p>
 
@@ -466,7 +507,7 @@ Convert object to markdown table
           val = <span class="hljs-string">''</span>
         <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> val <span class="hljs-keyword">isnt</span> <span class="hljs-string">'string'</span>
           val = util.inspect(val).replace <span class="hljs-regexp">/\s+/g</span>, <span class="hljs-string">' '</span>
-        string[<span class="hljs-string">"<span class="hljs-subst">#{pad}</span>pad"</span>] val, col[e].width
+        util.string[<span class="hljs-string">"<span class="hljs-subst">#{pad}</span>pad"</span>] val, col[e].width
       .join <span class="hljs-string">' | '</span>
     ) + <span class="hljs-string">' |'</span>
   text + <span class="hljs-string">'\n'</span></pre>
@@ -487,7 +528,7 @@ Report class
           <pre class="coffeescript">
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Report</span></span>
 
-  <span class="hljs-property">@width</span>: <span class="hljs-number">80</span></pre>
+  @width: <span class="hljs-number">80</span></pre>
         </td>
       </tr>
     
@@ -503,7 +544,7 @@ Static Methods
         </td>
         <td class="code highlight">
           <pre class="coffeescript">
-  <span class="hljs-property">@mask</span>: <span class="hljs-function"><span class="hljs-params">(text)</span> -&gt;</span>
+  @mask: <span class="hljs-function"><span class="hljs-params">(text)</span> -&gt;</span>
     text?.toString().replace <span class="hljs-regexp">/([*_~^`])/g</span>, <span class="hljs-string">'\\$1'</span></pre>
         </td>
       </tr>
@@ -519,7 +560,7 @@ headings
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-property">@h1</span>: <span class="hljs-function"><span class="hljs-params">(text, width)</span> -&gt;</span>
+          <pre class="coffeescript">  @h1: <span class="hljs-function"><span class="hljs-params">(text, width)</span> -&gt;</span>
     <span class="hljs-string">"""\n\n<span class="hljs-subst">#{text}</span>
 </span></pre>
         </td>
@@ -528,13 +569,13 @@ headings
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-19" id="section-19"></a>
+  <a class="pilcrow" href="#section-21" id="section-21"></a>
 </div>
-<p>{string.repeat '=', width ? @width}\n&quot;&quot;&quot;</p>
+<p>{util.string.repeat '=', width ? @width}\n&quot;&quot;&quot;</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-property">@h2</span>: <span class="hljs-function"><span class="hljs-params">(text, width)</span> -&gt;</span>
+          <pre class="coffeescript">  @h2: <span class="hljs-function"><span class="hljs-params">(text, width)</span> -&gt;</span>
     <span class="hljs-string">"""\n\n<span class="hljs-subst">#{text}</span>
 </span></pre>
         </td>
@@ -543,16 +584,16 @@ headings
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-20" id="section-20"></a>
+  <a class="pilcrow" href="#section-22" id="section-22"></a>
 </div>
-<p>{string.repeat '-', width ? @width}\n&quot;&quot;&quot;</p>
+<p>{util.string.repeat '-', width ? @width}\n&quot;&quot;&quot;</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-property">@h3</span>: <span class="hljs-function"><span class="hljs-params">(text)</span> -&gt;</span> <span class="hljs-string">"\n### <span class="hljs-subst">#{text}</span>\n"</span>
-  <span class="hljs-property">@h4</span>: <span class="hljs-function"><span class="hljs-params">(text)</span> -&gt;</span> <span class="hljs-string">"\n#### <span class="hljs-subst">#{text}</span>\n"</span>
-  <span class="hljs-property">@h5</span>: <span class="hljs-function"><span class="hljs-params">(text)</span> -&gt;</span> <span class="hljs-string">"\n##### <span class="hljs-subst">#{text}</span>\n"</span>
-  <span class="hljs-property">@h6</span>: <span class="hljs-function"><span class="hljs-params">(text)</span> -&gt;</span> <span class="hljs-string">"\n###### <span class="hljs-subst">#{text}</span>\n"</span></pre>
+          <pre class="coffeescript">  @h3: <span class="hljs-function"><span class="hljs-params">(text)</span> -&gt;</span> <span class="hljs-string">"\n### <span class="hljs-subst">#{text}</span>\n"</span>
+  @h4: <span class="hljs-function"><span class="hljs-params">(text)</span> -&gt;</span> <span class="hljs-string">"\n#### <span class="hljs-subst">#{text}</span>\n"</span>
+  @h5: <span class="hljs-function"><span class="hljs-params">(text)</span> -&gt;</span> <span class="hljs-string">"\n##### <span class="hljs-subst">#{text}</span>\n"</span>
+  @h6: <span class="hljs-function"><span class="hljs-params">(text)</span> -&gt;</span> <span class="hljs-string">"\n###### <span class="hljs-subst">#{text}</span>\n"</span></pre>
         </td>
       </tr>
     
@@ -567,17 +608,17 @@ inline
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-property">@b</span>: <span class="hljs-function"><span class="hljs-params">(text)</span> -&gt;</span> <span class="hljs-string">"__<span class="hljs-subst">#{text}</span>__"</span>
-  <span class="hljs-property">@i</span>: <span class="hljs-function"><span class="hljs-params">(text)</span> -&gt;</span> <span class="hljs-string">"_<span class="hljs-subst">#{text}</span>_"</span>
-  <span class="hljs-property">@del</span>: <span class="hljs-function"><span class="hljs-params">(text)</span> -&gt;</span> <span class="hljs-string">"~~<span class="hljs-subst">#{text}</span>~~"</span>
-  <span class="hljs-property">@tt</span>: <span class="hljs-function"><span class="hljs-params">(text)</span> -&gt;</span> <span class="hljs-string">"`<span class="hljs-subst">#{text}</span>`"</span>
-  <span class="hljs-property">@sub</span>: <span class="hljs-function"><span class="hljs-params">(text)</span> -&gt;</span> <span class="hljs-string">"~<span class="hljs-subst">#{text}</span>~"</span>
-  <span class="hljs-property">@sup</span>: <span class="hljs-function"><span class="hljs-params">(text)</span> -&gt;</span> <span class="hljs-string">"^<span class="hljs-subst">#{text}</span>^"</span>
-  <span class="hljs-property">@mark</span>: <span class="hljs-function"><span class="hljs-params">(text)</span> -&gt;</span> <span class="hljs-string">"==<span class="hljs-subst">#{text}</span>=="</span>
-  <span class="hljs-property">@br</span>: <span class="hljs-function">-&gt;</span> <span class="hljs-string">'\\\n'</span>
-  <span class="hljs-property">@a</span>: <span class="hljs-function"><span class="hljs-params">(text, url, title)</span> -&gt;</span>
+          <pre class="coffeescript">  @b: <span class="hljs-function"><span class="hljs-params">(text)</span> -&gt;</span> <span class="hljs-string">"__<span class="hljs-subst">#{text}</span>__"</span>
+  @i: <span class="hljs-function"><span class="hljs-params">(text)</span> -&gt;</span> <span class="hljs-string">"_<span class="hljs-subst">#{text}</span>_"</span>
+  @del: <span class="hljs-function"><span class="hljs-params">(text)</span> -&gt;</span> <span class="hljs-string">"~~<span class="hljs-subst">#{text}</span>~~"</span>
+  @tt: <span class="hljs-function"><span class="hljs-params">(text)</span> -&gt;</span> <span class="hljs-string">"`<span class="hljs-subst">#{text}</span>`"</span>
+  @sub: <span class="hljs-function"><span class="hljs-params">(text)</span> -&gt;</span> <span class="hljs-string">"~<span class="hljs-subst">#{text}</span>~"</span>
+  @sup: <span class="hljs-function"><span class="hljs-params">(text)</span> -&gt;</span> <span class="hljs-string">"^<span class="hljs-subst">#{text}</span>^"</span>
+  @mark: <span class="hljs-function"><span class="hljs-params">(text)</span> -&gt;</span> <span class="hljs-string">"==<span class="hljs-subst">#{text}</span>=="</span>
+  @br: <span class="hljs-function">-&gt;</span> <span class="hljs-string">'\\\n'</span>
+  @a: <span class="hljs-function"><span class="hljs-params">(text, url, title)</span> -&gt;</span>
     <span class="hljs-string">"[<span class="hljs-subst">#{text}</span>](<span class="hljs-subst">#{url}</span><span class="hljs-subst">#{<span class="hljs-keyword">if</span> title <span class="hljs-keyword">then</span> <span class="hljs-string">' "'</span>+title+<span class="hljs-string">'"'</span> <span class="hljs-keyword">else</span> <span class="hljs-string">''</span>}</span>)"</span>
-  <span class="hljs-property">@img</span>: <span class="hljs-function"><span class="hljs-params">(text, url, title)</span> -&gt;</span>
+  @img: <span class="hljs-function"><span class="hljs-params">(text, url, title)</span> -&gt;</span>
     <span class="hljs-string">"![<span class="hljs-subst">#{text}</span>](<span class="hljs-subst">#{url}</span><span class="hljs-subst">#{<span class="hljs-keyword">if</span> title <span class="hljs-keyword">then</span> <span class="hljs-string">' "'</span>+title+<span class="hljs-string">'"'</span> <span class="hljs-keyword">else</span> <span class="hljs-string">''</span>}</span>)"</span></pre>
         </td>
       </tr>
@@ -593,7 +634,7 @@ Multi element
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-property">@footnote</span>: <span class="hljs-function"><span class="hljs-params">(id, text)</span> -&gt;</span>
+          <pre class="coffeescript">  @footnote: <span class="hljs-function"><span class="hljs-params">(id, text)</span> -&gt;</span>
     [<span class="hljs-string">"[^<span class="hljs-subst">#{id}</span>]"</span>, <span class="hljs-string">"\n[^<span class="hljs-subst">#{id}</span>]: <span class="hljs-subst">#{text}</span>\n"</span>]</pre>
         </td>
       </tr>
@@ -609,23 +650,23 @@ paragraphs
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-property">@p</span>: <span class="hljs-function"><span class="hljs-params">(text, width)</span> -&gt;</span> block text, <span class="hljs-string">''</span>, <span class="hljs-string">''</span>, width ? <span class="hljs-property">@width</span>
-  <span class="hljs-property">@quote</span>: <span class="hljs-function"><span class="hljs-params">(text, depth = <span class="hljs-number">1</span>, width)</span> -&gt;</span>
-    indent = string.repeat <span class="hljs-string">'&gt; '</span>, depth
-    block text, indent, indent, width ? <span class="hljs-property">@width</span>
-  <span class="hljs-property">@code</span>: <span class="hljs-function"><span class="hljs-params">(text, lang, width)</span> -&gt;</span>
+          <pre class="coffeescript">  @p: <span class="hljs-function"><span class="hljs-params">(text, width)</span> -&gt;</span> block text, <span class="hljs-string">''</span>, <span class="hljs-string">''</span>, width ? @width
+  @quote: <span class="hljs-function"><span class="hljs-params">(text, depth = <span class="hljs-number">1</span>, width)</span> -&gt;</span>
+    indent = util.string.repeat <span class="hljs-string">'&gt; '</span>, depth
+    block text, indent, indent, width ? @width
+  @code: <span class="hljs-function"><span class="hljs-params">(text, lang, width)</span> -&gt;</span>
     <span class="hljs-keyword">if</span> lang
       <span class="hljs-keyword">return</span> <span class="hljs-string">"\n``` <span class="hljs-subst">#{lang}</span>\n<span class="hljs-subst">#{text.replace <span class="hljs-regexp">/^\s*\n|\n\s*$/</span>, <span class="hljs-string">''</span>}</span>\n```\n"</span>
     indent = <span class="hljs-string">'    '</span>
-    block text, indent, indent, width ? <span class="hljs-property">@width</span>, <span class="hljs-literal">true</span>
-  <span class="hljs-property">@box</span>: <span class="hljs-function"><span class="hljs-params">(text, type, width)</span> -&gt;</span>
+    block text, indent, indent, width ? @width, <span class="hljs-literal">true</span>
+  @box: <span class="hljs-function"><span class="hljs-params">(text, type, width)</span> -&gt;</span>
     <span class="hljs-keyword">unless</span> type <span class="hljs-keyword">in</span> [<span class="hljs-string">'detail'</span>, <span class="hljs-string">'info'</span>, <span class="hljs-string">'warning'</span>, <span class="hljs-string">'alert'</span>]
       <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> Error <span class="hljs-string">"Unknown box type <span class="hljs-subst">#{type}</span> for report"</span>
-    <span class="hljs-keyword">return</span> <span class="hljs-property">@p</span> text <span class="hljs-keyword">unless</span> type
+    <span class="hljs-keyword">return</span> @p text <span class="hljs-keyword">unless</span> type
     <span class="hljs-keyword">return</span> <span class="hljs-string">"\n::: <span class="hljs-subst">#{type}</span>\n<span class="hljs-subst">#{text.trim()}</span>\n:::\n"</span>
     indent = <span class="hljs-string">''</span>
-    block text, indent, indent, width ? <span class="hljs-property">@width</span>
-  <span class="hljs-property">@hr</span>: <span class="hljs-function">-&gt;</span> <span class="hljs-string">"\n---\n"</span></pre>
+    block text, indent, indent, width ? @width
+  @hr: <span class="hljs-function">-&gt;</span> <span class="hljs-string">"\n---\n"</span></pre>
         </td>
       </tr>
     
@@ -641,34 +682,34 @@ lists
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-property">@ul</span>: <span class="hljs-function"><span class="hljs-params">(list, sort, width)</span> -&gt;</span>
+          <pre class="coffeescript">  @ul: <span class="hljs-function"><span class="hljs-params">(list, sort, width)</span> -&gt;</span>
     <span class="hljs-keyword">if</span> sort?
       list = list[<span class="hljs-number">0.</span>.]
       list.sort()
       list.reverse() <span class="hljs-keyword">unless</span> sort
     <span class="hljs-string">'\n'</span> + list.map (text) =&gt;
       <span class="hljs-keyword">if</span> Array.isArray text
-        text = <span class="hljs-property">@ul</span> text, width
+        text = @ul text, width
         <span class="hljs-keyword">return</span> <span class="hljs-string">'  '</span> + text.trim().replace <span class="hljs-string">'\n'</span>, <span class="hljs-string">'\n  '</span>
-      text = block(text, <span class="hljs-string">'- '</span>, <span class="hljs-string">'  '</span>, width ? <span class="hljs-property">@width</span>).trim()
+      text = block(text, <span class="hljs-string">'- '</span>, <span class="hljs-string">'  '</span>, width ? @width).trim()
       text
     .join(<span class="hljs-string">'\n'</span>) + <span class="hljs-string">'\n'</span>
-  <span class="hljs-property">@ol</span>: <span class="hljs-function"><span class="hljs-params">(list, sort, width)</span> -&gt;</span>
+  @ol: <span class="hljs-function"><span class="hljs-params">(list, sort, width)</span> -&gt;</span>
     <span class="hljs-keyword">if</span> sort?
       list = list[<span class="hljs-number">0.</span>.]
       list.sort()
       list.reverse() <span class="hljs-keyword">unless</span> sort
     length = list.length.toString().length + <span class="hljs-number">2</span>
-    indent = string.repeat <span class="hljs-string">' '</span>, length
+    indent = util.string.repeat <span class="hljs-string">' '</span>, length
     num = <span class="hljs-number">0</span>
     <span class="hljs-string">'\n'</span> + list.map (text) =&gt;
       <span class="hljs-keyword">if</span> Array.isArray text
-        text = <span class="hljs-property">@ol</span> text, width
+        text = @ol text, width
         <span class="hljs-keyword">return</span> indent + text.trim().replace <span class="hljs-string">'\n'</span>, <span class="hljs-string">'\n'</span> + indent
-      start = string.rpad <span class="hljs-string">"<span class="hljs-subst">#{++num}</span>."</span>, length
-      block(text, start, indent, width ? <span class="hljs-property">@width</span>).trim()
+      start = util.string.rpad <span class="hljs-string">"<span class="hljs-subst">#{++num}</span>."</span>, length
+      block(text, start, indent, width ? @width).trim()
     .join(<span class="hljs-string">'\n'</span>) + <span class="hljs-string">'\n'</span>
-  <span class="hljs-property">@dl</span>: <span class="hljs-function"><span class="hljs-params">(obj, sort, width)</span> -&gt;</span>
+  @dl: <span class="hljs-function"><span class="hljs-params">(obj, sort, width)</span> -&gt;</span>
     list = Object.keys obj
     <span class="hljs-keyword">if</span> sort?
       list = list[<span class="hljs-number">0.</span>.]
@@ -677,11 +718,11 @@ lists
     text = <span class="hljs-string">''</span>
     <span class="hljs-keyword">for</span> name <span class="hljs-keyword">in</span> list
       content = obj[name].trim().split(<span class="hljs-regexp">/\n\n/</span>).map (e) -&gt;
-        <span class="hljs-string">": <span class="hljs-subst">#{string.wordwrap e, width ? <span class="hljs-property">@width</span>, <span class="hljs-string">'\n'</span>}</span>"</span>
+        <span class="hljs-string">": <span class="hljs-subst">#{util.string.wordwrap e, width ? @width, <span class="hljs-string">'\n'</span>}</span>"</span>
       .join <span class="hljs-string">'\n\n'</span>
       text += <span class="hljs-string">"\n<span class="hljs-subst">#{name}</span>\n\n<span class="hljs-subst">#{content}</span>\n"</span>
     text
-  <span class="hljs-property">@check</span>: <span class="hljs-function"><span class="hljs-params">(map)</span> -&gt;</span>
+  @check: <span class="hljs-function"><span class="hljs-params">(map)</span> -&gt;</span>
     text = <span class="hljs-string">''</span>
     <span class="hljs-keyword">for</span> name, val <span class="hljs-keyword">of</span> map
       text += <span class="hljs-string">"\n[<span class="hljs-subst">#{<span class="hljs-keyword">if</span> val <span class="hljs-keyword">then</span> <span class="hljs-string">'x'</span> <span class="hljs-keyword">else</span> <span class="hljs-string">' '</span>}</span>] <span class="hljs-subst">#{name}</span>"</span>
@@ -700,10 +741,10 @@ specials
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-property">@table</span>: table
-  <span class="hljs-property">@abbr</span>: <span class="hljs-function"><span class="hljs-params">(abbr, text)</span> -&gt;</span> <span class="hljs-string">"\n*[<span class="hljs-subst">#{abbr}</span>]: <span class="hljs-subst">#{text.trim()}</span>"</span>
-  <span class="hljs-property">@toc</span>: <span class="hljs-function">-&gt;</span> <span class="hljs-string">'\n@[toc]\n'</span>
-  <span class="hljs-property">@style</span>: <span class="hljs-function"><span class="hljs-params">(style)</span> -&gt;</span> <span class="hljs-string">"&lt;!-- {<span class="hljs-subst">#{style}</span>} --&gt;"</span></pre>
+          <pre class="coffeescript">  @table: table
+  @abbr: <span class="hljs-function"><span class="hljs-params">(abbr, text)</span> -&gt;</span> <span class="hljs-string">"\n*[<span class="hljs-subst">#{abbr}</span>]: <span class="hljs-subst">#{text.trim()}</span>"</span>
+  @toc: <span class="hljs-function">-&gt;</span> <span class="hljs-string">'\n@[toc]\n'</span>
+  @style: <span class="hljs-function"><span class="hljs-params">(style)</span> -&gt;</span> <span class="hljs-string">"&lt;!-- {<span class="hljs-subst">#{style}</span>} --&gt;"</span></pre>
         </td>
       </tr>
     
@@ -718,28 +759,28 @@ Create instance
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">constructor</span>: <span class="hljs-function"><span class="hljs-params">(setup)</span> -&gt;</span>
-    <span class="hljs-property">@width</span> = setup?.width ? <span class="hljs-number">80</span>
-    <span class="hljs-property">@log</span> = setup?.log</pre>
+          <pre class="coffeescript">  constructor: <span class="hljs-function"><span class="hljs-params">(setup)</span> -&gt;</span>
+    @width = setup?.width ? <span class="hljs-number">80</span>
+    @log = setup?.log</pre>
         </td>
       </tr>
     
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-27" id="section-27"></a>
+  <a class="pilcrow" href="#section-29" id="section-29"></a>
 </div>
 <p>content elements</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">    <span class="hljs-property">@body</span> = <span class="hljs-string">''</span>
-    <span class="hljs-property">@body</span> += setup.source <span class="hljs-keyword">if</span> setup?.source
-    <span class="hljs-property">@parts</span> =
-      <span class="hljs-attribute">abbr</span>: []
-      <span class="hljs-attribute">footnote</span>: []
-    <span class="hljs-property">@state</span> =
-      <span class="hljs-attribute">footnote</span>: <span class="hljs-number">0</span></pre>
+          <pre class="coffeescript">    @body = <span class="hljs-string">''</span>
+    @body += setup.source <span class="hljs-keyword">if</span> setup?.source
+    @parts =
+      abbr: []
+      footnote: []
+    @state =
+      footnote: <span class="hljs-number">0</span></pre>
         </td>
       </tr>
     
@@ -769,9 +810,9 @@ direct markdown addition
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">raw</span>: <span class="hljs-function"><span class="hljs-params">(text)</span> -&gt;</span>
-    <span class="hljs-property">@log</span> text <span class="hljs-keyword">if</span> <span class="hljs-property">@log</span>
-    <span class="hljs-property">@body</span> += text
+          <pre class="coffeescript">  raw: <span class="hljs-function"><span class="hljs-params">(text)</span> -&gt;</span>
+    @log text <span class="hljs-keyword">if</span> @log
+    @body += text
     <span class="hljs-keyword">this</span></pre>
         </td>
       </tr>
@@ -787,11 +828,11 @@ add contents of other report instance
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">add</span>: <span class="hljs-function"><span class="hljs-params">(report)</span> -&gt;</span>
-    <span class="hljs-property">@log</span> report.body <span class="hljs-keyword">if</span> <span class="hljs-property">@log</span>
-    <span class="hljs-property">@body</span> += report.body
-    <span class="hljs-keyword">for</span> key <span class="hljs-keyword">of</span> <span class="hljs-property">@parts</span>
-      <span class="hljs-property">@parts</span>[key] = <span class="hljs-property">@parts</span>[key].concat report.parts[key]
+          <pre class="coffeescript">  add: <span class="hljs-function"><span class="hljs-params">(report)</span> -&gt;</span>
+    @log report.body <span class="hljs-keyword">if</span> @log
+    @body += report.body
+    <span class="hljs-keyword">for</span> key <span class="hljs-keyword">of</span> @parts
+      @parts[key] = @parts[key].concat report.parts[key]
     <span class="hljs-keyword">this</span></pre>
         </td>
       </tr>
@@ -807,12 +848,12 @@ headings
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">h1</span>: <span class="hljs-function"><span class="hljs-params">(text)</span> -&gt;</span> <span class="hljs-property">@raw</span> Report.h1 text, <span class="hljs-property">@width</span>
-  <span class="hljs-attribute">h2</span>: <span class="hljs-function"><span class="hljs-params">(text)</span> -&gt;</span> <span class="hljs-property">@raw</span> Report.h2 text, <span class="hljs-property">@width</span>
-  <span class="hljs-attribute">h3</span>: <span class="hljs-function"><span class="hljs-params">(text)</span> -&gt;</span> <span class="hljs-property">@raw</span> Report.h3 text, <span class="hljs-property">@width</span>
-  <span class="hljs-attribute">h4</span>: <span class="hljs-function"><span class="hljs-params">(text)</span> -&gt;</span> <span class="hljs-property">@raw</span> Report.h4 text, <span class="hljs-property">@width</span>
-  <span class="hljs-attribute">h5</span>: <span class="hljs-function"><span class="hljs-params">(text)</span> -&gt;</span> <span class="hljs-property">@raw</span> Report.h5 text, <span class="hljs-property">@width</span>
-  <span class="hljs-attribute">h6</span>: <span class="hljs-function"><span class="hljs-params">(text)</span> -&gt;</span> <span class="hljs-property">@raw</span> Report.h6 text, <span class="hljs-property">@width</span></pre>
+          <pre class="coffeescript">  h1: <span class="hljs-function"><span class="hljs-params">(text)</span> -&gt;</span> @raw Report.h1 text, @width
+  h2: <span class="hljs-function"><span class="hljs-params">(text)</span> -&gt;</span> @raw Report.h2 text, @width
+  h3: <span class="hljs-function"><span class="hljs-params">(text)</span> -&gt;</span> @raw Report.h3 text, @width
+  h4: <span class="hljs-function"><span class="hljs-params">(text)</span> -&gt;</span> @raw Report.h4 text, @width
+  h5: <span class="hljs-function"><span class="hljs-params">(text)</span> -&gt;</span> @raw Report.h5 text, @width
+  h6: <span class="hljs-function"><span class="hljs-params">(text)</span> -&gt;</span> @raw Report.h6 text, @width</pre>
         </td>
       </tr>
     
@@ -827,11 +868,11 @@ paragraphs
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">p</span>: <span class="hljs-function"><span class="hljs-params">(text)</span> -&gt;</span> <span class="hljs-property">@raw</span> Report.p text, <span class="hljs-property">@width</span>
-  <span class="hljs-attribute">hr</span>: <span class="hljs-function">-&gt;</span> <span class="hljs-property">@raw</span> Report.hr()
-  <span class="hljs-attribute">quote</span>: <span class="hljs-function"><span class="hljs-params">(text, depth)</span> -&gt;</span> <span class="hljs-property">@raw</span> Report.quote text, depth, <span class="hljs-property">@width</span>
-  <span class="hljs-attribute">code</span>: <span class="hljs-function"><span class="hljs-params">(text, lang)</span> -&gt;</span> <span class="hljs-property">@raw</span> Report.code text, lang, <span class="hljs-property">@width</span>
-  <span class="hljs-attribute">box</span>: <span class="hljs-function"><span class="hljs-params">(text, type)</span> -&gt;</span> <span class="hljs-property">@raw</span> Report.box text, type, <span class="hljs-property">@width</span></pre>
+          <pre class="coffeescript">  p: <span class="hljs-function"><span class="hljs-params">(text)</span> -&gt;</span> @raw Report.p text, @width
+  hr: <span class="hljs-function">-&gt;</span> @raw Report.hr()
+  quote: <span class="hljs-function"><span class="hljs-params">(text, depth)</span> -&gt;</span> @raw Report.quote text, depth, @width
+  code: <span class="hljs-function"><span class="hljs-params">(text, lang)</span> -&gt;</span> @raw Report.code text, lang, @width
+  box: <span class="hljs-function"><span class="hljs-params">(text, type)</span> -&gt;</span> @raw Report.box text, type, @width</pre>
         </td>
       </tr>
     
@@ -846,20 +887,20 @@ lists
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">ul</span>: <span class="hljs-function"><span class="hljs-params">(list, sort)</span> -&gt;</span> <span class="hljs-property">@raw</span> Report.ul list, sort, <span class="hljs-property">@width</span>
-  <span class="hljs-attribute">ol</span>: <span class="hljs-function"><span class="hljs-params">(list, sort)</span> -&gt;</span> <span class="hljs-property">@raw</span> Report.ol list, sort, <span class="hljs-property">@width</span>
-  <span class="hljs-attribute">dl</span>: <span class="hljs-function"><span class="hljs-params">(obj, sort)</span> -&gt;</span> <span class="hljs-property">@raw</span> Report.dl obj, sort, <span class="hljs-property">@width</span>
-  <span class="hljs-attribute">check</span>: <span class="hljs-function"><span class="hljs-params">(map)</span> -&gt;</span> <span class="hljs-property">@raw</span> Report.check map
+          <pre class="coffeescript">  ul: <span class="hljs-function"><span class="hljs-params">(list, sort)</span> -&gt;</span> @raw Report.ul list, sort, @width
+  ol: <span class="hljs-function"><span class="hljs-params">(list, sort)</span> -&gt;</span> @raw Report.ol list, sort, @width
+  dl: <span class="hljs-function"><span class="hljs-params">(obj, sort)</span> -&gt;</span> @raw Report.dl obj, sort, @width
+  check: <span class="hljs-function"><span class="hljs-params">(map)</span> -&gt;</span> @raw Report.check map
 
-  <span class="hljs-attribute">table</span>: <span class="hljs-function"><span class="hljs-params">(obj, col, sort, mask)</span> -&gt;</span> <span class="hljs-property">@raw</span> Report.table obj, col, sort, mask
+  table: <span class="hljs-function"><span class="hljs-params">(obj, col, sort, mask)</span> -&gt;</span> @raw Report.table obj, col, sort, mask
 
-  <span class="hljs-attribute">footnote</span>: <span class="hljs-function"><span class="hljs-params">(text, id)</span> -&gt;</span>
-    id ?= ++<span class="hljs-property">@state</span>.footnote
-    <span class="hljs-property">@parts</span>.footnote.push <span class="hljs-string">"[^<span class="hljs-subst">#{id}</span>]: <span class="hljs-subst">#{text.trim()}</span>"</span>
+  footnote: <span class="hljs-function"><span class="hljs-params">(text, id)</span> -&gt;</span>
+    id ?= ++@state.footnote
+    @parts.footnote.push <span class="hljs-string">"[^<span class="hljs-subst">#{id}</span>]: <span class="hljs-subst">#{text.trim()}</span>"</span>
     <span class="hljs-keyword">return</span> <span class="hljs-string">"[^<span class="hljs-subst">#{id}</span>]"</span>
 
-  <span class="hljs-attribute">abbr</span>: <span class="hljs-function"><span class="hljs-params">(abbr, text)</span> -&gt;</span> <span class="hljs-property">@raw</span> Report.abbr abbr, text
-  <span class="hljs-attribute">toc</span>: <span class="hljs-function">-&gt;</span> <span class="hljs-property">@raw</span> Report.toc()</pre>
+  abbr: <span class="hljs-function"><span class="hljs-params">(abbr, text)</span> -&gt;</span> @raw Report.abbr abbr, text
+  toc: <span class="hljs-function">-&gt;</span> @raw Report.toc()</pre>
         </td>
       </tr>
     
@@ -889,11 +930,11 @@ as markdown text
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">toString</span>: <span class="hljs-function">-&gt;</span>
-    text = <span class="hljs-property">@body</span>
+          <pre class="coffeescript">  toString: <span class="hljs-function">-&gt;</span>
+    text = @body
     <span class="hljs-keyword">for</span> key <span class="hljs-keyword">in</span> [<span class="hljs-string">'abbr'</span>, <span class="hljs-string">'footnote'</span>]
-      <span class="hljs-keyword">continue</span> <span class="hljs-keyword">unless</span> <span class="hljs-property">@parts</span>[key].length
-      text += <span class="hljs-string">"\n<span class="hljs-subst">#{<span class="hljs-property">@parts</span>[key].join <span class="hljs-string">'\n'</span>}</span>\n"</span>
+      <span class="hljs-keyword">continue</span> <span class="hljs-keyword">unless</span> @parts[key].length
+      text += <span class="hljs-string">"\n<span class="hljs-subst">#{@parts[key].join <span class="hljs-string">'\n'</span>}</span>\n"</span>
     text</pre>
         </td>
       </tr>
@@ -909,15 +950,15 @@ as simplified text
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">toText</span>: <span class="hljs-function">-&gt;</span>
-    text = <span class="hljs-property">@toString</span>()</pre>
+          <pre class="coffeescript">  toText: <span class="hljs-function">-&gt;</span>
+    text = @toString()</pre>
         </td>
       </tr>
     
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-37" id="section-37"></a>
+  <a class="pilcrow" href="#section-39" id="section-39"></a>
 </div>
 <p>remove some parts</p>
 
@@ -940,7 +981,7 @@ as simplified text
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-38" id="section-38"></a>
+  <a class="pilcrow" href="#section-40" id="section-40"></a>
 </div>
 <p>demask markdown syntax and add spaces</p>
 
@@ -948,14 +989,14 @@ as simplified text
         <td class="code highlight">
           <pre class="coffeescript">    <span class="hljs-keyword">if</span> text.match <span class="hljs-regexp">/\\([*_~^`])/</span>
       demask = <span class="hljs-regexp">/\\([*_~^`])/g</span>
-      text = string.toList(text).map (line) -&gt;</pre>
+      text = util.string.toList(text).map (line) -&gt;</pre>
         </td>
       </tr>
     
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-39" id="section-39"></a>
+  <a class="pilcrow" href="#section-41" id="section-41"></a>
 </div>
 <p>demask in table</p>
 
@@ -964,7 +1005,7 @@ as simplified text
           <pre class="coffeescript">        <span class="hljs-keyword">if</span> line.match <span class="hljs-regexp">/^\|/</span>
           line.split(<span class="hljs-string">'\|'</span>).map (cell) -&gt;
             <span class="hljs-keyword">if</span> found = cell.match demask
-              cell.replace(demask, <span class="hljs-string">"$1"</span>) + string.repeat <span class="hljs-string">' '</span>, found.length
+              cell.replace(demask, <span class="hljs-string">"$1"</span>) + util.string.repeat <span class="hljs-string">' '</span>, found.length
             <span class="hljs-keyword">else</span>
               cell
           .join <span class="hljs-string">'|'</span></pre>
@@ -974,7 +1015,7 @@ as simplified text
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-40" id="section-40"></a>
+  <a class="pilcrow" href="#section-42" id="section-42"></a>
 </div>
 <p>normal demask</p>
 
@@ -989,7 +1030,7 @@ as simplified text
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-41" id="section-41"></a>
+  <a class="pilcrow" href="#section-43" id="section-43"></a>
 </div>
 <p>replace images with descriptions</p>
 
@@ -1016,15 +1057,15 @@ as colorful console text
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">toConsole</span>: <span class="hljs-function">-&gt;</span>
-    text = <span class="hljs-property">@toString</span>()</pre>
+          <pre class="coffeescript">  toConsole: <span class="hljs-function">-&gt;</span>
+    text = @toString()</pre>
         </td>
       </tr>
     
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-43" id="section-43"></a>
+  <a class="pilcrow" href="#section-45" id="section-45"></a>
 </div>
 <p>replace code</p>
 
@@ -1032,7 +1073,7 @@ as colorful console text
         <td class="code highlight">
           <pre class="coffeescript">    removed = []
     text = text.replace <span class="hljs-regexp">/\n\n``` (\w+)\s*?\n([\s\S]*?)\n```\s*?\n/g</span>, <span class="hljs-function"><span class="hljs-params">(all, lang, code)</span> =&gt;</span>
-      removed.push <span class="hljs-string">"\n\n<span class="hljs-subst">#{chalk.yellow lang}</span>:<span class="hljs-subst">#{block code, <span class="hljs-string">'    '</span>, <span class="hljs-string">'    '</span>, <span class="hljs-property">@width</span>, <span class="hljs-literal">true</span>}</span>"</span>
+      removed.push <span class="hljs-string">"\n\n<span class="hljs-subst">#{chalk.yellow lang}</span>:<span class="hljs-subst">#{block code, <span class="hljs-string">'    '</span>, <span class="hljs-string">'    '</span>, @width, <span class="hljs-literal">true</span>}</span>"</span>
       <span class="hljs-string">"$$$$$<span class="hljs-subst">#{removed.length}</span>$$$$$"</span></pre>
         </td>
       </tr>
@@ -1040,7 +1081,7 @@ as colorful console text
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-44" id="section-44"></a>
+  <a class="pilcrow" href="#section-46" id="section-46"></a>
 </div>
 <p>remove some parts</p>
 
@@ -1063,7 +1104,7 @@ as colorful console text
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-45" id="section-45"></a>
+  <a class="pilcrow" href="#section-47" id="section-47"></a>
 </div>
 <p>interpret markdown</p>
 
@@ -1076,7 +1117,7 @@ as colorful console text
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-46" id="section-46"></a>
+  <a class="pilcrow" href="#section-48" id="section-48"></a>
 </div>
 <p>replace headings</p>
 
@@ -1094,21 +1135,21 @@ as colorful console text
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-47" id="section-47"></a>
+  <a class="pilcrow" href="#section-49" id="section-49"></a>
 </div>
 <p>hr</p>
 
         </td>
         <td class="code highlight">
           <pre class="coffeescript">    text = text.replace <span class="hljs-regexp">/\n\n---+\n/g</span>, <span class="hljs-function">=&gt;</span>
-      <span class="hljs-string">"\n\n<span class="hljs-subst">#{string.repeat <span class="hljs-string">'─'</span>, <span class="hljs-property">@width</span>}</span>\n"</span></pre>
+      <span class="hljs-string">"\n\n<span class="hljs-subst">#{util.string.repeat <span class="hljs-string">'─'</span>, @width}</span>\n"</span></pre>
         </td>
       </tr>
     
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-48" id="section-48"></a>
+  <a class="pilcrow" href="#section-50" id="section-50"></a>
 </div>
 <p>typographic</p>
 
@@ -1136,7 +1177,7 @@ as colorful console text
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-49" id="section-49"></a>
+  <a class="pilcrow" href="#section-51" id="section-51"></a>
 </div>
 <p>marked text</p>
 
@@ -1155,7 +1196,7 @@ as colorful console text
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-50" id="section-50"></a>
+  <a class="pilcrow" href="#section-52" id="section-52"></a>
 </div>
 <p>replace table with ascii art table</p>
 
@@ -1170,52 +1211,20 @@ as colorful console text
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-51" id="section-51"></a>
+  <a class="pilcrow" href="#section-53" id="section-53"></a>
 </div>
 <p>header</p>
 
         </td>
         <td class="code highlight">
           <pre class="coffeescript">      line = <span class="hljs-string">'┌'</span>
-      line += string.repeat(<span class="hljs-string">'─'</span>, col.length) + <span class="hljs-string">'┬'</span> <span class="hljs-keyword">for</span> col <span class="hljs-keyword">in</span> head[<span class="hljs-number">1.</span>.head.length-<span class="hljs-number">2</span>]
-      ascii = chalk.grey line[<span class="hljs-number">0.</span>.line.length-<span class="hljs-number">2</span>] + <span class="hljs-string">'┐'</span>
+      line += util.string.repeat(<span class="hljs-string">'─'</span>, col.length) + <span class="hljs-string">'┬'</span> <span class="hljs-keyword">for</span> col <span class="hljs-keyword">in</span> head[<span class="hljs-number">1.</span>.head.length<span class="hljs-number">-2</span>]
+      ascii = chalk.grey line[<span class="hljs-number">0.</span>.line.length<span class="hljs-number">-2</span>] + <span class="hljs-string">'┐'</span>
       ascii += chalk.grey <span class="hljs-string">'\n│'</span>
-      ascii += chalk.bold(col) + chalk.grey(<span class="hljs-string">'│'</span>) <span class="hljs-keyword">for</span> col <span class="hljs-keyword">in</span> head[<span class="hljs-number">1.</span>.head.length-<span class="hljs-number">2</span>]
+      ascii += chalk.bold(col) + chalk.grey(<span class="hljs-string">'│'</span>) <span class="hljs-keyword">for</span> col <span class="hljs-keyword">in</span> head[<span class="hljs-number">1.</span>.head.length<span class="hljs-number">-2</span>]
       line = <span class="hljs-string">'\n├'</span>
-      line += string.repeat(<span class="hljs-string">'─'</span>, col.length) + <span class="hljs-string">'┼'</span> <span class="hljs-keyword">for</span> col <span class="hljs-keyword">in</span> head[<span class="hljs-number">1.</span>.head.length-<span class="hljs-number">2</span>]
-      ascii += chalk.grey line[<span class="hljs-number">0.</span>.line.length-<span class="hljs-number">2</span>] + <span class="hljs-string">'┤'</span></pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-52" id="section-52"></a>
-</div>
-<p>lines</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">      <span class="hljs-keyword">for</span> l <span class="hljs-keyword">in</span> lines[<span class="hljs-number">2.</span>.]
-        cols = l.split <span class="hljs-regexp">/\|/</span>
-        ascii += chalk.grey <span class="hljs-string">'\n│'</span>
-        ascii += col + chalk.grey(<span class="hljs-string">'│'</span>) <span class="hljs-keyword">for</span> col <span class="hljs-keyword">in</span> cols[<span class="hljs-number">1.</span>.cols.length-<span class="hljs-number">2</span>]</pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-53" id="section-53"></a>
-</div>
-<p>footer</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">      line = <span class="hljs-string">'\n└'</span>
-      line += string.repeat(<span class="hljs-string">'─'</span>, col.length) + <span class="hljs-string">'┴'</span> <span class="hljs-keyword">for</span> col <span class="hljs-keyword">in</span> head[<span class="hljs-number">1.</span>.head.length-<span class="hljs-number">2</span>]
-      ascii += chalk.grey line[<span class="hljs-number">0.</span>.line.length-<span class="hljs-number">2</span>] + <span class="hljs-string">'┘'</span>
-      <span class="hljs-string">"\n\n<span class="hljs-subst">#{ascii}</span>\n\n"</span></pre>
+      line += util.string.repeat(<span class="hljs-string">'─'</span>, col.length) + <span class="hljs-string">'┼'</span> <span class="hljs-keyword">for</span> col <span class="hljs-keyword">in</span> head[<span class="hljs-number">1.</span>.head.length<span class="hljs-number">-2</span>]
+      ascii += chalk.grey line[<span class="hljs-number">0.</span>.line.length<span class="hljs-number">-2</span>] + <span class="hljs-string">'┤'</span></pre>
         </td>
       </tr>
     
@@ -1224,13 +1233,14 @@ as colorful console text
           <div class="pilwrap">
   <a class="pilcrow" href="#section-54" id="section-54"></a>
 </div>
-<p>demask markdown syntax and add spaces</p>
+<p>lines</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">    <span class="hljs-keyword">if</span> text.match <span class="hljs-regexp">/(^|[^\\])\\([*_~^`\\])/</span>
-      demask = <span class="hljs-regexp">/(^|[^\\])\\([*_~^`\\])/g</span>
-      text = string.toList(text).map (line) -&gt;</pre>
+          <pre class="coffeescript">      <span class="hljs-keyword">for</span> l <span class="hljs-keyword">in</span> lines[<span class="hljs-number">2.</span>.]
+        cols = l.split <span class="hljs-regexp">/\|/</span>
+        ascii += chalk.grey <span class="hljs-string">'\n│'</span>
+        ascii += col + chalk.grey(<span class="hljs-string">'│'</span>) <span class="hljs-keyword">for</span> col <span class="hljs-keyword">in</span> cols[<span class="hljs-number">1.</span>.cols.length<span class="hljs-number">-2</span>]</pre>
         </td>
       </tr>
     
@@ -1239,6 +1249,37 @@ as colorful console text
           <div class="pilwrap">
   <a class="pilcrow" href="#section-55" id="section-55"></a>
 </div>
+<p>footer</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">      line = <span class="hljs-string">'\n└'</span>
+      line += util.string.repeat(<span class="hljs-string">'─'</span>, col.length) + <span class="hljs-string">'┴'</span> <span class="hljs-keyword">for</span> col <span class="hljs-keyword">in</span> head[<span class="hljs-number">1.</span>.head.length<span class="hljs-number">-2</span>]
+      ascii += chalk.grey line[<span class="hljs-number">0.</span>.line.length<span class="hljs-number">-2</span>] + <span class="hljs-string">'┘'</span>
+      <span class="hljs-string">"\n\n<span class="hljs-subst">#{ascii}</span>\n\n"</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-56" id="section-56"></a>
+</div>
+<p>demask markdown syntax and add spaces</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-keyword">if</span> text.match <span class="hljs-regexp">/(^|[^\\])\\([*_~^`\\])/</span>
+      demask = <span class="hljs-regexp">/(^|[^\\])\\([*_~^`\\])/g</span>
+      text = util.string.toList(text).map (line) -&gt;</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-57" id="section-57"></a>
+</div>
 <p>demask in table</p>
 
         </td>
@@ -1246,7 +1287,7 @@ as colorful console text
           <pre class="coffeescript">        <span class="hljs-keyword">if</span> line.match <span class="hljs-regexp">/^│/</span>
           line.split(<span class="hljs-string">'│'</span>).map (cell) -&gt;
             <span class="hljs-keyword">if</span> found = cell.match demask
-              cell.replace(demask, <span class="hljs-string">"$1$2"</span>) + string.repeat <span class="hljs-string">' '</span>, found.length
+              cell.replace(demask, <span class="hljs-string">"$1$2"</span>) + util.string.repeat <span class="hljs-string">' '</span>, found.length
             <span class="hljs-keyword">else</span>
               cell
           .join <span class="hljs-string">'│'</span></pre>
@@ -1256,7 +1297,7 @@ as colorful console text
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-56" id="section-56"></a>
+  <a class="pilcrow" href="#section-58" id="section-58"></a>
 </div>
 <p>normal demask</p>
 
@@ -1271,7 +1312,7 @@ as colorful console text
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-57" id="section-57"></a>
+  <a class="pilcrow" href="#section-59" id="section-59"></a>
 </div>
 <p>replace images with descriptions</p>
 
@@ -1290,7 +1331,7 @@ as colorful console text
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-58" id="section-58"></a>
+  <a class="pilcrow" href="#section-60" id="section-60"></a>
 </div>
 <p>boxes</p>
 
@@ -1303,7 +1344,7 @@ as colorful console text
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-59" id="section-59"></a>
+  <a class="pilcrow" href="#section-61" id="section-61"></a>
 </div>
 <p>get max length</p>
 
@@ -1315,14 +1356,13 @@ as colorful console text
         maxlen = len <span class="hljs-keyword">if</span> len &gt; maxlen
       maxlen += <span class="hljs-number">2</span>
       color = {
-        <span class="hljs-attribute">detail</span>: <span class="hljs-string">'gray'</span>
-        <span class="hljs-attribute">info</span>: <span class="hljs-string">'green'</span>
-        <span class="hljs-attribute">warning</span>: <span class="hljs-string">'yellow'</span>
-        <span class="hljs-attribute">alert</span>: <span class="hljs-string">'red'</span>
+        detail: <span class="hljs-string">'gray'</span>
+        info: <span class="hljs-string">'green'</span>
+        warning: <span class="hljs-string">'yellow'</span>
+        alert: <span class="hljs-string">'red'</span>
       }[type] ? <span class="hljs-string">'gray'</span>
       text = text.split(<span class="hljs-regexp">/\n/</span>).map (e) -&gt;
-        <span class="hljs-string">"<span class="hljs-subst">#{chalk[color] <span class="hljs-string">'║'</span>}</span><span class="hljs-subst">#{e}</span><span class="hljs-subst">#{string.repeat <span class="hljs-string">' '</span>, maxlen-stripAnsi(e).length}</span><span class="hljs-subst">#{chalk[color] <span class="hljs-string">'║'</span>}</span>"</span>
-      <span class="hljs-string">"""\n\n<span class="hljs-subst">#{chalk[color] <span class="hljs-string">'╔'</span> + string.repeat(<span class="hljs-string">'═'</span>, maxlen) + <span class="hljs-string">'╗'</span>}</span>
+        <span class="hljs-string">"<span class="hljs-subst">#{chalk[color] <span class="hljs-string">'║'</span>}</span><span class="hljs-subst">#{e}</span><span class="hljs-subst">#{util.string.repeat <span class="hljs-string">' '</span>, maxlen-stripAnsi(e).length}</span>\
 </span></pre>
         </td>
       </tr>
@@ -1330,10 +1370,24 @@ as colorful console text
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-60" id="section-60"></a>
+  <a class="pilcrow" href="#section-62" id="section-62"></a>
+</div>
+<p>{chalk[color] '║'}&quot;</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">      <span class="hljs-string">"""\n\n<span class="hljs-subst">#{chalk[color] <span class="hljs-string">'╔'</span> + util.string.repeat(<span class="hljs-string">'═'</span>, maxlen) + <span class="hljs-string">'╗'</span>}</span>
+</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-63" id="section-63"></a>
 </div>
 <p>{text.join '\n'}
-{chalk[color] '╚' + string.repeat('═', maxlen) + '╝'}&quot;&quot;&quot;
+{chalk[color] '╚' + util.string.repeat('═', maxlen) + '╝'}&quot;&quot;&quot;
 readd removed parts</p>
 
         </td>
@@ -1356,7 +1410,7 @@ as html
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  html = <span class="hljs-literal">null</span>
-  <span class="hljs-attribute">toHtml</span>: <span class="hljs-function"><span class="hljs-params">(options, cb)</span> -&gt;</span>
+  toHtml: <span class="hljs-function"><span class="hljs-params">(options, cb)</span> -&gt;</span>
     html = <span class="hljs-built_in">require</span> <span class="hljs-string">'./html'</span> <span class="hljs-keyword">unless</span> html
     html <span class="hljs-keyword">this</span>, options, cb</pre>
         </td>
@@ -1373,20 +1427,20 @@ as pdf
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">toPdf</span>: <span class="hljs-function"><span class="hljs-params">(options, cb)</span> -&gt;</span>
+          <pre class="coffeescript">  toPdf: <span class="hljs-function"><span class="hljs-params">(options, cb)</span> -&gt;</span>
     <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> options <span class="hljs-keyword">is</span> <span class="hljs-string">'function'</span>
       cb = options
       options = {}
     options ?= {}
     options.format ?= <span class="hljs-string">'A4'</span>
     options.border ?=
-      <span class="hljs-attribute">top</span>: <span class="hljs-string">"1cm"</span>
-      <span class="hljs-attribute">right</span>: <span class="hljs-string">"1cm"</span>
-      <span class="hljs-attribute">bottom</span>: <span class="hljs-string">"1cm"</span>
-      <span class="hljs-attribute">left</span>: <span class="hljs-string">"2cm"</span>
+      top: <span class="hljs-string">"1cm"</span>
+      right: <span class="hljs-string">"1cm"</span>
+      bottom: <span class="hljs-string">"1cm"</span>
+      left: <span class="hljs-string">"2cm"</span>
     options.type ?= <span class="hljs-string">"pdf"</span>           <span class="hljs-comment"># allowed file types: png, jpeg, pdf</span>
     pdf = <span class="hljs-built_in">require</span> <span class="hljs-string">'html-pdf'</span>
-    pdf.create(<span class="hljs-property">@toHtml</span>(), options).toBuffer cb</pre>
+    pdf.create(@toHtml(), options).toBuffer cb</pre>
         </td>
       </tr>
     
@@ -1401,7 +1455,7 @@ as image (png/jpeg)
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">toImage</span>: <span class="hljs-function"><span class="hljs-params">(options, cb)</span> -&gt;</span>
+          <pre class="coffeescript">  toImage: <span class="hljs-function"><span class="hljs-params">(options, cb)</span> -&gt;</span>
     <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> options <span class="hljs-keyword">is</span> <span class="hljs-string">'function'</span>
       cb = options
       options = {}
@@ -1409,7 +1463,7 @@ as image (png/jpeg)
     options.type ?= <span class="hljs-string">"png"</span>           <span class="hljs-comment"># allowed file types: png, jpeg, pdf</span>
     options.quality ?= <span class="hljs-number">75</span>           <span class="hljs-comment"># only used for types png &amp; jpeg</span>
     pdf = <span class="hljs-built_in">require</span> <span class="hljs-string">'html-pdf'</span>
-    pdf.create(<span class="hljs-property">@toHtml</span>(), options).toBuffer cb</pre>
+    pdf.create(@toHtml(), options).toBuffer cb</pre>
         </td>
       </tr>
     

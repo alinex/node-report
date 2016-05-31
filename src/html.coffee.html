@@ -7,7 +7,7 @@
   <script src="../doc-filelist.js"></script>
   <script>
     var relativeDir = "../";
-    var thisFile = "home/alex/github/node-report/src/html.coffee";
+    var thisFile = "src/html.coffee";
     var defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
@@ -100,8 +100,7 @@ Node Modules
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'fs'</span>
-path = <span class="hljs-built_in">require</span> <span class="hljs-string">'path'</span>
+          <pre class="coffeescript">path = <span class="hljs-built_in">require</span> <span class="hljs-string">'path'</span>
 fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-fs'</span>
 mime = <span class="hljs-built_in">require</span> <span class="hljs-string">'mime'</span>
 inlineCss = <span class="hljs-built_in">require</span> <span class="hljs-string">'inline-css'</span></pre>
@@ -117,7 +116,7 @@ inlineCss = <span class="hljs-built_in">require</span> <span class="hljs-string"
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">md = <span class="hljs-built_in">require</span>(<span class="hljs-string">'markdown-it'</span>)
+          <pre class="coffeescript">md = <span class="hljs-built_in">require</span> <span class="hljs-string">'markdown-it'</span>
 hljs = <span class="hljs-built_in">require</span> <span class="hljs-string">'highlight.js'</span>
 mdContainer = <span class="hljs-built_in">require</span> <span class="hljs-string">'markdown-it-container'</span>
 mdTitle = <span class="hljs-built_in">require</span> <span class="hljs-string">'markdown-it-title'</span> <span class="hljs-comment">#extracting title from source (first heading)</span>
@@ -148,30 +147,30 @@ Configuration
         </td>
         <td class="code highlight">
           <pre class="coffeescript">HTML_STYLES =
-  <span class="hljs-attribute">default</span>: <span class="hljs-string">"<span class="hljs-subst">#{__dirname}</span>/../var/src/style/default.css"</span>
+  default: <span class="hljs-string">"<span class="hljs-subst">#{__dirname}</span>/../var/src/style/default.css"</span>
 
 trans =
-  <span class="hljs-attribute">content</span>:
-    <span class="hljs-attribute">en</span>: <span class="hljs-string">'Content'</span>
-    <span class="hljs-attribute">de</span>: <span class="hljs-string">'Inhalt'</span>
-  <span class="hljs-attribute">lang</span>:
-    <span class="hljs-attribute">js</span>:
-      <span class="hljs-attribute">en</span>: <span class="hljs-string">'JavaScript Code'</span>
-    <span class="hljs-attribute">coffee</span>:
-      <span class="hljs-attribute">en</span>: <span class="hljs-string">'CoffeeScript Code'</span>
-    <span class="hljs-attribute">bash</span>:
-      <span class="hljs-attribute">en</span>: <span class="hljs-string">'Bash Code'</span>
-    <span class="hljs-attribute">sql</span>:
-      <span class="hljs-attribute">en</span>: <span class="hljs-string">'SQL Code'</span>
-  <span class="hljs-attribute">boxes</span>:
-    <span class="hljs-attribute">info</span>:
-      <span class="hljs-attribute">en</span>: <span class="hljs-string">'Info'</span>
-    <span class="hljs-attribute">warning</span>:
-      <span class="hljs-attribute">en</span>: <span class="hljs-string">'Warning'</span>
-      <span class="hljs-attribute">de</span>: <span class="hljs-string">'Warnung'</span>
-    <span class="hljs-attribute">alert</span>:
-      <span class="hljs-attribute">en</span>: <span class="hljs-string">'Attention'</span>
-      <span class="hljs-attribute">de</span>: <span class="hljs-string">'Achtung'</span></pre>
+  content:
+    en: <span class="hljs-string">'Content'</span>
+    de: <span class="hljs-string">'Inhalt'</span>
+  lang:
+    js:
+      en: <span class="hljs-string">'JavaScript Code'</span>
+    coffee:
+      en: <span class="hljs-string">'CoffeeScript Code'</span>
+    bash:
+      en: <span class="hljs-string">'Bash Code'</span>
+    sql:
+      en: <span class="hljs-string">'SQL Code'</span>
+  boxes:
+    info:
+      en: <span class="hljs-string">'Info'</span>
+    warning:
+      en: <span class="hljs-string">'Warning'</span>
+      de: <span class="hljs-string">'Warnung'</span>
+    alert:
+      en: <span class="hljs-string">'Attention'</span>
+      de: <span class="hljs-string">'Achtung'</span></pre>
         </td>
       </tr>
     
@@ -323,7 +322,7 @@ replace local images with base64</p>
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  inlineCss html,
-    <span class="hljs-attribute">url</span>: <span class="hljs-string">'index.html'</span>
+    url: <span class="hljs-string">'index.html'</span>
   .<span class="hljs-keyword">then</span> (html) -&gt;
     cb <span class="hljs-literal">null</span>, html</pre>
         </td>
@@ -371,12 +370,12 @@ initialize markdown to html converter
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  md2html = md
-    <span class="hljs-attribute">html</span>: <span class="hljs-literal">true</span>
-    <span class="hljs-attribute">linkify</span>: <span class="hljs-literal">true</span>
-    <span class="hljs-attribute">typographer</span>: <span class="hljs-literal">true</span>
-    <span class="hljs-attribute">xhtmlOut</span>: <span class="hljs-literal">true</span>
-    <span class="hljs-attribute">langPrefix</span>: <span class="hljs-string">'language '</span>
-    <span class="hljs-attribute">highlight</span>: <span class="hljs-function"><span class="hljs-params">(str, lang)</span> -&gt;</span>
+    html: <span class="hljs-literal">true</span>
+    linkify: <span class="hljs-literal">true</span>
+    typographer: <span class="hljs-literal">true</span>
+    xhtmlOut: <span class="hljs-literal">true</span>
+    langPrefix: <span class="hljs-string">'language '</span>
+    highlight: <span class="hljs-function"><span class="hljs-params">(str, lang)</span> -&gt;</span>
       <span class="hljs-keyword">if</span> lang <span class="hljs-keyword">and</span> hljs.getLanguage lang
         <span class="hljs-keyword">try</span>
           <span class="hljs-keyword">return</span> hljs.highlight(lang, str).value
@@ -396,12 +395,12 @@ initialize markdown to html converter
   .use mdDeflist <span class="hljs-comment"># definition lists</span>
   .use mdAbbr <span class="hljs-comment"># abbreviations (auto added)</span>
   .use mdFootnote <span class="hljs-comment"># footnotes (auto linked)</span>
-  .use mdCheckbox, {<span class="hljs-attribute">divWrap</span>: <span class="hljs-literal">true</span>, <span class="hljs-attribute">divClass</span>: <span class="hljs-string">'cb'</span>}
+  .use mdCheckbox, {divWrap: <span class="hljs-literal">true</span>, divClass: <span class="hljs-string">'cb'</span>}
   .use mdDecorate <span class="hljs-comment"># add css classes</span>
   .use mdToc.default, <span class="hljs-comment"># possibility to add TOC</span>
-    <span class="hljs-attribute">tocClassName</span>: <span class="hljs-string">'table-of-contents'</span>
-    <span class="hljs-attribute">tocFirstLevel</span>: <span class="hljs-number">2</span>
-    <span class="hljs-attribute">anchorLink</span>: <span class="hljs-literal">false</span></pre>
+    tocClassName: <span class="hljs-string">'table-of-contents'</span>
+    tocFirstLevel: <span class="hljs-number">2</span>
+    anchorLink: <span class="hljs-literal">false</span></pre>
         </td>
       </tr>
     
