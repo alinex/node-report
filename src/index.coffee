@@ -29,7 +29,7 @@ table = (obj, col, sort, mask) ->
     for name, col in table.data[0]
       res = table.getMeta null, col
       res.title ?= name
-      col.push res 
+      col.push res
   return '' unless Object.keys(obj).length
   obj = util.clone obj
   # transform object
