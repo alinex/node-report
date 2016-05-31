@@ -538,7 +538,9 @@ class Report
       left: "2cm"
     options.type ?= "pdf"           # allowed file types: png, jpeg, pdf
     pdf = require 'html-pdf'
-    pdf.create(@toHtml(), options).toBuffer cb
+    @toHtml (err, html) ->
+      return cb err if err
+      pdf.create(html, options).toBuffer cb
 
   # ### as image (png/jpeg)
   toImage: (options, cb) ->
@@ -548,8 +550,10 @@ class Report
     options ?= {}
     options.type ?= "png"           # allowed file types: png, jpeg, pdf
     options.quality ?= 75           # only used for types png & jpeg
-    pdf = require 'html-pdf'
-    pdf.create(@toHtml(), options).toBuffer cb
+    @toHtml (err, html) ->
+      return cb err if err
+      pdf = require 'html-pdf'
+      pdf.create(html, options).toBuffer cb
 
 
 # Export class

@@ -197,6 +197,8 @@ describe "instance", ->
       fd.end()
       async.series [
         (cb) ->
+          report.toHtml cb
+        (cb) ->
           report.toHtml
             inlineCss: true
             locale: 'de'

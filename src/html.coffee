@@ -113,7 +113,7 @@ module.exports = (report, setup, cb) ->
   </html>
   """
   return html unless cb
-  cb null, html unless setup?.inlineCss
+  return cb null, html unless setup?.inlineCss
   # make css inline
   inlineCss html,
     url: 'index.html'
