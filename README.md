@@ -190,6 +190,9 @@ is text):
 report.code 'va x = Math.round(f);', 'js'
 ```
 
+See [highlight.js](https://highlightjs.org/static/demo/) for possible languages
+to use.
+
 ### Special Signs
 
 You may also include some
@@ -854,6 +857,9 @@ Syntax highlighting
 
     console.log(foo(5));
     ```
+
+See [highlight.js](https://highlightjs.org/static/demo/) for possible languages
+to use.
 
 ### Tables
 
