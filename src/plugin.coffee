@@ -1,12 +1,123 @@
+# Plugin to add graphics
+# ====================================================
+
+# https://github.com/markdown-it/markdown-it/blob/master/docs/architecture.md
+# https://github.com/markdown-it/markdown-it/blob/master/docs/development.md
 
 
-module.exports = (md, options) ->
-  console.log md, options
+# Node Modules
+# -------------------------------------------
 
+debug = require('debug') 'report:graph'
+
+
+# Setup
+# -------------------------------------------
+
+MARKER = '$'.charCodeAt 0
+
+
+# Init plugin in markdown-it
+# -------------------------------------------
+
+module.exports = (md) ->
+  debug "Init graph plugin..."
+  # register all graph dialects
+  for name in ['mermaid']
+    # add parser rules
+    md.block.ruler.before 'fence', 'graph_' + name, parser.mermaid
+    # add render rules
+    md.renderer.rules['graph_' + name + '_open'] = renderer.mermaid
+    md.renderer.rules['graph_' + name + '_close'] = renderer.mermaid
+
+
+# Parser
+# -------------------------------------------
+
+parser =
+  mermaid: (state, startLine, endLine, silent) ->
+    haveEndMarker = false
+    pos = state.bMarks[startLine] + state.tShift[startLine]
+    max = state.eMarks[startLine]
+    return false if pos + 3 > max
+    return false unless MARKER id state.src.charCodeAt pos
+    # scan marker length
+    mem = pos
+    pos = state.skipChars pos, MARKER
+    len = pos - mem
+    return false if len < 3
+    markup = state.src.slice mem, pos
+    params = state.src.slice(pos, max).trim()
+    # Since start is found, we can report success here in validation mode
+    return false if silent
+    # search end of block
+    nextLine = startLine;
+    loop
+      nextLine++
+      # unclosed block should be autoclosed by end of document.
+      # also block seems to be autoclosed by end of parent
+      break if nextLine >= endLine
+      pos = mem = state.bMarks[nextLine] + state.tShift[nextLine]
+      max = state.eMarks[nextLine]
+      # non-empty line with negative indent should stop the list:
+      # - $$$
+      #  test
+      break if pos < max and state.sCount[nextLine] < state.blkIndent
+      continue unless state.src.charCodeAt(pos) is MARKER
+      # closing fence should be indented less than 4 spaces
+      continue if state.sCount[nextLine] - state.blkIndent >= 4
+      pos = state.skipChars(pos, MARKER)
+      # closing code fence must be at least as long as the opening one
+      continue if pos - mem < len
+      # make sure tail has spaces only
+      pos = state.skipSpaces pos
+      continue if pos < max
+      haveEndMarker = true
+      # found!
+      break;
+    # If a fence has heading spaces, they should be removed from its inner block
+    len = state.sCount[startLine]
+    state.line = nextLine + if haveEndMarker then 1 else 0
+    token         = state.push 'fence', 'code', 0
+    token.info    = params
+    token.content = state.getLines startLine + 1, nextLine, len, true
+    token.markup  = markup
+    token.map     = [ startLine, state.line ]
+    return true
+
+
+# Renderer
+# -------------------------------------------
+
+renderer =
+  mermaid: (tokens, idx, options, env, self) ->
+    return "htmlResult"
 
 return
 
+
+
+
+
 module.exports = (md, name, options) ->
+
+  options = options or {}
+  min_markers = 3
+  marker_str = options.marker or ':'
+  marker_char = marker_str.charCodeAt(0)
+  marker_len = marker_str.length
+  validate = options.validate or validateDefault
+  render = options.render or renderDefault
+  md.block.ruler.before 'fence', 'container_' + name, container,
+    alt: [
+      'paragraph'
+      'reference'
+      'blockquote'
+      'list'
+    ]
+  md.renderer.rules['container_' + name + '_open'] = render
+  md.renderer.rules['container_' + name + '_close'] = render
+  return
 
   validateDefault = (params) ->
     params.trim().split(' ', 2)[0] is name
@@ -116,21 +227,3 @@ module.exports = (md, name, options) ->
     state.lineMax = old_line_max
     state.line = nextLine + (if auto_closed then 1 else 0)
     true
-
-  options = options or {}
-  min_markers = 3
-  marker_str = options.marker or ':'
-  marker_char = marker_str.charCodeAt(0)
-  marker_len = marker_str.length
-  validate = options.validate or validateDefault
-  render = options.render or renderDefault
-  md.block.ruler.before 'fence', 'container_' + name, container,
-    alt: [
-      'paragraph'
-      'reference'
-      'blockquote'
-      'list'
-    ]
-  md.renderer.rules['container_' + name + '_open'] = render
-  md.renderer.rules['container_' + name + '_close'] = render
-  return
