@@ -9,7 +9,7 @@ fs = require 'alinex-fs'
 mime = require 'mime'
 inlineCss = require 'inline-css'
 # markdown
-md = require 'markdown-it'
+markdownit = require 'markdown-it'
 hljs = require 'highlight.js'
 mdContainer = require 'markdown-it-container'
 mdTitle = require 'markdown-it-title' #extracting title from source (first heading)
@@ -64,7 +64,6 @@ module.exports = (report, setup, cb) ->
     setup = null
   # create html
   md = initHtml()
-  data = {}
   content = report.toString()
   # make local files inline
   # replace local images with base64
@@ -80,9 +79,10 @@ module.exports = (report, setup, cb) ->
     )
     ///, (_, b, f, a) ->
     f = path.resolve __dirname, '../', f
-    data = new Buffer(fs.readFileSync f).toString 'base64'
-    "#{b}data:#{mime.lookup f};base64,#{data}#{a}"
+    bin = new Buffer(fs.readFileSync f).toString 'base64'
+    "#{b}data:#{mime.lookup f};base64,#{bin}#{a}"
   # transform to html
+  data = {}
   content = optimizeHtml md.render(content, data), setup?.locale
   title = setup?.title ? data.title ? 'Report'
   style = setup?.style ? 'default'
@@ -129,7 +129,7 @@ md2html = null
 initHtml = -> #async.once ->
   return md2html if md2html
   # setup markdown it
-  md2html = md
+  md2html = markdownit
     html: true
     linkify: true
     typographer: true
