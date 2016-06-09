@@ -9,6 +9,11 @@
 # -------------------------------------------
 
 debug = require('debug') 'report:graph'
+deasync = require 'deasync'
+QRCode = null # load on demand
+mermaid = null # load on demand
+# alinex modules
+util = require 'alinex-util'
 
 
 # Setup
@@ -74,7 +79,7 @@ parser = (state, startLine, endLine, silent) ->
   # If a fence has heading spaces, they should be removed from its inner block
   len = state.sCount[startLine]
   state.line = nextLine + if haveEndMarker then 1 else 0
-  token         = state.push 'fence', 'code', 0
+  token         = state.push 'graph', 'code', 0
   token.info    = params
   token.content = state.getLines startLine + 1, nextLine, len, true
   token.markup  = markup
@@ -88,14 +93,35 @@ parser = (state, startLine, endLine, silent) ->
 renderer = (tokens, idx, options, env, self) ->
   token = tokens[idx]
   if token.info
-    [type] = token.info.split /\s+/g
+    [type, opt] = token.info.split /\s+/g
   switch type
-    when 'progress'
-      '<pre><b>PROGRESS</b></pre>\n'
-    when 'mermaid'
-      '<pre><b>MERMAID</b></pre>\n'
-    when 'chart'
-      '<pre><b>CHART</b></pre>\n'
+
+    # create qr codes
+    when 'qr'
+      QRCode ?= require 'qrcode-svg'
+      data =
+        padding: 4
+        width: 256
+        height: 256
+        color: '#000000'
+        background: '#ffffff'
+        ecl: 'M'
+      if token.content.match /(^|\n)content:/
+        util.string.toList(token.content).map (line) ->
+          return unless line
+          [k, v] = line.match(/^(\S+?)\s*:\s*(.+)/)[1..]
+          data[k] = v
+      else
+        data.content = token.content
+      new QRCode(data).svg()
+
+    # mermaid graph
+    when 'graph'
+      mermaid ?= require 'mermaid'
+      renderer = deasync (code, cb) ->
+        mermaid.mermaidAPI.render 'mermaid', code, (svg) ->
+          cb null, svg
+      renderer "#{type} #{opt.join ' '}\n#{token.content}"
     else
       escapeHtml token.content
 
