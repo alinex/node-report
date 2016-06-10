@@ -5,9 +5,15 @@
 # Node Modules
 # -------------------------------------------------
 chalk = require 'chalk'
+deasync = require 'deasync'
 # include more alinex modules
 util = require 'alinex-util'
 Table = require 'alinex-table'
+format = require 'alinex-format'
+
+# load local plugins
+pluginVisual = require './plugin/visual'
+dataStringify = deasync format.stringify
 
 
 # Helper methods
@@ -275,6 +281,13 @@ class Report
   @toc: -> '\n@[toc]\n'
   @style: (style) -> "<!-- {#{style}} -->"
 
+  # ### Visualizations
+  @qr: (data) ->
+    if typeof data is 'object'
+      "\n$$$ qr\n#{dataStringify data, 'yaml'}$$$\n"
+    else
+      "\n$$$ qr\n#{data}\n$$$\n"
+
 
   # Create instance
   # -------------------------------------------------
@@ -338,6 +351,9 @@ class Report
   abbr: (abbr, text) -> @raw Report.abbr abbr, text
   toc: -> @raw Report.toc()
 
+  qr: (data) -> @raw Report.qr data
+
+
   # Extract report
   # -------------------------------------------------
 
@@ -351,7 +367,7 @@ class Report
 
    # ### as simplified text
   toText: ->
-    text = @toString()
+    text = pluginVisual.toText @toString()
     # remove some parts
     text = text.replace ///
     (

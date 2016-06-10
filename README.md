@@ -574,6 +574,32 @@ The following classes may be used:
 | .red    | make text red  |
 | .center | center text    |
 
+### Visualization
+
+This will only work in HTML format, else the definition is displayed.
+
+#### QR Code
+
+``` coffee
+report = new Report()
+report.qr "http://alinex.de"
+```
+
+Or if you want to specify the parameters:
+
+``` coffee
+report = new Report()
+report.qr
+  content: 'http://alinex.github.io'
+  padding: 1
+  width: 600
+  height: 600
+  color: '#ff0000'
+  background: '#ffffff'
+  ecl: 'M'
+report.qr "http://alinex.de"
+```
+
 
 Output
 -------------------------------------------------
@@ -973,6 +999,30 @@ the element atrated in front of the style definition.
 
 The second example specifies the previouse &lt;p> tag and sets the style class
 '.center' for it.
+
+### Visualizations
+
+This will only work in HTML format, else the definition is displayed.
+
+#### QR Code
+
+This will display a qr code image. It will be in a default size of 256 x 256 pixel.
+
+    $$$ qr
+      http://alinex.de
+    $$$
+
+To make it more specific you may use the extended form:
+
+    $$$ qr
+      content: http://alinex.github.io
+      padding: 1
+      width: 600
+      height: 600
+      color: #ff0000
+      background: #ffffff
+      ecl: M
+    $$$
 
 
 License

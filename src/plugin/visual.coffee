@@ -14,6 +14,9 @@ QRCode = null # load on demand
 mermaid = null # load on demand
 # alinex modules
 util = require 'alinex-util'
+format = require 'alinex-format'
+
+dataParser = deasync format.parse
 
 
 # Setup
@@ -31,6 +34,16 @@ module.exports = (md) ->
   md.block.ruler.before 'fence', 'graph', parser, ['paragraph', 'reference', 'blockquote', 'list']
   # add render rules
   md.renderer.rules.graph = renderer
+
+module.exports.toText = (text) ->
+  text.replace /\$\$\$\s+qr\s*\n([\s\S]*?)\$\$\$/g, ->
+    part = arguments[1]
+    if part.match /(^|\n)\s*content:/
+      data = dataParser part
+      "==QR Code: #{data.content}=="
+    else
+      "==QR Code: #{part.trim()}=="
+  .replace /\$\$\$([\s\S]*?)\$\$\$/g, "```$1```"
 
 
 # Parser
@@ -106,13 +119,10 @@ renderer = (tokens, idx, options, env, self) ->
         color: '#000000'
         background: '#ffffff'
         ecl: 'M'
-      if token.content.match /(^|\n)content:/
-        util.string.toList(token.content).map (line) ->
-          return unless line
-          [k, v] = line.match(/^(\S+?)\s*:\s*(.+)/)[1..]
-          data[k] = v
+      if token.content.match /(^|\n)\s*content:/
+        util.extend data, dataParser token.content
       else
-        data.content = token.content
+        data.content = token.content.trim()
       new QRCode(data).svg()
 
     # mermaid graph

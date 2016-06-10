@@ -25,6 +25,8 @@ mdCheckbox = require 'markdown-it-checkbox'
 mdDecorate = require 'markdown-it-decorate' # add css classes
 mdToc = require 'markdown-it-toc-and-anchor'
 twemoji = require 'twemoji'
+# load own plugins
+pluginGraph = require './plugin/graph'
 
 
 # Configuration
@@ -142,6 +144,7 @@ initHtml = -> #async.once ->
       try
         return hljs.highlightAuto(str).value
       return '' # use external default escaping
+  .use pluginGraph # graphical visualizations
   .use mdTitle #extracting title from source (first heading)
   .use mdSub # subscript support
   .use mdSup # superscript support
