@@ -407,7 +407,7 @@ class Report
 
   # ### as colorful console text
   toConsole: ->
-    text = @toString()
+    text = pluginVisual.toText @toString()
     # replace code
     removed = []
     text = text.replace /\n\n``` (\w+)\s*?\n([\s\S]*?)\n```\s*?\n/g, (all, lang, code) =>
