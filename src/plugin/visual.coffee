@@ -11,6 +11,7 @@
 debug = require('debug') 'report:graph'
 deasync = require 'deasync'
 QRCode = null # load on demand
+jui = null # load on demand
 mermaid = null # load on demand
 # alinex modules
 util = require 'alinex-util'
@@ -125,7 +126,41 @@ renderer = (tokens, idx, options, env, self) ->
         data.content = token.content.trim()
       new QRCode(data).svg()
 
+    # create qr codes
+    when 'chart'
+      # parse table data
+      # get data object
+      # data.axis.data = table.data
+      jui = require 'jui'
+      data = util.extend
+        width: 800
+        height: 800
+        axis:
+          x:
+            type: "block"
+            domain: "quarter"
+            line: true
+          y:
+            type: "range"
+            domain: (d) -> Math.max d.sales, d.profit
+            step: 20,
+            line: true,
+            orient: "right"
+          data: [
+            {quarter: "1Q", sales: 50, profit: 35}
+            {quarter: "2Q", sales: -20, profit: -100}
+            {quarter: "3Q", sales: 10, profit: -5}
+            {quarter: "4Q", sales: 30, profit: 25}
+          ]
+        brush:
+          type: "column"
+          target: ["sales", "profit"]
+      , dataParser token.content
+      jui.create('chart.builder', null, data).svg.toXML()
+
+
     # mermaid graph
+    # TODO won't work without xmkdom
     when 'graph'
       mermaid ?= require 'mermaid'
       renderer = deasync (code, cb) ->

@@ -43,6 +43,7 @@
     "highlight.js": "^9.4.0",
     "html-pdf": "^2.0.1",
     "inline-css": "^2.2.2",
+    "jui": "^1.4.2",
     "markdown-it": "^6.0.4",
     "markdown-it-abbr": "^1.0.0",
     "markdown-it-checkbox": "^1.1.0",

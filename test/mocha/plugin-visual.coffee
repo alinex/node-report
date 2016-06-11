@@ -31,7 +31,7 @@ describe "visual", ->
       result = md.renderer.render tokens, md.options, env
       expect(result).to.equal('<h1>Heading</h1>\n')
 
-  describe.only "qr", ->
+  describe "qr", ->
 
     it "should make simple qr markup", ->
       result = Report.qr 'http://alinex.github.io'
@@ -87,6 +87,57 @@ describe "visual", ->
       result = test 'qr-extended', text
       expect(result).to.contain '<svg'
       expect(plugin.toText text).to.equal '==QR Code: http://alinex.github.io=='
+
+  describe "chart", ->
+
+    it.only "should make test chart graphic", ->
+      text = """
+      $$$ chart
+      width: 800
+      height: 400
+      widget:
+        - type: title
+          text: Test Chart
+        - type: legend
+          orient: bottom
+          filter: true
+        - type: tooltip
+          all: true
+      $$$
+      """
+      result = test 'chart', text
+      expect(result).to.contain '<svg'
+
+    it "should make simple chart graphic", ->
+      text = """
+      $$$ chart
+      width: 800
+      height: 400
+      axis:
+        x:
+          type: "block"
+          domain: "quarter"
+          line: true
+        y:
+          type: "range"
+          domain: (d) -> Math.max d.sales, d.profit
+          step: 20,
+          line: true,
+          orient: "right"
+      brush:
+        type: "column"
+        target: ["sales", "profit"]
+
+      | quarter | sales | profit |
+      | ------- | ----- | ------ |
+      | 1Q      | 50    | 35     |
+      | 2Q      | -20   | -100   |
+      | 3Q      | 10    | -5     |
+      | 4Q      | 30    | 25     |
+      $$$
+      """
+      result = test 'chart', text
+      expect(result).to.contain '<svg'
 
   describe.skip "graph", ->
 

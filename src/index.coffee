@@ -287,6 +287,8 @@ class Report
       "\n$$$ qr\n#{dataStringify data, 'yaml'}$$$\n"
     else
       "\n$$$ qr\n#{data}\n$$$\n"
+  @chart: (setup, data) ->
+    "\n$$$ chart\n#{dataStringify setup, 'yaml'}\n#{Report.table data}$$$\n"
 
 
   # Create instance
@@ -352,6 +354,7 @@ class Report
   toc: -> @raw Report.toc()
 
   qr: (data) -> @raw Report.qr data
+  chart: (setup, data) -> @raw Report.chart setup, data
 
 
   # Extract report

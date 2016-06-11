@@ -597,7 +597,38 @@ report.qr
   color: '#ff0000'
   background: '#ffffff'
   ecl: 'M'
-report.qr "http://alinex.de"
+```
+
+#### Charts
+
+A lot of charts are possible based on [jui-chart](http://chartplay.jui.io/).
+You'll find all possible settings there.
+
+``` coffee
+report = new Report()
+report.chart
+  width: 800
+  height: 400
+  axis:
+    x:
+      type: "block"
+      domain: "quarter"
+      line: true
+    y:
+      type: "range"
+      domain: (d) -> Math.max d.sales, d.profit
+      step: 20,
+      line: true,
+      orient: "right"
+  brush:
+    type: "column"
+    target: ["sales", "profit"]
+, [
+  {quarter: "1Q", sales: 50, profit: 35}
+  {quarter: "2Q", sales: -20, profit: -100}
+  {quarter: "3Q", sales: 10, profit: -5}
+  {quarter: "4Q", sales: 30, profit: 25}
+]
 ```
 
 
@@ -1009,20 +1040,57 @@ This will only work in HTML format, else the definition is displayed.
 This will display a qr code image. It will be in a default size of 256 x 256 pixel.
 
     $$$ qr
-      http://alinex.de
+    http://alinex.de
     $$$
 
 To make it more specific you may use the extended form:
 
     $$$ qr
-      content: http://alinex.github.io
-      padding: 1
-      width: 600
-      height: 600
-      color: #ff0000
-      background: #ffffff
-      ecl: M
+    content: http://alinex.github.io
+    padding: 1
+    width: 600
+    height: 600
+    color: #ff0000
+    background: #ffffff
+    ecl: M
     $$$
+
+#### Charts
+
+A lot of charts are possible. To make them you have to include a markdown tag with
+two parts:
+
+- the display setup data
+- the table to visualize
+
+    $$$ chart
+    width: 800
+    height: 400
+    axis:
+      x:
+        type: "block"
+        domain: "quarter"
+        line: true
+      y:
+        type: "range"
+        domain: (d) -> Math.max d.sales, d.profit
+        step: 20,
+        line: true,
+        orient: "right"
+    brush:
+      type: "column"
+      target: ["sales", "profit"]
+
+    | quarter | sales | profit |
+    | ------- | ----- | ------ |
+    | 1Q      | 50    | 35     |
+    | 2Q      | -20   | -100   |
+    | 3Q      | 10    | -5     |
+    | 4Q      | 30    | 25     |
+    $$$
+
+This is based on [jui-chart](http://chartplay.jui.io/) so look there for the possible
+setup.
 
 
 License
