@@ -16,6 +16,7 @@ mermaid = null # load on demand
 # alinex modules
 util = require 'alinex-util'
 format = require 'alinex-format'
+Table = require 'alinex-table'
 
 dataParser = deasync format.parse
 
@@ -44,6 +45,10 @@ module.exports.toText = (text) ->
       "==QR Code: #{data.content}=="
     else
       "==QR Code: #{part.trim()}=="
+  text.replace /\$\$\$\s+chart\s*\n([\s\S]*?)\$\$\$/g, ->
+    part = arguments[1]
+    parts = part.trim().split /(^|\n\s*\n\s*)\|/
+    "|#{parts[2]}"
   .replace /\$\$\$([\s\S]*?)\$\$\$/g, "```$1```"
 
 
@@ -122,15 +127,13 @@ renderer = (tokens, idx, options, env, self) ->
         ecl: 'M'
       if token.content.match /(^|\n)\s*content:/
         util.extend data, dataParser token.content
-      else
         data.content = token.content.trim()
+      else
       new QRCode(data).svg()
 
     # create qr codes
     when 'chart'
-      # parse table data
-      # get data object
-      # data.axis.data = table.data
+      [setup, _, table] = token.content.trim().split /(^|\n\s*\n\s*)\|/
       jui = require 'jui'
       data = util.extend
         width: 800
@@ -146,16 +149,18 @@ renderer = (tokens, idx, options, env, self) ->
             step: 20,
             line: true,
             orient: "right"
-          data: [
-            {quarter: "1Q", sales: 50, profit: 35}
-            {quarter: "2Q", sales: -20, profit: -100}
-            {quarter: "3Q", sales: 10, profit: -5}
-            {quarter: "4Q", sales: 30, profit: 25}
-          ]
         brush:
           type: "column"
           target: ["sales", "profit"]
-      , dataParser token.content
+      , dataParser setup
+      # parse table data
+      td = []
+      for line in util.string.toList "|#{table}"
+        continue if line.match /^(\s|[|:-])+$/
+        row = line.split /\s*\|\s*/
+        td.push row[1..row.length - 2]
+      data.axis.data = Table.toRecordList td
+      # data.axis.data = table.data
       jui.create('chart.builder', null, data).svg.toXML()
 
 

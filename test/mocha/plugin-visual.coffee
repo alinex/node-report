@@ -90,7 +90,7 @@ describe "visual", ->
 
   describe "chart", ->
 
-    it.only "should make test chart graphic", ->
+    it "should make test chart graphic", ->
       text = """
       $$$ chart
       width: 800
@@ -108,7 +108,7 @@ describe "visual", ->
       result = test 'chart', text
       expect(result).to.contain '<svg'
 
-    it "should make simple chart graphic", ->
+    it.only "should make simple chart graphic", ->
       text = """
       $$$ chart
       width: 800
