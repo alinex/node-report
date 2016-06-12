@@ -641,8 +641,8 @@ pre {
   white-space: -o-pre-wrap;    /* Opera 7 */
   word-wrap: break-word;       /* Internet Explorer 5.5+ */
 }
-pre code.sh::before {
-  content: "Shell Script";
+pre code.bash::before {
+  content: "Bash Script";
   color: #505050;
   font-weight: bold;
   display: block;
@@ -654,7 +654,7 @@ pre code.sh::before {
   padding: 4px 0 0 10px;
 }
 pre code.coffee::before {
-  content: "CoffeeScript";
+  content: "CoffeeScript Code";
   color: #505050;
   font-weight: bold;
   display: block;
@@ -666,7 +666,31 @@ pre code.coffee::before {
   padding: 4px 0 0 10px;
 }
 pre code.json::before {
-  content: "JSON data";
+  content: "CSON Data";
+  color: #505050;
+  font-weight: bold;
+  display: block;
+  background: rgba(225, 135, 40, 0.38);
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  margin-bottom: 5px;
+  margin: -6px -5px 2px -11px;
+  padding: 4px 0 0 10px;
+}
+pre code.handlebars::before {
+  content: "Handlebars Template";
+  color: #505050;
+  font-weight: bold;
+  display: block;
+  background: rgba(225, 135, 40, 0.38);
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  margin-bottom: 5px;
+  margin: -6px -5px 2px -11px;
+  padding: 4px 0 0 10px;
+}
+pre code.js::before {
+  content: "JavaScript Code";
   color: #505050;
   font-weight: bold;
   display: block;
@@ -678,7 +702,19 @@ pre code.json::before {
   padding: 4px 0 0 10px;
 }
 pre code.json::before {
-  content: "CSON data";
+  content: "JSON Data";
+  color: #505050;
+  font-weight: bold;
+  display: block;
+  background: rgba(225, 135, 40, 0.38);
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  margin-bottom: 5px;
+  margin: -6px -5px 2px -11px;
+  padding: 4px 0 0 10px;
+}
+pre code.sh::before {
+  content: "Shell Script";
   color: #505050;
   font-weight: bold;
   display: block;

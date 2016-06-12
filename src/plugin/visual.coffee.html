@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>visual.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../doc-style.css" />
+  <script src="../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../";
+    var thisFile = "src/plugin/visual.coffee";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../doc-script.js"></script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0" /></head>
+<body>
+  <nav>
+<div class="logo"><a href="http://alinex.github.io"
+  onmouseover="logo.src='https://alinex.github.io/images/Alinex-200.png'"
+  onmouseout="logo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="logo" src="https://alinex.github.io/images/Alinex-black-200.png"
+    width="150" title="Alinex Universe Homepage" />
+  </a>
+  <img src="http://alinex.github.io/images/Alinex-200.png"
+    style="display:none" alt="preloading" />
+</div>
+<div class="links">
+  <a href="http://alinex.github.io/blog"
+    class="btn btn-primary"><span class="glyphicon-pencil"></span> Blog</a>
+  <a href="http://alinex.github.io/develop"
+    class="btn btn-primary"><span class="glyphicon-book"></span> Develop</a>
+  <a href="http://alinex.github.io/code.html"
+    class="btn btn-warning"><span class="glyphicon-cog"></span> Code</a>
+</div>
+</nav><div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#plugin-to-add-graphics">Plugin to add graphics</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#node-modules">Node Modules</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#setup">Setup</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#init-plugin-in-markdown-it">Init plugin in markdown-it</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#parser">Parser</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#renderer">Renderer</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#helper">Helper</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-report" title="Fork me on GitHub"></a>
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="plugin-to-add-graphics">
+  <h1>
+    <a href="#plugin-to-add-graphics" name="plugin-to-add-graphics" class="pilcrow"></a>
+Plugin to add graphics
+  </h1>
+</div>
+
+        </td>
+        <td class="code highlight">
+          
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>https://github.com/markdown-it/markdown-it/blob/master/docs/architecture.md
+https://github.com/markdown-it/markdown-it/blob/master/docs/development.md</p>
+
+        </td>
+        <td class="code highlight">
+          
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="node-modules">
+  <h2>
+    <a href="#node-modules" name="node-modules" class="pilcrow"></a>
+Node Modules
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">
+debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>) <span class="hljs-string">'report:graph'</span>
+deasync = <span class="hljs-built_in">require</span> <span class="hljs-string">'deasync'</span>
+QRCode = <span class="hljs-literal">null</span> <span class="hljs-comment"># load on demand</span>
+jui = <span class="hljs-literal">null</span> <span class="hljs-comment"># load on demand</span>
+mermaid = <span class="hljs-literal">null</span> <span class="hljs-comment"># load on demand</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<p>alinex modules</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">util = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-util'</span>
+format = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-format'</span>
+Table = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-table'</span>
+
+dataParser = deasync format.parse</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="setup">
+  <h2>
+    <a href="#setup" name="setup" class="pilcrow"></a>
+Setup
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">
+MARKER = <span class="hljs-string">'$'</span>.charCodeAt <span class="hljs-number">0</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="init-plugin-in-markdown-it">
+  <h2>
+    <a href="#init-plugin-in-markdown-it" name="init-plugin-in-markdown-it" class="pilcrow"></a>
+Init plugin in markdown-it
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-params">(md)</span> -&gt;</span>
+  debug <span class="hljs-string">"Init graph plugin..."</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
+</div>
+<p>add parser rules</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  md.block.ruler.before <span class="hljs-string">'fence'</span>, <span class="hljs-string">'graph'</span>, parser, [<span class="hljs-string">'paragraph'</span>, <span class="hljs-string">'reference'</span>, <span class="hljs-string">'blockquote'</span>, <span class="hljs-string">'list'</span>]</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8"></a>
+</div>
+<p>add render rules</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  md.renderer.rules.graph = renderer
+
+<span class="hljs-built_in">module</span>.exports.toText = <span class="hljs-function"><span class="hljs-params">(text)</span> -&gt;</span>
+  text.replace <span class="hljs-regexp">/\$\$\$\s+qr\s*\n([\s\S]*?)\$\$\$/g</span>, <span class="hljs-function">-&gt;</span>
+    part = arguments[<span class="hljs-number">1</span>]
+    <span class="hljs-keyword">if</span> part.match <span class="hljs-regexp">/(^|\n)\s*content:/</span>
+      data = dataParser part
+      <span class="hljs-string">"==QR Code: <span class="hljs-subst">#{data.content}</span>=="</span>
+    <span class="hljs-keyword">else</span>
+      <span class="hljs-string">"==QR Code: <span class="hljs-subst">#{part.trim()}</span>=="</span>
+  text.replace <span class="hljs-regexp">/\$\$\$\s+chart\s*\n([\s\S]*?)\$\$\$/g</span>, <span class="hljs-function">-&gt;</span>
+    part = arguments[<span class="hljs-number">1</span>]
+    parts = part.trim().split <span class="hljs-regexp">/(^|\n\s*\n\s*)\|/</span>
+    <span class="hljs-string">"|<span class="hljs-subst">#{parts[<span class="hljs-number">2</span>]}</span>"</span>
+  .replace <span class="hljs-regexp">/\$\$\$([\s\S]*?)\$\$\$/g</span>, <span class="hljs-string">"```$1```"</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="parser">
+  <h2>
+    <a href="#parser" name="parser" class="pilcrow"></a>
+Parser
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-function">
+<span class="hljs-title">parser</span> = <span class="hljs-params">(state, startLine, endLine, silent)</span> -&gt;</span>
+  haveEndMarker = <span class="hljs-literal">false</span>
+  pos = state.bMarks[startLine] + state.tShift[startLine]
+  max = state.eMarks[startLine]
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span> <span class="hljs-keyword">if</span> pos + <span class="hljs-number">3</span> &gt; max
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span> <span class="hljs-keyword">unless</span> MARKER <span class="hljs-keyword">is</span> state.src.charCodeAt pos</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-10" id="section-10"></a>
+</div>
+<p>scan marker length</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  mem = pos
+  pos = state.skipChars pos, MARKER
+  len = pos - mem
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span> <span class="hljs-keyword">if</span> len &lt; <span class="hljs-number">3</span>
+  markup = state.src.slice mem, pos
+  params = state.src.slice(pos, max).trim()</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11"></a>
+</div>
+<p>Since start is found, we can report success here in validation mode</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span> <span class="hljs-keyword">if</span> silent</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12"></a>
+</div>
+<p>search end of block</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  nextLine = startLine
+  <span class="hljs-keyword">loop</span>
+    nextLine++</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-13" id="section-13"></a>
+</div>
+<p>unclosed block should be autoclosed by end of document.
+also block seems to be autoclosed by end of parent</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-keyword">break</span> <span class="hljs-keyword">if</span> nextLine &gt;= endLine
+    pos = mem = state.bMarks[nextLine] + state.tShift[nextLine]
+    max = state.eMarks[nextLine]</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-14" id="section-14"></a>
+</div>
+<p>non-empty line with negative indent should stop the list:</p>
+<ul>
+<li>$$$
+test</li>
+</ul>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-keyword">break</span> <span class="hljs-keyword">if</span> pos &lt; max <span class="hljs-keyword">and</span> state.sCount[nextLine] &lt; state.blkIndent
+    <span class="hljs-keyword">continue</span> <span class="hljs-keyword">unless</span> state.src.charCodeAt(pos) <span class="hljs-keyword">is</span> MARKER</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-15" id="section-15"></a>
+</div>
+<p>closing fence should be indented less than 4 spaces</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-keyword">continue</span> <span class="hljs-keyword">if</span> state.sCount[nextLine] - state.blkIndent &gt;= <span class="hljs-number">4</span>
+    pos = state.skipChars(pos, MARKER)</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-16" id="section-16"></a>
+</div>
+<p>closing code fence must be at least as long as the opening one</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-keyword">continue</span> <span class="hljs-keyword">if</span> pos - mem &lt; len</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-17" id="section-17"></a>
+</div>
+<p>make sure tail has spaces only</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    pos = state.skipSpaces pos
+    <span class="hljs-keyword">continue</span> <span class="hljs-keyword">if</span> pos &lt; max
+    haveEndMarker = <span class="hljs-literal">true</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-18" id="section-18"></a>
+</div>
+<p>found!</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-keyword">break</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-19" id="section-19"></a>
+</div>
+<p>If a fence has heading spaces, they should be removed from its inner block</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  len = state.sCount[startLine]
+  state.line = nextLine + <span class="hljs-keyword">if</span> haveEndMarker <span class="hljs-keyword">then</span> <span class="hljs-number">1</span> <span class="hljs-keyword">else</span> <span class="hljs-number">0</span>
+  token         = state.push <span class="hljs-string">'graph'</span>, <span class="hljs-string">'code'</span>, <span class="hljs-number">0</span>
+  token.info    = params
+  token.content = state.getLines startLine + <span class="hljs-number">1</span>, nextLine, len, <span class="hljs-literal">true</span>
+  token.markup  = markup
+  token.map     = [ startLine, state.line ]
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="renderer">
+  <h2>
+    <a href="#renderer" name="renderer" class="pilcrow"></a>
+Renderer
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-function">
+<span class="hljs-title">renderer</span> = <span class="hljs-params">(tokens, idx, options, env, self)</span> -&gt;</span>
+  token = tokens[idx]
+  <span class="hljs-keyword">if</span> token.info
+    [type, opt] = token.info.split <span class="hljs-regexp">/\s+/g</span>
+  <span class="hljs-keyword">switch</span> type</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-21" id="section-21"></a>
+</div>
+<p>create qr codes</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-keyword">when</span> <span class="hljs-string">'qr'</span>
+      QRCode ?= <span class="hljs-built_in">require</span> <span class="hljs-string">'qrcode-svg'</span>
+      data =
+        padding: <span class="hljs-number">4</span>
+        width: <span class="hljs-number">256</span>
+        height: <span class="hljs-number">256</span>
+        color: <span class="hljs-string">'#000000'</span>
+        background: <span class="hljs-string">'#ffffff'</span>
+        ecl: <span class="hljs-string">'M'</span>
+      <span class="hljs-keyword">if</span> token.content.match <span class="hljs-regexp">/(^|\n)\s*content:/</span>
+        util.extend data, dataParser token.content
+        data.content = token.content.trim()
+      <span class="hljs-keyword">else</span>
+      <span class="hljs-keyword">new</span> QRCode(data).svg()</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-22" id="section-22"></a>
+</div>
+<p>create qr codes</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-keyword">when</span> <span class="hljs-string">'chart'</span>
+      [setup, _, table] = token.content.trim().split <span class="hljs-regexp">/(^|\n\s*\n\s*)\|/</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-23" id="section-23"></a>
+</div>
+<p>parse table data</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">      td = []
+      <span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> util.string.toList <span class="hljs-string">"|<span class="hljs-subst">#{table}</span>"</span>
+        <span class="hljs-keyword">continue</span> <span class="hljs-keyword">if</span> line.match <span class="hljs-regexp">/^(\s|[|:-])+$/</span>
+        row = line.split <span class="hljs-regexp">/\s*\|\s*/</span>
+        td.push row[<span class="hljs-number">1.</span>.row.length - <span class="hljs-number">2</span>]</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-24" id="section-24"></a>
+</div>
+<p>min max and step</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">      min = <span class="hljs-literal">null</span>
+      max = <span class="hljs-literal">null</span>
+      <span class="hljs-keyword">for</span> row <span class="hljs-keyword">in</span> td[<span class="hljs-number">1.</span>.]
+        <span class="hljs-keyword">for</span> cell <span class="hljs-keyword">in</span> row[<span class="hljs-number">1.</span>.]
+          <span class="hljs-keyword">continue</span> <span class="hljs-keyword">unless</span> util.number.isNumber cell
+          v = parseFloat cell
+          min ?= v
+          min = v <span class="hljs-keyword">if</span> v &lt; min
+          max ?= v
+          max = v <span class="hljs-keyword">if</span> v &gt; max</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-25" id="section-25"></a>
+</div>
+<p>chart definition</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">      data =
+        width: <span class="hljs-number">600</span>
+        height: <span class="hljs-number">400</span>
+        axis:
+          x:
+            type: <span class="hljs-string">"block"</span>
+            domain: td[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>]
+            line: <span class="hljs-literal">true</span>
+          y:
+            type: <span class="hljs-string">"range"</span>
+            domain: [min, max]
+            line: <span class="hljs-literal">true</span>
+          data: Table.toRecordList td
+        brush:
+          type: <span class="hljs-string">"column"</span>
+          target: td[<span class="hljs-number">0</span>][<span class="hljs-number">1.</span>.]
+      util.extend <span class="hljs-string">'MODE ARRAY_REPLACE'</span>, data, dataParser setup <span class="hljs-keyword">if</span> setup</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-26" id="section-26"></a>
+</div>
+<p>data.axis.data = table.data</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">      jui = <span class="hljs-built_in">require</span> <span class="hljs-string">'jui'</span>
+      jui.create(<span class="hljs-string">'chart.builder'</span>, <span class="hljs-literal">null</span>, data).svg.toXML()</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-27" id="section-27"></a>
+</div>
+<p>mermaid graph
+TODO won't work without xmkdom</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-keyword">when</span> <span class="hljs-string">'graph'</span>
+      mermaid ?= <span class="hljs-built_in">require</span> <span class="hljs-string">'mermaid'</span>
+      renderer = deasync (code, cb) -&gt;
+        mermaid.mermaidAPI.render <span class="hljs-string">'mermaid'</span>, code, <span class="hljs-function"><span class="hljs-params">(svg)</span> -&gt;</span>
+          cb <span class="hljs-literal">null</span>, svg
+      renderer <span class="hljs-string">"<span class="hljs-subst">#{type}</span> <span class="hljs-subst">#{opt.join <span class="hljs-string">' '</span>}</span>\n<span class="hljs-subst">#{token.content}</span>"</span>
+    <span class="hljs-keyword">else</span>
+      escapeHtml token.content</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="helper">
+  <h2>
+    <a href="#helper" name="helper" class="pilcrow"></a>
+Helper
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">escapeHtmlChars =
+  <span class="hljs-string">'&amp;'</span>: <span class="hljs-string">'&amp;amp;'</span>
+  <span class="hljs-string">'&lt;'</span>: <span class="hljs-string">'&amp;lt;'</span>
+  <span class="hljs-string">'&gt;'</span>: <span class="hljs-string">'&amp;gt;'</span>
+  <span class="hljs-string">'"'</span>: <span class="hljs-string">'&amp;quot;'</span>
+<span class="hljs-function">
+<span class="hljs-title">escapeHtml</span> = <span class="hljs-params">(str)</span> -&gt;</span>
+  str.replace <span class="hljs-regexp">/[&amp;&lt;&gt;"]/g</span>, <span class="hljs-function"><span class="hljs-params">(e)</span> -&gt;</span> escapeHtmlChars[e]</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

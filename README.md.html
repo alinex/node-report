@@ -100,6 +100,18 @@
         <a href="#specify-element-properties">Specify element properties</a>
       </div>
 
+      <div class="heading h3">
+        <a href="#visualization">Visualization</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#qr-code">QR Code</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#charts">Charts</a>
+      </div>
+
       <div class="heading h2">
         <a href="#output">Output</a>
       </div>
@@ -198,6 +210,18 @@
 
       <div class="heading h3">
         <a href="#specific-style">Specific Style</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#visualizations">Visualizations</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#qr-code-1">QR Code</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#charts-1">Charts</a>
       </div>
 
       <div class="heading h2">
@@ -370,6 +394,8 @@ report.p <span class="hljs-string">'A long text may be automatically broken into
 is text):</p>
 <pre><code class="coffee">report.code <span class="hljs-string">'va x = Math.round(f);'</span>, <span class="hljs-string">'js'</span>
 </code></pre>
+<p>See <a href="https://highlightjs.org/static/demo/">highlight.js</a> for possible languages
+to use.</p>
 <div class="pilwrap" id="special-signs">
   <h3>
     <a href="#special-signs" name="special-signs" class="pilcrow"></a>
@@ -757,6 +783,97 @@ report.p <span class="hljs-string">"Make this <span class="hljs-subst">#{Report.
 </tr>
 </tbody>
 </table>
+<div class="pilwrap" id="visualization">
+  <h3>
+    <a href="#visualization" name="visualization" class="pilcrow"></a>
+Visualization
+  </h3>
+</div>
+<p>This will only work in HTML format, else the definition is displayed.</p>
+<div class="pilwrap" id="qr-code">
+  <h4>
+    <a href="#qr-code" name="qr-code" class="pilcrow"></a>
+QR Code
+  </h4>
+</div>
+<p><strong><a href="src/doc/visual-qr-simple.html.html">QR Simple</a></strong></p>
+<pre><code class="coffee">report = <span class="hljs-keyword">new</span> Report()
+report.qr <span class="hljs-string">"http://alinex.de"</span>
+</code></pre>
+<p>Or if you want to specify the parameters:</p>
+<p><strong><a href="src/doc/visual-qr-extended.html.html">QR Extended</a></strong></p>
+<pre><code class="coffee">report = <span class="hljs-keyword">new</span> Report()
+report.qr
+  content: <span class="hljs-string">'http://alinex.github.io'</span>
+  padding: <span class="hljs-number">1</span>
+  width: <span class="hljs-number">600</span>
+  height: <span class="hljs-number">600</span>
+  color: <span class="hljs-string">'#ff0000'</span>
+  background: <span class="hljs-string">'#ffffff'</span>
+  ecl: <span class="hljs-string">'M'</span>
+</code></pre>
+<div class="pilwrap" id="charts">
+  <h4>
+    <a href="#charts" name="charts" class="pilcrow"></a>
+Charts
+  </h4>
+</div>
+<p>A lot of charts are possible based on <a href="http://chartplay.jui.io/">jui-chart</a>.
+You'll find all possible settings there.</p>
+<p><strong><a href="src/doc/visual-chart-simple.html.html">Simple Chart</a></strong></p>
+<pre><code class="coffee">report = <span class="hljs-keyword">new</span> Report()
+report.chart <span class="hljs-literal">null</span>, [
+  [<span class="hljs-string">'quarter'</span>, <span class="hljs-string">'sales'</span>, <span class="hljs-string">'profit'</span>]
+  [<span class="hljs-string">"1Q"</span>, <span class="hljs-number">50</span>, <span class="hljs-number">35</span>]
+  [<span class="hljs-string">"2Q"</span>, <span class="hljs-number">-20</span>, <span class="hljs-number">-100</span>]
+  [<span class="hljs-string">"3Q"</span>, <span class="hljs-number">10</span>, <span class="hljs-number">-5</span>]
+  [<span class="hljs-string">"4Q"</span>, <span class="hljs-number">30</span>, <span class="hljs-number">25</span>]
+]
+</code></pre>
+<p>This makes a simple bar chart with predefined settings for your data. But you may
+also specify a lot of options and charts like:</p>
+<p><strong><a href="src/doc/visual-chart-column.html.html">Column Chart</a></strong></p>
+<pre><code class="coffee">report = <span class="hljs-keyword">new</span> Report()
+report.chart
+  width: <span class="hljs-number">800</span>
+  height: <span class="hljs-number">400</span>
+  theme: <span class="hljs-string">'dark'</span>
+  axis:
+    padding:
+      left: <span class="hljs-number">5</span>
+      top: <span class="hljs-number">10</span>
+    area:
+      width: <span class="hljs-string">'80%'</span>
+      x: <span class="hljs-string">'10%'</span>
+    x:
+      type: <span class="hljs-string">'block'</span>
+      domain: <span class="hljs-string">"quarter"</span>
+      line: <span class="hljs-literal">true</span>
+    y:
+      type: range
+      domain: [<span class="hljs-number">-120</span>, <span class="hljs-number">120</span>]
+      step: <span class="hljs-number">10</span>
+      line: <span class="hljs-literal">true</span>
+      orient: <span class="hljs-string">'right'</span>
+  brush:
+    - type: <span class="hljs-string">"column"</span>
+      target: [<span class="hljs-string">"sales"</span>, <span class="hljs-string">"profit"</span>]
+    - type: <span class="hljs-string">"focus"</span>
+      start: <span class="hljs-number">1</span>
+      end: <span class="hljs-number">1</span>
+  widget:
+    - type: <span class="hljs-string">"title"</span>
+      text: <span class="hljs-string">"Column Chart"</span>
+    - type: <span class="hljs-string">"tooltip"</span>
+    - type: <span class="hljs-string">"legend"</span>
+, [
+  [<span class="hljs-string">'quarter'</span>, <span class="hljs-string">'sales'</span>, <span class="hljs-string">'profit'</span>]
+  [<span class="hljs-string">"1Q"</span>, <span class="hljs-number">50</span>, <span class="hljs-number">35</span>]
+  [<span class="hljs-string">"2Q"</span>, <span class="hljs-number">-20</span>, <span class="hljs-number">-100</span>]
+  [<span class="hljs-string">"3Q"</span>, <span class="hljs-number">10</span>, <span class="hljs-number">-5</span>]
+  [<span class="hljs-string">"4Q"</span>, <span class="hljs-number">30</span>, <span class="hljs-number">25</span>]
+]
+</code></pre>
 <div class="pilwrap" id="output">
   <h2>
     <a href="#output" name="output" class="pilcrow"></a>
@@ -1056,6 +1173,8 @@ var foo = function (bar) {
 console.log(foo(5));
 ```
 </code></pre>
+<p>See <a href="https://highlightjs.org/static/demo/">highlight.js</a> for possible languages
+to use.</p>
 <div class="pilwrap" id="tables">
   <h3>
     <a href="#tables" name="tables" class="pilcrow"></a>
@@ -1194,6 +1313,99 @@ the element atrated in front of the style definition.</p>
 </code></pre>
 <p>The second example specifies the previouse &lt;p&gt; tag and sets the style class
 '.center' for it.</p>
+<div class="pilwrap" id="visualizations">
+  <h3>
+    <a href="#visualizations" name="visualizations" class="pilcrow"></a>
+Visualizations
+  </h3>
+</div>
+<p>This will only work in HTML format, else the definition is displayed.</p>
+<div class="pilwrap" id="qr-code-1">
+  <h4>
+    <a href="#qr-code-1" name="qr-code-1" class="pilcrow"></a>
+QR Code
+  </h4>
+</div>
+<p>This will display a qr code image. It will be in a default size of 256 x 256 pixel.</p>
+<pre><code>$$$ qr
+http://alinex.de
+$$$
+</code></pre>
+<p>To make it more specific you may use the extended form:</p>
+<pre><code>$$$ qr
+content: http://alinex.github.io
+padding: 1
+width: 600
+height: 600
+color: #ff0000
+background: #ffffff
+ecl: M
+$$$
+</code></pre>
+<div class="pilwrap" id="charts-1">
+  <h4>
+    <a href="#charts-1" name="charts-1" class="pilcrow"></a>
+Charts
+  </h4>
+</div>
+<p>A lot of charts are possible. To make them you have to include a markdown tag with
+two parts:</p>
+<ul>
+<li>
+<p>the display setup data</p>
+</li>
+<li>
+<p>the table to visualize</p>
+<p>$$$ chart
+width: 600
+height: 400
+axis:
+x:
+type: &quot;block&quot;
+domain: &quot;quarter&quot;
+line: true
+y:
+type: &quot;range&quot;
+line: true,
+brush:
+type: &quot;column&quot;
+target: [&quot;sales&quot;, &quot;profit&quot;]</p>
+<table>
+<thead>
+<tr>
+<th>quarter</th>
+<th>sales</th>
+<th>profit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>1Q</td>
+<td>50</td>
+</tr>
+<tr>
+<td></td>
+<td>2Q</td>
+<td>-20</td>
+</tr>
+<tr>
+<td></td>
+<td>3Q</td>
+<td>10</td>
+</tr>
+<tr>
+<td></td>
+<td>4Q</td>
+<td>30</td>
+</tr>
+</tbody>
+</table>
+<p>$$$</p>
+</li>
+</ul>
+<p>This is based on <a href="http://chartplay.jui.io/">jui-chart</a> so look there for the possible
+setup. Or see the other examples above in the Report Builder description.</p>
 <div class="pilwrap" id="license">
   <h2>
     <a href="#license" name="license" class="pilcrow"></a>

@@ -88,6 +88,10 @@
         <a href="#specials">specials</a>
       </div>
 
+      <div class="heading h3">
+        <a href="#visualizations">Visualizations</a>
+      </div>
+
       <div class="heading h2">
         <a href="#create-instance">Create instance</a>
       </div>
@@ -192,7 +196,8 @@ Node Modules
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">chalk = <span class="hljs-built_in">require</span> <span class="hljs-string">'chalk'</span></pre>
+          <pre class="coffeescript">chalk = <span class="hljs-built_in">require</span> <span class="hljs-string">'chalk'</span>
+deasync = <span class="hljs-built_in">require</span> <span class="hljs-string">'deasync'</span></pre>
         </td>
       </tr>
     
@@ -206,7 +211,22 @@ Node Modules
         </td>
         <td class="code highlight">
           <pre class="coffeescript">util = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-util'</span>
-Table = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-table'</span></pre>
+Table = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-table'</span>
+format = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-format'</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<p>load local plugins</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">pluginVisual = <span class="hljs-built_in">require</span> <span class="hljs-string">'./plugin/visual'</span>
+dataStringify = deasync format.stringify</pre>
         </td>
       </tr>
     
@@ -248,7 +268,7 @@ Convert object to markdown table
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-6" id="section-6"></a>
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
 </div>
 <p>table instance</p>
 
@@ -270,7 +290,7 @@ Convert object to markdown table
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-7" id="section-7"></a>
+  <a class="pilcrow" href="#section-8" id="section-8"></a>
 </div>
 <p>transform object</p>
 
@@ -297,7 +317,7 @@ Convert object to markdown table
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-8" id="section-8"></a>
+  <a class="pilcrow" href="#section-9" id="section-9"></a>
 </div>
 <p>transform column definition</p>
 
@@ -331,7 +351,7 @@ Convert object to markdown table
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-9" id="section-9"></a>
+  <a class="pilcrow" href="#section-10" id="section-10"></a>
 </div>
 <p>transform col array to object</p>
 
@@ -348,7 +368,7 @@ Convert object to markdown table
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-10" id="section-10"></a>
+  <a class="pilcrow" href="#section-11" id="section-11"></a>
 </div>
 <p>transform sort order</p>
 
@@ -368,7 +388,7 @@ Convert object to markdown table
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-11" id="section-11"></a>
+  <a class="pilcrow" href="#section-12" id="section-12"></a>
 </div>
 <p>transform values</p>
 
@@ -387,7 +407,7 @@ Convert object to markdown table
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-12" id="section-12"></a>
+  <a class="pilcrow" href="#section-13" id="section-13"></a>
 </div>
 <p>mask values if needed</p>
 
@@ -407,7 +427,7 @@ Convert object to markdown table
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-13" id="section-13"></a>
+  <a class="pilcrow" href="#section-14" id="section-14"></a>
 </div>
 <p>calculate column width</p>
 
@@ -425,7 +445,7 @@ Convert object to markdown table
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-14" id="section-14"></a>
+  <a class="pilcrow" href="#section-15" id="section-15"></a>
 </div>
 <p>sort rows</p>
 
@@ -445,7 +465,7 @@ Convert object to markdown table
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-15" id="section-15"></a>
+  <a class="pilcrow" href="#section-16" id="section-16"></a>
 </div>
 <p>write header</p>
 
@@ -466,7 +486,7 @@ Convert object to markdown table
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-16" id="section-16"></a>
+  <a class="pilcrow" href="#section-17" id="section-17"></a>
 </div>
 <p>write line</p>
 
@@ -489,7 +509,7 @@ Convert object to markdown table
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-17" id="section-17"></a>
+  <a class="pilcrow" href="#section-18" id="section-18"></a>
 </div>
 <p>write rows</p>
 
@@ -569,7 +589,7 @@ headings
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-21" id="section-21"></a>
+  <a class="pilcrow" href="#section-22" id="section-22"></a>
 </div>
 <p>{util.string.repeat '=', width ? @width}\n&quot;&quot;&quot;</p>
 
@@ -584,7 +604,7 @@ headings
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-22" id="section-22"></a>
+  <a class="pilcrow" href="#section-23" id="section-23"></a>
 </div>
 <p>{util.string.repeat '-', width ? @width}\n&quot;&quot;&quot;</p>
 
@@ -750,6 +770,41 @@ specials
     
       <tr>
         <td class="docs">
+          <div class="pilwrap" id="visualizations">
+  <h3>
+    <a href="#visualizations" name="visualizations" class="pilcrow"></a>
+Visualizations
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  @qr: <span class="hljs-function"><span class="hljs-params">(data)</span> -&gt;</span>
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> data <span class="hljs-keyword">is</span> <span class="hljs-string">'object'</span>
+      <span class="hljs-string">"\n$$$ qr\n<span class="hljs-subst">#{dataStringify data, <span class="hljs-string">'yaml'</span>}</span>$$$\n"</span>
+    <span class="hljs-keyword">else</span>
+      <span class="hljs-string">"\n$$$ qr\n<span class="hljs-subst">#{data}</span>\n$$$\n"</span>
+  @chart: <span class="hljs-function"><span class="hljs-params">(setup, data)</span> -&gt;</span>
+    <span class="hljs-string">"\n$$$ chart<span class="hljs-subst">#{<span class="hljs-keyword">if</span> setup <span class="hljs-keyword">then</span> <span class="hljs-string">'\n'</span> + dataStringify(setup, <span class="hljs-string">'yaml'</span>) + <span class="hljs-string">'\n'</span> <span class="hljs-keyword">else</span> <span class="hljs-string">''</span>}</span>\
+</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-30" id="section-30"></a>
+</div>
+<p>{Report.table data}$$$\n&quot;</p>
+
+        </td>
+        <td class="code highlight">
+          
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
           <div class="pilwrap" id="create-instance">
   <h2>
     <a href="#create-instance" name="create-instance" class="pilcrow"></a>
@@ -768,7 +823,7 @@ Create instance
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-29" id="section-29"></a>
+  <a class="pilcrow" href="#section-32" id="section-32"></a>
 </div>
 <p>content elements</p>
 
@@ -900,7 +955,10 @@ lists
     <span class="hljs-keyword">return</span> <span class="hljs-string">"[^<span class="hljs-subst">#{id}</span>]"</span>
 
   abbr: <span class="hljs-function"><span class="hljs-params">(abbr, text)</span> -&gt;</span> @raw Report.abbr abbr, text
-  toc: <span class="hljs-function">-&gt;</span> @raw Report.toc()</pre>
+  toc: <span class="hljs-function">-&gt;</span> @raw Report.toc()
+
+  qr: <span class="hljs-function"><span class="hljs-params">(data)</span> -&gt;</span> @raw Report.qr data
+  chart: <span class="hljs-function"><span class="hljs-params">(setup, data)</span> -&gt;</span> @raw Report.chart setup, data</pre>
         </td>
       </tr>
     
@@ -951,14 +1009,14 @@ as simplified text
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  toText: <span class="hljs-function">-&gt;</span>
-    text = @toString()</pre>
+    text = pluginVisual.toText @toString()</pre>
         </td>
       </tr>
     
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-39" id="section-39"></a>
+  <a class="pilcrow" href="#section-42" id="section-42"></a>
 </div>
 <p>remove some parts</p>
 
@@ -981,7 +1039,7 @@ as simplified text
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-40" id="section-40"></a>
+  <a class="pilcrow" href="#section-43" id="section-43"></a>
 </div>
 <p>demask markdown syntax and add spaces</p>
 
@@ -996,7 +1054,7 @@ as simplified text
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-41" id="section-41"></a>
+  <a class="pilcrow" href="#section-44" id="section-44"></a>
 </div>
 <p>demask in table</p>
 
@@ -1015,7 +1073,7 @@ as simplified text
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-42" id="section-42"></a>
+  <a class="pilcrow" href="#section-45" id="section-45"></a>
 </div>
 <p>normal demask</p>
 
@@ -1030,7 +1088,7 @@ as simplified text
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-43" id="section-43"></a>
+  <a class="pilcrow" href="#section-46" id="section-46"></a>
 </div>
 <p>replace images with descriptions</p>
 
@@ -1058,14 +1116,14 @@ as colorful console text
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  toConsole: <span class="hljs-function">-&gt;</span>
-    text = @toString()</pre>
+    text = pluginVisual.toText @toString()</pre>
         </td>
       </tr>
     
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-45" id="section-45"></a>
+  <a class="pilcrow" href="#section-48" id="section-48"></a>
 </div>
 <p>replace code</p>
 
@@ -1081,7 +1139,7 @@ as colorful console text
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-46" id="section-46"></a>
+  <a class="pilcrow" href="#section-49" id="section-49"></a>
 </div>
 <p>remove some parts</p>
 
@@ -1104,7 +1162,7 @@ as colorful console text
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-47" id="section-47"></a>
+  <a class="pilcrow" href="#section-50" id="section-50"></a>
 </div>
 <p>interpret markdown</p>
 
@@ -1117,7 +1175,7 @@ as colorful console text
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-48" id="section-48"></a>
+  <a class="pilcrow" href="#section-51" id="section-51"></a>
 </div>
 <p>replace headings</p>
 
@@ -1135,7 +1193,7 @@ as colorful console text
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-49" id="section-49"></a>
+  <a class="pilcrow" href="#section-52" id="section-52"></a>
 </div>
 <p>hr</p>
 
@@ -1149,7 +1207,7 @@ as colorful console text
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-50" id="section-50"></a>
+  <a class="pilcrow" href="#section-53" id="section-53"></a>
 </div>
 <p>typographic</p>
 
@@ -1177,7 +1235,7 @@ as colorful console text
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-51" id="section-51"></a>
+  <a class="pilcrow" href="#section-54" id="section-54"></a>
 </div>
 <p>marked text</p>
 
@@ -1196,7 +1254,7 @@ as colorful console text
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-52" id="section-52"></a>
+  <a class="pilcrow" href="#section-55" id="section-55"></a>
 </div>
 <p>replace table with ascii art table</p>
 
@@ -1211,7 +1269,7 @@ as colorful console text
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-53" id="section-53"></a>
+  <a class="pilcrow" href="#section-56" id="section-56"></a>
 </div>
 <p>header</p>
 
@@ -1231,7 +1289,7 @@ as colorful console text
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-54" id="section-54"></a>
+  <a class="pilcrow" href="#section-57" id="section-57"></a>
 </div>
 <p>lines</p>
 
@@ -1247,7 +1305,7 @@ as colorful console text
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-55" id="section-55"></a>
+  <a class="pilcrow" href="#section-58" id="section-58"></a>
 </div>
 <p>footer</p>
 
@@ -1263,7 +1321,7 @@ as colorful console text
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-56" id="section-56"></a>
+  <a class="pilcrow" href="#section-59" id="section-59"></a>
 </div>
 <p>demask markdown syntax and add spaces</p>
 
@@ -1278,7 +1336,7 @@ as colorful console text
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-57" id="section-57"></a>
+  <a class="pilcrow" href="#section-60" id="section-60"></a>
 </div>
 <p>demask in table</p>
 
@@ -1297,7 +1355,7 @@ as colorful console text
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-58" id="section-58"></a>
+  <a class="pilcrow" href="#section-61" id="section-61"></a>
 </div>
 <p>normal demask</p>
 
@@ -1312,7 +1370,7 @@ as colorful console text
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-59" id="section-59"></a>
+  <a class="pilcrow" href="#section-62" id="section-62"></a>
 </div>
 <p>replace images with descriptions</p>
 
@@ -1331,7 +1389,7 @@ as colorful console text
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-60" id="section-60"></a>
+  <a class="pilcrow" href="#section-63" id="section-63"></a>
 </div>
 <p>boxes</p>
 
@@ -1344,7 +1402,7 @@ as colorful console text
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-61" id="section-61"></a>
+  <a class="pilcrow" href="#section-64" id="section-64"></a>
 </div>
 <p>get max length</p>
 
@@ -1370,7 +1428,7 @@ as colorful console text
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-62" id="section-62"></a>
+  <a class="pilcrow" href="#section-65" id="section-65"></a>
 </div>
 <p>{chalk[color] '║'}&quot;</p>
 
@@ -1384,7 +1442,7 @@ as colorful console text
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-63" id="section-63"></a>
+  <a class="pilcrow" href="#section-66" id="section-66"></a>
 </div>
 <p>{text.join '\n'}
 {chalk[color] '╚' + util.string.repeat('═', maxlen) + '╝'}&quot;&quot;&quot;
@@ -1440,7 +1498,9 @@ as pdf
       left: <span class="hljs-string">"2cm"</span>
     options.type ?= <span class="hljs-string">"pdf"</span>           <span class="hljs-comment"># allowed file types: png, jpeg, pdf</span>
     pdf = <span class="hljs-built_in">require</span> <span class="hljs-string">'html-pdf'</span>
-    pdf.create(@toHtml(), options).toBuffer cb</pre>
+    @toHtml (err, html) -&gt;
+      <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+      pdf.create(html, options).toBuffer cb</pre>
         </td>
       </tr>
     
@@ -1462,8 +1522,10 @@ as image (png/jpeg)
     options ?= {}
     options.type ?= <span class="hljs-string">"png"</span>           <span class="hljs-comment"># allowed file types: png, jpeg, pdf</span>
     options.quality ?= <span class="hljs-number">75</span>           <span class="hljs-comment"># only used for types png &amp; jpeg</span>
-    pdf = <span class="hljs-built_in">require</span> <span class="hljs-string">'html-pdf'</span>
-    pdf.create(@toHtml(), options).toBuffer cb</pre>
+    @toHtml (err, html) -&gt;
+      <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+      pdf = <span class="hljs-built_in">require</span> <span class="hljs-string">'html-pdf'</span>
+      pdf.create(html, options).toBuffer cb</pre>
         </td>
       </tr>
     
