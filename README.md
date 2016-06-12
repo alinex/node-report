@@ -580,12 +580,16 @@ This will only work in HTML format, else the definition is displayed.
 
 #### QR Code
 
+__[QR Simple](src/doc/visual-qr-simple.html)__
+
 ``` coffee
 report = new Report()
 report.qr "http://alinex.de"
 ```
 
 Or if you want to specify the parameters:
+
+__[QR Extended](src/doc/visual-qr-extended.html)__
 
 ``` coffee
 report = new Report()
@@ -604,30 +608,64 @@ report.qr
 A lot of charts are possible based on [jui-chart](http://chartplay.jui.io/).
 You'll find all possible settings there.
 
+__[Simple Chart](src/doc/visual-chart-simple.html)__
+
+``` coffee
+report = new Report()
+report.chart null, [
+  ['quarter', 'sales', 'profit']
+  ["1Q", 50, 35]
+  ["2Q", -20, -100]
+  ["3Q", 10, -5]
+  ["4Q", 30, 25]
+]
+```
+
+This makes a simple bar chart with predefined settings for your data. But you may
+also specify a lot of options and charts like:
+
+__[Column Chart](src/doc/visual-chart-column.html)__
+
 ``` coffee
 report = new Report()
 report.chart
   width: 800
   height: 400
+  theme: 'dark'
   axis:
+    padding:
+      left: 5
+      top: 10
+    area:
+      width: '80%'
+      x: '10%'
     x:
-      type: "block"
+      type: 'block'
       domain: "quarter"
       line: true
     y:
-      type: "range"
-      domain: (d) -> Math.max d.sales, d.profit
-      step: 20,
-      line: true,
-      orient: "right"
+      type: range
+      domain: [-120, 120]
+      step: 10
+      line: true
+      orient: 'right'
   brush:
-    type: "column"
-    target: ["sales", "profit"]
+    - type: "column"
+      target: ["sales", "profit"]
+    - type: "focus"
+      start: 1
+      end: 1
+  widget:
+    - type: "title"
+      text: "Column Chart"
+    - type: "tooltip"
+    - type: "legend"
 , [
-  {quarter: "1Q", sales: 50, profit: 35}
-  {quarter: "2Q", sales: -20, profit: -100}
-  {quarter: "3Q", sales: 10, profit: -5}
-  {quarter: "4Q", sales: 30, profit: 25}
+  ['quarter', 'sales', 'profit']
+  ["1Q", 50, 35]
+  ["2Q", -20, -100]
+  ["3Q", 10, -5]
+  ["4Q", 30, 25]
 ]
 ```
 
@@ -1064,7 +1102,7 @@ two parts:
 - the table to visualize
 
     $$$ chart
-    width: 800
+    width: 600
     height: 400
     axis:
       x:
@@ -1073,10 +1111,7 @@ two parts:
         line: true
       y:
         type: "range"
-        domain: (d) -> Math.max d.sales, d.profit
-        step: 20,
         line: true,
-        orient: "right"
     brush:
       type: "column"
       target: ["sales", "profit"]
@@ -1090,7 +1125,7 @@ two parts:
     $$$
 
 This is based on [jui-chart](http://chartplay.jui.io/) so look there for the possible
-setup.
+setup. Or see the other examples above in the Report Builder description.
 
 
 License

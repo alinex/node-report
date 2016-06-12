@@ -288,7 +288,8 @@ class Report
     else
       "\n$$$ qr\n#{data}\n$$$\n"
   @chart: (setup, data) ->
-    "\n$$$ chart\n#{dataStringify setup, 'yaml'}\n#{Report.table data}$$$\n"
+    "\n$$$ chart#{if setup then '\n' + dataStringify(setup, 'yaml') + '\n' else ''}\
+    #{Report.table data}$$$\n"
 
 
   # Create instance

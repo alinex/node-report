@@ -134,33 +134,43 @@ renderer = (tokens, idx, options, env, self) ->
     # create qr codes
     when 'chart'
       [setup, _, table] = token.content.trim().split /(^|\n\s*\n\s*)\|/
-      jui = require 'jui'
-      data = util.extend
-        width: 800
-        height: 800
-        axis:
-          x:
-            type: "block"
-            domain: "quarter"
-            line: true
-          y:
-            type: "range"
-            domain: (d) -> Math.max d.sales, d.profit
-            step: 20,
-            line: true,
-            orient: "right"
-        brush:
-          type: "column"
-          target: ["sales", "profit"]
-      , dataParser setup
       # parse table data
       td = []
       for line in util.string.toList "|#{table}"
         continue if line.match /^(\s|[|:-])+$/
         row = line.split /\s*\|\s*/
         td.push row[1..row.length - 2]
-      data.axis.data = Table.toRecordList td
+      # min max and step
+      min = null
+      max = null
+      for row in td[1..]
+        for cell in row[1..]
+          continue unless util.number.isNumber cell
+          v = parseFloat cell
+          min ?= v
+          min = v if v < min
+          max ?= v
+          max = v if v > max
+      # chart definition
+      data =
+        width: 600
+        height: 400
+        axis:
+          x:
+            type: "block"
+            domain: td[0][0]
+            line: true
+          y:
+            type: "range"
+            domain: [min, max]
+            line: true
+          data: Table.toRecordList td
+        brush:
+          type: "column"
+          target: td[0][1..]
+      util.extend 'MODE ARRAY_REPLACE', data, dataParser setup if setup
       # data.axis.data = table.data
+      jui = require 'jui'
       jui.create('chart.builder', null, data).svg.toXML()
 
 
