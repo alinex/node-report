@@ -580,7 +580,7 @@ This will only work in HTML format, else the definition is displayed.
 
 #### QR Code
 
-__[QR Simple](src/doc/visual-qr-simple.html)__
+__[QR Simple](http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/doc/visual-qr-simple.html)__
 
 ``` coffee
 report = new Report()
@@ -589,7 +589,7 @@ report.qr "http://alinex.de"
 
 Or if you want to specify the parameters:
 
-__[QR Extended](src/doc/visual-qr-extended.html)__
+__[QR Extended](http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/doc/visual-qr-extended.html)__
 
 ``` coffee
 report = new Report()
@@ -608,7 +608,7 @@ report.qr
 A lot of charts are possible based on [jui-chart](http://chartplay.jui.io/).
 You'll find all possible settings there.
 
-__[Simple Chart](src/doc/visual-chart-simple.html)__
+__[Simple Chart](http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/doc/visual-chart-simple.html)__
 
 ``` coffee
 report = new Report()
@@ -624,7 +624,7 @@ report.chart null, [
 This makes a simple bar chart with predefined settings for your data. But you may
 also specify a lot of options and charts like:
 
-__[Column Chart](src/doc/visual-chart-column.html)__
+__[Column Chart](http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/doc/visual-chart-column.html)__
 
 ``` coffee
 report = new Report()
