@@ -45,7 +45,7 @@ module.exports.toText = (text) ->
       "==QR Code: #{data.content}=="
     else
       "==QR Code: #{part.trim()}=="
-  text.replace /\$\$\$\s+chart\s*\n([\s\S]*?)\$\$\$/g, ->
+  .replace /\$\$\$\s+chart\s*\n([\s\S]*?)\$\$\$/g, ->
     part = arguments[1]
     parts = part.trim().split /(^|\n\s*\n\s*)\|/
     "|#{parts[2]}"
@@ -127,8 +127,8 @@ renderer = (tokens, idx, options, env, self) ->
         ecl: 'M'
       if token.content.match /(^|\n)\s*content:/
         util.extend data, dataParser token.content
-        data.content = token.content.trim()
       else
+        data.content = token.content.trim()
       new QRCode(data).svg()
 
     # create qr codes

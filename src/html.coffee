@@ -26,7 +26,7 @@ mdDecorate = require 'markdown-it-decorate' # add css classes
 mdToc = require 'markdown-it-toc-and-anchor'
 twemoji = require 'twemoji'
 # load own plugins
-pluginGraph = require './plugin/graph'
+pluginGraph = require './plugin/visual'
 
 
 # Configuration

@@ -622,7 +622,8 @@ report.chart null, [
 ```
 
 This makes a simple bar chart with predefined settings for your data. But you may
-also specify a lot of options and charts like:
+also specify a lot of options and charts. The examples below shows the possible
+settings, but you only need to give some of them.
 
 __[Column Chart](http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/doc/visual-chart-column.html)__
 
