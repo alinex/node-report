@@ -16,9 +16,9 @@ The key features are:
 
 - easy markdown writing
 - feature rich markdown
-- export as text or html (also optimized for email)
-- export as pdf, png or jpg
-- console formatting support
+- export as text, console, html (also optimized for email), pdf, png or jpg
+- replace table data with chart in html
+- specific settings for html
 
 See example output in [text](https://raw.githubusercontent.com/alinex/node-report/master/src/doc/test.txt)
 , [markdown](https://raw.githubusercontent.com/alinex/node-report/master/src/doc/test.md), [HTML](http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/doc/test.html),

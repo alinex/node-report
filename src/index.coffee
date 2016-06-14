@@ -297,12 +297,16 @@ class Report
   constructor: (setup) ->
     @width = setup?.width ? 80
     @log = setup?.log
-    # content elements
-    @body = ''
-    @body += setup.source if setup?.source
+    # content of markdown
+    @body = setup?.source ? ''
+    # different collections integrating on conversion
     @parts =
       abbr: []
       footnote: []
+      header: []
+      js: []
+      css: []
+    # current states
     @state =
       footnote: 0
 
@@ -315,6 +319,12 @@ class Report
     @body += text
     this
 
+  html: (type, content) ->
+    switch type
+      when 'tag' then @parts.header.push content
+      when 'js' then @parts.js.push content
+      when 'css' then @parts.css.push content
+      else throw new Error "Undefined type '#{type}' in call of report.html"
   # ### add contents of other report instance
   add: (report) ->
     @log report.body if @log

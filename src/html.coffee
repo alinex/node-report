@@ -5,9 +5,10 @@
 # Node Modules
 # -------------------------------------------------
 path = require 'path'
-fs = require 'alinex-fs'
 mime = require 'mime'
 inlineCss = require 'inline-css'
+fs = require 'alinex-fs'
+util = require 'alinex-util'
 # markdown
 markdownit = require 'markdown-it'
 hljs = require 'highlight.js'
@@ -87,17 +88,33 @@ module.exports = (report, setup, cb) ->
   data = {}
   content = optimizeHtml md.render(content, data), setup?.locale
   title = setup?.title ? data.title ? 'Report'
-  style = setup?.style ? 'default'
-  # get css
-  css = switch
-    when style in Object.keys HTML_STYLES
-      css = fs.readFileSync HTML_STYLES[style], 'utf8'
-      "<style>#{css}</style>"
-    when style.match /^https?:\/\//
-      "<link rel=\"stylesheet\" href=\"#{style}\" />"
-    else
-      css = fs.readFileSync style, 'utf8'
-      "<style>#{css}</style>"
+  tags = util.clone report.parts.header
+  js = report.parts.js.join '\n'
+  # add used libraries
+  # code highlighting
+  if content.match /\sclass="hljs-/
+    tags.unshift """<link rel="stylesheet" href="https://cdn.jsdelivr.net/\
+      highlight.js/8.5.0/styles/solarized_light.min.css" />"""
+  # font awesome
+  if content.match /\sclass="fa\s/
+    tags.unshift """<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/\
+      font-awesome/4.5.0/css/font-awesome.min.css" />"""
+  # optimized tables
+  if js.match /.DataTable\(/
+    tags.unshift """
+      <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/\
+      1.10.12/css/jquery.dataTables.css">"""
+    tags.push """
+      <script type="text/javascript" language="javascript" src="https://code.jquery.com/\
+      jquery-1.12.3.js"></script>"""
+    tags.push """
+      <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/\
+      1.10.12/js/jquery.dataTables.js"></script>"""
+  # add only jquery
+  if js.match /$\(/
+    tags.push """
+      <script type="text/javascript" language="javascript" src="https://code.jquery.com/\
+      jquery-1.12.3.js"></script>"""
   # complete html
   html = """
   <!DOCTYPE html>
@@ -106,40 +123,29 @@ module.exports = (report, setup, cb) ->
       <title>#{title}</title>
       <meta charset="UTF-8" />
   """
-  # code highlighting
+  if tags.length
+    html += util.array.unique(tags).join '\n'
+  # add page style with collected css
+  style = setup?.style ? 'default'
+  css = report.parts.css?.join('\n') ? ''
+  html += switch
+    when style in Object.keys HTML_STYLES
+      """<style type="text/css">#{fs.readFileSync HTML_STYLES[style], 'utf8'}
+      #{css}</style>"""
+    when style.match /^https?:\/\//
+      css = """<style type="text/css">#{css}</style>"""
+      """<link rel="stylesheet" href="#{style}" />#{css}"""
+    else
+      """<style type="text/css">#{fs.readFileSync style, 'utf8'}#{css}</style>"""
+  # add javascript
+  if js.length
+    html += """<script type="text/javascript"><!--
+    #{js}
+    //--></script>"""
+  # add body
   html += """
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/\
-      8.5.0/styles/solarized_light.min.css" />
-  """ if content.match /\sclass="hljs-/
-  # font awesome
-  html += """
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/\
-      4.5.0/css/font-awesome.min.css" />
-  """ if content.match /\sclass="fa\s/
-  # optimized tables
-  html += """
-      <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/\
-      1.10.12/css/jquery.dataTables.css">
-      <script type="text/javascript" language="javascript" src="https://code.jquery.com/\
-      jquery-1.12.3.js"></script>
-      <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/\
-      1.10.12/js/jquery.dataTables.js"></script>
-      <script type="text/javascript">
-      $(document).ready( function () {
-        $('table').DataTable({
-          "paging":   false,
-          "info":     false
-        });
-      } );
-      </script>
-  """ if content.match /<table/
-  # body
-  html += """
-      #{css}
     </head>
-    <body>
-    #{content}
-    </body>
+    <body>#{content}</body>
   </html>
   """
   return html unless cb
