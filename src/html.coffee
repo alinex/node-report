@@ -105,13 +105,41 @@ module.exports = (report, setup, cb) ->
     <head>
       <title>#{title}</title>
       <meta charset="UTF-8" />
+  """
+  # code highlighting
+  html += """
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/\
       8.5.0/styles/solarized_light.min.css" />
+  """ if content.match /\sclass="hljs-/
+  # font awesome
+  html += """
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/\
       4.5.0/css/font-awesome.min.css" />
+  """ if content.match /\sclass="fa\s/
+  # optimized tables
+  html += """
+      <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/\
+      1.10.12/css/jquery.dataTables.css">
+      <script type="text/javascript" language="javascript" src="https://code.jquery.com/\
+      jquery-1.12.3.js"></script>
+      <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/\
+      1.10.12/js/jquery.dataTables.js"></script>
+      <script type="text/javascript">
+      $(document).ready( function () {
+        $('table').DataTable({
+          "paging":   false,
+          "info":     false
+        });
+      } );
+      </script>
+  """ if content.match /<table/
+  # body
+  html += """
       #{css}
     </head>
-    <body>#{content}</body>
+    <body>
+    #{content}
+    </body>
   </html>
   """
   return html unless cb

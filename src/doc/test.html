@@ -2,10 +2,17 @@
 <html lang="en">
   <head>
     <title>h1 Heading</title>
-    <meta charset="UTF-8" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/8.5.0/styles/solarized_light.min.css" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
-    <style>html {
+    <meta charset="UTF-8" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/8.5.0/styles/solarized_light.min.css" /><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" /><link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.css">
+<script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-1.12.3.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
+<script type="text/javascript">
+$(document).ready( function () {
+  $('table').DataTable({
+    "paging":   false,
+    "info":     false
+  });
+} );
+</script>    <style>html {
   background: #eee;
 }
 body {
@@ -293,7 +300,8 @@ abbr, acronym {
 }
 </style>
   </head>
-  <body><p><ul class="table-of-contents">
+  <body>
+  <p><ul class="table-of-contents">
 <li><a href="#h2-heading">h2 Heading</a>
 <ul>
 <li><a href="#h3-heading">h3 Heading</a>
@@ -453,5 +461,6 @@ line 3 of code
 </li>
 </ol>
 </section>
-</body>
+
+  </body>
 </html>

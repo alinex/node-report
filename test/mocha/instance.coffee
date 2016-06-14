@@ -85,7 +85,7 @@ describe "instance", ->
       equal report.toString().trim(), """
       *[HTTP]: Hyper Text Transfer Protocol"""
 
-  describe "convert", ->
+  describe.only "convert", ->
 
     report = new Report()
     report.toc()

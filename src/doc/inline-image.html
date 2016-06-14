@@ -3,8 +3,17 @@
   <head>
     <title>Report</title>
     <meta charset="UTF-8" />
+    <!-- code highlighting -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/8.5.0/styles/solarized_light.min.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+    <!-- optimized tables -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
+    <script>
+    $(document).ready( function () {
+      $('table').DataTable();
+    } );
+    </script>
     <style>html {
   background: #eee;
 }

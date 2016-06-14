@@ -3,11 +3,19 @@
   <head>
     <title>h1 Heading</title>
     <meta charset="UTF-8">
-    
-    
-    
+<script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-1.12.3.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
+<script type="text/javascript">
+$(document).ready( function () {
+  $('table').DataTable({
+    "paging":   false,
+    "info":     false
+  });
+} );
+</script>    
   </head>
-  <body style="background: #fff; border: 2px solid #aaa; box-shadow: 10px 10px 5px #888888; font-family: 'Helvetica Neue',Helvetica,'Segoe UI',Arial,freesans,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol'; font-size: 16px; line-height: 1.2; margin: 20px auto; max-width: 800px; padding: 17px; word-wrap: break-word;"><p><ul class="table-of-contents" style="background: #fafafa; border: 2px solid #ddd; border-radius: 10px; float: right; font-size: 90%; margin-top: 0; padding: 10px 10px 10px 25px;">
+  <body style="background: #fff; border: 2px solid #aaa; box-shadow: 10px 10px 5px #888888; font-family: 'Helvetica Neue',Helvetica,'Segoe UI',Arial,freesans,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol'; font-size: 16px; line-height: 1.2; margin: 20px auto; max-width: 800px; padding: 17px; word-wrap: break-word;">
+  <p><ul class="table-of-contents" style="background: #fafafa; border: 2px solid #ddd; border-radius: 10px; float: right; font-size: 90%; margin-top: 0; padding: 10px 10px 10px 25px;">
 <li><a href="#h2-heading" style="color: darkblue; text-decoration: none;">h2 Heading</a>
 <ul style="padding-left: 15px;">
 <li><a href="#h3-heading" style="color: darkblue; text-decoration: none;">h3 Heading</a>
@@ -167,5 +175,6 @@ line 3 of code
 </li>
 </ol>
 </section>
-</body>
+
+  </body>
 </html>

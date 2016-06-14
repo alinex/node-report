@@ -1067,6 +1067,8 @@ the element atrated in front of the style definition.
 
     <!-- {p:.center} -->
 
+    <!-- {#table1 .tlist} -->
+
 The second example specifies the previouse &lt;p> tag and sets the style class
 '.center' for it.
 
