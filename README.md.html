@@ -73,10 +73,6 @@
       </div>
 
       <div class="heading h3">
-        <a href="#xxx">xxx</a>
-      </div>
-
-      <div class="heading h3">
         <a href="#heading">Heading</a>
       </div>
 
@@ -169,7 +165,7 @@
       </div>
 
       <div class="heading h3">
-        <a href="#headings">Headings</a>
+        <a href="#heading2">Heading2</a>
       </div>
 
       <div class="heading h3">
@@ -396,18 +392,32 @@ methods which use it have the ability to overwrite this default setting with an
 individual number.</p>
 <p>You may also set the width on the instance instead of globally giving it as a
 parameter to the constructor. See the usage above.</p>
-<div class="pilwrap" id="xxx">
-  <h3>
-    <a href="#xxx" name="xxx" class="pilcrow"></a>
-xxx
-  </h3>
-</div>
 <div class="pilwrap" id="heading">
   <h3>
     <a href="#heading" name="heading" class="pilcrow"></a>
 Heading
   </h3>
 </div>
+<p>Use the methods h1 to h6 to create headings in the given level:</p>
+<pre><code class="coffee">report = <span class="hljs-keyword">new</span> Report()
+report.h1 <span class="hljs-string">'My Title'</span>
+report.h2 <span class="hljs-string">'Subheading with specific width'</span>, <span class="hljs-number">120</span>
+</code></pre>
+<p>In the headings level 1 and 2 it is possible to give a width for the line length
+as shown above.</p>
+<pre><code class="markdown"><span class="hljs-section"># h1 Heading</span>
+<span class="hljs-section">## h2 Heading</span>
+<span class="hljs-section">### h3 Heading</span>
+<span class="hljs-section">#### h4 Heading</span>
+<span class="hljs-section">##### h5 Heading</span>
+<span class="hljs-section">###### h6 Heading</span>
+
+<span class="hljs-section">h1 Heading
+==========================================================================</span>
+
+<span class="hljs-section">h2 Heading
+--------------------------------------------------------------------------</span>
+</code></pre>
 <ul>
 <li>h1 - heading level 1</li>
 <li>h2 - heading level 2</li>
@@ -418,10 +428,6 @@ Heading
 </ul>
 <p>They are all called with a text and an optional width parameter. The width will
 only specify the width of the lines in the markdown output (h1 and h2 only).</p>
-<pre><code class="coffee">report = <span class="hljs-keyword">new</span> Report()
-report.h1 <span class="hljs-string">'My Title'</span>
-report.h2 <span class="hljs-string">'Subheading with specific width'</span>, <span class="hljs-number">120</span>
-</code></pre>
 <div class="pilwrap" id="paragraphs">
   <h3>
     <a href="#paragraphs" name="paragraphs" class="pilcrow"></a>
@@ -1059,10 +1065,10 @@ a break will be kept.
 
 And this is the next paragraph.
 </code></pre>
-<div class="pilwrap" id="headings">
+<div class="pilwrap" id="heading2">
   <h3>
-    <a href="#headings" name="headings" class="pilcrow"></a>
-Headings
+    <a href="#heading2" name="heading2" class="pilcrow"></a>
+Heading2
   </h3>
 </div>
 <p>There are six levels of heading to be used. But only the biggest two can have a
