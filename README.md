@@ -85,7 +85,10 @@ You may also give some of the following options:
 - `log` - a function called each time something is added with the added text
 - `width` - the width for line breaks (default: 80)
 
-Now you may add content to your report:
+### Report builder
+
+The report builder is a collection of methods used to easily create the needed
+markup. They often are handy to convert your objects into formatted text:
 
 ``` coffee
 report.h1 "My Test"
@@ -97,6 +100,8 @@ report.list [
 ]
 ```
 
+### Format output
+
 And finally get the complete result:
 
 ``` coffee
@@ -106,13 +111,17 @@ html = report.toHtml()   # html
 log = report.toConsole() # text with ansi colors
 ```
 
-Instead of creating a report you can also let this module convert single elements
-on the fly:
+### Convert to Markdown
+
+Instead of creating a report to collect everything, you can also let this module
+convert single elements on the fly:
 
 ``` coffee
 console.log Report.ul ['one', 'two', 'three']
 console.log Report.p "This text contains a #{Result.b 'bold'} word."
 ```
+
+### Markdown as Base
 
 If you want to only convert existing markdown into html do this like:
 
@@ -121,7 +130,7 @@ html = new Report({source: markdownText}).toHtml()
 ```
 
 
-Report Builder
+Report Elements
 -------------------------------------------------
 The report builder is a collection of methods used to easily create the needed
 markup. They often are handy to convert your objects into formatted text. In
@@ -145,17 +154,9 @@ individual number.
 You may also set the width on the instance instead of globally giving it as a
 parameter to the constructor. See the usage above.
 
-### Headings
+### Heading
 
-- h1 - heading level 1
-- h2 - heading level 2
-- h3 - heading level 3
-- h4 - heading level 4
-- h5 - heading level 5
-- h6 - heading level 6
-
-They are all called with a text and an optional width parameter. The width will
-only specify the width of the lines in the markdown output (h1 and h2 only).
+Use the methods h1 to h6 to create headings in the given level:
 
 ``` coffee
 report = new Report()
@@ -163,11 +164,46 @@ report.h1 'My Title'
 report.h2 'Subheading with specific width', 120
 ```
 
+In the headings level 1 and 2 it is possible to give a width for the line length
+as shown above.
+
+``` markdown
+h1 Heading
+==========================================================================
+
+h2 Heading
+--------------------------------------------------------------------------
+
+### h3 Heading
+
+#### h4 Heading
+
+##### h5 Heading
+
+###### h6 Heading
+```
+
+Alternatively the first two levels may also defined as:
+
+``` markdown
+# h1 Heading
+
+## h2 Heading
+```
+
+With the default style this should look like:
+
+![headings](src/doc/elements/headings.png)
+
 ### Paragraphs
+
+This allows the following types:
 
 - p - add a text paragraph
 - quote - add quoted text multiple level depth (second parameter)
 - code - add a code block (language as additional parameter)
+
+#### Normal
 
 All this methods need a text and an optional width as last parameter used for
 automatic line breaks in markdown style.
@@ -177,11 +213,27 @@ report.p 'A new paragraph.'
 report.p 'A long text may be automatically broken into multiple lines.', 40
 ```
 
+This goes into html as:
+
+``` markdown
+A new paragraph.
+
+A long text may be automatically broken into multiple lines.
+```
+
+And renders as:
+
+![paragraph](src/doc/elements/paragraph.png)
+
+#### Quote
+
 For quoted text you can give the depth level as number (default is 1):
 
 ``` coffee
 report.quote 'My home is my castle!', 1
 ```
+
+#### Code Highlighting
 
 And for code you give the language which is used for syntax highlighting (default
 is text):
@@ -802,23 +854,6 @@ position use a slash at the end:
 
     And this is the next paragraph.
 
-### Headings
-
-There are six levels of heading to be used. But only the biggest two can have a
-specific alternative format:
-
-    # h1 Heading
-    ## h2 Heading
-    ### h3 Heading
-    #### h4 Heading
-    ##### h5 Heading
-    ###### h6 Heading
-
-    h1 Heading
-    ==========================================================================
-
-    h2 Heading
-    --------------------------------------------------------------------------
 
 ### Horizontal Rules
 
