@@ -60,12 +60,20 @@
         <a href="#format-output">Format output</a>
       </div>
 
+      <div class="heading h3">
+        <a href="#convert-to-markdown">Convert to Markdown</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#markdown-as-base">Markdown as Base</a>
+      </div>
+
       <div class="heading h2">
         <a href="#report-elements">Report Elements</a>
       </div>
 
       <div class="heading h3">
-        <a href="#headings">Headings</a>
+        <a href="#heading">Heading</a>
       </div>
 
       <div class="heading h3">
@@ -157,7 +165,7 @@
       </div>
 
       <div class="heading h3">
-        <a href="#headings-1">Headings</a>
+        <a href="#headings">Headings</a>
       </div>
 
       <div class="heading h3">
@@ -342,11 +350,23 @@ text = report.toString() <span class="hljs-comment"># markdown syntax</span>
 html = report.toHtml()   <span class="hljs-comment"># html</span>
 log = report.toConsole() <span class="hljs-comment"># text with ansi colors</span>
 </code></pre>
-<p>Instead of creating a report you can also let this module convert single elements
-on the fly:</p>
+<div class="pilwrap" id="convert-to-markdown">
+  <h3>
+    <a href="#convert-to-markdown" name="convert-to-markdown" class="pilcrow"></a>
+Convert to Markdown
+  </h3>
+</div>
+<p>Instead of creating a report to collect everything, you can also let this module
+convert single elements on the fly:</p>
 <pre><code class="coffee"><span class="hljs-built_in">console</span>.log Report.ul [<span class="hljs-string">'one'</span>, <span class="hljs-string">'two'</span>, <span class="hljs-string">'three'</span>]
 <span class="hljs-built_in">console</span>.log Report.p <span class="hljs-string">"This text contains a <span class="hljs-subst">#{Result.b <span class="hljs-string">'bold'</span>}</span> word."</span>
 </code></pre>
+<div class="pilwrap" id="markdown-as-base">
+  <h3>
+    <a href="#markdown-as-base" name="markdown-as-base" class="pilcrow"></a>
+Markdown as Base
+  </h3>
+</div>
 <p>If you want to only convert existing markdown into html do this like:</p>
 <pre><code class="coffee">html = <span class="hljs-keyword">new</span> Report({source: markdownText}).toHtml()
 </code></pre>
@@ -372,10 +392,10 @@ methods which use it have the ability to overwrite this default setting with an
 individual number.</p>
 <p>You may also set the width on the instance instead of globally giving it as a
 parameter to the constructor. See the usage above.</p>
-<div class="pilwrap" id="headings">
+<div class="pilwrap" id="heading">
   <h3>
-    <a href="#headings" name="headings" class="pilcrow"></a>
-Headings
+    <a href="#heading" name="heading" class="pilcrow"></a>
+Heading
   </h3>
 </div>
 <ul>
@@ -1029,9 +1049,9 @@ a break will be kept.
 
 And this is the next paragraph.
 </code></pre>
-<div class="pilwrap" id="headings-1">
+<div class="pilwrap" id="headings">
   <h3>
-    <a href="#headings-1" name="headings-1" class="pilcrow"></a>
+    <a href="#headings" name="headings" class="pilcrow"></a>
 Headings
   </h3>
 </div>
