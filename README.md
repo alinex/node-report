@@ -574,7 +574,7 @@ The following classes may be used:
 | .red    | make text red  |
 | .center | center text    |
 
-### Visualization
+### Code Visualization
 
 This will only work in HTML format, else the definition is displayed.
 
