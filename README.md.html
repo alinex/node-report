@@ -80,6 +80,18 @@
         <a href="#paragraphs">Paragraphs</a>
       </div>
 
+      <div class="heading h4">
+        <a href="#normal">Normal</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#quote">Quote</a>
+      </div>
+
+      <div class="heading h4">
+        <a href="#code-highlighting">Code Highlighting</a>
+      </div>
+
       <div class="heading h3">
         <a href="#special-signs">Special Signs</a>
       </div>
@@ -428,19 +440,44 @@ as shown above.</p>
 Paragraphs
   </h3>
 </div>
+<p>This allows the following types:</p>
 <ul>
 <li>p - add a text paragraph</li>
 <li>quote - add quoted text multiple level depth (second parameter)</li>
 <li>code - add a code block (language as additional parameter)</li>
 </ul>
+<div class="pilwrap" id="normal">
+  <h4>
+    <a href="#normal" name="normal" class="pilcrow"></a>
+Normal
+  </h4>
+</div>
 <p>All this methods need a text and an optional width as last parameter used for
 automatic line breaks in markdown style.</p>
 <pre><code class="coffee">report.p <span class="hljs-string">'A new paragraph.'</span>
 report.p <span class="hljs-string">'A long text may be automatically broken into multiple lines.'</span>, <span class="hljs-number">40</span>
 </code></pre>
+<p>This goes into:</p>
+<pre><code class="markdown">A new paragraph.
+
+A long text may be automatically broken into multiple lines.
+</code></pre>
+<p><img src="src/doc/elements/paragraph.png" alt="paragraph"></p>
+<div class="pilwrap" id="quote">
+  <h4>
+    <a href="#quote" name="quote" class="pilcrow"></a>
+Quote
+  </h4>
+</div>
 <p>For quoted text you can give the depth level as number (default is 1):</p>
 <pre><code class="coffee">report.quote <span class="hljs-string">'My home is my castle!'</span>, <span class="hljs-number">1</span>
 </code></pre>
+<div class="pilwrap" id="code-highlighting">
+  <h4>
+    <a href="#code-highlighting" name="code-highlighting" class="pilcrow"></a>
+Code Highlighting
+  </h4>
+</div>
 <p>And for code you give the language which is used for syntax highlighting (default
 is text):</p>
 <pre><code class="coffee">report.code <span class="hljs-string">'va x = Math.round(f);'</span>, <span class="hljs-string">'js'</span>
