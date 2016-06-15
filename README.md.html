@@ -52,8 +52,16 @@
         <a href="#usage">Usage</a>
       </div>
 
+      <div class="heading h3">
+        <a href="#report-builder">Report builder</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#format-output">Format output</a>
+      </div>
+
       <div class="heading h2">
-        <a href="#report-builder">Report Builder</a>
+        <a href="#report-elements">Report Elements</a>
       </div>
 
       <div class="heading h3">
@@ -101,7 +109,7 @@
       </div>
 
       <div class="heading h3">
-        <a href="#visualization">Visualization</a>
+        <a href="#code-visualization">Code Visualization</a>
       </div>
 
       <div class="heading h4">
@@ -250,9 +258,9 @@ formats.</p>
 <ul>
 <li>easy markdown writing</li>
 <li>feature rich markdown</li>
-<li>export as text or html (also optimized for email)</li>
-<li>export as pdf, png or jpg</li>
-<li>console formatting support</li>
+<li>export as text, console, html (also optimized for email), pdf, png or jpg</li>
+<li>replace table data with chart in html</li>
+<li>specific settings for html</li>
 </ul>
 <p>See example output in <a href="https://raw.githubusercontent.com/alinex/node-report/master/src/doc/test.txt">text</a>
 , <a href="https://raw.githubusercontent.com/alinex/node-report/master/src/doc/test.md">markdown</a>, <a href="http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/doc/test.html">HTML</a>,
@@ -306,7 +314,14 @@ Usage
 <li><code>log</code> - a function called each time something is added with the added text</li>
 <li><code>width</code> - the width for line breaks (default: 80)</li>
 </ul>
-<p>Now you may add content to your report:</p>
+<div class="pilwrap" id="report-builder">
+  <h3>
+    <a href="#report-builder" name="report-builder" class="pilcrow"></a>
+Report builder
+  </h3>
+</div>
+<p>The report builder is a collection of methods used to easily create the needed
+markup. They often are handy to convert your objects into formatted text:</p>
 <pre><code class="coffee">report.h1 <span class="hljs-string">"My Test"</span>
 report.p <span class="hljs-string">"This is a short demonstrative test with:"</span>
 report.list [
@@ -315,6 +330,12 @@ report.list [
   <span class="hljs-string">"unnumbered lists"</span>
 ]
 </code></pre>
+<div class="pilwrap" id="format-output">
+  <h3>
+    <a href="#format-output" name="format-output" class="pilcrow"></a>
+Format output
+  </h3>
+</div>
 <p>And finally get the complete result:</p>
 <pre><code class="coffee"><span class="hljs-built_in">console</span>.log report <span class="hljs-comment"># same as report.toString()</span>
 text = report.toString() <span class="hljs-comment"># markdown syntax</span>
@@ -329,10 +350,10 @@ on the fly:</p>
 <p>If you want to only convert existing markdown into html do this like:</p>
 <pre><code class="coffee">html = <span class="hljs-keyword">new</span> Report({source: markdownText}).toHtml()
 </code></pre>
-<div class="pilwrap" id="report-builder">
+<div class="pilwrap" id="report-elements">
   <h2>
-    <a href="#report-builder" name="report-builder" class="pilcrow"></a>
-Report Builder
+    <a href="#report-elements" name="report-elements" class="pilcrow"></a>
+Report Elements
   </h2>
 </div>
 <p>The report builder is a collection of methods used to easily create the needed
@@ -783,10 +804,10 @@ report.p <span class="hljs-string">"Make this <span class="hljs-subst">#{Report.
 </tr>
 </tbody>
 </table>
-<div class="pilwrap" id="visualization">
+<div class="pilwrap" id="code-visualization">
   <h3>
-    <a href="#visualization" name="visualization" class="pilcrow"></a>
-Visualization
+    <a href="#code-visualization" name="code-visualization" class="pilcrow"></a>
+Code Visualization
   </h3>
 </div>
 <p>This will only work in HTML format, else the definition is displayed.</p>
@@ -796,12 +817,12 @@ Visualization
 QR Code
   </h4>
 </div>
-<p><strong><a href="src/doc/visual-qr-simple.html.html">QR Simple</a></strong></p>
+<p><strong><a href="http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/doc/visual-qr-simple.html">QR Simple</a></strong></p>
 <pre><code class="coffee">report = <span class="hljs-keyword">new</span> Report()
 report.qr <span class="hljs-string">"http://alinex.de"</span>
 </code></pre>
 <p>Or if you want to specify the parameters:</p>
-<p><strong><a href="src/doc/visual-qr-extended.html.html">QR Extended</a></strong></p>
+<p><strong><a href="http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/doc/visual-qr-extended.html">QR Extended</a></strong></p>
 <pre><code class="coffee">report = <span class="hljs-keyword">new</span> Report()
 report.qr
   content: <span class="hljs-string">'http://alinex.github.io'</span>
@@ -820,7 +841,7 @@ Charts
 </div>
 <p>A lot of charts are possible based on <a href="http://chartplay.jui.io/">jui-chart</a>.
 You'll find all possible settings there.</p>
-<p><strong><a href="src/doc/visual-chart-simple.html.html">Simple Chart</a></strong></p>
+<p><strong><a href="http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/doc/visual-chart-simple.html">Simple Chart</a></strong></p>
 <pre><code class="coffee">report = <span class="hljs-keyword">new</span> Report()
 report.chart <span class="hljs-literal">null</span>, [
   [<span class="hljs-string">'quarter'</span>, <span class="hljs-string">'sales'</span>, <span class="hljs-string">'profit'</span>]
@@ -831,8 +852,9 @@ report.chart <span class="hljs-literal">null</span>, [
 ]
 </code></pre>
 <p>This makes a simple bar chart with predefined settings for your data. But you may
-also specify a lot of options and charts like:</p>
-<p><strong><a href="src/doc/visual-chart-column.html.html">Column Chart</a></strong></p>
+also specify a lot of options and charts. The examples below shows the possible
+settings, but you only need to give some of them.</p>
+<p><strong><a href="http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/doc/visual-chart-column.html">Column Chart</a></strong></p>
 <pre><code class="coffee">report = <span class="hljs-keyword">new</span> Report()
 report.chart
   width: <span class="hljs-number">800</span>
@@ -1310,6 +1332,8 @@ the element atrated in front of the style definition.</p>
 <pre><code>&lt;!-- {color:red} --&gt;
 
 &lt;!-- {p:.center} --&gt;
+
+&lt;!-- {#table1 .tlist} --&gt;
 </code></pre>
 <p>The second example specifies the previouse &lt;p&gt; tag and sets the style class
 '.center' for it.</p>

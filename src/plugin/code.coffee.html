@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>visual.coffee</title>
+  <title>code.coffee</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <link rel="stylesheet" media="all" href="../../doc-style.css" />
   <script src="../../doc-filelist.js"></script>
   <script>
     var relativeDir = "../../";
-    var thisFile = "src/plugin/visual.coffee";
+    var thisFile = "src/plugin/code.coffee";
     var defaultSidebar = true;
   </script>
   <script src="../../doc-script.js"></script>
@@ -208,7 +208,7 @@ Init plugin in markdown-it
       <span class="hljs-string">"==QR Code: <span class="hljs-subst">#{data.content}</span>=="</span>
     <span class="hljs-keyword">else</span>
       <span class="hljs-string">"==QR Code: <span class="hljs-subst">#{part.trim()}</span>=="</span>
-  text.replace <span class="hljs-regexp">/\$\$\$\s+chart\s*\n([\s\S]*?)\$\$\$/g</span>, <span class="hljs-function">-&gt;</span>
+  .replace <span class="hljs-regexp">/\$\$\$\s+chart\s*\n([\s\S]*?)\$\$\$/g</span>, <span class="hljs-function">-&gt;</span>
     part = arguments[<span class="hljs-number">1</span>]
     parts = part.trim().split <span class="hljs-regexp">/(^|\n\s*\n\s*)\|/</span>
     <span class="hljs-string">"|<span class="hljs-subst">#{parts[<span class="hljs-number">2</span>]}</span>"</span>
@@ -432,8 +432,8 @@ Renderer
         ecl: <span class="hljs-string">'M'</span>
       <span class="hljs-keyword">if</span> token.content.match <span class="hljs-regexp">/(^|\n)\s*content:/</span>
         util.extend data, dataParser token.content
-        data.content = token.content.trim()
       <span class="hljs-keyword">else</span>
+        data.content = token.content.trim()
       <span class="hljs-keyword">new</span> QRCode(data).svg()</pre>
         </td>
       </tr>

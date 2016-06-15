@@ -101,9 +101,10 @@ Node Modules
         </td>
         <td class="code highlight">
           <pre class="coffeescript">path = <span class="hljs-built_in">require</span> <span class="hljs-string">'path'</span>
-fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-fs'</span>
 mime = <span class="hljs-built_in">require</span> <span class="hljs-string">'mime'</span>
-inlineCss = <span class="hljs-built_in">require</span> <span class="hljs-string">'inline-css'</span></pre>
+inlineCss = <span class="hljs-built_in">require</span> <span class="hljs-string">'inline-css'</span>
+fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-fs'</span>
+util = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-util'</span></pre>
         </td>
       </tr>
     
@@ -144,7 +145,7 @@ twemoji = <span class="hljs-built_in">require</span> <span class="hljs-string">'
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">pluginGraph = <span class="hljs-built_in">require</span> <span class="hljs-string">'./plugin/graph'</span></pre>
+          <pre class="coffeescript">pluginCode = <span class="hljs-built_in">require</span> <span class="hljs-string">'./plugin/code'</span></pre>
         </td>
       </tr>
     
@@ -258,7 +259,8 @@ replace local images with base64</p>
           <pre class="coffeescript">  data = {}
   content = optimizeHtml md.render(content, data), setup?.locale
   title = setup?.title ? data.title ? <span class="hljs-string">'Report'</span>
-  style = setup?.style ? <span class="hljs-string">'default'</span></pre>
+  tags = util.clone report.parts.header
+  js = report.parts.js.join <span class="hljs-string">'\n'</span></pre>
         </td>
       </tr>
     
@@ -267,19 +269,14 @@ replace local images with base64</p>
           <div class="pilwrap">
   <a class="pilcrow" href="#section-10" id="section-10"></a>
 </div>
-<p>get css</p>
+<p>add used libraries
+code highlighting</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  css = <span class="hljs-keyword">switch</span>
-    <span class="hljs-keyword">when</span> style <span class="hljs-keyword">in</span> Object.keys HTML_STYLES
-      css = fs.readFileSync HTML_STYLES[style], <span class="hljs-string">'utf8'</span>
-      <span class="hljs-string">"&lt;style&gt;<span class="hljs-subst">#{css}</span>&lt;/style&gt;"</span>
-    <span class="hljs-keyword">when</span> style.match <span class="hljs-regexp">/^https?:\/\//</span>
-      <span class="hljs-string">"&lt;link rel=\"stylesheet\" href=\"<span class="hljs-subst">#{style}</span>\" /&gt;"</span>
-    <span class="hljs-keyword">else</span>
-      css = fs.readFileSync style, <span class="hljs-string">'utf8'</span>
-      <span class="hljs-string">"&lt;style&gt;<span class="hljs-subst">#{css}</span>&lt;/style&gt;"</span></pre>
+          <pre class="coffeescript">  <span class="hljs-keyword">if</span> content.match <span class="hljs-regexp">/\sclass="hljs-/</span>
+    tags.unshift <span class="hljs-string">"""&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/\
+      highlight.js/8.5.0/styles/solarized_light.min.css" /&gt;"""</span></pre>
         </td>
       </tr>
     
@@ -287,6 +284,59 @@ replace local images with base64</p>
         <td class="docs">
           <div class="pilwrap">
   <a class="pilcrow" href="#section-11" id="section-11"></a>
+</div>
+<p>font awesome</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-keyword">if</span> content.match <span class="hljs-regexp">/\sclass="fa\s/</span>
+    tags.unshift <span class="hljs-string">"""&lt;link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/\
+      font-awesome/4.5.0/css/font-awesome.min.css" /&gt;"""</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12"></a>
+</div>
+<p>optimized tables</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-keyword">if</span> js.match <span class="hljs-regexp">/.DataTable\(/</span>
+    tags.unshift <span class="hljs-string">"""
+      &lt;link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/\
+      1.10.12/css/jquery.dataTables.css"&gt;"""</span>
+    tags.push <span class="hljs-string">"""
+      &lt;script type="text/javascript" language="javascript" src="https://code.jquery.com/\
+      jquery-1.12.3.js"&gt;&lt;/script&gt;"""</span>
+    tags.push <span class="hljs-string">"""
+      &lt;script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/\
+      1.10.12/js/jquery.dataTables.js"&gt;&lt;/script&gt;"""</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-13" id="section-13"></a>
+</div>
+<p>add only jquery</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-keyword">if</span> js.match <span class="hljs-regexp">/$\(/</span>
+    tags.push <span class="hljs-string">"""
+      &lt;script type="text/javascript" language="javascript" src="https://code.jquery.com/\
+      jquery-1.12.3.js"&gt;&lt;/script&gt;"""</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-14" id="section-14"></a>
 </div>
 <p>complete html</p>
 
@@ -298,29 +348,26 @@ replace local images with base64</p>
     &lt;head&gt;
       &lt;title&gt;<span class="hljs-subst">#{title}</span>&lt;/title&gt;
       &lt;meta charset="UTF-8" /&gt;
-      &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/\
-      8.5.0/styles/solarized_light.min.css" /&gt;
-      &lt;link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/\
-      4.5.0/css/font-awesome.min.css" /&gt;
-</span></pre>
+  """</span>
+  <span class="hljs-keyword">if</span> tags.length
+    html += util.array.unique(tags).join <span class="hljs-string">'\n'</span></pre>
         </td>
       </tr>
     
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-12" id="section-12"></a>
+  <a class="pilcrow" href="#section-15" id="section-15"></a>
 </div>
-<p>{css}</p>
+<p>add page style with collected css</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">    &lt;/head&gt;
-    &lt;body&gt;<span class="hljs-comment">#{content}&lt;/body&gt;</span>
-  &lt;/html&gt;
-  <span class="hljs-string">"""
-  return html unless cb
-  return cb null, html unless setup?.inlineCss
+          <pre class="coffeescript">  style = setup?.style ? <span class="hljs-string">'default'</span>
+  css = report.parts.css?.join(<span class="hljs-string">'\n'</span>) ? <span class="hljs-string">''</span>
+  html += <span class="hljs-keyword">switch</span>
+    <span class="hljs-keyword">when</span> style <span class="hljs-keyword">in</span> Object.keys HTML_STYLES
+      <span class="hljs-string">"""&lt;style type="text/css"&gt;<span class="hljs-subst">#{fs.readFileSync HTML_STYLES[style], <span class="hljs-string">'utf8'</span>}</span>
 </span></pre>
         </td>
       </tr>
@@ -328,7 +375,72 @@ replace local images with base64</p>
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-13" id="section-13"></a>
+  <a class="pilcrow" href="#section-16" id="section-16"></a>
+</div>
+<p>{css}</style>&quot;&quot;&quot;</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-keyword">when</span> style.match <span class="hljs-regexp">/^https?:\/\//</span>
+      css = <span class="hljs-string">"""&lt;style type="text/css"&gt;<span class="hljs-subst">#{css}</span>&lt;/style&gt;"""</span>
+      <span class="hljs-string">"""&lt;link rel="stylesheet" href="<span class="hljs-subst">#{style}</span>" /&gt;<span class="hljs-subst">#{css}</span>"""</span>
+    <span class="hljs-keyword">else</span>
+      <span class="hljs-string">"""&lt;style type="text/css"&gt;<span class="hljs-subst">#{fs.readFileSync style, <span class="hljs-string">'utf8'</span>}</span><span class="hljs-subst">#{css}</span>&lt;/style&gt;"""</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-17" id="section-17"></a>
+</div>
+<p>add javascript</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-keyword">if</span> js.length
+    html += <span class="hljs-string">"""&lt;script type="text/javascript"&gt;&lt;!--
+</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-18" id="section-18"></a>
+</div>
+<p>{js}</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-regexp">//</span>--&gt;&lt;/script&gt;<span class="hljs-string">"""
+</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-19" id="section-19"></a>
+</div>
+<p>add body</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  html += <span class="hljs-string">"""
+    &lt;/head&gt;
+    &lt;body&gt;<span class="hljs-subst">#{content}</span>&lt;/body&gt;
+  &lt;/html&gt;
+  """</span>
+  <span class="hljs-keyword">return</span> html <span class="hljs-keyword">unless</span> cb
+  <span class="hljs-keyword">return</span> cb <span class="hljs-literal">null</span>, html <span class="hljs-keyword">unless</span> setup?.inlineCss</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-20" id="section-20"></a>
 </div>
 <p>make css inline</p>
 
@@ -376,7 +488,7 @@ initialize markdown to html converter
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-16" id="section-16"></a>
+  <a class="pilcrow" href="#section-23" id="section-23"></a>
 </div>
 <p>setup markdown it</p>
 
@@ -395,7 +507,7 @@ initialize markdown to html converter
       <span class="hljs-keyword">try</span>
         <span class="hljs-keyword">return</span> hljs.highlightAuto(str).value
       <span class="hljs-keyword">return</span> <span class="hljs-string">''</span> <span class="hljs-comment"># use external default escaping</span>
-  .use pluginGraph <span class="hljs-comment"># graphical visualizations</span>
+  .use pluginCode <span class="hljs-comment"># graphical visualizations</span>
   .use mdTitle <span class="hljs-comment">#extracting title from source (first heading)</span>
   .use mdSub <span class="hljs-comment"># subscript support</span>
   .use mdSup <span class="hljs-comment"># superscript support</span>
@@ -421,7 +533,7 @@ initialize markdown to html converter
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-17" id="section-17"></a>
+  <a class="pilcrow" href="#section-24" id="section-24"></a>
 </div>
 <p>set base to allow also access from local page display</p>
 
@@ -450,7 +562,7 @@ initialize markdown to html converter
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-18" id="section-18"></a>
+  <a class="pilcrow" href="#section-25" id="section-25"></a>
 </div>
 <p>code</p>
 
@@ -467,7 +579,7 @@ initialize markdown to html converter
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-19" id="section-19"></a>
+  <a class="pilcrow" href="#section-26" id="section-26"></a>
 </div>
 <p>boxes</p>
 
@@ -484,7 +596,7 @@ initialize markdown to html converter
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-20" id="section-20"></a>
+  <a class="pilcrow" href="#section-27" id="section-27"></a>
 </div>
 <p>replacement</p>
 
@@ -498,7 +610,7 @@ initialize markdown to html converter
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-21" id="section-21"></a>
+  <a class="pilcrow" href="#section-28" id="section-28"></a>
 </div>
 <p>return result</p>
 
