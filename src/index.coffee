@@ -12,7 +12,7 @@ Table = require 'alinex-table'
 format = require 'alinex-format'
 
 # load local plugins
-pluginVisual = require './plugin/visual'
+pluginCode = require './plugin/code'
 dataStringify = deasync format.stringify
 
 
@@ -381,7 +381,7 @@ class Report
 
    # ### as simplified text
   toText: ->
-    text = pluginVisual.toText @toString()
+    text = pluginCode.toText @toString()
     # remove some parts
     text = text.replace ///
     (
@@ -421,7 +421,7 @@ class Report
 
   # ### as colorful console text
   toConsole: ->
-    text = pluginVisual.toText @toString()
+    text = pluginCode.toText @toString()
     # replace code
     removed = []
     text = text.replace /\n\n``` (\w+)\s*?\n([\s\S]*?)\n```\s*?\n/g, (all, lang, code) =>

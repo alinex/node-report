@@ -3,18 +3,18 @@ expect = chai.expect
 ### eslint-env node, mocha ###
 
 markdownit = require 'markdown-it'
-plugin = require '../../../src/plugin/visual'
+plugin = require '../../../src/plugin/code'
 fs = require 'alinex-fs'
 
 test = (name, text) ->
   md = markdownit().use plugin
   result = md.render text
-  fd = fs.createWriteStream "#{__dirname}/../../../src/doc/visual-#{name}.html"
+  fd = fs.createWriteStream "#{__dirname}/../../../src/doc/code-#{name}.html"
   fd.write result
   fd.end()
   result
 
-describe "visual chart", ->
+describe "code chart", ->
 
   it "should make bar chart graphic", ->
     text = """

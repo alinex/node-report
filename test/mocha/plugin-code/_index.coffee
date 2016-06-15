@@ -4,18 +4,18 @@ expect = chai.expect
 
 Report = require '../../../src/index'
 markdownit = require 'markdown-it'
-plugin = require '../../../src/plugin/visual'
+plugin = require '../../../src/plugin/code'
 fs = require 'alinex-fs'
 
 test = (name, text) ->
   md = markdownit().use plugin
   result = md.render text
-  fd = fs.createWriteStream "#{__dirname}/../../../src/doc/visual-#{name}.html"
+  fd = fs.createWriteStream "#{__dirname}/../../../src/doc/code-#{name}.html"
   fd.write result
   fd.end()
   result
 
-describe "visual", ->
+describe "code", ->
 
   describe "base", ->
 
