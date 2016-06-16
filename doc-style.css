@@ -713,6 +713,18 @@ pre code.json::before {
   margin: -6px -5px 2px -11px;
   padding: 4px 0 0 10px;
 }
+pre code.markdown::before {
+  content: "Markdown Documentation";
+  color: #505050;
+  font-weight: bold;
+  display: block;
+  background: rgba(225, 135, 40, 0.38);
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  margin-bottom: 5px;
+  margin: -6px -5px 2px -11px;
+  padding: 4px 0 0 10px;
+}
 pre code.sh::before {
   content: "Shell Script";
   color: #505050;
