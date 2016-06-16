@@ -40,14 +40,24 @@ trans =
     en: 'Content'
     de: 'Inhalt'
   lang:
-    js:
-      en: 'JavaScript Code'
+    bash:
+      en: 'Bash Script Code'
     coffee:
       en: 'CoffeeScript Code'
-    bash:
-      en: 'Bash Code'
+    js:
+      en: 'JavaScript Code'
+    sh:
+      en: 'Shell Script Code'
     sql:
       en: 'SQL Code'
+    handlebars:
+      en: 'Handlebars template'
+    json:
+      en: 'JSON Data'
+    yaml:
+      en: 'YAML Data'
+    markdown:
+      en: 'Markdown Document'
   boxes:
     info:
       en: 'Info'

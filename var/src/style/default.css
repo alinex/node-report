@@ -63,16 +63,28 @@ pre code, pre tt {
   background: none;
 }
 pre code.language header {
-    color: #505050;
+    color: black;
     font-weight: bold;
     display: block;
-    background: rgba(225, 135, 40, 0.38);
+    background: #fafafa;
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
     margin-bottom: 5px;
     margin: -10px -10px 5px -10px;
     padding: 5px;
 }
+pre code.bash header,
+pre code.coffee header,
+pre code.js header,
+pre code.sh header,
+pre code.sql header
+{   background: #f0ad4e; }
+pre code.json header,
+pre code.yaml header
+{   background: #61b961; }
+pre code.handlebars header,
+pre code.markdown header
+{   background: #76abca; }
 
 div.detail, div.info, div.warning, div.alert {
   padding: 20px 10px 6px 10px;

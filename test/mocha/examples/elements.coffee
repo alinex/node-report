@@ -47,4 +47,18 @@ describe.only "examples", ->
     report = new Report()
     report.p 'A new paragraph.'
     report.p 'A long text may be automatically broken into multiple lines.', 40
+    report.p 'And here comes a fixed\n linebreak.\n\nWith a second paragraph.'
     create 'paragraph', report, cb
+
+  it "should create quote", (cb) ->
+    report = new Report()
+    report.quote 'My home is my castle!'
+    report.quote "I would like to visit a castle in north scotland, next year.", 2, 40
+    create 'quote', report, cb
+
+  it "should create code", (cb) ->
+    report = new Report()
+    report.code 'var x = Math.round(f);', 'js'
+    report.code 'This **is** a ==markdown== text', 'markdown'
+    report.code 'simple:\n  list: ["a", b, 5]', 'yaml'
+    create 'code', report, cb

@@ -344,7 +344,7 @@ class Report
   # ### paragraphs
   p: (text, width) -> @raw Report.p text, width ? @width
   hr: -> @raw Report.hr()
-  quote: (text, depth) -> @raw Report.quote text, depth, @width
+  quote: (text, depth, width) -> @raw Report.quote text, depth, width ? @width
   code: (text, lang) -> @raw Report.code text, lang, @width
   box: (text, type) -> @raw Report.box text, type, @width
 

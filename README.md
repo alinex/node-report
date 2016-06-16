@@ -205,13 +205,15 @@ This allows the following types:
 
 #### Normal
 
-All this methods need a text and an optional width as last parameter used for
-automatic line breaks in markdown style.
+Use it for a normal text paragraph.
 
 ``` coffee
 report.p 'A new paragraph.'
 report.p 'A long text may be automatically broken into multiple lines.', 40
+report.p 'And here comes a fixed\n linebreak.\n\nWith a second paragraph.'
 ```
+
+You may give the line length for markdown as optional second parameter.
 
 This goes into html as:
 
@@ -220,31 +222,93 @@ A new paragraph.
 
 A long text may be automatically broken
 into multiple lines.
+
+And here comes a fixed
+linebreak.
+
+With a second paragraph.
 ```
 
-And renders as:
+In markdown you write your text directly, line breaks will not be held but made
+like needed. An empty line starts a new paragraph but if you need a line break
+on a specific position use a slash at the end.
+
+And renders in HTML as:
 
 ![paragraph](src/doc/elements/paragraph.png)
 
 #### Quote
 
-For quoted text you can give the depth level as number (default is 1):
+Quoted text is used if you show another opinion and it may also be multiple level
+deep. It is like used in emails.
+
 
 ``` coffee
-report.quote 'My home is my castle!', 1
+report.quote 'My home is my castle!'
+report.quote "I would like to visit a castle in north scotland, next year.", 2, 40
 ```
+
+Parameters:
+
+- (string) text for thee quote
+- (integer) depth level 1.. (default: 1)
+- (integer) max width in markdown
+
+You may give the quoting depth as second parameter and maybe the line length for
+markdown as third parameter.
+
+``` markdown
+> My home is my castle!
+
+> > I would like to visit a castle in
+> > north scotland, next year.
+```
+
+And renders as HTML:
+
+![quote](src/doc/elements/quote.png)
 
 #### Code Highlighting
 
-And for code you give the language which is used for syntax highlighting (default
-is text):
+To display some code you can create a paragraph with syntax highlighting (only HTML)
+in languages like:
+
+- code like: bash, coffee, js, sh, sql
+- data like: json, yaml
+- documents like: handlebars, markdown
+
+See [highlight.js](https://highlightjs.org/static/demo/) for all possible languages
+to use.
 
 ``` coffee
-report.code 'va x = Math.round(f);', 'js'
+report.code 'var x = Math.round(f);', 'js'
+report.code 'This **is** a ==markdown== text', 'markdown'
+report.code 'simple:\n  list: [a, b, 5]', 'yaml'
 ```
 
-See [highlight.js](https://highlightjs.org/static/demo/) for possible languages
-to use.
+```` markdown
+``` js
+var x = Math.round(f);
+```
+
+``` markdown
+This **is** a ==markdown== text
+```
+
+``` yaml
+simple:
+  list: ["a", b, 5]
+```
+````
+
+And renders as HTML:
+
+![code](src/doc/elements/code.png)
+
+
+
+
+
 
 ### Special Signs
 
