@@ -936,8 +936,8 @@ headings
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  h1: <span class="hljs-function"><span class="hljs-params">(text)</span> -&gt;</span> @raw Report.h1 text, @width
-  h2: <span class="hljs-function"><span class="hljs-params">(text)</span> -&gt;</span> @raw Report.h2 text, @width
+          <pre class="coffeescript">  h1: <span class="hljs-function"><span class="hljs-params">(text, width)</span> -&gt;</span> @raw Report.h1 text, width ? @width
+  h2: <span class="hljs-function"><span class="hljs-params">(text, width)</span> -&gt;</span> @raw Report.h2 text, width ? @width
   h3: <span class="hljs-function"><span class="hljs-params">(text)</span> -&gt;</span> @raw Report.h3 text, @width
   h4: <span class="hljs-function"><span class="hljs-params">(text)</span> -&gt;</span> @raw Report.h4 text, @width
   h5: <span class="hljs-function"><span class="hljs-params">(text)</span> -&gt;</span> @raw Report.h5 text, @width
@@ -956,9 +956,9 @@ paragraphs
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  p: <span class="hljs-function"><span class="hljs-params">(text)</span> -&gt;</span> @raw Report.p text, @width
+          <pre class="coffeescript">  p: <span class="hljs-function"><span class="hljs-params">(text, width)</span> -&gt;</span> @raw Report.p text, width ? @width
   hr: <span class="hljs-function">-&gt;</span> @raw Report.hr()
-  quote: <span class="hljs-function"><span class="hljs-params">(text, depth)</span> -&gt;</span> @raw Report.quote text, depth, @width
+  quote: <span class="hljs-function"><span class="hljs-params">(text, depth, width)</span> -&gt;</span> @raw Report.quote text, depth, width ? @width
   code: <span class="hljs-function"><span class="hljs-params">(text, lang)</span> -&gt;</span> @raw Report.code text, lang, @width
   box: <span class="hljs-function"><span class="hljs-params">(text, type)</span> -&gt;</span> @raw Report.box text, type, @width</pre>
         </td>
