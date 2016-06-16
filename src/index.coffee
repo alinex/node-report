@@ -334,15 +334,15 @@ class Report
     this
 
   # ### headings
-  h1: (text) -> @raw Report.h1 text, @width
-  h2: (text) -> @raw Report.h2 text, @width
+  h1: (text, width) -> @raw Report.h1 text, width ? @width
+  h2: (text, width) -> @raw Report.h2 text, width ? @width
   h3: (text) -> @raw Report.h3 text, @width
   h4: (text) -> @raw Report.h4 text, @width
   h5: (text) -> @raw Report.h5 text, @width
   h6: (text) -> @raw Report.h6 text, @width
 
   # ### paragraphs
-  p: (text) -> @raw Report.p text, @width
+  p: (text, width) -> @raw Report.p text, width ? @width
   hr: -> @raw Report.hr()
   quote: (text, depth) -> @raw Report.quote text, depth, @width
   code: (text, lang) -> @raw Report.code text, lang, @width

@@ -218,7 +218,8 @@ This goes into html as:
 ``` markdown
 A new paragraph.
 
-A long text may be automatically broken into multiple lines.
+A long text may be automatically broken
+into multiple lines.
 ```
 
 And renders as:
