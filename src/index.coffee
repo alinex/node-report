@@ -21,7 +21,7 @@ dataStringify = deasync format.stringify
 
 block = (text, start, indent, width, pre = false) ->
   indent = '\n' + indent
-  text = text.trim().replace /([^\\\s])[ \r\t]*\n[ \r\t]*(\S)/g, '$1\n$2' unless pre
+  text = text.trim().replace /([^\\\s])[ \r\t]*\n[ \r\t]*(\S)/g, '$1\\\n$2' unless pre
   text = '\n' + start + text.replace(/\n/g, indent) + '\n'
   util.string.wordwrap text, width, indent, 2
 
@@ -208,7 +208,7 @@ class Report
   @footnote: (id, text) ->
     ["[^#{id}]", "\n[^#{id}]: #{text}\n"]
 
-  # ### paragraphs
+  # ### blocks
   @p: (text, width) -> block text, '', '', width ? @width
   @quote: (text, depth = 1, width) ->
     indent = util.string.repeat '> ', depth

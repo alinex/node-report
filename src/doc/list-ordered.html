@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Table with Search and Sort</title>
-    <meta charset="UTF-8" /><link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.css">
-<script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-1.12.3.js"></script>
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script><style type="text/css">html {
+    <title>Report</title>
+    <meta charset="UTF-8" /><style type="text/css">html {
   background: #222;
   padding: 20px;
 }
@@ -304,46 +302,25 @@ abbr, acronym {
   background-color: white;
 }
 
-</style><script type="text/javascript"><!--
-$(document).ready( function () {
-  $('table').DataTable({
-    "paging":   false,
-    "info":     false
-  });
-});
-//--></script>  </head>
-  <body><p></p>
-<h1 id="table-with-search-and-sort">Table with Search and Sort</h1>
-<table>
-<thead>
-<tr>
-<th style="text-align:right">ID</th>
-<th style="text-align:left">German</th>
-<th style="text-align:left">English</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:right">1</td>
-<td style="text-align:left">eins</td>
-<td style="text-align:left">one</td>
-</tr>
-<tr>
-<td style="text-align:right">2</td>
-<td style="text-align:left">zwei</td>
-<td style="text-align:left">two</td>
-</tr>
-<tr>
-<td style="text-align:right">3</td>
-<td style="text-align:left">drei</td>
-<td style="text-align:left">three</td>
-</tr>
-<tr>
-<td style="text-align:right">12</td>
-<td style="text-align:left">zwölf</td>
-<td style="text-align:left">twelve</td>
-</tr>
-</tbody>
-</table>
+</style>  </head>
+  <body><ol>
+<li>one</li>
+<li>two</li>
+<li>and this is a long text because i can’t only write numbers down here to show
+the proper use of the lists also with long text lines</li>
+<li>last<br />
+two lines</li>
+</ol>
+<hr />
+<ol>
+<li>one</li>
+<li>two
+<ol>
+<li>and more</li>
+<li>subline</li>
+</ol>
+</li>
+<li>three</li>
+</ol>
 </body>
 </html>

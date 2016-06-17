@@ -13,130 +13,13 @@ equal = (a, b) ->
 
 describe "format", ->
 
-  describe "headings", ->
-
-    it "should create heading 1", ->
-      equal Report.h1("My Test"), """
-      \n\nMy Test
-      ================================================================================\n
-      """
-    it "should create heading 2", ->
-      equal Report.h2("Subheading"), """
-      \n\nSubheading
-      --------------------------------------------------------------------------------\n
-      """
-    it "should create heading 3", ->
-      equal Report.h3("Subheading"), "\n### Subheading\n"
-    it "should create heading 4", ->
-      equal Report.h4("Subheading"), "\n#### Subheading\n"
-    it "should create heading 5", ->
-      equal Report.h5("Subheading"), "\n##### Subheading\n"
-    it "should create heading 6", ->
-      equal Report.h6("Subheading"), "\n###### Subheading\n"
-
   describe "inline", ->
 
-    it "should make text bold", ->
-      equal Report.b("bold"), "__bold__"
-    it "should make text italic", ->
-      equal Report.i("italic"), "_italic_"
-    it "should make text italic", ->
-      equal Report.del("old"), "~~old~~"
-    it "should make typewriter text", ->
-      equal Report.tt("variable"), "`variable`"
     it "should make link text", ->
       equal Report.a("google", "http://google.de"), "[google](http://google.de)"
     it "should add an external image", ->
       equal Report.img("google", "http://google.de/favicon.ico"),
         "![google](http://google.de/favicon.ico)"
-    it "should make text subscript", ->
-      equal Report.sub("2"), "~2~"
-    it "should make text superscript", ->
-      equal Report.sup("th"), "^th^"
-    it "should make text marked", ->
-      equal Report.mark("mandatory"), "==mandatory=="
-
-  describe "paragraph", ->
-
-    it "should make a paragraph", ->
-      equal Report.p("This is a short text."), "\nThis is a short text.\n"
-    it "should make a paragraph with breaks", ->
-      equal Report.p("And now comes a very long line to test if it will be broken into
-        multiple lines by the report module."), """
-      \nAnd now comes a very long line to test if it will be broken into multiple lines
-      by the report module.\n"""
-
-    it "should make a quoted paragraph", ->
-      equal Report.quote("This is a short text."), "\n> This is a short text.\n"
-    it "should make a quoted paragraph with breaks", ->
-      equal Report.quote("And now comes a very long line to test if it will be broken into
-        multiple lines by the report module."), """
-      \n> And now comes a very long line to test if it will be broken into multiple
-      > lines by the report module.\n"""
-    it "should make a quoted paragraph in sevcond level", ->
-      equal Report.quote("This is a short text.", 2), "\n> > This is a short text.\n"
-
-    it "should make a code paragraph", ->
-      equal Report.code("My code\ncomes here."), "\n    My code\n    comes here.\n"
-    it "should make a code with long lines", ->
-      equal Report.code("My code comes a very long line which should be broken into
-      multiple lines in the markdown document."), "\n    My code comes a very long
-      line which should be broken into multiple lines in\n    the markdown document.\n"
-    it "should make a language paragraph", ->
-      equal Report.code("My code\ncomes here.", 'coffee'),
-        "\n``` coffee\nMy code\ncomes here.\n```\n"
-
-    it "should make a special box", ->
-      equal Report.box("This is important.", 'warning'), "\n::: warning\nThis is important.\n:::\n"
-
-  describe "separation", ->
-
-    it "should make a horizontal line", ->
-      equal Report.hr(), "\n---\n"
-    it "should allow breaks in paragraphs", ->
-      equal Report.p("My first line #{Report.br()} and the ongoing second line."),
-      "\nMy first line \\\n and the ongoing second line.\n"
-
-  describe "list", ->
-
-    list = ['one', 'two', "and this is a long text because i can't only write numbers
-    down here to show the proper use of the lists also with long text lines", 'last\ntwo lines']
-    sublist = ['one', 'two', ['subline', 'and more'], 'three']
-    it "should make an unordered list", ->
-      equal Report.ul(list), """
-      \n- one
-      - two
-      - and this is a long text because i can't only write numbers down here to show
-        the proper use of the lists also with long text lines
-      - last
-        two lines\n"""
-    it "should make an ordered list", ->
-      equal Report.ol(list), """
-      \n1. one
-      2. two
-      3. and this is a long text because i can't only write numbers down here to show
-         the proper use of the lists also with long text lines
-      4. last
-         two lines\n"""
-    it "should make an unordered sublist", ->
-      equal Report.ul(sublist), """
-      \n- one
-      - two
-        - subline
-        - and more
-      - three\n"""
-    it "should make a definition list", ->
-      equal Report.dl(
-        html: 'Markup language for internet pages'
-        css: 'Style language to bring the layout into html'
-      ), """
-      \nhtml
-
-      : Markup language for internet pages
-
-      css
-
-      : Style language to bring the layout into html\n"""
 
   describe "table", ->
 

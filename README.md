@@ -129,6 +129,9 @@ If you want to only convert existing markdown into html do this like:
 html = new Report({source: markdownText}).toHtml()
 ```
 
+> Use `\` before the special markdown signs (see below) or automatically mask them using
+> `Report.mask text` if you didn't want to interpret them as markdown.
+
 
 Report Elements
 -------------------------------------------------
@@ -183,6 +186,10 @@ h2 Heading
 ###### h6 Heading
 ```
 
+With the default style this should look like:
+
+![headings](src/doc/headings.png)
+
 Alternatively the first two levels may also defined as:
 
 ``` markdown
@@ -191,11 +198,7 @@ Alternatively the first two levels may also defined as:
 ## h2 Heading
 ```
 
-With the default style this should look like:
-
-![headings](src/doc/elements/headings.png)
-
-### Paragraphs
+### Blocks
 
 This allows the following types:
 
@@ -223,7 +226,7 @@ A new paragraph.
 A long text may be automatically broken
 into multiple lines.
 
-And here comes a fixed
+And here comes a fixed\
 linebreak.
 
 With a second paragraph.
@@ -235,7 +238,7 @@ on a specific position use a slash at the end.
 
 And renders in HTML as:
 
-![paragraph](src/doc/elements/paragraph.png)
+![paragraph](src/doc/block-paragraph.png)
 
 #### Quote
 
@@ -266,7 +269,26 @@ markdown as third parameter.
 
 And renders as HTML:
 
-![quote](src/doc/elements/quote.png)
+![quote](src/doc/block-quote.png)
+
+#### Preformatted Text
+
+This is used for any text which you didn't have a specific language but should alsobe displayed as a preformatted block.
+
+``` coffee
+report.code 'This is a text code block.\nIt should be kept as is.'
+```
+
+In the markdown this is represented with a block of at leasr three back quotes:
+
+```` markdown
+    This is a text code block.
+    It should be kept as is.
+````
+
+And renders as HTML:
+
+![code](src/doc/block-pre.png)
 
 #### Code Highlighting
 
@@ -286,6 +308,9 @@ report.code 'This **is** a ==markdown== text', 'markdown'
 report.code 'simple:\n  list: [a, b, 5]', 'yaml'
 ```
 
+In the markdown this is represented with a block of at leasr three back quotes
+followed by the language to use:
+
 ```` markdown
 ``` js
 var x = Math.round(f);
@@ -303,7 +328,263 @@ simple:
 
 And renders as HTML:
 
-![code](src/doc/elements/code.png)
+![code](src/doc/block-code.png)
+
+### Separation
+
+A horizontal line may be used as seperation between text blocks.
+
+
+``` coffee
+report.p "My first line."
+report.hr()
+report.p "And another one after a separating line."
+```
+
+In the markdown this will be displayed with at least three dahses:
+
+``` markdown
+My first line.
+
+---
+
+And another one after a separating line.
+```
+
+And renders as HTML:
+
+![code](src/doc/separation.png)
+
+### Box
+
+The following code makes a colored box around a markup text which may contain
+any other markup. As second parameter the type of the box needs to be given
+which is one of: 'detail', 'info', 'warning', 'alert'
+
+``` coffee
+report.box "Some more details here...", 'detail'
+report.box "A short note.", 'info'
+report.box "This is important!", 'warning'
+report.box "Something went wrong!", 'alert'
+```
+
+An additional width parameter may also be given to set the display width in markdown.
+
+In the markdown this is defined using driple colons as start and end with the
+box type behind the start mark:
+
+``` markdown
+::: detail
+Some more details here...
+:::
+
+::: info
+A short note.
+:::
+
+::: warning
+This is important!
+:::
+
+::: alert
+Something went wrong!
+:::
+```
+
+And renders as HTML:
+
+![code](src/doc/box.png)
+
+### Lists
+
+Three types of lists are supported:
+
+- ul - unordered list from array
+- ol - ordered list from array
+- dl - definition list from object
+
+All this lists allow for alphanumeric sorting. Give `true` as second parameter or
+`false` for reverse sorting but keep in mind that this is only working correctly
+in straight lists (not sublists).
+Also an additional width parameter for the markdown display width may be given as
+third paramter.
+
+#### Unordered List
+
+This will create a list with bullets.
+
+``` coffee
+report.ul [
+  'one'
+  'two'
+  "and this is a long text because i can't only write numbers
+  down here to show the proper use of the lists also with long text lines" 'last\ntwo lines'
+report.hr()
+report.ul [
+  'one'
+  'two'
+  ['subline', 'and more']
+  'three'
+]
+```
+
+In the markdown the same list is defined as:
+
+``` markdown
+- one
+- two
+- and this is a long text because i can't only write numbers down here to show
+  the proper use of the lists also with long text lines
+- last\
+  two lines
+
+---
+
+- one
+- two
+  - and more
+  - subline
+- three
+```
+
+Alternatively `*` may also be used as list symbol.
+
+And renders as HTML:
+
+![code](src/doc/list-unordered.png)
+
+#### Ordered List
+
+This will create a numbered list.
+
+``` coffee
+report.ol [
+  'one'
+  'two'
+  "and this is a long text because i can't only write numbers
+  down here to show the proper use of the lists also with long text lines" 'last\ntwo lines'
+report.hr()
+report.ol [
+  'one'
+  'two'
+  ['subline', 'and more']
+  'three'
+]
+```
+
+In the markdown the same list is defined as:
+
+``` markdown
+1. one
+2. two
+3. and this is a long text because i can't only write numbers down here to show
+   the proper use of the lists also with long text lines
+4. last\
+   two lines
+
+---
+
+1. one
+2. two
+   1. and more
+   2. subline
+3. three
+```
+
+And renders as HTML:
+
+![code](src/doc/list-ordered.png)
+
+#### Definition List
+
+This will display some phrases as list entries with their contents.
+
+``` coffee
+report.dl
+  html: 'Markup language for internet pages'
+  css: 'Style language to bring the layout into html'
+, true
+```
+
+Like seen in the example the sorting may be set to true.
+
+In the markdown the same list is defined as:
+
+``` markdown
+css
+
+: Style language to bring the layout into html
+
+html
+
+: Markup language for internet pages
+```
+
+And renders as HTML:
+
+![code](src/doc/list-definition.png)
+
+### Inline Formats
+
+These are only available on static calls not on a report instance! But you may add
+them into another instance method.
+
+- b - bold like `__bold__`
+- i - italic like `_italic_`
+- del - delete like `~~delete~~`
+- sub - subscript like `~subscript~`
+- sup - superscript like `^superscript^`
+- tt - typewriter like \`typewriter\`
+- mark - marked text like highlighted with an text marker like `==marked==`
+
+``` coffee
+report.p "This should show as #{Report.b "bold"} format."
+report.p "This should show as #{Report.i "italic"} format."
+report.p "This should show as #{Report.del "strikethrough"} format."
+report.p "This should show as #{Report.tt "typewriter"} format."
+report.p "This should show as #{Report.sub "subscript"} format."
+report.p "This should show as #{Report.sup "superscript"} format."
+report.p "This should show as #{Report.mark "highlight"} format."
+```
+
+You may also combine this calls feeding one result into the other method:
+
+``` coffee
+report.p "Water has the formula " + Report.b("H#{Report.sub 2}O") + " *v* ."
+```
+
+The markdown will look like:
+
+``` markdown
+This should show as __bold__ format.
+
+This should show as _italic_ format.
+
+This should show as ~~strikethrough~~ format.
+
+This should show as `typewriter` format.
+
+This should show as ~subscript~ format.
+
+This should show as ^superscript^ format.
+
+This should show as ==highlight== format.
+```
+
+As an alternative syntax you may use `*italic*` or `**bold**` for this formats, too.
+
+The complex example from above will look like:
+
+``` markdown
+Water has the formula __H~2~O__.
+```
+
+And renders as HTML:
+
+![code](src/doc/format.png) ![code](src/doc/format-complex.png)
+
+
+
 
 
 
@@ -320,38 +601,6 @@ You may also include some
 - [Font Awesome](https://fortawesome.github.io/Font-Awesome/): `:fa-flag:`
 
 
-### Separation
-
-- hr - add a horizontal rule as separation
-- br - line break
-
-You may separate lines using `br` breaks (while normal single newlines are ignored in
-markdown) and for paragraph separation you may use horizontal lines:
-
-``` coffee
-report.hr()
-report.p "This paragraph should have a #{Report.br()} line break visible also in html."
-# like: report.p "This paragraph should have a\\\nline break visible also in html."
-```
-
-### Inline Formats
-
-These are only available on static calls not on a report instance!
-
-- b - bold like `__bold__`
-- i - italic like `_italic_`
-- del - delete like `~~delete~~`
-- sub - subscript like `~subscript~`
-- sup - superscript like `^superscript^`
-- tt - typewriter like \`typewriter\`
-- mark - marked text like highlighted with an text marker like `==marked==`
-
-``` coffee
-report.p "This paragraoh is #{Report.p 'important'}. " + Report.i 'Alex'
-```
-If you don't want to interpret is use `\\` before the sign or automatically
-mask them using `Report.mask text`.
-
 
 ### Links and Images
 
@@ -364,32 +613,6 @@ report.p Report.a 'google', 'http://google.com'
 report.p "Autoconverted link to http://alinex.github.io"
 report.p Report.img 'google', 'https://www.google.de/images/branding\
 /googlelogo/2x/googlelogo_color_272x92dp.png'
-```
-
-### Lists
-
-- ul - unordered list from array
-- ol - ordered list from array
-- dl - definition list from object
-
-All this lists allow for alphanumeric sorting. Give `true` as second parameter or
-`false` for reverse sorting.
-
-``` coffee
-report = new Report()
-list = ['one', 'two', ['sub line', 'and more'], 'three']
-report.ul list
-report.ol list
-```
-
-And a definition list takes an object as argument:
-
-``` coffee
-report = new Report()
-report.dl
-  HTML: 'Markup language for the web'
-  CSS: 'Styling language for web pages'
-  JavaScript: 'Coding not only for web pages'
 ```
 
 ### Table
@@ -646,19 +869,6 @@ report = new Report()
 report.toc()
 ```
 
-### Boxes
-
-The following code makes a colored box around a markup text which may contain of
-any markup.
-
-``` coffee
-report = new Report()
-report.box "Some more details here...", 'detail'
-report.box "A short note.", 'info'
-report.box "This is important!", 'warning'
-report.box "Something went wrong!", 'alert'
-```
-
 ### Specify element properties
 
 With this you can specify some special classes but only if they are supported in
@@ -902,22 +1112,14 @@ Possible options are:
 - quality - integer between 0 and 100 as best quality default is 75
 
 
+
+
+
+
 Markup Syntax
 -------------------------------------------------
 The following syntax may be used alternatively to create your report. To add
 it use the 'source' option of the constructor or the 'raw()' method.
-
-### Text blocks
-
-You write your text directly, line breaks will not be held but made like needed.
-An empty line starts a new paragraph but if you need a line break on a specific
-position use a slash at the end:
-
-    This is an example paragraph which will not break here
-    but at the position there it is optimal but here \
-    a break will be kept.
-
-    And this is the next paragraph.
 
 
 ### Horizontal Rules
@@ -1134,24 +1336,6 @@ may be used like:
     It converts "HTML", but keep intact partial entries like "xxxHTMLyyy" and so on.
 
     *[HTML]: Hyper Text Markup Language
-
-### Boxes
-
-    ::: detail
-    *here be dragons*
-    :::
-
-    ::: info
-    *here be dragons*
-    :::
-
-    ::: warning
-    *here be dragons*
-    :::
-
-    ::: alert
-    *here be dragons*
-    :::
 
 ### Table of Contents
 The following code will add an table of contents in some output types.

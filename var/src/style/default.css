@@ -1,5 +1,6 @@
 html {
-  background: #eee;
+  background: #222;
+  padding: 20px;
 }
 body {
   font-family: "Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
@@ -9,7 +10,7 @@ body {
   border: 2px solid #aaa;
   box-shadow: 10px 10px 5px #888888;
   max-width: 800px;
-  margin: 20px auto;
+  margin: 0px auto;
   padding: 17px;
   background: #fff;
 }
