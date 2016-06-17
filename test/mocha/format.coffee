@@ -13,14 +13,6 @@ equal = (a, b) ->
 
 describe "format", ->
 
-  describe "inline", ->
-
-    it "should make link text", ->
-      equal Report.a("google", "http://google.de"), "[google](http://google.de)"
-    it "should add an external image", ->
-      equal Report.img("google", "http://google.de/favicon.ico"),
-        "![google](http://google.de/favicon.ico)"
-
   describe "table", ->
 
     objListMap = [

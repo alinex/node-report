@@ -267,9 +267,17 @@ markdown as third parameter.
 > > north scotland, next year.
 ```
 
+An alternative format is:
+
+``` markdown
+> Blockquotes can also be nested...
+>> ...by using additional greater-than signs right next to each other...
+> > > ...or with spaces between arrows.
+```
+
 And renders as HTML:
 
-![quote](src/doc/block-quote.png)
+![quote](src/doc/block-quote.png) ![quote](src/doc/block-quote2.png)
 
 #### Preformatted Text
 
@@ -341,7 +349,7 @@ report.hr()
 report.p "And another one after a separating line."
 ```
 
-In the markdown this will be displayed with at least three dahses:
+In the markdown this will be displayed with at least three dashes as a line:
 
 ``` markdown
 My first line.
@@ -350,6 +358,9 @@ My first line.
 
 And another one after a separating line.
 ```
+
+Alternatively you may use at least 3 or more undescores `___` or asterisk `***`
+characters as a line.
 
 And renders as HTML:
 
@@ -447,11 +458,22 @@ In the markdown the same list is defined as:
 - three
 ```
 
-Alternatively `*` may also be used as list symbol.
+Alternatively `*`, `+` or `-` may also be used as list symbols, also in mixed
+format.
+
+``` markdown
++ Create a list by starting a line with `+`, `-`, or `*`
++ Sub-lists are made by indenting 2 spaces:
+  - Marker character change forces new list start:
+    * Ac tristique libero volutpat at
+    + Facilisis in pretium nisl aliquet
+    - Nulla volutpat aliquam velit
++ Very easy!
+```
 
 And renders as HTML:
 
-![code](src/doc/list-unordered.png)
+![code](src/doc/list-unordered.png) ![code](src/doc/list-unordered2.png)
 
 #### Ordered List
 
@@ -491,9 +513,22 @@ In the markdown the same list is defined as:
 3. three
 ```
 
+It doesn't matter if you give the same number multiple times, only the first number's
+value is used to start numbering. To start at a specific number start with it:
+
+``` markdown
+1. You can use sequential numbers...
+1. ...or keep all the numbers as `1.`
+
+Start numbering with offset:
+
+57. foo
+1. bar
+```
+
 And renders as HTML:
 
-![code](src/doc/list-ordered.png)
+![code](src/doc/list-ordered.png) ![code](src/doc/list-ordered2.png)
 
 #### Definition List
 
@@ -520,9 +555,58 @@ html
 : Markup language for internet pages
 ```
 
+In the markdown you may also use:
+
+``` markdown
+Term 1
+
+:   Definition 1
+with lazy continuation.
+
+Term 2 with *inline markup*
+
+:   Definition 2
+
+    Second paragraph of definition 2.
+
+Compact style:
+
+Term 1
+  ~ Definition 1
+
+Term 2
+  ~ Definition 2a
+  ~ Definition 2b
+```
+
 And renders as HTML:
 
-![code](src/doc/list-definition.png)
+![code](src/doc/list-definition.png) ![code](src/doc/list-definition2.png)
+
+#### Check Lists
+
+A check list in which each row maybe done or not.
+
+``` coffee
+report.check
+  'todo list': true
+  'with elements done': true
+  'and something todo': false
+```
+
+The values in the given map defines if they are done or not.
+
+As markdown this is written as:
+
+``` markdown
+[x] todo list
+[x] with elements done
+[ ] and something todo
+```
+
+And renders as HTML:
+
+![code](src/doc/list-check.png)
 
 ### Inline Formats
 
@@ -583,37 +667,182 @@ And renders as HTML:
 
 ![code](src/doc/format.png) ![code](src/doc/format-complex.png)
 
+### Links
 
+If you add a link you can give the full url in the text or add the link  as an
+inline element with:
 
+- link text
+- url
+- title text shown as tooltip in html (optional)
 
+``` coffee
+report.p "Autoconverted link to http://alinex.github.io"
+link = Report.a 'google', 'http://google.com', 'Open Google Search'
+report.p "Have a look at #{link}"
+```
 
+As markdown the link text goes into square brackets, the url in brackets with the optional title text in quotes within:
 
+``` markdown
+Autoconverted link to http://alinex.github.io
 
+Have a look at [google](http://google.com "Open Google Search")
+```
 
+And renders as HTML:
+
+![code](src/doc/links.png)
+
+### Images
+
+Images may be added nearly the same way as links. The parameters are:
+
+- alternative text
+- url
+- title text shown as tooltip in html (optional)
+
+``` coffee
+report.p Report.img 'Alinex', 'https://alinex.github.io/images/Alinex-200.png'
+report.p Report.img 'Alinex Black', 'https://alinex.github.io/images/Alinex-black-200.png', "The Alinex Logo"
+image = Report.img 'Alinex', 'https://alinex.github.io/images/Alinex-200.png'
+report.p "With link: " + Report.a image, 'http://alinex.github.com'
+```
+
+The markdown also looks the same as for links with an exclamation mark before:
+
+``` markdown
+![Alinex](https://alinex.github.io/images/Alinex-200.png)
+
+![Alinex Black](https://alinex.github.io/images/Alinex-black-200.png "The Alinex
+Logo")
+
+With
+link: [![Alinex](https://alinex.github.io/images/Alinex-200.png)](http://alinex.github.com)
+```
+
+With a link the image goes into the square brackets of the link text.
+
+And renders as HTML:
+
+![code](src/doc/images.png)
 
 ### Special Signs
 
-You may also include some
+You may also include some special signs.
 
-- classic typographs like: `(c) (C) (r) (R) (tm) (TM) (p) (P) +-`
-- emoji: `:wink: :crush: :cry: :tear: :laughing: :yum:`
-- emoji shortcuts: `:-) :-( 8-) ;)`
-- [Font Awesome](https://fortawesome.github.io/Font-Awesome/): `:fa-flag:`
-
-
-
-### Links and Images
-
-- a - create a link
-- img - add an image
+#### Typographic
 
 ``` coffee
-report = new Report()
-report.p Report.a 'google', 'http://google.com'
-report.p "Autoconverted link to http://alinex.github.io"
-report.p Report.img 'google', 'https://www.google.de/images/branding\
-/googlelogo/2x/googlelogo_color_272x92dp.png'
+report.h3 "classic typographs: "
+report.ul [
+  "copyright:   (c) (C)"
+  "registeres:  (r) (R) "
+  "trademark:   (tm) (TM) "
+  "paragraph:   (p) (P) "
+  "math:        +-"
+]
+test.report 'signs-typograph', report, null, null, cb
 ```
+
+``` markdown
+### classic typographs
+
+- copyright:   (c) (C)
+- registeres:  (r) (R)
+- trademark:   (tm) (TM)
+- paragraph:   (p) (P)
+- math:        +-
+```
+
+And renders as HTML:
+
+![code](src/doc/signs-typograph.png)
+
+#### Emoji
+
+``` coffee
+report.h3 "emoji:"
+report.ul [
+  """angry:            :angry:            >:(     >:-("""
+  """blush:            :blush:            :")     :-")"""
+  """broken_heart:     :broken_heart:     </3     <\\3"""
+  """confused:         :confused:         :/      :-/"""
+  """cry:              :cry:              :,(   :,-("""
+  """frowning:         :frowning:         :(      :-("""
+  """heart:            :heart:            <3"""
+  """imp:              :imp:              ]:(     ]:-("""
+  """innocent:         :innocent:         o:)     O:)     o:-)      O:-)      0:)     0:-)"""
+  """joy:              :joy:              :,)      :,-)   :,D      :,-D"""
+  """kissing:          :kissing:          :*      :-*"""
+  """laughing:         :laughing:         x-)     X-)"""
+  """neutral_face:     :neutral_face:     :|      :-|"""
+  """open_mouth:       :open_mouth:       :o      :-o     :O      :-O"""
+  """rage:             :rage:             :@      :-@"""
+  """smile:            :smile:            :D      :-D"""
+  """smiley:           :smiley:           :)      :-)"""
+  """smiling_imp:      :smiling_imp:      ]:)     ]:-)"""
+  """sob:              :sob:              ;(     ;-("""
+  """stuck_out_tongue: :stuck_out_tongue: :P      :-P"""
+  """sunglasses:       :sunglasses:       8-)     B-)"""
+  """sweat:            :sweat:            ,:(     ,:-("""
+  """sweat_smile:      :sweat_smile:      ,:)     ,:-)"""
+  """unamused:         :unamused:         :s      :-S     :z      :-Z     :$      :-$"""
+  """wink:             :wink:             ;)      ;-)"""
+]
+```
+
+``` markdown
+### emoji:
+
+- angry:            :angry:            >:(     >:-(
+- blush:            :blush:            :")     :-")
+- broken_heart:     :broken_heart:     </3     <\3
+- confused:         :confused:         :/      :-/
+- cry:              :cry:              :,(   :,-(
+- frowning:         :frowning:         :(      :-(
+- heart:            :heart:            <3
+- imp:              :imp:              ]:(     ]:-(
+- innocent:         :innocent:         o:)     O:)     o:-)      O:-)      0:)
+     0:-)
+- joy:              :joy:              :,)      :,-)   :,D      :,-D
+- kissing:          :kissing:          :*      :-*
+- laughing:         :laughing:         x-)     X-)
+- neutral_face:     :neutral_face:     :|      :-|
+- open_mouth:       :open_mouth:       :o      :-o     :O      :-O
+- rage:             :rage:             :@      :-@
+- smile:            :smile:            :D      :-D
+- smiley:           :smiley:           :)      :-)
+- smiling_imp:      :smiling_imp:      ]:)     ]:-)
+- sob:              :sob:              ;(     ;-(
+- stuck_out_tongue: :stuck_out_tongue: :P      :-P
+- sunglasses:       :sunglasses:       8-)     B-)
+- sweat:            :sweat:            ,:(     ,:-(
+- sweat_smile:      :sweat_smile:      ,:)     ,:-)
+- unamused:         :unamused:         :s      :-S     :z      :-Z     :$     
+  :-$
+- wink:             :wink:             ;)      ;-)
+```
+
+And renders as HTML:
+
+![code](src/doc/signs-emoji.png)
+
+
+#### Font Awesome
+
+``` coffee
+```
+
+``` markdown
+```
+
+And renders as HTML:
+
+![code](src/doc/signs-fa.png)
+
+
+
 
 ### Table
 
@@ -850,16 +1079,6 @@ report.p "This is a test#{report.footnote 'simple test only'} to demonstrate foo
 report = new Report()
 report.abbr 'HTTP', 'Hyper Text Transfer Protocol'
 report.p "The HTTP protocol is used for transferring web content."
-```
-
-- check - add a map of elements
-
-``` coffee
-report = new Report()
-report.check
-  'make new module': true
-  'allow html transformation': true
-  'allow docx transformation': false
 ```
 
 - toc - add a table of contents entry (visible only after rendering)
@@ -1122,16 +1341,6 @@ The following syntax may be used alternatively to create your report. To add
 it use the 'source' option of the constructor or the 'raw()' method.
 
 
-### Horizontal Rules
-
-All of the following types with 3 or more characters are recognized as lines and
-all will look the same in most output formats.
-
-    ___
-
-    ---
-
-    ***
 
 
 ### Typographic Replacements
@@ -1144,120 +1353,6 @@ character:
     test... test..... test?..... test!....
 
     -- ---
-
-### Character Format
-
-    **This is bold text**
-
-    __This is bold text__
-
-    *This is italic text*
-
-    _This is italic text_
-
-    ~~Strikethrough~~
-
-    ++Inserted text++
-
-    ==Marked text==
-
-    19^th^ with superscript
-
-    H~2~O with subscript
-
-### Blockquotes
-
-    > Blockquotes can also be nested...
-    >> ...by using additional greater-than signs right next to each other...
-    > > > ...or with spaces between arrows.
-
-### Lists
-
-Unordered
-
-    + Create a list by starting a line with `+`, `-`, or `*`
-    + Sub-lists are made by indenting 2 spaces:
-      - Marker character change forces new list start:
-        * Ac tristique libero volutpat at
-        + Facilisis in pretium nisl aliquet
-        - Nulla volutpat aliquam velit
-    + Very easy!
-
-Ordered
-
-    1. Lorem ipsum dolor sit amet
-    2. Consectetur adipiscing elit
-    3. Integer molestie lorem at massa
-
-
-    1. You can use sequential numbers...
-    1. ...or keep all the numbers as `1.`
-
-Start numbering with offset:
-
-    57. foo
-    1. bar
-
-Definition lists
-
-    Term 1
-
-    :   Definition 1
-    with lazy continuation.
-
-    Term 2 with *inline markup*
-
-    :   Definition 2
-
-            { some code, part of Definition 2 }
-
-        Third paragraph of definition 2.
-
-Compact style
-
-    Term 1
-      ~ Definition 1
-
-    Term 2
-      ~ Definition 2a
-      ~ Definition 2b
-
-Check Lists
-
-    [x] todo list
-    [x] with elements done
-    [ ] and something todo
-
-### Code
-
-    Inline `code`
-
-Indented code
-
-        // Some comments
-        line 1 of code
-        line 2 of code
-        line 3 of code
-
-
-Block code "fences"
-
-    ```
-    Sample text here...
-    ```
-
-Syntax highlighting
-
-    ``` js
-    var foo = function (bar) {
-      return bar++;
-    };
-
-    console.log(foo(5));
-    ```
-
-See [highlight.js](https://highlightjs.org/static/demo/) for possible languages
-to use.
 
 ### Tables
 
@@ -1279,18 +1374,7 @@ Right aligned columns
 | ext    | extension to be used for dest files. |
 ```
 
-### Links
-
-    [link text](http://dev.nodeca.com)
-
-    [link with title](http://nodeca.github.io/pica/demo/ "title text!")
-
-    Autoconverted link https://github.com/nodeca/pica
-
-### Images
-
-    ![Minion](https://octodex.github.com/images/minion.png)
-    ![Stormtroopocat](https://octodex.github.com/images/stormtroopocat.jpg "The Stormtroopocat")
+### Footnotes
 
 Like links, Images also have a footnote style syntax
 
@@ -1299,19 +1383,6 @@ Like links, Images also have a footnote style syntax
 With a reference later in the document defining the URL location:
 
     [id]: https://octodex.github.com/images/dojocat.jpg  "The Dojocat"
-
-### Emojies and Signs
-
-A lot of emojies will be replaced with special UTF characters or colorful images:
-
-    Classic markup: :wink: :crush: :cry: :tear: :laughing: :yum:
-
-    Shortcuts (emoticons): :-) :-( 8-) ;)
-
-Also the [fontawesome](https://fortawesome.github.io/Font-Awesome/icons/) icons
-may be used like:
-
-    :fa-anchor:
 
 ### Footnotes
 

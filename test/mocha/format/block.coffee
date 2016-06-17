@@ -56,6 +56,26 @@ describe "block", ->
       </body>
       """, cb
 
+  it "should allow alternative format in markdown", (cb) ->
+    report = new Report
+      source: """
+        > Blockquotes can also be nested...
+        >> ...by using additional greater-than signs right next to each other...
+        > > > ...or with spaces between arrows.
+        """
+    test.report 'block-quote2', report, null, """
+      <body><blockquote>
+      <p>Blockquotes can also be nested…</p>
+      <blockquote>
+      <p>…by using additional greater-than signs right next to each other…</p>
+      <blockquote>
+      <p>…or with spaces between arrows.</p>
+      </blockquote>
+      </blockquote>
+      </blockquote>
+      </body>
+      """, cb
+
   it "should create text code block", (cb) ->
     report = new Report()
     report.code 'This is a text code block.\nIt should be kept as is.'

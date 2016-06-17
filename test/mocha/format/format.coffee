@@ -40,7 +40,7 @@ describe "format", ->
       <p>This should show as <mark>highlight</mark> format.</p>
       </body>""", cb
 
-  it "should create different text styles", (cb) ->
+  it "should allow mixed styles", (cb) ->
     report = new Report()
     report.p "Water has the formula " + Report.b("H#{Report.sub 2}O") + "."
     test.report 'format-complex', report, """
@@ -51,3 +51,13 @@ describe "format", ->
         <body><p>Water has the formula <strong>H<sub>2</sub>O</strong>.</p>
         </body>
         """, cb
+
+  it "should allow alternative formatting in markdown", (cb) ->
+    report = new Report
+      source: """
+        **bold** and *italic*
+        """
+    test.report null, report, null, """
+      <body><p><strong>bold</strong> and <em>italic</em></p>
+      </body>
+      """, cb

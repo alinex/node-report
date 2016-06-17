@@ -24,3 +24,23 @@ describe "separations", ->
       <p>And another one after a separating line.</p>
       </body>
       """, cb
+
+  it "should allow alternative formatting ____ in markdown", (cb) ->
+    report = new Report
+      source: """
+        ___
+        """
+    test.report null, report, null, """
+      <body><hr />
+      </body>
+      """, cb
+
+  it "should allow alternative formatting *** in markdown", (cb) ->
+    report = new Report
+      source: """
+        ***
+        """
+    test.report null, report, null, """
+      <body><hr />
+      </body>
+      """, cb
