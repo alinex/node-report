@@ -8,7 +8,7 @@
 # Node Modules
 # -------------------------------------------
 
-debug = require('debug') 'report:graph'
+debug = require('debug') 'report:execute'
 deasync = require 'deasync'
 QRCode = null # load on demand
 jui = null # load on demand
@@ -31,11 +31,11 @@ MARKER = '$'.charCodeAt 0
 # -------------------------------------------
 
 module.exports = (md) ->
-  debug "Init graph plugin..."
+  debug "Init plugin..."
   # add parser rules
-  md.block.ruler.before 'fence', 'graph', parser, ['paragraph', 'reference', 'blockquote', 'list']
+  md.block.ruler.before 'fence', 'execute', parser, ['paragraph', 'reference', 'blockquote', 'list']
   # add render rules
-  md.renderer.rules.graph = renderer
+  md.renderer.rules.execute = renderer
 
 module.exports.toText = (text) ->
   text.replace /\$\$\$\s+qr\s*\n([\s\S]*?)\$\$\$/g, ->
@@ -98,7 +98,7 @@ parser = (state, startLine, endLine, silent) ->
   # If a fence has heading spaces, they should be removed from its inner block
   len = state.sCount[startLine]
   state.line = nextLine + if haveEndMarker then 1 else 0
-  token         = state.push 'graph', 'code', 0
+  token         = state.push 'execute', 'code', 0
   token.info    = params
   token.content = state.getLines startLine + 1, nextLine, len, true
   token.markup  = markup

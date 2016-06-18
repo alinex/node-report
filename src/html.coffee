@@ -18,7 +18,6 @@ mdSub = require 'markdown-it-sub' # subscript support
 mdSup = require 'markdown-it-sup' # superscript support
 mdMark = require 'markdown-it-mark' # add text as "marked"
 mdEmoji = require 'markdown-it-emoji' # add graphical emojis
-mdFontawesome = require 'markdown-it-fontawesome'
 mdDeflist = require 'markdown-it-deflist' # definition lists
 mdAbbr = require 'markdown-it-abbr' # abbreviations (auto added)
 mdFootnote = require 'markdown-it-footnote' # footnotes (auto linked)
@@ -27,7 +26,8 @@ mdDecorate = require 'markdown-it-decorate' # add css classes
 mdToc = require 'markdown-it-toc-and-anchor'
 twemoji = require 'twemoji'
 # load own plugins
-pluginCode = require './plugin/code'
+pluginExecute = require './plugin/execute'
+pluginFontawesome = require './plugin/fontawesome'
 
 
 # Configuration
@@ -108,7 +108,7 @@ module.exports = (report, setup, cb) ->
   # font awesome
   if content.match /\sclass="fa\s/
     tags.unshift """<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/\
-      font-awesome/4.5.0/css/font-awesome.min.css" />"""
+      font-awesome/4.6.3/css/font-awesome.min.css" />"""
   # optimized tables
   if js.match /.DataTable\(/
     tags.unshift """
@@ -188,7 +188,7 @@ initHtml = -> #async.once ->
       try
         return hljs.highlightAuto(str).value
       return '' # use external default escaping
-  .use pluginCode # graphical visualizations
+  .use pluginExecute # graphical visualizations
   .use mdTitle #extracting title from source (first heading)
   .use mdSub # subscript support
   .use mdSup # superscript support
@@ -198,7 +198,7 @@ initHtml = -> #async.once ->
   .use mdContainer, 'alert' # special boxes
   .use mdMark # add text as "marked"
   .use mdEmoji # add graphical emojis
-  .use mdFontawesome
+  .use pluginFontawesome
   .use mdDeflist # definition lists
   .use mdAbbr # abbreviations (auto added)
   .use mdFootnote # footnotes (auto linked)

@@ -1,5 +1,5 @@
 
-### classic typographs: 
+### classic typographs:
 
 - copyright:   (c) (C)
 - registeres:  (r) (R)

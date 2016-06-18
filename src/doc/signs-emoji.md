@@ -9,8 +9,7 @@
 - frowning:         :frowning:         :(      :-(
 - heart:            :heart:            <3
 - imp:              :imp:              ]:(     ]:-(
-- innocent:         :innocent:         o:)     O:)     o:-)      O:-)      0:) 
-     0:-)
+- innocent:         :innocent:         o:)   O:)   o:-)   O:-)   0:)   0:-)
 - joy:              :joy:              :,)      :,-)   :,D      :,-D
 - kissing:          :kissing:          :*      :-*
 - laughing:         :laughing:         x-)     X-)
@@ -25,6 +24,5 @@
 - sunglasses:       :sunglasses:       8-)     B-)
 - sweat:            :sweat:            ,:(     ,:-(
 - sweat_smile:      :sweat_smile:      ,:)     ,:-)
-- unamused:         :unamused:         :s      :-S     :z      :-Z     :$     
-  :-$
+- unamused:         :unamused:         :s   :-S   :z   :-Z   :$   :-$
 - wink:             :wink:             ;)      ;-)

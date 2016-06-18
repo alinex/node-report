@@ -4,7 +4,7 @@ expect = chai.expect
 
 Report = require '../../../src/index'
 markdownit = require 'markdown-it'
-plugin = require '../../../src/plugin/code'
+plugin = require '../../../src/plugin/execute'
 fs = require 'alinex-fs'
 
 test = (name, text) ->
