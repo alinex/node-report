@@ -993,6 +993,7 @@ table = new Table [
   [3, 'three', 'drei']
   [12, 'twelve', 'zwölf']
 ]
+
 report = new Report()
 report.table table
 ```
@@ -1021,6 +1022,7 @@ table = new Table [
   [12, 'twelve', 'zwölf']
 ]
 table.style null, 'ID', {align: 'right'}
+
 report = new Report()
 report.table table
 ```
@@ -1048,6 +1050,7 @@ table = new Table [
   [3, 'three', 'drei']
   [12, 'twelve', 'zwölf']
 ]
+
 report = new Report()
 report.table table, null, null, true
 ```
@@ -1061,10 +1064,250 @@ report.table table, null, null, true
 | 12 | twelve  | zwölf  |
 ```
 
+And renders as HTML:
+
+![html](src/doc/table-alinex-mask.png)
+
+#### with list-map
+
+__Using column map-map__
+
+``` coffee
+table = [
+  {id: 1, en: 'one', de: 'eins'}
+  {id: 2, en: 'two', de: 'zwei'}
+  {id: 3, en: 'three', de: 'drei'}
+  {id: 12, en: 'twelve', de: 'zwölf'}
+]
+columns =
+  id:
+    title: 'ID'
+    align: 'right'
+  de:
+    title: 'German'
+  en:
+    title: 'English'
+
+report = new Report()
+report.table table, columns
+```
+
+``` markdown
+| ID | German | English |
+| --:|:------ |:------- |
+|  1 | eins   | one     |
+|  2 | zwei   | two     |
+|  3 | drei   | three   |
+| 12 | zwölf  | twelve  |
+```
+
 And renders as HTML and console output:
 
-![html](src/doc/table-alinex-mask.png) ![console](src/doc/table-alinex-mask.console.png)
+![html](src/doc/table-list-map.png) ![console](src/doc/table-list-map.console.png)
 
+__Using column list-map__
+
+``` coffee
+table = [
+  {id: 1, en: 'one', de: 'eins'}
+  {id: 2, en: 'two', de: 'zwei'}
+  {id: 3, en: 'three', de: 'drei'}
+  {id: 12, en: 'twelve', de: 'zwölf'}
+]
+columns = [
+  ['id', 'en']
+  ['ID', 'English']
+]
+
+report = new Report()
+report.table table, columns
+```
+
+``` markdown
+| ID | English |
+|:-- |:------- |
+| 1  | one     |
+| 2  | two     |
+| 3  | three   |
+| 12 | twelve  |
+```
+
+And renders as HTML:
+
+![html](src/doc/table-list-map-column-list-array.png)
+
+__Using column list__
+
+``` coffee
+table = [
+  {id: 1, en: 'one', de: 'eins'}
+  {id: 2, en: 'two', de: 'zwei'}
+  {id: 3, en: 'three', de: 'drei'}
+  {id: 12, en: 'twelve', de: 'zwölf'}
+]
+columns = ['ID', 'English', 'German']
+
+report = new Report()
+report.table table, columns
+```
+
+``` markdown
+| ID | English | German |
+|:-- |:------- |:------ |
+| 1  | one     | eins   |
+| 2  | two     | zwei   |
+| 3  | three   | drei   |
+| 12 | twelve  | zwölf  |
+```
+
+And renders as HTML:
+
+![html](src/doc/table-list-map-column-list.png)
+
+__Using column map__
+
+``` coffee
+table = [
+  {id: 1, en: 'one', de: 'eins'}
+  {id: 2, en: 'two', de: 'zwei'}
+  {id: 3, en: 'three', de: 'drei'}
+  {id: 12, en: 'twelve', de: 'zwölf'}
+]
+columns =
+  id: 'ID'
+  en: 'English'
+
+report = new Report()
+report.table table, columns
+```
+
+``` markdown
+| ID | English |
+|:-- |:------- |
+| 1  | one     |
+| 2  | two     |
+| 3  | three   |
+| 12 | twelve  |
+```
+
+And renders as HTML:
+
+![html](src/doc/table-list-map-column-map.png)
+
+__Using sort map__
+
+``` coffee
+table = [
+  {id: 1, en: 'one', de: 'eins'}
+  {id: 2, en: 'two', de: 'zwei'}
+  {id: 3, en: 'three', de: 'drei'}
+  {id: 12, en: 'twelve', de: 'zwölf'}
+]
+columns =
+  id:
+    title: 'ID'
+    align: 'right'
+  de:
+    title: 'German'
+  en:
+    title: 'English'
+sort = {de: 'desc'}
+
+report = new Report()
+report.table table, columns, sort
+```
+
+``` markdown
+| ID | German | English |
+| --:|:------ |:------- |
+| 12 | zwölf  | twelve  |
+|  2 | zwei   | two     |
+|  1 | eins   | one     |
+|  3 | drei   | three   |
+```
+
+And renders as HTML:
+
+![html](src/doc/table-list-map-sort-map.png)
+
+__Using sort list__
+
+``` coffee
+table = [
+  {id: 1, en: 'one', de: 'eins'}
+  {id: 2, en: 'two', de: 'zwei'}
+  {id: 3, en: 'three', de: 'drei'}
+  {id: 12, en: 'twelve', de: 'zwölf'}
+]
+columns =
+  id:
+    title: 'ID'
+    align: 'right'
+  de:
+    title: 'German'
+  en:
+    title: 'English'
+sort = ['de']
+
+report = new Report()
+report.table table, columns, sort
+```
+
+``` markdown
+| ID | German | English |
+| --:|:------ |:------- |
+|  3 | drei   | three   |
+|  1 | eins   | one     |
+|  2 | zwei   | two     |
+| 12 | zwölf  | twelve  |
+```
+
+And renders as HTM:
+
+![html](src/doc/table-list-map-sort-list.png)
+
+__Using sort key__
+
+``` coffee
+table = [
+  {id: 1, en: 'one', de: 'eins'}
+  {id: 2, en: 'two', de: 'zwei'}
+  {id: 3, en: 'three', de: 'drei'}
+  {id: 12, en: 'twelve', de: 'zwölf'}
+]
+columns =
+  id:
+    title: 'ID'
+    align: 'right'
+  de:
+    title: 'German'
+  en:
+    title: 'English'
+sort = 'de'
+
+report = new Report()
+report.table table, columns, sort
+```
+
+``` markdown
+| ID | German | English |
+| --:|:------ |:------- |
+|  3 | drei   | three   |
+|  1 | eins   | one     |
+|  2 | zwei   | two     |
+| 12 | zwölf  | twelve  |
+```
+
+And renders as HTML:
+
+![html](src/doc/table-list-map-sort-key.png)
+
+
+
+
+#### with list array
+
+#### with map
 
 __With align settings__
 

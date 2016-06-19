@@ -13,7 +13,7 @@ equal = (a, b) ->
 
 describe "format", ->
 
-  describe "table", ->
+  describe "ttable", ->
 
     objListMap = [
       {id: 1, en: 'one', de: 'eins'}
@@ -71,63 +71,9 @@ describe "format", ->
     sortList = ['de']
     sortKey = 'de'
 
-    it "should format obj-list-map with col-map-map", ->
-      equal Report.table(objListMap, colMapMap), """
-      \n| ID | German | English |
-      | --:|:------ |:------- |
-      |  1 | eins   | one     |
-      |  2 | zwei   | two     |
-      |  3 | drei   | three   |
-      | 12 | zwölf  | twelve  |\n"""
-    it "should format obj-list-map with col-list-array", ->
-      equal Report.table(objListMap, colListArray), """
-      \n| ID | English |
-      |:-- |:------- |
-      | 1  | one     |
-      | 2  | two     |
-      | 3  | three   |
-      | 12 | twelve  |\n"""
-    it "should format obj-list-map with col-list", ->
-      equal Report.table(objListMap, colList), """
-      \n| ID | English | German |
-      |:-- |:------- |:------ |
-      | 1  | one     | eins   |
-      | 2  | two     | zwei   |
-      | 3  | three   | drei   |
-      | 12 | twelve  | zwölf  |\n"""
-    it "should format obj-list-map with col-map", ->
-      equal Report.table(objListMap, colMap), """
-      \n| ID | English |
-      |:-- |:------- |
-      | 1  | one     |
-      | 2  | two     |
-      | 3  | three   |
-      | 12 | twelve  |\n"""
 
-    it "should resort list using sort-map", ->
-      equal Report.table(objListMap, colMapMap, sortMap), """
-      \n| ID | German | English |
-      | --:|:------ |:------- |
-      | 12 | zwölf  | twelve  |
-      |  2 | zwei   | two     |
-      |  1 | eins   | one     |
-      |  3 | drei   | three   |\n"""
-    it "should resort list using sort-list", ->
-      equal Report.table(objListMap, colMapMap, sortList), """
-      \n| ID | German | English |
-      | --:|:------ |:------- |
-      |  3 | drei   | three   |
-      |  1 | eins   | one     |
-      |  2 | zwei   | two     |
-      | 12 | zwölf  | twelve  |\n"""
-    it "should resort list using sort-key", ->
-      equal Report.table(objListMap, colMapMap, sortKey), """
-      \n| ID | German | English |
-      | --:|:------ |:------- |
-      |  3 | drei   | three   |
-      |  1 | eins   | one     |
-      |  2 | zwei   | two     |
-      | 12 | zwölf  | twelve  |\n"""
+
+
     it "should format obj-list-map without col", ->
       equal Report.table(objListMap), """
       \n| id | en     | de    |
@@ -136,6 +82,9 @@ describe "format", ->
       | 2  | two    | zwei  |
       | 3  | three  | drei  |
       | 12 | twelve | zwölf |\n"""
+
+
+
 
     it "should format obj-list-array", ->
       equal Report.table(objListArray), """
@@ -175,6 +124,9 @@ describe "format", ->
       | 2  |     | zwei  |
       | 3  |     | drei  |
       | 12 |     | zwölf |\n"""
+
+
+
 
     it "should format obj-map", ->
       equal Report.table(objMap), """
