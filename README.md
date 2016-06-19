@@ -900,46 +900,47 @@ report.p "stacked icons:
 
 - __Stacked Icons__
 
-  To stack multiple icons, use the `fa-stack-1x` for the regularly sized icon, and
-  `fa-stack-2x` for the larger icon. `fa-inverse` can be used as an alternative icon
-  color. You can even throw larger icon classes to get further control of sizing.
-
+  To stack multiple icons, use the `fa-stack-1x` as start for the regularly sized icon, and
+  `fa-stack-2x` for the larger icon and the icon itself with it's manipulations like `fa-inverse`
+  behind.
 
 ``` markdown
 ### fontawesome:
 
-basic icons:   :fa-flag:    :fa-camera-retro:
+__basic icons:__   :fa-flag:    :fa-camera-retro:
 
-larger icons:  :fa-camera-retro fa-lg:   :fa-camera-retro fa-2x:  
+__larger icons:__  :fa-camera-retro fa-lg: :fa-camera-retro fa-2x:
 :fa-camera-retro fa-3x:
 
-fixed width:   :fa-home fa-fw:   :fa-pencil fa-fw:
+__fixed width:__   :fa-home fa-fw:   :fa-pencil fa-fw:
 
 - <!-- {ul:.fa-ul}-->
-- list symbols:  :fa-li fa-check-square:
+- __list symbols:__  :fa-li fa-check-square:
 
-:fa-quote-left fa-3x fa-pull-left fa-border: ...tomorrow we will run faster,
-stretch out our arms farther... And then one fine morning— So we beat on, boats
-against the current, borne back ceaselessly into the past.
+:fa-quote-left fa-3x fa-pull-left fa-border: __border icons:__ ...tomorrow we
+will run faster, stretch out our arms farther... And then one fine morning— So
+we beat on, boats against the current, borne back ceaselessly into the past.
 
-animated icons:    :fa-spinner fa-spin fa-2x fa-fw: :fa-circle-o-notch fa-spin
-fa-2x fa-fw: :fa-refresh fa-spin fa-2x fa-fw: :fa-cog fa-spin fa-2x fa-fw:
-:fa-spinner fa-pulse fa-2x fa-fw:
+__animated icons:__    :fa-spinner fa-spin fa-2x fa-fw: :fa-circle-o-notch
+fa-spin fa-2x fa-fw: :fa-refresh fa-spin fa-2x fa-fw: :fa-cog fa-spin fa-2x
+fa-fw: :fa-spinner fa-pulse fa-2x fa-fw:
 
-flipped and rotated:   :fa-shield: normal :fa-shield fa-rotate-90: fa-rotate-90
-:fa-shield fa-rotate-180: fa-rotate-180 :fa-shield fa-rotate-270: fa-rotate-270
-:fa-shield fa-flip-horizontal: fa-flip-horizontal :fa-shield fa-flip-vertical:
-fa-flip-vertical
+__flipped and rotated:__   :fa-shield: normal :fa-shield fa-rotate-90:
+fa-rotate-90 :fa-shield fa-rotate-180: fa-rotate-180 :fa-shield fa-rotate-270:
+fa-rotate-270 :fa-shield fa-flip-horizontal: fa-flip-horizontal :fa-shield
+fa-flip-vertical: fa-flip-vertical
 
-stacked icons: :fa-stack fa-lg fa-stack-2x fa-square-o fa-stack-1x fa-twitter:
-:fa-stack fa-lg fa-stack-2x fa-circle fa-stack-1x fa-flag fa-inverse: :fa-stack
-fa-lg fa-stack-2x fa-square fa-stack-1x fa-terminal fa-inverse: :fa-stack fa-lg
-fa-stack-1x fa-camera fa-stack-2x fa-ban text-danger:
+__stacked icons:__ :fa-lg fa-stack-2x fa-square-o fa-stack-1x fa-twitter: :fa-lg
+fa-stack-2x fa-circle fa-stack-1x fa-flag fa-inverse: :fa-lg fa-stack-2x
+fa-square fa-stack-1x fa-terminal fa-inverse: :fa-lg fa-stack-1x fa-camera
+fa-stack-2x fa-ban text-red:
 ```
 
 And renders as HTML:
 
 ![code](src/doc/signs-fontawesome.png)
+
+
 
 
 

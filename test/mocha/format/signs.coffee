@@ -132,87 +132,86 @@ describe.only "signs", ->
   it "should add fontawesome signs", (cb) ->
     report = new Report()
     report.h3 "fontawesome:"
-    report.p "basic icons:   :fa-flag:    :fa-camera-retro:"
-    report.p "larger icons:  :fa-camera-retro fa-lg: :fa-camera-retro fa-2x: :fa-camera-retro fa-3x:"
-    report.p "fixed width:   :fa-home fa-fw:   :fa-pencil fa-fw:"
+    report.p "__basic icons:__   :fa-flag:    :fa-camera-retro:"
+    report.p "__larger icons:__  :fa-camera-retro fa-lg: :fa-camera-retro fa-2x: :fa-camera-retro fa-3x:"
+    report.p "__fixed width:__   :fa-home fa-fw:   :fa-pencil fa-fw:"
     report.ul [
       "<!-- {ul:.fa-ul}-->"
-      "list symbols:  :fa-li fa-check-square:"
+      "__list symbols:__  :fa-li fa-check-square:"
     ]
     report.p ":fa-quote-left fa-3x fa-pull-left fa-border:
-      ...tomorrow we will run faster, stretch out our arms farther...
+      __border icons:__ ...tomorrow we will run faster, stretch out our arms farther...
       And then one fine morning— So we beat on, boats against the
       current, borne back ceaselessly into the past."
-    report.p "animated icons:    :fa-spinner fa-spin fa-2x fa-fw:
+    report.p "__animated icons:__    :fa-spinner fa-spin fa-2x fa-fw:
       :fa-circle-o-notch fa-spin fa-2x fa-fw:
       :fa-refresh fa-spin fa-2x fa-fw:
       :fa-cog fa-spin fa-2x fa-fw:
       :fa-spinner fa-pulse fa-2x fa-fw:"
-    report.p "flipped and rotated:   :fa-shield: normal
+    report.p "__flipped and rotated:__   :fa-shield: normal
       :fa-shield fa-rotate-90: fa-rotate-90
       :fa-shield fa-rotate-180: fa-rotate-180
       :fa-shield fa-rotate-270: fa-rotate-270
       :fa-shield fa-flip-horizontal: fa-flip-horizontal
       :fa-shield fa-flip-vertical: fa-flip-vertical"
-    report.p "stacked icons:
-      :fa-stack fa-lg fa-stack-2x fa-square-o fa-stack-1x fa-twitter:
-      :fa-stack fa-lg fa-stack-2x fa-circle fa-stack-1x fa-flag fa-inverse:
-      :fa-stack fa-lg fa-stack-2x fa-square fa-stack-1x fa-terminal fa-inverse:
-      :fa-stack fa-lg fa-stack-1x fa-camera fa-stack-2x fa-ban text-danger:"
+    report.p "__stacked icons:__
+      :fa-lg fa-stack-2x fa-square-o fa-stack-1x fa-twitter:
+      :fa-lg fa-stack-2x fa-circle fa-stack-1x fa-flag fa-inverse:
+      :fa-lg fa-stack-2x fa-square fa-stack-1x fa-terminal fa-inverse:
+      :fa-lg fa-stack-1x fa-camera fa-stack-2x fa-ban text-red:"
     test.report 'signs-fontawesome', report, """
 
       ### fontawesome:
 
-      basic icons:   :fa-flag:    :fa-camera-retro:
+      __basic icons:__   :fa-flag:    :fa-camera-retro:
 
-      larger icons:  :fa-camera-retro fa-lg: :fa-camera-retro fa-2x: :fa-camera-retro
-      fa-3x:
+      __larger icons:__  :fa-camera-retro fa-lg: :fa-camera-retro fa-2x:
+      :fa-camera-retro fa-3x:
 
-      fixed width:   :fa-home fa-fw:   :fa-pencil fa-fw:
+      __fixed width:__   :fa-home fa-fw:   :fa-pencil fa-fw:
 
       - <!-- {ul:.fa-ul}-->
-      - list symbols:  :fa-li fa-check-square:
+      - __list symbols:__  :fa-li fa-check-square:
 
-      :fa-quote-left fa-3x fa-pull-left fa-border: ...tomorrow we will run faster,
-      stretch out our arms farther... And then one fine morning— So we beat on, boats
-      against the current, borne back ceaselessly into the past.
+      :fa-quote-left fa-3x fa-pull-left fa-border: __border icons:__ ...tomorrow we
+      will run faster, stretch out our arms farther... And then one fine morning— So
+      we beat on, boats against the current, borne back ceaselessly into the past.
 
-      animated icons:    :fa-spinner fa-spin fa-2x fa-fw: :fa-circle-o-notch fa-spin
-      fa-2x fa-fw: :fa-refresh fa-spin fa-2x fa-fw: :fa-cog fa-spin fa-2x fa-fw:
-      :fa-spinner fa-pulse fa-2x fa-fw:
+      __animated icons:__    :fa-spinner fa-spin fa-2x fa-fw: :fa-circle-o-notch
+      fa-spin fa-2x fa-fw: :fa-refresh fa-spin fa-2x fa-fw: :fa-cog fa-spin fa-2x
+      fa-fw: :fa-spinner fa-pulse fa-2x fa-fw:
 
-      flipped and rotated:   :fa-shield: normal :fa-shield fa-rotate-90: fa-rotate-90
-      :fa-shield fa-rotate-180: fa-rotate-180 :fa-shield fa-rotate-270: fa-rotate-270
-      :fa-shield fa-flip-horizontal: fa-flip-horizontal :fa-shield fa-flip-vertical:
-      fa-flip-vertical
+      __flipped and rotated:__   :fa-shield: normal :fa-shield fa-rotate-90:
+      fa-rotate-90 :fa-shield fa-rotate-180: fa-rotate-180 :fa-shield fa-rotate-270:
+      fa-rotate-270 :fa-shield fa-flip-horizontal: fa-flip-horizontal :fa-shield
+      fa-flip-vertical: fa-flip-vertical
 
-      stacked icons: :fa-stack fa-lg fa-stack-2x fa-square-o fa-stack-1x fa-twitter:
-      :fa-stack fa-lg fa-stack-2x fa-circle fa-stack-1x fa-flag fa-inverse: :fa-stack
-      fa-lg fa-stack-2x fa-square fa-stack-1x fa-terminal fa-inverse: :fa-stack fa-lg
-      fa-stack-1x fa-camera fa-stack-2x fa-ban text-danger:
+      __stacked icons:__ :fa-lg fa-stack-2x fa-square-o fa-stack-1x fa-twitter: :fa-lg
+      fa-stack-2x fa-circle fa-stack-1x fa-flag fa-inverse: :fa-lg fa-stack-2x
+      fa-square fa-stack-1x fa-terminal fa-inverse: :fa-lg fa-stack-1x fa-camera
+      fa-stack-2x fa-ban text-red:
 
       """, """
       <body><h3 id="fontawesome">fontawesome:</h3>
-      <p>basic icons:   <i class="fa fa-flag"></i>    <i class="fa fa-camera-retro"></i></p>
-      <p>larger icons:  <i class="fa fa-camera-retro fa-lg"></i> <i class="fa fa-camera-retro fa-2x"></i> <i class="fa fa-camera-retro
-      fa-3x"></i></p>
-      <p>fixed width:   <i class="fa fa-home fa-fw"></i>   <i class="fa fa-pencil fa-fw"></i></p>
+      <p><strong>basic icons:</strong>   <i class="fa fa-flag"></i>    <i class="fa fa-camera-retro"></i></p>
+      <p><strong>larger icons:</strong>  <i class="fa fa-camera-retro fa-lg"></i> <i class="fa fa-camera-retro fa-2x"></i>
+      <i class="fa fa-camera-retro fa-3x"></i></p>
+      <p><strong>fixed width:</strong>   <i class="fa fa-home fa-fw"></i>   <i class="fa fa-pencil fa-fw"></i></p>
       <ul class="fa-ul">
       <li></li>
-      <li>list symbols:  <i class="fa fa-li fa-check-square"></i></li>
+      <li><strong>list symbols:</strong>  <i class="fa fa-li fa-check-square"></i></li>
       </ul>
-      <p><i class="fa fa-quote-left fa-3x fa-pull-left fa-border"></i> …tomorrow we will run faster,
-      stretch out our arms farther… And then one fine morning— So we beat on, boats
-      against the current, borne back ceaselessly into the past.</p>
-      <p>animated icons:    <i class="fa fa-spinner fa-spin fa-2x fa-fw"></i> <i class="fa fa-circle-o-notch fa-spin
-      fa-2x fa-fw"></i> <i class="fa fa-refresh fa-spin fa-2x fa-fw"></i> <i class="fa fa-cog fa-spin fa-2x fa-fw"></i>
-      <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i></p>
-      <p>flipped and rotated:   <i class="fa fa-shield"></i> normal <i class="fa fa-shield fa-rotate-90"></i> fa-rotate-90
-      <i class="fa fa-shield fa-rotate-180"></i> fa-rotate-180 <i class="fa fa-shield fa-rotate-270"></i> fa-rotate-270
-      <i class="fa fa-shield fa-flip-horizontal"></i> fa-flip-horizontal <i class="fa fa-shield fa-flip-vertical"></i>
-      fa-flip-vertical</p>
-      <p>stacked icons: <span class="fa-stack fa-lg"><i class="fa fa-stack-2x fa-square-o"></i><i class="fa fa-stack-1x fa-twitter"></i></span>
-      <span class="fa-stack fa-lg"><i class="fa fa-stack-2x fa-circle"></i><i class="fa fa-stack-1x fa-flag fa-inverse"></i></span> <span class="fa-stack
-      fa-lg"><i class="fa fa-stack-2x fa-square"></i><i class="fa fa-stack-1x fa-terminal fa-inverse"></i></span> <span class="fa-stack fa-lg"><i class="fa fa-stack-1x fa-camera"></i><i class="fa fa-stack-2x fa-ban text-danger"></i></span></p>
+      <p><i class="fa fa-quote-left fa-3x fa-pull-left fa-border"></i> <strong>border icons:</strong> …tomorrow we
+      will run faster, stretch out our arms farther… And then one fine morning— So
+      we beat on, boats against the current, borne back ceaselessly into the past.</p>
+      <p><strong>animated icons:</strong>    <i class="fa fa-spinner fa-spin fa-2x fa-fw"></i> <i class="fa fa-circle-o-notch
+      fa-spin fa-2x fa-fw"></i> <i class="fa fa-refresh fa-spin fa-2x fa-fw"></i> <i class="fa fa-cog fa-spin fa-2x
+      fa-fw"></i> <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i></p>
+      <p><strong>flipped and rotated:</strong>   <i class="fa fa-shield"></i> normal <i class="fa fa-shield fa-rotate-90"></i>
+      fa-rotate-90 <i class="fa fa-shield fa-rotate-180"></i> fa-rotate-180 <i class="fa fa-shield fa-rotate-270"></i>
+      fa-rotate-270 <i class="fa fa-shield fa-flip-horizontal"></i> fa-flip-horizontal <i class="fa fa-shield
+      fa-flip-vertical"></i> fa-flip-vertical</p>
+      <p><strong>stacked icons:</strong> <span class="fa-stack fa-lg"><i class="fa fa-stack-2x fa-square-o"></i><i class="fa fa-stack-1x fa-twitter"></i></span> <span class="fa-stack fa-lg"><i class="fa fa-stack-2x fa-circle"></i><i class="fa fa-stack-1x fa-flag fa-inverse"></i></span> <span class="fa-stack fa-lg"><i class="fa fa-stack-2x
+      fa-square"></i><i class="fa fa-stack-1x fa-terminal fa-inverse"></i></span> <span class="fa-stack fa-lg"><i class="fa fa-stack-1x fa-camera"></i><i class="fa fa-stack-2x fa-ban text-red"></i></span></p>
       </body>
       """, cb

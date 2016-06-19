@@ -9,6 +9,12 @@ debug = require('debug') 'report:fontawesome'
 # alinex modules
 
 
+# Setup
+# -------------------------------------------
+
+REGEXP = /^\:(fa-[\w\-]+(\s+(fa|text)-[\w\-]+)*)\:/
+
+
 # Init plugin in markdown-it
 # -------------------------------------------
 
@@ -25,7 +31,7 @@ module.exports = (md) ->
 
 parser = (state, startLine, endLine, silent) ->
   # slowwww... maybe use an advanced regexp engine for this
-  match = state.src.slice(state.pos).match /^\:(fa-[\w\-]+(\s+(fa|text)-[\w\-]+)*)\:/
+  match = state.src.slice(state.pos).match REGEXP
   return false unless match
   # valid match found, now we need to advance cursor
   state.pos += match[0].length
@@ -41,8 +47,9 @@ parser = (state, startLine, endLine, silent) ->
 # -------------------------------------------
 
 renderer = (tokens, id) ->
-  names = tokens[id].meta.match[1].split /\s(?=fa-stack)/
+  names = tokens[id].meta.match[1].split /(?:^|\s)(?=fa-stack)/
   return '<i class="fa ' + tokens[id].meta.match[1] + '"></i>' if names.length is 1
-  html = """<span class="#{names[0]}">"""
+  # make stacked icons
+  html = """<span class="fa-stack #{names[0]}">"""
   html += """<i class="fa #{e}"></i>""" for e in names[1..]
   html + "</span>"

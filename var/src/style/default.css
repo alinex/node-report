@@ -197,8 +197,8 @@ abbr, acronym {
 .center {
   text-align: center;
 }
-.red {
-  color: red;
+.text-red {
+  color: firebrick;
 }
 
 
