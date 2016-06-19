@@ -17,14 +17,10 @@ The key features are:
 - easy markdown writing
 - feature rich markdown
 - export as text, console, html (also optimized for email), pdf, png or jpg
-- replace table data with chart in html
-- specific settings for html
+- convert text to visual representation like qr, chart or UML
+- optimized html tables
 
-See example output in [text](https://raw.githubusercontent.com/alinex/node-report/master/src/doc/test.txt)
-, [markdown](https://raw.githubusercontent.com/alinex/node-report/master/src/doc/test.md), [HTML](http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/doc/test.html),
-[PDF](https://raw.githubusercontent.com/alinex/node-report/master/src/doc/test.pdf),
-[PNG](https://raw.githubusercontent.com/alinex/node-report/master/src/doc/test.png)
-and [JPG](https://raw.githubusercontent.com/alinex/node-report/master/src/doc/test.jpg) format.
+See example output in within the different element descriptions below.
 
 Internally this works with a markdown syntax which has a limited number of possibilities
 but is easy to transform in nearly any other format. If you know markdown you will
@@ -129,8 +125,11 @@ If you want to only convert existing markdown into html do this like:
 html = new Report({source: markdownText}).toHtml()
 ```
 
-> Use `\` before the special markdown signs (see below) or automatically mask them using
-> `Report.mask text` if you didn't want to interpret them as markdown.
+### Mask characters
+
+To mask some characters to be not interpreted as markdown, you may use `\` before
+the special markdown signs or automatically mask them using `Report.mask text`
+if you didn't want to interpret them as markdown.
 
 
 Report Elements
@@ -752,7 +751,6 @@ report.ul [
   "paragraph:   (p) (P) "
   "math:        +-"
 ]
-test.report 'signs-typograph', report, null, null, cb
 ```
 
 ``` markdown
@@ -960,15 +958,12 @@ And renders as HTML and console output:
 In text and console output only the icons are kept in a compressed format. All modulations
 are removed.
 
-
-
-
 ### Table
 
 Output a table (data object and optional column object needed). This can be called
 with different kind of objects making it easy to use nearly everything you have.
 
-    Syntax: table <object>, <columns>, <sort>
+    Syntax: report.table <object>, <columns>, <sort>, <mask>
 
 The complexest format will be shown at first:
 
@@ -981,9 +976,139 @@ The complexest format will be shown at first:
     <mask>    : (boolean) use Report.mask() on each field value
 
 All other formats will be converted into this filling missing information with
-default values.
+default values. You may also use the [table](http://alinex.github.io/node.table)
+format which can include the column settings and often is already sorted.
 
-There are lots of ways to use this:
+There are lots of ways to use this.
+
+#### from alinex-table
+
+__Simple conversion__
+
+``` coffee
+table = new Table [
+  ['ID', 'English', 'German']
+  [1, 'one', 'eins']
+  [2, 'two', 'zw_ei']
+  [3, 'three', 'drei']
+  [12, 'twelve', 'zwölf']
+]
+report = new Report()
+report.table table
+```
+
+``` markdown
+| ID | English | German |
+|:-- |:------- |:------ |
+| 1  | one     | eins   |
+| 2  | two     | zw_ei  |
+| 3  | three   | drei   |
+| 12 | twelve  | zwölf  |
+```
+
+And renders as HTML and console output:
+
+![html](src/doc/table-alinex.png) ![console](src/doc/table-alinex.console.png)
+
+__With align settings__
+
+``` coffee
+table = new Table [
+  ['ID', 'English', 'German']
+  [1, 'one', 'eins']
+  [2, 'two', 'zw_ei']
+  [3, 'three', 'drei']
+  [12, 'twelve', 'zwölf']
+]
+table.style null, 'ID', {align: 'right'}
+report = new Report()
+report.table table
+```
+
+``` markdown
+| ID | English | German |
+| --:|:------- |:------ |
+|  1 | one     | eins   |
+|  2 | two     | zw_ei  |
+|  3 | three   | drei   |
+| 12 | twelve  | zwölf  |
+```
+
+And renders as HTML and console output:
+
+![html](src/doc/table-alinex-align.png) ![console](src/doc/table-alinex-align.console.png)
+
+__With mask settings__
+
+``` coffee
+table = new Table [
+  ['ID', 'English', 'German']
+  [1, 'one', 'eins']
+  [2, 'two', 'zw_ei']
+  [3, 'three', 'drei']
+  [12, 'twelve', 'zwölf']
+]
+report = new Report()
+report.table table, null, null, true
+```
+
+``` markdown
+| ID | English | German |
+|:-- |:------- |:------ |
+| 1  | one     | eins   |
+| 2  | two     | zw\_ei |
+| 3  | three   | drei   |
+| 12 | twelve  | zwölf  |
+```
+
+And renders as HTML and console output:
+
+![html](src/doc/table-alinex-mask.png) ![console](src/doc/table-alinex-mask.console.png)
+
+
+__With align settings__
+
+``` coffee
+table = new Table [
+  ['ID', 'English', 'German']
+  [1, 'one', 'eins']
+  [2, 'two', 'zw_ei']
+  [3, 'three', 'drei']
+  [12, 'twelve', 'zwölf']
+]
+report = new Report()
+report.table table
+```
+
+``` markdown
+```
+
+And renders as HTML and console output:
+
+![html](src/doc/table-alinex-align.png) ![console](src/doc/table-alinex-align.console.png)
+
+
+
+__With align settings__
+
+``` coffee
+table = new Table [
+  ['ID', 'English', 'German']
+  [1, 'one', 'eins']
+  [2, 'two', 'zw_ei']
+  [3, 'three', 'drei']
+  [12, 'twelve', 'zwölf']
+]
+report = new Report()
+report.table table
+```
+
+``` markdown
+```
+
+And renders as HTML and console output:
+
+![html](src/doc/table-alinex-align.png) ![console](src/doc/table-alinex-align.console.png)
 
 __With a Table Instance__
 
