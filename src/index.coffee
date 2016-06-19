@@ -13,6 +13,7 @@ format = require 'alinex-format'
 
 # load local plugins
 pluginExecute = require './plugin/execute'
+pluginFontawesome = require './plugin/fontawesome'
 dataStringify = deasync format.stringify
 
 
@@ -381,7 +382,7 @@ class Report
 
    # ### as simplified text
   toText: ->
-    text = pluginExecute.toText @toString()
+    text = pluginFontawesome.toText pluginExecute.toText @toString()
     # remove some parts
     text = text.replace ///
     (
@@ -421,7 +422,7 @@ class Report
 
   # ### as colorful console text
   toConsole: ->
-    text = pluginExecute.toText @toString()
+    text = pluginFontawesome.toConsole pluginExecute.toText @toString()
     # replace code
     removed = []
     text = text.replace /\n\n``` (\w+)\s*?\n([\s\S]*?)\n```\s*?\n/g, (all, lang, code) =>

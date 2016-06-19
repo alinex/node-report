@@ -2,7 +2,7 @@
 Report = require '../../../src/index'
 test = require '../test'
 
-describe.only "signs", ->
+describe "signs", ->
   @timeout 10000
 
   it "should add typograph signs", (cb) ->

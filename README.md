@@ -140,6 +140,8 @@ markup. They often are handy to convert your objects into formatted text. In
 contrast you may define the markup by yourself (see below) and use the `raw()`
 method to add it.
 
+Often the text output will look like the markdown and the console output sometimes, too.
+
 Settings to be done before using the reporter:
 
 ``` coffee
@@ -188,7 +190,7 @@ h2 Heading
 
 With the default style this should look like:
 
-![headings](src/doc/headings.png)
+![html](src/doc/headings.png) ![console](src/doc/headings.console.png)
 
 Alternatively the first two levels may also defined as:
 
@@ -296,7 +298,7 @@ In the markdown this is represented with a block of at leasr three back quotes:
 
 And renders as HTML:
 
-![code](src/doc/block-pre.png)
+![html](src/doc/block-pre.png)
 
 #### Code Highlighting
 
@@ -336,7 +338,7 @@ simple:
 
 And renders as HTML:
 
-![code](src/doc/block-code.png)
+![html](src/doc/block-code.png)
 
 ### Separation
 
@@ -364,7 +366,7 @@ characters as a line.
 
 And renders as HTML:
 
-![code](src/doc/separation.png)
+![html](src/doc/separation.png) ![console](src/doc/separation.console.png)
 
 ### Box
 
@@ -402,9 +404,9 @@ Something went wrong!
 :::
 ```
 
-And renders as HTML:
+And renders as HTML or console output:
 
-![code](src/doc/box.png)
+![html](src/doc/box.png) ![console](src/doc/box.console.png)
 
 ### Lists
 
@@ -473,7 +475,7 @@ format.
 
 And renders as HTML:
 
-![code](src/doc/list-unordered.png) ![code](src/doc/list-unordered2.png)
+![html](src/doc/list-unordered.png) ![html](src/doc/list-unordered2.png)
 
 #### Ordered List
 
@@ -528,7 +530,7 @@ Start numbering with offset:
 
 And renders as HTML:
 
-![code](src/doc/list-ordered.png) ![code](src/doc/list-ordered2.png)
+![html](src/doc/list-ordered.png) ![html](src/doc/list-ordered2.png)
 
 #### Definition List
 
@@ -581,7 +583,7 @@ Term 2
 
 And renders as HTML:
 
-![code](src/doc/list-definition.png) ![code](src/doc/list-definition2.png)
+![html](src/doc/list-definition.png) ![html](src/doc/list-definition2.png)
 
 #### Check Lists
 
@@ -604,9 +606,9 @@ As markdown this is written as:
 [ ] and something todo
 ```
 
-And renders as HTML:
+And renders as HTML and console output:
 
-![code](src/doc/list-check.png)
+![html](src/doc/list-check.png) ![console](src/doc/list-check.console.png)
 
 ### Inline Formats
 
@@ -665,7 +667,11 @@ Water has the formula __H~2~O__.
 
 And renders as HTML:
 
-![code](src/doc/format.png) ![code](src/doc/format-complex.png)
+![html](src/doc/format.png) ![html](src/doc/format-complex.png)
+
+And also in console some formats are interpreted:
+
+![console](src/doc/format.png)
 
 ### Links
 
@@ -692,7 +698,9 @@ Have a look at [google](http://google.com "Open Google Search")
 
 And renders as HTML:
 
-![code](src/doc/links.png)
+![html](src/doc/links.png)
+
+Console and text output will be the same as markdown.
 
 ### Images
 
@@ -717,15 +725,17 @@ The markdown also looks the same as for links with an exclamation mark before:
 ![Alinex Black](https://alinex.github.io/images/Alinex-black-200.png "The Alinex
 Logo")
 
-With
-link: [![Alinex](https://alinex.github.io/images/Alinex-200.png)](http://alinex.github.com)
+With link:
+[![Alinex](https://alinex.github.io/images/Alinex-200.png)](http://alinex.github.com)
 ```
 
 With a link the image goes into the square brackets of the link text.
 
-And renders as HTML:
+And renders as HTML and console output:
 
-![code](src/doc/images.png)
+![html](src/doc/images.png) ![html](src/doc/images.console.png)
+
+The text conversion is the same as conspole output.
 
 ### Special Signs
 
@@ -755,9 +765,9 @@ test.report 'signs-typograph', report, null, null, cb
 - math:        +-
 ```
 
-And renders as HTML:
+And renders as HTML and console output:
 
-![code](src/doc/signs-typograph.png)
+![html](src/doc/signs-typograph.png) ![console](src/doc/signs-typograph.console.png)
 
 #### Emoji
 
@@ -826,7 +836,9 @@ report.ul [
 
 And renders as HTML:
 
-![code](src/doc/signs-emoji.png)
+![html](src/doc/signs-emoji.png)
+
+Text and console output are the same as the markdown.
 
 #### Font Awesome
 
@@ -870,6 +882,11 @@ report.p "stacked icons:
 
   You can place Font Awesome icons just about anywhere as inline text using the icon's
   name. The icon size and color will match the surrounding text paragraph.
+
+  - __Colors__
+
+  Use the classes `text-red`, `text-green`, `text-yellow`, `text-blue`, `text-magenta`, `text-cyan`
+  or `text-gray` to change the colors.
 
 - __Larger Icons__
 
@@ -936,11 +953,12 @@ fa-square fa-stack-1x fa-terminal fa-inverse: :fa-lg fa-stack-1x fa-camera
 fa-stack-2x fa-ban text-red:
 ```
 
-And renders as HTML:
+And renders as HTML and console output:
 
-![code](src/doc/signs-fontawesome.png)
+![html](src/doc/signs-fontawesome.png) ![html](src/doc/signs-fontawesome.console.png)
 
-
+In text and console output only the icons are kept in a compressed format. All modulations
+are removed.
 
 
 

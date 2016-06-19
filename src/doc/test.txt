@@ -116,7 +116,7 @@ Classic markup: :wink: :crush: :cry: :tear: :laughing: :yum:
 
 Shortcuts (emoticons): :-) :-( 8-) ;)
 
-[Font Awesome](https://fortawesome.github.io/Font-Awesome/): :fa-flag:
+[Font Awesome](https://fortawesome.github.io/Font-Awesome/): <flag>
 
 ### Specialities
 

@@ -3,10 +3,13 @@ expect = chai.expect
 ### eslint-env node, mocha ###
 async = require 'async'
 fs = require 'fs'
+chalk = require 'chalk'
 
 debug = require('debug')('test:examples')
 
 exports.report = (name, report, md, html, cb) ->
+  exports.toText name, report
+  exports.toConsole name, report
   async.parallel [
     (cb) ->
       data = report.toString()
@@ -39,3 +42,15 @@ exports.report = (name, report, md, html, cb) ->
         debug "created #{name}.png"
         cb()
   ], cb
+
+exports.toText = (name, report) ->
+  unless process.env.EXAMPLES
+    return report.toText()
+  console.log chalk.inverse "#{name} Converted to Text"
+  console.log report.toText()
+
+exports.toConsole = (name, report) ->
+  unless process.env.EXAMPLES
+    return report.toConsole()
+  console.log chalk.inverse "#{name} Converted to Console Output"
+  console.log report.toConsole()

@@ -1,5 +1,8 @@
 
-- classic typographs like: (c) (C) (r) (R) (tm) (TM) (p) (P) +-
-- emoji: :wink: :crush: :cry: :tear: :laughing: :yum:
-- emoji shortcuts: :-) :-( 8-) ;)
-- [Font Awesome](https://fortawesome.github.io/Font-Awesome/): :fa-flag: ...
+![Alinex](https://alinex.github.io/images/Alinex-200.png)
+
+![Alinex Black](https://alinex.github.io/images/Alinex-black-200.png "The Alinex
+Logo")
+
+With link:
+[![Alinex](https://alinex.github.io/images/Alinex-200.png)](http://alinex.github.com)
