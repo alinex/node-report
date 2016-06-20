@@ -1662,16 +1662,15 @@ And rendered as HTML links will be added in the text and backlinks from the foot
 ![html](src/doc/footnotes.png)
 
 
+### HTML Setup
 
+This are settings which only influence html output and the formats depending on it
+(pdf, images).
 
+#### Sttyle
 
-
-
-
-### Specify element properties
-
-With this you can specify some special classes but only if they are supported in
-the stylesheet:
+You can also give some specific styles (only) for the HTML output. This may overwrite
+all default settings:
 
 ``` coffee
 report = new Report()
@@ -1681,6 +1680,15 @@ report.p "Set an id and class..." + Report.style '#top .hide'
 report.p "Set an specific attriubute" + Report.img('google', 'https://www.google.de/images/branding\
 /googlelogo/2x/googlelogo_color_272x92dp.png') + Report.style 'width=20'
 ```
+
+#### Javascript
+
+
+
+
+
+
+
 
 This applies the given style to the innermost previous element. But you may also
 specify the type of element:
@@ -1700,7 +1708,29 @@ The following classes may be used:
 | .red    | make text red  |
 | .center | center text    |
 
-### Code Visualization
+
+
+For html and, pdf and image output a specific style can be set. This belongs to
+the element atrated in front of the style definition.
+
+    <!-- {color:red} -->
+
+    <!-- {p:.center} -->
+
+    <!-- {#table1 .tlist} -->
+
+The second example specifies the previouse &lt;p> tag and sets the style class
+'.center' for it.
+
+
+
+
+
+
+
+
+
+### Visualization
 
 This will only work in HTML format, else the definition is displayed.
 
@@ -1920,20 +1950,6 @@ Markup Syntax
 The following syntax may be used alternatively to create your report. To add
 it use the 'source' option of the constructor or the 'raw()' method.
 
-
-### Specific Style
-
-For html and, pdf and image output a specific style can be set. This belongs to
-the element atrated in front of the style definition.
-
-    <!-- {color:red} -->
-
-    <!-- {p:.center} -->
-
-    <!-- {#table1 .tlist} -->
-
-The second example specifies the previouse &lt;p> tag and sets the style class
-'.center' for it.
 
 ### Visualizations
 
