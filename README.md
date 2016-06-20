@@ -1070,6 +1070,31 @@ And renders as HTML:
 
 #### with list-map
 
+``` coffee
+table = [
+  {id: 1, en: 'one', de: 'eins'}
+  {id: 2, en: 'two', de: 'zwei'}
+  {id: 3, en: 'three', de: 'drei'}
+  {id: 12, en: 'twelve', de: 'zwölf'}
+]
+
+report = new Report()
+report.table table
+```
+
+``` markdown
+| id | en     | de    |
+|:-- |:------ |:----- |
+| 1  | one    | eins  |
+| 2  | two    | zwei  |
+| 3  | three  | drei  |
+| 12 | twelve | zwölf |
+```
+
+And renders as HTML and console output:
+
+![html](src/doc/table-list-map.png)
+
 __Using column map-map__
 
 ``` coffee
@@ -1103,7 +1128,7 @@ report.table table, columns
 
 And renders as HTML and console output:
 
-![html](src/doc/table-list-map.png) ![console](src/doc/table-list-map.console.png)
+![html](src/doc/table-list-map-column-map-map.png) ![console](src/doc/table-list-map-column-map-map.console.png)
 
 __Using column list-map__
 
@@ -1302,80 +1327,114 @@ And renders as HTML:
 
 ![html](src/doc/table-list-map-sort-key.png)
 
-
-
-
 #### with list array
 
-#### with map
-
-__With align settings__
-
 ``` coffee
-table = new Table [
-  ['ID', 'English', 'German']
-  [1, 'one', 'eins']
-  [2, 'two', 'zw_ei']
-  [3, 'three', 'drei']
-  [12, 'twelve', 'zwölf']
-]
-report = new Report()
-report.table table
-```
-
-``` markdown
-```
-
-And renders as HTML and console output:
-
-![html](src/doc/table-alinex-align.png) ![console](src/doc/table-alinex-align.console.png)
-
-
-
-__With align settings__
-
-``` coffee
-table = new Table [
-  ['ID', 'English', 'German']
-  [1, 'one', 'eins']
-  [2, 'two', 'zw_ei']
-  [3, 'three', 'drei']
-  [12, 'twelve', 'zwölf']
-]
-report = new Report()
-report.table table
-```
-
-``` markdown
-```
-
-And renders as HTML and console output:
-
-![html](src/doc/table-alinex-align.png) ![console](src/doc/table-alinex-align.console.png)
-
-__With a Table Instance__
-
-If you have a [table] (http://alinex.github.io/node-table) instance you may directly
-add this to your report. This supports 'align' settings on the columns or sheet:
-
-``` coffee
-# setup the table data
-Table = require 'alinex-table'
-table = new Table [
-  ['ID', 'English', 'German']
+table = [
   [1, 'one', 'eins']
   [2, 'two', 'zwei']
   [3, 'three', 'drei']
   [12, 'twelve', 'zwölf']
 ]
-table.style null, 'ID', {align: 'right'}
-# add them to existing report
+report = new Report()
 report.table table
 ```
 
-Now in the report output you get something like:
+``` markdown
+| 1  | one    | eins  |
+|:-- |:------ |:----- |
+| 2  | two    | zwei  |
+| 3  | three  | drei  |
+| 12 | twelve | zwölf |
+```
 
-``` text
+And renders as HTML:
+
+![html](src/doc/table-list-array.png)
+
+__Using column list__
+
+``` coffee
+table = [
+  [1, 'one', 'eins']
+  [2, 'two', 'zwei']
+  [3, 'three', 'drei']
+  [12, 'twelve', 'zwölf']
+]
+columns = ['ID', 'English', 'German']
+
+report = new Report()
+report.table table, columns
+```
+
+``` markdown
+
+| ID | English | German |
+|:-- |:------- |:------ |
+| 1  | one     | eins   |
+| 2  | two     | zwei   |
+| 3  | three   | drei   |
+| 12 | twelve  | zwölf  |
+```
+
+And renders as HTML:
+
+![html](src/doc/table-list-array-column-list.png)
+
+__Using column list-array__
+
+``` coffee
+table = [
+  [1, 'one', 'eins']
+  [2, 'two', 'zwei']
+  [3, 'three', 'drei']
+  [12, 'twelve', 'zwölf']
+]
+columns = [
+  [0, 1]
+  ['ID', 'English']
+]
+
+report = new Report()
+report.table table, columns
+```
+
+``` markdown
+| ID | English |
+|:-- |:------- |
+| 1  | one     |
+| 2  | two     |
+| 3  | three   |
+| 12 | twelve  |
+```
+
+And renders as HTML:
+
+![html](src/doc/table-list-array-column-list-array.png)
+
+__Using column list-map__
+
+``` coffee
+table = [
+  [1, 'one', 'eins']
+  [2, 'two', 'zwei']
+  [3, 'three', 'drei']
+  [12, 'twelve', 'zwölf']
+]
+columns = [
+  title: 'ID'
+  align: 'right'
+,
+  title: 'English'
+,
+  title: 'German'
+]
+
+report = new Report()
+report.table table, columns
+```
+
+``` markdown
 | ID | English | German |
 | --:|:------- |:------ |
 |  1 | one     | eins   |
@@ -1384,172 +1443,118 @@ Now in the report output you get something like:
 | 12 | twelve  | zwölf  |
 ```
 
-__Direct table__
+And renders as HTML:
 
-Next you may add a table containing a header row itself:
+![html](src/doc/table-list-array-column-list-map.png)
+
+__With empty fields__
 
 ``` coffee
-report.table  [
-  ['ID', 'English', 'German']
+table = [
   [1, 'one', 'eins']
-  [2, 'two', 'zwei']
-  [3, 'three', 'drei']
-  [12, 'twelve', 'zwölf']
+  [2, '', 'zwei']
+  [3, null, 'drei']
+  [12, undefined, 'zwölf']
 ]
+report = new Report()
+report.table table
 ```
 
-__Full Options__
+``` markdown
 
-Or at last give everything like you want it (all arguments above):
+| 1  | one | eins  |
+|:-- |:--- |:----- |
+| 2  |     | zwei  |
+| 3  |     | drei  |
+| 12 |     | zwölf |
+```
+
+And renders as HTML:
+
+![html](src/doc/table-list-array-empty.png)
+
+#### with map
 
 ``` coffee
-# obj-list-map
-report.table [
-  {id: 1, en: 'one', de: 'eins'}
-  {id: 2, en: 'two', de: 'zwei'}
-  {id: 3, en: 'three', de: 'drei'}
-  {id: 12, en: 'twelve', de: 'zwölf'}
-]
-# obj-list-map with col-map-map
-report.table [
-  {id: 1, en: 'one', de: 'eins'}
-  {id: 2, en: 'two', de: 'zwei'}
-  {id: 3, en: 'three', de: 'drei'}
-  {id: 12, en: 'twelve', de: 'zwölf'}
-],
-  id:
-    title: 'ID'
-    align: 'right'
-  de:
-    title: 'German'
-  en:
-    title: 'English'
-# obj-list-map with col-list-array
-report.table [
-  {id: 1, en: 'one', de: 'eins'}
-  {id: 2, en: 'two', de: 'zwei'}
-  {id: 3, en: 'three', de: 'drei'}
-  {id: 12, en: 'twelve', de: 'zwölf'}
-], [
-  ['id', 'en']
-  ['ID', 'English']
-]
-# obj-list-map with col-list
-report.table [
-  {id: 1, en: 'one', de: 'eins'}
-  {id: 2, en: 'two', de: 'zwei'}
-  {id: 3, en: 'three', de: 'drei'}
-  {id: 12, en: 'twelve', de: 'zwölf'}
-], ['ID', 'English', 'German']
-# obj-list-map with col-map
-report.table [
-  {id: 1, en: 'one', de: 'eins'}
-  {id: 2, en: 'two', de: 'zwei'}
-  {id: 3, en: 'three', de: 'drei'}
-  {id: 12, en: 'twelve', de: 'zwölf'}
-],
-  id: 'ID'
-  en: 'English'
-# obj-list-map with col-map-map using sort-map
-report.table [
-  {id: 1, en: 'one', de: 'eins'}
-  {id: 2, en: 'two', de: 'zwei'}
-  {id: 3, en: 'three', de: 'drei'}
-  {id: 12, en: 'twelve', de: 'zwölf'}
-],
-  id:
-    title: 'ID'
-    align: 'right'
-  de:
-    title: 'German'
-  en:
-    title: 'English'
-, {de: 'desc'}
-# obj-list-map with col-map-map using sort-list
-report.table [
-  {id: 1, en: 'one', de: 'eins'}
-  {id: 2, en: 'two', de: 'zwei'}
-  {id: 3, en: 'three', de: 'drei'}
-  {id: 12, en: 'twelve', de: 'zwölf'}
-],
-  id:
-    title: 'ID'
-    align: 'right'
-  de:
-    title: 'German'
-  en:
-    title: 'English'
-, ['de']
-# obj-list-map with col-map-map using sort-key
-report.table [
-  {id: 1, en: 'one', de: 'eins'}
-  {id: 2, en: 'two', de: 'zwei'}
-  {id: 3, en: 'three', de: 'drei'}
-  {id: 12, en: 'twelve', de: 'zwölf'}
-],
-  id:
-    title: 'ID'
-    align: 'right'
-  de:
-    title: 'German'
-  en:
-    title: 'English'
-, 'de'
-# obj-list-array
-report.table [
-  [1, 'one', 'eins']
-  [2, 'two', 'zwei']
-  [3, 'three', 'drei']
-  [12, 'twelve', 'zwölf']
-]
-# obj-list-array with col-list
-report.table [
-  [1, 'one', 'eins']
-  [2, 'two', 'zwei']
-  [3, 'three', 'drei']
-  [12, 'twelve', 'zwölf']
-], ['ID', 'English', 'German']
-# obj-list-array with col-array-array
-report.table [
-  [1, 'one', 'eins']
-  [2, 'two', 'zwei']
-  [3, 'three', 'drei']
-  [12, 'twelve', 'zwölf']
-], [
-  [0, 1]
-  ['ID', 'English']
-]
-# obj-list-array with col-array-map
-report.table [
-  [1, 'one', 'eins']
-  [2, 'two', 'zwei']
-  [3, 'three', 'drei']
-  [12, 'twelve', 'zwölf']
-], [
-    title: 'ID'
-    align: 'right'
-  ,
-    title: 'English'
-  ,
-    title: 'German'
-  ]
-# obj-map
-report.table
+table =
   id: '001'
   name: 'alex'
   position: 'developer'
-# obj-map with col-array
-report.table
+report = new Report()
+report.table table
+```
+
+``` markdown
+| Name     | Value     |
+|:-------- |:--------- |
+| id       | 001       |
+| name     | alex      |
+| position | developer |
+```
+
+And renders as HTML:
+
+![html](src/doc/table-map.png)
+
+__Using volumn list__
+
+``` coffee
+table =
   id: '001'
   name: 'alex'
   position: 'developer'
-, ['NAME', 'VALUE']
-# mask in table with array
-report.table
-  id: '*001*'
-  name: 'alex'
-, ['Name', 'Value'], null, true
+report = new Report()
+report.table table
 ```
+
+``` markdown
+| NAME     | VALUE     |
+|:-------- |:--------- |
+| id       | 001       |
+| name     | alex      |
+| position | developer |
+```
+
+And renders as HTML:
+
+![html](src/doc/table-map-column-list.png)
+
+__With list and object content__
+
+``` coffee
+table =
+  number: [1..8]
+  name: 'alex'
+  data:
+    type: 'developer'
+    lang: 'javascript'
+report = new Report()
+report.table table
+```
+
+``` markdown
+| Name      | Value                  |
+|:--------- |:---------------------- |
+| number    | 1, 2, 3, 4, 5, 6, 7, 8 |
+| name      | alex                   |
+| data.type | developer              |
+| data.lang | javascript             |
+```
+
+And renders as HTML:
+
+![html](src/doc/table-map-list-object.png)
+
+
+
+
+
+
+
+
+
+
+
 
 ### Special Elements
 
