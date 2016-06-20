@@ -207,7 +207,7 @@ class Report
 
   # ### Multi element
   @footnote: (id, text) ->
-    ["[^#{id}]", "\n[^#{id}]: #{text}\n"]
+    ["[^#{id}]", "\n[^#{id}]: #{text.replace /\n/g, '\n    '}\n"]
 
   # ### blocks
   @p: (text, width) -> block text, '', '', width ? @width
@@ -359,10 +359,10 @@ class Report
 
   footnote: (text, id) ->
     id ?= ++@state.footnote
-    @parts.footnote.push "[^#{id}]: #{text.trim()}"
+    @parts.footnote.push "[^#{id}]: #{text.replace(/(\n\s*)\b/g, '$1      ').trim()}"
     return "[^#{id}]"
 
-  abbr: (abbr, text) -> @raw Report.abbr abbr, text
+  abbr: (abbr, text) -> @parts.abbr.push Report.abbr(abbr, text).trim()
   toc: -> @raw Report.toc()
 
   qr: (data) -> @raw Report.qr data

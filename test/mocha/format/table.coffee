@@ -3,7 +3,7 @@ Report = require '../../../src/index'
 test = require '../test'
 Table = require 'alinex-table'
 
-describe.only "table", ->
+describe "table", ->
   @timeout 5000
 
   describe "from alinex-table", ->
