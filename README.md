@@ -9,9 +9,6 @@ This report module should help you create complex reports in an easy
 way. You create a new object and append different text objects step by step. At last
 you may access the markdown text or get it converted to HTML.
 
-But you may also use it to simply convert full-featured markdown into HTML or other
-formats.
-
 The key features are:
 
 - easy markdown writing
@@ -20,15 +17,17 @@ The key features are:
 - convert text to visual representation like qr, chart or UML
 - optimized html tables
 
-See example output in within the different element descriptions below.
+See example output within the different element descriptions below.
 
 Internally this works with a markdown syntax which has a limited number of possibilities
 but is easy to transform in nearly any other format. If you know markdown you will
-find the possibilities here enormous.
+find the possibilities here enormous. And you may also directly load markdown and
+process it using this package.
 
 The html export can also be optimized for email using `ìnlineCss` option. With
 this the styles from the head section will moved into the document because
-webmail client will remove the head section completely.
+webmail client will remove the head section completely. Only for javascript there
+is no possible replacement.
 
 > It is one of the modules of the [Alinex Universe](http://alinex.github.io/code.html)
 > following the code standards defined in the [General Docs](http://alinex.github.io/develop).
@@ -1804,7 +1803,16 @@ The example above will lokk like (click to get working HTML):
 
 [![html](src/doc/js.png)](http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/doc/js.html)
 
+#### Header
 
+You may also add any tag to the HTML head section using:
+
+``` coffee
+report = new Report()
+report.header '<script type="text/javascript" src="http://myserver.com/my-lib.js"></script>'
+```
+
+This will add the script tag to the head section of the resulting HTML.
 
 
 
