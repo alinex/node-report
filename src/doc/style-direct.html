@@ -1,4 +1,8 @@
-html {
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Report</title>
+    <meta charset="UTF-8" /><style type="text/css">html {
   background: #222;
   padding: 20px;
 }
@@ -44,6 +48,154 @@ blockquote {
   color: #777;
   padding: 3px 15px;
   margin: 0 15px;
+}
+pre {
+  background-color: #fafafa;
+  border-radius: 10px;
+  border: 1px solid #a4a4a4;
+  font-size: 85%;
+  margin: 20px;
+  padding: 10px;
+}
+code, tt {
+  background-color: #fafafa;
+  border-radius: 4px;
+  font-size: 85%;
+  margin: 0;
+  padding: 0.2em 0;
+}
+pre code, pre tt {
+  background: none;
+}
+pre code.language header {
+    color: black;
+    font-weight: bold;
+    display: block;
+    background: #fafafa;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    margin-bottom: 5px;
+    margin: -10px -10px 5px -10px;
+    padding: 5px;
+}
+pre code.bash header,
+pre code.coffee header,
+pre code.js header,
+pre code.sh header,
+pre code.sql header
+{   background: #f0ad4e; }
+pre code.json header,
+pre code.yaml header
+{   background: #61b961; }
+pre code.handlebars header,
+pre code.markdown header
+{   background: #76abca; }
+
+div.detail, div.info, div.warning, div.alert {
+  padding: 20px 10px 6px 10px;
+  margin: 5px 0 0 0;
+}
+div.detail>p, div.info>p, div.warning>p, div.alert>p {
+  margin-bottom: 0;
+}
+div.info header, div.warning header, div.alert header {
+  font-weight: bold;
+  position: absolute;
+  margin-top: -20px;
+  margin-left: -10px;
+  padding: 3px 20px 3px 10px;
+  border-bottom-right-radius: 18px;
+}
+div.detail {
+  background-color: #fafafa;
+  border: 2px solid #ddd;
+  padding-top: 0;
+}
+div.info {
+  background-color: #99ff99;
+  border: 2px solid #66dd66;
+}
+div.info header {
+  background-color: #66dd66;
+}
+div.warning {
+  background-color: #ffcc99;
+  border: 2px solid #ee8866;
+}
+div.warning header {
+  background-color: #ee8866;
+}
+div.alert {
+  background-color: #ff9999;
+  border: 2px solid #cc0000;
+}
+div.alert header {
+  background-color: #cc0000;
+  color: white;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  display: block;
+  width: 100%;
+  overflow: auto;
+  word-break: normal;
+  word-break: keep-all;
+}
+
+table th,
+table td {
+  padding: 6px 13px;
+  border: 1px solid #ddd;
+}
+table th {
+  background-color: rgba(0, 0, 0, 0.04);
+  font-weight: bold;
+  border-bottom: 3px solid #999;
+}
+table tr {
+  background-color: #fff;
+  border-top: 1px solid #ccc;
+}
+table tr:nth-child(2n) {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+img {
+  vertical-align: middle;
+}
+.emoji {
+  height: 1em;
+}
+abbr, acronym {
+  border-bottom: dotted 1px;
+}
+
+.table-of-contents header {
+  font-weight: bold;
+  font-size: 120%;
+  display: block;
+  background: #ddd;
+  margin: -10px -10px 4px -25px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  padding: 3px 10px;
+}
+.table-of-contents {
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  float: right;
+  margin-top: 0;
+  padding: 10px 10px 10px 25px;
+  background: #fafafa;
+  font-size: 90%;
+}
+.table-of-contents ul {
+  padding-left: 15px;
+}
+.table-of-contents a {
+  text-decoration: none;
 }
 
 /* Tomorrow Night Theme */
@@ -122,112 +274,6 @@ blockquote {
   font-weight: bold;
 }
 
-pre {
-  background-color: #fafafa;
-  border-radius: 10px;
-  border: 1px solid #a4a4a4;
-  font-size: 85%;
-  margin: 20px;
-  padding: 10px;
-}
-code, tt {
-  background-color: #fafafa;
-  border-radius: 4px;
-  font-size: 85%;
-  margin: 0;
-  padding: 0.2em 0;
-}
-pre code, pre tt {
-  background: none;
-}
-pre code.language header {
-    color: black;
-    font-weight: bold;
-    display: block;
-    background: #fafafa;
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
-    margin-bottom: 5px;
-    margin: -10px -10px 5px -10px;
-    padding: 5px;
-}
-pre code.bash header,
-pre code.coffee header,
-pre code.js header,
-pre code.sh header,
-pre code.sql header
-{   background: #f0ad4e; }
-pre code.json header,
-pre code.yaml header
-{   background: #61b961; }
-pre code.handlebars header,
-pre code.markdown header
-{   background: #76abca; }
-
-
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-  display: block;
-  width: 100%;
-  overflow: auto;
-  word-break: normal;
-  word-break: keep-all;
-}
-
-table th,
-table td {
-  padding: 6px 13px;
-  border: 1px solid #ddd;
-}
-table th {
-  background-color: rgba(0, 0, 0, 0.04);
-  font-weight: bold;
-  border-bottom: 3px solid #999;
-}
-table tr {
-  background-color: #fff;
-  border-top: 1px solid #ccc;
-}
-table tr:nth-child(2n) {
-  background-color: rgba(0, 0, 0, 0.04);
-}
-
-img {
-  vertical-align: middle;
-}
-.emoji {
-  height: 1em;
-}
-abbr, acronym {
-  border-bottom: dotted 1px;
-}
-
-.table-of-contents header {
-  font-weight: bold;
-  font-size: 120%;
-  display: block;
-  background: #ddd;
-  margin: -10px -10px 4px -25px;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  padding: 3px 10px;
-}
-.table-of-contents {
-  border: 2px solid #ddd;
-  border-radius: 10px;
-  float: right;
-  margin-top: 0;
-  padding: 10px 10px 10px 25px;
-  background: #fafafa;
-  font-size: 90%;
-}
-.table-of-contents ul {
-  padding-left: 15px;
-}
-.table-of-contents a {
-  text-decoration: none;
-}
 
 /* Color styles for fontawesome and more */
 
@@ -247,3 +293,23 @@ abbr, acronym {
 .right {float: right;}
 .hide {display: none;}
 .spacing {padding: 10px;}
+
+</style>  </head>
+  <body><p id="left" class="left">Set float<br />
+left and id…</p>
+<p class="center">Make this centered (using class)…</p>
+<p class="center text-red">Make this centered and red (using classes)…</p>
+<p>Set image width
+<img src="https://www.google.de/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png" alt="google" width="60" /></p>
+<blockquote class="right">
+<ul>
+<li class="text-red"><a href="#continue" class="text-green">Continue</a></li>
+</ul>
+</blockquote>
+<p>line 1</p>
+<p class="text-green">line 2</p>
+<p>line 3</p>
+<p>line 4</p>
+<p>line 5</p>
+</body>
+</html>

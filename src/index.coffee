@@ -365,6 +365,8 @@ class Report
   abbr: (abbr, text) -> @parts.abbr.push Report.abbr(abbr, text).trim()
   toc: -> @raw Report.toc()
 
+  style: (text) -> @raw Report.style(text) + '\n'
+
   qr: (data) -> @raw Report.qr data
   chart: (setup, data) -> @raw Report.chart setup, data
 

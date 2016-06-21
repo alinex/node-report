@@ -2,7 +2,7 @@
 Report = require '../../../src/index'
 test = require '../test'
 
-describe.only "document", ->
+describe "document", ->
   @timeout 5000
 
   it "should add table of contents", (cb) ->
@@ -96,7 +96,7 @@ describe.only "document", ->
       used it to make a medical learning environment out of it. _Alex[^a]_
 
       [^1]: European Organization for Nuclear Research
-      
+
             See more info at http://home.cern
       [^a]: Alexander Schilling
       [^b]: My colleagues as the University of Tübingen

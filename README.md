@@ -1667,7 +1667,7 @@ And rendered as HTML links will be added in the text and backlinks from the foot
 This are settings which only influence html output and the formats depending on it
 (pdf, images).
 
-#### Sttyle
+#### Direct Style
 
 You can also give some specific styles (only) for the HTML output. This may overwrite
 all default settings:
@@ -1681,6 +1681,71 @@ report.p "Set an specific attriubute" + Report.img('google', 'https://www.google
 /googlelogo/2x/googlelogo_color_272x92dp.png') + Report.style 'width=20'
 ```
 
+As seen above it may also be used as instance method, which will add it at the end
+or as class method to insert also inline.
+
+Annotations will apply itself to the deepest element preceding it. But you may
+To make it apply to a different element, precede your annotations with the tag name
+followed by a `:`.
+To go back to previous parent with the same name, add '^n' after the tag name, where
+'n' is how many levels deep to go back to.
+
+The following classes may be used:
+
+|  STYLE  | RESULT         |
+|:-------:|:-------------- |
+| .text-red | color: red |
+| .text-green | color: green |
+| .text-yellow | color: yellow |
+| .text-blue | color: blue |
+| .text-magenta | color: magenta |
+| .text-cyan | color: cyan |
+| .text-gray | color: gray |
+| .bg-white | background-color: white |
+| .center | text-align: center |
+| .left | float: left |
+| .right | float: right |
+| .hide | display: none |
+| .spacing | padding: 10px |
+
+In the markdown it is notated within an html comment:
+
+``` markdown
+Set float\
+left and id...<!-- {#left .left} -->
+
+Make this centered (using class)...<!-- {.center} -->
+
+Make this centered and red (using classes)...
+<!-- {.center.text-red} -->
+
+Set image width
+![google](https://www.google.de/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png)
+<!-- {width=60} -->
+
+> * [Continue](#continue)
+<!-- {a:.text-green} -->
+<!-- {li:.text-red} -->
+<!-- {blockquote:.right} -->
+
+line 1
+
+line 2
+
+line 3
+
+line 4
+
+line 5
+<!-- {p^3:.text-green} -->
+```
+
+And rendered as HTML:
+
+![html](src/doc/style-direct.png)
+
+#### Style Sheets
+
 #### Javascript
 
 
@@ -1689,38 +1754,6 @@ report.p "Set an specific attriubute" + Report.img('google', 'https://www.google
 
 
 
-
-This applies the given style to the innermost previous element. But you may also
-specify the type of element:
-
-``` coffee
-report = new Report()
-report.p "Make this #{Report.b 'bold'}..." + Report.style 'p:.center'
-```
-
-Here the class didn't go to the bold text but to the previous paragraph.
-
-The following classes may be used:
-
-|  STYLE  | RESULT         |
-|:-------:|:-------------- |
-| .bold   | make text bold |
-| .red    | make text red  |
-| .center | center text    |
-
-
-
-For html and, pdf and image output a specific style can be set. This belongs to
-the element atrated in front of the style definition.
-
-    <!-- {color:red} -->
-
-    <!-- {p:.center} -->
-
-    <!-- {#table1 .tlist} -->
-
-The second example specifies the previouse &lt;p> tag and sets the style class
-'.center' for it.
 
 
 
