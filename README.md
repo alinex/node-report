@@ -1779,7 +1779,6 @@ Like styles you may also add javascript functions to the document.
 report = new Report()
 report.js "test = function() { alert('Hello World!')}"
 report.p "Call the [demo](javascript:test()) which is included into the page."
-report.style '#box'
 ```
 
 If you use jQuery it will be added to your document automatically.
