@@ -253,7 +253,8 @@ abbr, acronym {
 .spacing {padding: 10px;}
 
 </style>  </head>
-  <body>test = function() { alert('Hello World!')}
-<p>Call the [demo](javascript:test()) which is included into the page.</p>
+  <body><script type="text/javascript"><!--
+test = function() { alert('Hello World!')}
+//--></script><p>Call the <a href="#" onclick="test()">demo</a> which is included into the page.</p>
 </body>
 </html>

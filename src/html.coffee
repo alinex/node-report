@@ -99,7 +99,7 @@ module.exports = (report, setup, cb) ->
   content = optimizeHtml md.render(content, data), setup?.locale
   title = setup?.title ? data.title ? 'Report'
   tags = util.clone report.parts.header
-  js = report.parts.js.join '\n'
+  js = data.js?.join '\n'
   # add used libraries
   # code highlighting
   if content.match /\sclass="hljs-/
@@ -110,20 +110,20 @@ module.exports = (report, setup, cb) ->
     tags.unshift """<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/\
       font-awesome/4.6.3/css/font-awesome.min.css" />"""
   # optimized tables
-  if js.match /.DataTable\(/
+  if js?.match /.DataTable\(/
     tags.unshift """
       <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/\
       1.10.12/css/jquery.dataTables.css">"""
     tags.push """
-      <script type="text/javascript" language="javascript" src="https://code.jquery.com/\
+      <script type="text/javascript" src="https://code.jquery.com/\
       jquery-1.12.3.js"></script>"""
     tags.push """
       <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/\
       1.10.12/js/jquery.dataTables.js"></script>"""
   # add only jquery
-  if js.match /$\(/
+  if js?.match /$\(/
     tags.push """
-      <script type="text/javascript" language="javascript" src="https://code.jquery.com/\
+      <script type="text/javascript" src="https://code.jquery.com/\
       jquery-1.12.3.js"></script>"""
   # complete html
   html = """
@@ -137,7 +137,7 @@ module.exports = (report, setup, cb) ->
     html += util.array.unique(tags).join '\n'
   # add page style with collected css
   style = setup?.style ? 'default'
-  css = report.parts.css?.join('\n') ? ''
+  css = data.css?.join('\n') ? ''
   html += switch
     when style in Object.keys HTML_STYLES
       """<style type="text/css">#{fs.readFileSync HTML_STYLES[style], 'utf8'}
@@ -147,11 +147,6 @@ module.exports = (report, setup, cb) ->
       """<link rel="stylesheet" href="#{style}" />#{css}"""
     else
       """<style type="text/css">#{fs.readFileSync style, 'utf8'}#{css}</style>"""
-  # add javascript
-  if js.length
-    html += """<script type="text/javascript"><!--
-    #{js}
-    //--></script>"""
   # add body
   html += """
     </head>

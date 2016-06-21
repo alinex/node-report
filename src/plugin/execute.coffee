@@ -37,8 +37,9 @@ module.exports = (md) ->
   # add render rules
   md.renderer.rules.execute = renderer
 
-module.exports.toText = (text) ->
-  text.replace /\$\$\$\s+qr\s*\n([\s\S]*?)\$\$\$/g, ->
+module.exports.toConsole = module.exports.toText = (text) ->
+  text.replace /\$\$\$\s+(css|js)\s*\n([\s\S]*?)\$\$\$/g, ''
+  .replace /\$\$\$\s+qr\s*\n([\s\S]*?)\$\$\$/g, ->
     part = arguments[1]
     if part.match /(^|\n)\s*content:/
       data = dataParser part
@@ -116,11 +117,15 @@ renderer = (tokens, idx, options, env, self) ->
   switch type
     # coding
     when 'css'
-      escapeHtml token.content
+      env.css ?= []
+      env.css.push token.content.trim()
+      ''
     when 'js'
-      escapeHtml token.content
-    # create qr codes
+      env.js ?= []
+      env.js.push token.content.trim()
+      """<script type="text/javascript"><!--\n#{token.content.trim()}\n//--></script>"""
     when 'qr'
+      # create qr codes
       QRCode ?= require 'qrcode-svg'
       data =
         padding: 4

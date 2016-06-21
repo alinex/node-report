@@ -1758,13 +1758,18 @@ let some look like **buttons** using direct style for setting."
 report.style '#box'
 ```
 
-You can put everything into the style rules which goes into cascading style sheets.
+You can put everything into the css rules which goes into cascading style sheets.
 
 In the markdown this goes into an execution tag:
 
 ``` markdown
 $$$ css
+#box {padding: 3px; border: solid black 1px; background: #eee;} strong {color: red;}
 $$$
+
+This document uses **style sheets** to make look bold text be red and let some
+look like **buttons** using direct style for setting.
+<!-- {#box} -->
 ```
 
 The example above will lokk like (rendered as HTML):
@@ -1778,7 +1783,8 @@ Like styles you may also add javascript functions to the document.
 ``` coffee
 report = new Report()
 report.js "test = function() { alert('Hello World!')}"
-report.p "Call the [demo](javascript:test()) which is included into the page."
+report.p "Call the [demo](#) which is included into the page."
+report.style 'onclick="test()"'
 ```
 
 If you use jQuery it will be added to your document automatically.
@@ -1787,12 +1793,16 @@ In the markdown this goes into an execution tag:
 
 ``` markdown
 $$$ js
+test = function() { alert('Hello World!')}
 $$$
+
+Call the [demo](#) which is included into the page.
+<!-- {onclick="test()"} -->
 ```
 
-The example above will lokk like (rendered as HTML):
+The example above will lokk like (click to get working HTML):
 
-![html](src/doc/js.png)
+[![html](src/doc/js.png)](http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/doc/js.html)
 
 
 

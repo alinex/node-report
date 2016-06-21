@@ -87,10 +87,39 @@ describe.only "format html", ->
     report.p "This document uses **style sheets** to make look bold text be red and
     let some look like **buttons** using direct style for setting."
     report.style '#box'
-    test.report 'style-sheet', report, null, null, cb
+    test.report 'style-sheet', report, """
+
+      $$$ css
+      #box {padding: 3px; border: solid black 1px; background: #eee;} strong {color: red;}
+      $$$
+
+      This document uses **style sheets** to make look bold text be red and let some
+      look like **buttons** using direct style for setting.
+      <!-- {#box} -->
+
+      """, """
+      <body><p>This document uses <strong>style sheets</strong> to make look bold text be red and let some
+      look like <strong id="box">buttons</strong> using direct style for setting.</p>
+      </body>
+      """, cb
 
   it "should add javascript code", (cb) ->
     report = new Report()
     report.js "test = function() { alert('Hello World!')}"
-    report.p "Call the [demo](javascript:test()) which is included into the page."
-    test.report 'js', report, null, null, cb
+    report.p "Call the [demo](#) which is included into the page."
+    report.style 'onclick="test()"'
+    test.report 'js', report, """
+
+      $$$ js
+      test = function() { alert('Hello World!')}
+      $$$
+
+      Call the [demo](#) which is included into the page.
+      <!-- {onclick="test()"} -->
+
+      """, """
+      <body><script type="text/javascript"><!--
+      test = function() { alert('Hello World!')}
+      //--></script><p>Call the <a href="#" onclick="test()">demo</a> which is included into the page.</p>
+      </body>
+      """, cb

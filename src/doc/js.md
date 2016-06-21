@@ -3,4 +3,5 @@ $$$ js
 test = function() { alert('Hello World!')}
 $$$
 
-Call the [demo](javascript:test()) which is included into the page.
+Call the [demo](#) which is included into the page.
+<!-- {onclick="test()"} -->

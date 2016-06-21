@@ -308,11 +308,7 @@ class Report
     @parts =
       abbr: []
       footnote: []
-############### REMOVE ####################
       header: []
-      js: []
-      css: []
-#########################################
     # current states
     @state =
       footnote: 0
@@ -326,14 +322,8 @@ class Report
     @body += text
     this
 
-############## REMOVE ##################
-  html: (type, content) ->
-    switch type
-      when 'tag' then @parts.header.push content
-      when 'js' then @parts.js.push content
-      when 'css' then @parts.css.push content
-      else throw new Error "Undefined type '#{type}' in call of report.html"
-#########################################
+  header: (content) ->
+    @parts.header.push content
   # ### add contents of other report instance
   add: (report) ->
     @log report.body if @log
@@ -434,7 +424,7 @@ class Report
 
   # ### as colorful console text
   toConsole: ->
-    text = pluginFontawesome.toConsole pluginExecute.toText @toString()
+    text = pluginFontawesome.toConsole pluginExecute.toConsole @toString()
     # replace code
     removed = []
     text = text.replace /\n\n``` (\w+)\s*?\n([\s\S]*?)\n```\s*?\n/g, (all, lang, code) =>
