@@ -79,3 +79,18 @@ describe.only "format html", ->
       <p>line 5</p>
       </body>
       """, cb
+
+  it "should add style sheet rules", (cb) ->
+    report = new Report()
+    report.css "#box {padding: 3px; border: solid black 1px; background: #eee;}
+    strong {color: red;}"
+    report.p "This document uses **style sheets** to make look bold text be red and
+    let some look like **buttons** using direct style for setting."
+    report.style '#box'
+    test.report 'style-sheet', report, null, null, cb
+
+  it "should add javascript code", (cb) ->
+    report = new Report()
+    report.js "test = function() { alert('Hello World!')}"
+    report.p "Call the [demo](javascript:test()) which is included into the page."
+    test.report 'js', report, null, null, cb

@@ -114,7 +114,11 @@ renderer = (tokens, idx, options, env, self) ->
   if token.info
     [type, opt] = token.info.split /\s+/g
   switch type
-
+    # coding
+    when 'css'
+      escapeHtml token.content
+    when 'js'
+      escapeHtml token.content
     # create qr codes
     when 'qr'
       QRCode ?= require 'qrcode-svg'

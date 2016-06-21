@@ -280,7 +280,11 @@ class Report
   @table: table
   @abbr: (abbr, text) -> "\n*[#{abbr}]: #{text.trim()}"
   @toc: -> '\n@[toc]\n'
+
+  # html styl
   @style: (style) -> "<!-- {#{style}} -->"
+  @css: (style) -> block "#{style.trim()}\n$$$", '$$$ css\n', '', 9999, true
+  @js: (code) -> block "#{code.trim()}\n$$$", '$$$ js\n', '', 9999, true
 
   # ### Visualizations
   @qr: (data) ->
@@ -304,9 +308,11 @@ class Report
     @parts =
       abbr: []
       footnote: []
+############### REMOVE ####################
       header: []
       js: []
       css: []
+#########################################
     # current states
     @state =
       footnote: 0
@@ -320,12 +326,14 @@ class Report
     @body += text
     this
 
+############## REMOVE ##################
   html: (type, content) ->
     switch type
       when 'tag' then @parts.header.push content
       when 'js' then @parts.js.push content
       when 'css' then @parts.css.push content
       else throw new Error "Undefined type '#{type}' in call of report.html"
+#########################################
   # ### add contents of other report instance
   add: (report) ->
     @log report.body if @log
@@ -366,6 +374,8 @@ class Report
   toc: -> @raw Report.toc()
 
   style: (text) -> @raw Report.style(text) + '\n'
+  css: (text) -> @raw Report.css(text)
+  js: (text) -> @raw Report.js(text)
 
   qr: (data) -> @raw Report.qr data
   chart: (setup, data) -> @raw Report.chart setup, data

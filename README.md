@@ -1746,9 +1746,54 @@ And rendered as HTML:
 
 #### Style Sheets
 
+This will add or overwrite the page style rules. You may also add other rules which
+you later call using the above direct style calls:
+
+``` coffee
+report = new Report()
+report.css "#box {padding: 3px; border: solid black 1px; background: #eee;}
+strong {color: red;}"
+report.p "This document uses **style sheets** to make look bold text be red and
+let some look like **buttons** using direct style for setting."
+report.style '#box'
+```
+
+You can put everything into the style rules which goes into cascading style sheets.
+
+In the markdown this goes into an execution tag:
+
+``` markdown
+$$$ css
+$$$
+```
+
+The example above will lokk like (rendered as HTML):
+
+![html](src/doc/style-sheet.png)
+
 #### Javascript
 
+Like styles you may also add javascript functions to the document.
 
+``` coffee
+report = new Report()
+report.js "test = function() { alert('Hello World!')}"
+report.p "Call the [demo](javascript:test()) which is included into the page."
+report.style '#box'
+```
+
+If you use jQuery it will be added to your document automatically.
+
+In the markdown this goes into an execution tag:
+
+``` markdown
+$$$ js
+$$$
+```
+
+The example above will lokk like (rendered as HTML):
+
+![html](src/doc/js.png)
 
 
 
