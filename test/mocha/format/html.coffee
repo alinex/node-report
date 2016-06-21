@@ -2,7 +2,7 @@
 Report = require '../../../src/index'
 test = require '../test'
 
-describe.only "format html", ->
+describe "format html", ->
   @timeout 5000
 
   it "should add direct styles", (cb) ->

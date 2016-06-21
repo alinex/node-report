@@ -1814,33 +1814,38 @@ report.header '<script type="text/javascript" src="http://myserver.com/my-lib.js
 
 This will add the script tag to the head section of the resulting HTML.
 
-
-
-
-
-
-
-
-
-
-
-
 ### Visualization
 
 This will only work in HTML format, else the definition is displayed.
 
 #### QR Code
 
-__[QR Simple](http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/doc/visual-qr-simple.html)__
+QR Codes are used to pack some information into a scanable 2D Object.
+
+__Simple Code__
+
+You only need to give the content like an URL:
 
 ``` coffee
 report = new Report()
 report.qr "http://alinex.de"
 ```
 
-Or if you want to specify the parameters:
+This will be written in markdown as:
 
-__[QR Extended](http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/doc/visual-qr-extended.html)__
+``` markdown
+$$$ qr
+http://alinex.de
+$$$
+```
+
+And finally in HTML and text or console output:
+
+![html](src/doc/qr-simple.png) ![console](src/doc/qr-simple.console.png)
+
+__QR Extended__
+
+You may also define how to make the code image:
 
 ``` coffee
 report = new Report()
@@ -1853,6 +1858,38 @@ report.qr
   background: '#ffffff'
   ecl: 'M'
 ```
+
+``` markdown
+$$$ qr
+content: 'http://alinex.github.io'
+padding: 1
+width: 600
+height: 600
+color: '#ff0000'
+background: '#ffffff'
+ecl: M
+$$$
+```
+
+And finally in HTML and text or console output:
+
+![html](src/doc/qr-extended.png) ![console](src/doc/qr-extended.console.png)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #### Charts
 

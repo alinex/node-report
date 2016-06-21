@@ -40,12 +40,32 @@ module.exports = (md) ->
 module.exports.toConsole = module.exports.toText = (text) ->
   text.replace /\$\$\$\s+(css|js)\s*\n([\s\S]*?)\$\$\$/g, ''
   .replace /\$\$\$\s+qr\s*\n([\s\S]*?)\$\$\$/g, ->
-    part = arguments[1]
-    if part.match /(^|\n)\s*content:/
-      data = dataParser part
-      "==QR Code: #{data.content}=="
+    content = arguments[1]
+    # create qr codes
+    QRCode ?= require 'qrcode-svg'
+    data =
+      padding: 4
+      width: 256
+      height: 256
+      color: '#000000'
+      background: '#ffffff'
+      ecl: 'M'
+    if content.match /(^|\n)\s*content:/
+      util.extend data, dataParser content
     else
-      "==QR Code: #{part.trim()}=="
+      data.content = content.trim()
+    modules = new QRCode(data).qrcode.modules
+    ascii = ''
+    ascii += '██' for i in [0..modules.length+1]
+    ascii += '\n'
+    for y in [0..modules.length-1]
+      ascii += '██'
+      for x in [0..modules.length-1]
+        ascii += if modules[x][y] then '  ' else '██'
+      ascii += '██\n'
+    ascii += '██' for i in [0..modules.length+1]
+    ascii += '\n'
+    ascii
   .replace /\$\$\$\s+chart\s*\n([\s\S]*?)\$\$\$/g, ->
     part = arguments[1]
     parts = part.trim().split /(^|\n\s*\n\s*)\|/
