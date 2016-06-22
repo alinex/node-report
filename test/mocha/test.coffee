@@ -37,7 +37,7 @@ exports.report = (name, report, md, html, cb) ->
       return cb() unless name and process.env.EXAMPLES
       report.toImage (err, data) ->
         fd = fs.createWriteStream "#{__dirname}/../../src/doc/#{name}.png"
-        fd.write data
+        fd.write data, 'binary'
         fd.end()
         debug "created #{name}.png"
         cb()

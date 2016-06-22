@@ -150,7 +150,7 @@ module.exports = (report, setup, cb) ->
   # add body
   html += """
     </head>
-    <body>#{content}</body>
+    <body><div id="page">#{content}</div></body>
   </html>
   """
   return html unless cb

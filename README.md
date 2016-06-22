@@ -1910,6 +1910,64 @@ This will render in HTML as (click to show in browser):
 
 [![html](src/doc/chart.png)](http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/doc/chart.html)
 
+__Column Chart__
+
+See an example with most settings possible:
+
+``` coffee
+report = new Report()
+report.chart
+  width: 800
+  height: 400
+  theme: 'dark'
+  axis:
+    padding:
+      left: 5
+      top: 10
+    area:
+      width: '80%'
+      x: '10%'
+    x:
+      type: 'block'
+      domain: "quarter"
+      line: true
+    y:
+      type: 'range'
+      domain: [-120, 120]
+      step: 10
+      line: true
+      orient: 'right'
+  brush: [
+    type: "column"
+    target: ["sales", "profit"]
+  ,
+    type: "focus"
+    start: 1
+    end: 1
+  ]
+  widget: [
+    type: "title"
+    text: "Column Chart"
+  ,
+    type: "tooltip"
+  ,
+    type: "legend"
+  ]
+, [
+  ['quarter', 'sales', 'profit']
+  ["1Q", 50, 35]
+  ["2Q", -20, -100]
+  ["3Q", 10, -5]
+  ["4Q", 30, 25]
+]
+```
+
+``` markdown
+```
+
+This will render in HTML as (click to show in browser):
+
+[![html](src/doc/chart-column.png)](http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/doc/chart-column.html)
 
 
 
@@ -1919,20 +1977,6 @@ This will render in HTML as (click to show in browser):
 
 
 __Chart__
-
-``` coffee
-```
-
-``` markdown
-```
-
-This will render in HTML as (click to show in browser):
-
-[![html](src/doc/chart-.png)](http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/doc/chart-.html)
-
-
-
-__[Column Chart](http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/doc/visual-chart-column.html)__
 
 ``` coffee
 report = new Report()
@@ -1975,6 +2019,20 @@ report.chart
   ["3Q", 10, -5]
   ["4Q", 30, 25]
 ]
+```
+
+``` markdown
+```
+
+This will render in HTML as (click to show in browser):
+
+[![html](src/doc/chart-.png)](http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/doc/chart-.html)
+
+
+
+__[Column Chart](http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/doc/visual-chart-column.html)__
+
+``` coffee
 ```
 
 
@@ -2090,8 +2148,20 @@ report.toImage options, (err, data) ->
 
 Possible options are:
 
-- type - png or jpg
-- quality - integer between 0 and 100 as best quality default is 75
+- windowSize - the dimensions of the browser window to take the screenshot
+  - width - (integer) default: 1024
+  - height - (integer) default: 768
+- shotSize - the size of the area to screenshot
+  - width - (integer, 'window' or 'all') default: 'window'
+  - height - (integer, 'window' or 'all') default: 'window'
+- shotOffset - offset for the shotSize
+  - left - (integer) in pixel, default: 0
+  - right - (integer) in pixel, default: 0
+  - top - (integer) in pixel, default: 0
+  - bottom - (integer) in pixel, default: 0
+- customCSS	- (string) when taking the screenshot, adds custom CSS rules if defined
+- streamType - ('png' or 'jpg') type of image to create
+- captureSelector - (string) define an css selector which will be exported
 
 
 License

@@ -1,5 +1,5 @@
 html {
-  background: #222;
+  background: #ddd;
   padding: 20px;
 }
 body {
@@ -7,15 +7,18 @@ body {
   font-size: 16px;
   line-height: 1.2;
   word-wrap: break-word;
-  border: 2px solid #aaa;
-  box-shadow: 10px 10px 5px #888888;
-  max-width: 800px;
-  margin: 0px auto;
-  padding: 17px;
-  background: #fff;
 }
 body > h1 {
   margin-top: 0;
+}
+div#page {
+  border: 1px solid #aaa;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.4), 0 12px 40px 0 rgba(0, 0, 0, 0.4);;
+  max-width: 800px;
+  display: inline-block;
+  background: #fff;
+  padding: 17px;
+  overflow: auto;
 }
 
 h1 {

@@ -10,6 +10,8 @@ deasync = require 'deasync'
 util = require 'alinex-util'
 Table = require 'alinex-table'
 format = require 'alinex-format'
+pdf = null # load on demand
+webshot = null # load on demand
 
 # load local plugins
 pluginExecute = require './plugin/execute'
@@ -570,7 +572,7 @@ class Report
       bottom: "1cm"
       left: "2cm"
     options.type ?= "pdf"           # allowed file types: png, jpeg, pdf
-    pdf = require 'html-pdf'
+    pdf ?= require 'html-pdf'
     @toHtml (err, html) ->
       return cb err if err
       pdf.create(html, options).toBuffer cb
@@ -581,12 +583,20 @@ class Report
       cb = options
       options = {}
     options ?= {}
-    options.type ?= "png"           # allowed file types: png, jpeg, pdf
-    options.quality ?= 75           # only used for types png & jpeg
     @toHtml (err, html) ->
       return cb err if err
-      pdf = require 'html-pdf'
-      pdf.create(html, options).toBuffer cb
+      webshot ?= require 'webshot'
+      options = util.extend
+        siteType: 'html'
+        streamType: 'png'
+        captureSelector: '#page'
+      , options
+      webshot html, options, (err, stream) ->
+        return cb err if err
+        buffer = ''
+        stream.on 'data', (data) -> buffer += data.toString 'binary'
+        stream.on 'end', ->
+          cb null, buffer
 
 
 # Export class

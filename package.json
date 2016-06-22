@@ -62,7 +62,8 @@
     "mermaid": "^6.0.0",
     "mime": "^1.3.4",
     "qrcode-svg": "^0.9.0",
-    "twemoji": "^2.0.5"
+    "twemoji": "^2.0.5",
+    "webshot": "^0.18.0"
   },
   "devDependencies": {
     "alinex-builder": "^2.1.11",
