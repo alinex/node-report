@@ -155,7 +155,7 @@ renderer = (tokens, idx, options, env, self) ->
         background: '#ffffff'
         ecl: 'M'
       if token.content.match /(^|\n)\s*content:/
-        util.extend data, dataParser token.content
+        util.extend data, dataParser token.content, 'yaml'
       else
         data.content = token.content.trim()
       new QRCode(data).svg()
