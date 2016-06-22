@@ -17,7 +17,7 @@ describe "link", ->
       Have a look at [google](http://google.com "Open Google Search")
 
       """, """
-      <body><p>Autoconverted link to <a href="http://alinex.github.io">http://alinex.github.io</a></p>
+      <body><div id="page"><p>Autoconverted link to <a href="http://alinex.github.io">http://alinex.github.io</a></p>
       <p>Have a look at <a href="http://google.com" title="Open Google Search">google</a></p>
-      </body>
+      </div></body>
       """, cb

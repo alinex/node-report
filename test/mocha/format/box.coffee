@@ -30,7 +30,7 @@ describe "box", ->
       :::
 
       """, """
-      <body><div class="detail">
+      <body><div id="page"><div class="detail">
       <p>Some more details here…</p>
       </div>
       <div class="info"><header>Info</header>
@@ -42,5 +42,5 @@ describe "box", ->
       <div class="alert"><header>Attention</header>
       <p>Something went wrong!</p>
       </div>
-      </body>
+      </div></body>
       """, cb

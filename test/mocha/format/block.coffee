@@ -3,7 +3,7 @@ Report = require '../../../src/index'
 test = require '../test'
 
 describe "block", ->
-  @timeout 5000
+  @timeout 10000
 
   it "should create a paragraph", (cb) ->
     report = new Report()
@@ -23,13 +23,13 @@ describe "block", ->
       With a second paragraph.
 
       """, """
-      <body><p>A new paragraph.</p>
+      <body><div id="page"><p>A new paragraph.</p>
       <p>A long text may be automatically broken
       into multiple lines.</p>
       <p>And here comes a fixed<br />
       linebreak.</p>
       <p>With a second paragraph.</p>
-      </body>
+      </div></body>
       """, cb
 
   it "should create a quote", (cb) ->
@@ -44,7 +44,7 @@ describe "block", ->
       > > north scotland, next year.
 
       """, """
-      <body><blockquote>
+      <body><div id="page"><blockquote>
       <p>My home is my castle!</p>
       </blockquote>
       <blockquote>
@@ -53,7 +53,7 @@ describe "block", ->
       north scotland, next year.</p>
       </blockquote>
       </blockquote>
-      </body>
+      </div></body>
       """, cb
 
   it "should allow alternative format in markdown", (cb) ->
@@ -64,7 +64,7 @@ describe "block", ->
         > > > ...or with spaces between arrows.
         """
     test.report 'block-quote2', report, null, """
-      <body><blockquote>
+      <body><div id="page"><blockquote>
       <p>Blockquotes can also be nested…</p>
       <blockquote>
       <p>…by using additional greater-than signs right next to each other…</p>
@@ -73,17 +73,17 @@ describe "block", ->
       </blockquote>
       </blockquote>
       </blockquote>
-      </body>
+      </div></body>
       """, cb
 
   it "should create text code block", (cb) ->
     report = new Report()
     report.code 'This is a text code block.\nIt should be kept as is.'
     test.report 'block-pre', report, "\n    This is a text code block.\n    It should be kept as is.\n", """
-      <body><pre><code>This is a text code block.
+      <body><div id="page"><pre><code>This is a text code block.
       It should be kept as is.
       </code></pre>
-      </body>
+      </div></body>
       """, cb
 
   it "should create a code block", (cb) ->
@@ -107,12 +107,12 @@ describe "block", ->
       ```
 
       """, """
-      <body><pre><code class="language js"><header>JavaScript Code</header><span class="hljs-keyword">var</span> x = <span class="hljs-built_in">Math</span>.round(f);
+      <body><div id="page"><pre><code class="language js"><header>JavaScript Code</header><span class="hljs-keyword">var</span> x = <span class="hljs-built_in">Math</span>.round(f);
       </code></pre>
       <pre><code class="language markdown"><header>Markdown Document</header>This <span class="hljs-strong">**is**</span> a ==markdown== text
       </code></pre>
       <pre><code class="language yaml"><header>YAML Data</header><span class="hljs-attr">simple:</span>
       <span class="hljs-attr">  list:</span> [<span class="hljs-string">"a"</span>, b, <span class="hljs-number">5</span>]
       </code></pre>
-      </body>
+      </div></body>
       """, cb

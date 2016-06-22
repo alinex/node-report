@@ -22,10 +22,10 @@ describe "image", ->
       [![Alinex](https://alinex.github.io/images/Alinex-200.png)](http://alinex.github.com)
 
       """, """
-      <body><p><img src="https://alinex.github.io/images/Alinex-200.png" alt="Alinex" /></p>
+      <body><div id="page"><p><img src="https://alinex.github.io/images/Alinex-200.png" alt="Alinex" /></p>
       <p><img src="https://alinex.github.io/images/Alinex-black-200.png" alt="Alinex Black" title="The Alinex
       Logo" /></p>
       <p>With link:
       <a href="http://alinex.github.com"><img src="https://alinex.github.io/images/Alinex-200.png" alt="Alinex" /></a></p>
-      </body>
+      </div></body>
       """, cb

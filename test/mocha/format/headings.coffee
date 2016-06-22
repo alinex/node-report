@@ -32,13 +32,13 @@ describe "headings", ->
       ###### h6 Heading
 
       """, """
-      <body><h1 id="h1-heading">h1 Heading</h1>
+      <body><div id="page"><h1 id="h1-heading">h1 Heading</h1>
       <h2 id="h2-heading">h2 Heading</h2>
       <h3 id="h3-heading">h3 Heading</h3>
       <h4 id="h4-heading">h4 Heading</h4>
       <h5 id="h5-heading">h5 Heading</h5>
       <h6 id="h6-heading">h6 Heading</h6>
-      </body>
+      </div></body>
       """, cb
 
   it "should allow alternative formatting in markdown", (cb) ->
@@ -50,7 +50,7 @@ describe "headings", ->
 
         """
     test.report 'headings-md', report, null, """
-      <body><h1 id="h1-heading">h1 Heading</h1>
+      <body><div id="page"><h1 id="h1-heading">h1 Heading</h1>
       <h2 id="h2-heading">h2 Heading</h2>
-      </body>
+      </div></body>
       """, cb

@@ -19,10 +19,10 @@ describe "separations", ->
       And another one after a separating line.
 
       """, """
-      <body><p>My first line.</p>
+      <body><div id="page"><p>My first line.</p>
       <hr />
       <p>And another one after a separating line.</p>
-      </body>
+      </div></body>
       """, cb
 
   it "should allow alternative formatting ____ in markdown", (cb) ->
@@ -31,8 +31,8 @@ describe "separations", ->
         ___
         """
     test.report null, report, null, """
-      <body><hr />
-      </body>
+      <body><div id="page"><hr />
+      </div></body>
       """, cb
 
   it "should allow alternative formatting *** in markdown", (cb) ->
@@ -41,6 +41,6 @@ describe "separations", ->
         ***
         """
     test.report null, report, null, """
-      <body><hr />
-      </body>
+      <body><div id="page"><hr />
+      </div></body>
       """, cb

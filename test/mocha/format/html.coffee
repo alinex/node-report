@@ -61,7 +61,7 @@ describe "format html", ->
       <!-- {p^3:.text-green} -->
 
       """, """
-      <body><p id="left" class="left">Set float<br />
+      <body><div id="page"><p id="left" class="left">Set float<br />
       left and id…</p>
       <p class="center">Make this centered (using class)…</p>
       <p class="center text-red">Make this centered and red (using classes)…</p>
@@ -77,7 +77,7 @@ describe "format html", ->
       <p>line 3</p>
       <p>line 4</p>
       <p>line 5</p>
-      </body>
+      </div></body>
       """, cb
 
   it "should add style sheet rules", (cb) ->
@@ -98,9 +98,9 @@ describe "format html", ->
       <!-- {#box} -->
 
       """, """
-      <body><p>This document uses <strong>style sheets</strong> to make look bold text be red and let some
+      <body><div id="page"><p>This document uses <strong>style sheets</strong> to make look bold text be red and let some
       look like <strong id="box">buttons</strong> using direct style for setting.</p>
-      </body>
+      </div></body>
       """, cb
 
   it "should add javascript code", (cb) ->
@@ -118,8 +118,8 @@ describe "format html", ->
       <!-- {onclick="test()"} -->
 
       """, """
-      <body><script type="text/javascript"><!--
+      <body><div id="page"><script type="text/javascript"><!--
       test = function() { alert('Hello World!')}
       //--></script><p>Call the <a href="#" onclick="test()">demo</a> which is included into the page.</p>
-      </body>
+      </div></body>
       """, cb

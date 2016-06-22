@@ -125,11 +125,12 @@ Shortcuts (emoticons): :-) :-( 8-) ;)
 
 This is a test[^1] to demonstrate footnotes.
 
-*[HTTP]: Hyper Text Transfer Protocol
 The HTTP protocol is used for transferring web content.
 
 [x] make new module
 [x] allow html transformation
 [ ] allow docx transformation
+
+*[HTTP]: Hyper Text Transfer Protocol
 
 [^1]: simple test only

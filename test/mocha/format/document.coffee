@@ -43,7 +43,7 @@ describe "document", ->
       They always support me.
 
       """, """
-      <body><p><ul class="table-of-contents">
+      <body><div id="page"><p><ul class="table-of-contents">
       <li><a href="#my-text">My text</a></li>
       <li><a href="#other-opinions">Other opinions</a>
       <ul>
@@ -61,7 +61,7 @@ describe "document", ->
       <p>You don’t want to know.</p>
       <h3 id="my-friends">My friends</h3>
       <p>They always support me.</p>
-      </body>
+      </div></body>
       """, cb
 
   it "should add abbreviations", (cb) ->
@@ -77,9 +77,9 @@ describe "document", ->
       *[HTTP]: Hyper Text Transfer Protocol
 
       """, """
-      <body><p>The <abbr title="Hyper Text Transfer Protocol">HTTP</abbr> protocol is used for transferring web content. A secured version of
+      <body><div id="page"><p>The <abbr title="Hyper Text Transfer Protocol">HTTP</abbr> protocol is used for transferring web content. A secured version of
       <abbr title="Hyper Text Transfer Protocol">HTTP</abbr> called HTTPS is also available.</p>
-      </body>
+      </div></body>
       """, cb
 
   it "should add footnotes", (cb) ->
@@ -102,7 +102,7 @@ describe "document", ->
       [^b]: My colleagues as the University of Tübingen
 
       """, """
-      <body><p>The World Wide Web (WWW) is invented by CERN<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>. But I<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup> and prometheus<sup class="footnote-ref"><a href="#fn3" id="fnref3">[3]</a></sup>
+      <body><div id="page"><p>The World Wide Web (WWW) is invented by CERN<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>. But I<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup> and prometheus<sup class="footnote-ref"><a href="#fn3" id="fnref3">[3]</a></sup>
       used it to make a medical learning environment out of it. <em>Alex<sup class="footnote-ref"><a href="#fn2" id="fnref2:1">[2]</a></sup></em></p>
       <hr class="footnotes-sep" />
       <section class="footnotes">
@@ -116,5 +116,5 @@ describe "document", ->
       </li>
       </ol>
       </section>
-      </body>
+      </div></body>
       """, cb

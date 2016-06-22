@@ -1,3 +1,5 @@
+/* page setup */
+
 html {
   background: #ddd;
   padding: 20px;
@@ -8,7 +10,7 @@ body {
   line-height: 1.2;
   word-wrap: break-word;
 }
-body > h1 {
+div#page > h1 {
   margin-top: 0;
 }
 div#page {
@@ -20,6 +22,8 @@ div#page {
   padding: 17px;
   overflow: auto;
 }
+
+/* headings */
 
 h1 {
   border-bottom: 3px solid black;
@@ -33,6 +37,9 @@ h3 {
   border-bottom: 1px dotted gray;
   padding-bottom: 2px;
 }
+
+/* Other elements */
+
 a {
   color: darkblue;
 }
@@ -47,6 +54,46 @@ blockquote {
   color: #777;
   padding: 3px 15px;
   margin: 0 15px;
+}
+
+img {
+  vertical-align: middle;
+}
+.emoji {
+  height: 1em;
+}
+abbr, acronym {
+  border-bottom: dotted 1px;
+}
+
+/* tables */
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  display: block;
+  width: 100%;
+  overflow: auto;
+  word-break: normal;
+  word-break: keep-all;
+}
+
+table th,
+table td {
+  padding: 6px 13px;
+  border: 1px solid #ddd;
+}
+table th {
+  background-color: rgba(0, 0, 0, 0.04);
+  font-weight: bold;
+  border-bottom: 3px solid #999;
+}
+table tr {
+  background-color: #fff;
+  border-top: 1px solid #ccc;
+}
+table tr:nth-child(2n) {
+  background-color: rgba(0, 0, 0, 0.04);
 }
 
 /* Tomorrow Night Theme */
@@ -125,6 +172,8 @@ blockquote {
   font-weight: bold;
 }
 
+/* code boxes */
+
 pre {
   background-color: #fafafa;
   border-radius: 10px;
@@ -167,44 +216,7 @@ pre code.handlebars header,
 pre code.markdown header
 {   background: #76abca; }
 
-
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-  display: block;
-  width: 100%;
-  overflow: auto;
-  word-break: normal;
-  word-break: keep-all;
-}
-
-table th,
-table td {
-  padding: 6px 13px;
-  border: 1px solid #ddd;
-}
-table th {
-  background-color: rgba(0, 0, 0, 0.04);
-  font-weight: bold;
-  border-bottom: 3px solid #999;
-}
-table tr {
-  background-color: #fff;
-  border-top: 1px solid #ccc;
-}
-table tr:nth-child(2n) {
-  background-color: rgba(0, 0, 0, 0.04);
-}
-
-img {
-  vertical-align: middle;
-}
-.emoji {
-  height: 1em;
-}
-abbr, acronym {
-  border-bottom: dotted 1px;
-}
+/* table of contents */
 
 .table-of-contents header {
   font-weight: bold;
@@ -230,6 +242,51 @@ abbr, acronym {
 }
 .table-of-contents a {
   text-decoration: none;
+}
+
+/* Possible box layouts */
+
+div.detail, div.info, div.warning, div.alert {
+  padding: 20px 10px 6px 10px;
+  margin: 5px 0 0 0;
+}
+div.detail>p, div.info>p, div.warning>p, div.alert>p {
+  margin-bottom: 0;
+}
+div.info header, div.warning header, div.alert header {
+  font-weight: bold;
+  position: absolute;
+  margin-top: -20px;
+  margin-left: -10px;
+  padding: 3px 20px 3px 10px;
+  border-bottom-right-radius: 18px;
+}
+div.detail {
+  background-color: #fafafa;
+  border: 2px solid #ddd;
+  padding-top: 0;
+}
+div.info {
+  background-color: #99ff99;
+  border: 2px solid #66dd66;
+}
+div.info header {
+  background-color: #66dd66;
+}
+div.warning {
+  background-color: #ffcc99;
+  border: 2px solid #ee8866;
+}
+div.warning header {
+  background-color: #ee8866;
+}
+div.alert {
+  background-color: #ff9999;
+  border: 2px solid #cc0000;
+}
+div.alert header {
+  background-color: #cc0000;
+  color: white;
 }
 
 /* Color styles for fontawesome and more */

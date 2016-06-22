@@ -589,6 +589,9 @@ class Report
       options = util.extend
         siteType: 'html'
         streamType: 'png'
+        creenSize:
+          width: 800
+          height: 600
         captureSelector: '#page'
       , options
       webshot html, options, (err, stream) ->

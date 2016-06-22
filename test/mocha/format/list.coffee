@@ -32,7 +32,7 @@ describe "lists", ->
       - three
 
       """, """
-      <body><ul>
+      <body><div id="page"><ul>
       <li>one</li>
       <li>two</li>
       <li>and this is a long text because i can’t only write numbers down here to show
@@ -51,7 +51,7 @@ describe "lists", ->
       </li>
       <li>three</li>
       </ul>
-      </body>
+      </div></body>
       """, cb
 
   it "should allow some more markdown for unordered", (cb) ->
@@ -66,7 +66,7 @@ describe "lists", ->
         + Very easy!
         """
     test.report 'list-unordered2', report, null, """
-      <body><ul>
+      <body><div id="page"><ul>
       <li>Create a list by starting a line with <code>+</code>, <code>-</code>, or <code>*</code></li>
       <li>Sub-lists are made by indenting 2 spaces:
       <ul>
@@ -85,7 +85,7 @@ describe "lists", ->
       </li>
       <li>Very easy!</li>
       </ul>
-      </body>
+      </div></body>
       """, cb
 
   it "should create an ordered list", (cb) ->
@@ -111,7 +111,7 @@ describe "lists", ->
       3. three
 
       """, """
-      <body><ol>
+      <body><div id="page"><ol>
       <li>one</li>
       <li>two</li>
       <li>and this is a long text because i can’t only write numbers down here to show
@@ -130,7 +130,7 @@ describe "lists", ->
       </li>
       <li>three</li>
       </ol>
-      </body>
+      </div></body>
       """, cb
 
   it "should allow some more markdown for ordered", (cb) ->
@@ -145,7 +145,7 @@ describe "lists", ->
         1. bar
         """
     test.report 'list-ordered2', report, null, """
-      <body><ol>
+      <body><div id="page"><ol>
       <li>You can use sequential numbers…</li>
       <li>…or keep all the numbers as <code>1.</code></li>
       </ol>
@@ -154,7 +154,7 @@ describe "lists", ->
       <li>foo</li>
       <li>bar</li>
       </ol>
-      </body>
+      </div></body>
       """, cb
 
   it "should create a definition list", (cb) ->
@@ -174,13 +174,13 @@ describe "lists", ->
       : Markup language for internet pages
 
       """, """
-      <body><dl>
+      <body><div id="page"><dl>
       <dt>css</dt>
       <dd>Style language to bring the layout into html</dd>
       <dt>html</dt>
       <dd>Markup language for internet pages</dd>
       </dl>
-      </body>
+      </div></body>
       """, cb
 
   it "should allow some more markdown for definitions", (cb) ->
@@ -207,7 +207,7 @@ describe "lists", ->
           ~ Definition 2b
         """
     test.report 'list-definition2', report, null, """
-      <body><dl>
+      <body><div id="page"><dl>
       <dt>Term 1</dt>
       <dd>
       <p>Definition 1
@@ -227,7 +227,7 @@ describe "lists", ->
       <dd>Definition 2a</dd>
       <dd>Definition 2b</dd>
       </dl>
-      </body>
+      </div></body>
       """, cb
 
   it "should create a check list", (cb) ->
@@ -243,8 +243,8 @@ describe "lists", ->
       [ ] and something todo
 
       """, """
-      <body><p><div class="cb"><input type="checkbox" id="checkbox2" checked="true" /><label for="checkbox2">todo list</label></div>
+      <body><div id="page"><p><div class="cb"><input type="checkbox" id="checkbox2" checked="true" /><label for="checkbox2">todo list</label></div>
       <div class="cb"><input type="checkbox" id="checkbox1" checked="true" /><label for="checkbox1">with elements done</label></div>
       <div class="cb"><input type="checkbox" id="checkbox0" /><label for="checkbox0">and something todo</label></div></p>
-      </body>
+      </div></body>
       """, cb

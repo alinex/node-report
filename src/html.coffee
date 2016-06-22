@@ -9,6 +9,7 @@ mime = require 'mime'
 inlineCss = require 'inline-css'
 fs = require 'alinex-fs'
 util = require 'alinex-util'
+CleanCSS = require 'clean-css'
 # markdown
 markdownit = require 'markdown-it'
 hljs = require 'highlight.js'
@@ -138,9 +139,12 @@ module.exports = (report, setup, cb) ->
   # add page style with collected css
   style = setup?.style ? 'default'
   css = data.css?.join('\n') ? ''
+  if css
+    css = new CleanCSS().minify(css).styles
   html += switch
     when style in Object.keys HTML_STYLES
-      """<style type="text/css">#{fs.readFileSync HTML_STYLES[style], 'utf8'}
+      data = fs.readFileSync HTML_STYLES[style], 'utf8'
+      """<style type="text/css">#{new CleanCSS().minify(data).styles}
       #{css}</style>"""
     when style.match /^https?:\/\//
       css = """<style type="text/css">#{css}</style>"""

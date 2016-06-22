@@ -2,7 +2,7 @@
 Report = require '../../../src/index'
 test = require '../test'
 
-describe.only "visual chart", ->
+describe "visual chart", ->
   @timeout 10000
 
   it "should create simple chart", (cb) ->

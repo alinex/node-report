@@ -26,7 +26,7 @@ describe "signs", ->
       - math:        +-
 
       """, """
-      <body><h3 id="classic-typographs">classic typographs:</h3>
+      <body><div id="page"><h3 id="classic-typographs">classic typographs:</h3>
       <ul>
       <li>copyright:   © ©</li>
       <li>registeres:  ® ®</li>
@@ -34,7 +34,7 @@ describe "signs", ->
       <li>paragraph:   § §</li>
       <li>math:        ±</li>
       </ul>
-      </body>
+      </div></body>
       """, cb
 
   it "should add emoji images", (cb) ->
@@ -98,7 +98,7 @@ describe "signs", ->
       - wink:             :wink:             ;)      ;-)
 
       """, """
-      <body><h3 id="emoji">emoji:</h3>
+      <body><div id="page"><h3 id="emoji">emoji:</h3>
       <ul>
       <li>angry:            <img class="emoji" draggable="false" alt="😠" src="https://twemoji.maxcdn.com/72x72/1f620.png">            <img class="emoji" draggable="false" alt="😠" src="https://twemoji.maxcdn.com/72x72/1f620.png">     <img class="emoji" draggable="false" alt="😠" src="https://twemoji.maxcdn.com/72x72/1f620.png"></li>
       <li>blush:            <img class="emoji" draggable="false" alt="😊" src="https://twemoji.maxcdn.com/72x72/1f60a.png">            <img class="emoji" draggable="false" alt="😊" src="https://twemoji.maxcdn.com/72x72/1f60a.png">     <img class="emoji" draggable="false" alt="😊" src="https://twemoji.maxcdn.com/72x72/1f60a.png"></li>
@@ -126,7 +126,7 @@ describe "signs", ->
       <li>unamused:         <img class="emoji" draggable="false" alt="😒" src="https://twemoji.maxcdn.com/72x72/1f612.png">         <img class="emoji" draggable="false" alt="😒" src="https://twemoji.maxcdn.com/72x72/1f612.png">   <img class="emoji" draggable="false" alt="😒" src="https://twemoji.maxcdn.com/72x72/1f612.png">   <img class="emoji" draggable="false" alt="😒" src="https://twemoji.maxcdn.com/72x72/1f612.png">   <img class="emoji" draggable="false" alt="😒" src="https://twemoji.maxcdn.com/72x72/1f612.png">   <img class="emoji" draggable="false" alt="😒" src="https://twemoji.maxcdn.com/72x72/1f612.png">   <img class="emoji" draggable="false" alt="😒" src="https://twemoji.maxcdn.com/72x72/1f612.png"></li>
       <li>wink:             <img class="emoji" draggable="false" alt="😉" src="https://twemoji.maxcdn.com/72x72/1f609.png">             <img class="emoji" draggable="false" alt="😉" src="https://twemoji.maxcdn.com/72x72/1f609.png">      <img class="emoji" draggable="false" alt="😉" src="https://twemoji.maxcdn.com/72x72/1f609.png"></li>
       </ul>
-      </body>
+      </div></body>
       """, cb
 
   it "should add fontawesome signs", (cb) ->
@@ -192,7 +192,7 @@ describe "signs", ->
       fa-stack-2x fa-ban text-red:
 
       """, """
-      <body><h3 id="fontawesome">fontawesome:</h3>
+      <body><div id="page"><h3 id="fontawesome">fontawesome:</h3>
       <p><strong>basic icons:</strong>   <i class="fa fa-flag"></i>    <i class="fa fa-camera-retro"></i></p>
       <p><strong>larger icons:</strong>  <i class="fa fa-camera-retro fa-lg"></i> <i class="fa fa-camera-retro fa-2x"></i>
       <i class="fa fa-camera-retro fa-3x"></i></p>
@@ -213,5 +213,5 @@ describe "signs", ->
       fa-flip-vertical"></i> fa-flip-vertical</p>
       <p><strong>stacked icons:</strong> <span class="fa-stack fa-lg"><i class="fa fa-stack-2x fa-square-o"></i><i class="fa fa-stack-1x fa-twitter"></i></span> <span class="fa-stack fa-lg"><i class="fa fa-stack-2x fa-circle"></i><i class="fa fa-stack-1x fa-flag fa-inverse"></i></span> <span class="fa-stack fa-lg"><i class="fa fa-stack-2x
       fa-square"></i><i class="fa fa-stack-1x fa-terminal fa-inverse"></i></span> <span class="fa-stack fa-lg"><i class="fa fa-stack-1x fa-camera"></i><i class="fa fa-stack-2x fa-ban text-red"></i></span></p>
-      </body>
+      </div></body>
       """, cb

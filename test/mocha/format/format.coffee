@@ -31,14 +31,14 @@ describe "format", ->
       This should show as ==highlight== format.
 
       """, """
-      <body><p>This should show as <strong>bold</strong> format.</p>
+      <body><div id="page"><p>This should show as <strong>bold</strong> format.</p>
       <p>This should show as <em>italic</em> format.</p>
       <p>This should show as <s>strikethrough</s> format.</p>
       <p>This should show as <code>typewriter</code> format.</p>
       <p>This should show as <sub>subscript</sub> format.</p>
       <p>This should show as <sup>superscript</sup> format.</p>
       <p>This should show as <mark>highlight</mark> format.</p>
-      </body>""", cb
+      </div></body>""", cb
 
   it "should allow mixed styles", (cb) ->
     report = new Report()
@@ -48,8 +48,8 @@ describe "format", ->
         Water has the formula __H~2~O__.
 
         """, """
-        <body><p>Water has the formula <strong>H<sub>2</sub>O</strong>.</p>
-        </body>
+        <body><div id="page"><p>Water has the formula <strong>H<sub>2</sub>O</strong>.</p>
+        </div></body>
         """, cb
 
   it "should allow alternative formatting in markdown", (cb) ->
@@ -58,6 +58,6 @@ describe "format", ->
         **bold** and *italic*
         """
     test.report null, report, null, """
-      <body><p><strong>bold</strong> and <em>italic</em></p>
-      </body>
+      <body><div id="page"><p><strong>bold</strong> and <em>italic</em></p>
+      </div></body>
       """, cb

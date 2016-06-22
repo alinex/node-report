@@ -32,7 +32,7 @@ describe "table", ->
         | 12 | twelve  | zwölf  |
 
         """, """
-        <body><table>
+        <body><div id="page"><table>
         <thead>
         <tr>
         <th style="text-align:left">ID</th>
@@ -63,7 +63,7 @@ describe "table", ->
         </tr>
         </tbody>
         </table>
-        </body>
+        </div></body>
         """, cb
 
     it "should align column", (cb) ->
@@ -80,7 +80,7 @@ describe "table", ->
         | 12 | twelve  | zwölf  |
 
         """, """
-        <body><table>
+        <body><div id="page"><table>
         <thead>
         <tr>
         <th style="text-align:right">ID</th>
@@ -111,7 +111,7 @@ describe "table", ->
         </tr>
         </tbody>
         </table>
-        </body>
+        </div></body>
         """, cb
 
     it "should support mask", (cb) ->
@@ -127,7 +127,7 @@ describe "table", ->
         | 12 | twelve  | zwölf  |
 
         """, """
-        <body><table>
+        <body><div id="page"><table>
         <thead>
         <tr>
         <th style="text-align:left">ID</th>
@@ -158,7 +158,7 @@ describe "table", ->
         </tr>
         </tbody>
         </table>
-        </body>
+        </div></body>
         """, cb
 
   describe "from list map", ->
@@ -183,7 +183,7 @@ describe "table", ->
         | 12 | twelve | zwölf |
 
         """, """
-        <body><table>
+        <body><div id="page"><table>
         <thead>
         <tr>
         <th style="text-align:left">id</th>
@@ -214,7 +214,7 @@ describe "table", ->
         </tr>
         </tbody>
         </table>
-        </body>
+        </div></body>
         """, cb
 
     it "should create table with column map-map", (cb) ->
@@ -238,7 +238,7 @@ describe "table", ->
         | 12 | zwölf  | twelve  |
 
         """, """
-        <body><table>
+        <body><div id="page"><table>
         <thead>
         <tr>
         <th style="text-align:right">ID</th>
@@ -269,7 +269,7 @@ describe "table", ->
         </tr>
         </tbody>
         </table>
-        </body>
+        </div></body>
         """, cb
 
     it "should create table with column list array", (cb) ->
@@ -289,7 +289,7 @@ describe "table", ->
         | 12 | twelve  |
 
         """, """
-        <body><table>
+        <body><div id="page"><table>
         <thead>
         <tr>
         <th style="text-align:left">ID</th>
@@ -315,7 +315,7 @@ describe "table", ->
         </tr>
         </tbody>
         </table>
-        </body>
+        </div></body>
         """, cb
 
     it "should create table with column list", (cb) ->
@@ -332,7 +332,7 @@ describe "table", ->
         | 12 | twelve  | zwölf  |
 
         """, """
-        <body><table>
+        <body><div id="page"><table>
         <thead>
         <tr>
         <th style="text-align:left">ID</th>
@@ -363,7 +363,7 @@ describe "table", ->
         </tr>
         </tbody>
         </table>
-        </body>
+        </div></body>
         """, cb
 
     it "should create table with column map", (cb) ->
@@ -382,7 +382,7 @@ describe "table", ->
         | 12 | twelve  |
 
         """, """
-        <body><table>
+        <body><div id="page"><table>
         <thead>
         <tr>
         <th style="text-align:left">ID</th>
@@ -408,7 +408,7 @@ describe "table", ->
         </tr>
         </tbody>
         </table>
-        </body>
+        </div></body>
         """, cb
 
     it "should create table with sort map", (cb) ->
@@ -433,7 +433,7 @@ describe "table", ->
         |  3 | drei   | three   |
 
         """, """
-        <body><table>
+        <body><div id="page"><table>
         <thead>
         <tr>
         <th style="text-align:right">ID</th>
@@ -464,7 +464,7 @@ describe "table", ->
         </tr>
         </tbody>
         </table>
-        </body>
+        </div></body>
         """, cb
 
     it "should create table with sort list", (cb) ->
@@ -489,7 +489,7 @@ describe "table", ->
         | 12 | zwölf  | twelve  |
 
         """, """
-        <body><table>
+        <body><div id="page"><table>
         <thead>
         <tr>
         <th style="text-align:right">ID</th>
@@ -520,7 +520,7 @@ describe "table", ->
         </tr>
         </tbody>
         </table>
-        </body>
+        </div></body>
         """, cb
 
     it "should create table with sort key", (cb) ->
@@ -545,7 +545,7 @@ describe "table", ->
         | 12 | zwölf  | twelve  |
 
         """, """
-        <body><table>
+        <body><div id="page"><table>
         <thead>
         <tr>
         <th style="text-align:right">ID</th>
@@ -576,7 +576,7 @@ describe "table", ->
         </tr>
         </tbody>
         </table>
-        </body>
+        </div></body>
         """, cb
 
   describe "from list array", ->
@@ -603,7 +603,7 @@ describe "table", ->
         | 12 | twelve | zwölf |
 
         """, """
-        <body><table>
+        <body><div id="page"><table>
         <thead>
         <tr>
         <th style="text-align:left">1</th>
@@ -629,7 +629,7 @@ describe "table", ->
         </tr>
         </tbody>
         </table>
-        </body>
+        </div></body>
         """, cb
 
     it "should create table with column list", (cb) ->
@@ -646,7 +646,7 @@ describe "table", ->
         | 12 | twelve  | zwölf  |
 
         """, """
-        <body><table>
+        <body><div id="page"><table>
         <thead>
         <tr>
         <th style="text-align:left">ID</th>
@@ -677,7 +677,7 @@ describe "table", ->
         </tr>
         </tbody>
         </table>
-        </body>
+        </div></body>
         """, cb
 
     it "should create table with column list-array", (cb) ->
@@ -697,7 +697,7 @@ describe "table", ->
         | 12 | twelve  |
 
         """, """
-        <body><table>
+        <body><div id="page"><table>
         <thead>
         <tr>
         <th style="text-align:left">ID</th>
@@ -723,7 +723,7 @@ describe "table", ->
         </tr>
         </tbody>
         </table>
-        </body>
+        </div></body>
         """, cb
 
     it "should create table with column list-map", (cb) ->
@@ -747,7 +747,7 @@ describe "table", ->
         | 12 | twelve  | zwölf  |
 
         """, """
-        <body><table>
+        <body><div id="page"><table>
         <thead>
         <tr>
         <th style="text-align:right">ID</th>
@@ -778,7 +778,7 @@ describe "table", ->
         </tr>
         </tbody>
         </table>
-        </body>
+        </div></body>
         """, cb
 
     it "should create table with empty fields", (cb) ->
@@ -798,7 +798,7 @@ describe "table", ->
         | 12 |     | zwölf |
 
         """, """
-        <body><table>
+        <body><div id="page"><table>
         <thead>
         <tr>
         <th style="text-align:left">1</th>
@@ -824,7 +824,7 @@ describe "table", ->
         </tr>
         </tbody>
         </table>
-        </body>
+        </div></body>
         """, cb
 
 
@@ -850,7 +850,7 @@ describe "table", ->
         | position | developer |
 
         """, """
-        <body><table>
+        <body><div id="page"><table>
         <thead>
         <tr>
         <th style="text-align:left">Name</th>
@@ -872,7 +872,7 @@ describe "table", ->
         </tr>
         </tbody>
         </table>
-        </body>
+        </div></body>
         """, cb
 
     it "should create table with column list", (cb) ->
@@ -888,7 +888,7 @@ describe "table", ->
         | position | developer |
 
         """, """
-        <body><table>
+        <body><div id="page"><table>
         <thead>
         <tr>
         <th style="text-align:left">NAME</th>
@@ -910,7 +910,7 @@ describe "table", ->
         </tr>
         </tbody>
         </table>
-        </body>
+        </div></body>
         """, cb
 
     it "should create table with list and object content", (cb) ->
@@ -931,7 +931,7 @@ describe "table", ->
         | data.lang | javascript             |
 
         """, """
-        <body><table>
+        <body><div id="page"><table>
         <thead>
         <tr>
         <th style="text-align:left">Name</th>
@@ -957,5 +957,5 @@ describe "table", ->
         </tr>
         </tbody>
         </table>
-        </body>
+        </div></body>
         """, cb

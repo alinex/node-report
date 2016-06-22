@@ -2149,8 +2149,8 @@ report.toImage options, (err, data) ->
 Possible options are:
 
 - windowSize - the dimensions of the browser window to take the screenshot
-  - width - (integer) default: 1024
-  - height - (integer) default: 768
+  - width - (integer) default: 800
+  - height - (integer) default: 600
 - shotSize - the size of the area to screenshot
   - width - (integer, 'window' or 'all') default: 'window'
   - height - (integer, 'window' or 'all') default: 'window'
