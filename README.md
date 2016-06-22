@@ -1875,28 +1875,10 @@ And finally in HTML and text or console output:
 
 ![html](src/doc/qr-extended.png) ![console](src/doc/qr-extended.console.png)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #### Charts
 
 A lot of charts are possible based on [jui-chart](http://chartplay.jui.io/).
-You'll find all possible settings there.
-
-__[Simple Chart](http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/doc/visual-chart-simple.html)__
+You'll find all possible settings there or look at some of the examples below.
 
 ``` coffee
 report = new Report()
@@ -1912,6 +1894,43 @@ report.chart null, [
 This makes a simple bar chart with predefined settings for your data. But you may
 also specify a lot of options and charts. The examples below shows the possible
 settings, but you only need to give some of them.
+
+``` markdown
+$$$ chart
+| quarter | sales | profit |
+|:------- |:----- |:------ |
+| 1Q      | 50    | 35     |
+| 2Q      | -20   | -100   |
+| 3Q      | 10    | -5     |
+| 4Q      | 30    | 25     |
+$$$
+```
+
+This will render in HTML as (click to show in browser):
+
+[![html](src/doc/chart.png)](http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/doc/chart.html)
+
+
+
+
+
+
+
+
+
+__Chart__
+
+``` coffee
+```
+
+``` markdown
+```
+
+This will render in HTML as (click to show in browser):
+
+[![html](src/doc/chart-.png)](http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/doc/chart-.html)
+
+
 
 __[Column Chart](http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/doc/visual-chart-column.html)__
 
@@ -1957,6 +1976,8 @@ report.chart
   ["4Q", 30, 25]
 ]
 ```
+
+
 
 
 Output
@@ -2071,75 +2092,6 @@ Possible options are:
 
 - type - png or jpg
 - quality - integer between 0 and 100 as best quality default is 75
-
-
-
-
-
-
-Markup Syntax
--------------------------------------------------
-The following syntax may be used alternatively to create your report. To add
-it use the 'source' option of the constructor or the 'raw()' method.
-
-
-### Visualizations
-
-This will only work in HTML format, else the definition is displayed.
-
-#### QR Code
-
-This will display a qr code image. It will be in a default size of 256 x 256 pixel.
-
-    $$$ qr
-    http://alinex.de
-    $$$
-
-To make it more specific you may use the extended form:
-
-    $$$ qr
-    content: http://alinex.github.io
-    padding: 1
-    width: 600
-    height: 600
-    color: #ff0000
-    background: #ffffff
-    ecl: M
-    $$$
-
-#### Charts
-
-A lot of charts are possible. To make them you have to include a markdown tag with
-two parts:
-
-- the display setup data
-- the table to visualize
-
-    $$$ chart
-    width: 600
-    height: 400
-    axis:
-      x:
-        type: "block"
-        domain: "quarter"
-        line: true
-      y:
-        type: "range"
-        line: true,
-    brush:
-      type: "column"
-      target: ["sales", "profit"]
-
-    | quarter | sales | profit |
-    | ------- | ----- | ------ |
-    | 1Q      | 50    | 35     |
-    | 2Q      | -20   | -100   |
-    | 3Q      | 10    | -5     |
-    | 4Q      | 30    | 25     |
-    $$$
-
-This is based on [jui-chart](http://chartplay.jui.io/) so look there for the possible
-setup. Or see the other examples above in the Report Builder description.
 
 
 License

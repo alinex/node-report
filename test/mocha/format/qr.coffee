@@ -2,7 +2,7 @@
 Report = require '../../../src/index'
 test = require '../test'
 
-describe.only "visual qr", ->
+describe "visual qr", ->
   @timeout 5000
 
   it "should create simple code", (cb) ->
@@ -21,8 +21,8 @@ describe.only "visual qr", ->
     report.qr
       content: 'http://alinex.github.io'
       padding: 1
-      width: 600
-      height: 600
+      width: 500
+      height: 500
       color: '#ff0000'
       background: '#ffffff'
       ecl: 'M'
@@ -31,8 +31,8 @@ describe.only "visual qr", ->
       $$$ qr
       content: 'http://alinex.github.io'
       padding: 1
-      width: 600
-      height: 600
+      width: 500
+      height: 500
       color: '#ff0000'
       background: '#ffffff'
       ecl: M
