@@ -13,6 +13,7 @@ deasync = require 'deasync'
 QRCode = null # load on demand
 jui = null # load on demand
 mermaid = null # load on demand
+plantuml = null # load on demand
 # alinex modules
 util = require 'alinex-util'
 format = require 'alinex-format'
@@ -38,8 +39,19 @@ module.exports = (md) ->
   md.renderer.rules.execute = renderer
 
 module.exports.toConsole = module.exports.toText = (text) ->
-  text.replace /\$\$\$\s+(css|js)\s*\n([\s\S]*?)\$\$\$/g, ''
-  .replace /\$\$\$\s+qr\s*\n([\s\S]*?)\$\$\$/g, ->
+  text.replace /\$\$\$\s+(css|js)\s*\n([\s\S]*?)\$\$\$/gi, ''
+  .replace /\$\$\$\s+plantuml\s*\n([\s\S]*?)\$\$\$/gi, ->
+    content = arguments[1]
+    # create qr codes
+    plantuml ?= require 'node-plantuml'
+    renderer = deasync (code, cb) ->
+      gen = plantuml.generate code.trim(),
+        format: 'unicode'
+      buffer = ''
+      gen.out.on 'data', (data) -> buffer += data.toString()
+      gen.out.on 'end', -> cb null, buffer
+    renderer content
+  .replace /\$\$\$\s+qr\s*\n([\s\S]*?)\$\$\$/gi, ->
     content = arguments[1]
     # create qr codes
     QRCode ?= require 'qrcode-svg'
@@ -66,7 +78,7 @@ module.exports.toConsole = module.exports.toText = (text) ->
     ascii += '██' for i in [0..modules.length+1]
     ascii += '\n'
     ascii
-  .replace /\$\$\$\s+chart\s*\n([\s\S]*?)\$\$\$/g, ->
+  .replace /\$\$\$\s+chart\s*\n([\s\S]*?)\$\$\$/gi, ->
     part = arguments[1]
     parts = part.trim().split /(^|\n\s*\n\s*)\|/
     "|#{parts[2]}"
@@ -134,7 +146,7 @@ renderer = (tokens, idx, options, env, self) ->
   token = tokens[idx]
   if token.info
     [type, opt] = token.info.split /\s+/g
-  switch type
+  switch type.toLowerCase()
     # coding
     when 'css'
       env.css ?= []
@@ -202,6 +214,15 @@ renderer = (tokens, idx, options, env, self) ->
       jui = require 'jui'
       jui.create('chart.builder', null, data).svg.toXML()
 
+    when 'plantuml'
+      plantuml ?= require 'node-plantuml'
+      renderer = deasync (code, cb) ->
+        gen = plantuml.generate code.trim(),
+          format: 'svg'
+        buffer = ''
+        gen.out.on 'data', (data) -> buffer += data.toString()
+        gen.out.on 'end', -> cb null, buffer
+      renderer token.content
 
     # mermaid graph
     # TODO won't work without xmkdom

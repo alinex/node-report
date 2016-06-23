@@ -1,0 +1,4 @@
+
+$$$ plantuml
+A -> B: Hello
+$$$

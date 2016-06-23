@@ -293,10 +293,12 @@ class Report
     if typeof data is 'object'
       "\n$$$ qr\n#{dataStringify data, 'yaml'}$$$\n"
     else
-      "\n$$$ qr\n#{data}\n$$$\n"
+      "\n$$$ qr\n#{data.trim()}\n$$$\n"
   @chart: (setup, data) ->
     "\n$$$ chart#{if setup then '\n' + dataStringify(setup, 'yaml') else ''}\
     #{Report.table data}$$$\n"
+  @plantuml: (code) ->
+    "\n$$$ plantuml\n#{code.trim()}\n$$$\n"
 
 
   # Create instance
@@ -371,6 +373,7 @@ class Report
 
   qr: (data) -> @raw Report.qr data
   chart: (setup, data) -> @raw Report.chart setup, data
+  plantuml: (code) -> @raw Report.plantuml code
 
 
   # Extract report

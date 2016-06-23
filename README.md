@@ -2024,46 +2024,6 @@ This will render in HTML as (click to show in browser):
 __Chart__
 
 ``` coffee
-report = new Report()
-report.chart
-  width: 800
-  height: 400
-  theme: 'dark'
-  axis:
-    padding:
-      left: 5
-      top: 10
-    area:
-      width: '80%'
-      x: '10%'
-    x:
-      type: 'block'
-      domain: "quarter"
-      line: true
-    y:
-      type: range
-      domain: [-120, 120]
-      step: 10
-      line: true
-      orient: 'right'
-  brush:
-    - type: "column"
-      target: ["sales", "profit"]
-    - type: "focus"
-      start: 1
-      end: 1
-  widget:
-    - type: "title"
-      text: "Column Chart"
-    - type: "tooltip"
-    - type: "legend"
-, [
-  ['quarter', 'sales', 'profit']
-  ["1Q", 50, 35]
-  ["2Q", -20, -100]
-  ["3Q", 10, -5]
-  ["4Q", 30, 25]
-]
 ```
 
 ``` markdown
@@ -2075,12 +2035,337 @@ This will render in HTML as (click to show in browser):
 
 
 
-__[Column Chart](http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/doc/visual-chart-column.html)__
+
+#### PlantUML
+
+A language to describe UML diagrams using simple text, which fits perfectly into markdown.
+See [plantuml.com](http://plantuml.com/) for a complete language description.
+Some examples will follow:
 
 ``` coffee
+report = new Report()
+report.plantuml "A -> B: Hello"
 ```
 
+Zhis sumple sequence diagram will be written into execution tags in markdown like:
 
+``` markdown
+$$$ plantuml
+A -> B: Hello
+$$$
+```
+
+And finally fhis will render in HTML or text/console as:
+
+![html](src/doc/plantuml.png) ![console](src/doc/plantuml.console.png)
+
+__Sequence Diagram__
+
+``` coffee
+report = new Report()
+report.plantuml """
+  participant User
+
+  User -> A: DoWork
+  activate A #FFBBBB
+
+  A -> A: Internal call
+  activate A #DarkSalmon
+
+  A -> B: << createRequest >>
+  activate B
+
+  B --> A: RequestCreated
+  deactivate B
+  deactivate A
+  A -> User: Done
+  deactivate A
+  """
+```
+
+The markdown is nearly the same but with `$$$ plantuml .... $$$` arround the code.
+
+And in HTML this will look like:
+
+![html](src/doc/plantuml-sequence.png)
+
+__Use Case Diagram__
+
+``` coffee
+report = new Report()
+report.plantuml """
+  :Main Admin: as Admin
+  (Use the application) as (Use)
+
+  User -> (Start)
+  User --> (Use)
+
+  Admin ---> (Use)
+
+  note right of Admin : This is an example.
+
+  note right of (Use)
+    A note can also
+    be on several lines
+  end note
+
+  note "This note is connected to several objects." as N2
+  (Start) .. N2
+  N2 .. (Use)
+  """
+```
+
+The markdown is nearly the same but with `$$$ plantuml .... $$$` arround the code.
+
+And in HTML this will look like:
+
+![html](src/doc/plantuml-usecase.png)
+
+__Class Diagram__
+
+``` coffee
+report = new Report()
+report.plantuml """
+  class Foo1 {
+    You can use
+    several lines
+    ..
+    as you want
+    and group
+    ==
+    things together.
+    __
+    You can have as many groups
+    as you want
+    --
+    End of class
+  }
+
+  class User {
+    .. Simple Getter ..
+    + getName()
+    + getAddress()
+    .. Some setter ..
+    + setName()
+    __ private data __
+    int age
+    -- encrypted --
+    String password
+  }
+  """
+```
+
+The markdown is nearly the same but with `$$$ plantuml .... $$$` arround the code.
+
+And in HTML this will look like:
+
+![html](src/doc/plantuml-class.png)
+
+__Activity Diagram (old syntax)__
+
+``` coffee
+report = new Report()
+report.plantuml """
+  (*) --> "Initialization"
+
+  if "Some Test" then
+    -->[true] "Some Activity"
+    --> "Another activity"
+    -right-> (*)
+  else
+    ->[false] "Something else"
+    -->[Ending process] (*)
+  endif
+  """
+```
+
+The markdown is nearly the same but with `$$$ plantuml .... $$$` arround the code.
+
+And in HTML this will look like:
+
+![html](src/doc/plantuml-activity-old.png)
+
+__Activity Diagram (new syntax)__
+
+``` coffee
+report = new Report()
+report.plantuml """
+  :Ready;
+  :next(o)|
+  :Receiving;
+  split
+   :nak(i)<
+   :ack(o)>
+  split again
+   :ack(i)<
+   :next(o)
+   on several line|
+   :i := i + 1]
+   :ack(o)>
+  split again
+   :err(i)<
+   :nak(o)>
+  split again
+   :foo/
+  split again
+   :i > 5}
+  stop
+  end split
+  :finish;
+  """
+```
+
+The markdown is nearly the same but with `$$$ plantuml .... $$$` arround the code.
+
+And in HTML this will look like:
+
+![html](src/doc/plantuml-activity-new.png)
+
+__Component Diagram__
+
+``` coffee
+report = new Report()
+report.plantuml """
+  package "Some Group" {
+    HTTP - [First Component]
+    [Another Component]
+  }
+
+  node "Other Groups" {
+    FTP - [Second Component]
+    [First Component] --> FTP
+  }
+
+  cloud {
+    [Example 1]
+  }
+
+
+  database "MySql" {
+    folder "This is my folder" {
+      [Folder 3]
+    }
+    frame "Foo" {
+      [Frame 4]
+    }
+  }
+
+  [Another Component] --> [Example 1]
+  [Example 1] --> [Folder 3]
+  [Folder 3] --> [Frame 4]
+  """
+```
+
+The markdown is nearly the same but with `$$$ plantuml .... $$$` arround the code.
+
+And in HTML this will look like:
+
+![html](src/doc/plantuml-component.png)
+
+__State Diagram__
+
+``` coffee
+report = new Report()
+report.plantuml """
+  scale 350 width
+  [*] --> NotShooting
+
+  state NotShooting {
+    [*] --> Idle
+    Idle --> Configuring : EvConfig
+    Configuring --> Idle : EvConfig
+  }
+
+  state Configuring {
+    [*] --> NewValueSelection
+    NewValueSelection --> NewValuePreview : EvNewValue
+    NewValuePreview --> NewValueSelection : EvNewValueRejected
+    NewValuePreview --> NewValueSelection : EvNewValueSaved
+
+    state NewValuePreview {
+       State1 -> State2
+    }
+
+  }
+  """
+```
+
+The markdown is nearly the same but with `$$$ plantuml .... $$$` arround the code.
+
+And in HTML this will look like:
+
+![html](src/doc/plantuml-state.png)
+
+__Deployment Diagram__
+
+``` coffee
+report = new Report()
+report.plantuml """
+  artifact artifact
+  actor actor
+  folder folder
+  node node
+  frame frame
+  cloud cloud
+  database database
+  storage storage
+  agent agent
+  usecase usecase
+  component component
+  boundary boundary
+  control control
+  entity entity
+  interface interface
+  """
+```
+
+The markdown is nearly the same but with `$$$ plantuml .... $$$` arround the code.
+
+And in HTML this will look like:
+
+![html](src/doc/plantuml-deployment.png)
+
+__Object Diagram__
+
+``` coffee
+report = new Report()
+report.plantuml """
+  object user {
+    name = "Dummy"
+    id = 123
+  }
+  """
+```
+
+The markdown is nearly the same but with `$$$ plantuml .... $$$` arround the code.
+
+And in HTML this will look like:
+
+![html](src/doc/plantuml-object.png)
+
+Wireframe
+
+``` coffee
+report.plantuml """
+  salt
+  {+
+  {/ <b>General | Fullscreen | Behavior | Saving }
+  {
+    { Open image in: | ^Smart Mode^ }
+    [X] Smooth images when zoomed
+    [X] Confirm image deletion
+    [ ] Show hidden images
+  }
+  [Close]
+  }
+  """
+```
+
+The markdown is nearly the same but with `$$$ plantuml .... $$$` arround the code.
+
+And in HTML this will look like:
+
+![html](src/doc/plantuml-wireframe.png)
 
 
 Output

@@ -1,0 +1,14 @@
+
+$$$ plantuml
+salt
+{+
+{/ <b>General | Fullscreen | Behavior | Saving }
+{
+	{ Open image in: | ^Smart Mode^ }
+	[X] Smooth images when zoomed
+	[X] Confirm image deletion
+	[ ] Show hidden images
+}
+[Close]
+}
+$$$
