@@ -295,7 +295,7 @@ class Report
     else
       "\n$$$ qr\n#{data}\n$$$\n"
   @chart: (setup, data) ->
-    "\n$$$ chart#{if setup then '\n' + dataStringify(setup, 'yaml') + '\n' else ''}\
+    "\n$$$ chart#{if setup then '\n' + dataStringify(setup, 'yaml') else ''}\
     #{Report.table data}$$$\n"
 
 

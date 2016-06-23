@@ -36,7 +36,6 @@ widget:
   - type: tooltip
   - type: legend
 
-
 | quarter | sales | profit |
 |:------- |:----- |:------ |
 | 1Q      | 50    | 35     |
