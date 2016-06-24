@@ -19,8 +19,7 @@ $(document).ready(function () {
   $('#datatable1').DataTable({
   "info": true,
   "paging": true,
-  "searching": true,
-  "scrollY": true
+  "searching": true
 });
 });
 $$$
