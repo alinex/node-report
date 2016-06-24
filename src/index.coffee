@@ -12,6 +12,7 @@ Table = require 'alinex-table'
 format = require 'alinex-format'
 pdf = null # load on demand
 webshot = null # load on demand
+convertHtml = null # load on demand
 
 # load local plugins
 pluginExecute = require './plugin/execute'
@@ -168,6 +169,10 @@ table = (obj, col, sort, mask) ->
     ) + ' |'
   text + '\n'
 
+datatableDefault =
+  paging: false
+  info: false
+
 
 # Report class
 # -------------------------------------------------
@@ -278,8 +283,20 @@ class Report
       text += "\n[#{if val then 'x' else ' '}] #{name}"
     text + '\n'
 
-  # ### specials
   @table: table
+  @datatable: (data, options = {}, mask) ->
+    id = options.id ? 'datatable'
+    delete options.id
+    md = table data, null, null, mask
+    md += @style "table:##{id}"
+    md += @js """
+      $(document).ready(function () {
+        $('##{id}').DataTable(#{dataStringify options, 'json'});
+      });
+      """
+    md
+
+  # ### specials
   @abbr: (abbr, text) -> "\n*[#{abbr}]: #{text.trim()}"
   @toc: -> '\n@[toc]\n'
 
@@ -316,6 +333,7 @@ class Report
     # current states
     @state =
       footnote: 0
+      datatable: 0
 
   # Add elements
   # -------------------------------------------------
@@ -358,6 +376,9 @@ class Report
   check: (map) -> @raw Report.check map
 
   table: (obj, col, sort, mask) -> @raw Report.table obj, col, sort, mask
+  datatable: (data, options = datatableDefault, mask) ->
+    options.id ?= "datatable#{++@state.datatable}"
+    @raw Report.datatable data, options, mask
 
   footnote: (text, id) ->
     id ?= ++@state.footnote
@@ -558,10 +579,9 @@ class Report
     text.replace /^[\r\n]+|[\r\n]+$/g, ''
 
   # ### as html
-  html = null
   toHtml: (options, cb) ->
-    html = require './html' unless html
-    html this, options, cb
+    convertHtml ?= require './html'
+    convertHtml this, options, cb
 
   # ### as pdf
   toPdf: (options, cb) ->

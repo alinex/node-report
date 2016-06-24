@@ -1544,6 +1544,61 @@ And renders as HTML:
 
 ![html](src/doc/table-map-list-object.png)
 
+#### Interactive Table
+
+Instead of simple tables for the HTML output they may be made interactive, allowing:
+
+- sorting
+- filtering
+- paging
+
+All these may be done by the user. But if such tables are outputted to other format
+they will only show a normal table. It is also not possible to run this in most
+mail clients (only if attached and opened in Browser).
+
+``` coffee
+report = new Report()
+report.h1 "Interactive Table"
+report.datatable new Table([
+  ['ID', 'English', 'German']
+  [1, 'one', 'eins']
+  [2, 'two', 'zw_ei']
+  [3, 'three', 'drei']
+  [12, 'twelve', 'zwölf']
+])
+```
+
+The possible options to give as second parameter are documented at the jQuery
+[datatable](https://datatables.net/examples/styling/order-column.html). The default
+will disable paging and info.
+
+As markdown this will be written as three separate elements working together:
+
+``` markdown
+Interactive Table
+================================================================================
+
+| ID | English | German |
+|:-- |:------- |:------ |
+| 1  | one     | eins   |
+| 2  | two     | zw_ei  |
+| 3  | three   | drei   |
+| 12 | twelve  | zwölf  |
+<!-- {table:#datatable1} -->
+$$$ js
+$(document).ready(function () {
+  $('#datatable1').DataTable({
+  "paging": false,
+  "info": false
+});
+});
+$$$
+```
+
+And finally in HTML this will look like (click to show working HTML):
+
+[![html](src/doc/datatable.png)](http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/doc/datatable.html)
+
 ### Document Elements
 
 These elements willl add some functionality to the overall document.

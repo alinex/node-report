@@ -40,6 +40,7 @@ module.exports = (md) ->
 
 module.exports.toConsole = module.exports.toText = (text) ->
   text.replace /\$\$\$\s+(css|js)\s*\n([\s\S]*?)\$\$\$/gi, ''
+  # try to make unicode plantuml diagram
   .replace /\$\$\$\s+plantuml\s*\n([\s\S]*?)\$\$\$/gi, ->
     content = arguments[1]
     # create qr codes
@@ -51,6 +52,7 @@ module.exports.toConsole = module.exports.toText = (text) ->
       gen.out.on 'data', (data) -> buffer += data.toString()
       gen.out.on 'end', -> cb null, buffer
     renderer content
+  # make text qr
   .replace /\$\$\$\s+qr\s*\n([\s\S]*?)\$\$\$/gi, ->
     content = arguments[1]
     # create qr codes
@@ -78,11 +80,13 @@ module.exports.toConsole = module.exports.toText = (text) ->
     ascii += '██' for i in [0..modules.length+1]
     ascii += '\n'
     ascii
+  # show table instead of chart
   .replace /\$\$\$\s+chart\s*\n([\s\S]*?)\$\$\$/gi, ->
     part = arguments[1]
     parts = part.trim().split /(^|\n\s*\n\s*)\|/
     "|#{parts[2]}"
-  .replace /\$\$\$([\s\S]*?)\$\$\$/g, "```$1```"
+  # remove for all other
+  .replace /\$\$\$([\s\S]*?)\$\$\$/g, '' # "```$1```"
 
 
 # Parser
@@ -131,6 +135,7 @@ parser = (state, startLine, endLine, silent) ->
   # If a fence has heading spaces, they should be removed from its inner block
   len = state.sCount[startLine]
   state.line = nextLine + if haveEndMarker then 1 else 0
+  # add token
   token         = state.push 'execute', 'code', 0
   token.info    = params
   token.content = state.getLines startLine + 1, nextLine, len, true
@@ -152,10 +157,12 @@ renderer = (tokens, idx, options, env, self) ->
       env.css ?= []
       env.css.push token.content.trim()
       ''
+
     when 'js'
       env.js ?= []
       env.js.push token.content.trim()
       """<script type="text/javascript"><!--\n#{token.content.trim()}\n//--></script>"""
+
     when 'qr'
       # create qr codes
       QRCode ?= require 'qrcode-svg'
