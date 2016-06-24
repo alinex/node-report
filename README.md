@@ -2055,7 +2055,7 @@ A -> B: Hello
 $$$
 ```
 
-And finally fhis will render in HTML or text/console as:
+And finally this will render in HTML or text/console as:
 
 ![html](src/doc/plantuml.png) ![console](src/doc/plantuml.console.png)
 
@@ -2085,9 +2085,9 @@ report.plantuml """
 
 The markdown is nearly the same but with `$$$ plantuml .... $$$` arround the code.
 
-And in HTML this will look like:
+And this will render in HTML or text/console as:
 
-![html](src/doc/plantuml-sequence.png)
+![html](src/doc/plantuml-sequence.png) ![console](src/doc/plantuml-sequence.console.png)
 
 __Use Case Diagram__
 

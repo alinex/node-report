@@ -2,7 +2,7 @@
 Report = require '../../../src/index'
 test = require '../test'
 
-describe "visual plantuml", ->
+describe.only "visual plantuml", ->
   @timeout 10000
 
   it "should create simple plantuml", (cb) ->

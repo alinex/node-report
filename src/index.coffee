@@ -401,7 +401,7 @@ class Report
       \\(?=\n)        # backslash at end of line
     )
     ///g, ''
-    .trim()
+    .replace /^[\r\n]+|[\r\n]+$/g, ''
     # demask markdown syntax and add spaces
     if text.match /\\([*_~^`])/
       demask = /\\([*_~^`])/g
@@ -446,7 +446,7 @@ class Report
       \\(?=\n)        # backslash at end of line
     )
     ///g, ''
-    .trim()
+    .replace /^[\r\n]+|[\r\n]+$/g, ''
     # interpret markdown
     text = '\n\n' + text + '\n\n'
     # replace headings
@@ -486,7 +486,8 @@ class Report
     text = text.replace /(^|[^\\])~~([\S\s]*?)~~/g, '$1' + chalk.strikethrough '$2'
     # replace table with ascii art table
     text = text.replace /\n\n\|[\s\S]*?\|\n\n/g, (table) ->
-      lines = table.trim().split /\n/
+      lines = table.replace /^[\r\n]+|[\r\n]+$/g, ''
+      .split /\n/
       head = lines[0].split /\|/
       # header
       line = '┌'
@@ -554,7 +555,7 @@ class Report
     # readd removed parts
     for value, num in removed
       text = text.replace "$$$$$#{num+1}$$$$$", value
-    text.trim()
+    text.replace /^[\r\n]+|[\r\n]+$/g, ''
 
   # ### as html
   html = null
