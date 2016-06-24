@@ -1558,7 +1558,6 @@ mail clients (only if attached and opened in Browser).
 
 ``` coffee
 report = new Report()
-report.h1 "Interactive Table"
 report.datatable new Table([
   ['ID', 'English', 'German']
   [1, 'one', 'eins']
@@ -1570,14 +1569,11 @@ report.datatable new Table([
 
 The possible options to give as second parameter are documented at the jQuery
 [datatable](https://datatables.net/examples/styling/order-column.html). The default
-will disable paging and info.
+will disable paging, search and info.
 
 As markdown this will be written as three separate elements working together:
 
 ``` markdown
-Interactive Table
-================================================================================
-
 | ID | English | German |
 |:-- |:------- |:------ |
 | 1  | one     | eins   |
@@ -1598,6 +1594,76 @@ $$$
 And finally in HTML this will look like (click to show working HTML):
 
 [![html](src/doc/datatable.png)](http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/doc/datatable.html)
+
+__Features__
+
+In this example a lot of features are activated:
+
+- info - (boolean) show information about the table including information about filtered
+  data (default: false, true in markdown)
+- paging - (boolean) set to true to enable paging of data (default: false, true in markdown)
+- lengthChange - (boolean) control the end user's ability to change the paging display length of the table if paging is enabled (default: true)
+- ordering - (boolean)  control ordering/sorting abilities in table (default: true)
+- searching - (boolean) control search/filtering abilities (default: false, true in markdown)
+- scrollX - (boolean) enable horizontal scrolling if necessary for viewport
+- scrollY - (boolean) enable vertical scrolling if necessary for viewport
+
+``` coffee
+report = new Report()
+report.datatable new Table([
+  ['ID', 'English', 'German']
+  [1, 'one', 'eins']
+  [2, 'two', 'zwei']
+  [3, 'three', 'drei']
+  [4, 'four', 'vier']
+  [5, 'five', 'fünf']
+  [6, 'six', 'sechs']
+  [7, 'seven', 'sieben']
+  [8, 'eight', 'acht']
+  [9, 'nine', 'neun']
+  [10, 'ten', 'zehn']
+  [11, 'eleven', 'elf']
+  [12, 'twelve', 'zwölf']
+]),
+  info: true
+  paging: true
+  searching: true
+```
+
+As markdown this will be written as follows:
+
+``` markdown
+| ID | English | German |
+|:-- |:------- |:------ |
+| 1  | one     | eins   |
+| 2  | two     | zwei   |
+| 3  | three   | drei   |
+| 4  | four    | vier   |
+| 5  | five    | fünf   |
+| 6  | six     | sechs  |
+| 7  | seven   | sieben |
+| 8  | eight   | acht   |
+| 9  | nine    | neun   |
+| 10 | ten     | zehn   |
+| 11 | eleven  | elf    |
+| 12 | twelve  | zwölf  |
+<!-- {table:#datatable1} -->
+$$$ js
+$(document).ready(function () {
+  $('#datatable1').DataTable({
+  "info": true,
+  "paging": true,
+  "searching": true,
+  "scrollY": true
+});
+});
+$$$
+```
+
+And finally in HTML this will look like (click to show working HTML):
+
+[![html](src/doc/datatable-features.png)](http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/doc/datatable-features.html)
+
 
 ### Document Elements
 

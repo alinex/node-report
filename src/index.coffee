@@ -172,6 +172,7 @@ table = (obj, col, sort, mask) ->
 datatableDefault =
   paging: false
   info: false
+  searching: false
 
 
 # Report class
@@ -287,7 +288,7 @@ class Report
   @datatable: (data, options = {}, mask) ->
     id = options.id ? 'datatable'
     delete options.id
-    md = table data, null, null, mask
+    md = @table data, null, null, mask
     md += @style "table:##{id}"
     md += @js """
       $(document).ready(function () {

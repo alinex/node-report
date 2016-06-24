@@ -8,7 +8,6 @@ describe.only "visual datatable", ->
 
   it "should create simple datatable", (cb) ->
     report = new Report()
-    report.h1 "Interactive Table"
     report.datatable new Table([
       ['ID', 'English', 'German']
       [1, 'one', 'eins']
@@ -16,26 +15,27 @@ describe.only "visual datatable", ->
       [3, 'three', 'drei']
       [12, 'twelve', 'zwölf']
     ])
-    test.report 'datatable', report, """
+    test.report 'datatable', report, null, null, cb
 
-
-      Interactive Table
-      ================================================================================
-
-      | ID | English | German |
-      |:-- |:------- |:------ |
-      | 1  | one     | eins   |
-      | 2  | two     | zw_ei  |
-      | 3  | three   | drei   |
-      | 12 | twelve  | zwölf  |
-      <!-- {table:#datatable1} -->
-      $$$ js
-      $(document).ready(function () {
-        $('#datatable1').DataTable({
-        "paging": false,
-        "info": false
-      });
-      });
-      $$$
-
-      """, null, cb
+  it "should have all features", (cb) ->
+    report = new Report()
+    report.datatable new Table([
+      ['ID', 'English', 'German']
+      [1, 'one', 'eins']
+      [2, 'two', 'zwei']
+      [3, 'three', 'drei']
+      [4, 'four', 'vier']
+      [5, 'five', 'fünf']
+      [6, 'six', 'sechs']
+      [7, 'seven', 'sieben']
+      [8, 'eight', 'acht']
+      [9, 'nine', 'neun']
+      [10, 'ten', 'zehn']
+      [11, 'eleven', 'elf']
+      [12, 'twelve', 'zwölf']
+    ]),
+      info: true
+      paging: true
+      searching: true
+      scrollY: true
+    test.report 'datatable-features', report, null, null, cb

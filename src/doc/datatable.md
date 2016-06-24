@@ -1,8 +1,4 @@
 
-
-Interactive Table
-================================================================================
-
 | ID | English | German |
 |:-- |:------- |:------ |
 | 1  | one     | eins   |
@@ -14,7 +10,8 @@ $$$ js
 $(document).ready(function () {
   $('#datatable1').DataTable({
   "paging": false,
-  "info": false
+  "info": false,
+  "searching": false
 });
 });
 $$$
