@@ -11,21 +11,24 @@
 debug = require('debug') 'report:execute'
 deasync = require 'deasync'
 QRCode = null # load on demand
-jui = null # load on demand
-mermaid = null # load on demand
+#jui = null # load on demand
+#mermaid = null # load on demand
 plantuml = null # load on demand
+webshot = null # load on demand
 # alinex modules
 util = require 'alinex-util'
 format = require 'alinex-format'
 Table = require 'alinex-table'
 
-dataParser = deasync format.parse
+dataParse = deasync format.parse
+dataStringify = deasync format.stringify
 
 
 # Setup
 # -------------------------------------------
 
 MARKER = '$'.charCodeAt 0
+CHARTNUM = 0
 
 
 # Init plugin in markdown-it
@@ -65,7 +68,7 @@ module.exports.toConsole = module.exports.toText = (text) ->
       background: '#ffffff'
       ecl: 'M'
     if content.match /(^|\n)\s*content:/
-      util.extend data, dataParser content
+      util.extend data, dataParse content
     else
       data.content = content.trim()
     modules = new QRCode(data).qrcode.modules
@@ -147,10 +150,10 @@ parser = (state, startLine, endLine, silent) ->
 # Renderer
 # -------------------------------------------
 
-renderer = (tokens, idx, options, env, self) ->
+renderer = (tokens, idx, options, env) ->
   token = tokens[idx]
   if token.info
-    [type, opt] = token.info.split /\s+/g
+    [type] = token.info.split /\s+/g
   switch type.toLowerCase()
     # coding
     when 'css'
@@ -174,12 +177,11 @@ renderer = (tokens, idx, options, env, self) ->
         background: '#ffffff'
         ecl: 'M'
       if token.content.match /(^|\n)\s*content:/
-        util.extend data, dataParser token.content, 'yaml'
+        util.extend data, dataParse token.content, 'yaml'
       else
         data.content = token.content.trim()
       new QRCode(data).svg()
 
-    # create qr codes
     when 'chart'
       [setup, _, table] = token.content.trim().split /(^|\n\s*\n\s*)\|/
       # parse table data
@@ -216,10 +218,42 @@ renderer = (tokens, idx, options, env, self) ->
         brush:
           type: "column"
           target: td[0][1..]
-      util.extend 'MODE ARRAY_REPLACE', data, dataParser setup if setup
+      util.extend 'MODE ARRAY_REPLACE', data, dataParse setup if setup
       # data.axis.data = table.data
-      jui = require 'jui'
-      jui.create('chart.builder', null, data).svg.toXML()
+      code = """
+        jui.ready([ "chart.builder" ], function(chart) {
+          chart("#chart#{++CHARTNUM}", #{dataStringify data, 'json'});
+        })
+        """
+      html = """<div id="chart#{CHARTNUM}"></div>
+        <script type="text/javascript"><!--\n#{code}\n//--></script>"""
+      # normal javascript display
+      unless env.noJS
+        env.js ?= []
+        env.js.push code
+        return html
+      # add html geader
+      html = require('../html').frame html, code
+      # convert to javascript
+      webshot ?= require 'webshot'
+      convert = deasync (html, cb) ->
+        options =
+          siteType: 'html'
+          streamType: 'png'
+          creenSize:
+            width: 800
+            height: 600
+          captureSelector: '#page'
+          renderDelay: 1000
+        webshot html, options, (err, stream) ->
+          return cb err if err
+          buffer = ''
+          stream.on 'data', (data) -> buffer += data.toString 'binary'
+          stream.on 'end', ->
+            cb null, buffer
+      data = convert html
+      image = new Buffer(data, 'binary').toString 'base64'
+      """<p><img src="data:application/octet-stream;base64,#{image}"></p>"""
 
     when 'plantuml'
       plantuml ?= require 'node-plantuml'
@@ -231,14 +265,14 @@ renderer = (tokens, idx, options, env, self) ->
         gen.out.on 'end', -> cb null, buffer
       renderer token.content
 
-    # mermaid graph
-    # TODO won't work without xmkdom
-    when 'graph'
-      mermaid ?= require 'mermaid'
-      renderer = deasync (code, cb) ->
-        mermaid.mermaidAPI.render 'mermaid', code, (svg) ->
-          cb null, svg
-      renderer "#{type} #{opt.join ' '}\n#{token.content}"
+#    # mermaid graph
+#    # TODO won't work without xmkdom
+#    when 'graph'
+#      mermaid ?= require 'mermaid'
+#      renderer = deasync (code, cb) ->
+#        mermaid.mermaidAPI.render 'mermaid', code, (svg) ->
+#          cb null, svg
+#      renderer "#{type} #{opt.join ' '}\n#{token.content}"
     else
       escapeHtml token.content
 

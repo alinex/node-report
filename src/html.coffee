@@ -72,10 +72,10 @@ trans =
 
 # Convert into HTML
 # -------------------------------------------------
-module.exports = (report, setup, cb) ->
+module.exports = (report, setup = {}, cb) ->
   if typeof setup is 'function'
     cb = setup
-    setup = null
+    setup = {}
   # create html
   md = initHtml()
   content = report.toString()
@@ -96,8 +96,9 @@ module.exports = (report, setup, cb) ->
     bin = new Buffer(fs.readFileSync f).toString 'base64'
     "#{b}data:#{mime.lookup f};base64,#{bin}#{a}"
   # transform to html
-  data = {}
-  content = optimizeHtml md.render(content, data), setup?.locale
+  data = util.clone setup
+  innerHtml = md.render content, data
+  content = optimizeHtml innerHtml, setup?.locale
   title = setup?.title ? data.title ? 'Report'
   tags = util.clone report.parts.header
   js = data.js?.join '\n'
@@ -110,22 +111,8 @@ module.exports = (report, setup, cb) ->
   if content.match /\sclass="fa\s/
     tags.unshift """<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/\
       font-awesome/4.6.3/css/font-awesome.min.css" />"""
-  # optimized tables
-  if js?.match /.DataTable\(/
-    tags.unshift """
-      <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/\
-      1.10.12/css/jquery.dataTables.css">"""
-    tags.push """
-      <script type="text/javascript" src="https://code.jquery.com/\
-      jquery-1.12.3.js"></script>"""
-    tags.push """
-      <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/\
-      1.10.12/js/jquery.dataTables.js"></script>"""
-  # add only jquery
-  if js?.match /$\(/
-    tags.push """
-      <script type="text/javascript" src="https://code.jquery.com/\
-      jquery-1.12.3.js"></script>"""
+  unless setup.noJS
+    addLibs tags, js
   # complete html
   html = """
   <!DOCTYPE html>
@@ -166,8 +153,58 @@ module.exports = (report, setup, cb) ->
     cb null, html
 
 
+# Frame HTML content with lib adding
+# -------------------------------------------------
+# Method for html+js to image conversion
+module.exports.frame = (html, js) ->
+  tags = []
+  addLibs tags, js
+  """
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <meta charset="UTF-8" />
+      #{tags.join '\n'}
+      <style type="text/css">
+      #{fs.readFileSync HTML_STYLES['default'], 'utf8'}
+      div#page {border: 0}
+      </style>
+    </head>
+    <body><div id="page">#{html}</div></body>
+  </html>
+  """
+
+
 # Helper methods
 # -------------------------------------------------
+
+addLibs = (tags, js) ->
+  # optimized tables
+  if js?.match /\.DataTable\(/
+    tags.unshift """
+      <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/\
+      1.10.12/css/jquery.dataTables.css">"""
+    tags.push """
+      <script type="text/javascript" src="https://code.jquery.com/\
+      jquery-1.12.3.js"></script>"""
+    tags.push """
+      <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/\
+      1.10.12/js/jquery.dataTables.js"></script>"""
+  # ad jui chart libs
+  if js?.match /jui\./
+    tags.push """
+      <script type="text/javascript" src="https://code.jquery.com/\
+      jquery-1.12.3.js"></script>"""
+    tags.push """<script src="http://alinex.github.io/lib/\
+      jui-chart@2.0.4/core.min.js"></script>"""
+    tags.push """<script src="http://alinex.github.io/lib/\
+      jui-chart@2.0.4/chart.min.js"></script>"""
+  # add only jquery
+  if js?.match /$\(/
+    tags.push """
+      <script type="text/javascript" src="https://code.jquery.com/\
+      jquery-1.12.3.js"></script>"""
+
 
 # ### initialize markdown to html converter
 md2html = null

@@ -618,6 +618,7 @@ class Report
           width: 800
           height: 600
         captureSelector: '#page'
+        renderDelay: 100
       , options
       webshot html, options, (err, stream) ->
         return cb err if err
