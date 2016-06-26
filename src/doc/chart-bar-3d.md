@@ -4,24 +4,26 @@ width: 400
 height: 400
 axis:
   x:
-    type: block
-    domain: quarter
-  'y':
     type: range
     domain: profit
-    step: 10
-    line: true
-brush:
-  - type: column
-    target:
+    step: 5
+  'y':
+    type: block
+    domain: quarter
+  c:
+    type: grid3d
+    domain:
       - sales
       - profit
-  - type: focus
-    start: 1
-    end: 1
+  depth: 20
+  degree: 30
+brush:
+  - type: bar3d
+    outerPadding: 10
+    innerPadding: 5
 widget:
   - type: title
-    text: Column Chart with Focus
+    text: 3D Bar Chart
   - type: tooltip
   - type: legend
 

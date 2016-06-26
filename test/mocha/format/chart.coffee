@@ -3,330 +3,229 @@ Report = require '../../../src/index'
 test = require '../test'
 Table = require 'alinex-table'
 
-describe "visual chart", ->
-  @timeout 10000
+data =
+  salesyear: new Table [
+    ['quarter', 'sales', 'profit']
+    ["2015/Q1", 50, 35]
+    ["2015/Q2", 20, 100]
+    ["2015/Q3", 10, 5]
+    ["2015/Q4", 30, 25]
+  ]
+  salesregion: new Table [
+    ['year', 'europe', 'switzerland', 'us']
+    ['2008', 10, 1, 0]
+    ['2009', 60, 3, 0]
+    ['2010', 30, 3, 12]
+    ['2011', -60, 4, 15]
+    ['2012', 50, 6, 20]
+    ['2013', 30, 5, 35]
+    ['2014', 20, 8, 20]
+    ['2015', 100, 0, 0]
+  ]
 
-  it.only "should create simple chart", (cb) ->
+describe "visual chart", ->
+  @timeout 20000
+
+  it "should create simple chart", (cb) ->
     report = new Report()
-    report.chart null, [
-      ['quarter', 'sales', 'profit']
-      ["1Q", 50, 35]
-      ["2Q", -20, -100]
-      ["3Q", 10, -5]
-      ["4Q", 30, 25]
-    ]
-    test.report 'chart', report, """
+    report.chart null, data.salesyear
+    test.report 'chart', report, null, null, cb
+
+  it "should create area chart", (cb) ->
+    report = new Report()
+    report.chart
+      width: 400
+      height: 400
+      axis:
+        x:
+          type: 'fullblock'
+          domain: 'year'
+          line: 'solid gradient'
+        y:
+          type: 'range'
+          domain: [-100, 100]
+          step: 10
+          line: 'gradient dashed'
+      brush: [
+        type: 'area'
+        symbol: 'curve'
+        target: ['europe', 'switzerland', 'us']
+      ]
+      widget: [
+        type: 'title'
+        text: 'Area Chart'
+      ,
+      	type: 'legend'
+      ]
+    , data.salesyear
+    test.report 'chart-area', report, null, null, cb
+
+  it "should create bar chart", (cb) ->
+    report = new Report()
+    report.chart
+      width: 400
+      height: 400
+      axis:
+        y:
+          type: 'block'
+          domain: 'quarter'
+          line: 'true'
+        x:
+          type: 'range'
+          domain: 'profit'
+          line: 'rect' # dashed with gradient
+      brush: [
+        type: 'bar'
+        size: 15
+        target: ['sales', 'profit']
+        innerPadding: 10
+      ]
+      widget: [
+        type: 'title'
+        text: 'Bar Chart'
+      ,
+      	type: 'legend'
+      ,
+      	type: 'tooltip'
+      ]
+    , data.salesyear
+    test.report 'chart-bar', report, """
 
       $$$ chart
+      width: 400
+      height: 400
+      axis:
+        'y':
+          type: block
+          domain: quarter
+          line: 'true'
+        x:
+          type: range
+          domain: profit
+          line: rect
+      brush:
+        - type: bar
+          size: 15
+          target:
+            - sales
+            - profit
+          innerPadding: 10
+      widget:
+        - type: title
+          text: Bar Chart
+        - type: legend
+        - type: tooltip
+
       | quarter | sales | profit |
       |:------- |:----- |:------ |
-      | 1Q      | 50    | 35     |
-      | 2Q      | -20   | -100   |
-      | 3Q      | 10    | -5     |
-      | 4Q      | 30    | 25     |
+      | 2015/Q1 | 50    | 35     |
+      | 2015/Q2 | 20    | 100    |
+      | 2015/Q3 | 10    | 5      |
+      | 2015/Q4 | 30    | 25     |
       $$$
 
       """, null, cb
+
+  it "should create 3D bar chart", (cb) ->
+    report = new Report()
+    report.chart
+      width: 400
+      height: 400
+      axis:
+        x:
+          type: 'range'
+          domain: 'profit'
+          step: 5
+        y:
+          type: 'block'
+          domain: 'quarter'
+        c:
+          type: 'grid3d'
+          domain: ['sales', 'profit']
+        depth: 20
+        degree: 30
+      brush: [
+        type: 'bar3d'
+        outerPadding: 10
+        innerPadding: 5
+      ]
+      widget: [
+        type: 'title'
+        text: '3D Bar Chart'
+      ,
+      	type: 'tooltip'
+      ,
+      	type: 'legend'
+      ]
+    , data.salesyear
+    test.report 'chart-bar-3d', report, null, null, cb
 
   it "should create column chart", (cb) ->
     report = new Report()
     report.chart
-      width: 800
+      width: 400
       height: 400
-      theme: 'dark'
       axis:
-        padding:
-          left: 5
-          top: 10
-        area:
-          width: '80%'
-          x: '10%'
         x:
           type: 'block'
-          domain: "quarter"
-          line: true
+          domain: 'quarter'
         y:
           type: 'range'
-          domain: [-120, 120]
+          domain: 'profit'
           step: 10
           line: true
-          orient: 'right'
       brush: [
-        type: "column"
-        target: ["sales", "profit"]
+        type: 'column'
+        target: ['sales', 'profit']
       ,
-        type: "focus"
+        type: 'focus'
         start: 1
         end: 1
       ]
       widget: [
-        type: "title"
-        text: "Column Chart"
+        type: 'title'
+        text: 'Column Chart with Focus'
       ,
-        type: "tooltip"
+      	type: 'tooltip'
       ,
-        type: "legend"
+      	type: 'legend'
       ]
-    , [
-      ['quarter', 'sales', 'profit']
-      ["1Q", 50, 35]
-      ["2Q", -20, -100]
-      ["3Q", 10, -5]
-      ["4Q", 30, 25]
-    ]
-    test.report 'chart-column', report, """
+    , data.salesyear
+    test.report 'chart-column', report, null, null, cb
 
-      $$$ chart
-      width: 800
-      height: 400
-      theme: dark
-      axis:
-        padding:
-          left: 5
-          top: 10
-        area:
-          width: 80%
-          x: 10%
-        x:
-          type: block
-          domain: quarter
-          line: true
-        'y':
-          type: range
-          domain:
-            - -120
-            - 120
-          step: 10
-          line: true
-          orient: right
-      brush:
-        - type: column
-          target:
-            - sales
-            - profit
-        - type: focus
-          start: 1
-          end: 1
-      widget:
-        - type: title
-          text: Column Chart
-        - type: tooltip
-        - type: legend
-
-      | quarter | sales | profit |
-      |:------- |:----- |:------ |
-      | 1Q      | 50    | 35     |
-      | 2Q      | -20   | -100   |
-      | 3Q      | 10    | -5     |
-      | 4Q      | 30    | 25     |
-      $$$
-
-      """, null, cb
-
-  it "should create", (cb) ->
+  it "should create 3D column chart", (cb) ->
     report = new Report()
     report.chart
+      width: 400
+      height: 400
       axis:
         x:
           type: 'block'
-          domain: 'date'
-          line: true
+          domain: 'quarter'
         y:
           type: 'range'
-          domain: [
-            20
-            30
-          ]
+          domain: 'profit'
           step: 5
-          line: true
-        keymap:
-          low: 'l'
-          high: 'h'
-          open: 'o'
-          close: 'c'
-      brush: type: 'candlestick'
-      widget:
-        type: 'tooltip'
-        orient: 'bottom'
-    , Table.fromRecordList [
-      {
-        date: new Date(1994, 2, 1)
-        l: 24.00
-        h: 25.00
-        o: 25.00
-        c: 24.875
-      }
-      {
-        date: new Date(1994, 2, 2)
-        l: 23.625
-        h: 25.125
-        o: 24.00
-        c: 24.875
-      }
-      {
-        date: new Date(1994, 2, 3)
-        l: 26.25
-        h: 28.25
-        o: 26.75
-        c: 27.00
-      }
-      {
-        date: new Date(1994, 2, 4)
-        l: 26.50
-        h: 27.875
-        o: 26.875
-        c: 27.25
-      }
-      {
-        date: new Date(1994, 2, 7)
-        l: 26.375
-        h: 27.50
-        o: 27.375
-        c: 26.75
-      }
-      {
-        date: new Date(1994, 2, 8)
-        l: 25.75
-        h: 26.875
-        o: 26.75
-        c: 26.00
-      }
-      {
-        date: new Date(1994, 2, 9)
-        l: 25.75
-        h: 26.75
-        o: 26.125
-        c: 26.25
-      }
-      {
-        date: new Date(1994, 2, 10)
-        l: 25.75
-        h: 26.375
-        o: 26.375
-        c: 25.875
-      }
-      {
-        date: new Date(1994, 2, 11)
-        l: 24.875
-        h: 26.125
-        o: 26.00
-        c: 25.375
-      }
-      {
-        date: new Date(1994, 2, 14)
-        l: 25.125
-        h: 26.00
-        o: 25.625
-        c: 25.75
-      }
-      {
-        date: new Date(1994, 2, 15)
-        l: 25.875
-        h: 26.625
-        o: 26.125
-        c: 26.375
-      }
-      {
-        date: new Date(1994, 2, 16)
-        l: 26.25
-        h: 27.375
-        o: 26.25
-        c: 27.25
-      }
-      {
-        date: new Date(1994, 2, 17)
-        l: 26.875
-        h: 27.25
-        o: 27.125
-        c: 26.875
-      }
-      {
-        date: new Date(1994, 2, 18)
-        l: 26.375
-        h: 27.125
-        o: 27.00
-        c: 27.125
-      }
-      {
-        date: new Date(1994, 2, 21)
-        l: 26.75
-        h: 27.875
-        o: 26.875
-        c: 27.75
-      }
-      {
-        date: new Date(1994, 2, 22)
-        l: 26.75
-        h: 28.375
-        o: 27.50
-        c: 27.00
-      }
-      {
-        date: new Date(1994, 2, 23)
-        l: 26.875
-        h: 28.125
-        o: 27.00
-        c: 28.00
-      }
-      {
-        date: new Date(1994, 2, 24)
-        l: 26.25
-        h: 27.875
-        o: 27.75
-        c: 27.625
-      }
-      {
-        date: new Date(1994, 2, 25)
-        l: 27.50
-        h: 28.75
-        o: 27.75
-        c: 28.00
-      }
-      {
-        date: new Date(1994, 2, 28)
-        l: 25.75
-        h: 28.25
-        o: 28.00
-        c: 27.25
-      }
-      {
-        date: new Date(1994, 2, 29)
-        l: 26.375
-        h: 27.50
-        o: 27.50
-        c: 26.875
-      }
-      {
-        date: new Date(1994, 2, 30)
-        l: 25.75
-        h: 27.50
-        o: 26.375
-        c: 26.25
-      }
-      {
-        date: new Date(1994, 2, 31)
-        l: 24.75
-        h: 27.00
-        o: 26.50
-        c: 25.25
-      }
-    ]
-    test.report 'chart-candlestick', report, null, null, cb
-
-# ---
-# generated by js2coffee 2.2.0
-
-  it.skip "should create", (cb) ->
-    report = new Report()
-    test.report 'chart', report, null, null, cb
-
-  it.skip "should create", (cb) ->
-    report = new Report()
-    test.report 'chart', report, null, null, cb
-
-  it.skip "should create", (cb) ->
-    report = new Report()
-    test.report 'chart', report, null, null, cb
+        c:
+          type: 'grid3d'
+          domain: ['sales', 'profit']
+        depth: 20
+        degree: 30
+      brush: [
+        type: 'column3d'
+        outerPadding: 10
+        innerPadding: 5
+      ]
+      widget: [
+        type: 'title'
+        text: '3D Column Chart'
+      ,
+      	type: 'tooltip'
+      ,
+      	type: 'legend'
+      ]
+    , data.salesyear
+    test.report 'chart-column-3d', report, null, null, cb
 
   it.skip "should create", (cb) ->
     report = new Report()

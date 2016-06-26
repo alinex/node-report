@@ -10,20 +10,18 @@
 <script type="text/javascript"><!--
 jui.ready([ "chart.builder" ], function(chart) {
   chart("#chart1", {
-  "width": 600,
+  "width": 400,
   "height": 400,
   "axis": {
     "x": {
-      "type": "block",
-      "domain": "quarter",
-      "line": true
+      "type": "range",
+      "domain": "profit",
+      "line": true,
+      "step": 5
     },
     "y": {
-      "type": "range",
-      "domain": [
-        -100,
-        50
-      ],
+      "type": "block",
+      "domain": "quarter",
       "line": true
     },
     "data": [
@@ -34,28 +32,49 @@ jui.ready([ "chart.builder" ], function(chart) {
       },
       {
         "quarter": "2015/Q2",
-        "sales": "-20",
-        "profit": "-100"
+        "sales": "20",
+        "profit": "100"
       },
       {
         "quarter": "2015/Q3",
         "sales": "10",
-        "profit": "-5"
+        "profit": "5"
       },
       {
         "quarter": "2015/Q4",
         "sales": "30",
         "profit": "25"
       }
-    ]
+    ],
+    "c": {
+      "type": "grid3d",
+      "domain": [
+        "sales",
+        "profit"
+      ]
+    },
+    "depth": 20,
+    "degree": 30
   },
-  "brush": {
-    "type": "column",
-    "target": [
-      "sales",
-      "profit"
-    ]
-  }
+  "brush": [
+    {
+      "type": "bar3d",
+      "outerPadding": 10,
+      "innerPadding": 5
+    }
+  ],
+  "widget": [
+    {
+      "type": "title",
+      "text": "3D Bar Chart"
+    },
+    {
+      "type": "tooltip"
+    },
+    {
+      "type": "legend"
+    }
+  ]
 });
 })
 //--></script></div></body>

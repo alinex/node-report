@@ -3,27 +3,26 @@ $$$ chart
 width: 400
 height: 400
 axis:
-  x:
+  'y':
     type: block
     domain: quarter
-  'y':
+    line: 'true'
+  x:
     type: range
     domain: profit
-    step: 10
-    line: true
+    line: rect
 brush:
-  - type: column
+  - type: bar
+    size: 15
     target:
       - sales
       - profit
-  - type: focus
-    start: 1
-    end: 1
+    innerPadding: 10
 widget:
   - type: title
-    text: Column Chart with Focus
-  - type: tooltip
+    text: Bar Chart
   - type: legend
+  - type: tooltip
 
 | quarter | sales | profit |
 |:------- |:----- |:------ |

@@ -9,19 +9,21 @@ axis:
   'y':
     type: range
     domain: profit
-    step: 10
-    line: true
-brush:
-  - type: column
-    target:
+    step: 5
+  c:
+    type: grid3d
+    domain:
       - sales
       - profit
-  - type: focus
-    start: 1
-    end: 1
+  depth: 20
+  degree: 30
+brush:
+  - type: column3d
+    outerPadding: 10
+    innerPadding: 5
 widget:
   - type: title
-    text: Column Chart with Focus
+    text: 3D Column Chart
   - type: tooltip
   - type: legend
 

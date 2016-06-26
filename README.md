@@ -15,7 +15,7 @@ The key features are:
 - feature rich markdown
 - export as text, console, html (also optimized for email), pdf, png or jpg
 - convert text to visual representation like qr, chart or UML
-- optimized html tables
+- optimized interactive tables
 
 See example output within the different element descriptions below.
 
@@ -2005,8 +2005,8 @@ report = new Report()
 report.chart null, [
   ['quarter', 'sales', 'profit']
   ["1Q", 50, 35]
-  ["2Q", -20, -100]
-  ["3Q", 10, -5]
+  ["2Q", 20, 100]
+  ["3Q", 10, 5]
   ["4Q", 30, 25]
 ]
 ```
@@ -2020,8 +2020,8 @@ $$$ chart
 | quarter | sales | profit |
 |:------- |:----- |:------ |
 | 1Q      | 50    | 35     |
-| 2Q      | -20   | -100   |
-| 3Q      | 10    | -5     |
+| 2Q      | 20    | 100    |
+| 3Q      | 10    | 5      |
 | 4Q      | 30    | 25     |
 $$$
 ```
@@ -2030,129 +2030,281 @@ This will render in HTML as (click to show in browser):
 
 [![html](src/doc/chart.png)](http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/doc/chart.html)
 
-__Column Chart__
-
-See an example with most settings possible:
+__Bar Chart__
 
 ``` coffee
 report = new Report()
 report.chart
-  width: 800
+  width: 400
   height: 400
-  theme: 'dark'
   axis:
-    padding:
-      left: 5
-      top: 10
-    area:
-      width: '80%'
-      x: '10%'
-    x:
-      type: 'block'
-      domain: "quarter"
-      line: true
     y:
+      type: 'block'
+      domain: 'quarter'
+      line: 'true'
+    x:
       type: 'range'
-      domain: [-120, 120]
-      step: 10
-      line: true
-      orient: 'right'
+      domain: 'profit'
+      line: 'rect' # dashed with gradient
   brush: [
-    type: "column"
-    target: ["sales", "profit"]
-  ,
-    type: "focus"
-    start: 1
-    end: 1
+    type: 'bar'
+    size: 15
+    target: ['sales', 'profit']
+    innerPadding: 10
   ]
   widget: [
-    type: "title"
-    text: "Column Chart"
+    type: 'title'
+    text: 'Bar Chart'
   ,
-    type: "tooltip"
+    type: 'legend'
   ,
-    type: "legend"
+    type: 'tooltip'
   ]
 , [
   ['quarter', 'sales', 'profit']
-  ["1Q", 50, 35]
-  ["2Q", -20, -100]
-  ["3Q", 10, -5]
-  ["4Q", 30, 25]
+  ["2015/Q1", 50, 35]
+  ["2015/Q2", 20, 100]
+  ["2015/Q3", 10, 5]
+  ["2015/Q4", 30, 25]
 ]
 ```
 
 ``` markdown
 
 $$$ chart
-width: 800
+width: 400
 height: 400
-theme: dark
 axis:
-  padding:
-    left: 5
-    top: 10
-  area:
-    width: 80%
-    x: 10%
-  x:
+  'y':
     type: block
     domain: quarter
-    line: true
-  'y':
+    line: 'true'
+  x:
     type: range
-    domain:
-      - -120
-      - 120
-    step: 10
-    line: true
-    orient: right
+    domain: profit
+    line: rect
 brush:
-  - type: column
+  - type: bar
+    size: 15
     target:
       - sales
       - profit
-  - type: focus
-    start: 1
-    end: 1
+    innerPadding: 10
 widget:
   - type: title
-    text: Column Chart
-  - type: tooltip
+    text: Bar Chart
   - type: legend
+  - type: tooltip
 
 | quarter | sales | profit |
 |:------- |:----- |:------ |
-| 1Q      | 50    | 35     |
-| 2Q      | -20   | -100   |
-| 3Q      | 10    | -5     |
-| 4Q      | 30    | 25     |
+| 2015/Q1 | 50    | 35     |
+| 2015/Q2 | 20    | 100    |
+| 2015/Q3 | 10    | 5      |
+| 2015/Q4 | 30    | 25     |
 $$$
 ```
 
 This will render in HTML as (click to show in browser):
 
+[![html](src/doc/chart-bar.png)](http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/doc/chart-bar.html)
+
+__3D Bar Chart__
+
+``` coffee
+report = new Report()
+report.chart
+  width: 400
+  height: 400
+  axis:
+    x:
+      type: 'range'
+      domain: 'profit'
+      step: 5
+    y:
+      type: 'block'
+      domain: 'quarter'
+    c:
+      type: 'grid3d'
+      domain: ['sales', 'profit']
+    depth: 20
+    degree: 30
+  brush: [
+    type: 'bar3d'
+    outerPadding: 10
+    innerPadding: 5
+  ]
+  widget: [
+    type: 'title'
+    text: '3D Bar Chart'
+  ,
+    type: 'tooltip'
+  ,
+    type: 'legend'
+  ]
+, [
+  ['quarter', 'sales', 'profit']
+  ["2015/Q1", 50, 35]
+  ["2015/Q2", 20, 100]
+  ["2015/Q3", 10, 5]
+  ["2015/Q4", 30, 25]
+]
+```
+
+The markdown will contain the settings and the data table like above.
+
+This will render in HTML as (click to show in browser):
+
+[![html](src/doc/chart-bar-3d.png)](http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/doc/chart-bar-3d.html)
+
+__Column Chart__
+
+``` coffee
+report = new Report()
+report.chart
+  width: 400
+  height: 400
+  axis:
+    x:
+      type: 'block'
+      domain: 'quarter'
+    y:
+      type: 'range'
+      domain: 'profit'
+      step: 10
+      line: true
+  brush: [
+    type: 'column'
+    target: ['sales', 'profit']
+  ,
+    type: 'focus'
+    start: 1
+    end: 1
+  ]
+  widget: [
+    type: 'title'
+    text: 'Column Chart with Focus'
+  ,
+    type: 'tooltip'
+  ,
+    type: 'legend'
+  ]
+, [
+  ['quarter', 'sales', 'profit']
+  ["2015/Q1", 50, 35]
+  ["2015/Q2", 20, 100]
+  ["2015/Q3", 10, 5]
+  ["2015/Q4", 30, 25]
+]
+```
+
+The markdown will contain the settings and the data table like above.
+
+This will render in HTML as (click to show in browser):
+
 [![html](src/doc/chart-column.png)](http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/doc/chart-column.html)
 
+__3D Column Chart__
 
+``` coffee
+report = new Report()
+report.chart
+  width: 400
+  height: 400
+  axis:
+    x:
+      type: 'block'
+      domain: 'quarter'
+    y:
+      type: 'range'
+      domain: 'profit'
+      step: 5
+    c:
+      type: 'grid3d'
+      domain: ['sales', 'profit']
+    depth: 20
+    degree: 30
+  brush: [
+    type: 'column3d'
+    outerPadding: 10
+    innerPadding: 5
+  ]
+  widget: [
+    type: 'title'
+    text: '3D Column Chart'
+  ,
+    type: 'tooltip'
+  ,
+    type: 'legend'
+  ]
+, [
+  ['quarter', 'sales', 'profit']
+  ["2015/Q1", 50, 35]
+  ["2015/Q2", 20, 100]
+  ["2015/Q3", 10, 5]
+  ["2015/Q4", 30, 25]
+]
+```
 
+The markdown will contain the settings and the data table like above.
 
+This will render in HTML as (click to show in browser):
 
+[![html](src/doc/chart-column-3d.png)](http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/doc/chart-column-3d.html)
 
+__Area Chart__
 
+``` coffee
+report = new Report()
+report.chart
+  width: 400
+  height: 400
+  axis:
+    x:
+      type: 'fullblock'
+      domain: 'year'
+      line: 'solid gradient'
+    y:
+      type: 'range'
+      domain: [-100, 100]
+      step: 10
+      line: 'gradient dashed'
+  brush: [
+    type: 'area'
+    symbol: 'curve'
+    target: ['europe', 'switzerland', 'us']
+  ]
+  widget: [
+    type: 'title'
+    text: 'Area Chart'
+  ,
+    type: 'legend'
+  ]
+, [
+  ['quarter', 'sales', 'profit']
+  ["2015/Q1", 50, 35]
+  ["2015/Q2", 20, 100]
+  ["2015/Q3", 10, 5]
+  ["2015/Q4", 30, 25]
+]
+```
+
+The markdown will contain the settings and the data table like above.
+
+This will render in HTML as (click to show in browser):
+
+[![html](src/doc/chart-area.png)](http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/doc/chart-area.html)
 
 __Chart__
 
 ``` coffee
 ```
 
-``` markdown
-```
+The markdown will contain the settings and the data table like above.
 
 This will render in HTML as (click to show in browser):
 
 [![html](src/doc/chart-.png)](http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/doc/chart-.html)
-
 
 
 

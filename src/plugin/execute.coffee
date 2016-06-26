@@ -11,7 +11,6 @@
 debug = require('debug') 'report:execute'
 deasync = require 'deasync'
 QRCode = null # load on demand
-#jui = null # load on demand
 #mermaid = null # load on demand
 plantuml = null # load on demand
 webshot = null # load on demand
@@ -222,7 +221,7 @@ renderer = (tokens, idx, options, env) ->
       # data.axis.data = table.data
       code = """
         jui.ready([ "chart.builder" ], function(chart) {
-          chart("#chart#{++CHARTNUM}", #{dataStringify data, 'json'});
+          chart("#chart#{++CHARTNUM}", #{dataStringify data, 'js'});
         })
         """
       html = """<div id="chart#{CHARTNUM}"></div>
