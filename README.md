@@ -2295,18 +2295,6 @@ This will render in HTML as (click to show in browser):
 
 [![html](src/doc/chart-area.png)](http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/doc/chart-area.html)
 
-__Chart__
-
-``` coffee
-```
-
-The markdown will contain the settings and the data table like above.
-
-This will render in HTML as (click to show in browser):
-
-[![html](src/doc/chart-.png)](http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/doc/chart-.html)
-
-
 
 #### PlantUML
 
@@ -2319,7 +2307,7 @@ report = new Report()
 report.plantuml "A -> B: Hello"
 ```
 
-Zhis sumple sequence diagram will be written into execution tags in markdown like:
+This sumple sequence diagram will be written into execution tags in markdown like:
 
 ``` markdown
 $$$ plantuml
@@ -2640,6 +2628,71 @@ And in HTML this will look like:
 ![html](src/doc/plantuml-wireframe.png)
 
 
+### Mermaid
+
+A library for creating flowcharts and diagrams out of text.
+
+``` coffee
+report = new Report()
+report.mermaid """
+  graph LR
+    A-->B
+  """
+```
+
+This sumple sequence diagram will be written into execution tags in markdown like:
+
+``` markdown
+$$$ mermaid
+graph LR
+  A-->B
+$$$
+```
+
+And finally this will render in HTML as:
+
+![html](src/doc/mermaid.png)
+
+__Flowchart__
+
+[Flowchart Syntax](http://knsv.github.io/mermaid/#flowcharts-basic-syntax)
+
+``` coffee
+```
+
+The markdown is nearly the same but with `$$$ mermaid .... $$$` arround the code.
+
+And in HTML this will look like:
+
+![html](src/doc/mermaid-flowchart.png)
+
+__Sequence Diagram__
+
+[Sequence Syntax](http://knsv.github.io/mermaid/#sequence-diagrams)
+
+``` coffee
+```
+
+The markdown is nearly the same but with `$$$ mermaid .... $$$` arround the code.
+
+And in HTML this will look like:
+
+![html](src/doc/mermaid-sequence.png)
+
+__Gantt Diagram__
+
+[Gantt Syntax](http://knsv.github.io/mermaid/#gant-diagrams)
+
+``` coffee
+```
+
+The markdown is nearly the same but with `$$$ mermaid .... $$$` arround the code.
+
+And in HTML this will look like:
+
+![html](src/doc/mermaid-gantt.png)
+
+
 Output
 -------------------------------------------------
 You have multiple possibilities to output the created markdown object.
@@ -2712,7 +2765,7 @@ Example: [PDF](https://raw.githubusercontent.com/alinex/node-report/master/src/d
 
 ``` coffee
 report.toPdf (err, data) ->
-  # you may store this to a file
+  # [](you may store this to a file)
 ```
 
 You can also give some options:
@@ -2725,7 +2778,7 @@ report.toPdf options, (err, data) ->
 Possible options are:
 
 - format - A3, A4, A5, Legal, Letter or Tabloid
-- height - like "10.5in" allowed units: mm, cm, in, px
+[](- height - like "10.5in" allowed uni)ts: mm, cm, in, px
 - width - like "8in" allowed units: mm, cm, in, px
 - orientation - portrait or landscape
 - border - like "0" allowed units: mm, cm, in, px \
@@ -2735,52 +2788,24 @@ Possible options are:
 ### Image
 
 Example: [PNG](https://raw.githubusercontent.com/alinex/node-report/master/src/doc/test.png)
-and [JPG](https://raw.githubusercontent.com/alinex/node-report/master/src/doc/test.jpg)
+an
+__Gant Diagram__
+d [JPG](https://raw.githubusercontent.com/alinex/node-report/master/src/doc/test.jp[](g)
 
 ``` coffee
 report.toImage (err, data) ->
-  # you may store this to a file
-```
-
-You can also give some options:
-
 ``` coffee
 report.toImage options, (err, data) ->
-  # you may store this to a file
-```
-
-Possible options are:
-
-- windowSize - the dimensions of the browser window to take the screenshot
-  - width - (integer) default: 800
-  - height - (integer) default: 600
-- shotSize - the size of the area to screenshot
-  - width - (integer, 'window' or 'all') default: 'window'
-  - height - (integer, 'window' or 'all') default: 'window'
-- shotOffset - offset for the shotSize
-  - left - (integer) in pixel, default: 0
-  - right - (integer) in pixel, default: 0
-  - top - (integer) in pixel, default: 0
-  - bottom - (integer) in pixel, default: 0
-- customCSS	- (string) when taking the screenshot, adds custom CSS rules if defined
-- streamType - ('png' or 'jpg') type of image to create
-- captureSelector - (string) define an css selector which will be exported
-  defalt: '#page'
-
-
-License
--------------------------------------------------
-
-Copyright 2015-2016 Alexander Schilling
+  ` coffee
+  report.toImage (err, data) ->
+    # you may store this to a file
+  ``
+__Sequence Diagram__
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 
 >  <http://www.apache.org/licenses/LICENSE-2.0>
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.

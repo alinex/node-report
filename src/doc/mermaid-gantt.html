@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Report</title>
+    <meta charset="UTF-8" /><link rel="stylesheet" type="text/css" href="https://gitcdn.link/repo/alinex/node-report/master/var/src/style/default.css" />
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.3.js"></script>
+<script type="text/javascript" src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaidAPI.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.forest.css" />
+<script type="text/javascript">mermaidAPI.initialize({startOnLoad:true});</script><link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/alinex/node-report/master/var/src/style/default.css" /><style type="text/css">div#page {display:block}</style>  </head>
+  <body><div id="page"><div id="mermaid7"></div>
+<script type="text/javascript"><!--
+// mermaid.initialize
+$(function(){
+  var cb = function(svg){
+    document.querySelector("#mermaid7").innerHTML = svg;
+  };
+  mermaidAPI.render('mermaid7','gantt\n  title A Gantt Diagram\n\n  section Section\n  A task           :a1, 2014-01-01, 30d\n  Another task     :after a1  , 20d\n  section Another\n  Task in sec      :2014-01-12  , 12d\n  anther task      : 24d\n', cb);
+});
+//--></script></div></body>
+</html>

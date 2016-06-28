@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Report</title>
+    <meta charset="UTF-8" /><link rel="stylesheet" type="text/css" href="https://gitcdn.link/repo/alinex/node-report/master/var/src/style/default.css" />
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.3.js"></script>
+<script type="text/javascript" src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaidAPI.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.forest.css" />
+<script type="text/javascript">mermaidAPI.initialize({startOnLoad:true});</script><link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/alinex/node-report/master/var/src/style/default.css" /><style type="text/css">div#page {display:block}</style>  </head>
+  <body><div id="page"><div id="mermaid5"></div>
+<script type="text/javascript"><!--
+// mermaid.initialize
+$(function(){
+  var cb = function(svg){
+    document.querySelector("#mermaid5").innerHTML = svg;
+  };
+  mermaidAPI.render('mermaid5','sequenceDiagram\n  Alice ->> Bob: Hello Bob, how are you?\n  Bob-->>John: How about you John?\n  Bob--x Alice: I am good thanks!\n  Bob-x John: I am good thanks!\n  Note right of John: Bob thinks a long<br/>long time, so long<br/>that the text does<br/>not fit on a row.\n\n  Bob-->Alice: Checking with John...\n  Alice->John: Yes... John, how are you?\n', cb);
+});
+//--></script></div></body>
+</html>

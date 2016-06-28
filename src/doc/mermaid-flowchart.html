@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Report</title>
+    <meta charset="UTF-8" /><link rel="stylesheet" type="text/css" href="https://gitcdn.link/repo/alinex/node-report/master/var/src/style/default.css" />
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.3.js"></script>
+<script type="text/javascript" src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaidAPI.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.forest.css" />
+<script type="text/javascript">mermaidAPI.initialize({startOnLoad:true});</script><link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/alinex/node-report/master/var/src/style/default.css" /><style type="text/css">div#page {display:block}</style>  </head>
+  <body><div id="page"><div id="mermaid3"></div>
+<script type="text/javascript"><!--
+// mermaid.initialize
+$(function(){
+  var cb = function(svg){
+    document.querySelector("#mermaid3").innerHTML = svg;
+  };
+  mermaidAPI.render('mermaid3','graph LR\n  A[Square Rect] -- Link text --> B((Circle))\n  A --> C(Round Rect)\n  B --> D{Rhombus}\n  C --> D\n', cb);
+});
+//--></script></div></body>
+</html>
