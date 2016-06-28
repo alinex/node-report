@@ -88,6 +88,8 @@ module.exports.toConsole = module.exports.toText = (text) ->
     part = arguments[1]
     parts = part.trim().split /(^|\n\s*\n\s*)\|/
     "|#{parts[2]}"
+  # replace with code
+  .replace /\$\$\$\s+(mermaid)\s*\n([\s\S]*?)\$\$\$/g, "``` $1\n$2```"
   # remove for all other
   .replace /\$\$\$([\s\S]*?)\$\$\$/g, '' # "```$1```"
 

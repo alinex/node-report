@@ -214,6 +214,7 @@ addLibs = (tags, js) ->
     tags.push """
       <script type="text/javascript" src="https://cdn.rawgit.com/knsv/mermaid/\
       6.0.0/dist/mermaidAPI.min.js"></script>"""
+#      0.4.1/dist/mermaidAPI.min.js"></script>"""
     tags.push """
       <link href="https://cdn.rawgit.com/knsv/mermaid/\
       6.0.0/dist/mermaid.forest.css" rel="stylesheet" type="text/css">"""
