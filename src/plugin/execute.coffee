@@ -268,7 +268,7 @@ renderer = (tokens, idx, options, env) ->
     when 'mermaid'
       code = """
         // mermaid.initialize
-        $(function(){
+        a($(function(){
           var cb = function(svg){
             document.querySelector("#mermaid#{++MERMAIDNUM}").innerHTML = svg;
           };
@@ -285,7 +285,6 @@ renderer = (tokens, idx, options, env) ->
 #        return html
       # add html geader
       html = require('../html').frame html, null, code
-      console.log html
       # convert to javascript
       webshot ?= require 'webshot'
       convert = deasync (html, cb) ->
@@ -297,14 +296,16 @@ renderer = (tokens, idx, options, env) ->
             height: 600
           captureSelector: '#page'
           renderDelay: 100
+          errorIfStatusIsNot200: true
+          errorIfJSException: true
+          onError: (err) -> console.log '----', err
         webshot html, options, (err, stream) ->
-          console.log err
           return cb err if err
           buffer = ''
           stream.on 'data', (data) -> buffer += data.toString 'binary'
+          stream.on 'error', (err) -> console.log 'errr', err
           stream.on 'end', ->
             cb null, buffer
-      console.log html
       data = convert html
       image = new Buffer(data, 'binary').toString 'base64'
       """<p><img src="data:application/octet-stream;base64,#{image}"></p>"""
