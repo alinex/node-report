@@ -28,6 +28,7 @@ dataStringify = deasync format.stringify
 
 MARKER = '$'.charCodeAt 0
 CHARTNUM = 0
+MERMAIDNUM = 0
 
 
 # Init plugin in markdown-it
@@ -232,7 +233,7 @@ renderer = (tokens, idx, options, env) ->
         env.js.push code
         return html
       # add html geader
-      html = require('../html').frame html, code
+      html = require('../html').frame html, null, code
       # convert to javascript
       webshot ?= require 'webshot'
       convert = deasync (html, cb) ->
@@ -243,7 +244,7 @@ renderer = (tokens, idx, options, env) ->
             width: 800
             height: 600
           captureSelector: '#page'
-          renderDelay: 1000
+          renderDelay: 100
         webshot html, options, (err, stream) ->
           return cb err if err
           buffer = ''
@@ -263,6 +264,50 @@ renderer = (tokens, idx, options, env) ->
         gen.out.on 'data', (data) -> buffer += data.toString()
         gen.out.on 'end', -> cb null, buffer
       renderer token.content
+
+    when 'mermaid'
+      code = """
+        // mermaid.initialize
+        $(function(){
+          var cb = function(svg){
+            document.querySelector("#mermaid#{++MERMAIDNUM}").innerHTML = svg;
+          };
+          mermaidAPI.render('mermaid#{MERMAIDNUM}',\
+            '#{token.content.replace /\n/g, '\\n'}', cb);
+        });
+        """
+      html = """<div id="mermaid#{MERMAIDNUM}"></div>
+        <script type="text/javascript"><!--\n#{code}\n//--></script>"""
+      # normal javascript display
+#      unless env.noJS
+#        env.js ?= []
+#        env.js.push code
+#        return html
+      # add html geader
+      html = require('../html').frame html, null, code
+      console.log html
+      # convert to javascript
+      webshot ?= require 'webshot'
+      convert = deasync (html, cb) ->
+        options =
+          siteType: 'html'
+          streamType: 'png'
+          creenSize:
+            width: 800
+            height: 600
+          captureSelector: '#page'
+          renderDelay: 100
+        webshot html, options, (err, stream) ->
+          console.log err
+          return cb err if err
+          buffer = ''
+          stream.on 'data', (data) -> buffer += data.toString 'binary'
+          stream.on 'end', ->
+            cb null, buffer
+      console.log html
+      data = convert html
+      image = new Buffer(data, 'binary').toString 'base64'
+      """<p><img src="data:application/octet-stream;base64,#{image}"></p>"""
 
 #    # mermaid graph
 #    # TODO won't work without xmkdom

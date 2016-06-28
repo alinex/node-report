@@ -156,9 +156,10 @@ module.exports = (report, setup = {}, cb) ->
 # Frame HTML content with lib adding
 # -------------------------------------------------
 # Method for html+js to image conversion
-module.exports.frame = (html, js) ->
+module.exports.frame = (html, js, check) ->
   tags = []
-  addLibs tags, js
+  addLibs tags, "#{js}\n#{check}"
+  js = unless js then '' else """<script type="text/javascript"><!--\n#{js}\n//--></script>"""
   """
   <!DOCTYPE html>
   <html>
@@ -169,6 +170,7 @@ module.exports.frame = (html, js) ->
       #{fs.readFileSync HTML_STYLES['default'], 'utf8'}
       div#page {border: 0}
       </style>
+      #{js}
     </head>
     <body><div id="page">#{html}</div></body>
   </html>
@@ -200,10 +202,23 @@ addLibs = (tags, js) ->
     tags.push """<script src="http://alinex.github.io/lib/\
       jui-chart@2.0.4/chart.min.js"></script>"""
   # add only jquery
-  if js?.match /$\(/
+  if js?.match /\$\(/
     tags.push """
       <script type="text/javascript" src="https://code.jquery.com/\
       jquery-1.12.3.js"></script>"""
+  # mermaid
+  if js?.match /mermaid\.initialize/
+    tags.push """
+      <script type="text/javascript" src="https://code.jquery.com/\
+      jquery-1.12.3.js"></script>"""
+    tags.push """
+      <script type="text/javascript" src="https://cdn.rawgit.com/knsv/mermaid/\
+      6.0.0/dist/mermaidAPI.min.js"></script>"""
+    tags.push """
+      <link href="https://cdn.rawgit.com/knsv/mermaid/\
+      6.0.0/dist/mermaid.forest.css" rel="stylesheet" type="text/css">"""
+    tags.push """
+      <script type="text/javascript">mermaidAPI.initialize({startOnLoad:false});</script>"""
 
 
 # ### initialize markdown to html converter

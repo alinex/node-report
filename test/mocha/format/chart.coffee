@@ -55,7 +55,7 @@ describe "visual chart", ->
         type: 'title'
         text: 'Area Chart'
       ,
-      	type: 'legend'
+        type: 'legend'
       ]
     , data.salesyear
     test.report 'chart-area', report, null, null, cb
@@ -84,9 +84,9 @@ describe "visual chart", ->
         type: 'title'
         text: 'Bar Chart'
       ,
-      	type: 'legend'
+        type: 'legend'
       ,
-      	type: 'tooltip'
+        type: 'tooltip'
       ]
     , data.salesyear
     test.report 'chart-bar', report, """
@@ -153,9 +153,9 @@ describe "visual chart", ->
         type: 'title'
         text: '3D Bar Chart'
       ,
-      	type: 'tooltip'
+        type: 'tooltip'
       ,
-      	type: 'legend'
+        type: 'legend'
       ]
     , data.salesyear
     test.report 'chart-bar-3d', report, null, null, cb
@@ -186,9 +186,9 @@ describe "visual chart", ->
         type: 'title'
         text: 'Column Chart with Focus'
       ,
-      	type: 'tooltip'
+        type: 'tooltip'
       ,
-      	type: 'legend'
+        type: 'legend'
       ]
     , data.salesyear
     test.report 'chart-column', report, null, null, cb
@@ -220,9 +220,9 @@ describe "visual chart", ->
         type: 'title'
         text: '3D Column Chart'
       ,
-      	type: 'tooltip'
+        type: 'tooltip'
       ,
-      	type: 'legend'
+        type: 'legend'
       ]
     , data.salesyear
     test.report 'chart-column-3d', report, null, null, cb

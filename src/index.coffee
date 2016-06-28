@@ -315,6 +315,8 @@ class Report
   @chart: (setup, data) ->
     "\n$$$ chart#{if setup then '\n' + dataStringify(setup, 'yaml') else ''}\
     #{Report.table data}$$$\n"
+  @mermaid: (code) ->
+    "\n$$$ mermaid\n#{code.trim()}\n$$$\n"
   @plantuml: (code) ->
     "\n$$$ plantuml\n#{code.trim()}\n$$$\n"
 
@@ -395,6 +397,7 @@ class Report
 
   qr: (data) -> @raw Report.qr data
   chart: (setup, data) -> @raw Report.chart setup, data
+  mermaid: (code) -> @raw Report.mermaid code
   plantuml: (code) -> @raw Report.plantuml code
 
 
@@ -618,7 +621,7 @@ class Report
           width: 800
           height: 600
         captureSelector: '#page'
-        renderDelay: 100
+        renderDelay: 1000
       , options
       webshot html, options, (err, stream) ->
         return cb err if err
