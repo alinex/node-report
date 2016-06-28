@@ -245,11 +245,11 @@ renderer = (tokens, idx, options, env) ->
           creenSize:
             width: 800
             height: 600
-          captureSelector: '#page'
+          captureSelector: '#page svg'
           renderDelay: 100
         webshot html, options, (err, stream) ->
-          return cb err if err
           buffer = ''
+          return cb err if err
           stream.on 'data', (data) -> buffer += data.toString 'binary'
           stream.on 'end', ->
             cb null, buffer
@@ -270,7 +270,7 @@ renderer = (tokens, idx, options, env) ->
     when 'mermaid'
       code = """
         // mermaid.initialize
-        a($(function(){
+        $(function(){
           var cb = function(svg){
             document.querySelector("#mermaid#{++MERMAIDNUM}").innerHTML = svg;
           };
@@ -281,12 +281,13 @@ renderer = (tokens, idx, options, env) ->
       html = """<div id="mermaid#{MERMAIDNUM}"></div>
         <script type="text/javascript"><!--\n#{code}\n//--></script>"""
       # normal javascript display
-#      unless env.noJS
-#        env.js ?= []
-#        env.js.push code
-#        return html
+      unless env.noJS
+        env.js ?= []
+        env.js.push code
+        return html
       # add html geader
       html = require('../html').frame html, null, code
+      html = html.replace /display:\s*inline-block/, ''
       # convert to javascript
       webshot ?= require 'webshot'
       convert = deasync (html, cb) ->
@@ -296,30 +297,18 @@ renderer = (tokens, idx, options, env) ->
           creenSize:
             width: 800
             height: 600
-          captureSelector: '#page'
+#          captureSelector: '#page'
+          captureSelector: '#page svg'
           renderDelay: 100
-          errorIfStatusIsNot200: true
-          errorIfJSException: true
-          onError: (err) -> console.log '----', err
         webshot html, options, (err, stream) ->
           return cb err if err
           buffer = ''
           stream.on 'data', (data) -> buffer += data.toString 'binary'
-          stream.on 'error', (err) -> console.log 'errr', err
-          stream.on 'end', ->
-            cb null, buffer
+          stream.on 'end', -> cb null, buffer
       data = convert html
       image = new Buffer(data, 'binary').toString 'base64'
       """<p><img src="data:application/octet-stream;base64,#{image}"></p>"""
 
-#    # mermaid graph
-#    # TODO won't work without xmkdom
-#    when 'graph'
-#      mermaid ?= require 'mermaid'
-#      renderer = deasync (code, cb) ->
-#        mermaid.mermaidAPI.render 'mermaid', code, (svg) ->
-#          cb null, svg
-#      renderer "#{type} #{opt.join ' '}\n#{token.content}"
     else
       escapeHtml token.content
 

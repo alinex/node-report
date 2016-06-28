@@ -128,16 +128,19 @@ module.exports = (report, setup = {}, cb) ->
   css = data.css?.join('\n') ? ''
   if css
     css = new CleanCSS().minify(css).styles
+    css = """<style type="text/css">#{css}</style>"""
   html += switch
     when style in Object.keys HTML_STYLES
-      data = fs.readFileSync HTML_STYLES[style], 'utf8'
-      """<style type="text/css">#{new CleanCSS().minify(data).styles}
-      #{css}</style>"""
+      """<link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/alinex/node-report/\
+      master/var/src/style/#{path.basename HTML_STYLES[style]}" />#{css}"""
     when style.match /^https?:\/\//
-      css = """<style type="text/css">#{css}</style>"""
       """<link rel="stylesheet" href="#{style}" />#{css}"""
     else
-      """<style type="text/css">#{fs.readFileSync style, 'utf8'}#{css}</style>"""
+      """<style type="text/css">
+      #{fs.readFileSync style, 'utf8'}#{css}
+      </style>"""
+  if js?.match /mermaid\.initialize/
+    html += """<style type="text/css">div#page {display:block}</style>"""
   # add body
   html += """
     </head>
@@ -166,10 +169,8 @@ module.exports.frame = (html, js, check) ->
     <head>
       <meta charset="UTF-8" />
       #{tags.join '\n'}
-      <style type="text/css">
-      #{fs.readFileSync HTML_STYLES['default'], 'utf8'}
-      div#page {border: 0}
-      </style>
+      <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/alinex/node-report/\
+      master/var/src/style/#{path.basename HTML_STYLES['default']}" />
       #{js}
     </head>
     <body><div id="page">#{html}</div></body>
@@ -179,13 +180,12 @@ module.exports.frame = (html, js, check) ->
 
 # Helper methods
 # -------------------------------------------------
-
 addLibs = (tags, js) ->
   # optimized tables
   if js?.match /\.DataTable\(/
     tags.unshift """
       <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/\
-      1.10.12/css/jquery.dataTables.css">"""
+      1.10.12/css/jquery.dataTables.css" />"""
     tags.push """
       <script type="text/javascript" src="https://code.jquery.com/\
       jquery-1.12.3.js"></script>"""
@@ -197,10 +197,10 @@ addLibs = (tags, js) ->
     tags.push """
       <script type="text/javascript" src="https://code.jquery.com/\
       jquery-1.12.3.js"></script>"""
-    tags.push """<script src="http://alinex.github.io/lib/\
-      jui-chart@2.0.4/core.min.js"></script>"""
-    tags.push """<script src="http://alinex.github.io/lib/\
-      jui-chart@2.0.4/chart.min.js"></script>"""
+    tags.push """<script src="https://cdn.rawgit.com/juijs/jui-chart/\
+      v2.0.4/lib/core.min.js"></script>"""
+    tags.push """<script src="https://cdn.rawgit.com/juijs/jui-chart/\
+      v2.0.4/dist/chart.min.js"></script>"""
   # add only jquery
   if js?.match /\$\(/
     tags.push """
@@ -214,12 +214,15 @@ addLibs = (tags, js) ->
     tags.push """
       <script type="text/javascript" src="https://cdn.rawgit.com/knsv/mermaid/\
       6.0.0/dist/mermaidAPI.min.js"></script>"""
-#      0.4.1/dist/mermaidAPI.min.js"></script>"""
     tags.push """
-      <link href="https://cdn.rawgit.com/knsv/mermaid/\
-      6.0.0/dist/mermaid.forest.css" rel="stylesheet" type="text/css">"""
+      <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/knsv/mermaid/\
+      6.0.0/dist/mermaid.forest.css" />"""
     tags.push """
-      <script type="text/javascript">mermaidAPI.initialize({startOnLoad:false});</script>"""
+      <script type="text/javascript">mermaidAPI.initialize({startOnLoad:true});</script>"""
+  # load default style sheet
+  tags.unshift """
+    <link rel="stylesheet" type="text/css" href="https://gitcdn.link/repo/alinex/node-report/\
+    master/var/src/style/default.css" />"""
 
 
 # ### initialize markdown to html converter
