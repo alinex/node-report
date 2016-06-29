@@ -415,6 +415,11 @@ class Report
    # ### as simplified text
   toText: ->
     text = pluginFontawesome.toText pluginExecute.toText @toString()
+    # replace code
+    removed = []
+    text = text.replace /(?:^|\n)``` (\w+)\s*?\n([\s\S]*?)\n```(?=\s*?\n)/g, (all, lang, code) =>
+      removed.push "\n#{lang}:#{block code, '    ', '    ', @width, true}"
+      "$$$$$#{removed.length}$$$$$"
     # remove some parts
     text = text.replace ///
     (
@@ -451,14 +456,18 @@ class Report
       (?: "(.*?)")?   # title text
     \)
     ///g, '[IMAGE $1]'
+    # readd removed parts
+    for value, num in removed
+      text = text.replace "$$$$$#{num+1}$$$$$", value
+    text.replace /^[\r\n]+|[\r\n]+$/g, ''
 
   # ### as colorful console text
   toConsole: ->
     text = pluginFontawesome.toConsole pluginExecute.toConsole @toString()
     # replace code
     removed = []
-    text = text.replace /\n\n``` (\w+)\s*?\n([\s\S]*?)\n```\s*?\n/g, (all, lang, code) =>
-      removed.push "\n\n#{chalk.yellow lang}:#{block code, '    ', '    ', @width, true}"
+    text = text.replace /(?:^|\n)``` (\w+)\s*?\n([\s\S]*?)\n```(?=\s*?\n)/g, (all, lang, code) =>
+      removed.push "\n#{chalk.yellow lang}:#{block code, '    ', '    ', @width, true}"
       "$$$$$#{removed.length}$$$$$"
     # remove some parts
     text = text.replace ///
