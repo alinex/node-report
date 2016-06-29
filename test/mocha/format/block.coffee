@@ -86,7 +86,7 @@ describe "block", ->
       </div></body>
       """, cb
 
-  it.only "should create a code block", (cb) ->
+  it "should create a code block", (cb) ->
     report = new Report()
     report.code 'var x = Math.round(f);', 'js'
     report.code 'This **is** a ==markdown== text', 'markdown'

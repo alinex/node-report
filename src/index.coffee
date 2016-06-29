@@ -6,10 +6,12 @@
 # -------------------------------------------------
 chalk = require 'chalk'
 deasync = require 'deasync'
+path = require 'path'
 # include more alinex modules
 util = require 'alinex-util'
 Table = require 'alinex-table'
 format = require 'alinex-format'
+fs = require 'alinex-fs'
 pdf = null # load on demand
 webshot = null # load on demand
 convertHtml = null # load on demand
@@ -638,6 +640,30 @@ class Report
         stream.on 'data', (data) -> buffer += data.toString 'binary'
         stream.on 'end', ->
           cb null, buffer
+
+  toFile: (filename, options, cb) ->
+    if typeof options is 'function'
+      cb = options
+      options = {}
+    options ?= {}
+    switch path.extname(filename)[1..]
+      when 'md'
+        fs.writeFile filename, @toString(), cb
+      when 'htm', 'html'
+        @toHtml options, (err, html) ->
+          fs.writeFile filename, html, cb
+      when 'pdf'
+        @toPdf options, (err, pdf) ->
+          fs.writeFile filename, pdf,
+            encoding: 'binary'
+          , cb
+      when 'png'
+        @toImage options, (err, png) ->
+          fs.writeFile filename, png,
+            encoding: 'binary'
+          , cb
+      else # text and other
+        fs.writeFile filename, @toText(), cb
 
 
 # Export class
