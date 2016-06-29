@@ -2628,7 +2628,7 @@ And in HTML this will look like:
 ![html](src/doc/plantuml-wireframe.png)
 
 
-### Mermaid
+#### Mermaid
 
 A library for creating flowcharts and diagrams out of text.
 
@@ -2658,6 +2658,14 @@ __Flowchart__
 [Flowchart Syntax](http://knsv.github.io/mermaid/#flowcharts-basic-syntax)
 
 ``` coffee
+report = new Report()
+report.mermaid """
+  graph LR
+    A[Square Rect] -- Link text --> B((Circle))
+    A --> C(Round Rect)
+    B --> D{Rhombus}
+    C --> D
+  """
 ```
 
 The markdown is nearly the same but with `$$$ mermaid .... $$$` arround the code.
@@ -2671,6 +2679,18 @@ __Sequence Diagram__
 [Sequence Syntax](http://knsv.github.io/mermaid/#sequence-diagrams)
 
 ``` coffee
+report = new Report()
+report.mermaid """
+  sequenceDiagram
+    Alice ->> Bob: Hello Bob, how are you?
+    Bob-->>John: How about you John?
+    Bob--x Alice: I am good thanks!
+    Bob-x John: I am good thanks!
+    Note right of John: Bob thinks a long<br/>long time, so long<br/>that the text does<br/>not fit on a row.
+
+    Bob-->Alice: Checking with John...
+    Alice->John: Yes... John, how are you?
+  """
 ```
 
 The markdown is nearly the same but with `$$$ mermaid .... $$$` arround the code.
@@ -2684,6 +2704,18 @@ __Gantt Diagram__
 [Gantt Syntax](http://knsv.github.io/mermaid/#gant-diagrams)
 
 ``` coffee
+report = new Report()
+report.mermaid """
+  gantt
+    title A Gantt Diagram
+
+    section Section
+    A task           :a1, 2014-01-01, 30d
+    Another task     :after a1  , 20d
+    section Another
+    Task in sec      :2014-01-12  , 12d
+    anther task      : 24d
+  """
 ```
 
 The markdown is nearly the same but with `$$$ mermaid .... $$$` arround the code.

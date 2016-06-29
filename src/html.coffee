@@ -169,13 +169,13 @@ module.exports.frame = (html, js, check) ->
     <head>
       <meta charset="UTF-8" />
       #{tags.join '\n'}
-      <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/alinex/node-report/\
-      master/var/src/style/#{path.basename HTML_STYLES['default']}" />
       #{js}
     </head>
     <body><div id="page">#{html}</div></body>
   </html>
   """
+#  <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/alinex/node-report/\
+#  master/var/src/style/#{path.basename HTML_STYLES['default']}" />
 
 
 # Helper methods

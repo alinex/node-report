@@ -2,8 +2,8 @@
 Report = require '../../../src/index'
 test = require '../test'
 
-describe.only "visual mermaid", ->
-  @timeout 20000
+describe "visual mermaid", ->
+  @timeout 10000
 
   it "should create simple graph", (cb) ->
     report = new Report()

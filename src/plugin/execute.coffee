@@ -10,6 +10,8 @@
 
 debug = require('debug') 'report:execute'
 deasync = require 'deasync'
+path = require 'path'
+{execFileSync} = require 'child_process'
 QRCode = null # load on demand
 #mermaid = null # load on demand
 plantuml = null # load on demand
@@ -18,6 +20,7 @@ webshot = null # load on demand
 util = require 'alinex-util'
 format = require 'alinex-format'
 Table = require 'alinex-table'
+fs = require 'alinex-fs'
 
 dataParse = deasync format.parse
 dataStringify = deasync format.stringify
@@ -268,46 +271,67 @@ renderer = (tokens, idx, options, env) ->
       renderer token.content
 
     when 'mermaid'
-      code = """
-        // mermaid.initialize
-        $(function(){
-          var cb = function(svg){
-            document.querySelector("#mermaid#{++MERMAIDNUM}").innerHTML = svg;
-          };
-          mermaidAPI.render('mermaid#{MERMAIDNUM}',\
-            '#{token.content.replace /\n/g, '\\n'}', cb);
-        });
-        """
-      html = """<div id="mermaid#{MERMAIDNUM}"></div>
-        <script type="text/javascript"><!--\n#{code}\n//--></script>"""
-      # normal javascript display
-      unless env.noJS
-        env.js ?= []
-        env.js.push code
-        return html
-      # add html geader
-      html = require('../html').frame html, null, code
-      html = html.replace /display:\s*inline-block/, ''
-      # convert to javascript
-      webshot ?= require 'webshot'
-      convert = deasync (html, cb) ->
-        options =
-          siteType: 'html'
-          streamType: 'png'
-          creenSize:
-            width: 800
-            height: 600
-#          captureSelector: '#page'
-          captureSelector: '#page svg'
-          renderDelay: 100
-        webshot html, options, (err, stream) ->
-          return cb err if err
-          buffer = ''
-          stream.on 'data', (data) -> buffer += data.toString 'binary'
-          stream.on 'end', -> cb null, buffer
-      data = convert html
-      image = new Buffer(data, 'binary').toString 'base64'
-      """<p><img src="data:application/octet-stream;base64,#{image}"></p>"""
+      # setup command processing
+      mermaid = fs.npmbinSync 'mermaid', __dirname
+      phantomjs = fs.npmbinSync 'phantomjs', __dirname
+      tempdir = fs.tempdirSync()
+      fs.writeFileSync "#{tempdir}/mermaid", token.content
+      # create image
+      execFileSync mermaid, [
+        '-e', phantomjs
+        '-t', "#{path.dirname mermaid}/../mermaid/dist/mermaid.forest.css"
+        '-o', "#{tempdir}"
+#        '-s'
+        "#{tempdir}/mermaid"
+      ]
+      # load image into img tag
+#      fs.readFileSync("#{tempdir}/mermaid.svg").toString 'utf-8'
+      image = fs.readFileSync("#{tempdir}/mermaid.png").toString 'base64'
+      fs.remove tempdir
+      style = if token.content.trim().match /^gantt/i then '' else "style=\"max-width: 100%\""
+      """<p><img #{style} src="data:application/octet-stream;base64,#{image}"></p>"""
+
+#    when 'mermaid-api'
+#      code = """
+#        // mermaid.initialize
+#        $(function(){
+#          var cb = function(svg){
+#            document.querySelector("#mermaid#{++MERMAIDNUM}").innerHTML = svg;
+#          };
+#          mermaidAPI.render('mermaid#{MERMAIDNUM}',\
+#            '#{token.content.replace /\n/g, '\\n'}', cb);
+#        });
+#        """
+#      html = """<div id="mermaid#{MERMAIDNUM}"></div>
+#        <script type="text/javascript"><!--\n#{code}\n//--></script>"""
+#      # normal javascript display
+#      unless env.noJS
+#        env.js ?= []
+#        env.js.push code
+#        return html
+#      # add html geader
+#      html = require('../html').frame html, null, code
+#      html = html.replace /display:\s*inline-block/, ''
+#      # convert to javascript
+#      webshot ?= require 'webshot'
+#      convert = deasync (html, cb) ->
+#        options =
+#          siteType: 'html'
+#          streamType: 'png'
+#          creenSize:
+#            width: 800
+#            height: 600
+##          captureSelector: '#page'
+#          captureSelector: '#page svg'
+#          renderDelay: 100
+#        webshot html, options, (err, stream) ->
+#          return cb err if err
+#          buffer = ''
+#          stream.on 'data', (data) -> buffer += data.toString 'binary'
+#          stream.on 'end', -> cb null, buffer
+#      data = convert html
+#      image = new Buffer(data, 'binary').toString 'base64'
+#      """<p><img src="data:application/octet-stream;base64,#{image}"></p>"""
 
     else
       escapeHtml token.content
