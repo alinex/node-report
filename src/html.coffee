@@ -69,6 +69,8 @@ trans =
       en: 'Attention'
       de: 'Achtung'
 
+VERSION = null # will be set on init
+
 
 # Convert into HTML
 # -------------------------------------------------
@@ -121,8 +123,6 @@ module.exports = (report, setup = {}, cb) ->
       <title>#{title}</title>
       <meta charset="UTF-8" />
   """
-  if tags.length
-    html += util.array.unique(tags).join '\n'
   # add page style with collected css
   style = setup?.style ? 'default'
   css = data.css?.join('\n') ? ''
@@ -132,13 +132,16 @@ module.exports = (report, setup = {}, cb) ->
   html += switch
     when style in Object.keys HTML_STYLES
       """<link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/alinex/node-report/\
-      master/var/src/style/#{path.basename HTML_STYLES[style]}" />#{css}"""
+      v#{VERSION}/var/src/style/#{path.basename HTML_STYLES[style]}" />#{css}"""
     when style.match /^https?:\/\//
       """<link rel="stylesheet" href="#{style}" />#{css}"""
     else
       """<style type="text/css">
       #{fs.readFileSync style, 'utf8'}#{css}
       </style>"""
+  # add defined tags
+  if tags.length
+    html += util.array.unique(tags).join '\n'
   if js?.match /mermaid\.initialize/
     html += """<style type="text/css">div#page {display:block}</style>"""
   # add body
@@ -168,14 +171,14 @@ module.exports.frame = (html, js, check) ->
   <html>
     <head>
       <meta charset="UTF-8" />
+      <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/alinex/node-report/\
+      v#{VERSION}/var/src/style/#{path.basename HTML_STYLES['default']}" />
       #{tags.join '\n'}
       #{js}
     </head>
     <body><div id="page">#{html}</div></body>
   </html>
   """
-#  <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/alinex/node-report/\
-#  master/var/src/style/#{path.basename HTML_STYLES['default']}" />
 
 
 # Helper methods
@@ -219,16 +222,15 @@ addLibs = (tags, js) ->
       6.0.0/dist/mermaid.forest.css" />"""
     tags.push """
       <script type="text/javascript">mermaidAPI.initialize({startOnLoad:true});</script>"""
-  # load default style sheet
-  tags.unshift """
-    <link rel="stylesheet" type="text/css" href="https://gitcdn.link/repo/alinex/node-report/\
-    master/var/src/style/default.css" />"""
 
 
 # ### initialize markdown to html converter
 md2html = null
 initHtml = -> #async.once ->
   return md2html if md2html
+  # get report version
+  pack = JSON.parse fs.readFileSync "#{path.dirname __dirname}/package.json", 'utf8'
+  VERSION = pack.version
   # setup markdown it
   md2html = markdownit
     html: true
