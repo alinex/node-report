@@ -4,6 +4,73 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 2.0.0 (2016-06-30)
+-------------------------------------------------
+Now with support for multiple graphical visualization, restructered documentation and more.
+
+- Define mermaid as required binary package.
+- Fix check to work with new footnote anchors.
+- Add current version id to style link for CDN.
+- Add mermaid to depending packages.
+- Only create examples on test if environment setting.
+- Update markdown-it-footnotes.
+- Add toFile() method.
+- Fix code in toText() and toConsole() for better output.
+- Test text and console conversion.
+- Finished mermaid includion using cli calls.
+- Added all mermaid diagrams, but not working correctly, at the moment.
+- Add report styles and jui through CDN.
+- Allow text display of mermaid graph as code.
+- Try to get phantom error on webshot.
+- Add mermaid support for html but problem in image conversion.
+- Add examples of bar, column and area charts.
+- Use js code in charts or png images for noJS option.
+- Make all tests run again.
+- Add example with all features of datatable.
+- Add support for datatable.
+- Fix plantuml sequence conversion to text.
+- Added support for plantuml syntax.
+- Upgraded markdown-it package and optimized chart markdown.
+- Fixed box style and compress css style and rules in html.
+- Optimize ability to convert to image.
+- Add simple chart example.
+- Fix qr code parser to use yaml as default.
+- Added qr visualization support also in console and text output.
+- Document header() method.
+- Add support for javascript and stylesheets through execute plugin.
+- changes for js collection
+- Allow js and css methods to become markdown.
+- Fix use of decorade styles.
+- Reformat docs for styles and javascript.
+- Update docs for document elements.
+- Finish table documentation with examples.
+- Upgraded markdown-it and builder packages.
+- Document tale with list-map.
+- Upgrade docu for alinex tables.
+- Add console output images.
+- Optimize stacked icons parsing.
+- Add own fontawesome plugin to allow stackable and combinded signs.
+- Update docs for lists, links, images and signs.
+- Restructure tests and documentation.
+- Add more language support for code highlighting.
+- Fix bug in setting width (instance calls).
+- Update docs.
+- Upgrade markdown-it and table packages.
+- Rename visual plugin to code plugin.
+- Support javascript optimized tables using jquery.
+- Add jquery optimized tables and automatically add only needed css and js.
+- Finish more tests on qr and chart integration.
+- Fix docu links to examples.
+- Add column chart example.
+- Made charts useable.
+- Integrate jui-chart with partly working chart creation.
+- Also transform visual effects for console output.
+- Complete qr code integration.
+- nOT WORKING TRY FOR MERMAID.
+- Basic test for running markdown with separate parse and render calls.
+- Implement graph parser in plugin.
+- Add link to highlight.js for possible languages.
+
 Version 1.4.1 (2016-05-31)
 -------------------------------------------------
 - Fix bug with duplicate callback in toHtml().
