@@ -33,7 +33,6 @@ dataStringify = deasync format.stringify
 
 MARKER = '$'.charCodeAt 0
 CHARTNUM = 0
-MERMAIDNUM = 0
 
 
 # Init plugin in markdown-it

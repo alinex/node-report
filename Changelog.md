@@ -66,7 +66,6 @@ Now with support for multiple graphical visualization, restructered documentatio
 - Integrate jui-chart with partly working chart creation.
 - Also transform visual effects for console output.
 - Complete qr code integration.
-- nOT WORKING TRY FOR MERMAID.
 - Basic test for running markdown with separate parse and render calls.
 - Implement graph parser in plugin.
 - Add link to highlight.js for possible languages.
@@ -319,4 +318,3 @@ Version 0.1.0 (2015-12-04)
 - Made first methods runable.
 - Made initial structure for class oriented design.
 - Initial commit
-
