@@ -57,6 +57,10 @@
       </div>
 
       <div class="heading h2">
+        <a href="#frame-html-content-with-lib-adding">Frame HTML content with lib adding</a>
+      </div>
+
+      <div class="heading h2">
         <a href="#helper-methods">Helper methods</a>
       </div>
 
@@ -104,7 +108,8 @@ Node Modules
 mime = <span class="hljs-built_in">require</span> <span class="hljs-string">'mime'</span>
 inlineCss = <span class="hljs-built_in">require</span> <span class="hljs-string">'inline-css'</span>
 fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-fs'</span>
-util = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-util'</span></pre>
+util = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-util'</span>
+CleanCSS = <span class="hljs-built_in">require</span> <span class="hljs-string">'clean-css'</span></pre>
         </td>
       </tr>
     
@@ -125,7 +130,6 @@ mdSub = <span class="hljs-built_in">require</span> <span class="hljs-string">'ma
 mdSup = <span class="hljs-built_in">require</span> <span class="hljs-string">'markdown-it-sup'</span> <span class="hljs-comment"># superscript support</span>
 mdMark = <span class="hljs-built_in">require</span> <span class="hljs-string">'markdown-it-mark'</span> <span class="hljs-comment"># add text as "marked"</span>
 mdEmoji = <span class="hljs-built_in">require</span> <span class="hljs-string">'markdown-it-emoji'</span> <span class="hljs-comment"># add graphical emojis</span>
-mdFontawesome = <span class="hljs-built_in">require</span> <span class="hljs-string">'markdown-it-fontawesome'</span>
 mdDeflist = <span class="hljs-built_in">require</span> <span class="hljs-string">'markdown-it-deflist'</span> <span class="hljs-comment"># definition lists</span>
 mdAbbr = <span class="hljs-built_in">require</span> <span class="hljs-string">'markdown-it-abbr'</span> <span class="hljs-comment"># abbreviations (auto added)</span>
 mdFootnote = <span class="hljs-built_in">require</span> <span class="hljs-string">'markdown-it-footnote'</span> <span class="hljs-comment"># footnotes (auto linked)</span>
@@ -145,7 +149,8 @@ twemoji = <span class="hljs-built_in">require</span> <span class="hljs-string">'
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">pluginCode = <span class="hljs-built_in">require</span> <span class="hljs-string">'./plugin/code'</span></pre>
+          <pre class="coffeescript">pluginExecute = <span class="hljs-built_in">require</span> <span class="hljs-string">'./plugin/execute'</span>
+pluginFontawesome = <span class="hljs-built_in">require</span> <span class="hljs-string">'./plugin/fontawesome'</span></pre>
         </td>
       </tr>
     
@@ -168,14 +173,24 @@ trans =
     en: <span class="hljs-string">'Content'</span>
     de: <span class="hljs-string">'Inhalt'</span>
   lang:
-    js:
-      en: <span class="hljs-string">'JavaScript Code'</span>
+    bash:
+      en: <span class="hljs-string">'Bash Script Code'</span>
     coffee:
       en: <span class="hljs-string">'CoffeeScript Code'</span>
-    bash:
-      en: <span class="hljs-string">'Bash Code'</span>
+    js:
+      en: <span class="hljs-string">'JavaScript Code'</span>
+    sh:
+      en: <span class="hljs-string">'Shell Script Code'</span>
     sql:
       en: <span class="hljs-string">'SQL Code'</span>
+    handlebars:
+      en: <span class="hljs-string">'Handlebars template'</span>
+    json:
+      en: <span class="hljs-string">'JSON Data'</span>
+    yaml:
+      en: <span class="hljs-string">'YAML Data'</span>
+    markdown:
+      en: <span class="hljs-string">'Markdown Document'</span>
   boxes:
     info:
       en: <span class="hljs-string">'Info'</span>
@@ -184,7 +199,9 @@ trans =
       de: <span class="hljs-string">'Warnung'</span>
     alert:
       en: <span class="hljs-string">'Attention'</span>
-      de: <span class="hljs-string">'Achtung'</span></pre>
+      de: <span class="hljs-string">'Achtung'</span>
+
+VERSION = <span class="hljs-literal">null</span> <span class="hljs-comment"># will be set on init</span></pre>
         </td>
       </tr>
     
@@ -199,10 +216,10 @@ Convert into HTML
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-params">(report, setup, cb)</span> -&gt;</span>
+          <pre class="coffeescript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-params">(report, setup = {}, cb)</span> -&gt;</span>
   <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> setup <span class="hljs-keyword">is</span> <span class="hljs-string">'function'</span>
     cb = setup
-    setup = <span class="hljs-literal">null</span></pre>
+    setup = {}</pre>
         </td>
       </tr>
     
@@ -256,11 +273,12 @@ replace local images with base64</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  data = {}
-  content = optimizeHtml md.render(content, data), setup?.locale
+          <pre class="coffeescript">  data = util.clone setup
+  innerHtml = md.render content, data
+  content = optimizeHtml innerHtml, setup?.locale
   title = setup?.title ? data.title ? <span class="hljs-string">'Report'</span>
   tags = util.clone report.parts.header
-  js = report.parts.js.join <span class="hljs-string">'\n'</span></pre>
+  js = data.js?.join <span class="hljs-string">'\n'</span></pre>
         </td>
       </tr>
     
@@ -291,7 +309,9 @@ code highlighting</p>
         <td class="code highlight">
           <pre class="coffeescript">  <span class="hljs-keyword">if</span> content.match <span class="hljs-regexp">/\sclass="fa\s/</span>
     tags.unshift <span class="hljs-string">"""&lt;link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/\
-      font-awesome/4.5.0/css/font-awesome.min.css" /&gt;"""</span></pre>
+      font-awesome/4.6.3/css/font-awesome.min.css" /&gt;"""</span>
+  <span class="hljs-keyword">unless</span> setup.noJS
+    addLibs tags, js</pre>
         </td>
       </tr>
     
@@ -299,44 +319,6 @@ code highlighting</p>
         <td class="docs">
           <div class="pilwrap">
   <a class="pilcrow" href="#section-12" id="section-12"></a>
-</div>
-<p>optimized tables</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-keyword">if</span> js.match <span class="hljs-regexp">/.DataTable\(/</span>
-    tags.unshift <span class="hljs-string">"""
-      &lt;link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/\
-      1.10.12/css/jquery.dataTables.css"&gt;"""</span>
-    tags.push <span class="hljs-string">"""
-      &lt;script type="text/javascript" language="javascript" src="https://code.jquery.com/\
-      jquery-1.12.3.js"&gt;&lt;/script&gt;"""</span>
-    tags.push <span class="hljs-string">"""
-      &lt;script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/\
-      1.10.12/js/jquery.dataTables.js"&gt;&lt;/script&gt;"""</span></pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-13" id="section-13"></a>
-</div>
-<p>add only jquery</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-keyword">if</span> js.match <span class="hljs-regexp">/$\(/</span>
-    tags.push <span class="hljs-string">"""
-      &lt;script type="text/javascript" language="javascript" src="https://code.jquery.com/\
-      jquery-1.12.3.js"&gt;&lt;/script&gt;"""</span></pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-14" id="section-14"></a>
 </div>
 <p>complete html</p>
 
@@ -348,9 +330,47 @@ code highlighting</p>
     &lt;head&gt;
       &lt;title&gt;<span class="hljs-subst">#{title}</span>&lt;/title&gt;
       &lt;meta charset="UTF-8" /&gt;
-  """</span>
-  <span class="hljs-keyword">if</span> tags.length
-    html += util.array.unique(tags).join <span class="hljs-string">'\n'</span></pre>
+  """</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-13" id="section-13"></a>
+</div>
+<p>add page style with collected css</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  style = setup?.style ? <span class="hljs-string">'default'</span>
+  css = data.css?.join(<span class="hljs-string">'\n'</span>) ? <span class="hljs-string">''</span>
+  <span class="hljs-keyword">if</span> css
+    css = <span class="hljs-keyword">new</span> CleanCSS().minify(css).styles
+    css = <span class="hljs-string">"""&lt;style type="text/css"&gt;<span class="hljs-subst">#{css}</span>&lt;/style&gt;"""</span>
+  html += <span class="hljs-keyword">switch</span>
+    <span class="hljs-keyword">when</span> style <span class="hljs-keyword">in</span> Object.keys HTML_STYLES
+      <span class="hljs-string">"""&lt;link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/alinex/node-report/\
+      v<span class="hljs-subst">#{VERSION}</span>/var/src/style/<span class="hljs-subst">#{path.basename HTML_STYLES[style]}</span>" /&gt;<span class="hljs-subst">#{css}</span>"""</span>
+    <span class="hljs-keyword">when</span> style.match <span class="hljs-regexp">/^https?:\/\//</span>
+      <span class="hljs-string">"""&lt;link rel="stylesheet" href="<span class="hljs-subst">#{style}</span>" /&gt;<span class="hljs-subst">#{css}</span>"""</span>
+    <span class="hljs-keyword">else</span>
+      <span class="hljs-string">"""&lt;style type="text/css"&gt;
+</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-14" id="section-14"></a>
+</div>
+<p>{fs.readFileSync style, 'utf8'}#{css}</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">      &lt;/style&gt;<span class="hljs-string">"""
+</span></pre>
         </td>
       </tr>
     
@@ -359,16 +379,14 @@ code highlighting</p>
           <div class="pilwrap">
   <a class="pilcrow" href="#section-15" id="section-15"></a>
 </div>
-<p>add page style with collected css</p>
+<p>add defined tags</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  style = setup?.style ? <span class="hljs-string">'default'</span>
-  css = report.parts.css?.join(<span class="hljs-string">'\n'</span>) ? <span class="hljs-string">''</span>
-  html += <span class="hljs-keyword">switch</span>
-    <span class="hljs-keyword">when</span> style <span class="hljs-keyword">in</span> Object.keys HTML_STYLES
-      <span class="hljs-string">"""&lt;style type="text/css"&gt;<span class="hljs-subst">#{fs.readFileSync HTML_STYLES[style], <span class="hljs-string">'utf8'</span>}</span>
-</span></pre>
+          <pre class="coffeescript">  <span class="hljs-keyword">if</span> tags.length
+    html += util.array.unique(tags).join <span class="hljs-string">'\n'</span>
+  <span class="hljs-keyword">if</span> js?.match <span class="hljs-regexp">/mermaid\.initialize/</span>
+    html += <span class="hljs-string">"""&lt;style type="text/css"&gt;div#page {display:block}&lt;/style&gt;"""</span></pre>
         </td>
       </tr>
     
@@ -377,59 +395,13 @@ code highlighting</p>
           <div class="pilwrap">
   <a class="pilcrow" href="#section-16" id="section-16"></a>
 </div>
-<p>{css}</style>&quot;&quot;&quot;</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">    <span class="hljs-keyword">when</span> style.match <span class="hljs-regexp">/^https?:\/\//</span>
-      css = <span class="hljs-string">"""&lt;style type="text/css"&gt;<span class="hljs-subst">#{css}</span>&lt;/style&gt;"""</span>
-      <span class="hljs-string">"""&lt;link rel="stylesheet" href="<span class="hljs-subst">#{style}</span>" /&gt;<span class="hljs-subst">#{css}</span>"""</span>
-    <span class="hljs-keyword">else</span>
-      <span class="hljs-string">"""&lt;style type="text/css"&gt;<span class="hljs-subst">#{fs.readFileSync style, <span class="hljs-string">'utf8'</span>}</span><span class="hljs-subst">#{css}</span>&lt;/style&gt;"""</span></pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-17" id="section-17"></a>
-</div>
-<p>add javascript</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-keyword">if</span> js.length
-    html += <span class="hljs-string">"""&lt;script type="text/javascript"&gt;&lt;!--
-</span></pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-18" id="section-18"></a>
-</div>
-<p>{js}</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">    <span class="hljs-regexp">//</span>--&gt;&lt;/script&gt;<span class="hljs-string">"""
-</span></pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-19" id="section-19"></a>
-</div>
 <p>add body</p>
 
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  html += <span class="hljs-string">"""
     &lt;/head&gt;
-    &lt;body&gt;<span class="hljs-subst">#{content}</span>&lt;/body&gt;
+    &lt;body&gt;&lt;div id="page"&gt;<span class="hljs-subst">#{content}</span>&lt;/div&gt;&lt;/body&gt;
   &lt;/html&gt;
   """</span>
   <span class="hljs-keyword">return</span> html <span class="hljs-keyword">unless</span> cb
@@ -440,7 +412,7 @@ code highlighting</p>
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-20" id="section-20"></a>
+  <a class="pilcrow" href="#section-17" id="section-17"></a>
 </div>
 <p>make css inline</p>
 
@@ -455,6 +427,53 @@ code highlighting</p>
     
       <tr>
         <td class="docs">
+          <div class="pilwrap" id="frame-html-content-with-lib-adding">
+  <h2>
+    <a href="#frame-html-content-with-lib-adding" name="frame-html-content-with-lib-adding" class="pilcrow"></a>
+Frame HTML content with lib adding
+  </h2>
+</div>
+<p>Method for html+js to image conversion</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-built_in">module</span>.exports.frame = <span class="hljs-function"><span class="hljs-params">(html, js, check)</span> -&gt;</span>
+  tags = []
+  addLibs tags, <span class="hljs-string">"<span class="hljs-subst">#{js}</span>\n<span class="hljs-subst">#{check}</span>"</span>
+  js = <span class="hljs-keyword">unless</span> js <span class="hljs-keyword">then</span> <span class="hljs-string">''</span> <span class="hljs-keyword">else</span> <span class="hljs-string">"""&lt;script type="text/javascript"&gt;&lt;!--\n<span class="hljs-subst">#{js}</span>\n//--&gt;&lt;/script&gt;"""</span>
+  <span class="hljs-string">"""
+  &lt;!DOCTYPE html&gt;
+  &lt;html&gt;
+    &lt;head&gt;
+      &lt;meta charset="UTF-8" /&gt;
+      &lt;link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/alinex/node-report/\
+      v<span class="hljs-subst">#{VERSION}</span>/var/src/style/<span class="hljs-subst">#{path.basename HTML_STYLES[<span class="hljs-string">'default'</span>]}</span>" /&gt;
+</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-19" id="section-19"></a>
+</div>
+<p>{tags.join '\n'}
+{js}</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    &lt;/head&gt;
+    &lt;body&gt;&lt;div id=<span class="hljs-string">"page"</span>&gt;<span class="hljs-comment">#{html}&lt;/div&gt;&lt;/body&gt;</span>
+  &lt;/html&gt;
+  <span class="hljs-string">"""
+
+
+</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
           <div class="pilwrap" id="helper-methods">
   <h2>
     <a href="#helper-methods" name="helper-methods" class="pilcrow"></a>
@@ -464,7 +483,89 @@ Helper methods
 
         </td>
         <td class="code highlight">
-          
+          <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">addLibs</span> = <span class="hljs-params">(tags, js)</span> -&gt;</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-21" id="section-21"></a>
+</div>
+<p>optimized tables</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-keyword">if</span> js?.match <span class="hljs-regexp">/\.DataTable\(/</span>
+    tags.unshift <span class="hljs-string">"""
+      &lt;link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/\
+      1.10.12/css/jquery.dataTables.css" /&gt;"""</span>
+    tags.push <span class="hljs-string">"""
+      &lt;script type="text/javascript" src="https://code.jquery.com/\
+      jquery-1.12.3.js"&gt;&lt;/script&gt;"""</span>
+    tags.push <span class="hljs-string">"""
+      &lt;script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/\
+      1.10.12/js/jquery.dataTables.js"&gt;&lt;/script&gt;"""</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-22" id="section-22"></a>
+</div>
+<p>ad jui chart libs</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-keyword">if</span> js?.match <span class="hljs-regexp">/jui\./</span>
+    tags.push <span class="hljs-string">"""
+      &lt;script type="text/javascript" src="https://code.jquery.com/\
+      jquery-1.12.3.js"&gt;&lt;/script&gt;"""</span>
+    tags.push <span class="hljs-string">"""&lt;script src="https://cdn.rawgit.com/juijs/jui-chart/\
+      v2.0.4/lib/core.min.js"&gt;&lt;/script&gt;"""</span>
+    tags.push <span class="hljs-string">"""&lt;script src="https://cdn.rawgit.com/juijs/jui-chart/\
+      v2.0.4/dist/chart.min.js"&gt;&lt;/script&gt;"""</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-23" id="section-23"></a>
+</div>
+<p>add only jquery</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-keyword">if</span> js?.match <span class="hljs-regexp">/\$\(/</span>
+    tags.push <span class="hljs-string">"""
+      &lt;script type="text/javascript" src="https://code.jquery.com/\
+      jquery-1.12.3.js"&gt;&lt;/script&gt;"""</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-24" id="section-24"></a>
+</div>
+<p>mermaid</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-keyword">if</span> js?.match <span class="hljs-regexp">/mermaid\.initialize/</span>
+    tags.push <span class="hljs-string">"""
+      &lt;script type="text/javascript" src="https://code.jquery.com/\
+      jquery-1.12.3.js"&gt;&lt;/script&gt;"""</span>
+    tags.push <span class="hljs-string">"""
+      &lt;script type="text/javascript" src="https://cdn.rawgit.com/knsv/mermaid/\
+      6.0.0/dist/mermaidAPI.min.js"&gt;&lt;/script&gt;"""</span>
+    tags.push <span class="hljs-string">"""
+      &lt;link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/knsv/mermaid/\
+      6.0.0/dist/mermaid.forest.css" /&gt;"""</span>
+    tags.push <span class="hljs-string">"""
+      &lt;script type="text/javascript"&gt;mermaidAPI.initialize({startOnLoad:true});&lt;/script&gt;"""</span></pre>
         </td>
       </tr>
     
@@ -488,7 +589,21 @@ initialize markdown to html converter
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-23" id="section-23"></a>
+  <a class="pilcrow" href="#section-26" id="section-26"></a>
+</div>
+<p>get report version</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  pack = JSON.parse fs.readFileSync <span class="hljs-string">"<span class="hljs-subst">#{path.dirname __dirname}</span>/package.json"</span>, <span class="hljs-string">'utf8'</span>
+  VERSION = pack.version</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-27" id="section-27"></a>
 </div>
 <p>setup markdown it</p>
 
@@ -507,7 +622,7 @@ initialize markdown to html converter
       <span class="hljs-keyword">try</span>
         <span class="hljs-keyword">return</span> hljs.highlightAuto(str).value
       <span class="hljs-keyword">return</span> <span class="hljs-string">''</span> <span class="hljs-comment"># use external default escaping</span>
-  .use pluginCode <span class="hljs-comment"># graphical visualizations</span>
+  .use pluginExecute <span class="hljs-comment"># graphical visualizations</span>
   .use mdTitle <span class="hljs-comment">#extracting title from source (first heading)</span>
   .use mdSub <span class="hljs-comment"># subscript support</span>
   .use mdSup <span class="hljs-comment"># superscript support</span>
@@ -517,7 +632,7 @@ initialize markdown to html converter
   .use mdContainer, <span class="hljs-string">'alert'</span> <span class="hljs-comment"># special boxes</span>
   .use mdMark <span class="hljs-comment"># add text as "marked"</span>
   .use mdEmoji <span class="hljs-comment"># add graphical emojis</span>
-  .use mdFontawesome
+  .use pluginFontawesome
   .use mdDeflist <span class="hljs-comment"># definition lists</span>
   .use mdAbbr <span class="hljs-comment"># abbreviations (auto added)</span>
   .use mdFootnote <span class="hljs-comment"># footnotes (auto linked)</span>
@@ -533,7 +648,7 @@ initialize markdown to html converter
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-24" id="section-24"></a>
+  <a class="pilcrow" href="#section-28" id="section-28"></a>
 </div>
 <p>set base to allow also access from local page display</p>
 
@@ -562,7 +677,7 @@ initialize markdown to html converter
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-25" id="section-25"></a>
+  <a class="pilcrow" href="#section-29" id="section-29"></a>
 </div>
 <p>code</p>
 
@@ -579,7 +694,7 @@ initialize markdown to html converter
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-26" id="section-26"></a>
+  <a class="pilcrow" href="#section-30" id="section-30"></a>
 </div>
 <p>boxes</p>
 
@@ -596,7 +711,7 @@ initialize markdown to html converter
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-27" id="section-27"></a>
+  <a class="pilcrow" href="#section-31" id="section-31"></a>
 </div>
 <p>replacement</p>
 
@@ -610,7 +725,7 @@ initialize markdown to html converter
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-28" id="section-28"></a>
+  <a class="pilcrow" href="#section-32" id="section-32"></a>
 </div>
 <p>return result</p>
 

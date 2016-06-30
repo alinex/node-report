@@ -64,292 +64,315 @@
 
         </td>
         <td class="code highlight">
-          <pre class="css"><span class="hljs-selector-tag">html</span> {
-  <span class="hljs-attribute">background</span>: <span class="hljs-number">#eee</span>;
+          <pre class="css">/* page setup */
+
+html {
+  background: #ddd;
+  padding: 20px;
 }
-<span class="hljs-selector-tag">body</span> {
-  <span class="hljs-attribute">font-family</span>: <span class="hljs-string">"Helvetica Neue"</span>,Helvetica,<span class="hljs-string">"Segoe UI"</span>,Arial,freesans,sans-serif,<span class="hljs-string">"Apple Color Emoji"</span>,<span class="hljs-string">"Segoe UI Emoji"</span>,<span class="hljs-string">"Segoe UI Symbol"</span>;
-  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">16px</span>;
-  <span class="hljs-attribute">line-height</span>: <span class="hljs-number">1.2</span>;
-  <span class="hljs-attribute">word-wrap</span>: break-word;
-  <span class="hljs-attribute">border</span>: <span class="hljs-number">2px</span> solid <span class="hljs-number">#aaa</span>;
-  <span class="hljs-attribute">box-shadow</span>: <span class="hljs-number">10px</span> <span class="hljs-number">10px</span> <span class="hljs-number">5px</span> <span class="hljs-number">#888888</span>;
-  <span class="hljs-attribute">max-width</span>: <span class="hljs-number">800px</span>;
-  <span class="hljs-attribute">margin</span>: <span class="hljs-number">20px</span> auto;
-  <span class="hljs-attribute">padding</span>: <span class="hljs-number">17px</span>;
-  <span class="hljs-attribute">background</span>: <span class="hljs-number">#fff</span>;
+body {
+  font-family: "Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+  font-size: 16px;
+  line-height: 1.2;
+  word-wrap: break-word;
 }
-<span class="hljs-selector-tag">body</span> &gt; <span class="hljs-selector-tag">h1</span> {
-  <span class="hljs-attribute">margin-top</span>: <span class="hljs-number">0</span>;
+div#page &gt; h1 {
+  margin-top: 0;
+}
+div#page {
+  border: 1px solid #aaa;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.4), 0 12px 40px 0 rgba(0, 0, 0, 0.4);;
+  max-width: 800px;
+  display: inline-block;
+  background: #fff;
+  padding: 17px;
+  overflow: auto;
 }
 
-<span class="hljs-selector-tag">h1</span> {
-  <span class="hljs-attribute">border-bottom</span>: <span class="hljs-number">3px</span> solid black;
-  <span class="hljs-attribute">padding-bottom</span>: <span class="hljs-number">5px</span>;
+/* headings */
+
+h1 {
+  border-bottom: 3px solid black;
+  padding-bottom: 5px;
 }
-<span class="hljs-selector-tag">h2</span> {
-  <span class="hljs-attribute">border-bottom</span>: <span class="hljs-number">2px</span> dotted black;
-  <span class="hljs-attribute">padding-bottom</span>: <span class="hljs-number">3px</span>;
+h2 {
+  border-bottom: 2px dotted black;
+  padding-bottom: 3px;
 }
-<span class="hljs-selector-tag">h3</span> {
-  <span class="hljs-attribute">border-bottom</span>: <span class="hljs-number">1px</span> dotted gray;
-  <span class="hljs-attribute">padding-bottom</span>: <span class="hljs-number">2px</span>;
-}
-<span class="hljs-selector-tag">a</span> {
-  <span class="hljs-attribute">color</span>: darkblue;
+h3 {
+  border-bottom: 1px dotted gray;
+  padding-bottom: 2px;
 }
 
-<span class="hljs-selector-tag">dt</span> {
-  <span class="hljs-attribute">font-weight</span>: bold;
-  <span class="hljs-attribute">margin-top</span>: <span class="hljs-number">8px</span>;
+/* Other elements */
+
+a {
+  color: darkblue;
 }
 
-<span class="hljs-selector-tag">blockquote</span> {
-  <span class="hljs-attribute">border-left</span>: <span class="hljs-number">4px</span> solid <span class="hljs-number">#ddd</span>;
-  <span class="hljs-attribute">color</span>: <span class="hljs-number">#777</span>;
-  <span class="hljs-attribute">padding</span>: <span class="hljs-number">3px</span> <span class="hljs-number">15px</span>;
-  <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span> <span class="hljs-number">15px</span>;
-}
-<span class="hljs-selector-tag">pre</span> {
-  <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#fafafa</span>;
-  <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">10px</span>;
-  <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid <span class="hljs-number">#a4a4a4</span>;
-  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">85%</span>;
-  <span class="hljs-attribute">margin</span>: <span class="hljs-number">20px</span>;
-  <span class="hljs-attribute">padding</span>: <span class="hljs-number">10px</span>;
-}
-<span class="hljs-selector-tag">code</span>, <span class="hljs-selector-tag">tt</span> {
-  <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#fafafa</span>;
-  <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">4px</span>;
-  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">85%</span>;
-  <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;
-  <span class="hljs-attribute">padding</span>: <span class="hljs-number">0.2em</span> <span class="hljs-number">0</span>;
-}
-<span class="hljs-selector-tag">pre</span> <span class="hljs-selector-tag">code</span>, <span class="hljs-selector-tag">pre</span> <span class="hljs-selector-tag">tt</span> {
-  <span class="hljs-attribute">background</span>: none;
-}
-<span class="hljs-selector-tag">pre</span> <span class="hljs-selector-tag">code</span><span class="hljs-selector-class">.language</span> <span class="hljs-selector-tag">header</span> {
-    <span class="hljs-attribute">color</span>: <span class="hljs-number">#505050</span>;
-    <span class="hljs-attribute">font-weight</span>: bold;
-    <span class="hljs-attribute">display</span>: block;
-    <span class="hljs-attribute">background</span>: <span class="hljs-built_in">rgba</span>(225, 135, 40, 0.38);
-    <span class="hljs-attribute">border-top-left-radius</span>: <span class="hljs-number">4px</span>;
-    <span class="hljs-attribute">border-top-right-radius</span>: <span class="hljs-number">4px</span>;
-    <span class="hljs-attribute">margin-bottom</span>: <span class="hljs-number">5px</span>;
-    <span class="hljs-attribute">margin</span>: -<span class="hljs-number">10px</span> -<span class="hljs-number">10px</span> <span class="hljs-number">5px</span> -<span class="hljs-number">10px</span>;
-    <span class="hljs-attribute">padding</span>: <span class="hljs-number">5px</span>;
+dt {
+  font-weight: bold;
+  margin-top: 8px;
 }
 
-<span class="hljs-selector-tag">div</span><span class="hljs-selector-class">.detail</span>, <span class="hljs-selector-tag">div</span><span class="hljs-selector-class">.info</span>, <span class="hljs-selector-tag">div</span><span class="hljs-selector-class">.warning</span>, <span class="hljs-selector-tag">div</span><span class="hljs-selector-class">.alert</span> {
-  <span class="hljs-attribute">padding</span>: <span class="hljs-number">20px</span> <span class="hljs-number">10px</span> <span class="hljs-number">6px</span> <span class="hljs-number">10px</span>;
-  <span class="hljs-attribute">margin</span>: <span class="hljs-number">5px</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span>;
-}
-<span class="hljs-selector-tag">div</span><span class="hljs-selector-class">.detail</span>&gt;<span class="hljs-selector-tag">p</span>, <span class="hljs-selector-tag">div</span><span class="hljs-selector-class">.info</span>&gt;<span class="hljs-selector-tag">p</span>, <span class="hljs-selector-tag">div</span><span class="hljs-selector-class">.warning</span>&gt;<span class="hljs-selector-tag">p</span>, <span class="hljs-selector-tag">div</span><span class="hljs-selector-class">.alert</span>&gt;<span class="hljs-selector-tag">p</span> {
-  <span class="hljs-attribute">margin-bottom</span>: <span class="hljs-number">0</span>;
-}
-<span class="hljs-selector-tag">div</span><span class="hljs-selector-class">.info</span> <span class="hljs-selector-tag">header</span>, <span class="hljs-selector-tag">div</span><span class="hljs-selector-class">.warning</span> <span class="hljs-selector-tag">header</span>, <span class="hljs-selector-tag">div</span><span class="hljs-selector-class">.alert</span> <span class="hljs-selector-tag">header</span> {
-  <span class="hljs-attribute">font-weight</span>: bold;
-  <span class="hljs-attribute">position</span>: absolute;
-  <span class="hljs-attribute">margin-top</span>: -<span class="hljs-number">20px</span>;
-  <span class="hljs-attribute">margin-left</span>: -<span class="hljs-number">10px</span>;
-  <span class="hljs-attribute">padding</span>: <span class="hljs-number">3px</span> <span class="hljs-number">20px</span> <span class="hljs-number">3px</span> <span class="hljs-number">10px</span>;
-  <span class="hljs-attribute">border-bottom-right-radius</span>: <span class="hljs-number">18px</span>;
-}
-<span class="hljs-selector-tag">div</span><span class="hljs-selector-class">.detail</span> {
-  <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#fafafa</span>;
-  <span class="hljs-attribute">border</span>: <span class="hljs-number">2px</span> solid <span class="hljs-number">#ddd</span>;
-  <span class="hljs-attribute">padding-top</span>: <span class="hljs-number">0</span>;
-}
-<span class="hljs-selector-tag">div</span><span class="hljs-selector-class">.info</span> {
-  <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#99ff99</span>;
-  <span class="hljs-attribute">border</span>: <span class="hljs-number">2px</span> solid <span class="hljs-number">#66dd66</span>;
-}
-<span class="hljs-selector-tag">div</span><span class="hljs-selector-class">.info</span> <span class="hljs-selector-tag">header</span> {
-  <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#66dd66</span>;
-}
-<span class="hljs-selector-tag">div</span><span class="hljs-selector-class">.warning</span> {
-  <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#ffcc99</span>;
-  <span class="hljs-attribute">border</span>: <span class="hljs-number">2px</span> solid <span class="hljs-number">#ee8866</span>;
-}
-<span class="hljs-selector-tag">div</span><span class="hljs-selector-class">.warning</span> <span class="hljs-selector-tag">header</span> {
-  <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#ee8866</span>;
-}
-<span class="hljs-selector-tag">div</span><span class="hljs-selector-class">.alert</span> {
-  <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#ff9999</span>;
-  <span class="hljs-attribute">border</span>: <span class="hljs-number">2px</span> solid <span class="hljs-number">#cc0000</span>;
-}
-<span class="hljs-selector-tag">div</span><span class="hljs-selector-class">.alert</span> <span class="hljs-selector-tag">header</span> {
-  <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#cc0000</span>;
-  <span class="hljs-attribute">color</span>: white;
+blockquote {
+  border-left: 4px solid #ddd;
+  color: #777;
+  padding: 3px 15px;
+  margin: 0 15px;
 }
 
-<span class="hljs-selector-tag">table</span> {
-  <span class="hljs-attribute">border-collapse</span>: collapse;
-  <span class="hljs-attribute">border-spacing</span>: <span class="hljs-number">0</span>;
-  <span class="hljs-attribute">display</span>: block;
-  <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
-  <span class="hljs-attribute">overflow</span>: auto;
-  <span class="hljs-attribute">word-break</span>: normal;
-  <span class="hljs-attribute">word-break</span>: keep-all;
+img {
+  vertical-align: middle;
+}
+.emoji {
+  height: 1em;
+}
+abbr, acronym {
+  border-bottom: dotted 1px;
 }
 
-<span class="hljs-selector-tag">table</span> <span class="hljs-selector-tag">th</span>,
-<span class="hljs-selector-tag">table</span> <span class="hljs-selector-tag">td</span> {
-  <span class="hljs-attribute">padding</span>: <span class="hljs-number">6px</span> <span class="hljs-number">13px</span>;
-  <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid <span class="hljs-number">#ddd</span>;
-}
-<span class="hljs-selector-tag">table</span> <span class="hljs-selector-tag">th</span> {
-  <span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">rgba</span>(0, 0, 0, 0.04);
-  <span class="hljs-attribute">font-weight</span>: bold;
-  <span class="hljs-attribute">border-bottom</span>: <span class="hljs-number">3px</span> solid <span class="hljs-number">#999</span>;
-}
-<span class="hljs-selector-tag">table</span> <span class="hljs-selector-tag">tr</span> {
-  <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#fff</span>;
-  <span class="hljs-attribute">border-top</span>: <span class="hljs-number">1px</span> solid <span class="hljs-number">#ccc</span>;
-}
-<span class="hljs-selector-tag">table</span> <span class="hljs-selector-tag">tr</span><span class="hljs-selector-pseudo">:nth-child(2n)</span> {
-  <span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">rgba</span>(0, 0, 0, 0.04);
+/* tables */
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  display: block;
+  width: 100%;
+  overflow: auto;
+  word-break: normal;
+  word-break: keep-all;
 }
 
-<span class="hljs-selector-tag">img</span> {
-  <span class="hljs-attribute">vertical-align</span>: middle;
+table th,
+table td {
+  padding: 6px 13px;
+  border: 1px solid #ddd;
 }
-<span class="hljs-selector-class">.emoji</span> {
-  <span class="hljs-attribute">height</span>: <span class="hljs-number">1em</span>;
+table th {
+  background-color: rgba(0, 0, 0, 0.04);
+  font-weight: bold;
+  border-bottom: 3px solid #999;
 }
-<span class="hljs-selector-tag">abbr</span>, <span class="hljs-selector-tag">acronym</span> {
-  <span class="hljs-attribute">border-bottom</span>: dotted <span class="hljs-number">1px</span>;
+table tr {
+  background-color: #fff;
+  border-top: 1px solid #ccc;
 }
-
-<span class="hljs-selector-class">.table-of-contents</span> <span class="hljs-selector-tag">header</span> {
-  <span class="hljs-attribute">font-weight</span>: bold;
-  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">120%</span>;
-  <span class="hljs-attribute">display</span>: block;
-  <span class="hljs-attribute">background</span>: <span class="hljs-number">#ddd</span>;
-  <span class="hljs-attribute">margin</span>: -<span class="hljs-number">10px</span> -<span class="hljs-number">10px</span> <span class="hljs-number">4px</span> -<span class="hljs-number">25px</span>;
-  <span class="hljs-attribute">border-top-left-radius</span>: <span class="hljs-number">10px</span>;
-  <span class="hljs-attribute">border-top-right-radius</span>: <span class="hljs-number">10px</span>;
-  <span class="hljs-attribute">padding</span>: <span class="hljs-number">3px</span> <span class="hljs-number">10px</span>;
-}
-<span class="hljs-selector-class">.table-of-contents</span> {
-  <span class="hljs-attribute">border</span>: <span class="hljs-number">2px</span> solid <span class="hljs-number">#ddd</span>;
-  <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">10px</span>;
-  <span class="hljs-attribute">float</span>: right;
-  <span class="hljs-attribute">margin-top</span>: <span class="hljs-number">0</span>;
-  <span class="hljs-attribute">padding</span>: <span class="hljs-number">10px</span> <span class="hljs-number">10px</span> <span class="hljs-number">10px</span> <span class="hljs-number">25px</span>;
-  <span class="hljs-attribute">background</span>: <span class="hljs-number">#fafafa</span>;
-  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">90%</span>;
-}
-<span class="hljs-selector-class">.table-of-contents</span> <span class="hljs-selector-tag">ul</span> {
-  <span class="hljs-attribute">padding-left</span>: <span class="hljs-number">15px</span>;
-}
-<span class="hljs-selector-class">.table-of-contents</span> <span class="hljs-selector-tag">a</span> {
-  <span class="hljs-attribute">text-decoration</span>: none;
+table tr:nth-child(2n) {
+  background-color: rgba(0, 0, 0, 0.04);
 }
 
-<span class="hljs-selector-class">.center</span> {
-  <span class="hljs-attribute">text-align</span>: center;
-}
-<span class="hljs-selector-class">.red</span> {
-  <span class="hljs-attribute">color</span>: red;
-}
+/* Tomorrow Night Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
 
-
-<span class="hljs-comment">/* Tomorrow Night Theme */</span>
-<span class="hljs-comment">/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */</span>
-<span class="hljs-comment">/* Original theme - https://github.com/chriskempson/tomorrow-theme */</span>
-<span class="hljs-comment">/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */</span>
-
-<span class="hljs-comment">/* Tomorrow Comment */</span>
-<span class="hljs-selector-class">.hljs-comment</span>,
-<span class="hljs-selector-class">.hljs-quote</span> {
-  <span class="hljs-attribute">color</span>: <span class="hljs-number">#969896</span>;
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+  color: #969896;
 }
 
-<span class="hljs-comment">/* Tomorrow Red */</span>
-<span class="hljs-selector-class">.hljs-variable</span>,
-<span class="hljs-selector-class">.hljs-template-variable</span>,
-<span class="hljs-selector-class">.hljs-tag</span>,
-<span class="hljs-selector-class">.hljs-name</span>,
-<span class="hljs-selector-class">.hljs-selector-id</span>,
-<span class="hljs-selector-class">.hljs-selector-class</span>,
-<span class="hljs-selector-class">.hljs-regexp</span>,
-<span class="hljs-selector-class">.hljs-deletion</span> {
-  <span class="hljs-attribute">color</span>: <span class="hljs-number">#cc6666</span>;
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+  color: #cc6666;
 }
 
-<span class="hljs-comment">/* Tomorrow Orange */</span>
-<span class="hljs-selector-class">.hljs-number</span>,
-<span class="hljs-selector-class">.hljs-built_in</span>,
-<span class="hljs-selector-class">.hljs-builtin-name</span>,
-<span class="hljs-selector-class">.hljs-literal</span>,
-<span class="hljs-selector-class">.hljs-type</span>,
-<span class="hljs-selector-class">.hljs-params</span>,
-<span class="hljs-selector-class">.hljs-meta</span>,
-<span class="hljs-selector-class">.hljs-link</span> {
-  <span class="hljs-attribute">color</span>: <span class="hljs-number">#de935f</span>;
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+  color: #de935f;
 }
 
-<span class="hljs-comment">/* Tomorrow Yellow */</span>
-<span class="hljs-selector-class">.hljs-attribute</span> {
-  <span class="hljs-attribute">color</span>: <span class="hljs-number">#f0c674</span>;
+/* Tomorrow Yellow */
+.hljs-attribute {
+  color: #f0c674;
 }
 
-<span class="hljs-comment">/* Tomorrow Green */</span>
-<span class="hljs-selector-class">.hljs-string</span>,
-<span class="hljs-selector-class">.hljs-symbol</span>,
-<span class="hljs-selector-class">.hljs-bullet</span>,
-<span class="hljs-selector-class">.hljs-addition</span> {
-  <span class="hljs-attribute">color</span>: <span class="hljs-number">#b5bd68</span>;
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+  color: #b5bd68;
 }
 
-<span class="hljs-comment">/* Tomorrow Blue */</span>
-<span class="hljs-selector-class">.hljs-title</span>,
-<span class="hljs-selector-class">.hljs-section</span> {
-  <span class="hljs-attribute">color</span>: <span class="hljs-number">#81a2be</span>;
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+  color: #81a2be;
 }
 
-<span class="hljs-comment">/* Tomorrow Purple */</span>
-<span class="hljs-selector-class">.hljs-keyword</span>,
-<span class="hljs-selector-class">.hljs-selector-tag</span> {
-  <span class="hljs-attribute">color</span>: <span class="hljs-number">#b294bb</span>;
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+  color: #b294bb;
 }
 
-<span class="hljs-selector-class">.hljs</span> {
-  <span class="hljs-attribute">display</span>: block;
-  <span class="hljs-attribute">overflow-x</span>: auto;
-  <span class="hljs-attribute">background</span>: <span class="hljs-number">#1d1f21</span>;
-  <span class="hljs-attribute">color</span>: <span class="hljs-number">#c5c8c6</span>;
-  <span class="hljs-attribute">padding</span>: <span class="hljs-number">0.5em</span>;
+.hljs {
+  display: block;
+  overflow-x: auto;
+  background: #1d1f21;
+  color: #c5c8c6;
+  padding: 0.5em;
 }
 
-<span class="hljs-selector-class">.hljs-emphasis</span> {
-  <span class="hljs-attribute">font-style</span>: italic;
+.hljs-emphasis {
+  font-style: italic;
 }
 
-<span class="hljs-selector-class">.hljs-strong</span> {
-  <span class="hljs-attribute">font-weight</span>: bold;
+.hljs-strong {
+  font-weight: bold;
 }
 
+/* code boxes */
 
-<span class="hljs-comment">/* Styles to be used through decorator */</span>
+pre {
+  background-color: #fafafa;
+  border-radius: 10px;
+  border: 1px solid #a4a4a4;
+  font-size: 85%;
+  margin: 20px;
+  padding: 10px;
+}
+code, tt {
+  background-color: #fafafa;
+  border-radius: 4px;
+  font-size: 85%;
+  margin: 0;
+  padding: 0.2em 0;
+}
+pre code, pre tt {
+  background: none;
+}
+pre code.language header {
+    color: black;
+    font-weight: bold;
+    display: block;
+    background: #fafafa;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    margin-bottom: 5px;
+    margin: -10px -10px 5px -10px;
+    padding: 5px;
+}
+pre code.bash header,
+pre code.coffee header,
+pre code.js header,
+pre code.sh header,
+pre code.sql header
+{   background: #f0ad4e; }
+pre code.json header,
+pre code.yaml header
+{   background: #61b961; }
+pre code.handlebars header,
+pre code.markdown header
+{   background: #76abca; }
 
-<span class="hljs-selector-class">.top-right</span> {
-  <span class="hljs-attribute">position</span>: absolute
-  top: <span class="hljs-number">0px</span>;
-  <span class="hljs-attribute">right</span>: <span class="hljs-number">0px</span>;
+/* table of contents */
+
+.table-of-contents header {
+  font-weight: bold;
+  font-size: 120%;
+  display: block;
+  background: #ddd;
+  margin: -10px -10px 4px -25px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  padding: 3px 10px;
 }
-<span class="hljs-selector-class">.right</span> {
-  <span class="hljs-attribute">float</span>: right;
-  <span class="hljs-attribute">margin-top</span>: <span class="hljs-number">0</span>;
-  <span class="hljs-attribute">padding</span>: <span class="hljs-number">10px</span> <span class="hljs-number">10px</span> <span class="hljs-number">10px</span> <span class="hljs-number">25px</span>;
+.table-of-contents {
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  float: right;
+  margin-top: 0;
+  padding: 10px 10px 10px 25px;
+  background: #fafafa;
+  font-size: 90%;
 }
-<span class="hljs-selector-class">.spacing</span> {
-  <span class="hljs-attribute">padding</span>: <span class="hljs-number">10px</span>;
+.table-of-contents ul {
+  padding-left: 15px;
 }
-<span class="hljs-selector-class">.bg-white</span> {
-  <span class="hljs-attribute">background-color</span>: white;
-}</pre>
+.table-of-contents a {
+  text-decoration: none;
+}
+
+/* Possible box layouts */
+
+div.detail, div.info, div.warning, div.alert {
+  padding: 20px 10px 6px 10px;
+  margin: 5px 0 0 0;
+}
+div.detail&gt;p, div.info&gt;p, div.warning&gt;p, div.alert&gt;p {
+  margin-bottom: 0;
+}
+div.info header, div.warning header, div.alert header {
+  font-weight: bold;
+  position: absolute;
+  margin-top: -20px;
+  margin-left: -10px;
+  padding: 3px 20px 3px 10px;
+  border-bottom-right-radius: 18px;
+}
+div.detail {
+  background-color: #fafafa;
+  border: 2px solid #ddd;
+  padding-top: 0;
+}
+div.info {
+  background-color: #99ff99;
+  border: 2px solid #66dd66;
+}
+div.info header {
+  background-color: #66dd66;
+}
+div.warning {
+  background-color: #ffcc99;
+  border: 2px solid #ee8866;
+}
+div.warning header {
+  background-color: #ee8866;
+}
+div.alert {
+  background-color: #ff9999;
+  border: 2px solid #cc0000;
+}
+div.alert header {
+  background-color: #cc0000;
+  color: white;
+}
+
+/* Color styles for fontawesome and more */
+
+.text-red {color: red;}
+.text-green {color: green;}
+.text-yellow {color: yellow;}
+.text-blue {color: blue;}
+.text-magenta {color: magenta;}
+.text-cyan {color: cyan;}
+.text-gray {color: gray;}
+
+/* styles for decorate */
+
+.bg-white {background-color: white;}
+.center {text-align: center;}
+.left {float: left;}
+.right {float: right;}
+.hide {display: none;}
+.spacing {padding: 10px;}</pre>
         </td>
       </tr>
     

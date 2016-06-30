@@ -71,7 +71,8 @@
     <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">"UTF-8"</span> /&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/css"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://cdn.datatables.net/1.10.12/css/jquery.dataTables.css"</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span> <span class="hljs-attr">language</span>=<span class="hljs-string">"javascript"</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://code.jquery.com/jquery-1.12.3.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">"utf8"</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.datatables.net/1.10.12/js/jquery.dataTables.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">style</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/css"</span>&gt;</span><span class="css"><span class="hljs-selector-tag">html</span> {
-  <span class="hljs-attribute">background</span>: <span class="hljs-number">#eee</span>;
+  <span class="hljs-attribute">background</span>: <span class="hljs-number">#222</span>;
+  <span class="hljs-attribute">padding</span>: <span class="hljs-number">20px</span>;
 }
 <span class="hljs-selector-tag">body</span> {
   <span class="hljs-attribute">font-family</span>: <span class="hljs-string">"Helvetica Neue"</span>,Helvetica,<span class="hljs-string">"Segoe UI"</span>,Arial,freesans,sans-serif,<span class="hljs-string">"Apple Color Emoji"</span>,<span class="hljs-string">"Segoe UI Emoji"</span>,<span class="hljs-string">"Segoe UI Symbol"</span>;
@@ -81,7 +82,7 @@
   <span class="hljs-attribute">border</span>: <span class="hljs-number">2px</span> solid <span class="hljs-number">#aaa</span>;
   <span class="hljs-attribute">box-shadow</span>: <span class="hljs-number">10px</span> <span class="hljs-number">10px</span> <span class="hljs-number">5px</span> <span class="hljs-number">#888888</span>;
   <span class="hljs-attribute">max-width</span>: <span class="hljs-number">800px</span>;
-  <span class="hljs-attribute">margin</span>: <span class="hljs-number">20px</span> auto;
+  <span class="hljs-attribute">margin</span>: <span class="hljs-number">0px</span> auto;
   <span class="hljs-attribute">padding</span>: <span class="hljs-number">17px</span>;
   <span class="hljs-attribute">background</span>: <span class="hljs-number">#fff</span>;
 }
@@ -135,16 +136,28 @@
   <span class="hljs-attribute">background</span>: none;
 }
 <span class="hljs-selector-tag">pre</span> <span class="hljs-selector-tag">code</span><span class="hljs-selector-class">.language</span> <span class="hljs-selector-tag">header</span> {
-    <span class="hljs-attribute">color</span>: <span class="hljs-number">#505050</span>;
+    <span class="hljs-attribute">color</span>: black;
     <span class="hljs-attribute">font-weight</span>: bold;
     <span class="hljs-attribute">display</span>: block;
-    <span class="hljs-attribute">background</span>: <span class="hljs-built_in">rgba</span>(225, 135, 40, 0.38);
+    <span class="hljs-attribute">background</span>: <span class="hljs-number">#fafafa</span>;
     <span class="hljs-attribute">border-top-left-radius</span>: <span class="hljs-number">4px</span>;
     <span class="hljs-attribute">border-top-right-radius</span>: <span class="hljs-number">4px</span>;
     <span class="hljs-attribute">margin-bottom</span>: <span class="hljs-number">5px</span>;
     <span class="hljs-attribute">margin</span>: -<span class="hljs-number">10px</span> -<span class="hljs-number">10px</span> <span class="hljs-number">5px</span> -<span class="hljs-number">10px</span>;
     <span class="hljs-attribute">padding</span>: <span class="hljs-number">5px</span>;
 }
+<span class="hljs-selector-tag">pre</span> <span class="hljs-selector-tag">code</span><span class="hljs-selector-class">.bash</span> <span class="hljs-selector-tag">header</span>,
+<span class="hljs-selector-tag">pre</span> <span class="hljs-selector-tag">code</span><span class="hljs-selector-class">.coffee</span> <span class="hljs-selector-tag">header</span>,
+<span class="hljs-selector-tag">pre</span> <span class="hljs-selector-tag">code</span><span class="hljs-selector-class">.js</span> <span class="hljs-selector-tag">header</span>,
+<span class="hljs-selector-tag">pre</span> <span class="hljs-selector-tag">code</span><span class="hljs-selector-class">.sh</span> <span class="hljs-selector-tag">header</span>,
+<span class="hljs-selector-tag">pre</span> <span class="hljs-selector-tag">code</span><span class="hljs-selector-class">.sql</span> <span class="hljs-selector-tag">header</span>
+{   <span class="hljs-attribute">background</span>: <span class="hljs-number">#f0ad4e</span>; }
+<span class="hljs-selector-tag">pre</span> <span class="hljs-selector-tag">code</span><span class="hljs-selector-class">.json</span> <span class="hljs-selector-tag">header</span>,
+<span class="hljs-selector-tag">pre</span> <span class="hljs-selector-tag">code</span><span class="hljs-selector-class">.yaml</span> <span class="hljs-selector-tag">header</span>
+{   <span class="hljs-attribute">background</span>: <span class="hljs-number">#61b961</span>; }
+<span class="hljs-selector-tag">pre</span> <span class="hljs-selector-tag">code</span><span class="hljs-selector-class">.handlebars</span> <span class="hljs-selector-tag">header</span>,
+<span class="hljs-selector-tag">pre</span> <span class="hljs-selector-tag">code</span><span class="hljs-selector-class">.markdown</span> <span class="hljs-selector-tag">header</span>
+{   <span class="hljs-attribute">background</span>: <span class="hljs-number">#76abca</span>; }
 
 <span class="hljs-selector-tag">div</span><span class="hljs-selector-class">.detail</span>, <span class="hljs-selector-tag">div</span><span class="hljs-selector-class">.info</span>, <span class="hljs-selector-tag">div</span><span class="hljs-selector-class">.warning</span>, <span class="hljs-selector-tag">div</span><span class="hljs-selector-class">.alert</span> {
   <span class="hljs-attribute">padding</span>: <span class="hljs-number">20px</span> <span class="hljs-number">10px</span> <span class="hljs-number">6px</span> <span class="hljs-number">10px</span>;
@@ -256,10 +269,6 @@
 <span class="hljs-selector-class">.center</span> {
   <span class="hljs-attribute">text-align</span>: center;
 }
-<span class="hljs-selector-class">.red</span> {
-  <span class="hljs-attribute">color</span>: red;
-}
-
 
 <span class="hljs-comment">/* Tomorrow Night Theme */</span>
 <span class="hljs-comment">/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */</span>
@@ -356,6 +365,16 @@
 <span class="hljs-selector-class">.bg-white</span> {
   <span class="hljs-attribute">background-color</span>: white;
 }
+
+<span class="hljs-comment">/* Color styles for fontawesome and more */</span>
+
+<span class="hljs-selector-class">.text-red</span> {<span class="hljs-attribute">color</span>: red;}
+<span class="hljs-selector-class">.text-green</span> {<span class="hljs-attribute">color</span>: green;}
+<span class="hljs-selector-class">.text-yellow</span> {<span class="hljs-attribute">color</span>: yellow;}
+<span class="hljs-selector-class">.text-blue</span> {<span class="hljs-attribute">color</span>: blue;}
+<span class="hljs-selector-class">.text-magenta</span> {<span class="hljs-attribute">color</span>: magenta;}
+<span class="hljs-selector-class">.text-cyan</span> {<span class="hljs-attribute">color</span>: cyan;}
+<span class="hljs-selector-class">.text-gray</span> {<span class="hljs-attribute">color</span>: gray;}
 
 </span></pre>
         </td>

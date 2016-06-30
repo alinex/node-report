@@ -643,10 +643,9 @@ pre {
 }
 pre code.bash::before {
   content: "Bash Script";
-  color: #505050;
   font-weight: bold;
   display: block;
-  background: rgba(225, 135, 40, 0.38);
+  background: #f0ad4e;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
   margin-bottom: 5px;
@@ -655,34 +654,9 @@ pre code.bash::before {
 }
 pre code.coffee::before {
   content: "CoffeeScript Code";
-  color: #505050;
   font-weight: bold;
   display: block;
-  background: rgba(225, 135, 40, 0.38);
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
-  margin-bottom: 5px;
-  margin: -6px -5px 2px -11px;
-  padding: 4px 0 0 10px;
-}
-pre code.json::before {
-  content: "CSON Data";
-  color: #505050;
-  font-weight: bold;
-  display: block;
-  background: rgba(225, 135, 40, 0.38);
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
-  margin-bottom: 5px;
-  margin: -6px -5px 2px -11px;
-  padding: 4px 0 0 10px;
-}
-pre code.handlebars::before {
-  content: "Handlebars Template";
-  color: #505050;
-  font-weight: bold;
-  display: block;
-  background: rgba(225, 135, 40, 0.38);
+  background: #f0ad4e;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
   margin-bottom: 5px;
@@ -691,34 +665,9 @@ pre code.handlebars::before {
 }
 pre code.js::before {
   content: "JavaScript Code";
-  color: #505050;
   font-weight: bold;
   display: block;
-  background: rgba(225, 135, 40, 0.38);
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
-  margin-bottom: 5px;
-  margin: -6px -5px 2px -11px;
-  padding: 4px 0 0 10px;
-}
-pre code.json::before {
-  content: "JSON Data";
-  color: #505050;
-  font-weight: bold;
-  display: block;
-  background: rgba(225, 135, 40, 0.38);
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
-  margin-bottom: 5px;
-  margin: -6px -5px 2px -11px;
-  padding: 4px 0 0 10px;
-}
-pre code.markdown::before {
-  content: "Markdown Documentation";
-  color: #505050;
-  font-weight: bold;
-  display: block;
-  background: rgba(225, 135, 40, 0.38);
+  background: #f0ad4e;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
   margin-bottom: 5px;
@@ -727,10 +676,32 @@ pre code.markdown::before {
 }
 pre code.sh::before {
   content: "Shell Script";
-  color: #505050;
   font-weight: bold;
   display: block;
-  background: rgba(225, 135, 40, 0.38);
+  background: #f0ad4e;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  margin-bottom: 5px;
+  margin: -6px -5px 2px -11px;
+  padding: 4px 0 0 10px;
+}
+pre code.sql::before {
+  content: "SQL Code";
+  font-weight: bold;
+  display: block;
+  background: #f0ad4e;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  margin-bottom: 5px;
+  margin: -6px -5px 2px -11px;
+  padding: 4px 0 0 10px;
+}
+
+pre code.json::before {
+  content: "JSON Data";
+  font-weight: bold;
+  display: block;
+  background: #61b961;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
   margin-bottom: 5px;
@@ -739,10 +710,32 @@ pre code.sh::before {
 }
 pre code.yaml::before {
   content: "YAML data";
-  color: #505050;
   font-weight: bold;
   display: block;
-  background: rgba(225, 135, 40, 0.38);
+  background: #61b961;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  margin-bottom: 5px;
+  margin: -6px -5px 2px -11px;
+  padding: 4px 0 0 10px;
+}
+
+pre code.handlebars::before {
+  content: "Handlebars Template";
+  font-weight: bold;
+  display: block;
+  background: #76abca;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  margin-bottom: 5px;
+  margin: -6px -5px 2px -11px;
+  padding: 4px 0 0 10px;
+}
+pre code.markdown::before {
+  content: "Markdown Documentation";
+  font-weight: bold;
+  display: block;
+  background: #76abca;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
   margin-bottom: 5px;
