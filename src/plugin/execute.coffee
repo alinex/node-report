@@ -21,6 +21,8 @@ util = require 'alinex-util'
 format = require 'alinex-format'
 Table = require 'alinex-table'
 fs = require 'alinex-fs'
+# require 'mermaid' # used as binary
+
 
 dataParse = deasync format.parse
 dataStringify = deasync format.stringify
