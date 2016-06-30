@@ -82,7 +82,7 @@ describe "document", ->
       </div></body>
       """, cb
 
-  it.only "should add footnotes", (cb) ->
+  it "should add footnotes", (cb) ->
     report = new Report()
     cern = report.footnote "European Organization for Nuclear Research\n\nSee more info at http://home.cern"
     me = report.footnote "Alexander Schilling", 'a'
@@ -101,21 +101,20 @@ describe "document", ->
       [^a]: Alexander Schilling
       [^b]: My colleagues as the University of Tübingen
 
-      """, null, cb
-#"""
-#<body><div id="page"><p>The World Wide Web (WWW) is invented by CERN<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>. But I<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup> and prometheus<sup class="footnote-ref"><a href="#fn3" id="fnref3">[3]</a></sup>
-#used it to make a medical learning environment out of it. <em>Alex<sup class="footnote-ref"><a href="#fn2" id="fnref2:1">[2]</a></sup></em></p>
-#<hr class="footnotes-sep" />
-#<section class="footnotes">
-#<ol class="footnotes-list">
-#<li id="fn1"  class="footnote-item"><p>European Organization for Nuclear Research</p>
-#<p>See more info at <a href="http://home.cern">http://home.cern</a> <a href="#fnref1" class="footnote-backref">↩</a></p>
-#</li>
-#<li id="fn2"  class="footnote-item"><p>Alexander Schilling <a href="#fnref2" class="footnote-backref">↩</a> <a href="#fnref2:1" class="footnote-backref">↩</a></p>
-#</li>
-#<li id="fn3"  class="footnote-item"><p>My colleagues as the University of Tübingen <a href="#fnref3" class="footnote-backref">↩</a></p>
-#</li>
-#</ol>
-#</section>
-#</div></body>
-#"""
+      """, """
+      <body><div id="page"><p>The World Wide Web (WWW) is invented by CERN<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>. But I<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup> and prometheus<sup class="footnote-ref"><a href="#fn3" id="fnref3">[3]</a></sup>
+      used it to make a medical learning environment out of it. <em>Alex<sup class="footnote-ref"><a href="#fn2:1" id="fnref2:1">[2:1]</a></sup></em></p>
+      <hr class="footnotes-sep" />
+      <section class="footnotes">
+      <ol class="footnotes-list">
+      <li id="fn1" class="footnote-item"><p>European Organization for Nuclear Research</p>
+      <p>See more info at <a href="http://home.cern">http://home.cern</a> <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+      </li>
+      <li id="fn2" class="footnote-item"><p>Alexander Schilling <a href="#fnref2" class="footnote-backref">↩︎</a> <a href="#fnref2:1" class="footnote-backref">↩︎</a></p>
+      </li>
+      <li id="fn3" class="footnote-item"><p>My colleagues as the University of Tübingen <a href="#fnref3" class="footnote-backref">↩︎</a></p>
+      </li>
+      </ol>
+      </section>
+      </div></body>
+      """, cb
