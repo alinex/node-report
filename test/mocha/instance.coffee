@@ -184,6 +184,7 @@ describe "instance", ->
 
     it "should write all formats", (done) ->
       @timeout 20000
+      return done() unless process.env.EXAMPLES
       console.log report.toConsole()
       fs = require 'fs'
       fd = fs.createWriteStream "#{__dirname}/../../src/doc/test.md"
