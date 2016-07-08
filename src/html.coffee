@@ -35,6 +35,7 @@ pluginFontawesome = require './plugin/fontawesome'
 # -------------------------------------------------
 HTML_STYLES =
   default: "#{__dirname}/../var/src/style/default.css"
+  codedoc: "#{__dirname}/../var/src/style/codedoc.css"
 
 trans =
   content:
