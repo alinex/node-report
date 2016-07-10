@@ -7,15 +7,15 @@
 chalk = require 'chalk'
 deasync = require 'deasync'
 path = require 'path'
+pdf = null # load on demand
+webshot = null # load on demand
+convertHtml = null # load on demand
 # include more alinex modules
 util = require 'alinex-util'
 Table = require 'alinex-table'
 format = require 'alinex-format'
 fs = require 'alinex-fs'
-pdf = null # load on demand
-webshot = null # load on demand
-convertHtml = null # load on demand
-
+config = require 'alinex-config'
 # load local plugins
 pluginExecute = require './plugin/execute'
 pluginFontawesome = require './plugin/fontawesome'
@@ -182,6 +182,13 @@ datatableDefault =
 
 class Report
 
+  @setup = util.function.once this, (cb) ->
+    # set module search path
+    config.register false, path.dirname __dirname,
+      folder: 'template'
+      type: 'template'
+    cb()
+    
   @width: 80
 
   # Static Methods

@@ -7,9 +7,13 @@
 path = require 'path'
 mime = require 'mime'
 inlineCss = require 'inline-css'
+CleanCSS = require 'clean-css'
+handlebars = require 'handlebars'
+# alinex plugins
 fs = require 'alinex-fs'
 util = require 'alinex-util'
-CleanCSS = require 'clean-css'
+config = require 'alinex-config'
+require('alinex-handlebars').register handlebars
 # markdown
 markdownit = require 'markdown-it'
 hljs = require 'highlight.js'
@@ -33,10 +37,6 @@ pluginFontawesome = require './plugin/fontawesome'
 
 # Configuration
 # -------------------------------------------------
-HTML_STYLES =
-  default: "#{__dirname}/../var/src/style/default.css"
-  codedoc: "#{__dirname}/../var/src/style/codedoc.css"
-
 trans =
   content:
     en: 'Content'
@@ -79,85 +79,67 @@ module.exports = (report, setup = {}, cb) ->
   if typeof setup is 'function'
     cb = setup
     setup = {}
-  # create html
-  md = initHtml()
-  content = report.toString()
-  # make local files inline
-  # replace local images with base64
-  content = content.replace ///
-    (                 # before:
-      !\[.*?\]        #   image alt text
-      \(              #   opening url
-    )file://(         # file:
-      [^ ]*?          #   image source
-    )(                # after:
-      (?: ".*?")?     #   title text
-      \)              #   closing url
-    )
-    ///, (_, b, f, a) ->
-    f = path.resolve __dirname, '../', f
-    bin = new Buffer(fs.readFileSync f).toString 'base64'
-    "#{b}data:#{mime.lookup f};base64,#{bin}#{a}"
-  # transform to html
-  data = util.clone setup
-  innerHtml = md.render content, data
-  content = optimizeHtml innerHtml, setup?.locale
-  title = setup?.title ? data.title ? 'Report'
-  tags = util.clone report.parts.header
-  js = data.js?.join '\n'
-  # add used libraries
-  # code highlighting
-  if content.match /\sclass="hljs-/
-    tags.unshift """<link rel="stylesheet" href="https://cdn.jsdelivr.net/\
-      highlight.js/8.5.0/styles/solarized_light.min.css" />"""
-  # font awesome
-  if content.match /\sclass="fa\s/
-    tags.unshift """<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/\
-      font-awesome/4.6.3/css/font-awesome.min.css" />"""
-  unless setup.noJS
-    addLibs tags, js
-  # complete html
-  html = """
-  <!DOCTYPE html>
-  <html lang="#{if setup?.locale then setup.locale[0..1] else 'en'}">
-    <head>
-      <title>#{title}</title>
-      <meta charset="UTF-8" />
-  """
-  # add page style with collected css
-  style = setup?.style ? 'default'
-  css = data.css?.join('\n') ? ''
-  if css
-    css = new CleanCSS().minify(css).styles
-    css = """<style type="text/css">#{css}</style>"""
-  html += switch
-    when style in Object.keys HTML_STYLES
-      """<link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/alinex/node-report/\
-      v#{VERSION}/var/src/style/#{path.basename HTML_STYLES[style]}" />#{css}"""
-    when style.match /^https?:\/\//
-      """<link rel="stylesheet" href="#{style}" />#{css}"""
-    else
-      """<style type="text/css">
-      #{fs.readFileSync style, 'utf8'}#{css}
-      </style>"""
-  # add defined tags
-  if tags.length
-    html += util.array.unique(tags).join '\n'
-  if js?.match /mermaid\.initialize/
-    html += """<style type="text/css">div#page {display:block}</style>"""
-  # add body
-  html += """
-    </head>
-    <body><div id="page">#{content}</div></body>
-  </html>
-  """
-  return html unless cb
-  return cb null, html unless setup?.inlineCss
-  # make css inline
-  inlineCss html,
-    url: 'index.html'
-  .then (html) ->
-    cb null, html
+  setupStyle setup, (err, css, hbs) ->
+    return cb err if err
+    setup.style ?= 'default'
+    # create html
+    md = initHtml()
+    content = report.toString()
+    # make local files inline
+    # replace local images with base64
+    content = content.replace ///
+      (                 # before:
+        !\[.*?\]        #   image alt text
+        \(              #   opening url
+      )file://(         # file:
+        [^ ]*?          #   image source
+      )(                # after:
+        (?: ".*?")?     #   title text
+        \)              #   closing url
+      )
+      ///, (_, b, f, a) ->
+      f = path.resolve __dirname, '../', f
+      bin = new Buffer(fs.readFileSync f).toString 'base64'
+      "#{b}data:#{mime.lookup f};base64,#{bin}#{a}"
+    # transform to html
+    data = util.clone setup
+    innerHtml = md.render content, data
+    content = optimizeHtml innerHtml, setup?.locale
+    title = setup?.title ? data.title ? 'Report'
+    tags = util.clone report.parts.header
+    js = data.js?.join '\n'
+    # add used libraries
+    tags.push css
+    # code highlighting
+    if content.match /\sclass="hljs-/
+      tags.unshift """<link rel="stylesheet" href="https://cdn.jsdelivr.net/\
+        highlight.js/8.5.0/styles/solarized_light.min.css" />"""
+    # font awesome
+    if content.match /\sclass="fa\s/
+      tags.unshift """<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/\
+        font-awesome/4.6.3/css/font-awesome.min.css" />"""
+    unless setup.noJS
+      addLibs tags, js
+    if js?.match /mermaid\.initialize/
+      tags.push """<style type="text/css">div#page {display:block}</style>"""
+    # add page style with collected css
+    localeCss = data.css?.join('\n') ? ''
+    if localeCss
+      localeCss = new CleanCSS().minify(localeCss).styles
+      tags.push """<style type="text/css">#{css}</style>"""
+    # complete html
+    html = hbs
+      locale: setup.locale?[0..1] ? 'en'
+      title: title
+      header: util.array.unique tags
+      content: content
+    return html unless cb
+    return cb null, html unless setup?.inlineCss
+    # make css inline
+    inlineCss html,
+      url: 'index.html'
+    .then (html) ->
+      cb null, html
 
 
 # Frame HTML content with lib adding
@@ -167,23 +149,47 @@ module.exports.frame = (html, js, check) ->
   tags = []
   addLibs tags, "#{js}\n#{check}"
   js = unless js then '' else """<script type="text/javascript"><!--\n#{js}\n//--></script>"""
-  """
-  <!DOCTYPE html>
-  <html>
-    <head>
-      <meta charset="UTF-8" />
-      <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/alinex/node-report/\
-      v#{VERSION}/var/src/style/#{path.basename HTML_STYLES['default']}" />
-      #{tags.join '\n'}
-      #{js}
-    </head>
-    <body><div id="page">#{html}</div></body>
-  </html>
-  """
+  config.typeSearch 'template', (err, map) ->
+    file = map["template/report/default.css"]
+    """
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <meta charset="UTF-8" />
+        <style type="text/css">#{fs.readFileSync file, 'utf8'}</style>
+        #{tags.join '\n'}
+        #{js}
+      </head>
+      <body><div id="page">#{html}</div></body>
+    </html>
+    """
 
 
 # Helper methods
 # -------------------------------------------------
+setupStyle = (setup, cb) ->
+  style = setup?.style ? 'default'
+  # create output
+  config.typeSearch 'template', (err, map) ->
+    file = map["template/report/#{style}.css"]
+    css = if file
+      if ~file.indexOf '/var/src/template/report'
+        if file.existsSync "#{__dirname}/../src"
+          """<style type="text/css">#{fs.readFileSync file, 'utf8'}</style>"""
+        else
+          """<link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/alinex/node-report/\
+          v#{VERSION}/var/src/template/report/#{style}.css" />"""
+      else
+        """<style type="text/css">#{fs.readFileSync file, 'utf8'}</style>"""
+    else
+      if style.match /^https?:\/\//
+        """<link rel="stylesheet" type="text/css" href="#{style}" />"""
+      else
+        """<style type="text/css">#{fs.readFileSync style, 'utf8'}</style>"""
+    file = map["template/report/#{style}.hbs"]
+    hbs = fs.readFileSync file, 'utf8'
+    cb null, css, handlebars.compile hbs
+
 addLibs = (tags, js) ->
   # optimized tables
   if js?.match /\.DataTable\(/

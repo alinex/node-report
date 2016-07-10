@@ -62,10 +62,12 @@ Always have a look at the latest [changes](Changelog.md).
 Usage
 -------------------------------------------------
 
-The first step is to load the module:
+The first step is to load the module and setup it:
 
 ``` coffee
 Report = require 'alinex-report'
+Report.setup ->
+  # go on
 ```
 
 And now you create a new object:
