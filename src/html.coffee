@@ -4,6 +4,8 @@
 
 # Node Modules
 # -------------------------------------------------
+debug = require('debug') 'report:htnl'
+chalk = require 'chalk'
 path = require 'path'
 mime = require 'mime'
 inlineCss = require 'inline-css'
@@ -170,14 +172,17 @@ module.exports.frame = (html, js, check) ->
 setupStyle = (setup, cb) ->
   style = setup?.style ? 'default'
   # create output
+  debug "use style #{style} for html conversion"
   config.typeSearch 'template', (err, map) ->
-    file = map["template/report/#{style}.css"]
+    file = map["report/#{style}.css"]
     css = if file
+      debug chalk.grey "using css from #{file}"
       if ~file.indexOf '/var/src/template/report'
-        if file.existsSync "#{__dirname}/../src"
+        if fs.existsSync "#{__dirname}/../src"
           """<style type="text/css">#{fs.readFileSync file, 'utf8'}</style>"""
         else
-          """<link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/alinex/node-report/\
+          """<link rel="stylesheet" type="text/css" href="\
+          https://cdn.rawgit.com/alinex/node-report/\
           v#{VERSION}/var/src/template/report/#{style}.css" />"""
       else
         """<style type="text/css">#{fs.readFileSync file, 'utf8'}</style>"""
@@ -186,7 +191,8 @@ setupStyle = (setup, cb) ->
         """<link rel="stylesheet" type="text/css" href="#{style}" />"""
       else
         """<style type="text/css">#{fs.readFileSync style, 'utf8'}</style>"""
-    file = map["template/report/#{style}.hbs"]
+    file = map["report/#{style}.hbs"]
+    debug chalk.grey "using html template from #{file}"
     hbs = fs.readFileSync file, 'utf8'
     cb null, css, handlebars.compile hbs
 
