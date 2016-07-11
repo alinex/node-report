@@ -4,6 +4,15 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 2.1.0 (2016-07-11)
+-------------------------------------------------
+- Upgradet alinex-fs@2.0.3, alinex-util@2.3.1, alinex-builder@2.2.0
+- Support handlebars for styles.
+- Make handlebars template working.
+- Use template search for css and handlebars.
+- Add addintional style.
+- Small code updates.
+
 Version 2.0.0 (2016-06-30)
 -------------------------------------------------
 Now with support for multiple graphical visualization, restructered documentation and more.
