@@ -220,13 +220,15 @@ addLibs = (tags, js) ->
   # add only jquery
   if js?.match /\$\(/
     tags.push """
-      <script type="text/javascript" src="https://code.jquery.com/\
-      jquery-1.12.3.js"></script>"""
+      <script src="https://code.jquery.com/jquery-1.12.4.min.js"
+      integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+      crossorigin="anonymous"></script>"""
   # mermaid
   if js?.match /mermaid\.initialize/
     tags.push """
-      <script type="text/javascript" src="https://code.jquery.com/\
-      jquery-1.12.3.js"></script>"""
+      <script src="https://code.jquery.com/jquery-1.12.4.min.js"
+      integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+      crossorigin="anonymous"></script>"""
     tags.push """
       <script type="text/javascript" src="https://cdn.rawgit.com/knsv/mermaid/\
       6.0.0/dist/mermaidAPI.min.js"></script>"""
