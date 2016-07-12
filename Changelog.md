@@ -4,6 +4,13 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 2.1.1 (2016-07-12)
+-------------------------------------------------
+- Add inline styles for codedoc schema.
+- Finish responsive top buttons.
+- Create bootstrap layout for codedoc.
+- Make own codedoc layout.
+
 Version 2.1.0 (2016-07-11)
 -------------------------------------------------
 - Upgradet alinex-fs@2.0.3, alinex-util@2.3.1, alinex-builder@2.2.0
