@@ -1,26 +1,68 @@
 // Page setup
 
-color-bg = #080808;
-color-front = #ccc;
-topbar-height = 51px
+topnav-height = 51px
+color-orange = #f0ad4e
+color-blue = #337ab7
 
-body
-  background: color-bg;
-  color: color-front;
+// bootstrap fix
 
 #topnav
-  background: darken(color-bg, 10);
-.navbar-toggle .icon-bar
-  background: color-front;
+  .navbar-nav
+    margin-top: 8px;
+.nav>li
+  padding: 2px 12px;
+.navbar-inverse .navbar-nav>li>a
+  color: black;
+  font-weight: bold;
 .navbar-spacer
-  height: topbar-height;
+  height: topnav-height;
+.btn-warning
+  background: color-orange;
+.btn-primary
+  background: color-blue;
+.navbar-inverse .navbar-nav>li>a:focus,
+.navbar-inverse .navbar-nav>li>a:hover
+  background-color: lighten(color-blue, 15);
+.navbar-inverse .navbar-nav>li>a.btn-warning:focus,
+.navbar-inverse .navbar-nav>li>a.btn-warning:hover
+  background-color: darken(color-orange, 15);
 
-.sidebar
-  overflow: auto;
-  position: fixed;
-  top: topbar-height;
-  left: 0;
-  bottom: 0;
+@media (min-width: 768px)
+  #topnav
+    .nav>li
+      padding: 0 4px;
+  .navbar-right
+    margin-right: 0px;
+  .navbar-nav
+    >li>a
+      padding: 6px 10px;
+  .sidebar
+    overflow: auto;
+    position: fixed;
+    top: topnav-height;
+    left: 0;
+    bottom: 0;
 
 img.preload
   display: none;
+
+// content
+
+body
+  font-family: "Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+  font-size: 16px;
+  line-height: 1.2;
+  word-wrap: break-word;
+
+// headings
+h1
+  border-bottom: 3px solid black;
+  padding-bottom: 5px;
+h2
+  border-bottom: 2px dotted black;
+  padding-bottom: 3px;
+h3
+  border-bottom: 2px dotted gray;
+  padding-bottom: 2px;
+h4
+  border-bottom: 1px dotted gray;
