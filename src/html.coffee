@@ -130,7 +130,7 @@ module.exports = (report, setup = {}, cb) ->
       localeCss = new CleanCSS().minify(localeCss).styles
       tags.push """<style type="text/css">#{css}</style>"""
     # complete html
-    html = hbs
+    html = hbs util.expand util.clone(setup.context ? {}),
       locale: setup.locale?[0..1] ? 'en'
       title: title
       header: util.array.unique tags

@@ -2783,6 +2783,7 @@ Options are:
 - locale (string) - language to use like 'de'
 - inlineCss (boolean) - move css from head to the tags as styles (useful for mails)
 - noJS (boolean) - make everything static
+- contexxt (object) - additional elements for handlebars template
 
 This is the most powerful output method. In which all markdown elements will be
 supported and interpreted. It will create one HTML file to be used in emails...
