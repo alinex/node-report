@@ -46,31 +46,27 @@ a {
   color: darkblue;
 }
 
-dt {
+dt
   font-weight: bold;
   margin-top: 8px;
-}
 
-blockquote {
-  border-left: 4px solid #ddd;
-  color: #777;
-  padding: 3px 15px;
-  margin: 0 15px;
-}
+blockquote
+  border: 1px solid #eee;
+  border-radius: 3px;
+  border-left: 5px solid color-blue;
+  padding: 15px;
+  margin: 0
 
-img {
+img
   vertical-align: middle;
-}
-.emoji {
+.emoji
   height: 1em;
-}
-abbr, acronym {
+abbr, acronym
   border-bottom: dotted 1px;
-}
 
 /* tables */
 
-table {
+table
   border-collapse: collapse;
   border-spacing: 0;
   display: block;
@@ -78,47 +74,37 @@ table {
   overflow: auto;
   word-break: normal;
   word-break: keep-all;
-}
-
-table th,
-table td {
-  padding: 6px 13px;
-  border: 1px solid #ddd;
-}
-table th {
-  background-color: rgba(0, 0, 0, 0.04);
-  font-weight: bold;
-  border-bottom: 3px solid #999;
-}
-table tr {
-  background-color: #fff;
-  border-top: 1px solid #ccc;
-}
-table tr:nth-child(2n) {
-  background-color: rgba(0, 0, 0, 0.04);
-}
+  th, td
+    padding: 6px 13px;
+    border: 1px solid #ddd;
+  th
+    background-color: rgba(0, 0, 0, 0.04);
+    font-weight: bold;
+    border-bottom: 3px solid #999;
+  tr
+    background-color: #fff;
+    border-top: 1px solid #ccc;
+    :nth-child(2n)
+      background-color: rgba(0, 0, 0, 0.04);
 
 /* code boxes */
 
-pre {
+code, tt
+  background-color: #fafafa;
+  border-radius: 4px;
+  font-size: 85%;
+  margin: 0;
+  padding: 0.2em 0;
+pre
   background-color: #fafafa;
   border-radius: 10px;
   border: 1px solid #a4a4a4;
   font-size: 85%;
   margin: 20px;
   padding: 10px;
-}
-code, tt {
-  background-color: #fafafa;
-  border-radius: 4px;
-  font-size: 85%;
-  margin: 0;
-  padding: 0.2em 0;
-}
-pre code, pre tt {
-  background: none;
-}
-pre code.language header {
+  code, tt
+    background: none;
+  code.language header
     color: black;
     font-weight: bold;
     display: block;
@@ -128,33 +114,19 @@ pre code.language header {
     margin-bottom: 5px;
     margin: -10px -10px 5px -10px;
     padding: 5px;
-}
-pre code.bash header,
-pre code.coffee header,
-pre code.js header,
-pre code.sh header,
-pre code.sql header
-{   background: #f0ad4e; }
-pre code.json header,
-pre code.yaml header
-{   background: #61b961; }
-pre code.handlebars header,
-pre code.markdown header
-{   background: #76abca; }
+  code.bash, code.coffee, code.js, code.sh, code.sql
+    header
+      background: #f0ad4e
+  code.json, code.yaml
+    header
+      background: #61b961;
+  code.handlebars, code.markdown
+    header
+      background: #76abca;
 
 /* table of contents */
 
-.table-of-contents header {
-  font-weight: bold;
-  font-size: 120%;
-  display: block;
-  background: #ddd;
-  margin: -10px -10px 4px -25px;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  padding: 3px 10px;
-}
-.table-of-contents {
+.table-of-contents
   border: 2px solid #ddd;
   border-radius: 10px;
   float: right;
@@ -162,58 +134,55 @@ pre code.markdown header
   padding: 10px 10px 10px 25px;
   background: #fafafa;
   font-size: 90%;
-}
-.table-of-contents ul {
-  padding-left: 15px;
-}
-.table-of-contents a {
-  text-decoration: none;
-}
+  header
+    font-weight: bold;
+    font-size: 120%;
+    display: block;
+    background: #ddd;
+    margin: -10px -10px 4px -25px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    padding: 3px 10px;
+  ul
+    padding-left: 15px;
+  a
+    text-decoration: none;
 
 /* Possible box layouts */
 
-div.detail, div.info, div.warning, div.alert {
-  padding: 20px 10px 6px 10px;
-  margin: 5px 0 0 0;
-}
-div.detail>p, div.info>p, div.warning>p, div.alert>p {
-  margin-bottom: 0;
-}
-div.info header, div.warning header, div.alert header {
-  font-weight: bold;
-  position: absolute;
-  margin-top: -20px;
-  margin-left: -10px;
-  padding: 3px 20px 3px 10px;
-  border-bottom-right-radius: 18px;
-}
-div.detail {
+div.detail, div.info, div.warning, div.alert
+  padding: 30px 10px 6px 10px;
+  margin: 5px 0 8px 0;
+  border-radius: 3px
+  >p
+    margin-bottom: 0;
+  header
+    font-weight: bold;
+    position: absolute;
+    margin-top: -30px;
+    margin-left: -10px;
+    padding: 3px 20px 3px 10px;
+    border-bottom-right-radius: 18px;
+div.detail
   background-color: #fafafa;
   border: 2px solid #ddd;
   padding-top: 0;
-}
-div.info {
+div.info
   background-color: #99ff99;
   border: 2px solid #66dd66;
-}
-div.info header {
-  background-color: #66dd66;
-}
-div.warning {
+  header
+    background-color: #66dd66;
+div.warning
   background-color: #ffcc99;
   border: 2px solid #ee8866;
-}
-div.warning header {
-  background-color: #ee8866;
-}
-div.alert {
+  header
+    background-color: #ee8866;
+div.alert
   background-color: #ff9999;
   border: 2px solid #cc0000;
-}
-div.alert header {
-  background-color: #cc0000;
-  color: white;
-}
+  header
+    background-color: #cc0000;
+    color: white;
 
 /* Color styles for fontawesome and more */
 
