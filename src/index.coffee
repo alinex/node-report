@@ -426,7 +426,7 @@ class Report
         (.*)\n[=-]{3,}  # heading folowed by newline and === or --- line
       )
       ///
-    match[1] ? 'Report'
+    match?[1] ? match?[2]
 
   # ### as markdown text
   toString: ->
