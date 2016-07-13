@@ -416,6 +416,18 @@ class Report
   # Extract report
   # -------------------------------------------------
 
+  getTitle: ->
+    match = @body.match ///
+      (?:               # different styles
+        (?:^|\n)        # at start or after newline
+        \#+\s+(.*)      # # folowed with space and one line of title text
+      |                 # alternative
+        (?:^|\n\n)      # at start or after newlines
+        (.*)\n[=-]{3,}  # heading folowed by newline and === or --- line
+      )
+      ///
+    match[1] ? 'Report'
+
   # ### as markdown text
   toString: ->
     text = @body
