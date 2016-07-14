@@ -27,6 +27,26 @@ color-blue = #337ab7
 .navbar-inverse .navbar-nav>li>a.btn-warning:hover
   background-color: darken(color-orange, 15);
 
+.sidebar .nav
+  >li>a
+    color: black;
+    &:hover
+      background: color-blue
+      color: white;
+  >li.active>a
+    background: color-orange;
+    &:hover
+      background: darken(color-orange, 15);
+      color: white;
+  li.level1>a
+    padding-left: 20px;
+  li.level2>a
+    padding-left: 25px;
+  li.level3>a
+  li.level4>a
+  li.level5>a
+    padding-left: 30px;
+
 @media (min-width: 768px)
   #topnav
     .nav>li
@@ -42,6 +62,12 @@ color-blue = #337ab7
     top: topnav-height;
     left: 0;
     bottom: 0;
+    background: #ddd;
+    padding: 0;
+    h1, h2
+      display: none;
+    .nav>li
+      padding: 0;
 
 img.preload
   display: none;
@@ -98,7 +124,7 @@ table
   tr
     background-color: #fff;
     border-top: 1px solid #ccc;
-    :nth-child(2n)
+    &:nth-child(2n)
       background-color: rgba(0, 0, 0, 0.04);
 
 /* code boxes */
