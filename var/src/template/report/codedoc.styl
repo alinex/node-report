@@ -1,42 +1,52 @@
 // Page setup
 
-topnav-height = 51px
-color-orange = #f0ad4e
-color-blue = #337ab7
+$topnav-height = 51px
+$color-orange = #f0ad4e
+$color-blue = #337ab7
+$min-width = 300px
 
 // bootstrap fix
 
 #topnav
   .navbar-nav
     margin-top: 8px;
+.navbar
+  min-width: $min-width
 .nav>li
   padding: 2px 12px;
-.navbar-inverse .navbar-nav>li>a
-  color: black;
-  font-weight: bold;
+.navbar-inverse
+  .navbar-nav>li>a
+    color: black;
+    font-weight: bold;
 .navbar-spacer
-  height: topnav-height;
+  height: $topnav-height;
 .btn-warning
-  background: color-orange;
 .btn-primary
-  background: color-blue;
-.navbar-inverse .navbar-nav>li>a:focus,
-.navbar-inverse .navbar-nav>li>a:hover
-  background-color: lighten(color-blue, 15);
-.navbar-inverse .navbar-nav>li>a.btn-warning:focus,
-.navbar-inverse .navbar-nav>li>a.btn-warning:hover
-  background-color: darken(color-orange, 15);
+  click-shrink()
+.btn-warning
+  gradient: $color-orange;
+.btn-primary
+  gradient: $color-blue;
+.navbar-inverse .navbar-nav>li>a
+  &:focus
+  &:hover
+    gradient: lighten($color-blue, 15);
+.navbar-inverse .navbar-nav>li>a.btn-warning
+  &:focus
+  &:hover
+    gradient: darken($color-orange, 15);
 
 .sidebar .nav
   >li>a
     color: black;
+    click-shadow()
     &:hover
-      background: color-blue
+      gradient: $color-blue
       color: white;
   >li.active>a
-    background: color-orange;
+    gradient: $color-orange;
     &:hover
-      background: darken(color-orange, 15);
+      gradient: darken($color-orange, 15);
       color: white;
   li.level1>a
     padding-left: 20px;
@@ -59,7 +69,7 @@ color-blue = #337ab7
   .sidebar
     overflow: auto;
     position: fixed;
-    top: topnav-height;
+    top: $topnav-height;
     left: 0;
     bottom: 0;
     background: #ddd;
@@ -78,7 +88,8 @@ body
   font-family: "Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
   font-size: 16px;
   line-height: 1.2;
-  word-wrap: break-word;
+  hyphenation()
+  min-width: $min-width;
 
 // headings
 h1
@@ -100,7 +111,7 @@ dt
 blockquote
   border: 1px solid #eee;
   border-radius: 3px;
-  border-left: 5px solid color-blue;
+  border-left: 5px solid $color-blue;
   padding: 15px;
   margin: 0
 
@@ -154,15 +165,24 @@ pre
     margin-bottom: 5px;
     margin: -10px -10px 5px -10px;
     padding: 5px;
-  code.bash, code.coffee, code.js, code.sh, code.sql
-    header
-      background: #f0ad4e
-  code.json, code.yaml
-    header
-      background: #61b961;
-  code.handlebars, code.markdown
-    header
-      background: #76abca;
+  code
+    &.bash
+    &.coffee
+    &.js
+    &.sh
+    &.sql
+      header
+        background: #f0ad4e
+  code
+    &.json
+    &.yaml
+      header
+        background: #61b961;
+  code
+    &.handlebars
+    &.markdown
+      header
+        background: #76abca;
 
 /* table of contents */
 
@@ -192,24 +212,29 @@ img
   vertical-align: middle;
 .emoji
   height: 1em;
-abbr, acronym
+abbr
+acronym
   border-bottom: dotted 1px;
 
 /* Possible box layouts */
 
-div.detail, div.info, div.warning, div.alert
-  padding: 30px 10px 6px 10px;
-  margin: 5px 0 8px 0;
-  border-radius: 3px
-  >p
-    margin-bottom: 0;
-  header
-    font-weight: bold;
-    position: absolute;
-    margin-top: -30px;
-    margin-left: -10px;
-    padding: 3px 20px 3px 10px;
-    border-bottom-right-radius: 18px;
+div
+  &.detail
+  &.info
+  &.warning
+  &.alert
+    padding: 30px 10px 6px 10px;
+    margin: 5px 0 8px 0;
+    border-radius: 3px
+    &>p
+      margin-bottom: 0;
+    header
+      font-weight: bold;
+      position: absolute;
+      margin-top: -30px;
+      margin-left: -10px;
+      padding: 3px 20px 3px 10px;
+      border-bottom-right-radius: 18px;
 div.detail
   background-color: #fafafa;
   border: 2px solid #ddd;
