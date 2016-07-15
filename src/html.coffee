@@ -62,7 +62,11 @@ trans =
     sql:
       en: 'SQL Code'
     handlebars:
-      en: 'Handlebars template'
+      en: 'Handlebars Template'
+    css:
+      en: 'Cascading Stylesheet'
+    stylus:
+      en: 'Stylus Stylesheets'
     cson:
       en: 'CSON Data'
     json:
