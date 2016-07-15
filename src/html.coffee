@@ -180,15 +180,15 @@ setupStyle = (setup, cb) ->
     file = map["report/#{style}.css"]
     css = if file
       debug chalk.grey "using css from #{file}"
-      if match = file.match /\/(alinex-[-a-z]+)\/var\/src\/template\/report/
-        if fs.existsSync "#{__dirname}/../src"
-          """<style type="text/css">#{fs.readFileSync file, 'utf8'}</style>"""
-        else
-          """<link rel="stylesheet" type="text/css" href="\
-          https://cdn.rawgit.com/alinex/#{match[1]}/\
-          master/var/src/template/report/#{style}.css" />"""
-      else
-        """<style type="text/css">#{fs.readFileSync file, 'utf8'}</style>"""
+#      if match = file.match /\/(node-[-a-z]+)\/var\/src\/template\/report/
+#        if fs.existsSync "#{__dirname}/../src"
+#          """<style type="text/css">#{fs.readFileSync file, 'utf8'}</style>"""
+#        else
+#          """<link rel="stylesheet" type="text/css" href="\
+#          https://cdn.rawgit.com/alinex/#{match[1]}/\
+#          master/var/src/template/report/#{style}.css" />"""
+#      else
+      """<style type="text/css">#{fs.readFileSync file, 'utf8'}</style>"""
     else
       if style.match /^https?:\/\//
         """<link rel="stylesheet" type="text/css" href="#{style}" />"""
