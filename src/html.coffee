@@ -298,11 +298,6 @@ text = (tag, locale, tr = trans) ->
 optimizeHtml = (html, locale = 'en') ->
   re = [
     [
-        ///href=\"(?!https?://|/)(.*?)\"///
-        'href="$1.html"'
-    ]
-  ,
-    [
       /<p>\n(<ul class="table-of-contents">)([\s\S]*?<\/ul>)\n<\/p>/g
       "$1<header>#{text 'content', locale}</header>$2"
     ]
