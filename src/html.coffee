@@ -77,8 +77,6 @@ trans =
       en: 'Attention'
       de: 'Achtung'
 
-VERSION = null # will be set on init
-
 
 # Convert into HTML
 # -------------------------------------------------
@@ -182,13 +180,13 @@ setupStyle = (setup, cb) ->
     file = map["report/#{style}.css"]
     css = if file
       debug chalk.grey "using css from #{file}"
-      if ~file.indexOf '/var/src/template/report'
+      if match = file.match /\/(alinex-[-a-z]+)\/var\/src\/template\/report/
         if fs.existsSync "#{__dirname}/../src"
           """<style type="text/css">#{fs.readFileSync file, 'utf8'}</style>"""
         else
           """<link rel="stylesheet" type="text/css" href="\
-          https://cdn.rawgit.com/alinex/node-report/\
-          v#{VERSION}/var/src/template/report/#{style}.css" />"""
+          https://cdn.rawgit.com/alinex/#{match[1]}/\
+          master/var/src/template/report/#{style}.css" />"""
       else
         """<style type="text/css">#{fs.readFileSync file, 'utf8'}</style>"""
     else
@@ -248,9 +246,6 @@ addLibs = (tags, js) ->
 md2html = null
 initHtml = -> #async.once ->
   return md2html if md2html
-  # get report version
-  pack = JSON.parse fs.readFileSync "#{path.dirname __dirname}/package.json", 'utf8'
-  VERSION = pack.version
   # setup markdown it
   md2html = markdownit
     html: true
