@@ -39,19 +39,23 @@ pluginFontawesome = require './plugin/fontawesome'
 
 # Configuration
 # -------------------------------------------------
+langAlias =
+  coffee: 'coffeescript'
+  js: 'javascript'
+  jsx: 'javascript'
+
 trans =
   content:
     en: 'Content'
     de: 'Inhalt'
   lang:
     bash:
-      en: 'Bash Script Code'
-    coffee: 'coffeescript'
+      en: 'Bash Code'
     coffeescript:
       en: 'CoffeeScript Code'
     iced:
       en: 'IcedCoffeeScript Code'
-    js:
+    javascript:
       en: 'JavaScript Code'
     sh:
       en: 'Shell Script Code'
@@ -294,6 +298,11 @@ text = (tag, locale, tr = trans) ->
 optimizeHtml = (html, locale = 'en') ->
   re = [
     [
+        ///href=\"(?!https?://|/)(.*?)\"///
+        'href="$1.html"'
+    ]
+  ,
+    [
       /<p>\n(<ul class="table-of-contents">)([\s\S]*?<\/ul>)\n<\/p>/g
       "$1<header>#{text 'content', locale}</header>$2"
     ]
@@ -311,17 +320,16 @@ optimizeHtml = (html, locale = 'en') ->
     ]
   ]
   # code
-  for tag, def of trans.lang
-    if typeof def is 'string'
-      re.push [
-        new RegExp '(<pre [^>]*?)class="language ' + tag + '">', 'g'
-        "$1class=\"language #{def}\"><header>#{text def, locale, trans.lang}</header>"
-      ]
-    else
-      re.push [
-        new RegExp '(<pre [^>]*?class="language ' + tag + '">)', 'g'
-        "$1<header>#{text tag, locale, trans.lang}</header>"
-      ]
+  for tag, alias of langAlias
+    re.push [
+      new RegExp '(<pre [^>]*?)class="language ' + tag + '">', 'g'
+      "$1class=\"language #{alias}\"><header>#{text alias, locale, trans.lang}</header>"
+    ]
+  for tag of trans.lang
+    re.push [
+      new RegExp '(<pre [^>]*?class="language ' + tag + '">)', 'g'
+      "$1<header>#{text tag, locale, trans.lang}</header>"
+    ]
   # boxes
   for tag of trans.boxes
     re.push [
