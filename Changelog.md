@@ -4,6 +4,21 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 2.1.2 (2016-07-15)
+-------------------------------------------------
+- Updated test to work with new html structure.
+- Allow style on code tag be transported to pre tag before.
+- Rename links to Alinex Namespace.
+- Move codedoc template into it's own package.
+- Fix extraction of title with starting alternative heading.
+- Optimize Style.
+- Update style for codedoc sidebar.
+- Upgraded alinex-handlebars@1.2.1, alinex-builder@2.2.1, async@2.0.0
+- Show file tree from context in handlebars template for codedoc.
+- Add getReport method.
+- Add files from context.
+- Allow additional context for handlebars.
+
 Version 2.1.1 (2016-07-12)
 -------------------------------------------------
 - Add inline styles for codedoc schema.
