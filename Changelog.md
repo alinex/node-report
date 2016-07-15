@@ -4,6 +4,10 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 2.1.4 (2016-07-15)
+-------------------------------------------------
+- Fixed style links.
+
 Version 2.1.3 (2016-07-15)
 -------------------------------------------------
 - Fixed style links.
