@@ -46,8 +46,11 @@ trans =
   lang:
     bash:
       en: 'Bash Script Code'
-    coffee:
+    coffee: 'coffeescript'
+    coffeescript:
       en: 'CoffeeScript Code'
+    iced:
+      en: 'IcedCoffeeScript Code'
     js:
       en: 'JavaScript Code'
     sh:
@@ -56,6 +59,8 @@ trans =
       en: 'SQL Code'
     handlebars:
       en: 'Handlebars template'
+    cson:
+      en: 'CSON Data'
     json:
       en: 'JSON Data'
     yaml:
@@ -297,13 +302,31 @@ optimizeHtml = (html, locale = 'en') ->
       /<p>\n(<ul class="table-of-contents">)([\s\S]*?<\/ul>)\n<\/p>/g
       "$1<header>#{text 'content', locale}</header>$2"
     ]
+  ,
+    [
+      /<pre><code( style="[^"]*")/g
+      '<pre$1><code'
+    ]
+  ,
+    [
+      /(<pre.*?)><code (class="language .*?")>([\s\S]*?)<\/code><\/pre>/g
+      (_, pre, css, content) ->
+        content = content.replace /^\s*\n|\n\s*$/, ''
+        "#{pre} #{css}><code>#{content.replace /\n/g, '</code>\n<code>'}</code></pre>"
+    ]
   ]
   # code
-  for tag of trans.lang
-    re.push [
-      new RegExp '(<code class="language ' + tag + '">)', 'g'
-      "$1<header>#{text tag, locale, trans.lang}</header>"
-    ]
+  for tag, def of trans.lang
+    if typeof def is 'string'
+      re.push [
+        new RegExp '(<pre [^>]*?)class="language ' + tag + '">', 'g'
+        "$1class=\"language #{def}\"><header>#{text def, locale, trans.lang}</header>"
+      ]
+    else
+      re.push [
+        new RegExp '(<pre [^>]*?class="language ' + tag + '">)', 'g'
+        "$1<header>#{text tag, locale, trans.lang}</header>"
+      ]
   # boxes
   for tag of trans.boxes
     re.push [
