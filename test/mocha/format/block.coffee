@@ -107,12 +107,9 @@ describe "block", ->
       ```
 
       """, """
-      <body><div id="page"><pre><code class="language js"><header>JavaScript Code</header><span class="hljs-keyword">var</span> x = <span class="hljs-built_in">Math</span>.round(f);
-      </code></pre>
-      <pre><code class="language markdown"><header>Markdown Document</header>This <span class="hljs-strong">**is**</span> a ==markdown== text
-      </code></pre>
-      <pre><code class="language yaml"><header>YAML Data</header><span class="hljs-attr">simple:</span>
-      <span class="hljs-attr">  list:</span> [<span class="hljs-string">"a"</span>, b, <span class="hljs-number">5</span>]
-      </code></pre>
+      <body><div id="page"><pre class="language js"><header>JavaScript Code</header><code><span class="hljs-keyword">var</span> x = <span class="hljs-built_in">Math</span>.round(f);</code></pre>
+      <pre class="language markdown"><header>Markdown Document</header><code>This <span class="hljs-strong">**is**</span> a ==markdown== text</code></pre>
+      <pre class="language yaml"><header>YAML Data</header><code><span class="hljs-attr">simple:</span></code>
+      <code><span class="hljs-attr">  list:</span> [<span class="hljs-string">"a"</span>, b, <span class="hljs-number">5</span>]</code></pre>
       </div></body>
       """, cb

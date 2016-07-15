@@ -25,7 +25,7 @@ exports.report = (name, report, md, html, cb) ->
     (cb) ->
       report.toHtml (err, data) ->
         if html
-          debug "check html"
+          debug "check html"#, chalk.grey data
           expect(data, 'html').to.contain html
         return cb() unless name and process.env.EXAMPLES
         fd = fs.createWriteStream "#{__dirname}/../../src/doc/#{name}.html"
