@@ -422,7 +422,7 @@ class Report
         (?:^|\n)        # at start or after newline
         \#+\s+(.*)      # # folowed with space and one line of title text
       |                 # alternative
-        (?:^|\n\n)      # at start or after newlines
+        (?:^\n?|\n\n)   # at start or after newlines
         (.*)\n[=-]{3,}  # heading folowed by newline and === or --- line
       )
       ///
