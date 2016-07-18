@@ -43,30 +43,74 @@ langAlias =
   coffee: 'coffeescript'
   js: 'javascript'
   jsx: 'javascript'
+  rb: 'ruby'
+  py: 'python'
+  pl: 'perl'
+  c: 'cc'
+  h: 'cc'
+  'c++': 'cpp'
+  'h++': 'cpp'
+  'hpp': 'cpp'
+  csharp: 'cs'
+  gemspec: 'ruby'
+  podspec: 'ruby'
+  thor: 'ruby'
+  irb: 'ruby'
+  sh: 'bash'
+  zsh: 'bash'
+  yml: 'yaml'
+  md: 'markdown'
+  styl: 'stylus'
 
 trans =
   content:
     en: 'Content'
     de: 'Inhalt'
   lang:
-    bash:
-      en: 'Bash Code'
     coffeescript:
       en: 'CoffeeScript Code'
     iced:
       en: 'IcedCoffeeScript Code'
     javascript:
       en: 'JavaScript Code'
-    sh:
-      en: 'Shell Script Code'
+    ruby:
+      en: 'Ruby Code'
+    python:
+      en: 'Python Code'
+    perl:
+      en: 'Perl Script'
+    cpp:
+      en: 'C++ Code'
+    cc:
+      en: 'C Code'
+    cs:
+      en: 'C# Code'
+    java:
+      en: 'Java Code'
+    jsp:
+      en: 'Java Server Pages'
+    groovy:
+      en: 'Groovy Code'
+    php:
+      en: 'PHP Code'
+    bash:
+      en: 'Shell Script'
+    makefile:
+      en: 'Makefile'
     sql:
       en: 'SQL Code'
     handlebars:
       en: 'Handlebars Template'
+    jade:
+      en: 'Jade Template'
     css:
       en: 'Cascading Stylesheet'
     stylus:
       en: 'Stylus Stylesheets'
+    scss:
+      en: 'Sassy CSS'
+    less:
+      en: 'Less Stylesheets'
     cson:
       en: 'CSON Data'
     json:
@@ -329,7 +373,7 @@ optimizeHtml = (html, locale = 'en') ->
     ]
   for tag, alias of langAlias
     re.push [
-      new RegExp '(<pre [^>]*?)class="language ' + tag + '">', 'g'
+      new RegExp '(<pre [^>]*?)class="language ' + tag.replace(/([+])/, '\\\\%1') + '">', 'g'
       "$1class=\"language #{alias}\"><header>#{text alias, locale, trans.lang}</header>"
     ]
   # boxes
