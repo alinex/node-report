@@ -301,33 +301,36 @@ text = (tag, locale, tr = trans) ->
 
 optimizeHtml = (html, locale = 'en') ->
   re = [
-    [
+    [ # add header to table-of-contents
       /<p>\n(<ul class="table-of-contents">)([\s\S]*?<\/ul>)\n<\/p>/g
       "$1<header>#{text 'content', locale}</header>$2"
     ]
   ,
-    [
+    [ # move style settings from code to parent pre
       /<pre><code( style="[^"]*")/g
       '<pre$1><code'
     ]
   ,
-    [
+    [ # break code tags into lines
       /(<pre.*?)><code (class="language .*?")>([\s\S]*?)<\/code><\/pre>/g
       (_, pre, css, content) ->
         content = content.replace /^\s*\n|\n\s*$/, ''
-        "#{pre} #{css}><code>#{content.replace /\n/g, '</code>\n<code>'}</code></pre>"
+        .replace /(<span.*?>)([\s\S]*?)<\/span>/g, (_, span, text) ->
+          span + text.replace(/\n/g, "</span>\n#{span}") + '</span>'
+        .replace /\n/g, '</code>\n<code>'
+        "#{pre} #{css}><code>#{content}</code></pre>"
     ]
   ]
   # code
-  for tag, alias of langAlias
-    re.push [
-      new RegExp '(<pre [^>]*?)class="language ' + tag + '">', 'g'
-      "$1class=\"language #{alias}\"><header>#{text alias, locale, trans.lang}</header>"
-    ]
   for tag of trans.lang
     re.push [
       new RegExp '(<pre [^>]*?class="language ' + tag + '">)', 'g'
       "$1<header>#{text tag, locale, trans.lang}</header>"
+    ]
+  for tag, alias of langAlias
+    re.push [
+      new RegExp '(<pre [^>]*?)class="language ' + tag + '">', 'g'
+      "$1class=\"language #{alias}\"><header>#{text alias, locale, trans.lang}</header>"
     ]
   # boxes
   for tag of trans.boxes
