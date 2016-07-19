@@ -4,6 +4,15 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 2.1.5 (2016-07-19)
+-------------------------------------------------
+- Fix test for new code block structure.
+- Update all language formats.
+- Keep multiline code highliting intact.
+- Add support for stylus and css.
+- Move local links to codedoc.
+- Better javascript and local link support.
+
 Version 2.1.4 (2016-07-15)
 -------------------------------------------------
 - Fixed style links.
