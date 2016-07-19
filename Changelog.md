@@ -4,6 +4,11 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 2.1.6 (2016-07-19)
+-------------------------------------------------
+- Remove unneccessary modules.
+- Add header to table of contents.
+
 Version 2.1.5 (2016-07-19)
 -------------------------------------------------
 - Fix test for new code block structure.
