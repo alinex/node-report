@@ -66,6 +66,8 @@ trans =
   content:
     en: 'Content'
     de: 'Inhalt'
+  index:
+    en: 'Index'
   lang:
     coffeescript:
       en: 'CoffeeScript Code'
@@ -363,6 +365,11 @@ optimizeHtml = (html, locale = 'en') ->
           span + text.replace(/\n/g, "</span>\n#{span}") + '</span>'
         .replace /\n/g, '</code>\n<code>'
         "#{pre} #{css}><code>#{content}</code></pre>"
+    ]
+  ,
+    [ # add heading to table-of-contents
+      /(<ul class="table-of-contents")>/g
+      "$1 aria-hidden=\"true\"><header>#{text 'index', locale}</header>"
     ]
   ]
   # code

@@ -43,7 +43,7 @@ describe "document", ->
       They always support me.
 
       """, """
-      <body><div id="page"><p><ul class="table-of-contents">
+      <body><div id="page"><p><ul class="table-of-contents" aria-hidden="true"><header>Index</header>
       <li><a href="#my-text">My text</a></li>
       <li><a href="#other-opinions">Other opinions</a>
       <ul>
