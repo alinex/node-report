@@ -373,7 +373,7 @@ optimizeHtml = (html, locale = 'en') ->
     ]
   ,
     [ # fix decorator problem for code elements
-      /<pre ([\s\S]+?<\/pre>)\n<!-- {code: (.*?)} -->/g
+      /<pre ((?:(?!<pre)[\s\S])+<\/pre>)\n<!-- {code: (.*?)} -->/g
       "<pre $2 $1"
     ]
   ]
