@@ -4,6 +4,10 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 2.1.8 (2016-07-21)
+-------------------------------------------------
+- Correct line number positioning to block before not at start.
+
 Version 2.1.7 (2016-07-21)
 -------------------------------------------------
 - Upgrade alinex-fs@2.0.6, alinex-builder@2.3.1
