@@ -371,6 +371,11 @@ optimizeHtml = (html, locale = 'en') ->
       /(<ul class="table-of-contents")>/g
       "$1 aria-hidden=\"true\"><header>#{text 'index', locale}</header>"
     ]
+  ,
+    [ # fix decorator problem for code elements
+      /<pre ([\s\S]+?<\/pre>)\n<!-- {code: (.*?)} -->/g
+      "<pre $2 $1"
+    ]
   ]
   # code
   for tag of trans.lang
