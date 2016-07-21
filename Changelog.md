@@ -4,6 +4,11 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 2.1.7 (2016-07-21)
+-------------------------------------------------
+- Upgrade alinex-fs@2.0.6, alinex-builder@2.3.1
+- fix decorator problem for code elements
+
 Version 2.1.6 (2016-07-19)
 -------------------------------------------------
 - Remove unneccessary modules.
