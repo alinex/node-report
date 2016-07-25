@@ -4,6 +4,11 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 2.1.9 (2016-07-25)
+-------------------------------------------------
+- Support includes in handlebar templates.
+- Allow handlebar template includes.
+
 Version 2.1.8 (2016-07-21)
 -------------------------------------------------
 - Correct line number positioning to block before not at start.
