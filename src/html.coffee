@@ -11,6 +11,7 @@ mime = require 'mime'
 inlineCss = require 'inline-css'
 CleanCSS = require 'clean-css'
 handlebars = require 'handlebars'
+memoize = require 'memoizee'
 # alinex plugins
 fs = require 'alinex-fs'
 util = require 'alinex-util'
@@ -251,14 +252,15 @@ setupStyle = (setup, cb) ->
     # load hbs
     file = map["report/#{style}.hbs"]
     debug chalk.grey "using html template from #{file}"
-    hbs = fs.readFileSync file, 'utf8'
+    readCached = memoize (file) -> fs.readFileSync file, 'utf8'
+    hbs = readCached file
     # includes
     while hbs.match /\{\{include\s+(.*?)\s*\}\}/
       hbs = hbs.replace /\{\{include\s+(.*?)\s*\}\}/g, (_, link) ->
         file = map["report/#{link}.hbs"]
         debug chalk.grey "including #{file}"
         try
-          fs.readFileSync file, 'utf8'
+          readCached file
         catch error
           console.error "Warning: #{error.message}"
           link
