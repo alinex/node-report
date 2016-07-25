@@ -248,9 +248,20 @@ setupStyle = (setup, cb) ->
         """<link rel="stylesheet" type="text/css" href="#{style}" />"""
       else
         """<style type="text/css">#{fs.readFileSync style, 'utf8'}</style>"""
+    # load hbs
     file = map["report/#{style}.hbs"]
     debug chalk.grey "using html template from #{file}"
     hbs = fs.readFileSync file, 'utf8'
+    # includes
+    while hbs.match /\{\{include\s+(.*?)\s*\}\}/
+      hbs = hbs.replace /\{\{include\s+(.*?)\s*\}\}/g, (_, link) ->
+        file = map["report/#{link}.hbs"]
+        debug chalk.grey "including #{file}"
+        try
+          fs.readFileSync file, 'utf8'
+        catch error
+          console.error "Warning: #{error.message}"
+          link
     cb null, css, handlebars.compile hbs
 
 addLibs = (tags, js) ->
