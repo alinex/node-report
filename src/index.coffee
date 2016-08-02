@@ -318,18 +318,22 @@ class Report
   @js: (code) -> block "#{code.trim()}\n$$$", '$$$ js\n', '', 9999, true
 
   # ### Visualizations
-  @qr: (data) ->
+  @qr: (data, style) ->
+    style = if style then " {#{style}}" else ''
     if typeof data is 'object'
-      "\n$$$ qr\n#{dataStringify data, 'yaml'}$$$\n"
+      "\n$$$ qr#{style}\n#{dataStringify data, 'yaml'}$$$\n"
     else
-      "\n$$$ qr\n#{data.trim()}\n$$$\n"
-  @chart: (setup, data) ->
-    "\n$$$ chart#{if setup then '\n' + dataStringify(setup, 'yaml') else ''}\
+      "\n$$$ qr#{style}\n#{data.trim()}\n$$$\n"
+  @chart: (setup, data, style) ->
+    style = if style then " {#{style}}" else ''
+    "\n$$$ chart#{style}#{if setup then '\n' + dataStringify(setup, 'yaml') else ''}\
     #{Report.table data}$$$\n"
-  @mermaid: (code) ->
-    "\n$$$ mermaid\n#{code.trim()}\n$$$\n"
-  @plantuml: (code) ->
-    "\n$$$ plantuml\n#{code.trim()}\n$$$\n"
+  @mermaid: (code, style) ->
+    style = if style then " {#{style}}" else ''
+    "\n$$$ mermaid#{style}\n#{code.trim()}\n$$$\n"
+  @plantuml: (code, style) ->
+    style = if style then " {#{style}}" else ''
+    "\n$$$ plantuml#{style}\n#{code.trim()}\n$$$\n"
 
 
   # Create instance

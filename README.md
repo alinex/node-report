@@ -1788,19 +1788,7 @@ And rendered as HTML links will be added in the text and backlinks from the foot
 This are settings which only influence html output and the formats depending on it
 (pdf, images).
 
-#### Direct Style
-
-You can give your styles in curly braces behind an markdown element to style that element.
-
-``` markdown
-$$$ execute {.right}
-...
-$$$
-
-The **bold and red**{.red} text comes here.
-```
-
-#### Style Search
+#### Element Style
 
 You can also give some specific styles (only) for the HTML output. This may overwrite
 all default settings:
@@ -1877,6 +1865,23 @@ And rendered as HTML:
 
 ![html](src/doc/style-direct.png)
 
+#### Direct Style
+
+As a shortcut to the above possibility you may use your styles in curly braces
+directly behind an markdown element to style that element. This also allows to
+style some elements like the execute plugin which is not stylable with the above:
+
+``` markdown
+$$$ plantuml {.right}
+...
+$$$
+
+The **bold and red**{.red} text comes here.
+```
+
+With the last argument to the API methods you also can add the styles or other
+attributes.
+
 #### Style Sheets
 
 This will add or overwrite the page style rules. You may also add other rules which
@@ -1948,9 +1953,28 @@ report.header '<script type="text/javascript" src="http://myserver.com/my-lib.js
 
 This will add the script tag to the head section of the resulting HTML.
 
+
 ### Visualization
 
 This will only work in HTML format, else the definition is displayed.
+
+All of the visual effects allow the use of additional style settings as the last
+argument.
+
+``` coffee
+report = new Report()
+report.qr "http://alinex.de", '.right'
+```
+
+This will be written in markdown as:
+
+``` markdown
+$$$ qr {.right}
+http://alinex.de
+$$$
+```
+
+Which will add a `float: right` style setting to the element.
 
 #### QR Code
 
