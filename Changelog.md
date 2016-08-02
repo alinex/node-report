@@ -4,6 +4,12 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 2.1.10 (2016-08-02)
+-------------------------------------------------
+- Upgraded to phantomjs-prebuilt@2.1.9.
+- Allow direct styles through api.
+- Allow direct styles in each elements using curly braces.
+
 Version 2.1.9 (2016-07-25)
 -------------------------------------------------
 - Support includes in handlebar templates.
