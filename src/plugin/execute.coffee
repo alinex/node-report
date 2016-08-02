@@ -156,10 +156,12 @@ parser = (state, startLine, endLine, silent) ->
 # Renderer
 # -------------------------------------------
 
-renderer = (tokens, idx, options, env) ->
+renderer = (tokens, idx, options, env, slf) ->
   token = tokens[idx]
   if token.info
     [type] = token.info.split /\s+/g
+  attrs = slf.renderAttrs
+    attrs: token.attrs
   switch type.toLowerCase()
     # coding
     when 'css'
@@ -186,7 +188,7 @@ renderer = (tokens, idx, options, env) ->
         util.extend data, dataParse token.content, 'yaml'
       else
         data.content = token.content.trim()
-      new QRCode(data).svg()
+      new QRCode(data).svg().replace /(<svg)/, "$1#{attrs}"
 
     when 'chart'
       [setup, _, table] = token.content.trim().split /(^|\n\s*\n\s*)\|/
@@ -231,7 +233,7 @@ renderer = (tokens, idx, options, env) ->
           chart("#chart#{++CHARTNUM}", #{dataStringify data, 'js'});
         })
         """
-      html = """<div id="chart#{CHARTNUM}"></div>
+      html = """<div id="chart#{CHARTNUM}"#{attrs}></div>
         <script type="text/javascript"><!--\n#{code}\n//--></script>"""
       # normal javascript display
       unless env.noJS
@@ -259,7 +261,7 @@ renderer = (tokens, idx, options, env) ->
             cb null, buffer
       data = convert html
       image = new Buffer(data, 'binary').toString 'base64'
-      """<p><img src="data:application/octet-stream;base64,#{image}"></p>"""
+      """<p#{attrs}><img src="data:application/octet-stream;base64,#{image}"></p>"""
 
     when 'plantuml'
       plantuml ?= require 'node-plantuml'
@@ -269,7 +271,7 @@ renderer = (tokens, idx, options, env) ->
         buffer = ''
         gen.out.on 'data', (data) -> buffer += data.toString()
         gen.out.on 'end', -> cb null, buffer
-      renderer token.content
+      (renderer token.content).replace /(<svg)/, "$1#{attrs}"
 
     when 'mermaid'
       # setup command processing
@@ -286,11 +288,10 @@ renderer = (tokens, idx, options, env) ->
         "#{tempdir}/mermaid"
       ]
       # load image into img tag
-#      fs.readFileSync("#{tempdir}/mermaid.svg").toString 'utf-8'
       image = fs.readFileSync("#{tempdir}/mermaid.png").toString 'base64'
       fs.remove tempdir
       style = if token.content.trim().match /^gantt/i then '' else "style=\"max-width: 100%\""
-      """<p><img #{style} src="data:application/octet-stream;base64,#{image}"></p>"""
+      """<p#{attrs}><img #{style} src="data:application/octet-stream;base64,#{image}"></p>"""
 
 #    when 'mermaid-api'
 #      code = """

@@ -31,6 +31,7 @@ mdAbbr = require 'markdown-it-abbr' # abbreviations (auto added)
 mdFootnote = require 'markdown-it-footnote' # footnotes (auto linked)
 mdCheckbox = require 'markdown-it-checkbox'
 mdDecorate = require 'markdown-it-decorate' # add css classes
+mdAttrs = require 'markdown-it-attrs' # alternative attributes
 mdToc = require 'markdown-it-toc-and-anchor'
 twemoji = require 'twemoji'
 # load own plugins
@@ -343,6 +344,7 @@ initHtml = -> #async.once ->
   .use mdFootnote # footnotes (auto linked)
   .use mdCheckbox, {divWrap: true, divClass: 'cb'}
   .use mdDecorate # add css classes
+  .use mdAttrs # additional attributes
   .use mdToc.default, # possibility to add TOC
     tocClassName: 'table-of-contents'
     tocFirstLevel: 2

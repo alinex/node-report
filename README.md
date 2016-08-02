@@ -1790,6 +1790,18 @@ This are settings which only influence html output and the formats depending on 
 
 #### Direct Style
 
+You can give your styles in curly braces behind an markdown element to style that element.
+
+``` markdown
+$$$ execute {.right}
+...
+$$$
+
+The **bold and red**{.red} text comes here.
+```
+
+#### Style Search
+
 You can also give some specific styles (only) for the HTML output. This may overwrite
 all default settings:
 
