@@ -318,7 +318,7 @@ report.code 'This **is** a ==markdown== text', 'markdown'
 report.code 'simple:\n  list: [a, b, 5]', 'yaml'
 ```
 
-In the markdown this is represented with a block of at leasr three back quotes
+In the markdown this is represented with a block of at least three back quotes
 followed by the language to use:
 
 ```` markdown
@@ -339,6 +339,8 @@ simple:
 And renders as HTML:
 
 ![html](src/doc/block-code.png)
+
+Use more backquotes if your content may contain three backquotes.
 
 ### Separation
 
@@ -372,7 +374,7 @@ And renders as HTML:
 
 The following code makes a colored box around a markup text which may contain
 any other markup. As second parameter the type of the box needs to be given
-which is one of: 'detail', 'info', 'warning', 'alert'
+which is one of: 'detail', 'info', 'warning', 'alert' (alias 'error').
 
 ``` coffee
 report.box "Some more details here...", 'detail'
@@ -381,7 +383,8 @@ report.box "This is important!", 'warning'
 report.box "Something went wrong!", 'alert'
 ```
 
-An additional width parameter may also be given to set the display width in markdown.
+An additional title text and width parameter may also be given to customize title
+and optimize display width in markdown.
 
 In the markdown this is defined using driple colons as start and end with the
 box type behind the start mark:
@@ -407,6 +410,14 @@ Something went wrong!
 And renders as HTML or console output:
 
 ![html](src/doc/box.png) ![console](src/doc/box.console.png)
+
+Markdown for additional tile will be:
+
+``` markdown
+::: info Short Note
+A short note.
+:::
+```
 
 ### Lists
 

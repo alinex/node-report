@@ -332,10 +332,14 @@ initHtml = -> #async.once ->
   .use mdTitle #extracting title from source (first heading)
   .use mdSub # subscript support
   .use mdSup # superscript support
-  .use mdContainer, 'detail' # special boxes
-  .use mdContainer, 'info' # special boxes
-  .use mdContainer, 'warning' # special boxes
-  .use mdContainer, 'alert' # special boxes
+  .use mdContainer, 'detail',
+    render: containerRender
+  .use mdContainer, 'info',
+    render: containerRender
+  .use mdContainer, 'warning',
+    render: containerRender
+  .use mdContainer, 'alert',
+    render: containerRender
   .use mdMark # add text as "marked"
   .use mdEmoji # add graphical emojis
   .use pluginFontawesome
@@ -354,6 +358,19 @@ initHtml = -> #async.once ->
   md2html.renderer.rules.emoji = (token, idx) ->
     twemoji.parse token[idx].content
   md2html
+
+containerAlias =
+  error: 'alert'
+containerRender = (tokens, idx) ->
+  return if tokens[idx].nesting is 1 # opening tag
+    m = tokens[idx].info.trim().match /^(\S*?)(?:\s+(.*))?$/
+    type = m[1].toLowerCase()
+    type = containerAlias[type] if containerAlias[type]
+    h = "<div class=\"#{type}\">"
+    h += "<header>#{m[2]}</header>" if m[2]?.length
+    "#{h}\n"
+  else # closing tag
+    '</div>\n'
 
 text = (tag, locale, tr = trans) ->
   parts = tag.split /\./
@@ -406,7 +423,7 @@ optimizeHtml = (html, locale = 'en') ->
   # boxes
   for tag of trans.boxes
     re.push [
-      new RegExp '(<div class="' + tag + '">)', 'g'
+      new RegExp '(<div class="' + tag + '">)(?!<header>)', 'g'
       "$1<header>#{text tag, locale, trans.boxes}</header>"
     ]
   # replacement

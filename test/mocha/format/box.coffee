@@ -44,3 +44,18 @@ describe "box", ->
       </div>
       </div></body>
       """, cb
+
+  it "should create a box", (cb) ->
+    report = new Report()
+    report.box "A short note.", 'info', 'Short Note'
+    test.report 'box', report, """
+
+      ::: info Short Note
+      A short note.
+      :::
+
+      """, """
+      <div class="info"><header>Short Note</header>
+      <p>A short note.</p>
+      </div>
+      """, cb

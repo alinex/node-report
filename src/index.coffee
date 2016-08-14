@@ -238,11 +238,12 @@ class Report
       return "\n``` #{lang}\n#{text.replace /^\s*\n|\n\s*$/, ''}\n```\n"
     indent = '    '
     block text, indent, indent, width ? @width, true
-  @box: (text, type, width) ->
-    unless type in ['detail', 'info', 'warning', 'alert']
+  @box: (text, type, title, width) ->
+    unless type in ['detail', 'info', 'warning', 'alert', 'error']
       throw new Error "Unknown box type #{type} for report"
     return @p text unless type
-    return "\n::: #{type}\n#{text.trim()}\n:::\n"
+    title = if title then " #{title}" else ''
+    return "\n::: #{type}#{title}\n#{text.trim()}\n:::\n"
     indent = ''
     block text, indent, indent, width ? @width
   @hr: -> "\n---\n"
@@ -386,7 +387,7 @@ class Report
   hr: -> @raw Report.hr()
   quote: (text, depth, width) -> @raw Report.quote text, depth, width ? @width
   code: (text, lang) -> @raw Report.code text, lang, @width
-  box: (text, type) -> @raw Report.box text, type, @width
+  box: (text, type, title) -> @raw Report.box text, type, title, @width
 
   # ### lists
   ul: (list, sort) -> @raw Report.ul list, sort, @width
