@@ -4,6 +4,15 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 2.1.11 (2016-08-18)
+-------------------------------------------------
+- Update html-pdf@2.1.0
+- Fix test to allow slightly change of footnotes.
+- Update markdown-it-attrs@0.6.3
+- Update alinex-fs@2.0.7, markdown-it@7.0.1, markdown-it-footnote@3.0.1, phantomjs-prebuilt@2.1.12, alinex-builder@2.3.6, alinex-util@2.4.0, highlight.js@9.6.0
+- Downgrade markdown-it to 6.1.0 because of markdown-it-attr dependency.
+- Add support for alternative box titles.
+
 Version 2.1.10 (2016-08-02)
 -------------------------------------------------
 - Upgraded to phantomjs-prebuilt@2.1.9.
