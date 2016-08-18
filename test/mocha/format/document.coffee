@@ -103,7 +103,7 @@ describe "document", ->
 
       """, """
       <body><div id="page"><p>The World Wide Web (WWW) is invented by CERN<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>. But I<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup> and prometheus<sup class="footnote-ref"><a href="#fn3" id="fnref3">[3]</a></sup>
-      used it to make a medical learning environment out of it. <em>Alex<sup class="footnote-ref"><a href="#fn2:1" id="fnref2:1">[2:1]</a></sup></em></p>
+      used it to make a medical learning environment out of it. <em>Alex<sup class="footnote-ref"><a href="#fn2" id="fnref2:1">[2:1]</a></sup></em></p>
       <hr class="footnotes-sep" />
       <section class="footnotes">
       <ol class="footnotes-list">
