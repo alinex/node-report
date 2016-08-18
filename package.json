@@ -47,7 +47,7 @@
     "debug": "^2.2.0",
     "handlebars": "^4.0.5",
     "highlight.js": "^9.6.0",
-    "html-pdf": "^2.0.1",
+    "html-pdf": "^2.1.0",
     "inline-css": "^2.2.2",
     "markdown-it": "^7.0.1",
     "markdown-it-abbr": "^1.0.0",
