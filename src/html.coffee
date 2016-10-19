@@ -162,6 +162,8 @@ module.exports = (report, setup = {}, cb) ->
       f = path.resolve __dirname, '../', f
       bin = new Buffer(fs.readFileSync f).toString 'base64'
       "#{b}data:#{mime.lookup f};base64,#{bin}#{a}"
+    # replace newlines before html tags
+    content = content.replace /\n<!--/g, '<!--'
     # transform to html
     data = util.clone setup
     innerHtml = md.render content, data
