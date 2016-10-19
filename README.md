@@ -1844,9 +1844,11 @@ In the markdown it is notated within an html comment:
 
 ``` markdown
 Set float\
-left and id...<!-- {#left .left} -->
+left and id...
+<!-- {#left .left} -->
 
-Make this centered (using class)...<!-- {.center} -->
+Make this centered (using class)...
+<!-- {.center} -->
 
 Make this centered and red (using classes)...
 <!-- {.center.text-red} -->
@@ -1875,6 +1877,9 @@ line 5
 And rendered as HTML:
 
 ![html](src/doc/style-direct.png)
+
+Best preactice is to put this comments in an extra line which will also remove them
+from being displayed in github markdown.
 
 #### Direct Style
 
