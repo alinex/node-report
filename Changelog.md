@@ -4,6 +4,14 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 2.1.12 (2016-10-19)
+-------------------------------------------------
+- Remove line breaks before html comments for rendering.
+- Describe github comment handling.
+- Updated ignore files.
+- Update travis.
+- Update travis.
+
 Version 2.1.11 (2016-08-18)
 -------------------------------------------------
 - Update html-pdf@2.1.0
