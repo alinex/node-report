@@ -159,38 +159,12 @@ If you want to only convert existing markdown into html do this like:
 ``` coffee
 html = new Report({source: markdownText}).toHtml()
 ```
-
 ### Mask characters
 
 To mask some characters to be not interpreted as markdown, you may use `\` before
+
 the special markdown signs or automatically mask them using `Report.mask text`
 if you didn't want to interpret them as markdown.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 Output
