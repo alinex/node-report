@@ -1,9 +1,39 @@
-Package: alinex-report
+Alinex Report: Readme
 =================================================
 
-[![Build Status](https://travis-ci.org/alinex/node-report.svg?branch=master)](https://travis-ci.org/alinex/node-report)
-[![Coverage Status](https://coveralls.io/repos/alinex/node-report/badge.png?branch=master)](https://coveralls.io/r/alinex/node-report?branch=master)
-[![Dependency Status](https://gemnasium.com/alinex/node-report.png)](https://gemnasium.com/alinex/node-report)
+[![GitHub watchers](
+  https://img.shields.io/github/watchers/alinex/node-report.svg?style=social&label=Watch&maxAge=2592000)](
+  https://github.com/alinex/node-report/subscription)
+<!-- {.hidden-small} -->
+[![GitHub stars](
+  https://img.shields.io/github/stars/alinex/node-report.svg?style=social&label=Star&maxAge=2592000)](
+  https://github.com/alinex/node-report)
+[![GitHub forks](
+  https://img.shields.io/github/forks/alinex/node-report.svg?style=social&label=Fork&maxAge=2592000)](
+  https://github.com/alinex/node-report)
+<!-- {.hidden-small} -->
+<!-- {p:.right} -->
+
+[![npm package](
+  https://img.shields.io/npm/v/alinex-table.svg?maxAge=2592000&label=latest%20version)](
+  https://www.npmjs.com/package/alinex-table)
+[![latest version](
+  https://img.shields.io/npm/l/alinex-table.svg?maxAge=2592000)](#license)
+<!-- {.hidden-small} -->
+[![Travis status](
+  https://img.shields.io/travis/alinex/node-report.svg?maxAge=2592000&label=develop)](
+  https://travis-ci.org/alinex/node-report)
+[![Coveralls status](
+  https://img.shields.io/coveralls/alinex/node-report.svg?maxAge=2592000)](
+  https://coveralls.io/r/alinex/node-report?branch=master)
+[![Gemnasium status](
+  https://img.shields.io/gemnasium/alinex/node-report.svg?maxAge=2592000)](
+  https://gemnasium.com/alinex/node-report)
+[![GitHub issues](
+  https://img.shields.io/github/issues/alinex/node-report.svg?maxAge=2592000)](
+  https://github.com/alinex/node-report/issues)
+<!-- {.hidden-small} -->
+
 
 This report module should help you create complex reports in an easy
 way. You create a new object and append different text objects step by step. At last
@@ -29,8 +59,12 @@ this the styles from the head section will moved into the document because
 webmail client will remove the head section completely. Only for javascript there
 is no possible replacement.
 
-> It is one of the modules of the [Alinex Namespace](http://alinex.github.io/code.html)
-> following the code standards defined in the [General Docs](http://alinex.github.io/develop).
+> It is one of the modules of the [Alinex Namespace](https://alinex.github.io/code.html)
+> following the code standards defined in the [General Docs](https://alinex.github.io/develop).
+
+__Read the complete documentation under
+[https://alinex.github.io/node-report](https://alinex.github.io/node-report).__
+<!-- {p: .hidden} -->
 
 
 Install
@@ -131,6 +165,16 @@ html = new Report({source: markdownText}).toHtml()
 To mask some characters to be not interpreted as markdown, you may use `\` before
 the special markdown signs or automatically mask them using `Report.mask text`
 if you didn't want to interpret them as markdown.
+
+
+
+
+
+
+
+
+
+
 
 
 Report Elements

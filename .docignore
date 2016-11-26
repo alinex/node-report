@@ -16,3 +16,4 @@ npm-debug.log
 /coffeelint.json
 /.travis.yml
 /.*
+/src/doc

@@ -184,7 +184,7 @@ datatableDefault =
 class Report
 
   @setup = util.function.once this, (cb) ->
-    debug chalk.grey "setup report component"
+    debug chalk.grey "setup report component" if debug.enabled
     # set module search path
     config.register false, path.dirname(__dirname),
       folder: 'template'

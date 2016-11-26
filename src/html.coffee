@@ -233,11 +233,11 @@ module.exports.frame = (html, js, check) ->
 setupStyle = (setup, cb) ->
   style = setup?.style ? 'default'
   # create output
-  debug "use style #{style} for html conversion"
+  debug "use style #{style} for html conversion" if debug.enabled
   config.typeSearch 'template', (err, map) ->
     file = map["report/#{style}.css"]
     css = if file
-      debug chalk.grey "using css from #{file}"
+      debug chalk.grey "using css from #{file}" if debug.enabled
 #      if match = file.match /\/(node-[-a-z]+)\/var\/src\/template\/report/
 #        if fs.existsSync "#{__dirname}/../src"
 #          """<style type="text/css">#{fs.readFileSync file, 'utf8'}</style>"""
@@ -254,14 +254,14 @@ setupStyle = (setup, cb) ->
         """<style type="text/css">#{fs.readFileSync style, 'utf8'}</style>"""
     # load hbs
     file = map["report/#{style}.hbs"]
-    debug chalk.grey "using html template from #{file}"
+    debug chalk.grey "using html template from #{file}" if debug.enabled
     readCached = memoize (file) -> fs.readFileSync file, 'utf8'
     hbs = readCached file
     # includes
     while hbs.match /\{\{include\s+(.*?)\s*\}\}/
       hbs = hbs.replace /\{\{include\s+(.*?)\s*\}\}/g, (_, link) ->
         file = map["report/#{link}.hbs"]
-        debug chalk.grey "including #{file}"
+        debug chalk.grey "including #{file}" if debug.enabled
         try
           readCached file
         catch error
