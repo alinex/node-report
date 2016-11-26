@@ -4,7 +4,7 @@ Some more details here...
 :::
 
 ::: info
-A short note.
+A short note for you to read.
 :::
 
 ::: warning

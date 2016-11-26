@@ -124,6 +124,8 @@ trans =
     markdown:
       en: 'Markdown Document'
   boxes:
+    detail:
+      en: 'Details'
     info:
       en: 'Info'
     warning:

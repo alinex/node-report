@@ -2,13 +2,13 @@
 Report = require '../../../src/index'
 test = require '../test'
 
-describe "box", ->
+describe.only "box", ->
   @timeout 5000
 
-  it "should create a box", (cb) ->
+  it "should create a box in each style", (cb) ->
     report = new Report()
     report.box "Some more details here...", 'detail'
-    report.box "A short note.", 'info'
+    report.box "A short note for you to read.", 'info'
     report.box "This is important!", 'warning'
     report.box "Something went wrong!", 'alert'
     test.report 'box', report, """
@@ -18,7 +18,7 @@ describe "box", ->
       :::
 
       ::: info
-      A short note.
+      A short note for you to read.
       :::
 
       ::: warning
@@ -30,11 +30,11 @@ describe "box", ->
       :::
 
       """, """
-      <body><div id="page"><div class="detail">
+      <body><div id="page"><div class="detail"><header>Details</header>
       <p>Some more details here…</p>
       </div>
       <div class="info"><header>Info</header>
-      <p>A short note.</p>
+      <p>A short note for you to read.</p>
       </div>
       <div class="warning"><header>Warning</header>
       <p>This is important!</p>
@@ -43,19 +43,4 @@ describe "box", ->
       <p>Something went wrong!</p>
       </div>
       </div></body>
-      """, cb
-
-  it "should create a box", (cb) ->
-    report = new Report()
-    report.box "A short note.", 'info', 'Short Note'
-    test.report 'box', report, """
-
-      ::: info Short Note
-      A short note.
-      :::
-
-      """, """
-      <div class="info"><header>Short Note</header>
-      <p>A short note.</p>
-      </div>
       """, cb
