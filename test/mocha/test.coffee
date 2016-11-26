@@ -17,7 +17,8 @@ exports.report = (name, report, md, html, cb) ->
         debug "check markdown"
         expect(data, 'markdown').to.equal md
       return cb() unless name and process.env.EXAMPLES
-      fd = fs.createWriteStream "#{__dirname}/../../src/doc/#{name}.md"
+      fd = fs.createWriteStream "#{__dirname}/../../src/examples/#{name}.md"
+      fd.write "<!-- internal -->\n\n"
       fd.write data
       fd.end()
       debug "created #{name}.md"
@@ -28,7 +29,7 @@ exports.report = (name, report, md, html, cb) ->
           debug "check html"#, chalk.grey data
           expect(data, 'html').to.contain html
         return cb() unless name and process.env.EXAMPLES
-        fd = fs.createWriteStream "#{__dirname}/../../src/doc/#{name}.html"
+        fd = fs.createWriteStream "#{__dirname}/../../src/examples/#{name}.html"
         fd.write data
         fd.end()
         debug "created #{name}.html"
@@ -36,7 +37,7 @@ exports.report = (name, report, md, html, cb) ->
     (cb) ->
       return cb() unless name and process.env.EXAMPLES
       report.toImage (err, data) ->
-        fd = fs.createWriteStream "#{__dirname}/../../src/doc/#{name}.png"
+        fd = fs.createWriteStream "#{__dirname}/../../src/examples/#{name}.png"
         fd.write data, 'binary'
         fd.end()
         debug "created #{name}.png"

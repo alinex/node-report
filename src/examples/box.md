@@ -1,3 +1,5 @@
+<!-- internal -->
+
 
 ::: detail
 Some more details here...
