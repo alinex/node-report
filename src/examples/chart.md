@@ -1,3 +1,5 @@
+<!-- internal -->
+
 
 $$$ chart
 | quarter | sales | profit |

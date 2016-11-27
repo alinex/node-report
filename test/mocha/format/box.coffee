@@ -2,7 +2,7 @@
 Report = require '../../../src/index'
 test = require '../test'
 
-describe.only "box", ->
+describe "box", ->
   @timeout 5000
 
   it "should create a box in each style", (cb) ->
