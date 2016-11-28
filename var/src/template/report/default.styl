@@ -1,22 +1,34 @@
+// import nib snap-in for more browser compatibility
+@import 'nib'
+
 // Variable setup
 $color-orange = #f0ad4e
 $color-blue = #337ab7
+$color-background = #ddd
 
-
-/* page setup */
-
-color-background = #ddd
+/*
+* Format for Tags
+* --------------------------------------------------------------
+*/
 
 html
-  background color-background
+  background $color-background
   padding 20px
 
 body {
   font-family: "Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
   font-size: 16px;
   line-height: 1.2;
+  hyphenation()
   word-wrap: break-word;
 }
+
+
+/*
+* Page Layout
+* --------------------------------------------------------------
+*/
+
 div#page {
   border: 1px solid #aaa;
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.4), 0 12px 40px 0 rgba(0, 0, 0, 0.4);;
@@ -32,18 +44,27 @@ div#page > h1 {
 
 /* headings */
 
-h1 {
+h1, h2, h3, h4, h5, h6
+  font-weight: bold
+  &:before /* move anchor pint up */
+    display: block;
+    content: " ";
+    margin-top: -66px;
+    height: 66px;
+    visibility: hidden;
+h1, h2, h3
+  clear: both
+h1
   border-bottom: 3px solid black;
   padding-bottom: 5px;
-}
-h2 {
+h2
   border-bottom: 2px dotted black;
   padding-bottom: 3px;
-}
-h3 {
-  border-bottom: 1px dotted gray;
+h3
+  border-bottom: 2px dotted gray;
   padding-bottom: 2px;
-}
+h4
+  border-bottom: 1px dotted gray;
 
 /* Other elements */
 
@@ -54,9 +75,11 @@ a {
 dt
   font-weight: bold
   margin-top: 8px
+dd
+  margin-left: 20px;
 
 blockquote
-  border: 1px solid #ddd
+  border: 1px solid $color-background
   border-radius: 3px
   border-left: 5px solid $color-blue
   padding: 5px 15px
@@ -66,18 +89,22 @@ blockquote
   :last-child
     margin-bottom: 5px;
   blockquote
-    margin-right: -15px
+    margin-right: -16px
     border-left-color: $color-orange
     blockquote
       border-left-color: $color-blue
       blockquote
         border-left-color: $color-orange
 
+svg
+  max-width: 100%
 img
+  max-width: 100%
   vertical-align: middle;
 .emoji
   height: 1em;
-abbr, acronym
+abbr
+acronym
   border-bottom: dotted 1px;
 
 /* tables */
@@ -88,11 +115,11 @@ table
   display: block;
   width: 100%;
   overflow: auto;
-  word-break: normal;
   word-break: keep-all;
+  margin-bottom: 10px;
   th, td
     padding: 6px 13px;
-    border: 1px solid #ddd;
+    border: 1px solid $color-background
   th
     background-color: rgba(0, 0, 0, 0.04);
     font-weight: bold;
@@ -100,11 +127,15 @@ table
   tr
     background-color: #fff;
     border-top: 1px solid #ccc;
-    :nth-child(2n)
+    &:nth-child(2n)
       background-color: rgba(0, 0, 0, 0.04);
 
-/* code boxes */
-
+/*
+* Text Block and Code
+* --------------------------------------------------------------
+*/
+a code
+  color: #337ab7;
 code, tt
   background-color: #fafafa;
   border-radius: 4px;
@@ -118,48 +149,70 @@ pre
   font-size: 85%;
   margin: 20px;
   padding: 10px;
-  counter-reset: line;
   code, tt
     background: none;
-    &:before
-      counter-increment: line;
-      content: counter(line);
-      min-width: 35px;
-      display: block;
-      float: left;
-      text-align: right;
-      padding-right: 5px;
-      color: grey;
-      no-select();
-      -webkit-user-select: none;
   &.language
-    max-height: 280px
+    counter-reset: line;
+    max-height: 265px
     padding-top: 30px
+    padding-bottom: 0;
+    overflow-x: hidden;
+    code, tt
+      display: block;
+      position: relative;
+      float: left;
+      width: 100%
+      border-left: 45px solid $color-background;
+      margin-left: -10px;
+      padding-left: 5px;
+      &:before
+        counter-increment: line;
+        content: counter(line);
+        min-width: 35px;
+        float: left;
+        text-align: right;
+        padding-right: 5px;
+        color: grey;
+        no-select();
+        -webkit-user-select: none;
+        margin-left: -45px;
+      &:first-of-type
+        padding-top: 10px
+      &:last-child
+        padding-bottom: 10px
     header
+      border-top-left-radius: 4px;
+      border-top-right-radius: 4px;
       font-weight: bold;
       background: #fafafa;
-      margin: -30px -10px 5px -10px;
+      margin: -30px -10px 0 -10px;
       padding: 5px 15px;
+    &.coffeescript, &.javascript
+    &.ruby, &.python, &.perl
+    &.cc, &.cpp, &.cs
+    &.java, &.jsp, &.groovy
+    &.php
     &.bash
-    &.coffeescript
-    &.js
-    &.sh
     &.sql
+    &.makefile
       header
         background: #f0ad4e
-    &.json
+    &.json, &.cson
     &.yaml
       header
         background: #61b961;
     &.handlebars
+    &.css, &.stylus, &.scss, &.less
     &.markdown
       header
         background: #76abca;
 
-/* table of contents */
-
-.table-of-contents
-  border: 2px solid #ddd;
+/*
+* Table of Contents
+* --------------------------------------------------------------
+*/
+ul.table-of-contents
+  border: 2px solid $color-background;
   border-radius: 10px;
   float: right;
   margin-top: 0;
@@ -170,7 +223,7 @@ pre
     font-weight: bold;
     font-size: 120%;
     display: block;
-    background: #ddd;
+    background: $color-background;
     margin: -10px -10px 4px -25px;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
@@ -180,58 +233,93 @@ pre
   a
     text-decoration: none;
 
-/* Possible box layouts */
-
-div.detail, div.info, div.warning, div.alert
-  padding: 30px 10px 6px 10px;
-  margin: 5px 0 8px 0;
-  border-radius: 3px
-  >p
-    margin-bottom: 0;
-  header
-    font-weight: bold;
+/*
+* Box Highlighting
+* --------------------------------------------------------------
+*/
+div
+  &.detail
+  &.info
+  &.warning
+  &.alert
+    padding: 30px 10px 6px 10px;
+    margin: 5px 0 8px 0;
+    border-radius: 3px
+    padding-left: 60px
+    border-radius: 18px
+    border-top-left-radius: 0px
+    &>p
+      margin-bottom: 0;
+    header
+      font-weight: bold;
+      position: absolute;
+      margin-top: -30px;
+      margin-left: -60px;
+      padding: 3px 20px 3px 10px;
+      border-bottom-right-radius: 18px;
+  &:before
+    content: '\24D8';
+    color: #666;
     position: absolute;
-    margin-top: -30px;
-    margin-left: -10px;
-    padding: 3px 20px 3px 10px;
-    border-bottom-right-radius: 18px;
+    font-size: 28px;
+    font-weight: 900;
+    padding-top: 5px;
+    margin-left: -50px;
 div.detail
   background-color: #fafafa;
   border: 2px solid #ddd;
-  header
-    background-color: #ddd;
+  padding-top: 0;
 div.info
   background-color: #99ff99;
+  background-image: linear-gradient(to bottom, #BBffBB 0%, #66dd66 100%)
   border: 2px solid #66dd66;
   header
     background-color: #66dd66;
+  &:before
+    content: '\24D8';
+    text-shadow: 0 -1px 0 #66dd66;
 div.warning
   background-color: #ffcc99;
+  background-image: linear-gradient(to bottom, #ff9977 0%, #ee8866 100%)
   border: 2px solid #ee8866;
   header
     background-color: #ee8866;
+  &:before
+    content: '\2605';
+    text-shadow: 0 -1px 0 #ee8866;
 div.alert
   background-color: #ff9999;
+  background-image: linear-gradient(to bottom, #ffaaaa 0%, #cc0000 100%)
   border: 2px solid #cc0000;
   header
     background-color: #cc0000;
     color: white;
+  &:before
+    content: '\24D8';
+    text-shadow: 0 -1px 0 #cc0000;
 
+/*
+* Fontawesome, Decorator Styles
+* --------------------------------------------------------------
+*/
 /* Color styles for fontawesome and more */
 
-.text-red {color: red;}
-.text-green {color: green;}
-.text-yellow {color: yellow;}
-.text-blue {color: blue;}
-.text-magenta {color: magenta;}
-.text-cyan {color: cyan;}
-.text-gray {color: gray;}
+.text-red {color: red}
+.text-green {color: green}
+.text-yellow {color: yellow}
+.text-blue {color: blue}
+.text-magenta {color: magenta}
+.text-cyan {color: cyan}
+.text-gray {color: gray}
 
 /* styles for decorate */
 
-.bg-white {background-color: white;}
-.center {text-align: center;}
-.left {float: left;}
-.right {float: right;}
-.hide {display: none;}
-.spacing {padding: 10px;}
+.bg-white {background-color: white}
+
+.center {text-align: center}
+.left {float: left}
+.right {float: right}
+
+.spacing {padding: 10px}
+
+.hidden {display: none}

@@ -1,6 +1,6 @@
 <!-- internal -->
 
 
-> My home is my castle!
+> Stefan said:
 > > I would like to visit a castle in north scotland, next year.
-> Sounds great.
+> But my home is my castle.

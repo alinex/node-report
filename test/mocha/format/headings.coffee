@@ -2,7 +2,7 @@
 Report = require '../../../src/index'
 test = require '../test'
 
-describe "headings", ->
+describe.only "headings", ->
   @timeout 5000
 
   it "should create each level", (cb) ->

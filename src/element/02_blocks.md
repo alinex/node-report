@@ -87,6 +87,12 @@ This will be:
 > But my home is my castle.
 ```
 
+::: warning
+This work's not as expected in the moment and the last line will be interpreted
+as belonging to the second one. This is based on the
+[CommonMark Spec](http://spec.commonmark.org/).
+:::
+
 An alternative format is:
 
 ``` markdown
