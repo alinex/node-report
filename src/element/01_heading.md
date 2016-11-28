@@ -32,7 +32,8 @@ With the default style this should look like:
 
 ![html](../examples/headings.png) ![console](../examples/headings.console.png)
 
-Alternatively the first two levels may be also defined as:
+Alternatively the first two levels may be also defined in the same form as the
+other levels:
 
 ``` markdown
 # h1 Heading

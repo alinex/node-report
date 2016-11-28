@@ -2,20 +2,23 @@
 Report = require '../../../src/index'
 test = require '../test'
 
-describe "block", ->
+describe.only "block", ->
   @timeout 10000
 
   it "should create a paragraph", (cb) ->
     report = new Report()
     report.p 'A new paragraph.'
-    report.p 'A long text may be automatically broken into multiple lines.', 40
+    report.p 'A long text may be automatically broken into multiple lines. This is
+    done in markup as defined and in html only as needed.', 40
     report.p 'And here comes a fixed\n linebreak.\n\nWith a second paragraph.'
     test.report 'block-paragraph', report, """
 
       A new paragraph.
 
       A long text may be automatically broken
-      into multiple lines.
+      into multiple lines. This is done in
+      markup as defined and in html only as
+      needed.
 
       And here comes a fixed\\
       linebreak.
@@ -25,7 +28,9 @@ describe "block", ->
       """, """
       <body><div id="page"><p>A new paragraph.</p>
       <p>A long text may be automatically broken
-      into multiple lines.</p>
+      into multiple lines. This is done in
+      markup as defined and in html only as
+      needed.</p>
       <p>And here comes a fixed<br />
       linebreak.</p>
       <p>With a second paragraph.</p>
