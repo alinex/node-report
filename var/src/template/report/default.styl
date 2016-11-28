@@ -56,12 +56,17 @@ dt
   margin-top: 8px
 
 blockquote
-  border: 1px solid #eee
+  border: 1px solid #ddd
   border-radius: 3px
   border-left: 5px solid $color-blue
   padding: 5px 15px
   margin: 10px 0
+  :first-child
+    margin-top: 5px;
+  :last-child
+    margin-bottom: 5px;
   blockquote
+    margin-right: -15px
     border-left-color: $color-orange
     blockquote
       border-left-color: $color-blue

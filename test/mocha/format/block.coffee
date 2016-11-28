@@ -61,6 +61,19 @@ describe.only "block", ->
       </div></body>
       """, cb
 
+  it "should create multilevel quote", (cb) ->
+    report = new Report()
+    report.quote 'Stefan said:' +
+    Report.quote("I would like to visit a castle in north scotland, next year.") +
+    "But my home is my castle."
+    test.report 'block-quote2', report, """
+
+      > Stefan said:
+      > > I would like to visit a castle in north scotland, next year.
+      > But my home is my castle.
+
+      """, null, cb
+
   it "should allow alternative format in markdown", (cb) ->
     report = new Report
       source: """
@@ -68,7 +81,7 @@ describe.only "block", ->
         >> ...by using additional greater-than signs right next to each other...
         > > > ...or with spaces between arrows.
         """
-    test.report 'block-quote2', report, null, """
+    test.report 'block-quote3', report, null, """
       <body><div id="page"><blockquote>
       <p>Blockquotes can also be nested…</p>
       <blockquote>

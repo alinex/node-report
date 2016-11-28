@@ -232,7 +232,7 @@ class Report
   @p: (text, width) -> block text, '', '', width ? @width
   @quote: (text, depth = 1, width) ->
     indent = util.string.repeat '> ', depth
-    block text, indent, indent, width ? @width
+    block text, indent, indent, (width ? @width), true
   @code: (text, lang, width) ->
     if lang
       return "\n``` #{lang}\n#{text.replace /^\s*\n|\n\s*$/, ''}\n```\n"

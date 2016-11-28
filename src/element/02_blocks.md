@@ -60,6 +60,7 @@ Parameters:
 - (integer) depth level 1.. (default: 1)
 - (integer) max width in markdown
 
+This makes two quotes in different levels.
 You may give the quoting depth as second parameter and maybe the line length for
 markdown as third parameter.
 
@@ -70,6 +71,22 @@ markdown as third parameter.
 > > north scotland, next year.
 ```
 
+But you can also make stacked quotes liek:
+
+``` coffee
+report.quote 'Stefan said:' +
+Report.quote("I would like to visit a castle in north scotland, next year.") +
+"But my home is my castle."
+```
+
+This will be:
+
+``` markdown
+> Stefan said:
+> > I would like to visit a castle in north scotland, next year.
+> But my home is my castle.
+```
+
 An alternative format is:
 
 ``` markdown
@@ -78,9 +95,9 @@ An alternative format is:
 > > > ...or with spaces between arrows.
 ```
 
-And renders as HTML:
+And renders as HTML the three examples will look like:
 
-![quote](../examples/block-quote.png) ![quote](../examples/block-quote2.png)
+![quote](../examples/block-quote.png) ![quote](../examples/block-quote2.png) ![quote](../examples/block-quote3.png)
 
 
 Preformatted Text
