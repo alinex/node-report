@@ -74,24 +74,22 @@ markdown as third parameter.
 But you can also make stacked quotes liek:
 
 ``` coffee
-report.quote 'Stefan said:' +
+report.quote 'Stefan said:\n' +
 Report.quote("I would like to visit a castle in north scotland, next year.") +
-"But my home is my castle."
+"\nBut my home is my castle."
 ```
 
-This will be:
+The newline after the inner quote is neccessary to add an empty line. If not the
+level of stacked blockquotes will not be decreased caused by the lazyness of the
+markdown conversion. The matkdown therefore will be:
 
 ``` markdown
 > Stefan said:
+>
 > > I would like to visit a castle in north scotland, next year.
+>
 > But my home is my castle.
 ```
-
-::: warning
-This work's not as expected in the moment and the last line will be interpreted
-as belonging to the second one. This is based on the
-[CommonMark Spec](http://spec.commonmark.org/).
-:::
 
 An alternative format is:
 

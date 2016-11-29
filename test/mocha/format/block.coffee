@@ -63,14 +63,14 @@ describe.only "block", ->
 
   it "should create multilevel quote", (cb) ->
     report = new Report()
-    report.quote 'Stefan said:' +
+    report.quote 'Stefan said:\n' +
     Report.quote("I would like to visit a castle in north scotland, next year.") +
-    "But my home is my castle."
+    "\nBut my home is my castle."
     test.report 'block-quote2', report, """
 
       > Stefan said:
-      > > I would like to visit a castle in north scotland, next year.
-      > But my home is my castle.
+      > \n> > I would like to visit a castle in north scotland, next year.
+      > \n> But my home is my castle.
 
       """, null, cb
 
