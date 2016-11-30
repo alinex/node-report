@@ -101,7 +101,7 @@ An alternative format is:
 > > > ...or with spaces between arrows.
 ```
 
-And renders as HTML the three examples will look like:
+And rendered as HTML the three examples will look like:
 
 ![quote](../examples/block-quote.png) ![quote](../examples/block-quote2.png) ![quote](../examples/block-quote3.png)
 

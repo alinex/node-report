@@ -1,0 +1,138 @@
+<html>
+<head>
+  <style>
+
+.tabs {
+    padding: 0;
+}
+/* to move all other contents below */
+.tabs:after {
+    content: '';
+    display: table;
+    clear: both;
+}
+.tabs > input {
+    display: none;
+}
+/* style for tab headings */
+.tabs input.tab + label {
+    position: relative;
+    z-index: 1;
+    display: block;
+    float: left;
+    cursor: pointer;
+
+    padding: 5px 10px;
+    margin-bottom: -1px;
+    border: 1px solid black;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background: #ddd;
+}
+/* hide tab contents */
+.tab-content {
+    display: none;
+    position: relative;
+    clear: both;
+
+    border: 1px solid black;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding: 0 15px;
+
+    max-height: 200px;
+    overflow: auto;
+}
+.tabs input.tab:checked + label {
+    border-bottom-color: white ;
+    background: #fff;
+}
+
+#tab1:checked ~ #tab-content1,
+#tab2:checked ~ #tab-content2,
+#tab3:checked ~ #tab-content3,
+#tab4:checked ~ #tab-content4,
+#tab5:checked ~ #tab-content5,
+#tab6:checked ~ #tab-content6,
+#tab7:checked ~ #tab-content7,
+#tab8:checked ~ #tab-content8 {
+    display: block;
+}
+
+/* action */
+.tabs-size + label {
+  cursor: pointer;
+  float: right;
+  padding: 5px;
+}
+#tabs-size-min:checked + label,
+#tabs-size-scroll:checked + label,
+#tabs-size-max:checked + label {
+  color: gray;
+}
+#tabs-size-min:checked ~ .tab-content {
+  height: 0;
+}
+#tabs-size-max:checked ~ .tab-content {
+  max-height: none;
+}
+
+  </style>
+</head>
+<body>
+
+  <h1>Radio CSS Tabs</h1>
+
+  <p>Needs all headings first.</p>
+
+	<div class="tabs">
+
+	    <input type="radio" name="tabs" class="tab" id="tab1" checked="">
+	    <label for="tab1">
+	        <i class="fa fa-html5"></i><span>HTML5</span>
+	    </label>
+
+	    <input type="radio" name="tabs" class="tab" id="tab2">
+	    <label for="tab2">
+	        <i class="fa fa-css3"></i><span>CSS3</span>
+	    </label>
+
+	    <input type="radio" name="tabs" class="tab" id="tab3">
+	    <label for="tab3">
+	        <i class="fa fa-code"></i><span>jQuery</span>
+	    </label>
+
+      <input type="radio" name="tabs-size" class="tabs-size" id="tabs-size-max">
+	    <label for="tabs-size-max">Max</label>
+      <input type="radio" name="tabs-size" class="tabs-size" id="tabs-size-scroll" checked="">
+	    <label for="tabs-size-scroll">Scroll</label>
+      <input type="radio" name="tabs-size" class="tabs-size" id="tabs-size-min">
+	    <label for="tabs-size-min">Min</label>
+
+	    <div id="tab-content1" class="tab-content">
+	        <h3>HTML5 Snippets</h3>
+          <p>HTML5 is a markup language used for structuring and presenting content on the World Wide Web. It was finalized, and published, on 28 October 2014 by the World Wide Web Consortium (W3C). This is the fifth revision of the HTML standard since the inception of the World Wide Web.</p>
+          <p>HTML5 is a markup language used for structuring and presenting content on the World Wide Web. It was finalized, and published, on 28 October 2014 by the World Wide Web Consortium (W3C). This is the fifth revision of the HTML standard since the inception of the World Wide Web.</p>
+          <p>HTML5 is a markup language used for structuring and presenting content on the World Wide Web. It was finalized, and published, on 28 October 2014 by the World Wide Web Consortium (W3C). This is the fifth revision of the HTML standard since the inception of the World Wide Web.</p>
+	    </div>
+
+	    <div id="tab-content2" class="tab-content">
+	        <h3>CSS3 Snippets</h3>
+	        <p>Cascading Style Sheets (CSS) is a...
+
+	    </div>
+
+	    <div id="tab-content3" class="tab-content">
+
+	        <h3>jQuery</h3>
+	        <p>jQuery is a fast, small, and feature-rich JavaScript library. It makes things like HTML document traversal and manipulation, event handling, animation, and Ajax much simpler with an easy-to-use API that works across a multitude of browsers.</p>
+
+	    </div>
+
+	</div>
+
+  <p> Some other contents...
+
+</body>
+</html>
