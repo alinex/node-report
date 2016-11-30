@@ -5,7 +5,6 @@ This allows the following types:
 - p - add a text paragraph
 - quote - add quoted text multiple level depth (second parameter)
 - code - add a code block (language as additional parameter)
-- box - add a visual box of any content
 
 
 Paragraph
@@ -166,53 +165,3 @@ And renders as HTML:
 ![html](../examples/block-code.png)
 
 Use more backquotes if your content may contain three backquotes.
-
-
-Box
-------------------------------------------------------------------
-The following code makes a colored box around a markup text which may contain
-any other markup. As second parameter the type of the box needs to be given
-which is one of: 'detail', 'info', 'warning', 'alert' (alias 'error').
-
-``` coffee
-report.box "Some more details here...", 'detail'
-report.box "A short note.", 'info'
-report.box "This is important!", 'warning'
-report.box "Something went wrong!", 'alert'
-```
-
-An additional title text and width parameter may also be given to customize title
-and optimize display width in markdown.
-
-In the markdown this is defined using driple colons as start and end with the
-box type behind the start mark:
-
-``` markdown
-::: detail
-Some more details here...
-:::
-
-::: info
-A short note.
-:::
-
-::: warning
-This is important!
-:::
-
-::: alert
-Something went wrong!
-:::
-```
-
-And renders as HTML or console output:
-
-![html](../examples/box.png) ![console](../examples/box.console.png)
-
-Markdown for additional tile will be:
-
-``` markdown
-::: info Short Note
-A short note.
-:::
-```
