@@ -55,9 +55,12 @@ find the possibilities here enormous. And you may also directly load markdown an
 process it using this package.
 
 The html export can also be optimized for email using `ìnlineCss` option. With
-this the styles from the head section will moved into the document because
+this setting the styles from the head section will moved into the document because
 webmail client will remove the head section completely. Only for javascript there
 is no possible replacement.
+
+The [Documentation of this module](https://alinex.github.io/node-report) itself
+uses the `alinex-report` module to generate the html pages.
 
 > It is one of the modules of the [Alinex Namespace](https://alinex.github.io/code.html)
 > following the code standards defined in the [General Docs](https://alinex.github.io/develop).

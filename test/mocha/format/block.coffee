@@ -2,7 +2,7 @@
 Report = require '../../../src/index'
 test = require '../test'
 
-describe.only "block", ->
+describe "block", ->
   @timeout 10000
 
   it "should create a paragraph", (cb) ->
@@ -63,14 +63,14 @@ describe.only "block", ->
 
   it "should create multilevel quote", (cb) ->
     report = new Report()
-    report.quote 'Stefan said:' +
+    report.quote 'Stefan said:\n' +
     Report.quote("I would like to visit a castle in north scotland, next year.") +
-    "But my home is my castle."
+    "\nBut my home is my castle."
     test.report 'block-quote2', report, """
 
       > Stefan said:
-      > > I would like to visit a castle in north scotland, next year.
-      > But my home is my castle.
+      > \n> > I would like to visit a castle in north scotland, next year.
+      > \n> But my home is my castle.
 
       """, null, cb
 
@@ -94,7 +94,7 @@ describe.only "block", ->
       </div></body>
       """, cb
 
-  it "should create text code block", (cb) ->
+  it "should create preformatted text block", (cb) ->
     report = new Report()
     report.code 'This is a text code block.\nIt should be kept as is.'
     test.report 'block-pre', report, "\n    This is a text code block.\n    It should be kept as is.\n", """
@@ -103,6 +103,23 @@ describe.only "block", ->
       </code></pre>
       </div></body>
       """, cb
+
+  it.only "test new layout", (cb) ->
+    report = new Report()
+    report.raw """
+    ``` js
+    var x = Math.round(f);
+    ```
+
+        Normal preformatted text
+
+    ::: info Beispiel
+    A short note for you to read.
+    :::
+
+    """
+    console.log report.toString()
+    test.report 'block-codeX', report, null, null, cb
 
   it "should create a code block", (cb) ->
     report = new Report()
@@ -131,3 +148,32 @@ describe.only "block", ->
       <code><span class="hljs-attr">  list:</span> [<span class="hljs-string">"a"</span>, b, <span class="hljs-number">5</span>]</code></pre>
       </div></body>
       """, cb
+
+# code with type text
+# code with own headings
+# code with long code and print style
+# code with <!-- .closed --> <!-- .opened --> <!-- .scroll -->
+# pre also with title: code text xxxx
+###
+
+::: info Beispiel
+
+:::
+
+::: warning
+``` js
+```
+:::
+
+-----------------------------
+
+<div class="info"><header>Beispiel</header>
+<p>A short note for you to read.</p>
+</div>
+<div class="warning"><header>Warnung</header>
+<p>A short note for you to read.</p>
+</div>
+
+
+
+###

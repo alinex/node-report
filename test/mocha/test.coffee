@@ -14,7 +14,7 @@ exports.report = (name, report, md, html, cb) ->
     (cb) ->
       data = report.toString()
       if md
-        debug "check markdown"
+        debug "check markdown", chalk.grey data
         expect(data, 'markdown').to.equal md
       return cb() unless name and process.env.EXAMPLES
       fd = fs.createWriteStream "#{__dirname}/../../src/examples/#{name}.md"

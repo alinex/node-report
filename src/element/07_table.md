@@ -1,4 +1,4 @@
-Table
+Tables
 ========================================================================
 
 Output a table (data object and optional column object needed). This can be called

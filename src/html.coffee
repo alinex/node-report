@@ -169,7 +169,10 @@ module.exports = (report, setup = {}, cb) ->
     # transform to html
     data = util.clone setup
     innerHtml = md.render content, data
+    console.log innerHtml
+    console.log '-----------------------------------------------------'
     content = optimizeHtml innerHtml, setup?.locale
+    console.log content
     title = setup?.title ? data.title ? 'Report'
     tags = util.clone report.parts.header
     js = data.js?.join '\n'
