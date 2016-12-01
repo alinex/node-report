@@ -132,7 +132,7 @@ display modes which will show it minimized, maximized or with an scroll bar.
 It is shown in the minimized form at start but you may click it into scroll
 or maximized view as you like. In any other output which is not html it will
 always be displayed in full size (maximized).", 'info', 'Long Note'
-reports.style 'tabs:size=min'
+report.style 'tabs:size=min'
 ```
 
 Markdown for own title will be:

@@ -104,23 +104,6 @@ describe "block", ->
       </div></body>
       """, cb
 
-  it.only "test new layout", (cb) ->
-    report = new Report()
-    report.raw """
-    ``` js
-    var x = Math.round(f);
-    ```
-
-        Normal preformatted text
-
-    ::: info Beispiel
-    A short note for you to read.
-    :::
-
-    """
-    console.log report.toString()
-    test.report 'block-codeX', report, null, null, cb
-
   it "should create a code block", (cb) ->
     report = new Report()
     report.code 'var x = Math.round(f);', 'js'
@@ -148,32 +131,3 @@ describe "block", ->
       <code><span class="hljs-attr">  list:</span> [<span class="hljs-string">"a"</span>, b, <span class="hljs-number">5</span>]</code></pre>
       </div></body>
       """, cb
-
-# code with type text
-# code with own headings
-# code with long code and print style
-# code with <!-- .closed --> <!-- .opened --> <!-- .scroll -->
-# pre also with title: code text xxxx
-###
-
-::: info Beispiel
-
-:::
-
-::: warning
-``` js
-```
-:::
-
------------------------------
-
-<div class="info"><header>Beispiel</header>
-<p>A short note for you to read.</p>
-</div>
-<div class="warning"><header>Warnung</header>
-<p>A short note for you to read.</p>
-</div>
-
-
-
-###

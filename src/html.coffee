@@ -135,6 +135,9 @@ trans =
       en: 'Attention'
       de: 'Achtung'
 
+lastTabID = 0
+lastTabGroup = 0
+
 
 # Convert into HTML
 # -------------------------------------------------
@@ -172,6 +175,7 @@ module.exports = (report, setup = {}, cb) ->
     console.log innerHtml
     console.log '-----------------------------------------------------'
     content = optimizeHtml innerHtml, setup?.locale
+    console.log '-----------------------------------------------------'
     console.log content
     title = setup?.title ? data.title ? 'Report'
     tags = util.clone report.parts.header
@@ -373,11 +377,11 @@ containerRender = (tokens, idx) ->
     m = tokens[idx].info.trim().match /^(\S*?)(?:\s+(.*))?$/
     type = m[1].toLowerCase()
     type = containerAlias[type] if containerAlias[type]
-    h = "<div class=\"#{type}\">"
+    h = "<tab class=\"#{type}\">"
     h += "<header>#{m[2]}</header>" if m[2]?.length
     "#{h}\n"
   else # closing tag
-    '</div>\n'
+    '</tab>\n'
 
 text = (tag, locale, tr = trans) ->
   parts = tag.split /\./
@@ -386,9 +390,14 @@ text = (tag, locale, tr = trans) ->
 
 optimizeHtml = (html, locale = 'en') ->
   re = [
-    [ # add header to table-of-contents
+    [ # table-of-contents: add box header
       /<p>\n(<ul class="table-of-contents">)([\s\S]*?<\/ul>)\n<\/p>/g
       "$1<header>#{text 'content', locale}</header>$2"
+    ]
+  ,
+    [ # table-of-contents: add index title
+      /(<ul class="table-of-contents")>/g
+      "$1 aria-hidden=\"true\"><header>#{text 'index', locale}</header>"
     ]
   ,
     [ # move style settings from code to parent pre
@@ -406,14 +415,57 @@ optimizeHtml = (html, locale = 'en') ->
         "#{pre} #{css}><code>#{content}</code></pre>"
     ]
   ,
-    [ # add heading to table-of-contents
-      /(<ul class="table-of-contents")>/g
-      "$1 aria-hidden=\"true\"><header>#{text 'index', locale}</header>"
-    ]
-  ,
-    [ # fix decorator problem for code elements
+    [ # code_ fix decorator problem for code elements
       /<pre ((?:(?!<pre)[\s\S])+<\/pre>)\n<!-- {code: (.*?)} -->/g
       "<pre $2 $1"
+    ]
+  ,
+    [ # box: wrap tab in tabs collection
+      /(<tab[\s\S]+?<\/tab>)/g
+      "<tabs>$1</tabs>"
+    ]
+  ,
+    [ # box: merge multiple tabs together
+      /<\/tabs>\s*<tabs>/g
+      ""
+    ]
+  ,
+    [ # box: convert boxes to tabs
+      /<tabs>([\s\S]*?)<\/tabs>/g
+      (_, html) ->
+        # parse tabs
+        tabRE = /<tab class="([^"]+)">(?:<header>(.*?)<\/header>)?([\s\S]+?)<\/tab>/g
+        tabs = []
+        tabs.push match while match = tabRE.exec html
+        console.log '>>>>>>>>>>>>>>>>>>>>>', tabs
+        # create html
+        tabGroup = ++lastTabGroup
+        html = "<div class=\"tabs\">\n"
+        # add tab switches
+        tabNum = 0
+        for e, n in tabs
+          e[2] ?= text e[1], locale, trans.boxes
+          tabID = ++lastTabID
+          checked = if tabNum then '' else ' checked=\"\"'
+          html += "<input type=\"radio\" name=\"tabs#{tabGroup}\"
+          class=\"tab tab#{++tabNum}\" id=\"tab#{tabID}\"#{checked}>\
+          <label for=\"tab#{tabID}\">#{e[2]}</label>\n"
+        # add size links
+        html += "<input type=\"radio\" name=\"tabs-size#{tabGroup}\"
+        class=\"tabs-size\" id=\"tabs-size-max\">\
+        <label for=\"tabs-size-max\">Max</label>\n\
+        <input type=\"radio\" name=\"tabs-size#{tabGroup}\"
+        class=\"tabs-size\" id=\"tabs-size-scroll\" checked=\"\">\
+        <label for=\"tabs-size-scroll\">Scroll</label>\n\
+        <input type=\"radio\" name=\"tabs-size#{tabGroup}\"
+        class=\"tabs-size\" id=\"tabs-size-min\">\
+        <label for=\"tabs-size-min\">Min</label>\n"
+        # add html content
+        tabNum = 0
+        for e, n in tabs
+          html += "<div class=\"tab-content tab-content#{++tabNum}\">#{e[3]}</div>\n"
+        # return complete
+        html + "</div>"
     ]
   ]
   # code
@@ -426,12 +478,6 @@ optimizeHtml = (html, locale = 'en') ->
     re.push [
       new RegExp '(<pre [^>]*?)class="language ' + tag.replace(/([+])/, '\\\\%1') + '">', 'g'
       "$1class=\"language #{alias}\"><header>#{text alias, locale, trans.lang}</header>"
-    ]
-  # boxes
-  for tag of trans.boxes
-    re.push [
-      new RegExp '(<div class="' + tag + '">)(?!<header>)', 'g'
-      "$1<header>#{text tag, locale, trans.boxes}</header>"
     ]
   # replacement
   for [s, r] in re
