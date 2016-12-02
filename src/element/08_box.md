@@ -123,27 +123,21 @@ And renders as HTM:
 
 Specific Display
 -----------------------------------------------------------------
-To get a specific style you may control it using the style settings described
-in the next chapter:
+To get a specific style you may control it using the direct style settings described
+under {@link 11_html.md}:
 
 ``` coffee
 report.box "This is a very long note to show how it will look in the different
 display modes which will show it minimized, maximized or with an scroll bar.
 It is shown in the minimized form at start but you may click it into scroll
 or maximized view as you like. In any other output which is not html it will
-always be displayed in full size (maximized).", 'info', 'Long Note'
-report.style 'tabs:size=min'
+always be displayed in full size (maximized).", 'info', 'Long Note {size=min}'
 ```
 
-Markdown for own title will be:
-
-``` markdown
-::: info Short Note
-A short note.
-:::
-
-<!-- tabs:size=min -->
-```
+You can specify the `size` setting behind the title with the possible values:
+- `min` - show tab block in minimized form (needs click to open)
+- `scroll` - show box with pre defined max height and possible scroll bars
+- `max` - shows box in maximized form
 
 
 Examples

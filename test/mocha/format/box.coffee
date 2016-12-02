@@ -8,13 +8,12 @@ describe "box", ->
   it.only "should create a box in each style", (cb) ->
     report = new Report()
     report.p "detail:"
-    report.box "Some more details here...", 'detail'
+    report.box "Some more details here...", 'detail', '{size=min}'
     report.p "info:"
     report.box "A short note for you to read.", 'info', 'Short Note'
     report.p "warning:"
     report.box "This is important!", 'warning'
     report.box "Something went wrong!", 'alert'
-    report.style 'div:.min'
     test.report 'box', report, null, null, cb
 #"""
 #

@@ -264,7 +264,7 @@ Possible options are:
 
 ### Image
 
-Example: [PNG](https://raw.githubusercontent.com/alinex/node-report/master/src/doc/test.png)
+Example: [PNG](https://raw.githubusercontent.com/alinex/node-report/master/src/examples/test.png)
 
 ``` coffee
 report.toImage (err, data) ->

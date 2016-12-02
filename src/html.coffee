@@ -172,11 +172,7 @@ module.exports = (report, setup = {}, cb) ->
     # transform to html
     data = util.clone setup
     innerHtml = md.render content, data
-    console.log innerHtml
-    console.log '-----------------------------------------------------'
     content = optimizeHtml innerHtml, setup?.locale
-    console.log '-----------------------------------------------------'
-    console.log content
     title = setup?.title ? data.title ? 'Report'
     tags = util.clone report.parts.header
     js = data.js?.join '\n'
@@ -376,8 +372,17 @@ containerRender = (tokens, idx) ->
   return if tokens[idx].nesting is 1 # opening tag
     m = tokens[idx].info.trim().match /^(\S*?)(?:\s+(.*))?$/
     type = m[1].toLowerCase()
-    type = containerAlias[type] if containerAlias[type]
-    h = "<tab class=\"#{type}\">"
+    attrs =
+      class: if containerAlias[type] then containerAlias[type] else type
+    for e in tokens[idx].attrs ? []
+      if attrs[e[0]]?
+        attrs[e[0]] += " #{e[1]}"
+      else
+        attrs[e[0]] = e[1]
+    attrs = Object.keys(attrs).map (k) ->
+      " #{k}=\"#{attrs[k]}\""
+    .join ''
+    h = "<tab#{attrs}>"
     h += "<header>#{m[2]}</header>" if m[2]?.length
     "#{h}\n"
   else # closing tag
@@ -415,7 +420,7 @@ optimizeHtml = (html, locale = 'en') ->
         "#{pre} #{css}><code>#{content}</code></pre>"
     ]
   ,
-    [ # code_ fix decorator problem for code elements
+    [ # code: fix decorator problem for code elements
       /<pre ((?:(?!<pre)[\s\S])+<\/pre>)\n<!-- {code: (.*?)} -->/g
       "<pre $2 $1"
     ]
@@ -434,32 +439,43 @@ optimizeHtml = (html, locale = 'en') ->
       /<tabs>([\s\S]*?)<\/tabs>/g
       (_, html) ->
         # parse tabs
-        tabRE = /<tab class="([^"]+)">(?:<header>(.*?)<\/header>)?([\s\S]+?)<\/tab>/g
+        tabRE = /<tab ([^>]+)>(?:<header>(.*?)<\/header>)?([\s\S]+?)<\/tab>/g
+        attrsRE = /\s*(\w+)=\"([^\"]*?)\"/g
         tabs = []
         tabs.push match while match = tabRE.exec html
-        console.log '>>>>>>>>>>>>>>>>>>>>>', tabs
+        size = 'scroll'
+        # parse attributes
+        tabs = tabs.map (e) ->
+          map = {}
+          while match = attrsRE.exec e[1]
+            map[match[1]] = match[2]
+            size = match[2] if match[1] is 'size'
+          e[1] = map
+          e
         # create html
         tabGroup = ++lastTabGroup
         html = "<div class=\"tabs\">\n"
         # add tab switches
         tabNum = 0
         for e, n in tabs
-          e[2] ?= text e[1], locale, trans.boxes
+          type = e[1].class.replace /[ ].*/, ''
+          e[2] ?= text type, locale, trans.boxes
           tabID = ++lastTabID
           checked = if tabNum then '' else ' checked=\"\"'
           html += "<input type=\"radio\" name=\"tabs#{tabGroup}\"
           class=\"tab tab#{++tabNum}\" id=\"tab#{tabID}\"#{checked}>\
-          <label for=\"tab#{tabID}\">#{e[2]}</label>\n"
+          <label for=\"tab#{tabID}\" class=\"#{e[1].class ? ''}\">#{e[2]}</label>\n"
         # add size links
-        html += "<input type=\"radio\" name=\"tabs-size#{tabGroup}\"
-        class=\"tabs-size\" id=\"tabs-size-max\">\
-        <label for=\"tabs-size-max\">Max</label>\n\
-        <input type=\"radio\" name=\"tabs-size#{tabGroup}\"
-        class=\"tabs-size\" id=\"tabs-size-scroll\" checked=\"\">\
-        <label for=\"tabs-size-scroll\">Scroll</label>\n\
-        <input type=\"radio\" name=\"tabs-size#{tabGroup}\"
-        class=\"tabs-size\" id=\"tabs-size-min\">\
-        <label for=\"tabs-size-min\">Min</label>\n"
+        checked = {}
+        buttons =
+          min: 'Close'
+          scroll: 'Open'
+          max: 'Max'
+        for k, n of buttons
+          checked = if size is k then ' checked=""' else ''
+          html += "<input type=\"radio\" name=\"tabs-size#{tabGroup}\"
+          class=\"tabs-size\" id=\"tabs-size-#{k}\"#{checked}>\
+          <label for=\"tabs-sizehttp://172.20.255.38:8083/monitoring-#{k}\">#{n}</label>\n"
         # add html content
         tabNum = 0
         for e, n in tabs

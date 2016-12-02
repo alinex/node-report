@@ -101,8 +101,11 @@ $$$
 The **bold and red**{.red} text comes here.
 ```
 
-With the last argument to the API methods you also can add the styles or other
-attributes.
+You can also set attribtes using `{width=100%}` and you can add multiple rules with
+`SPACE` as separator.
+
+> With the last argument to the API methods you also can add the styles or other
+> attributes. Like used in a box title...
 
 
 Style Sheets
