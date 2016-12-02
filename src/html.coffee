@@ -134,9 +134,23 @@ trans =
     alert:
       en: 'Attention'
       de: 'Achtung'
+  tabs:
+    max:
+      en: 'Maximize box to show full content'
+    scroll:
+      en: 'Open in default view with possible scroll bars'
+    min:
+      en: 'Close box content'
+    switch:
+      en: 'Switch tab'
+
 
 lastTabID = 0
 lastTabGroup = 0
+tabActions =
+  max: '<i class="fa fa-window-maximize" aria-hidden="true"></i>'
+  scroll: '<i class="fa fa-window-restore" aria-hidden="true"></i>'
+  min: '<i class="fa fa-window-minimize" aria-hidden="true"></i>'
 
 
 # Convert into HTML
@@ -185,7 +199,7 @@ module.exports = (report, setup = {}, cb) ->
     # font awesome
     if content.match /\sclass="fa\s/
       tags.unshift """<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/\
-        font-awesome/4.6.3/css/font-awesome.min.css" />"""
+        font-awesome/4.7.0/css/font-awesome.min.css" />"""
     unless setup.noJS
       addLibs tags, js
     if js?.match /mermaid\.initialize/
@@ -464,18 +478,16 @@ optimizeHtml = (html, locale = 'en') ->
           checked = if tabNum then '' else ' checked=\"\"'
           html += "<input type=\"radio\" name=\"tabs#{tabGroup}\"
           class=\"tab tab#{++tabNum}\" id=\"tab#{tabID}\"#{checked}>\
-          <label for=\"tab#{tabID}\" class=\"#{e[1].class ? ''}\">#{e[2]}</label>\n"
+          <label for=\"tab#{tabID}\" class=\"#{e[1].class ? ''}\"
+          title=\"#{text 'switch', locale, trans.tabs}\">#{e[2]}</label>\n"
         # add size links
         checked = {}
-        buttons =
-          min: 'Close'
-          scroll: 'Open'
-          max: 'Max'
-        for k, n of buttons
+        for k, n of tabActions
           checked = if size is k then ' checked=""' else ''
           html += "<input type=\"radio\" name=\"tabs-size#{tabGroup}\"
-          class=\"tabs-size\" id=\"tabs-size-#{k}\"#{checked}>\
-          <label for=\"tabs-sizehttp://172.20.255.38:8083/monitoring-#{k}\">#{n}</label>\n"
+          class=\"tabs-size tabs-size-#{k}\" id=\"tabs-size-#{k}#{tabGroup}\"#{checked}>\
+          <label for=\"tabs-size-#{k}#{tabGroup}\"
+          title=\"#{text k, locale, trans.tabs}\">#{n}</label>\n"
         # add html content
         tabNum = 0
         for e, n in tabs

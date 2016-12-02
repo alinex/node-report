@@ -234,16 +234,82 @@ ul.table-of-contents
     text-decoration: none;
 
 /*
-* Box Highlighting
+* Box Layout
 * --------------------------------------------------------------
 */
+.tabs
+  padding: 0
+  /* to move all other contents below */
+  &:after
+    content: ''
+    display: table
+    clear: both
+  input.tab
+  input.tabs-size
+    display: none;
+  /* style for tab headings */
+  input.tab + label
+    position: relative;
+    z-index: 1;
+    display: block;
+    float: left;
+    cursor: pointer;
+
+    padding: 5px 10px;
+    margin-bottom: -1px;
+    border: 1px solid black;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background: #ddd;
+  /* hide tab contents */
+  .tab-content
+    display: none;
+    position: relative;
+    clear: both;
+
+    border: 1px solid black;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding: 0 15px;
+
+    max-height: 200px;
+    overflow: auto;
+  input.tab:checked + label
+    cursor: default
+    border-bottom-color: white ;
+    background: #fff;
+  /* link tab with content */
+  .tab1:checked ~ .tab-content1
+  .tab2:checked ~ .tab-content2
+  .tab3:checked ~ .tab-content3
+  .tab4:checked ~ .tab-content4
+  .tab5:checked ~ .tab-content5
+  .tab6:checked ~ .tab-content6
+  .tab7:checked ~ .tab-content7
+  .tab8:checked ~ .tab-content8
+    display: block;
+  /* action */
+  .tabs-size + label
+    cursor: pointer
+    float: right
+    padding: 5px
+  .tabs-size-min:checked + label,
+  .tabs-size-scroll:checked + label,
+  .tabs-size-max:checked + label
+    display: none
+  .tabs-size-min:checked ~ .tab-content
+    height: 0;
+  .tabs-size-max:checked ~ .tab-content
+    max-height: none;
+
 div
   &.detail
   &.info
   &.warning
   &.alert
-    padding: 30px 10px 6px 10px;
-    margin: 5px 0 8px 0;
+    padding: 30px 10px 6px 10px
+    margin: 5px 0 8px 0
     border-radius: 3px
     padding-left: 60px
     border-radius: 18px

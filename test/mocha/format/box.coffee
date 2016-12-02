@@ -5,12 +5,38 @@ test = require '../test'
 describe "box", ->
   @timeout 5000
 
+#  it.only "should create a box in each style", (cb) ->
+#    report = new Report()
+#    report.p "detail:"
+#    report.box "Some more details here...", 'detail'
+#    report.p "info:"
+#    report.box "A short note for you to read.", 'info'
+#    report.p "warning:"
+#    report.box "This is important!", 'warning'
+#    report.p "alert:"
+#    report.box "Something went wrong!", 'alert'
+#    test.report 'box', report, null, null, cb
   it.only "should create a box in each style", (cb) ->
     report = new Report()
     report.p "detail:"
     report.box "Some more details here...", 'detail', '{size=min}'
     report.p "info:"
-    report.box "A short note for you to read.", 'info', 'Short Note'
+    report.box "A short note for you to read.
+    This is a very long line to display the use of an scrollbar in the box if not
+    in max type.
+    This is a very long line to display the use of an scrollbar in the box if not
+    in max type.
+    This is a very long line to display the use of an scrollbar in the box if not
+    in max type.
+    This is a very long line to display the use of an scrollbar in the box if not
+    in max type.
+    This is a very long line to display the use of an scrollbar in the box if not
+    in max type.
+    This is a very long line to display the use of an scrollbar in the box if not
+    in max type.
+    This is a very long line to display the use of an scrollbar in the box if not
+    in max type.
+    ", 'info', 'Short Note'
     report.p "warning:"
     report.box "This is important!", 'warning'
     report.box "Something went wrong!", 'alert'
