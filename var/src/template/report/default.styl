@@ -246,21 +246,21 @@ ul.table-of-contents
     clear: both
   input.tab
   input.tabs-size
-    display: none;
+    display: none
   /* style for tab headings */
   input.tab + label
-    position: relative;
-    z-index: 1;
-    display: block;
-    float: left;
-    cursor: pointer;
+    position: relative
+    z-index: 1
+    display: block
+    float: left
+    cursor: pointer
 
-    padding: 5px 10px;
-    margin-bottom: -1px;
-    border: 1px solid black;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    background: #ddd;
+    padding: 5px 10px
+    margin-bottom: -1px
+    border: 1px solid black
+    border-top-left-radius: 10px
+    border-top-right-radius: 10px
+    background: $color-background
   /* hide tab contents */
   .tab-content
     display: none;
@@ -277,8 +277,8 @@ ul.table-of-contents
     overflow: auto;
   input.tab:checked + label
     cursor: default
-    border-bottom-color: white ;
-    background: #fff;
+    border-bottom-color: #fff
+    background: #fff
   /* link tab with content */
   .tab1:checked ~ .tab-content1
   .tab2:checked ~ .tab-content2
@@ -302,6 +302,20 @@ ul.table-of-contents
     height: 0;
   .tabs-size-max:checked ~ .tab-content
     max-height: none;
+
+@media print
+  input.tab + label
+    border-bottom-color: #fff !important
+    background: #fff !important
+  .tabs-size-min + label,
+  .tabs-size-scroll + label,
+  .tabs-size-max + label
+    display: none
+  .tab-content
+    display: block !important
+    max-height: none !important
+    height: auto !important
+
 
 div
   &.detail
