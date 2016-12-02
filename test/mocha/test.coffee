@@ -36,7 +36,11 @@ exports.report = (name, report, md, html, cb) ->
         cb()
     (cb) ->
       return cb() unless name and process.env.EXAMPLES
-      report.toImage (err, data) ->
+      report.toImage
+        screenSize:
+          width: 500
+          height: 600
+      , (err, data) ->
         fd = fs.createWriteStream "#{__dirname}/../../src/examples/#{name}.png"
         fd.write data, 'binary'
         fd.end()

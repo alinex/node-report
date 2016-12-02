@@ -262,6 +262,7 @@ ul.table-of-contents
     border-top-right-radius: 10px
     background: $color-background
     transition: all 0.5s
+    opacity: 0.5
   /* hide tab contents */
   .tab-content
     display: none;
@@ -278,6 +279,7 @@ ul.table-of-contents
   input.tab:checked + label
     cursor: default
     border-bottom: 1px solid #fff
+    opacity: 1
   /* link tab with content */
   .tab1:checked ~ .tab-content1
   .tab2:checked ~ .tab-content2
@@ -303,8 +305,7 @@ ul.table-of-contents
     max-height: none;
 @media print
   input.tab + label
-    border-bottom-color: #fff !important
-    background: #fff !important
+    opacity: 1 !important
   .tabs-size-min + label,
   .tabs-size-scroll + label,
   .tabs-size-max + label
@@ -315,29 +316,26 @@ ul.table-of-contents
     height: auto !important
 
 .tabs
-  input.tab:checked + label.detail
+  input.tab + label.detail
   div.detail
-    background-color: #fafafa
-  input.tab:checked + label.detail
-    border-bottom-color: #fff
-  input.tab:checked + label.info
+    background-image: linear-gradient(to bottom, #fafafa 0%, #999 100%)
+  input.tab + label.detail
+    border-bottom-color: #999
+  input.tab + label.info
   div.info
-    background-color: #99ff99
-    background-image: linear-gradient(to bottom, #BBffBB 0%, #66dd66 100%)
-  input.tab:checked + label.info
-    border-bottom-color: #66dd66
-  input.tab:checked + label.warning
+    background-image: linear-gradient(to bottom, #ccffcc 0%, #99ff99 100%)
+  input.tab + label.info
+    border-bottom-color: #99ff99
+  input.tab + label.warning
   div.warning
-    background-color: #ffcc99
-    background-image: linear-gradient(to bottom, #ff9977 0%, #ee8866 100%)
-  input.tab:checked + label.warning
-    border-bottom-color: #ee8866
-  input.tab:checked + label.alert
+    background-image: linear-gradient(to bottom, #ffffc9 0%, #fbcd4a 100%)
+  input.tab + label.warning
+    border-bottom-color: #ffdd66
+  input.tab + label.alert
   div.alert
-    background-color: #ff9999
-    background-image: linear-gradient(to bottom, #ffaaaa 0%, #cc0000 100%)
-  input.tab:checked + label.alert
-    border-bottom-color: #cc0000
+    background-image: linear-gradient(to bottom, #ffaaaa 0%, #ee8866 100%)
+  input.tab + label.alert
+    border-bottom-color: #ee8866
 
 
 /*

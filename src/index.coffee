@@ -655,7 +655,7 @@ class Report
       options = util.extend
         siteType: 'html'
         streamType: 'png'
-        creenSize:
+        screenSize:
           width: 800
           height: 600
         captureSelector: '#page'
