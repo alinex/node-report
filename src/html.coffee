@@ -491,7 +491,8 @@ optimizeHtml = (html, locale = 'en') ->
         # add html content
         tabNum = 0
         for e, n in tabs
-          html += "<div class=\"tab-content tab-content#{++tabNum}\">#{e[3]}</div>\n"
+          html += "<div class=\"tab-content tab-content#{++tabNum}
+          #{e[1].class ? ''}\">#{e[3]}</div>\n"
         # return complete
         html + "</div>"
     ]

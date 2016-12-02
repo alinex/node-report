@@ -261,24 +261,23 @@ ul.table-of-contents
     border-top-left-radius: 10px
     border-top-right-radius: 10px
     background: $color-background
+    transition: all 0.5s
   /* hide tab contents */
   .tab-content
     display: none;
     position: relative;
     clear: both;
-
     border: 1px solid black;
     border-top-right-radius: 10px;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
     padding: 0 15px;
-
-    max-height: 200px;
+    transition: all 0.5s
     overflow: auto;
+    max-height: 200px;
   input.tab:checked + label
     cursor: default
-    border-bottom-color: #fff
-    background: #fff
+    border-bottom: 1px solid #fff
   /* link tab with content */
   .tab1:checked ~ .tab-content1
   .tab2:checked ~ .tab-content2
@@ -302,7 +301,6 @@ ul.table-of-contents
     height: 0;
   .tabs-size-max:checked ~ .tab-content
     max-height: none;
-
 @media print
   input.tab + label
     border-bottom-color: #fff !important
@@ -316,67 +314,31 @@ ul.table-of-contents
     max-height: none !important
     height: auto !important
 
+.tabs
+  input.tab:checked + label.detail
+  div.detail
+    background-color: #fafafa
+  input.tab:checked + label.detail
+    border-bottom-color: #fff
+  input.tab:checked + label.info
+  div.info
+    background-color: #99ff99
+    background-image: linear-gradient(to bottom, #BBffBB 0%, #66dd66 100%)
+  input.tab:checked + label.info
+    border-bottom-color: #66dd66
+  input.tab:checked + label.warning
+  div.warning
+    background-color: #ffcc99
+    background-image: linear-gradient(to bottom, #ff9977 0%, #ee8866 100%)
+  input.tab:checked + label.warning
+    border-bottom-color: #ee8866
+  input.tab:checked + label.alert
+  div.alert
+    background-color: #ff9999
+    background-image: linear-gradient(to bottom, #ffaaaa 0%, #cc0000 100%)
+  input.tab:checked + label.alert
+    border-bottom-color: #cc0000
 
-div
-  &.detail
-  &.info
-  &.warning
-  &.alert
-    padding: 30px 10px 6px 10px
-    margin: 5px 0 8px 0
-    border-radius: 3px
-    padding-left: 60px
-    border-radius: 18px
-    border-top-left-radius: 0px
-    &>p
-      margin-bottom: 0;
-    header
-      font-weight: bold;
-      position: absolute;
-      margin-top: -30px;
-      margin-left: -60px;
-      padding: 3px 20px 3px 10px;
-      border-bottom-right-radius: 18px;
-    &:before
-      content: '\24D8';
-      color: #666;
-      position: absolute;
-      font-size: 28px;
-      font-weight: 900;
-      padding-top: 5px;
-      margin-left: -50px;
-div.detail
-  background-color: #fafafa;
-  border: 2px solid #ddd;
-  padding-top: 0;
-div.info
-  background-color: #99ff99;
-  background-image: linear-gradient(to bottom, #BBffBB 0%, #66dd66 100%)
-  border: 2px solid #66dd66;
-  header
-    background-color: #66dd66;
-  &:before
-    content: '\24D8';
-    text-shadow: 0 -1px 0 #66dd66;
-div.warning
-  background-color: #ffcc99;
-  background-image: linear-gradient(to bottom, #ff9977 0%, #ee8866 100%)
-  border: 2px solid #ee8866;
-  header
-    background-color: #ee8866;
-  &:before
-    content: '\2605';
-    text-shadow: 0 -1px 0 #ee8866;
-div.alert
-  background-color: #ff9999;
-  background-image: linear-gradient(to bottom, #ffaaaa 0%, #cc0000 100%)
-  border: 2px solid #cc0000;
-  header
-    background-color: #cc0000;
-    color: white;
-  &:before
-    content: '\24D8';
-    text-shadow: 0 -1px 0 #cc0000;
 
 /*
 * Fontawesome, Decorator Styles
