@@ -603,8 +603,8 @@ class Report
     text = text.replace /\n\n::: (\w+)\s*?([^\n]*)\n([\s\S]*?)\n:::\s*?/g
     , (all, type, title, text) ->
       # add title
-      title = if title.length then title else trans.get 'boxes.' + type, 'en'
-      text = "#{title}:\n#{text}"
+      title = if title.length then title.trim() else trans.get 'boxes.' + type, 'en'
+      text = "#{title}:\n#{util.string.wordwrap text, 120}"
       # get max length
       maxlen = 0
       for line in text.split /\n/
