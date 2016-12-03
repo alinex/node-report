@@ -21,6 +21,8 @@ config = require 'alinex-config'
 pluginExecute = require './plugin/execute'
 pluginFontawesome = require './plugin/fontawesome'
 dataStringify = deasync format.stringify
+# helper classes
+trans = require './trans.coffee'
 
 
 # Helper methods
@@ -461,6 +463,7 @@ class Report
     )
     ///g, ''
     .replace /^[\r\n]+|[\r\n]+$/g, ''
+    .replace /(\n[^\n]+?)\s{[^}]+?}/g, '$1' # remove direct styles
     # demask markdown syntax and add spaces
     if text.match /\\([*_~^`])/
       demask = /\\([*_~^`])/g
@@ -510,6 +513,7 @@ class Report
     )
     ///g, ''
     .replace /^[\r\n]+|[\r\n]+$/g, ''
+    .replace /(\n[^\n]+?)\s{[^}]+?}/g, '$1' # remove direct styles
     # interpret markdown
     text = '\n\n' + text + '\n\n'
     # replace headings
@@ -596,7 +600,11 @@ class Report
     \)
     ///g, '[IMAGE $1]'
     # boxes
-    text = text.replace /\n\n::: (\w+)\s*?\n([\s\S]*?)\n:::\s*?/g, (all, type, text) ->
+    text = text.replace /\n\n::: (\w+)\s*?([^\n]*)\n([\s\S]*?)\n:::\s*?/g
+    , (all, type, title, text) ->
+      # add title
+      title = if title.length then title else trans.get 'boxes.' + type, 'en'
+      text = "#{title}:\n#{text}"
       # get max length
       maxlen = 0
       for line in text.split /\n/

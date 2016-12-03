@@ -37,6 +37,8 @@ twemoji = require 'twemoji'
 # load own plugins
 pluginExecute = require './plugin/execute'
 pluginFontawesome = require './plugin/fontawesome'
+# Helper
+trans = require './trans.coffee'
 
 
 # Configuration
@@ -63,86 +65,6 @@ langAlias =
   yml: 'yaml'
   md: 'markdown'
   styl: 'stylus'
-
-trans =
-  content:
-    en: 'Content'
-    de: 'Inhalt'
-  index:
-    en: 'Index'
-  lang:
-    coffeescript:
-      en: 'CoffeeScript Code'
-    iced:
-      en: 'IcedCoffeeScript Code'
-    javascript:
-      en: 'JavaScript Code'
-    ruby:
-      en: 'Ruby Code'
-    python:
-      en: 'Python Code'
-    perl:
-      en: 'Perl Script'
-    cpp:
-      en: 'C++ Code'
-    cc:
-      en: 'C Code'
-    cs:
-      en: 'C# Code'
-    java:
-      en: 'Java Code'
-    jsp:
-      en: 'Java Server Pages'
-    groovy:
-      en: 'Groovy Code'
-    php:
-      en: 'PHP Code'
-    bash:
-      en: 'Shell Script'
-    makefile:
-      en: 'Makefile'
-    sql:
-      en: 'SQL Code'
-    handlebars:
-      en: 'Handlebars Template'
-    jade:
-      en: 'Jade Template'
-    css:
-      en: 'Cascading Stylesheet'
-    stylus:
-      en: 'Stylus Stylesheets'
-    scss:
-      en: 'Sassy CSS'
-    less:
-      en: 'Less Stylesheets'
-    cson:
-      en: 'CSON Data'
-    json:
-      en: 'JSON Data'
-    yaml:
-      en: 'YAML Data'
-    markdown:
-      en: 'Markdown Document'
-  boxes:
-    detail:
-      en: 'Details'
-    info:
-      en: 'Info'
-    warning:
-      en: 'Warning'
-      de: 'Warnung'
-    alert:
-      en: 'Attention'
-      de: 'Achtung'
-  tabs:
-    max:
-      en: 'Maximize box to show full content'
-    scroll:
-      en: 'Open in default view with possible scroll bars'
-    min:
-      en: 'Close box content'
-    switch:
-      en: 'Switch tab'
 
 
 lastTabID = 0
@@ -402,21 +324,16 @@ containerRender = (tokens, idx) ->
   else # closing tag
     '</tab>\n'
 
-text = (tag, locale, tr = trans) ->
-  parts = tag.split /\./
-  return text parts[1..].join('.'), locale, tr[parts[0]] unless parts.length is 1
-  tr[tag][locale] ? tr[tag][locale[0..1]] ? tr[tag].en
-
 optimizeHtml = (html, locale = 'en') ->
   re = [
     [ # table-of-contents: add box header
       /<p>\n(<ul class="table-of-contents">)([\s\S]*?<\/ul>)\n<\/p>/g
-      "$1<header>#{text 'content', locale}</header>$2"
+      "$1<header>#{trans.get 'content', locale}</header>$2"
     ]
   ,
     [ # table-of-contents: add index title
       /(<ul class="table-of-contents")>/g
-      "$1 aria-hidden=\"true\"><header>#{text 'index', locale}</header>"
+      "$1 aria-hidden=\"true\"><header>#{trans.get 'index', locale}</header>"
     ]
   ,
     [ # move style settings from code to parent pre
@@ -473,13 +390,13 @@ optimizeHtml = (html, locale = 'en') ->
         tabNum = 0
         for e, n in tabs
           type = e[1].class.replace /[ ].*/, ''
-          e[2] ?= text type, locale, trans.boxes
+          e[2] ?= trans.get "boxes.#{type}", locale
           tabID = ++lastTabID
           checked = if tabNum then '' else ' checked=\"\"'
           html += "<input type=\"radio\" name=\"tabs#{tabGroup}\"
           class=\"tab tab#{++tabNum}\" id=\"tab#{tabID}\"#{checked}>\
           <label for=\"tab#{tabID}\" class=\"#{e[1].class ? ''}\"
-          title=\"#{text 'switch', locale, trans.tabs}\">#{e[2]}</label>\n"
+          title=\"#{trans.get "tabs.switch", locale}\">#{e[2]}</label>\n"
         # add size links
         checked = {}
         for k, n of tabActions
@@ -487,7 +404,7 @@ optimizeHtml = (html, locale = 'en') ->
           html += "<input type=\"radio\" name=\"tabs-size#{tabGroup}\"
           class=\"tabs-size tabs-size-#{k}\" id=\"tabs-size-#{k}#{tabGroup}\"#{checked}>\
           <label for=\"tabs-size-#{k}#{tabGroup}\"
-          title=\"#{text k, locale, trans.tabs}\">#{n}</label>\n"
+          title=\"#{trans.get 'tabs.' + k, locale}\">#{n}</label>\n"
         # add html content
         tabNum = 0
         for e, n in tabs
@@ -498,15 +415,15 @@ optimizeHtml = (html, locale = 'en') ->
     ]
   ]
   # code
-  for tag of trans.lang
+  for tag of trans.data.lang
     re.push [
       new RegExp '(<pre [^>]*?class="language ' + tag + '">)', 'g'
-      "$1<header>#{text tag, locale, trans.lang}</header>"
+      "$1<header>#{trans.get 'lang.' + tag, locale}</header>"
     ]
   for tag, alias of langAlias
     re.push [
       new RegExp '(<pre [^>]*?)class="language ' + tag.replace(/([+])/, '\\\\%1') + '">', 'g'
-      "$1class=\"language #{alias}\"><header>#{text alias, locale, trans.lang}</header>"
+      "$1class=\"language #{alias}\"><header>#{trans.get 'lang.' + alias, locale}</header>"
     ]
   # replacement
   for [s, r] in re
