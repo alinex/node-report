@@ -25,16 +25,40 @@ dataStringify = deasync format.stringify
 trans = require './trans.coffee'
 
 
+# Setup
+# -------------------------------------------------
+
+# Default settings for the datatable display which are used if no specific setting
+# is given.
+#
+# @type {Object}
+datatableDefault =
+  paging: false
+  info: false
+  searching: false
+
+
 # Helper methods
 # -------------------------------------------------
 
+# @param {String} text raw markdown content for block
+# @param {String} start characters to put before the first line of block
+# @param {String} indent characters to put before continueing lines of block
+# @param {Integer} width maximum number of characters before automatic line break
+# @param {Boolean} pre should the content be kept as preformatted
 block = (text, start, indent, width, pre = false) ->
   indent = '\n' + indent
   text = text.trim().replace /([^\\\s])[ \r\t]*\n[ \r\t]*(\S)/g, '$1\\\n$2' unless pre
   text = '\n' + start + text.replace(/\n/g, indent) + '\n'
   util.string.wordwrap text, width, indent, 2
 
-# ### Convert object to markdown table
+# Convert object to markdown table.
+#
+# @param {Array<Array>|Object} obj table data as {@link alinex-table} object or array
+# @param {Array} [col] the column title names
+# @param {String|Array} [sort] set specific sort for the table data
+# @param {Boolean} [mask] set to `true` if the values should be masked to not
+# interpret them as markdown
 table = (obj, col, sort, mask) ->
   # table instance
   if obj instanceof Table
@@ -173,11 +197,6 @@ table = (obj, col, sort, mask) ->
       .join ' | '
     ) + ' |'
   text + '\n'
-
-datatableDefault =
-  paging: false
-  info: false
-  searching: false
 
 
 # Report class
