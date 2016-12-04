@@ -13,9 +13,10 @@ exports.report = (name, report, md, html, cb) ->
   async.parallel [
     (cb) ->
       data = report.toString()
-      if md
-        debug "check markdown", chalk.grey data
-        expect(data, 'markdown').to.equal md
+      if process.env.EXAMPLES
+        console.log chalk.inverse "#{name} Output as Markdown"
+        console.log data
+      expect(data, 'markdown').to.equal md if md
       return cb() unless name and process.env.EXAMPLES
       fd = fs.createWriteStream "#{__dirname}/../../src/examples/#{name}.md"
       fd.write "<!-- internal -->\n\n"
@@ -25,9 +26,10 @@ exports.report = (name, report, md, html, cb) ->
       cb()
     (cb) ->
       report.toHtml (err, data) ->
-        if html
-          debug "check html", chalk.grey data
-          expect(data, 'html').to.contain html
+        if process.env.EXAMPLES
+          console.log chalk.inverse "#{name} Converted to HTML"
+          console.log data
+        expect(data.replace(/[\s\S]*(<body)/, '$1'), 'html').to.contain html if html
         return cb() unless name and process.env.EXAMPLES
         fd = fs.createWriteStream "#{__dirname}/../../src/examples/#{name}.html"
         fd.write data
