@@ -204,6 +204,16 @@ describe "box", ->
     </div>
     """, cb
 
+  it.only "should create boxes with code", (cb) ->
+    report = new Report()
+    report.box Report.code 'var x = Math.round(f);', 'js'
+    report.box Report.code 'This **is** a ==markdown== text', 'markdown'
+    report.box Report.code 'simple:\n  list: ["a", b, 5]', 'yaml'
+    test.report 'box-code', report, null, null, cb
+    #"""
+    #""", """
+    #""", cb
+
 # EXAMPLES=true node_modules/.bin/mocha --compilers coffee:coffee-script/register --reporter spec -c --recursive --bail test/mocha
 
   it.skip "special test", (cb) ->

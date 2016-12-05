@@ -153,8 +153,8 @@ pre
     background: none;
   &.language
     counter-reset: line;
-    max-height: 265px
-    padding-top: 30px
+    //padding-top: 30px
+    padding-top: 0;
     padding-bottom: 0;
     overflow-x: hidden;
     code, tt
@@ -181,6 +181,8 @@ pre
       &:last-child
         padding-bottom: 10px
     header
+      display: none
+    /*header
       border-top-left-radius: 4px;
       border-top-right-radius: 4px;
       font-weight: bold;
@@ -206,6 +208,7 @@ pre
     &.markdown
       header
         background: #76abca;
+    */
 
 /*
 * Table of Contents
@@ -340,6 +343,25 @@ ul.table-of-contents
   input.tab + label.alert
     border-bottom-color: #ee8866
 
+/*
+* Special box content: code
+*/
+.tabs
+  .tab-content
+    padding: 0
+    pre
+      margin: 0
+      border-radius: 0
+      /*      background-color: transparent*/
+  input.tab + label.javascript
+    background-image: linear-gradient(to bottom, #ffaaaa 0%, #ee8866 100%)
+    border-bottom-color: #ee8866
+/*  .tab-content.javascript
+    code, tt
+      border-image: linear-gradient(to bottom, #ffaaaa 0%, #ee8866 100%)
+
+/*    background-image: linear-gradient(to bottom, lighten(#ffaaaa, 10) 0%, lighten(#ee8866, 10) 100%)
+*/
 
 /*
 * Fontawesome, Decorator Styles

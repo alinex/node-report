@@ -104,7 +104,15 @@ module.exports = (report, setup = {}, cb) ->
       bin = new Buffer(fs.readFileSync f).toString 'base64'
       "#{b}data:#{mime.lookup f};base64,#{bin}#{a}"
     # replace newlines before html tags
+    locale = setup?.locale ? 'en'
     content = content.replace /\n<!--/g, '<!--'
+    # optimize box with code
+    .replace /(:{3,}\s+\w+)([^{\n]+)?(\{[^}]*?\})?\n(`{3,})\s+(\w+)/g
+    , (_, box, title, style, code, language) ->
+      language = langAlias[language] if langAlias[language]
+      title = if title then title.trim() else trans.get "lang.#{language}", locale
+      style = if style then style.replace /}/, " .#{language}}" else "{.#{language}}"
+      "#{box} #{title} #{style}\n#{code} #{language}"
     # transform to html
     data = util.clone setup
     innerHtml = md.render content, data

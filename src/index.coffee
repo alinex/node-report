@@ -260,6 +260,7 @@ class Report
     indent = '    '
     block text, indent, indent, width ? @width, true
   @box: (text, type, title, width) ->
+    type ?= 'detail'
     unless type in ['detail', 'info', 'warning', 'alert', 'error']
       throw new Error "Unknown box type #{type} for report"
     return @p text unless type
