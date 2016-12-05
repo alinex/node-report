@@ -26,10 +26,11 @@ exports.report = (name, report, md, html, cb) ->
       cb()
     (cb) ->
       report.toHtml (err, data) ->
+        test = data.replace /[\s\S]*(<body)/, '$1'
         if process.env.EXAMPLES
-          console.log chalk.inverse "#{name} Converted to HTML"
-          console.log data
-        expect(data.replace(/[\s\S]*(<body)/, '$1'), 'html').to.contain html if html
+          console.log chalk.inverse "#{name} Converted to HTML (partly)"
+          console.log test
+        expect(test, 'html').to.contain html if html
         return cb() unless name and process.env.EXAMPLES
         fd = fs.createWriteStream "#{__dirname}/../../src/examples/#{name}.html"
         fd.write data

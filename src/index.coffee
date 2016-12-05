@@ -46,7 +46,7 @@ datatableDefault =
 # @param {String} indent characters to put before continueing lines of block
 # @param {Integer} width maximum number of characters before automatic line break
 # @param {Boolean} pre should the content be kept as preformatted
-block = (text, start, indent, width, pre = false) ->
+block = (text = '', start, indent, width, pre = false) ->
   indent = '\n' + indent
   text = text.trim().replace /([^\\\s])[ \r\t]*\n[ \r\t]*(\S)/g, '$1\\\n$2' unless pre
   text = '\n' + start + text.replace(/\n/g, indent) + '\n'
@@ -481,8 +481,8 @@ class Report
       \\(?=\n)        # backslash at end of line
     )
     ///g, ''
-    .replace /^[\r\n]+|[\r\n]+$/g, ''
     .replace /(\n[^\n]+?)\s{[^}]+?}/g, '$1' # remove direct styles
+    .replace /^[\r\n]+|[\r\n]+$/g, ''       # trim result
     # demask markdown syntax and add spaces
     if text.match /\\([*_~^`])/
       demask = /\\([*_~^`])/g
@@ -531,8 +531,8 @@ class Report
       \\(?=\n)        # backslash at end of line
     )
     ///g, ''
-    .replace /^[\r\n]+|[\r\n]+$/g, ''
     .replace /(\n[^\n]+?)\s{[^}]+?}/g, '$1' # remove direct styles
+    .replace /^[\r\n]+|[\r\n]+$/g, ''
     # interpret markdown
     text = '\n\n' + text + '\n\n'
     # replace headings
@@ -623,7 +623,7 @@ class Report
     , (all, type, title, text) ->
       # add title
       title = if title.length then title.trim() else trans.get 'boxes.' + type, 'en'
-      text = "#{title}:\n#{util.string.wordwrap text, 120}"
+      text = chalk.bold("#{title}:") + "\n#{util.string.wordwrap text, 120}"
       # get max length
       maxlen = 0
       for line in text.split /\n/

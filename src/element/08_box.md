@@ -116,7 +116,7 @@ Something went wrong!
 :::
 ```
 
-And renders as HTM:
+And renders as HTML or console output:
 
 ![html](../examples/box-stack.png) ![console](../examples/box-stack.console.png)
 
@@ -131,7 +131,29 @@ report.box "This is a very long note to show how it will look in the different
 display modes which will show it minimized, maximized or with an scroll bar.
 It is shown in the minimized form at start but you may click it into scroll
 or maximized view as you like. In any other output which is not html it will
-always be displayed in full size (maximized).", 'info', 'Long Note {size=min}'
+always be displayed in full size (maximized). You may use the icons on the top
+left to change the appearance of this box if you want to minimize it, to open
+back in auto size (with possible scrollbars) or to maximize like in print
+view.", 'info', 'Auto {size=scroll}'
+report.p "That was the default with possible scrollbars."
+report.box "This is a very long note to show how it will look in the different
+display modes which will show it minimized, maximized or with an scroll bar.
+It is shown in the minimized form at start but you may click it into scroll
+or maximized view as you like. In any other output which is not html it will
+always be displayed in full size (maximized). You may use the icons on the top
+left to change the appearance of this box if you want to minimize it, to open
+back in auto size (with possible scrollbars) or to maximize like in print
+view.", 'info', 'Minimized {size=min}'
+report.p "Now it is minimized (click to open)."
+report.box "This is a very long note to show how it will look in the different
+display modes which will show it minimized, maximized or with an scroll bar.
+It is shown in the minimized form at start but you may click it into scroll
+or maximized view as you like. In any other output which is not html it will
+always be displayed in full size (maximized). You may use the icons on the top
+left to change the appearance of this box if you want to minimize it, to open
+back in auto size (with possible scrollbars) or to maximize like in print
+view.", 'info', 'Maximized {size=max}'
+report.p "And now maximized like for printing."
 ```
 
 You can specify the `size` setting behind the title with the possible values:
@@ -139,6 +161,9 @@ You can specify the `size` setting behind the title with the possible values:
 - `scroll` - show box with pre defined max height and possible scroll bars
 - `max` - shows box in maximized form
 
+This will be rendered in HTML as:
+
+![html](../examples/box-size.png)
 
 Examples
 -----------------------------------------------------------------
