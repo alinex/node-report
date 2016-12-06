@@ -170,7 +170,26 @@ Content Examples
 -----------------------------------------------------------------
 Some examples with different Content:
 
-#############################################- pre
+### Preformatted text
+
+If you put code in boxes it will geta tab with heading and may be stacked together.
+
+``` coffee
+report.box Report.code 'This is a text code block.\nIt should be kept as is.'
+```
+
+The same may be achieved with this markdown:
+
+``` markdown
+::: detail
+    This is a text code block.
+    It should be kept as is.
+:::
+```
+
+This will be rendered in HTML and console as (click to show working HTML):
+
+[![html](../examples/box-pre.png)](http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/examples/box-pre.html) ![console](../examples/box-pre.console.png)
 
 ### Code
 
@@ -223,8 +242,33 @@ This will be rendered in HTML and console as (click to show working HTML):
 
 The tabs will lokk a bit ugly because there are to much for one row.
 
+### Table
 
+Tables are also rendered without the outer space.
 
-#############################################- table
+``` coffee
+report.box Report.table [
+  ['ID', 'English', 'German']
+  [1, 'one', 'eins']
+  [2, 'two', 'zwei']
+  [3, 'three', 'drei']
+  [12, 'twelve', 'zwölf']
+]
+```
 
-#############################################- visualization
+The same may be achieved with this markdown:
+
+``` markdown
+::: detail
+| ID | English | German |
+|:-- |:------- |:------ |
+| 1  | one     | eins   |
+| 2  | two     | zwei   |
+| 3  | three   | drei   |
+| 12 | twelve  | zwölf  |
+:::
+```
+
+This will be rendered in HTML and console as (click to show working HTML):
+
+[![html](../examples/box-table.png)](http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/examples/box-table.html) ![console](../examples/box-table.console.png)

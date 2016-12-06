@@ -193,7 +193,19 @@ describe "box", ->
     </div>
     """, cb
 
-  it.only "should create boxes with code", (cb) ->
+  it "should create boxes with preformatted text", (cb) ->
+    report = new Report()
+    report.box Report.code 'This is a text code block.\nIt should be kept as is.'
+    test.report 'box-pre', report, """
+
+    ::: detail
+        This is a text code block.
+        It should be kept as is.
+    :::
+
+    """, null, cb
+
+  it "should create boxes with code", (cb) ->
     report = new Report()
     report.box Report.code 'var x = Math.round(f);', 'js'
     report.box Report.code 'h1 {\n  font-weight: bold;\n}', 'css'
@@ -229,6 +241,28 @@ describe "box", ->
     <body><h1>This is HTML</h1></body>
     </html>
     ```
+    :::
+
+    """, null, cb
+
+  it "should create boxes with containing table", (cb) ->
+    report = new Report()
+    report.box Report.table [
+      ['ID', 'English', 'German']
+      [1, 'one', 'eins']
+      [2, 'two', 'zwei']
+      [3, 'three', 'drei']
+      [12, 'twelve', 'zwölf']
+    ]
+    test.report 'box-table', report, """
+
+    ::: detail
+    | ID | English | German |
+    |:-- |:------- |:------ |
+    | 1  | one     | eins   |
+    | 2  | two     | zwei   |
+    | 3  | three   | drei   |
+    | 12 | twelve  | zwölf  |
     :::
 
     """, null, cb

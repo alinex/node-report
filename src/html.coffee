@@ -421,6 +421,17 @@ optimizeHtml = (html, locale = 'en') ->
         # return complete
         html + "</div>"
     ]
+  ,
+    [ # box optimize containing pre
+      /(<div class="tab-content[^"]*)(">\n<pre><code>[^<]*<\/code><\/pre>\n<\/div>)/g
+      "$1 pre$2"
+    ]
+  ,
+    [ # box optimize containing pre
+#      /(<div class="tab-content[^"]*)(">\n<table>[\s\S]*?<\/table>\n<\/div>")/g
+      /(<div class="tab-content[^"]*)(">\n<table[\s\S]*?<\/table>\n<\/div>)/g
+      "$1 pre$2"
+    ]
   ]
   # code
   for tag of trans.data.lang

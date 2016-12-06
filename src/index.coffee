@@ -265,7 +265,7 @@ class Report
       throw new Error "Unknown box type #{type} for report"
     return @p text unless type
     title = if title then " #{title}" else ''
-    return "\n::: #{type}#{title}\n#{text.trim()}\n:::\n"
+    return "\n::: #{type}#{title}\n#{text.replace /^\s*\n|\n\s*$/g, ''}\n:::\n"
     indent = ''
     block text, indent, indent, width ? @width
   @hr: -> "\n---\n"
