@@ -470,7 +470,7 @@ class Report
     removed = []
     text = text.replace /(?:^|\n)``` (\w+)\s*?\n([\s\S]*?)\n```(?=\s*?\n)/g, (all, lang, code) =>
       removed.push "\n#{lang}:#{block code, '    ', '    ', @width, true}"
-      "$$$$$#{removed.length}$$$$$"
+      "\n$$$$$#{removed.length}$$$$$"
     # remove some parts
     text = text.replace ///
     (
@@ -509,8 +509,9 @@ class Report
     \)
     ///g, '[IMAGE $1]'
     # readd removed parts
+    .replace /(?:^|\n):{3,}[^\n]+(\n\${5,}\d+\${5,})\n:{3,}/g, '$1'
     for value, num in removed
-      text = text.replace "$$$$$#{num+1}$$$$$", value
+      text = text.replace "\n$$$$$#{num+1}$$$$$", value.replace /\s+$/, ''
     text.replace /^[\r\n]+|[\r\n]+$/g, ''
 
   # ### as colorful console text

@@ -199,10 +199,39 @@ describe "box", ->
     report.box Report.code 'h1 {\n  font-weight: bold;\n}', 'css'
     report.box Report.code 'simple:\n  list: ["a", b, 5]', 'yaml'
     report.box Report.code '<html>\n<head><title>This is HTML</titl></head>\n<body><h1>This is HTML</h1></body>\n</html>', 'html'
-    test.report 'box-code', report, null, null, cb
-    #"""
-    #""", """
-    #""", cb
+    test.report 'box-code', report, """
+
+    ::: detail
+    ``` js
+    var x = Math.round(f);
+    ```
+    :::
+
+    ::: detail
+    ``` css
+    h1 {
+      font-weight: bold;
+    }
+    ```
+    :::
+
+    ::: detail
+    ``` yaml
+    simple:
+      list: ["a", b, 5]
+    ```
+    :::
+
+    ::: detail
+    ``` html
+    <html>
+    <head><title>This is HTML</titl></head>
+    <body><h1>This is HTML</h1></body>
+    </html>
+    ```
+    :::
+
+    """, null, cb
 
 # EXAMPLES=true node_modules/.bin/mocha --compilers coffee:coffee-script/register --reporter spec -c --recursive --bail test/mocha
 

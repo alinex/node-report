@@ -170,7 +170,61 @@ Content Examples
 -----------------------------------------------------------------
 Some examples with different Content:
 
-- pre
-- code
-- table
-- visualization
+#############################################- pre
+
+### Code
+
+If you put code in boxes it will geta tab with heading and may be stacked together.
+
+``` coffee
+report.box Report.code 'var x = Math.round(f);', 'js'
+report.box Report.code 'h1 {\n  font-weight: bold;\n}', 'css'
+report.box Report.code 'simple:\n  list: ["a", b, 5]', 'yaml'
+report.box Report.code '<html>\n<head><title>This is HTML</titl></head>\n<body><h1>This is HTML</h1></body>\n</html>', 'html'
+```
+
+The same may be achieved with this markdown:
+
+``` markdown
+    ::: detail
+    ``` js
+    var x = Math.round(f);
+    ```
+    :::
+
+    ::: detail
+    ``` css
+    h1 {
+      font-weight: bold;
+    }
+    ```
+    :::
+
+    ::: detail
+    ``` yaml
+    simple:
+      list: ["a", b, 5]
+    ```
+    :::
+
+    ::: detail
+    ``` html
+    <html>
+    <head><title>This is HTML</titl></head>
+    <body><h1>This is HTML</h1></body>
+    </html>
+    ```
+    :::
+```
+
+This will be rendered in HTML and console as (click to show working HTML):
+
+[![html](../examples/box-code.png)](http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/examples/box-code.html) ![console](../examples/box-code.console.png)
+
+The tabs will lokk a bit ugly because there are to much for one row.
+
+
+
+#############################################- table
+
+#############################################- visualization
