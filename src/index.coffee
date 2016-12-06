@@ -520,7 +520,7 @@ class Report
     removed = []
     text = text.replace /(?:^|\n)``` (\w+)\s*?\n([\s\S]*?)\n```(?=\s*?\n)/g, (all, lang, code) =>
       removed.push "\n#{chalk.yellow lang}:#{block code, '    ', '    ', @width, true}"
-      "$$$$$#{removed.length}$$$$$"
+      "\n$$$$$#{removed.length}$$$$$\n"
     # remove some parts
     text = text.replace ///
     (
@@ -624,7 +624,13 @@ class Report
     , (all, type, title, text) ->
       # add title
       title = if title.length then title.trim() else trans.get 'boxes.' + type, 'en'
-      text = chalk.bold("#{title}:") + "\n#{util.string.wordwrap text, 120}"
+      if text.match /\$\$\$\$\$\d+\$\$\$\$\$/
+        for value, num in removed
+          text = text.replace "$$$$$#{num+1}$$$$$\n", value
+        text = util.string.wordwrap text.trim(), 120, '    '
+        title = ''
+      else
+        text = chalk.bold("#{title}:") + "\n#{util.string.wordwrap text, 120}"
       # get max length
       maxlen = 0
       for line in text.split /\n/
@@ -645,7 +651,7 @@ class Report
       #{chalk[color] '╚' + util.string.repeat('═', maxlen) + '╝'}"""
     # readd removed parts
     for value, num in removed
-      text = text.replace "$$$$$#{num+1}$$$$$", value
+      text = text.replace "\n$$$$$#{num+1}$$$$$\n", value
     text.replace /^[\r\n]+|[\r\n]+$/g, ''
 
   # ### as html

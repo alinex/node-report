@@ -5,7 +5,7 @@ test = require '../test'
 describe "box", ->
   @timeout 10000
 
-  it.only "should create a box in each style", (cb) ->
+  it "should create a box in each style", (cb) ->
     report = new Report()
     report.p "detail:"
     report.box "Some more details here...", 'detail'
