@@ -218,9 +218,9 @@ fa-square fa-stack-1x fa-terminal fa-inverse: :fa-lg fa-stack-1x fa-camera
 fa-stack-2x fa-ban text-red:
 ```
 
-And renders as HTML and console output:
+And renders as HTML and console output (click to show working HTML):
 
-![html](../examples/signs-fontawesome.png) ![html](../examples/signs-fontawesome.console.png)
+[![html](../examples/signs-fontawesome.png)](http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/examples/signs-fontawesome.html) ![html](../examples/signs-fontawesome.console.png)
 
 In text and console output only the icons are kept in a compressed format. All modulations
 are removed.

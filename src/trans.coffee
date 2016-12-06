@@ -17,11 +17,11 @@ exports.data =
     en: 'Index'
   lang:
     coffeescript:
-      en: 'CoffeeScript Code'
+      en: 'CoffeeScript'
     iced:
-      en: 'IcedCoffeeScript Code'
+      en: 'IcedCoffeeScript'
     javascript:
-      en: 'JavaScript Code'
+      en: 'JavaScript'
     ruby:
       en: 'Ruby Code'
     python:
@@ -68,6 +68,8 @@ exports.data =
       en: 'YAML Data'
     markdown:
       en: 'Markdown Document'
+    html:
+      en: 'HTML Document'
   boxes:
     detail:
       en: 'Details'
@@ -104,4 +106,4 @@ exports.data =
 exports.get = (tag, locale, tr = exports.data) ->
   parts = tag.split /\./
   return exports.get parts[1..].join('.'), locale, tr[parts[0]] unless parts.length is 1
-  tr[tag][locale] ? tr[tag][locale[0..1]] ? tr[tag].en
+  tr[tag]?[locale] ? tr[tag]?[locale[0..1]] ? tr[tag]?.en ? tag

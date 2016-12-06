@@ -8,8 +8,10 @@ var x = Math.round(f);
 :::
 
 ::: detail
-``` markdown
-This **is** a ==markdown== text
+``` css
+h1 {
+  font-weight: bold;
+}
 ```
 :::
 
@@ -17,5 +19,14 @@ This **is** a ==markdown== text
 ``` yaml
 simple:
   list: ["a", b, 5]
+```
+:::
+
+::: detail
+``` html
+<html>
+<head><title>This is HTML</titl></head>
+<body><h1>This is HTML</h1></body>
+</html>
 ```
 :::

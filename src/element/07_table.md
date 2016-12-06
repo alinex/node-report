@@ -642,7 +642,7 @@ $$$
 
 And finally in HTML this will look like (click to show working HTML):
 
-[![html](../examples/datatable.png)](http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/../examples/datatable.html)
+[![html](../examples/datatable.png)](http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/examples/datatable.html)
 
 __Features__
 

@@ -116,9 +116,9 @@ Something went wrong!
 :::
 ```
 
-And renders as HTML or console output:
+And renders as HTML or console output (click to show working HTML):
 
-![html](../examples/box-stack.png) ![console](../examples/box-stack.console.png)
+[![html](../examples/box-stack.png)](http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/examples/box-stack.html) ![console](../examples/box-stack.console.png)
 
 
 Specific Display
@@ -161,11 +161,12 @@ You can specify the `size` setting behind the title with the possible values:
 - `scroll` - show box with pre defined max height and possible scroll bars
 - `max` - shows box in maximized form
 
-This will be rendered in HTML as:
+This will be rendered in HTML as (click to show working HTML):
 
-![html](../examples/box-size.png)
+[![html](../examples/box-size.png)](http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/examples/box-size.html) ![console](../examples/box-size.console.png)
 
-Examples
+
+Content Examples
 -----------------------------------------------------------------
 Some examples with different Content:
 

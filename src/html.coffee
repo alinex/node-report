@@ -111,7 +111,7 @@ module.exports = (report, setup = {}, cb) ->
     , (_, box, title, style, code, language) ->
       language = langAlias[language] if langAlias[language]
       title = if title then title.trim() else trans.get "lang.#{language}", locale
-      style = if style then style.replace /}/, " .#{language}}" else "{.#{language}}"
+      style = if style then style.replace /}/, " .pre .#{language}}" else "{.pre .#{language}}"
       "#{box} #{title} #{style}\n#{code} #{language}"
     # transform to html
     data = util.clone setup

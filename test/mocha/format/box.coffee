@@ -5,7 +5,7 @@ test = require '../test'
 describe "box", ->
   @timeout 10000
 
-  it "should create a box in each style", (cb) ->
+  it.only "should create a box in each style", (cb) ->
     report = new Report()
     report.p "detail:"
     report.box "Some more details here...", 'detail'
@@ -41,18 +41,7 @@ describe "box", ->
       Something went wrong!
       :::
 
-      """, """
-      <body><div id="page"><p>detail:</p>
-      <div class="tabs">
-      <input type="radio" name="tabs1" class="tab tab1" id="tab1" checked=""><label for="tab1" class="detail" title="Switch tab">Details</label>
-      <input type="radio" name="tabs-size1" class="tabs-size tabs-size-max" id="tabs-size-max1"><label for="tabs-size-max1" title="Maximize box to show full content"><i class="fa fa-window-maximize" aria-hidden="true"></i></label>
-      <input type="radio" name="tabs-size1" class="tabs-size tabs-size-scroll" id="tabs-size-scroll1" checked=""><label for="tabs-size-scroll1" title="Show in default view with possible scroll bars"><i class="fa fa-window-restore" aria-hidden="true"></i></label>
-      <input type="radio" name="tabs-size1" class="tabs-size tabs-size-min" id="tabs-size-min1"><label for="tabs-size-min1" title="Close box content"><i class="fa fa-window-minimize" aria-hidden="true"></i></label>
-      <div class="tab-content tab-content1 detail">
-      <p>Some more details here…</p>
-      </div>
-      </div>
-      """, cb
+      """, null, cb
 
   it "should create a box with specific title", (cb) ->
     report = new Report()
@@ -207,8 +196,9 @@ describe "box", ->
   it.only "should create boxes with code", (cb) ->
     report = new Report()
     report.box Report.code 'var x = Math.round(f);', 'js'
-    report.box Report.code 'This **is** a ==markdown== text', 'markdown'
+    report.box Report.code 'h1 {\n  font-weight: bold;\n}', 'css'
     report.box Report.code 'simple:\n  list: ["a", b, 5]', 'yaml'
+    report.box Report.code '<html>\n<head><title>This is HTML</titl></head>\n<body><h1>This is HTML</h1></body>\n</html>', 'html'
     test.report 'box-code', report, null, null, cb
     #"""
     #""", """
