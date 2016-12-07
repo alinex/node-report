@@ -61,6 +61,10 @@ And renders as HTML or console output:
 
 ![html](../examples/box.png) ![console](../examples/box.console.png)
 
+> If you want to get a box without the inner padding add the `pre` class as direct
+> style. This will get the same result as achieved with containing, code or table
+> automatically.
+
 
 Specific Title
 -----------------------------------------------------------------
