@@ -361,7 +361,16 @@ class Report
 
   # Create instance
   # -------------------------------------------------
-  constructor: (setup) ->
+
+  # @param {String} [text] initial markdown
+  # @param {Object} [setup] setting of:
+  # - `source` - `String` markdown text to preload
+  # - `log` - `Function(String)` called each time something is added with the added text
+  # - `width` - `Integer` the width for line breaks (default: 80)
+  constructor: (text, setup) ->
+    if (not setup?) and typeof text is 'object'
+      setup = text
+      text = null
     Report.setup -> {}
     @width = setup?.width ? 80
     @log = setup?.log
@@ -376,6 +385,9 @@ class Report
     @state =
       footnote: 0
       datatable: 0
+    # add initial markdown
+    @raw text if text
+
 
   # Add elements
   # -------------------------------------------------

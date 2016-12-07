@@ -113,7 +113,8 @@ And now you create a new object:
 report = new Report()
 ```
 
-You may also give some of the following options:
+You may also give an initial marksown as first parameter and an optional
+setup with some of the following options:
 
 - `source` - markdown text to preload
 - `log` - a function called each time something is added with the added text
