@@ -17,7 +17,7 @@ equal = (a, b) ->
 
 describe "output", ->
 
-  describe.only "console", ->
+  describe "console", ->
 
     it "should transform bold", ->
       report = new Report
