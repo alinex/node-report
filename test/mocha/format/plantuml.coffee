@@ -3,7 +3,7 @@ Report = require '../../../src/index'
 test = require '../test'
 
 describe "visual plantuml", ->
-  @timeout 10000
+  @timeout 20000
 
   it "should create simple plantuml", (cb) ->
     report = new Report()

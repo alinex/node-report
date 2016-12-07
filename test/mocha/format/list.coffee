@@ -242,9 +242,4 @@ describe "lists", ->
       [x] with elements done
       [ ] and something todo
 
-      """, """
-      <body><div id="page"><p><div class="cb"><input type="checkbox" id="checkbox2" checked="true" /><label for="checkbox2">todo list</label></div>
-      <div class="cb"><input type="checkbox" id="checkbox1" checked="true" /><label for="checkbox1">with elements done</label></div>
-      <div class="cb"><input type="checkbox" id="checkbox0" /><label for="checkbox0">and something todo</label></div></p>
-      </div></body>
-      """, cb
+      """, null, cb

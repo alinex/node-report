@@ -367,10 +367,7 @@ class Report
   # - `source` - `String` markdown text to preload
   # - `log` - `Function(String)` called each time something is added with the added text
   # - `width` - `Integer` the width for line breaks (default: 80)
-  constructor: (text, setup) ->
-    if (not setup?) and typeof text is 'object'
-      setup = text
-      text = null
+  constructor: (setup) ->
     Report.setup -> {}
     @width = setup?.width ? 80
     @log = setup?.log
@@ -385,8 +382,6 @@ class Report
     @state =
       footnote: 0
       datatable: 0
-    # add initial markdown
-    @raw text if text
 
 
   # Add elements
@@ -468,16 +463,27 @@ class Report
     match?[1] ? match?[2]
 
   # ### as markdown text
-  toString: ->
+  #
+  # @param {String} format the output format
+  toString: (format) ->
     text = @body
     for key in ['abbr', 'footnote']
       continue unless @parts[key].length
       text += "\n#{@parts[key].join '\n'}\n"
+    # remove parts not valid
+    if format
+      text = text.replace /<!--\s*begin\s+((no-)?(\w+))\s*-->([\s\S]*?)<!--\s*end\s+\1\s*-->/g
+      , (_1, _2, neg, type, content) ->
+        if (type is format and not neg) or (type isnt format and neg)
+          content
+        else
+          ''
+    # return result
     text
 
    # ### as simplified text
   toText: ->
-    text = pluginFontawesome.toText pluginExecute.toText @toString()
+    text = pluginFontawesome.toText pluginExecute.toText @toString 'text'
     # replace code
     removed = []
     text = text.replace /(?:^|\n)``` (\w+)\s*?\n([\s\S]*?)\n```(?=\s*?\n)/g, (all, lang, code) =>
@@ -528,7 +534,7 @@ class Report
 
   # ### as colorful console text
   toConsole: ->
-    text = pluginFontawesome.toConsole pluginExecute.toConsole @toString()
+    text = pluginFontawesome.toConsole pluginExecute.toConsole @toString 'console'
     # replace code
     removed = []
     text = text.replace /(?:^|\n)``` (\w+)\s*?\n([\s\S]*?)\n```(?=\s*?\n)/g, (all, lang, code) =>

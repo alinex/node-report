@@ -5,6 +5,7 @@ expect = chai.expect
 chalk = require 'chalk'
 debug = require('debug')('test:instance')
 Report = require '../../src/index'
+test = require './test'
 
 chalk.enabled = true
 
@@ -16,12 +17,38 @@ equal = (a, b) ->
 
 describe "output", ->
 
-  describe "console", ->
+  describe.only "console", ->
 
     it "should transform bold", ->
       report = new Report
         source: 'My **Test** is OK'
       equal report.toString().trim(), "My **Test** is OK"
+      equal report.toConsole().trim(), "My \u001b[1mTest\u001b[22m is OK"
+
+    it "should keep console parts", ->
+      report = new Report
+        source: 'My **Test** is OK
+        <!-- begin console -->only **on** console<!-- end console -->'
+      equal report.toConsole().trim(), "My \u001b[1mTest\u001b[22m is OK
+      only \u001b[1mon\u001b[22m console"
+
+    it "should keep no-html parts", ->
+      report = new Report
+        source: 'My **Test** is OK
+        <!-- begin no-html -->only **on** console<!-- end no-html -->'
+      equal report.toConsole().trim(), "My \u001b[1mTest\u001b[22m is OK
+      only \u001b[1mon\u001b[22m console"
+
+    it "should remove html parts", ->
+      report = new Report
+        source: 'My **Test** is OK
+        <!-- begin html -->not **on** console<!-- end html -->'
+      equal report.toConsole().trim(), "My \u001b[1mTest\u001b[22m is OK"
+
+    it "should remove no-console parts", ->
+      report = new Report
+        source: 'My **Test** is OK
+        <!-- begin no-console -->not **on** console<!-- end no-console -->'
       equal report.toConsole().trim(), "My \u001b[1mTest\u001b[22m is OK"
 
 #    it "special", ->

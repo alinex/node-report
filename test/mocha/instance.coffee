@@ -187,13 +187,13 @@ describe "instance", ->
       return done() unless process.env.EXAMPLES
       console.log report.toConsole()
       fs = require 'fs'
-      fd = fs.createWriteStream "#{__dirname}/../../src/doc/test.md"
+      fd = fs.createWriteStream "#{__dirname}/../../src/example/test.md"
       fd.write report.toString().trim()
       fd.end()
-      fd = fs.createWriteStream "#{__dirname}/../../src/doc/test.txt"
+      fd = fs.createWriteStream "#{__dirname}/../../src/example/test.txt"
       fd.write report.toText()
       fd.end()
-      fd = fs.createWriteStream "#{__dirname}/../../src/doc/test.html"
+      fd = fs.createWriteStream "#{__dirname}/../../src/example/test.html"
       fd.write report.toHtml()
       fd.end()
       async.series [
@@ -204,25 +204,25 @@ describe "instance", ->
             inlineCss: true
             locale: 'de'
           , (err, data) ->
-            fd = fs.createWriteStream "#{__dirname}/../../src/doc/test-inline.html"
+            fd = fs.createWriteStream "#{__dirname}/../../src/example/test-inline.html"
             fd.write data
             fd.end()
             cb()
         (cb) ->
           report.toPdf (err, data) ->
-            fd = fs.createWriteStream "#{__dirname}/../../src/doc/test.pdf"
+            fd = fs.createWriteStream "#{__dirname}/../../src/example/test.pdf"
             fd.write data
             fd.end()
             cb()
         (cb) ->
           report.toImage (err, data) ->
-            fd = fs.createWriteStream "#{__dirname}/../../src/doc/test.png"
+            fd = fs.createWriteStream "#{__dirname}/../../src/example/test.png"
             fd.write data
             fd.end()
             cb()
         (cb) ->
           report.toImage {type: 'jpg'}, (err, data) ->
-            fd = fs.createWriteStream "#{__dirname}/../../src/doc/test.jpg"
+            fd = fs.createWriteStream "#{__dirname}/../../src/example/test.jpg"
             fd.write data
             fd.end()
             cb()

@@ -39,10 +39,3 @@ describe "visual qr", ->
       $$$
 
       """, null, cb
-
-  it.only "should create test", (cb) ->
-    report = new Report """
-    Test __xxx__ Nr. 1
-    """
-#    report.qr "http://alinex.de"
-    test.report '---', report, null, null, cb

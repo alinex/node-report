@@ -86,7 +86,7 @@ module.exports = (report, setup = {}, cb) ->
     setup.style ?= 'default'
     # create html
     md = initHtml()
-    content = report.toString()
+    content = report.toString 'html'
     # make local files inline
     # replace local images with base64
     content = content.replace ///

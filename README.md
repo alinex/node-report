@@ -113,8 +113,7 @@ And now you create a new object:
 report = new Report()
 ```
 
-You may also give an initial marksown as first parameter and an optional
-setup with some of the following options:
+You may also give one of the following options:
 
 - `source` - markdown text to preload
 - `log` - a function called each time something is added with the added text
@@ -170,10 +169,38 @@ To mask some characters to be not interpreted as markdown, you may use `\` befor
 the special markdown signs or automatically mask them using `Report.mask text`
 if you didn't want to interpret them as markdown.
 
+### Differences to Other Markdown
+
+This class is based on the [CommonMark Spec](http://spec.commonmark.org/) but it
+extends it with higher level and more complex transformations like boxes, graph,
+diagram or interactive tables.
+
+That's the cause for not displaying completely in other markdown implementations
+like Github.
+
 
 Output
 -------------------------------------------------
 You have multiple possibilities to output the created markdown object.
+
+Before you look at each of them you can also specify some parts of the content
+specifically for an output type:
+
+``` coffee
+html = new Report
+  source: "This is<!-- begin no-html --> not<!-- end no-html --> html
+  <!-- begin html -->= the best format<!-- end html -->".toHtml()
+```
+
+This shows the possibilities to specify a part of the content for a specific output
+format or exclude it from one.
+
+The possible output formats to select are:
+- text
+- console
+- html (including pdf and image)
+
+> For html you may also exclude something using the `.hidden` class through styles.
 
 ### Markdown
 
