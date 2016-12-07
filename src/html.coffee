@@ -341,7 +341,8 @@ optimizeHtml = (html, locale = 'en') ->
   ,
     [ # table-of-contents: add index title
       /(<ul class="table-of-contents")>/g
-      "$1 aria-hidden=\"true\"><header>#{trans.get 'index', locale}</header>"
+      "$1 aria-hidden=\"true\"><header>#{trans.get 'index', locale}\
+      <a href=\"#top\" class=\"fa fa-arrow-up toplink\"></a></header>"
     ]
   ,
     [ # move style settings from code to parent pre
