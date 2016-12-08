@@ -261,11 +261,11 @@ format or exclude it from one.</p>
 <p>For html you may also exclude something using the <code>.hidden</code> class through styles.</p>
 </blockquote>
 <h3 id="markdown">Markdown</h3>
-<p>Example: <a href="https://raw.githubusercontent.com/alinex/node-report/master/src/doc/test.md">markdown</a></p>
+<p>Example: <a href="https://raw.githubusercontent.com/alinex/node-report/master/src/examples/test.md">markdown</a></p>
 <p>To get this native output you can directly convert the object to a string:</p>
 <pre class="language coffeescript"><header>CoffeeScript Code</header><code>report.toString()</code></pre>
 <h3 id="text-output">Text Output</h3>
-<p>Example: <a href="https://raw.githubusercontent.com/alinex/node-report/master/src/doc/test.txt">text</a></p>
+<p>Example: <a href="https://raw.githubusercontent.com/alinex/node-report/master/src/examples/test.txt">text</a></p>
 <pre class="language coffeescript"><header>CoffeeScript Code</header><code>report.toText()</code></pre>
 <p>Here all non presentable elements are removed to get a clean plain text output.
 This means the table of contents, decorator rules and backslashes at the end of line
@@ -277,7 +277,7 @@ be marked with ascii escape sequences to add color highlighting. All markup whic
 is possible in console like bold, strikethrough, italic… will be used.</p>
 <p>Tables will be drawn using ASCII art grid lines.</p>
 <h3 id="html-document">HTML Document</h3>
-<p>Example: <a href="http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/doc/test.html">html</a></p>
+<p>Example: <a href="http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/examples/test.html">html</a></p>
 <pre class="language coffeescript"><header>CoffeeScript Code</header><code>report.toHtml() <span class="hljs-comment"># deprectaed syntax without inline css support</span></code>
 <code></code>
 <code>report.toHtml options, <span class="hljs-function"><span class="hljs-params">(err, html)</span> -&gt;</span></code>
@@ -299,7 +299,7 @@ as data uri in the document. This makes the document larger but helps to keep
 everything in one file. In emails you may extract these again and replace them
 with cid uri to the now attached resource.</p>
 <h3 id="pdf-document">PDF Document</h3>
-<p>Example: <a href="https://raw.githubusercontent.com/alinex/node-report/master/src/doc/test.pdf">PDF</a></p>
+<p>Example: <a href="https://raw.githubusercontent.com/alinex/node-report/master/src/examples/test.pdf">PDF</a></p>
 <pre class="language coffeescript"><header>CoffeeScript Code</header><code>report.toPdf (err, data) -&gt;</code>
 <code>  <span class="hljs-comment"># [](you may store this to a file)</span></code></pre>
 <p>You can also give some options:</p>
