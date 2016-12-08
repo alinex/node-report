@@ -38,7 +38,7 @@ twemoji = require 'twemoji'
 pluginExecute = require './plugin/execute'
 pluginFontawesome = require './plugin/fontawesome'
 # Helper
-trans = require './trans.coffee'
+trans = require './trans'
 
 
 # Configuration

@@ -22,7 +22,7 @@ pluginExecute = require './plugin/execute'
 pluginFontawesome = require './plugin/fontawesome'
 dataStringify = deasync format.stringify
 # helper classes
-trans = require './trans.coffee'
+trans = require './trans'
 
 
 # Setup
