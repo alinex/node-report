@@ -204,7 +204,7 @@ The possible output formats to select are:
 
 ### Markdown
 
-Example: [markdown](https://raw.githubusercontent.com/alinex/node-report/master/src/doc/test.md)
+Example: [markdown](https://raw.githubusercontent.com/alinex/node-report/master/src/examples/test.md)
 
 To get this native output you can directly convert the object to a string:
 
@@ -214,7 +214,7 @@ report.toString()
 
 ### Text Output
 
-Example: [text](https://raw.githubusercontent.com/alinex/node-report/master/src/doc/test.txt)
+Example: [text](https://raw.githubusercontent.com/alinex/node-report/master/src/examples/test.txt)
 
 ``` coffee
 report.toText()
@@ -238,7 +238,7 @@ Tables will be drawn using ASCII art grid lines.
 
 ### HTML Document
 
-Example: [html](http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/doc/test.html)
+Example: [html](http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/examples/test.html)
 
 ``` coffee
 report.toHtml() # deprectaed syntax without inline css support
@@ -267,7 +267,7 @@ with cid uri to the now attached resource.
 
 ### PDF Document
 
-Example: [PDF](https://raw.githubusercontent.com/alinex/node-report/master/src/doc/test.pdf)
+Example: [PDF](https://raw.githubusercontent.com/alinex/node-report/master/src/examples/test.pdf)
 
 ``` coffee
 report.toPdf (err, data) ->
