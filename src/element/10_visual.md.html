@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Visualization</title>
+    <meta name="HandheldFriendly" content="true" />
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/8.5.0/styles/solarized_light.min.css" /><style type="text/css">#topnav{text-align:center;background:#333;padding-bottom:20px;position:fixed;margin-top:0;width:100%;bottom:0;top:51px;}#topnav .navbar-nav{margin:0;margin-top:8px;display:-webkit-inline-box;display:-moz-inline-box;display:-webkit-inline-flex;display:-ms-inline-flexbox;display:inline-box;display:inline-flex}#topnav .sidebar-to-top .btn{text-align:left}#topnav .sidebar-to-top li.level2>a{margin-left:20px}#topnav .sidebar-to-top li.level3>a{margin-left:40px}#topnav .sidebar-to-top li.level4>a{margin-left:60px}#topnav .sidebar-to-top li.level5>a{margin-left:80px}#topnav .sidebar-to-top li.level6>a{margin-left:100px}.navbar-fixed-top .navbar-collapse{max-height:100%}.navbar{min-width:300px}.nav>li{padding:2px 12px}.navbar-inverse .nav>li>a{color:#222;font-weight:bold;padding-top:6px;padding-bottom:6px;}.navbar-inverse .nav>li>a:focus,.navbar-inverse .nav>li>a:hover{background:#73aad8;background:#4b91cd -webkit-linear-gradient(270deg, #73aad8, #4b91cd) repeat-x;background:#4b91cd -moz-linear-gradient(270deg, #73aad8, #4b91cd) repeat-x;background:#4b91cd -o-linear-gradient(270deg, #73aad8, #4b91cd) repeat-x;background:#4b91cd -ms-linear-gradient(270deg, #73aad8, #4b91cd) repeat-x;background:#4b91cd linear-gradient(180deg, #73aad8, #4b91cd) repeat-x}.navbar-inverse .nav>li>a.btn-warning:focus,.navbar-inverse .nav>li>a.btn-warning:hover{background:#ec9721;background:#c97c11 -webkit-linear-gradient(270deg, #ec9721, #c97c11) repeat-x;background:#c97c11 -moz-linear-gradient(270deg, #ec9721, #c97c11) repeat-x;background:#c97c11 -o-linear-gradient(270deg, #ec9721, #c97c11) repeat-x;background:#c97c11 -ms-linear-gradient(270deg, #ec9721, #c97c11) repeat-x;background:#c97c11 linear-gradient(180deg, #ec9721, #c97c11) repeat-x}.navbar-spacer{height:51px}.btn-warning:active,.btn-primary:active{-webkit-transform:scale(.92);-moz-transform:scale(.92);-o-transform:scale(.92);-ms-transform:scale(.92);transform:scale(.92)}.btn-warning{background:#f2b560;background:#ee9f31 -webkit-linear-gradient(270deg, #f2b560, #ee9f31) repeat-x;background:#ee9f31 -moz-linear-gradient(270deg, #f2b560, #ee9f31) repeat-x;background:#ee9f31 -o-linear-gradient(270deg, #f2b560, #ee9f31) repeat-x;background:#ee9f31 -ms-linear-gradient(270deg, #f2b560, #ee9f31) repeat-x;background:#ee9f31 linear-gradient(180deg, #f2b560, #ee9f31) repeat-x}.btn-primary{background:#3d88c9;background:#2e6ea5 -webkit-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 -moz-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 -o-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 -ms-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 linear-gradient(180deg, #3d88c9, #2e6ea5) repeat-x}.sidebar .nav{display:none;list-style:disc;padding-left:25px;}.sidebar .nav>li{display:list-item;}.sidebar .nav>li>a{color:#222;}.sidebar .nav>li>a:active{-webkit-box-shadow:0 2px 10px 2px rgba(0,0,0,0.25);box-shadow:0 2px 10px 2px rgba(0,0,0,0.25)}.sidebar .nav>li>a:hover{background:#3d88c9;background:#2e6ea5 -webkit-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 -moz-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 -o-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 -ms-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 linear-gradient(180deg, #3d88c9, #2e6ea5) repeat-x;color:#fff}.sidebar .nav>li.header,.sidebar .nav>li.active{display:none}.sidebar .nav>li.active>a{background:#73aad8;background:#4b91cd -webkit-linear-gradient(270deg, #73aad8, #4b91cd) repeat-x;background:#4b91cd -moz-linear-gradient(270deg, #73aad8, #4b91cd) repeat-x;background:#4b91cd -o-linear-gradient(270deg, #73aad8, #4b91cd) repeat-x;background:#4b91cd -ms-linear-gradient(270deg, #73aad8, #4b91cd) repeat-x;background:#4b91cd linear-gradient(180deg, #73aad8, #4b91cd) repeat-x;}.sidebar .nav>li.active>a:hover{background:#3d88c9;background:#2e6ea5 -webkit-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 -moz-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 -o-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 -ms-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 linear-gradient(180deg, #3d88c9, #2e6ea5) repeat-x;color:#fff}.sidebar .nav>li.header>a{font-weight:bold;background:#f2b560;background:#ee9f31 -webkit-linear-gradient(270deg, #f2b560, #ee9f31) repeat-x;background:#ee9f31 -moz-linear-gradient(270deg, #f2b560, #ee9f31) repeat-x;background:#ee9f31 -o-linear-gradient(270deg, #f2b560, #ee9f31) repeat-x;background:#ee9f31 -ms-linear-gradient(270deg, #f2b560, #ee9f31) repeat-x;background:#ee9f31 linear-gradient(180deg, #f2b560, #ee9f31) repeat-x;}.sidebar .nav>li.header>a:hover{background:#ec9721;background:#c97c11 -webkit-linear-gradient(270deg, #ec9721, #c97c11) repeat-x;background:#c97c11 -moz-linear-gradient(270deg, #ec9721, #c97c11) repeat-x;background:#c97c11 -o-linear-gradient(270deg, #ec9721, #c97c11) repeat-x;background:#c97c11 -ms-linear-gradient(270deg, #ec9721, #c97c11) repeat-x;background:#c97c11 linear-gradient(180deg, #ec9721, #c97c11) repeat-x;color:#fff}.sidebar .nav>li.level2>a{padding-left:30px}.sidebar .nav>li.level3>a{padding-left:50px}.sidebar .nav>li.level4>a{padding-left:70px}.sidebar .nav>li.level5>a,.sidebar .nav>li.level6>a{padding-left:90px}.navbar-inverse .navbar-toggle{background-color:#444;}.navbar-inverse .navbar-toggle:hover{background-color:#666}@media (min-width:768px){#topnav{position:inherit;background:#222;padding-bottom:0}#topnav .nav>li{padding:0 4px}#topnav .sidebar-to-top{display:none}.navbar-right{margin-right:0}.navbar-nav >li>a{padding:6px 10px}.sidebar{overflow:auto;position:fixed;top:51px;left:0;bottom:0;background:#ddd;padding:0;}.sidebar h1,.sidebar h2{display:none}.sidebar .nav{display:block;list-style:none;padding-left:0;}.sidebar .nav>li{padding:0;}.sidebar .nav>li.header,.sidebar .nav>li.active{display:block;}.sidebar .nav>li.header.level2>a:before,.sidebar .nav>li.active.level2>a:before,.sidebar .nav>li.header.level3>a:before,.sidebar .nav>li.active.level3>a:before,.sidebar .nav>li.header.level4>a:before,.sidebar .nav>li.active.level4>a:before,.sidebar .nav>li.header.level5>a:before,.sidebar .nav>li.active.level5>a:before,.sidebar .nav>li.header.level6>a:before,.sidebar .nav>li.active.level6>a:before{content:"•"}.sidebar .nav>li>a{padding-top:8px;padding-bottom:8px}.sidebar .nav>li.level2>a:before,.sidebar .nav>li.level3>a:before,.sidebar .nav>li.level4>a:before,.sidebar .nav>li.level5>a:before,.sidebar .nav>li.level6>a:before{content:"◦";font-size:150%;line-height:10%;font-weight:bold;padding-right:5px;display:block;float:left;margin-top:8px;margin-left:-15px;color:#666}}img.preload{display:none}body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";font-size:16px;line-height:1.2;-ms-word-break:break-all;word-break:break-all;word-break:break-word;-webkit-hyphens:auto;-moz-hyphens:auto;-ms-hyphens:auto;hyphens:auto;-webkit-hyphenate-before:2;-webkit-hyphenate-after:3;hyphenate-lines:3;min-width:300px}h1,h2,h3,h4,h5,h6{font-weight:bold;}h1:before,h2:before,h3:before,h4:before,h5:before,h6:before{display:block;content:" ";margin-top:-66px;height:66px;visibility:hidden}h1,h2,h3{clear:both}h1{border-bottom:3px solid #222;padding-bottom:5px}h2{border-bottom:2px dotted #222;padding-bottom:3px}h3{border-bottom:2px dotted #aaa;padding-bottom:2px}h4{border-bottom:1px dotted #aaa}dt{font-weight:bold;margin-top:8px}dd{margin-left:20px}blockquote{border:1px solid #eee;border-radius:3px;border-left:5px solid #337ab7;padding:5px 15px;margin:10px 0;}blockquote ul li p{margin-bottom:0}svg,img{max-width:100%}table{border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all;margin-bottom:10px;}table th,table td{padding:6px 13px;border:1px solid #ddd}table th{background-color:rgba(0,0,0,0.04);font-weight:bold;border-bottom:3px solid #999}table tr{background-color:#fff;border-top:1px solid #ccc;}table tr:nth-child(2n){background-color:rgba(0,0,0,0.04)}img{vertical-align:middle}.emoji{height:1em}abbr,acronym{border-bottom:dotted 1px}a code{color:#337ab7}code,tt{background-color:#fafafa;border-radius:4px;font-size:85%;margin:0;padding:.2em 0}pre{background-color:#fafafa;border-radius:10px;border:1px solid #a4a4a4;font-size:85%;margin:20px;padding:10px;}pre code,pre tt{background:none}pre.language{counter-reset:line;max-height:265px;padding-top:30px;padding-bottom:0;overflow-x:hidden;}pre.language code,pre.language tt{display:block;position:relative;float:left;width:100%;border-left:45px solid #ddd;margin-left:-10px;padding-left:5px;}pre.language code:before,pre.language tt:before{counter-increment:line;content:counter(line);min-width:35px;float:left;text-align:right;padding-right:5px;color:#808080;-webkit-touch-callout:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;-webkit-user-select:none;margin-left:-45px}pre.language code:first-of-type,pre.language tt:first-of-type{padding-top:10px}pre.language code:last-child,pre.language tt:last-child{padding-bottom:10px}pre.language header{border-top-left-radius:4px;border-top-right-radius:4px;font-weight:bold;background:#fafafa;margin:-30px -10px 0 -10px;padding:5px 15px}pre.language.coffeescript header,pre.language.javascript header,pre.language.ruby header,pre.language.python header,pre.language.perl header,pre.language.cc header,pre.language.cpp header,pre.language.cs header,pre.language.java header,pre.language.jsp header,pre.language.groovy header,pre.language.php header,pre.language.bash header,pre.language.sql header,pre.language.makefile header{background:#f0ad4e}pre.language.json header,pre.language.cson header,pre.language.yaml header{background:#61b961}pre.language.handlebars header,pre.language.css header,pre.language.stylus header,pre.language.scss header,pre.language.less header,pre.language.markdown header{background:#76abca}ul.table-of-contents{max-width:100px;max-height:30px;overflow:hidden;position:fixed;top:51px;right:0;background:#ddd;padding:5px 15px;-webkit-transition:max-width 100ms ease 1.2s, max-height 1s ease 200ms;-moz-transition:max-width 100ms ease 1.2s, max-height 1s ease 200ms;-o-transition:max-width 100ms ease 1.2s, max-height 1s ease 200ms;-ms-transition:max-width 100ms ease 1.2s, max-height 1s ease 200ms;transition:max-width 100ms ease 1.2s, max-height 1s ease 200ms;border-left:2px solid #999;border-bottom:2px solid #999;border-bottom-left-radius:10px;list-style-type:none;white-space:nowrap;z-index:100;}ul.table-of-contents:hover{max-width:285px;max-height:248px;-webkit-transition:max-width 100ms ease, max-height 1s ease 100ms;-moz-transition:max-width 100ms ease, max-height 1s ease 100ms;-o-transition:max-width 100ms ease, max-height 1s ease 100ms;-ms-transition:max-width 100ms ease, max-height 1s ease 100ms;transition:max-width 100ms ease, max-height 1s ease 100ms;overflow-y:auto}ul.table-of-contents header{background:#999;font-weight:bold;margin:-5px -15px;padding:5px 15px}ul.table-of-contents>li{padding-bottom:2px;padding-right:8px;}ul.table-of-contents>li:first-of-type{padding-top:10px}ul.table-of-contents a{color:#222}ul.table-of-contents li.sidebar{display:list-item}@media (min-width:768px){ul.table-of-contents li.sidebar{display:none}}div.detail,div.info,div.warning,div.alert{padding:30px 10px 6px 10px;margin:5px 0 8px 0;border-radius:3px;padding-left:60px;border-radius:18px;border-top-left-radius:0;}div.detail>p,div.info>p,div.warning>p,div.alert>p{margin-bottom:0}div.detail header,div.info header,div.warning header,div.alert header{font-weight:bold;position:absolute;margin-top:-30px;margin-left:-60px;padding:3px 20px 3px 10px;border-bottom-right-radius:18px}div:before{content:'\24D8';color:#666;position:absolute;font-size:28px;font-weight:900;padding-top:5px;margin-left:-50px}div.detail{background-color:#fafafa;border:2px solid #ddd;padding-top:0}div.info{background-color:#9f9;background-image:-webkit-linear-gradient(top, #bfb 0%, #6d6 100%);background-image:-moz-linear-gradient(top, #bfb 0%, #6d6 100%);background-image:-o-linear-gradient(top, #bfb 0%, #6d6 100%);background-image:-ms-linear-gradient(top, #bfb 0%, #6d6 100%);background-image:linear-gradient(to bottom, #bfb 0%, #6d6 100%);border:2px solid #6d6;}div.info header{background-color:#6d6}div.info:before{content:'\24D8';text-shadow:0 -1px 0 #6d6}div.warning{background-color:#fc9;background-image:-webkit-linear-gradient(top, #f97 0%, #e86 100%);background-image:-moz-linear-gradient(top, #f97 0%, #e86 100%);background-image:-o-linear-gradient(top, #f97 0%, #e86 100%);background-image:-ms-linear-gradient(top, #f97 0%, #e86 100%);background-image:linear-gradient(to bottom, #f97 0%, #e86 100%);border:2px solid #e86;}div.warning header{background-color:#e86}div.warning:before{content:'\2605';text-shadow:0 -1px 0 #e86}div.alert{background-color:#f99;background-image:-webkit-linear-gradient(top, #faa 0%, #c00 100%);background-image:-moz-linear-gradient(top, #faa 0%, #c00 100%);background-image:-o-linear-gradient(top, #faa 0%, #c00 100%);background-image:-ms-linear-gradient(top, #faa 0%, #c00 100%);background-image:linear-gradient(to bottom, #faa 0%, #c00 100%);border:2px solid #c00;}div.alert header{background-color:#c00;color:#fff}div.alert:before{content:'\24D8';text-shadow:0 -1px 0 #c00}.cse .gsc-control-cse,.gsc-control-cse{padding:0 !important;}.cse .gsc-control-cse table tr,.gsc-control-cse table tr,.cse .gsc-control-cse table th,.gsc-control-cse table th,.cse .gsc-control-cse table td,.gsc-control-cse table td{border:0}.cse .gsc-control-cse .gsc-cursor-current-page,.gsc-control-cse .gsc-cursor-current-page{color:#fff !important}.cse .gsc-control-cse .gsc-webResult.gsc-result:hover,.gsc-control-cse .gsc-webResult.gsc-result:hover,.cse .gsc-control-cse .gsc-imageResult:hover,.gsc-control-cse .gsc-imageResult:hover{border-left:5px solid #337ab7;padding-left:3px}.cse .gsc-control-cse .gcsc-branding,.gsc-control-cse .gcsc-branding{display:none !important}.gsc-adBlock{display:none !important}.gsc-above-wrapper-area-container,.gsc-above-wrapper-area{display:none}div::before{display:none !important}@media print{.navbar-spacer,.table-of-contents,.sidebar{display:none}.main{left:0;width:100%}pre.language header{border-bottom:2px solid #999}}.text-red{color:#d13f19}.text-green{color:#2ecc40}.text-yellow{color:#ffdc00}.text-blue{color:#0074d9}.text-magenta{color:#f0f}.text-cyan{color:#0ff}.text-gray{color:#aaa}.bg-white{background-color:#fff}.center{text-align:center}.left{float:left}.right{float:right}.spacing{padding:10px}.hidden{display:none}@media (max-width:767px){.hidden-small{display:none}}@media (min-width:768px){.hidden-large{display:none}}</style>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#topnav" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="https://alinex.github.io/" onmouseover="logo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="logo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="logo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Homepage">
+</a>
+<img class="preload" src="https://alinex.github.io/images/Alinex-200.png" aria-hidden="true">
+
+        </div>
+        <div id="topnav" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="https://alinex.github.io/blog" class="btn btn-primary">
+    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Blog
+  </a></li>
+<li><a href="https://alinex.github.io/develop" class="btn btn-primary">
+    <span class="glyphicon glyphicon-book" aria-hidden="true"></span> Develop
+  </a></li>
+<li><a href="https://alinex.github.io/code.html" class="btn btn-warning">
+    <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Code
+  </a></li>
+
+          </ul>
+          <form class="navbar-form navbar-right">
+            <input name="q" type="text" class="form-control" placeholder="Search...">
+          </form>
+          <ul class="nav sidebar-to-top">
+                <li class="level0">
+                  <a href="../../README.md.html" title="Alinex Report: Readme (/README.md)" class="btn btn-primary">Readme</a>
+                </li>
+                <li class="level1">
+                  <a href="index.md.html" title="Report Elements (/src/element/index.md)" class="btn btn-primary">Report Elements</a>
+                </li>
+                <li class="level2">
+                  <a href="01_heading.md.html" title="Headings (/src/element/01_heading.md)" class="btn btn-primary">Headings</a>
+                </li>
+                <li class="level2">
+                  <a href="02_block.md.html" title="Blocks (/src/element/02_block.md)" class="btn btn-primary">Blocks</a>
+                </li>
+                <li class="level2">
+                  <a href="03_list.md.html" title="Lists (/src/element/03_list.md)" class="btn btn-primary">Lists</a>
+                </li>
+                <li class="level2">
+                  <a href="04_inline.md.html" title="Inline Formats (/src/element/04_inline.md)" class="btn btn-primary">Inline Formats</a>
+                </li>
+                <li class="level2">
+                  <a href="05_link.md.html" title="Links and Images (/src/element/05_link.md)" class="btn btn-primary">Links and Images</a>
+                </li>
+                <li class="level2">
+                  <a href="06_sign.md.html" title="Special Signs (/src/element/06_sign.md)" class="btn btn-primary">Special Signs</a>
+                </li>
+                <li class="level2">
+                  <a href="07_table.md.html" title="Tables (/src/element/07_table.md)" class="btn btn-primary">Tables</a>
+                </li>
+                <li class="level2">
+                  <a href="08_box.md.html" title="Tabbed Boxes (/src/element/08_box.md)" class="btn btn-primary">Tabbed Boxes</a>
+                </li>
+                <li class="level2">
+                  <a href="09_document.md.html" title="Document Elements (/src/element/09_document.md)" class="btn btn-primary">Document Elements</a>
+                </li>
+                <li class="active level2">
+                  <a href="10_visual.md.html" title="Visualization (/src/element/10_visual.md)" class="btn btn-warning">Visualization <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="level2">
+                  <a href="11_html.md.html" title="HTML Setup (/src/element/11_html.md)" class="btn btn-primary">HTML Setup</a>
+                </li>
+                <li class="level2">
+                  <a href="../examples/test.md.html" title="h1 Heading (/src/examples/test.md)" class="btn btn-primary">h1 Heading</a>
+                </li>
+                <li class="level0">
+                  <a href="../../Changelog.md.html" title="Version changes (/Changelog.md)" class="btn btn-primary">Version changes</a>
+                </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="navbar-spacer"></div>
+
+    <div class="container-fluid">
+      <div class="row">
+
+        <div class="col-sm-9 col-sm-push-3 main">
+          <script>
+  (function() {
+    var cx = '010539487162786288372:chxqbheanxc';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<gcse:searchresults-only></gcse:searchresults-only>
+
+          <main><p><ul class="table-of-contents" aria-hidden="true"><header>Index</header>
+<li><a href="#qr-code">QR Code</a></li>
+<li><a href="#charts">Charts</a></li>
+<li><a href="#plantuml">PlantUML</a></li>
+<li><a href="#mermaid">Mermaid</a></li>
+</ul>
+</p>
+<h1 id="visualization">Visualization</h1>
+<p>This will only work in HTML format, else the definition is displayed.</p>
+<p>All of the visual effects allow the use of additional style settings as the last
+argument.</p>
+<pre class="language coffeescript"><header>CoffeeScript Code</header><code>report = <span class="hljs-keyword">new</span> Report()</code>
+<code>report.qr <span class="hljs-string">"http://alinex.de"</span>, <span class="hljs-string">'.right'</span></code></pre>
+<p>This will be written in markdown as:</p>
+<pre class="language markdown"><header>Markdown Document</header><code>$$$ qr {.right}</code>
+<code>http://alinex.de</code>
+<code>$$$</code></pre>
+<p>Which will add a <code>float: right</code> style setting to the element.</p>
+<h2 id="qr-code">QR Code</h2>
+<p>QR Codes are used to pack some information into a scanable 2D Object.</p>
+<p><strong>Simple Code</strong></p>
+<p>You only need to give the content like an URL:</p>
+<pre class="language coffeescript"><header>CoffeeScript Code</header><code>report = <span class="hljs-keyword">new</span> Report()</code>
+<code>report.qr <span class="hljs-string">"http://alinex.de"</span></code></pre>
+<p>This will be written in markdown as:</p>
+<pre class="language markdown"><header>Markdown Document</header><code>$$$ qr</code>
+<code>http://alinex.de</code>
+<code>$$$</code></pre>
+<p>And finally in HTML and text or console output:</p>
+<p><img src="../examples/qr-simple.png" alt="html" /> <img src="../examples/qr-simple.console.png" alt="console" /></p>
+<p><strong>QR Extended</strong></p>
+<p>You may also define how to make the code image:</p>
+<pre class="language coffeescript"><header>CoffeeScript Code</header><code>report = <span class="hljs-keyword">new</span> Report()</code>
+<code>report.qr</code>
+<code>  content: <span class="hljs-string">'http://alinex.github.io'</span></code>
+<code>  padding: <span class="hljs-number">1</span></code>
+<code>  width: <span class="hljs-number">500</span></code>
+<code>  height: <span class="hljs-number">500</span></code>
+<code>  color: <span class="hljs-string">'#ff0000'</span></code>
+<code>  background: <span class="hljs-string">'#ffffff'</span></code>
+<code>  ecl: <span class="hljs-string">'M'</span></code></pre>
+<pre class="language markdown"><header>Markdown Document</header><code>$$$ qr</code>
+<code>content: 'http://alinex.github.io'</code>
+<code>padding: 1</code>
+<code>width: 500</code>
+<code>height: 500</code>
+<code>color: '#ff0000'</code>
+<code>background: '#ffffff'</code>
+<code>ecl: M</code>
+<code>$$$</code></pre>
+<p>And finally in HTML and text or console output:</p>
+<p><img src="../examples/qr-extended.png" alt="html" /> <img src="../examples/qr-extended.console.png" alt="console" /></p>
+<h2 id="charts">Charts</h2>
+<p>A lot of charts are possible based on <a href="http://chartplay.jui.io/">jui-chart</a>.
+You’ll find all possible settings there or look at some of the examples below.</p>
+<pre class="language coffeescript"><header>CoffeeScript Code</header><code>report = <span class="hljs-keyword">new</span> Report()</code>
+<code>report.chart <span class="hljs-literal">null</span>, [</code>
+<code>  [<span class="hljs-string">'quarter'</span>, <span class="hljs-string">'sales'</span>, <span class="hljs-string">'profit'</span>]</code>
+<code>  [<span class="hljs-string">"1Q"</span>, <span class="hljs-number">50</span>, <span class="hljs-number">35</span>]</code>
+<code>  [<span class="hljs-string">"2Q"</span>, <span class="hljs-number">20</span>, <span class="hljs-number">100</span>]</code>
+<code>  [<span class="hljs-string">"3Q"</span>, <span class="hljs-number">10</span>, <span class="hljs-number">5</span>]</code>
+<code>  [<span class="hljs-string">"4Q"</span>, <span class="hljs-number">30</span>, <span class="hljs-number">25</span>]</code>
+<code>]</code></pre>
+<p>This makes a simple bar chart with predefined settings for your data. But you may
+also specify a lot of options and charts. The examples below shows the possible
+settings, but you only need to give some of them.</p>
+<pre class="language markdown"><header>Markdown Document</header><code>$$$ chart</code>
+<code>| quarter | sales | profit |</code>
+<code>|:------- |:----- |:------ |</code>
+<code>| 1Q      | 50    | 35     |</code>
+<code>| 2Q      | 20    | 100    |</code>
+<code>| 3Q      | 10    | 5      |</code>
+<code>| 4Q      | 30    | 25     |</code>
+<code>$$$</code></pre>
+<p>This will render in HTML as (click to show in browser):</p>
+<p><a href="http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/examples/chart.html"><img src="../examples/chart.png" alt="html" /></a></p>
+<p><strong>Bar Chart</strong></p>
+<pre class="language coffeescript"><header>CoffeeScript Code</header><code>report = <span class="hljs-keyword">new</span> Report()</code>
+<code>report.chart</code>
+<code>  width: <span class="hljs-number">400</span></code>
+<code>  height: <span class="hljs-number">400</span></code>
+<code>  axis:</code>
+<code>    y:</code>
+<code>      type: <span class="hljs-string">'block'</span></code>
+<code>      domain: <span class="hljs-string">'quarter'</span></code>
+<code>      line: <span class="hljs-string">'true'</span></code>
+<code>    x:</code>
+<code>      type: <span class="hljs-string">'range'</span></code>
+<code>      domain: <span class="hljs-string">'profit'</span></code>
+<code>      line: <span class="hljs-string">'rect'</span> <span class="hljs-comment"># dashed with gradient</span></code>
+<code>  brush: [</code>
+<code>    type: <span class="hljs-string">'bar'</span></code>
+<code>    size: <span class="hljs-number">15</span></code>
+<code>    target: [<span class="hljs-string">'sales'</span>, <span class="hljs-string">'profit'</span>]</code>
+<code>    innerPadding: <span class="hljs-number">10</span></code>
+<code>  ]</code>
+<code>  widget: [</code>
+<code>    type: <span class="hljs-string">'title'</span></code>
+<code>    text: <span class="hljs-string">'Bar Chart'</span></code>
+<code>  ,</code>
+<code>    type: <span class="hljs-string">'legend'</span></code>
+<code>  ,</code>
+<code>    type: <span class="hljs-string">'tooltip'</span></code>
+<code>  ]</code>
+<code>, [</code>
+<code>  [<span class="hljs-string">'quarter'</span>, <span class="hljs-string">'sales'</span>, <span class="hljs-string">'profit'</span>]</code>
+<code>  [<span class="hljs-string">"2015/Q1"</span>, <span class="hljs-number">50</span>, <span class="hljs-number">35</span>]</code>
+<code>  [<span class="hljs-string">"2015/Q2"</span>, <span class="hljs-number">20</span>, <span class="hljs-number">100</span>]</code>
+<code>  [<span class="hljs-string">"2015/Q3"</span>, <span class="hljs-number">10</span>, <span class="hljs-number">5</span>]</code>
+<code>  [<span class="hljs-string">"2015/Q4"</span>, <span class="hljs-number">30</span>, <span class="hljs-number">25</span>]</code>
+<code>]</code></pre>
+<pre class="language markdown"><header>Markdown Document</header><code>$$$ chart</code>
+<code>width: 400</code>
+<code>height: 400</code>
+<code>axis:</code>
+<code>  'y':</code>
+<code><span class="hljs-code">    type: block</span></code>
+<code><span class="hljs-code">    domain: quarter</span></code>
+<code><span class="hljs-code">    line: 'true'</span></code>
+<code>  x:</code>
+<code><span class="hljs-code">    type: range</span></code>
+<code><span class="hljs-code">    domain: profit</span></code>
+<code><span class="hljs-code">    line: rect</span></code>
+<code>brush:</code>
+<code>  - type: bar</code>
+<code><span class="hljs-code">    size: 15</span></code>
+<code><span class="hljs-code">    target:</span></code>
+<code><span class="hljs-code">      - sales</span></code>
+<code><span class="hljs-code">      - profit</span></code>
+<code><span class="hljs-code">    innerPadding: 10</span></code>
+<code>widget:</code>
+<code>  - type: title</code>
+<code><span class="hljs-code">    text: Bar Chart</span></code>
+<code>  - type: legend</code>
+<code>  - type: tooltip</code>
+<code></code>
+<code>| quarter | sales | profit |</code>
+<code>|:------- |:----- |:------ |</code>
+<code>| 2015/Q1 | 50    | 35     |</code>
+<code>| 2015/Q2 | 20    | 100    |</code>
+<code>| 2015/Q3 | 10    | 5      |</code>
+<code>| 2015/Q4 | 30    | 25     |</code>
+<code>$$$</code>
+<code></code></pre>
+<p>This will render in HTML as (click to show in browser):</p>
+<p><a href="http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/examples/chart-bar.html"><img src="../examples/chart-bar.png" alt="html" /></a></p>
+<p><strong>3D Bar Chart</strong></p>
+<pre class="language coffeescript"><header>CoffeeScript Code</header><code>report = <span class="hljs-keyword">new</span> Report()</code>
+<code>report.chart</code>
+<code>  width: <span class="hljs-number">400</span></code>
+<code>  height: <span class="hljs-number">400</span></code>
+<code>  axis:</code>
+<code>    x:</code>
+<code>      type: <span class="hljs-string">'range'</span></code>
+<code>      domain: <span class="hljs-string">'profit'</span></code>
+<code>      step: <span class="hljs-number">5</span></code>
+<code>    y:</code>
+<code>      type: <span class="hljs-string">'block'</span></code>
+<code>      domain: <span class="hljs-string">'quarter'</span></code>
+<code>    c:</code>
+<code>      type: <span class="hljs-string">'grid3d'</span></code>
+<code>      domain: [<span class="hljs-string">'sales'</span>, <span class="hljs-string">'profit'</span>]</code>
+<code>    depth: <span class="hljs-number">20</span></code>
+<code>    degree: <span class="hljs-number">30</span></code>
+<code>  brush: [</code>
+<code>    type: <span class="hljs-string">'bar3d'</span></code>
+<code>    outerPadding: <span class="hljs-number">10</span></code>
+<code>    innerPadding: <span class="hljs-number">5</span></code>
+<code>  ]</code>
+<code>  widget: [</code>
+<code>    type: <span class="hljs-string">'title'</span></code>
+<code>    text: <span class="hljs-string">'3D Bar Chart'</span></code>
+<code>  ,</code>
+<code>    type: <span class="hljs-string">'tooltip'</span></code>
+<code>  ,</code>
+<code>    type: <span class="hljs-string">'legend'</span></code>
+<code>  ]</code>
+<code>, [</code>
+<code>  [<span class="hljs-string">'quarter'</span>, <span class="hljs-string">'sales'</span>, <span class="hljs-string">'profit'</span>]</code>
+<code>  [<span class="hljs-string">"2015/Q1"</span>, <span class="hljs-number">50</span>, <span class="hljs-number">35</span>]</code>
+<code>  [<span class="hljs-string">"2015/Q2"</span>, <span class="hljs-number">20</span>, <span class="hljs-number">100</span>]</code>
+<code>  [<span class="hljs-string">"2015/Q3"</span>, <span class="hljs-number">10</span>, <span class="hljs-number">5</span>]</code>
+<code>  [<span class="hljs-string">"2015/Q4"</span>, <span class="hljs-number">30</span>, <span class="hljs-number">25</span>]</code>
+<code>]</code></pre>
+<p>The markdown will contain the settings and the data table like above.</p>
+<p>This will render in HTML as (click to show in browser):</p>
+<p><a href="http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/examples/chart-bar-3d.html"><img src="../examples/chart-bar-3d.png" alt="html" /></a></p>
+<p><strong>Column Chart</strong></p>
+<pre class="language coffeescript"><header>CoffeeScript Code</header><code>report = <span class="hljs-keyword">new</span> Report()</code>
+<code>report.chart</code>
+<code>  width: <span class="hljs-number">400</span></code>
+<code>  height: <span class="hljs-number">400</span></code>
+<code>  axis:</code>
+<code>    x:</code>
+<code>      type: <span class="hljs-string">'block'</span></code>
+<code>      domain: <span class="hljs-string">'quarter'</span></code>
+<code>    y:</code>
+<code>      type: <span class="hljs-string">'range'</span></code>
+<code>      domain: <span class="hljs-string">'profit'</span></code>
+<code>      step: <span class="hljs-number">10</span></code>
+<code>      line: <span class="hljs-literal">true</span></code>
+<code>  brush: [</code>
+<code>    type: <span class="hljs-string">'column'</span></code>
+<code>    target: [<span class="hljs-string">'sales'</span>, <span class="hljs-string">'profit'</span>]</code>
+<code>  ,</code>
+<code>    type: <span class="hljs-string">'focus'</span></code>
+<code>    start: <span class="hljs-number">1</span></code>
+<code>    end: <span class="hljs-number">1</span></code>
+<code>  ]</code>
+<code>  widget: [</code>
+<code>    type: <span class="hljs-string">'title'</span></code>
+<code>    text: <span class="hljs-string">'Column Chart with Focus'</span></code>
+<code>  ,</code>
+<code>    type: <span class="hljs-string">'tooltip'</span></code>
+<code>  ,</code>
+<code>    type: <span class="hljs-string">'legend'</span></code>
+<code>  ]</code>
+<code>, [</code>
+<code>  [<span class="hljs-string">'quarter'</span>, <span class="hljs-string">'sales'</span>, <span class="hljs-string">'profit'</span>]</code>
+<code>  [<span class="hljs-string">"2015/Q1"</span>, <span class="hljs-number">50</span>, <span class="hljs-number">35</span>]</code>
+<code>  [<span class="hljs-string">"2015/Q2"</span>, <span class="hljs-number">20</span>, <span class="hljs-number">100</span>]</code>
+<code>  [<span class="hljs-string">"2015/Q3"</span>, <span class="hljs-number">10</span>, <span class="hljs-number">5</span>]</code>
+<code>  [<span class="hljs-string">"2015/Q4"</span>, <span class="hljs-number">30</span>, <span class="hljs-number">25</span>]</code>
+<code>]</code></pre>
+<p>The markdown will contain the settings and the data table like above.</p>
+<p>This will render in HTML as (click to show in browser):</p>
+<p><a href="http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/examples/chart-column.html"><img src="../examples/chart-column.png" alt="html" /></a></p>
+<p><strong>3D Column Chart</strong></p>
+<pre class="language coffeescript"><header>CoffeeScript Code</header><code>report = <span class="hljs-keyword">new</span> Report()</code>
+<code>report.chart</code>
+<code>  width: <span class="hljs-number">400</span></code>
+<code>  height: <span class="hljs-number">400</span></code>
+<code>  axis:</code>
+<code>    x:</code>
+<code>      type: <span class="hljs-string">'block'</span></code>
+<code>      domain: <span class="hljs-string">'quarter'</span></code>
+<code>    y:</code>
+<code>      type: <span class="hljs-string">'range'</span></code>
+<code>      domain: <span class="hljs-string">'profit'</span></code>
+<code>      step: <span class="hljs-number">5</span></code>
+<code>    c:</code>
+<code>      type: <span class="hljs-string">'grid3d'</span></code>
+<code>      domain: [<span class="hljs-string">'sales'</span>, <span class="hljs-string">'profit'</span>]</code>
+<code>    depth: <span class="hljs-number">20</span></code>
+<code>    degree: <span class="hljs-number">30</span></code>
+<code>  brush: [</code>
+<code>    type: <span class="hljs-string">'column3d'</span></code>
+<code>    outerPadding: <span class="hljs-number">10</span></code>
+<code>    innerPadding: <span class="hljs-number">5</span></code>
+<code>  ]</code>
+<code>  widget: [</code>
+<code>    type: <span class="hljs-string">'title'</span></code>
+<code>    text: <span class="hljs-string">'3D Column Chart'</span></code>
+<code>  ,</code>
+<code>    type: <span class="hljs-string">'tooltip'</span></code>
+<code>  ,</code>
+<code>    type: <span class="hljs-string">'legend'</span></code>
+<code>  ]</code>
+<code>, [</code>
+<code>  [<span class="hljs-string">'quarter'</span>, <span class="hljs-string">'sales'</span>, <span class="hljs-string">'profit'</span>]</code>
+<code>  [<span class="hljs-string">"2015/Q1"</span>, <span class="hljs-number">50</span>, <span class="hljs-number">35</span>]</code>
+<code>  [<span class="hljs-string">"2015/Q2"</span>, <span class="hljs-number">20</span>, <span class="hljs-number">100</span>]</code>
+<code>  [<span class="hljs-string">"2015/Q3"</span>, <span class="hljs-number">10</span>, <span class="hljs-number">5</span>]</code>
+<code>  [<span class="hljs-string">"2015/Q4"</span>, <span class="hljs-number">30</span>, <span class="hljs-number">25</span>]</code>
+<code>]</code></pre>
+<p>The markdown will contain the settings and the data table like above.</p>
+<p>This will render in HTML as (click to show in browser):</p>
+<p><a href="http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/examples/chart-column-3d.html"><img src="../examples/chart-column-3d.png" alt="html" /></a></p>
+<p><strong>Area Chart</strong></p>
+<pre class="language coffeescript"><header>CoffeeScript Code</header><code>report = <span class="hljs-keyword">new</span> Report()</code>
+<code>report.chart</code>
+<code>  width: <span class="hljs-number">400</span></code>
+<code>  height: <span class="hljs-number">400</span></code>
+<code>  axis:</code>
+<code>    x:</code>
+<code>      type: <span class="hljs-string">'fullblock'</span></code>
+<code>      domain: <span class="hljs-string">'year'</span></code>
+<code>      line: <span class="hljs-string">'solid gradient'</span></code>
+<code>    y:</code>
+<code>      type: <span class="hljs-string">'range'</span></code>
+<code>      domain: [<span class="hljs-number">-100</span>, <span class="hljs-number">100</span>]</code>
+<code>      step: <span class="hljs-number">10</span></code>
+<code>      line: <span class="hljs-string">'gradient dashed'</span></code>
+<code>  brush: [</code>
+<code>    type: <span class="hljs-string">'area'</span></code>
+<code>    symbol: <span class="hljs-string">'curve'</span></code>
+<code>    target: [<span class="hljs-string">'europe'</span>, <span class="hljs-string">'switzerland'</span>, <span class="hljs-string">'us'</span>]</code>
+<code>  ]</code>
+<code>  widget: [</code>
+<code>    type: <span class="hljs-string">'title'</span></code>
+<code>    text: <span class="hljs-string">'Area Chart'</span></code>
+<code>  ,</code>
+<code>    type: <span class="hljs-string">'legend'</span></code>
+<code>  ]</code>
+<code>, [</code>
+<code>  [<span class="hljs-string">'quarter'</span>, <span class="hljs-string">'sales'</span>, <span class="hljs-string">'profit'</span>]</code>
+<code>  [<span class="hljs-string">"2015/Q1"</span>, <span class="hljs-number">50</span>, <span class="hljs-number">35</span>]</code>
+<code>  [<span class="hljs-string">"2015/Q2"</span>, <span class="hljs-number">20</span>, <span class="hljs-number">100</span>]</code>
+<code>  [<span class="hljs-string">"2015/Q3"</span>, <span class="hljs-number">10</span>, <span class="hljs-number">5</span>]</code>
+<code>  [<span class="hljs-string">"2015/Q4"</span>, <span class="hljs-number">30</span>, <span class="hljs-number">25</span>]</code>
+<code>]</code></pre>
+<p>The markdown will contain the settings and the data table like above.</p>
+<p>This will render in HTML as (click to show in browser):</p>
+<p><a href="http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/examples/chart-area.html"><img src="../examples/chart-area.png" alt="html" /></a></p>
+<h2 id="plantuml">PlantUML</h2>
+<p>A language to describe UML diagrams using simple text, which fits perfectly into markdown.
+See <a href="http://plantuml.com/">plantuml.com</a> for a complete language description.
+Some examples will follow:</p>
+<pre class="language coffeescript"><header>CoffeeScript Code</header><code>report = <span class="hljs-keyword">new</span> Report()</code>
+<code>report.plantuml <span class="hljs-string">"A -&gt; B: Hello"</span></code></pre>
+<p>This sumple sequence diagram will be written into execution tags in markdown like:</p>
+<pre class="language markdown"><header>Markdown Document</header><code>$$$ plantuml</code>
+<code>A -&gt; B: Hello</code>
+<code>$$$</code></pre>
+<p>And finally this will render in HTML or text/console as:</p>
+<p><img src="../examples/plantuml.png" alt="html" /> <img src="../examples/plantuml.console.png" alt="console" /></p>
+<p><strong>Sequence Diagram</strong></p>
+<pre class="language coffeescript"><header>CoffeeScript Code</header><code>report = <span class="hljs-keyword">new</span> Report()</code>
+<code>report.plantuml <span class="hljs-string">"""</span></code>
+<code><span class="hljs-string">  participant User</span></code>
+<code><span class="hljs-string"></span></code>
+<code><span class="hljs-string">  User -&gt; A: DoWork</span></code>
+<code><span class="hljs-string">  activate A #FFBBBB</span></code>
+<code><span class="hljs-string"></span></code>
+<code><span class="hljs-string">  A -&gt; A: Internal call</span></code>
+<code><span class="hljs-string">  activate A #DarkSalmon</span></code>
+<code><span class="hljs-string"></span></code>
+<code><span class="hljs-string">  A -&gt; B: &lt;&lt; createRequest &gt;&gt;</span></code>
+<code><span class="hljs-string">  activate B</span></code>
+<code><span class="hljs-string"></span></code>
+<code><span class="hljs-string">  B --&gt; A: RequestCreated</span></code>
+<code><span class="hljs-string">  deactivate B</span></code>
+<code><span class="hljs-string">  deactivate A</span></code>
+<code><span class="hljs-string">  A -&gt; User: Done</span></code>
+<code><span class="hljs-string">  deactivate A</span></code>
+<code><span class="hljs-string">  """</span></code></pre>
+<p>The markdown is nearly the same but with <code>$$$ plantuml .... $$$</code> arround the code.</p>
+<p>And this will render in HTML or text/console as:</p>
+<p><img src="../examples/plantuml-sequence.png" alt="html" /> <img src="../examples/plantuml-sequence.console.png" alt="console" /></p>
+<p><strong>Use Case Diagram</strong></p>
+<pre class="language coffeescript"><header>CoffeeScript Code</header><code>report = <span class="hljs-keyword">new</span> Report()</code>
+<code>report.plantuml <span class="hljs-string">"""</span></code>
+<code><span class="hljs-string">  :Main Admin: as Admin</span></code>
+<code><span class="hljs-string">  (Use the application) as (Use)</span></code>
+<code><span class="hljs-string"></span></code>
+<code><span class="hljs-string">  User -&gt; (Start)</span></code>
+<code><span class="hljs-string">  User --&gt; (Use)</span></code>
+<code><span class="hljs-string"></span></code>
+<code><span class="hljs-string">  Admin ---&gt; (Use)</span></code>
+<code><span class="hljs-string"></span></code>
+<code><span class="hljs-string">  note right of Admin : This is an example.</span></code>
+<code><span class="hljs-string"></span></code>
+<code><span class="hljs-string">  note right of (Use)</span></code>
+<code><span class="hljs-string">    A note can also</span></code>
+<code><span class="hljs-string">    be on several lines</span></code>
+<code><span class="hljs-string">  end note</span></code>
+<code><span class="hljs-string"></span></code>
+<code><span class="hljs-string">  note "This note is connected to several objects." as N2</span></code>
+<code><span class="hljs-string">  (Start) .. N2</span></code>
+<code><span class="hljs-string">  N2 .. (Use)</span></code>
+<code><span class="hljs-string">  """</span></code></pre>
+<p>The markdown is nearly the same but with <code>$$$ plantuml .... $$$</code> arround the code.</p>
+<p>And in HTML this will look like:</p>
+<p><img src="../examples/plantuml-usecase.png" alt="html" /></p>
+<p><strong>Class Diagram</strong></p>
+<pre class="language coffeescript"><header>CoffeeScript Code</header><code>report = <span class="hljs-keyword">new</span> Report()</code>
+<code>report.plantuml <span class="hljs-string">"""</span></code>
+<code><span class="hljs-string">  class Foo1 {</span></code>
+<code><span class="hljs-string">    You can use</span></code>
+<code><span class="hljs-string">    several lines</span></code>
+<code><span class="hljs-string">    ..</span></code>
+<code><span class="hljs-string">    as you want</span></code>
+<code><span class="hljs-string">    and group</span></code>
+<code><span class="hljs-string">    ==</span></code>
+<code><span class="hljs-string">    things together.</span></code>
+<code><span class="hljs-string">    __</span></code>
+<code><span class="hljs-string">    You can have as many groups</span></code>
+<code><span class="hljs-string">    as you want</span></code>
+<code><span class="hljs-string">    --</span></code>
+<code><span class="hljs-string">    End of class</span></code>
+<code><span class="hljs-string">  }</span></code>
+<code><span class="hljs-string"></span></code>
+<code><span class="hljs-string">  class User {</span></code>
+<code><span class="hljs-string">    .. Simple Getter ..</span></code>
+<code><span class="hljs-string">    + getName()</span></code>
+<code><span class="hljs-string">    + getAddress()</span></code>
+<code><span class="hljs-string">    .. Some setter ..</span></code>
+<code><span class="hljs-string">    + setName()</span></code>
+<code><span class="hljs-string">    __ private data __</span></code>
+<code><span class="hljs-string">    int age</span></code>
+<code><span class="hljs-string">    -- encrypted --</span></code>
+<code><span class="hljs-string">    String password</span></code>
+<code><span class="hljs-string">  }</span></code>
+<code><span class="hljs-string">  """</span></code></pre>
+<p>The markdown is nearly the same but with <code>$$$ plantuml .... $$$</code> arround the code.</p>
+<p>And in HTML this will look like:</p>
+<p><img src="../examples/plantuml-class.png" alt="html" /></p>
+<p><strong>Activity Diagram (old syntax)</strong></p>
+<pre class="language coffeescript"><header>CoffeeScript Code</header><code>report = <span class="hljs-keyword">new</span> Report()</code>
+<code>report.plantuml <span class="hljs-string">"""</span></code>
+<code><span class="hljs-string">  (*) --&gt; "Initialization"</span></code>
+<code><span class="hljs-string"></span></code>
+<code><span class="hljs-string">  if "Some Test" then</span></code>
+<code><span class="hljs-string">    --&gt;[true] "Some Activity"</span></code>
+<code><span class="hljs-string">    --&gt; "Another activity"</span></code>
+<code><span class="hljs-string">    -right-&gt; (*)</span></code>
+<code><span class="hljs-string">  else</span></code>
+<code><span class="hljs-string">    -&gt;[false] "Something else"</span></code>
+<code><span class="hljs-string">    --&gt;[Ending process] (*)</span></code>
+<code><span class="hljs-string">  endif</span></code>
+<code><span class="hljs-string">  """</span></code></pre>
+<p>The markdown is nearly the same but with <code>$$$ plantuml .... $$$</code> arround the code.</p>
+<p>And in HTML this will look like:</p>
+<p><img src="../examples/plantuml-activity-old.png" alt="html" /></p>
+<p><strong>Activity Diagram (new syntax)</strong></p>
+<pre class="language coffeescript"><header>CoffeeScript Code</header><code>report = <span class="hljs-keyword">new</span> Report()</code>
+<code>report.plantuml <span class="hljs-string">"""</span></code>
+<code><span class="hljs-string">  :Ready;</span></code>
+<code><span class="hljs-string">  :next(o)|</span></code>
+<code><span class="hljs-string">  :Receiving;</span></code>
+<code><span class="hljs-string">  split</span></code>
+<code><span class="hljs-string">   :nak(i)&lt;</span></code>
+<code><span class="hljs-string">   :ack(o)&gt;</span></code>
+<code><span class="hljs-string">  split again</span></code>
+<code><span class="hljs-string">   :ack(i)&lt;</span></code>
+<code><span class="hljs-string">   :next(o)</span></code>
+<code><span class="hljs-string">   on several line|</span></code>
+<code><span class="hljs-string">   :i := i + 1]</span></code>
+<code><span class="hljs-string">   :ack(o)&gt;</span></code>
+<code><span class="hljs-string">  split again</span></code>
+<code><span class="hljs-string">   :err(i)&lt;</span></code>
+<code><span class="hljs-string">   :nak(o)&gt;</span></code>
+<code><span class="hljs-string">  split again</span></code>
+<code><span class="hljs-string">   :foo/</span></code>
+<code><span class="hljs-string">  split again</span></code>
+<code><span class="hljs-string">   :i &gt; 5}</span></code>
+<code><span class="hljs-string">  stop</span></code>
+<code><span class="hljs-string">  end split</span></code>
+<code><span class="hljs-string">  :finish;</span></code>
+<code><span class="hljs-string">  """</span></code></pre>
+<p>The markdown is nearly the same but with <code>$$$ plantuml .... $$$</code> arround the code.</p>
+<p>And in HTML this will look like:</p>
+<p><img src="../examples/plantuml-activity-new.png" alt="html" /></p>
+<p><strong>Component Diagram</strong></p>
+<pre class="language coffeescript"><header>CoffeeScript Code</header><code>report = <span class="hljs-keyword">new</span> Report()</code>
+<code>report.plantuml <span class="hljs-string">"""</span></code>
+<code><span class="hljs-string">  package "Some Group" {</span></code>
+<code><span class="hljs-string">    HTTP - [First Component]</span></code>
+<code><span class="hljs-string">    [Another Component]</span></code>
+<code><span class="hljs-string">  }</span></code>
+<code><span class="hljs-string"></span></code>
+<code><span class="hljs-string">  node "Other Groups" {</span></code>
+<code><span class="hljs-string">    FTP - [Second Component]</span></code>
+<code><span class="hljs-string">    [First Component] --&gt; FTP</span></code>
+<code><span class="hljs-string">  }</span></code>
+<code><span class="hljs-string"></span></code>
+<code><span class="hljs-string">  cloud {</span></code>
+<code><span class="hljs-string">    [Example 1]</span></code>
+<code><span class="hljs-string">  }</span></code>
+<code><span class="hljs-string"></span></code>
+<code><span class="hljs-string"></span></code>
+<code><span class="hljs-string">  database "MySql" {</span></code>
+<code><span class="hljs-string">    folder "This is my folder" {</span></code>
+<code><span class="hljs-string">      [Folder 3]</span></code>
+<code><span class="hljs-string">    }</span></code>
+<code><span class="hljs-string">    frame "Foo" {</span></code>
+<code><span class="hljs-string">      [Frame 4]</span></code>
+<code><span class="hljs-string">    }</span></code>
+<code><span class="hljs-string">  }</span></code>
+<code><span class="hljs-string"></span></code>
+<code><span class="hljs-string">  [Another Component] --&gt; [Example 1]</span></code>
+<code><span class="hljs-string">  [Example 1] --&gt; [Folder 3]</span></code>
+<code><span class="hljs-string">  [Folder 3] --&gt; [Frame 4]</span></code>
+<code><span class="hljs-string">  """</span></code></pre>
+<p>The markdown is nearly the same but with <code>$$$ plantuml .... $$$</code> arround the code.</p>
+<p>And in HTML this will look like:</p>
+<p><img src="../examples/plantuml-component.png" alt="html" /></p>
+<p><strong>State Diagram</strong></p>
+<pre class="language coffeescript"><header>CoffeeScript Code</header><code>report = <span class="hljs-keyword">new</span> Report()</code>
+<code>report.plantuml <span class="hljs-string">"""</span></code>
+<code><span class="hljs-string">  scale 350 width</span></code>
+<code><span class="hljs-string">  [*] --&gt; NotShooting</span></code>
+<code><span class="hljs-string"></span></code>
+<code><span class="hljs-string">  state NotShooting {</span></code>
+<code><span class="hljs-string">    [*] --&gt; Idle</span></code>
+<code><span class="hljs-string">    Idle --&gt; Configuring : EvConfig</span></code>
+<code><span class="hljs-string">    Configuring --&gt; Idle : EvConfig</span></code>
+<code><span class="hljs-string">  }</span></code>
+<code><span class="hljs-string"></span></code>
+<code><span class="hljs-string">  state Configuring {</span></code>
+<code><span class="hljs-string">    [*] --&gt; NewValueSelection</span></code>
+<code><span class="hljs-string">    NewValueSelection --&gt; NewValuePreview : EvNewValue</span></code>
+<code><span class="hljs-string">    NewValuePreview --&gt; NewValueSelection : EvNewValueRejected</span></code>
+<code><span class="hljs-string">    NewValuePreview --&gt; NewValueSelection : EvNewValueSaved</span></code>
+<code><span class="hljs-string"></span></code>
+<code><span class="hljs-string">    state NewValuePreview {</span></code>
+<code><span class="hljs-string">       State1 -&gt; State2</span></code>
+<code><span class="hljs-string">    }</span></code>
+<code><span class="hljs-string"></span></code>
+<code><span class="hljs-string">  }</span></code>
+<code><span class="hljs-string">  """</span></code></pre>
+<p>The markdown is nearly the same but with <code>$$$ plantuml .... $$$</code> arround the code.</p>
+<p>And in HTML this will look like:</p>
+<p><img src="../examples/plantuml-state.png" alt="html" /></p>
+<p><strong>Deployment Diagram</strong></p>
+<pre class="language coffeescript"><header>CoffeeScript Code</header><code>report = <span class="hljs-keyword">new</span> Report()</code>
+<code>report.plantuml <span class="hljs-string">"""</span></code>
+<code><span class="hljs-string">  artifact artifact</span></code>
+<code><span class="hljs-string">  actor actor</span></code>
+<code><span class="hljs-string">  folder folder</span></code>
+<code><span class="hljs-string">  node node</span></code>
+<code><span class="hljs-string">  frame frame</span></code>
+<code><span class="hljs-string">  cloud cloud</span></code>
+<code><span class="hljs-string">  database database</span></code>
+<code><span class="hljs-string">  storage storage</span></code>
+<code><span class="hljs-string">  agent agent</span></code>
+<code><span class="hljs-string">  usecase usecase</span></code>
+<code><span class="hljs-string">  component component</span></code>
+<code><span class="hljs-string">  boundary boundary</span></code>
+<code><span class="hljs-string">  control control</span></code>
+<code><span class="hljs-string">  entity entity</span></code>
+<code><span class="hljs-string">  interface interface</span></code>
+<code><span class="hljs-string">  """</span></code></pre>
+<p>The markdown is nearly the same but with <code>$$$ plantuml .... $$$</code> arround the code.</p>
+<p>And in HTML this will look like:</p>
+<p><img src="../examples/plantuml-deployment.png" alt="html" /></p>
+<p><strong>Object Diagram</strong></p>
+<pre class="language coffeescript"><header>CoffeeScript Code</header><code>report = <span class="hljs-keyword">new</span> Report()</code>
+<code>report.plantuml <span class="hljs-string">"""</span></code>
+<code><span class="hljs-string">  object user {</span></code>
+<code><span class="hljs-string">    name = "Dummy"</span></code>
+<code><span class="hljs-string">    id = 123</span></code>
+<code><span class="hljs-string">  }</span></code>
+<code><span class="hljs-string">  """</span></code></pre>
+<p>The markdown is nearly the same but with <code>$$$ plantuml .... $$$</code> arround the code.</p>
+<p>And in HTML this will look like:</p>
+<p><img src="../examples/plantuml-object.png" alt="html" /></p>
+<p>Wireframe</p>
+<pre class="language coffeescript"><header>CoffeeScript Code</header><code>report.plantuml <span class="hljs-string">"""</span></code>
+<code><span class="hljs-string">  salt</span></code>
+<code><span class="hljs-string">  {+</span></code>
+<code><span class="hljs-string">  {/ &lt;b&gt;General | Fullscreen | Behavior | Saving }</span></code>
+<code><span class="hljs-string">  {</span></code>
+<code><span class="hljs-string">    { Open image in: | ^Smart Mode^ }</span></code>
+<code><span class="hljs-string">    [X] Smooth images when zoomed</span></code>
+<code><span class="hljs-string">    [X] Confirm image deletion</span></code>
+<code><span class="hljs-string">    [ ] Show hidden images</span></code>
+<code><span class="hljs-string">  }</span></code>
+<code><span class="hljs-string">  [Close]</span></code>
+<code><span class="hljs-string">  }</span></code>
+<code><span class="hljs-string">  """</span></code></pre>
+<p>The markdown is nearly the same but with <code>$$$ plantuml .... $$$</code> arround the code.</p>
+<p>And in HTML this will look like:</p>
+<p><img src="../examples/plantuml-wireframe.png" alt="html" /></p>
+<h2 id="mermaid">Mermaid</h2>
+<p>A library for creating flowcharts and diagrams out of text.</p>
+<pre class="language coffeescript"><header>CoffeeScript Code</header><code>report = <span class="hljs-keyword">new</span> Report()</code>
+<code>report.mermaid <span class="hljs-string">"""</span></code>
+<code><span class="hljs-string">  graph LR</span></code>
+<code><span class="hljs-string">    A--&gt;B</span></code>
+<code><span class="hljs-string">  """</span></code></pre>
+<p>This sumple sequence diagram will be written into execution tags in markdown like:</p>
+<pre class="language markdown"><header>Markdown Document</header><code>$$$ mermaid</code>
+<code>graph LR</code>
+<code>  A--&gt;B</code>
+<code>$$$</code></pre>
+<p>And finally this will render in HTML as:</p>
+<p><img src="../examples/mermaid.png" alt="html" /></p>
+<p><strong>Flowchart</strong></p>
+<p><a href="http://knsv.github.io/mermaid/#flowcharts-basic-syntax">Flowchart Syntax</a></p>
+<pre class="language coffeescript"><header>CoffeeScript Code</header><code>report = <span class="hljs-keyword">new</span> Report()</code>
+<code>report.mermaid <span class="hljs-string">"""</span></code>
+<code><span class="hljs-string">  graph LR</span></code>
+<code><span class="hljs-string">    A[Square Rect] -- Link text --&gt; B((Circle))</span></code>
+<code><span class="hljs-string">    A --&gt; C(Round Rect)</span></code>
+<code><span class="hljs-string">    B --&gt; D{Rhombus}</span></code>
+<code><span class="hljs-string">    C --&gt; D</span></code>
+<code><span class="hljs-string">  """</span></code></pre>
+<p>The markdown is nearly the same but with <code>$$$ mermaid .... $$$</code> arround the code.</p>
+<p>And in HTML this will look like:</p>
+<p><img src="../examples/mermaid-flowchart.png" alt="html" /></p>
+<p><strong>Sequence Diagram</strong></p>
+<p><a href="http://knsv.github.io/mermaid/#sequence-diagrams">Sequence Syntax</a></p>
+<pre class="language coffeescript"><header>CoffeeScript Code</header><code>report = <span class="hljs-keyword">new</span> Report()</code>
+<code>report.mermaid <span class="hljs-string">"""</span></code>
+<code><span class="hljs-string">  sequenceDiagram</span></code>
+<code><span class="hljs-string">    Alice -&gt;&gt; Bob: Hello Bob, how are you?</span></code>
+<code><span class="hljs-string">    Bob--&gt;&gt;John: How about you John?</span></code>
+<code><span class="hljs-string">    Bob--x Alice: I am good thanks!</span></code>
+<code><span class="hljs-string">    Bob-x John: I am good thanks!</span></code>
+<code><span class="hljs-string">    Note right of John: Bob thinks a long&lt;br/&gt;long time, so long&lt;br/&gt;that the text does&lt;br/&gt;not fit on a row.</span></code>
+<code><span class="hljs-string"></span></code>
+<code><span class="hljs-string">    Bob--&gt;Alice: Checking with John...</span></code>
+<code><span class="hljs-string">    Alice-&gt;John: Yes... John, how are you?</span></code>
+<code><span class="hljs-string">  """</span></code></pre>
+<p>The markdown is nearly the same but with <code>$$$ mermaid .... $$$</code> arround the code.</p>
+<p>And in HTML this will look like:</p>
+<p><img src="../examples/mermaid-sequence.png" alt="html" /></p>
+<p><strong>Gantt Diagram</strong></p>
+<p><a href="http://knsv.github.io/mermaid/#gant-diagrams">Gantt Syntax</a></p>
+<pre class="language coffeescript"><header>CoffeeScript Code</header><code>report = <span class="hljs-keyword">new</span> Report()</code>
+<code>report.mermaid <span class="hljs-string">"""</span></code>
+<code><span class="hljs-string">  gantt</span></code>
+<code><span class="hljs-string">    title A Gantt Diagram</span></code>
+<code><span class="hljs-string"></span></code>
+<code><span class="hljs-string">    section Section</span></code>
+<code><span class="hljs-string">    A task           :a1, 2014-01-01, 30d</span></code>
+<code><span class="hljs-string">    Another task     :after a1  , 20d</span></code>
+<code><span class="hljs-string">    section Another</span></code>
+<code><span class="hljs-string">    Task in sec      :2014-01-12  , 12d</span></code>
+<code><span class="hljs-string">    anther task      : 24d</span></code>
+<code><span class="hljs-string">  """</span></code></pre>
+<p>The markdown is nearly the same but with <code>$$$ mermaid .... $$$</code> arround the code.</p>
+<p>And in HTML this will look like:</p>
+<p><img src="../examples/mermaid-gantt.png" alt="html" /></p>
+</main>
+        </div>
+        <div class="col-sm-3 col-cm-pull-9 sidebar">
+          <ul class="nav nav-sidebar">
+            <li class="header">
+              <a href="../../README.md.html">Alinex Report</a>
+            </li>
+                <li class="level0">
+                  <a href="../../README.md.html" title="Alinex Report: Readme (/README.md)">Readme</a>
+                </li>
+                <li class="level1">
+                  <a href="index.md.html" title="Report Elements (/src/element/index.md)">Report Elements</a>
+                </li>
+                <li class="level2">
+                  <a href="01_heading.md.html" title="Headings (/src/element/01_heading.md)">Headings</a>
+                </li>
+                <li class="level2">
+                  <a href="02_block.md.html" title="Blocks (/src/element/02_block.md)">Blocks</a>
+                </li>
+                <li class="level2">
+                  <a href="03_list.md.html" title="Lists (/src/element/03_list.md)">Lists</a>
+                </li>
+                <li class="level2">
+                  <a href="04_inline.md.html" title="Inline Formats (/src/element/04_inline.md)">Inline Formats</a>
+                </li>
+                <li class="level2">
+                  <a href="05_link.md.html" title="Links and Images (/src/element/05_link.md)">Links and Images</a>
+                </li>
+                <li class="level2">
+                  <a href="06_sign.md.html" title="Special Signs (/src/element/06_sign.md)">Special Signs</a>
+                </li>
+                <li class="level2">
+                  <a href="07_table.md.html" title="Tables (/src/element/07_table.md)">Tables</a>
+                </li>
+                <li class="level2">
+                  <a href="08_box.md.html" title="Tabbed Boxes (/src/element/08_box.md)">Tabbed Boxes</a>
+                </li>
+                <li class="level2">
+                  <a href="09_document.md.html" title="Document Elements (/src/element/09_document.md)">Document Elements</a>
+                </li>
+                <li class="active level2">
+                  <a href="10_visual.md.html" title="Visualization (/src/element/10_visual.md)">Visualization <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="level2">
+                  <a href="11_html.md.html" title="HTML Setup (/src/element/11_html.md)">HTML Setup</a>
+                </li>
+                <li class="level2">
+                  <a href="../examples/test.md.html" title="h1 Heading (/src/examples/test.md)">h1 Heading</a>
+                </li>
+                <li class="level0">
+                  <a href="../../Changelog.md.html" title="Version changes (/Changelog.md)">Version changes</a>
+                </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script type="text/javascript"><!--
+    $(".table-of-contents").bind("mouseleave", function(event) { $(".table-of-contents").scrollTop(0); });
+    //--></script>
+  </body>
+</html>

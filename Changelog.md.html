@@ -1,199 +1,313 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>Changelog.md</title>
-  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-  <link rel="stylesheet" media="all" href="doc-style.css" />
-  <script src="doc-filelist.js"></script>
-  <script>
-    var relativeDir = "";
-    var thisFile = "Changelog.md";
-    var defaultSidebar = true;
-  </script>
-  <script src="doc-script.js"></script>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Version changes</title>
+    <meta name="HandheldFriendly" content="true" />
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style type="text/css">#topnav{text-align:center;background:#333;padding-bottom:20px;position:fixed;margin-top:0;width:100%;bottom:0;top:51px;}#topnav .navbar-nav{margin:0;margin-top:8px;display:-webkit-inline-box;display:-moz-inline-box;display:-webkit-inline-flex;display:-ms-inline-flexbox;display:inline-box;display:inline-flex}#topnav .sidebar-to-top .btn{text-align:left}#topnav .sidebar-to-top li.level2>a{margin-left:20px}#topnav .sidebar-to-top li.level3>a{margin-left:40px}#topnav .sidebar-to-top li.level4>a{margin-left:60px}#topnav .sidebar-to-top li.level5>a{margin-left:80px}#topnav .sidebar-to-top li.level6>a{margin-left:100px}.navbar-fixed-top .navbar-collapse{max-height:100%}.navbar{min-width:300px}.nav>li{padding:2px 12px}.navbar-inverse .nav>li>a{color:#222;font-weight:bold;padding-top:6px;padding-bottom:6px;}.navbar-inverse .nav>li>a:focus,.navbar-inverse .nav>li>a:hover{background:#73aad8;background:#4b91cd -webkit-linear-gradient(270deg, #73aad8, #4b91cd) repeat-x;background:#4b91cd -moz-linear-gradient(270deg, #73aad8, #4b91cd) repeat-x;background:#4b91cd -o-linear-gradient(270deg, #73aad8, #4b91cd) repeat-x;background:#4b91cd -ms-linear-gradient(270deg, #73aad8, #4b91cd) repeat-x;background:#4b91cd linear-gradient(180deg, #73aad8, #4b91cd) repeat-x}.navbar-inverse .nav>li>a.btn-warning:focus,.navbar-inverse .nav>li>a.btn-warning:hover{background:#ec9721;background:#c97c11 -webkit-linear-gradient(270deg, #ec9721, #c97c11) repeat-x;background:#c97c11 -moz-linear-gradient(270deg, #ec9721, #c97c11) repeat-x;background:#c97c11 -o-linear-gradient(270deg, #ec9721, #c97c11) repeat-x;background:#c97c11 -ms-linear-gradient(270deg, #ec9721, #c97c11) repeat-x;background:#c97c11 linear-gradient(180deg, #ec9721, #c97c11) repeat-x}.navbar-spacer{height:51px}.btn-warning:active,.btn-primary:active{-webkit-transform:scale(.92);-moz-transform:scale(.92);-o-transform:scale(.92);-ms-transform:scale(.92);transform:scale(.92)}.btn-warning{background:#f2b560;background:#ee9f31 -webkit-linear-gradient(270deg, #f2b560, #ee9f31) repeat-x;background:#ee9f31 -moz-linear-gradient(270deg, #f2b560, #ee9f31) repeat-x;background:#ee9f31 -o-linear-gradient(270deg, #f2b560, #ee9f31) repeat-x;background:#ee9f31 -ms-linear-gradient(270deg, #f2b560, #ee9f31) repeat-x;background:#ee9f31 linear-gradient(180deg, #f2b560, #ee9f31) repeat-x}.btn-primary{background:#3d88c9;background:#2e6ea5 -webkit-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 -moz-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 -o-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 -ms-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 linear-gradient(180deg, #3d88c9, #2e6ea5) repeat-x}.sidebar .nav{display:none;list-style:disc;padding-left:25px;}.sidebar .nav>li{display:list-item;}.sidebar .nav>li>a{color:#222;}.sidebar .nav>li>a:active{-webkit-box-shadow:0 2px 10px 2px rgba(0,0,0,0.25);box-shadow:0 2px 10px 2px rgba(0,0,0,0.25)}.sidebar .nav>li>a:hover{background:#3d88c9;background:#2e6ea5 -webkit-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 -moz-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 -o-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 -ms-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 linear-gradient(180deg, #3d88c9, #2e6ea5) repeat-x;color:#fff}.sidebar .nav>li.header,.sidebar .nav>li.active{display:none}.sidebar .nav>li.active>a{background:#73aad8;background:#4b91cd -webkit-linear-gradient(270deg, #73aad8, #4b91cd) repeat-x;background:#4b91cd -moz-linear-gradient(270deg, #73aad8, #4b91cd) repeat-x;background:#4b91cd -o-linear-gradient(270deg, #73aad8, #4b91cd) repeat-x;background:#4b91cd -ms-linear-gradient(270deg, #73aad8, #4b91cd) repeat-x;background:#4b91cd linear-gradient(180deg, #73aad8, #4b91cd) repeat-x;}.sidebar .nav>li.active>a:hover{background:#3d88c9;background:#2e6ea5 -webkit-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 -moz-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 -o-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 -ms-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 linear-gradient(180deg, #3d88c9, #2e6ea5) repeat-x;color:#fff}.sidebar .nav>li.header>a{font-weight:bold;background:#f2b560;background:#ee9f31 -webkit-linear-gradient(270deg, #f2b560, #ee9f31) repeat-x;background:#ee9f31 -moz-linear-gradient(270deg, #f2b560, #ee9f31) repeat-x;background:#ee9f31 -o-linear-gradient(270deg, #f2b560, #ee9f31) repeat-x;background:#ee9f31 -ms-linear-gradient(270deg, #f2b560, #ee9f31) repeat-x;background:#ee9f31 linear-gradient(180deg, #f2b560, #ee9f31) repeat-x;}.sidebar .nav>li.header>a:hover{background:#ec9721;background:#c97c11 -webkit-linear-gradient(270deg, #ec9721, #c97c11) repeat-x;background:#c97c11 -moz-linear-gradient(270deg, #ec9721, #c97c11) repeat-x;background:#c97c11 -o-linear-gradient(270deg, #ec9721, #c97c11) repeat-x;background:#c97c11 -ms-linear-gradient(270deg, #ec9721, #c97c11) repeat-x;background:#c97c11 linear-gradient(180deg, #ec9721, #c97c11) repeat-x;color:#fff}.sidebar .nav>li.level2>a{padding-left:30px}.sidebar .nav>li.level3>a{padding-left:50px}.sidebar .nav>li.level4>a{padding-left:70px}.sidebar .nav>li.level5>a,.sidebar .nav>li.level6>a{padding-left:90px}.navbar-inverse .navbar-toggle{background-color:#444;}.navbar-inverse .navbar-toggle:hover{background-color:#666}@media (min-width:768px){#topnav{position:inherit;background:#222;padding-bottom:0}#topnav .nav>li{padding:0 4px}#topnav .sidebar-to-top{display:none}.navbar-right{margin-right:0}.navbar-nav >li>a{padding:6px 10px}.sidebar{overflow:auto;position:fixed;top:51px;left:0;bottom:0;background:#ddd;padding:0;}.sidebar h1,.sidebar h2{display:none}.sidebar .nav{display:block;list-style:none;padding-left:0;}.sidebar .nav>li{padding:0;}.sidebar .nav>li.header,.sidebar .nav>li.active{display:block;}.sidebar .nav>li.header.level2>a:before,.sidebar .nav>li.active.level2>a:before,.sidebar .nav>li.header.level3>a:before,.sidebar .nav>li.active.level3>a:before,.sidebar .nav>li.header.level4>a:before,.sidebar .nav>li.active.level4>a:before,.sidebar .nav>li.header.level5>a:before,.sidebar .nav>li.active.level5>a:before,.sidebar .nav>li.header.level6>a:before,.sidebar .nav>li.active.level6>a:before{content:"•"}.sidebar .nav>li>a{padding-top:8px;padding-bottom:8px}.sidebar .nav>li.level2>a:before,.sidebar .nav>li.level3>a:before,.sidebar .nav>li.level4>a:before,.sidebar .nav>li.level5>a:before,.sidebar .nav>li.level6>a:before{content:"◦";font-size:150%;line-height:10%;font-weight:bold;padding-right:5px;display:block;float:left;margin-top:8px;margin-left:-15px;color:#666}}img.preload{display:none}body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";font-size:16px;line-height:1.2;-ms-word-break:break-all;word-break:break-all;word-break:break-word;-webkit-hyphens:auto;-moz-hyphens:auto;-ms-hyphens:auto;hyphens:auto;-webkit-hyphenate-before:2;-webkit-hyphenate-after:3;hyphenate-lines:3;min-width:300px}h1,h2,h3,h4,h5,h6{font-weight:bold;}h1:before,h2:before,h3:before,h4:before,h5:before,h6:before{display:block;content:" ";margin-top:-66px;height:66px;visibility:hidden}h1,h2,h3{clear:both}h1{border-bottom:3px solid #222;padding-bottom:5px}h2{border-bottom:2px dotted #222;padding-bottom:3px}h3{border-bottom:2px dotted #aaa;padding-bottom:2px}h4{border-bottom:1px dotted #aaa}dt{font-weight:bold;margin-top:8px}dd{margin-left:20px}blockquote{border:1px solid #eee;border-radius:3px;border-left:5px solid #337ab7;padding:5px 15px;margin:10px 0;}blockquote ul li p{margin-bottom:0}svg,img{max-width:100%}table{border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all;margin-bottom:10px;}table th,table td{padding:6px 13px;border:1px solid #ddd}table th{background-color:rgba(0,0,0,0.04);font-weight:bold;border-bottom:3px solid #999}table tr{background-color:#fff;border-top:1px solid #ccc;}table tr:nth-child(2n){background-color:rgba(0,0,0,0.04)}img{vertical-align:middle}.emoji{height:1em}abbr,acronym{border-bottom:dotted 1px}a code{color:#337ab7}code,tt{background-color:#fafafa;border-radius:4px;font-size:85%;margin:0;padding:.2em 0}pre{background-color:#fafafa;border-radius:10px;border:1px solid #a4a4a4;font-size:85%;margin:20px;padding:10px;}pre code,pre tt{background:none}pre.language{counter-reset:line;max-height:265px;padding-top:30px;padding-bottom:0;overflow-x:hidden;}pre.language code,pre.language tt{display:block;position:relative;float:left;width:100%;border-left:45px solid #ddd;margin-left:-10px;padding-left:5px;}pre.language code:before,pre.language tt:before{counter-increment:line;content:counter(line);min-width:35px;float:left;text-align:right;padding-right:5px;color:#808080;-webkit-touch-callout:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;-webkit-user-select:none;margin-left:-45px}pre.language code:first-of-type,pre.language tt:first-of-type{padding-top:10px}pre.language code:last-child,pre.language tt:last-child{padding-bottom:10px}pre.language header{border-top-left-radius:4px;border-top-right-radius:4px;font-weight:bold;background:#fafafa;margin:-30px -10px 0 -10px;padding:5px 15px}pre.language.coffeescript header,pre.language.javascript header,pre.language.ruby header,pre.language.python header,pre.language.perl header,pre.language.cc header,pre.language.cpp header,pre.language.cs header,pre.language.java header,pre.language.jsp header,pre.language.groovy header,pre.language.php header,pre.language.bash header,pre.language.sql header,pre.language.makefile header{background:#f0ad4e}pre.language.json header,pre.language.cson header,pre.language.yaml header{background:#61b961}pre.language.handlebars header,pre.language.css header,pre.language.stylus header,pre.language.scss header,pre.language.less header,pre.language.markdown header{background:#76abca}ul.table-of-contents{max-width:100px;max-height:30px;overflow:hidden;position:fixed;top:51px;right:0;background:#ddd;padding:5px 15px;-webkit-transition:max-width 100ms ease 1.2s, max-height 1s ease 200ms;-moz-transition:max-width 100ms ease 1.2s, max-height 1s ease 200ms;-o-transition:max-width 100ms ease 1.2s, max-height 1s ease 200ms;-ms-transition:max-width 100ms ease 1.2s, max-height 1s ease 200ms;transition:max-width 100ms ease 1.2s, max-height 1s ease 200ms;border-left:2px solid #999;border-bottom:2px solid #999;border-bottom-left-radius:10px;list-style-type:none;white-space:nowrap;z-index:100;}ul.table-of-contents:hover{max-width:285px;max-height:248px;-webkit-transition:max-width 100ms ease, max-height 1s ease 100ms;-moz-transition:max-width 100ms ease, max-height 1s ease 100ms;-o-transition:max-width 100ms ease, max-height 1s ease 100ms;-ms-transition:max-width 100ms ease, max-height 1s ease 100ms;transition:max-width 100ms ease, max-height 1s ease 100ms;overflow-y:auto}ul.table-of-contents header{background:#999;font-weight:bold;margin:-5px -15px;padding:5px 15px}ul.table-of-contents>li{padding-bottom:2px;padding-right:8px;}ul.table-of-contents>li:first-of-type{padding-top:10px}ul.table-of-contents a{color:#222}ul.table-of-contents li.sidebar{display:list-item}@media (min-width:768px){ul.table-of-contents li.sidebar{display:none}}div.detail,div.info,div.warning,div.alert{padding:30px 10px 6px 10px;margin:5px 0 8px 0;border-radius:3px;padding-left:60px;border-radius:18px;border-top-left-radius:0;}div.detail>p,div.info>p,div.warning>p,div.alert>p{margin-bottom:0}div.detail header,div.info header,div.warning header,div.alert header{font-weight:bold;position:absolute;margin-top:-30px;margin-left:-60px;padding:3px 20px 3px 10px;border-bottom-right-radius:18px}div:before{content:'\24D8';color:#666;position:absolute;font-size:28px;font-weight:900;padding-top:5px;margin-left:-50px}div.detail{background-color:#fafafa;border:2px solid #ddd;padding-top:0}div.info{background-color:#9f9;background-image:-webkit-linear-gradient(top, #bfb 0%, #6d6 100%);background-image:-moz-linear-gradient(top, #bfb 0%, #6d6 100%);background-image:-o-linear-gradient(top, #bfb 0%, #6d6 100%);background-image:-ms-linear-gradient(top, #bfb 0%, #6d6 100%);background-image:linear-gradient(to bottom, #bfb 0%, #6d6 100%);border:2px solid #6d6;}div.info header{background-color:#6d6}div.info:before{content:'\24D8';text-shadow:0 -1px 0 #6d6}div.warning{background-color:#fc9;background-image:-webkit-linear-gradient(top, #f97 0%, #e86 100%);background-image:-moz-linear-gradient(top, #f97 0%, #e86 100%);background-image:-o-linear-gradient(top, #f97 0%, #e86 100%);background-image:-ms-linear-gradient(top, #f97 0%, #e86 100%);background-image:linear-gradient(to bottom, #f97 0%, #e86 100%);border:2px solid #e86;}div.warning header{background-color:#e86}div.warning:before{content:'\2605';text-shadow:0 -1px 0 #e86}div.alert{background-color:#f99;background-image:-webkit-linear-gradient(top, #faa 0%, #c00 100%);background-image:-moz-linear-gradient(top, #faa 0%, #c00 100%);background-image:-o-linear-gradient(top, #faa 0%, #c00 100%);background-image:-ms-linear-gradient(top, #faa 0%, #c00 100%);background-image:linear-gradient(to bottom, #faa 0%, #c00 100%);border:2px solid #c00;}div.alert header{background-color:#c00;color:#fff}div.alert:before{content:'\24D8';text-shadow:0 -1px 0 #c00}.cse .gsc-control-cse,.gsc-control-cse{padding:0 !important;}.cse .gsc-control-cse table tr,.gsc-control-cse table tr,.cse .gsc-control-cse table th,.gsc-control-cse table th,.cse .gsc-control-cse table td,.gsc-control-cse table td{border:0}.cse .gsc-control-cse .gsc-cursor-current-page,.gsc-control-cse .gsc-cursor-current-page{color:#fff !important}.cse .gsc-control-cse .gsc-webResult.gsc-result:hover,.gsc-control-cse .gsc-webResult.gsc-result:hover,.cse .gsc-control-cse .gsc-imageResult:hover,.gsc-control-cse .gsc-imageResult:hover{border-left:5px solid #337ab7;padding-left:3px}.cse .gsc-control-cse .gcsc-branding,.gsc-control-cse .gcsc-branding{display:none !important}.gsc-adBlock{display:none !important}.gsc-above-wrapper-area-container,.gsc-above-wrapper-area{display:none}div::before{display:none !important}@media print{.navbar-spacer,.table-of-contents,.sidebar{display:none}.main{left:0;width:100%}pre.language header{border-bottom:2px solid #999}}.text-red{color:#d13f19}.text-green{color:#2ecc40}.text-yellow{color:#ffdc00}.text-blue{color:#0074d9}.text-magenta{color:#f0f}.text-cyan{color:#0ff}.text-gray{color:#aaa}.bg-white{background-color:#fff}.center{text-align:center}.left{float:left}.right{float:right}.spacing{padding:10px}.hidden{display:none}@media (max-width:767px){.hidden-small{display:none}}@media (min-width:768px){.hidden-large{display:none}}</style>
+  </head>
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0" /></head>
-<body>
-  <nav>
-<div class="logo"><a href="http://alinex.github.io"
-  onmouseover="logo.src='https://alinex.github.io/images/Alinex-200.png'"
-  onmouseout="logo.src='https://alinex.github.io/images/Alinex-black-200.png'">
-  <img name="logo" src="https://alinex.github.io/images/Alinex-black-200.png"
-    width="150" title="Alinex Universe Homepage" />
-  </a>
-  <img src="http://alinex.github.io/images/Alinex-200.png"
-    style="display:none" alt="preloading" />
-</div>
-<div class="links">
-  <a href="http://alinex.github.io/blog"
-    class="btn btn-primary"><span class="glyphicon-pencil"></span> Blog</a>
-  <a href="http://alinex.github.io/develop"
-    class="btn btn-primary"><span class="glyphicon-book"></span> Develop</a>
-  <a href="http://alinex.github.io/code.html"
-    class="btn btn-warning"><span class="glyphicon-cog"></span> Code</a>
-</div>
-</nav><div id="sidebar_wrapper">
-    <div id="sidebar_switch">
-      <span class="tree">Files</span>
-      <span class="headings">Headings</span>
-    </div>
-    <div id="tree"></div>
-    <div id="headings">
+  <body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#topnav" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="https://alinex.github.io/" onmouseover="logo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="logo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="logo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Homepage">
+</a>
+<img class="preload" src="https://alinex.github.io/images/Alinex-200.png" aria-hidden="true">
 
-      <div class="heading h1">
-        <a href="#version-changes">Version changes</a>
+        </div>
+        <div id="topnav" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="https://alinex.github.io/blog" class="btn btn-primary">
+    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Blog
+  </a></li>
+<li><a href="https://alinex.github.io/develop" class="btn btn-primary">
+    <span class="glyphicon glyphicon-book" aria-hidden="true"></span> Develop
+  </a></li>
+<li><a href="https://alinex.github.io/code.html" class="btn btn-warning">
+    <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Code
+  </a></li>
+
+          </ul>
+          <form class="navbar-form navbar-right">
+            <input name="q" type="text" class="form-control" placeholder="Search...">
+          </form>
+          <ul class="nav sidebar-to-top">
+                <li class="level0">
+                  <a href="README.md.html" title="Alinex Report: Readme (/README.md)" class="btn btn-primary">Readme</a>
+                </li>
+                <li class="level1">
+                  <a href="src/element/index.md.html" title="Report Elements (/src/element/index.md)" class="btn btn-primary">Report Elements</a>
+                </li>
+                <li class="level2">
+                  <a href="src/element/01_heading.md.html" title="Headings (/src/element/01_heading.md)" class="btn btn-primary">Headings</a>
+                </li>
+                <li class="level2">
+                  <a href="src/element/02_block.md.html" title="Blocks (/src/element/02_block.md)" class="btn btn-primary">Blocks</a>
+                </li>
+                <li class="level2">
+                  <a href="src/element/03_list.md.html" title="Lists (/src/element/03_list.md)" class="btn btn-primary">Lists</a>
+                </li>
+                <li class="level2">
+                  <a href="src/element/04_inline.md.html" title="Inline Formats (/src/element/04_inline.md)" class="btn btn-primary">Inline Formats</a>
+                </li>
+                <li class="level2">
+                  <a href="src/element/05_link.md.html" title="Links and Images (/src/element/05_link.md)" class="btn btn-primary">Links and Images</a>
+                </li>
+                <li class="level2">
+                  <a href="src/element/06_sign.md.html" title="Special Signs (/src/element/06_sign.md)" class="btn btn-primary">Special Signs</a>
+                </li>
+                <li class="level2">
+                  <a href="src/element/07_table.md.html" title="Tables (/src/element/07_table.md)" class="btn btn-primary">Tables</a>
+                </li>
+                <li class="level2">
+                  <a href="src/element/08_box.md.html" title="Tabbed Boxes (/src/element/08_box.md)" class="btn btn-primary">Tabbed Boxes</a>
+                </li>
+                <li class="level2">
+                  <a href="src/element/09_document.md.html" title="Document Elements (/src/element/09_document.md)" class="btn btn-primary">Document Elements</a>
+                </li>
+                <li class="level2">
+                  <a href="src/element/10_visual.md.html" title="Visualization (/src/element/10_visual.md)" class="btn btn-primary">Visualization</a>
+                </li>
+                <li class="level2">
+                  <a href="src/element/11_html.md.html" title="HTML Setup (/src/element/11_html.md)" class="btn btn-primary">HTML Setup</a>
+                </li>
+                <li class="level2">
+                  <a href="src/examples/test.md.html" title="h1 Heading (/src/examples/test.md)" class="btn btn-primary">h1 Heading</a>
+                </li>
+                <li class="active level0">
+                  <a href="Changelog.md.html" title="Version changes (/Changelog.md)" class="btn btn-warning">Version changes <span class="sr-only">(current)</span></a>
+                </li>
+          </ul>
+        </div>
       </div>
+    </nav>
 
-      <div class="heading h2">
-        <a href="#version-2.0.0-2016-06-30">Version 2.0.0 (2016-06-30)</a>
-      </div>
+    <div class="navbar-spacer"></div>
 
-      <div class="heading h2">
-        <a href="#version-1.4.1-2016-05-31">Version 1.4.1 (2016-05-31)</a>
-      </div>
+    <div class="container-fluid">
+      <div class="row">
 
-      <div class="heading h2">
-        <a href="#version-1.4.0-2016-05-31">Version 1.4.0 (2016-05-31)</a>
-      </div>
+        <div class="col-sm-9 col-sm-push-3 main">
+          <script>
+  (function() {
+    var cx = '010539487162786288372:chxqbheanxc';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<gcse:searchresults-only></gcse:searchresults-only>
 
-      <div class="heading h2">
-        <a href="#version-1.3.15-2016-05-20">Version 1.3.15 (2016-05-20)</a>
-      </div>
-
-      <div class="heading h2">
-        <a href="#version-1.3.14-2016-05-04">Version 1.3.14 (2016-05-04)</a>
-      </div>
-
-      <div class="heading h2">
-        <a href="#version-1.3.13-2016-04-06">Version 1.3.13 (2016-04-06)</a>
-      </div>
-
-      <div class="heading h2">
-        <a href="#version-1.3.12-2016-04-06">Version 1.3.12 (2016-04-06)</a>
-      </div>
-
-      <div class="heading h2">
-        <a href="#version-1.3.11-2016-03-31">Version 1.3.11 (2016-03-31)</a>
-      </div>
-
-      <div class="heading h2">
-        <a href="#version-1.3.10-2016-03-30">Version 1.3.10 (2016-03-30)</a>
-      </div>
-
-      <div class="heading h2">
-        <a href="#version-1.3.9-2016-03-29">Version 1.3.9 (2016-03-29)</a>
-      </div>
-
-      <div class="heading h2">
-        <a href="#version-1.3.8-2016-03-29">Version 1.3.8 (2016-03-29)</a>
-      </div>
-
-      <div class="heading h2">
-        <a href="#version-1.3.7-2016-03-29">Version 1.3.7 (2016-03-29)</a>
-      </div>
-
-      <div class="heading h2">
-        <a href="#version-1.3.6-2016-03-29">Version 1.3.6 (2016-03-29)</a>
-      </div>
-
-      <div class="heading h2">
-        <a href="#version-1.3.5-2016-03-29">Version 1.3.5 (2016-03-29)</a>
-      </div>
-
-      <div class="heading h2">
-        <a href="#version-1.3.4-2016-03-24">Version 1.3.4 (2016-03-24)</a>
-      </div>
-
-      <div class="heading h2">
-        <a href="#version-1.3.3-2016-02-18">Version 1.3.3 (2016-02-18)</a>
-      </div>
-
-      <div class="heading h2">
-        <a href="#version-1.3.2-2016-02-16">Version 1.3.2 (2016-02-16)</a>
-      </div>
-
-      <div class="heading h2">
-        <a href="#version-1.3.1-2016-02-16">Version 1.3.1 (2016-02-16)</a>
-      </div>
-
-      <div class="heading h2">
-        <a href="#version-1.3.0-2016-02-16">Version 1.3.0 (2016-02-16)</a>
-      </div>
-
-      <div class="heading h2">
-        <a href="#version-1.2.0-2016-02-06">Version 1.2.0 (2016-02-06)</a>
-      </div>
-
-      <div class="heading h2">
-        <a href="#version-1.1.5-2016-02-05">Version 1.1.5 (2016-02-05)</a>
-      </div>
-
-      <div class="heading h2">
-        <a href="#version-1.1.4-2016-02-04">Version 1.1.4 (2016-02-04)</a>
-      </div>
-
-      <div class="heading h2">
-        <a href="#version-1.1.3-2016-01-27">Version 1.1.3 (2016-01-27)</a>
-      </div>
-
-      <div class="heading h2">
-        <a href="#version-1.1.2-2016-01-06">Version 1.1.2 (2016-01-06)</a>
-      </div>
-
-      <div class="heading h2">
-        <a href="#version-1.1.1-2016-01-04">Version 1.1.1 (2016-01-04)</a>
-      </div>
-
-      <div class="heading h2">
-        <a href="#version-1.1.0-2016-01-02">Version 1.1.0 (2016-01-02)</a>
-      </div>
-
-      <div class="heading h2">
-        <a href="#version-1.0.2-2015-12-21">Version 1.0.2 (2015-12-21)</a>
-      </div>
-
-      <div class="heading h2">
-        <a href="#version-1.0.1-2015-12-16">Version 1.0.1 (2015-12-16)</a>
-      </div>
-
-      <div class="heading h2">
-        <a href="#version-1.0.0-2015-12-10">Version 1.0.0 (2015-12-10)</a>
-      </div>
-
-      <div class="heading h2">
-        <a href="#version-0.1.3-2015-12-05">Version 0.1.3 (2015-12-05)</a>
-      </div>
-
-      <div class="heading h2">
-        <a href="#version-0.1.2-2015-12-04">Version 0.1.2 (2015-12-04)</a>
-      </div>
-
-      <div class="heading h2">
-        <a href="#version-0.1.1-2015-12-04">Version 0.1.1 (2015-12-04)</a>
-      </div>
-
-      <div class="heading h2">
-        <a href="#version-0.1.0-2015-12-04">Version 0.1.0 (2015-12-04)</a>
-      </div>
-
-    </div>
-  </div>
-  <div id="sidebar-toggle"></div>
-  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-report" title="Fork me on GitHub"></a>
-    <div class="docs markdown"><div class="pilwrap" id="version-changes">
-  <h1>
-    <a href="#version-changes" name="version-changes" class="pilcrow"></a>
-Version changes
-  </h1>
-</div>
+          <main><p><ul class="table-of-contents" aria-hidden="true"><header>Index</header>
+<li><a href="#version-220-2016-12-08">Version 2.2.0 (2016-12-08)</a></li>
+<li><a href="#version-2112-2016-10-19">Version 2.1.12 (2016-10-19)</a></li>
+<li><a href="#version-2111-2016-08-18">Version 2.1.11 (2016-08-18)</a></li>
+<li><a href="#version-2110-2016-08-02">Version 2.1.10 (2016-08-02)</a></li>
+<li><a href="#version-219-2016-07-25">Version 2.1.9 (2016-07-25)</a></li>
+<li><a href="#version-218-2016-07-21">Version 2.1.8 (2016-07-21)</a></li>
+<li><a href="#version-217-2016-07-21">Version 2.1.7 (2016-07-21)</a></li>
+<li><a href="#version-216-2016-07-19">Version 2.1.6 (2016-07-19)</a></li>
+<li><a href="#version-215-2016-07-19">Version 2.1.5 (2016-07-19)</a></li>
+<li><a href="#version-214-2016-07-15">Version 2.1.4 (2016-07-15)</a></li>
+<li><a href="#version-213-2016-07-15">Version 2.1.3 (2016-07-15)</a></li>
+<li><a href="#version-212-2016-07-15">Version 2.1.2 (2016-07-15)</a></li>
+<li><a href="#version-211-2016-07-12">Version 2.1.1 (2016-07-12)</a></li>
+<li><a href="#version-210-2016-07-11">Version 2.1.0 (2016-07-11)</a></li>
+<li><a href="#version-200-2016-06-30">Version 2.0.0 (2016-06-30)</a></li>
+<li><a href="#version-141-2016-05-31">Version 1.4.1 (2016-05-31)</a></li>
+<li><a href="#version-140-2016-05-31">Version 1.4.0 (2016-05-31)</a></li>
+<li><a href="#version-1315-2016-05-20">Version 1.3.15 (2016-05-20)</a></li>
+<li><a href="#version-1314-2016-05-04">Version 1.3.14 (2016-05-04)</a></li>
+<li><a href="#version-1313-2016-04-06">Version 1.3.13 (2016-04-06)</a></li>
+<li><a href="#version-1312-2016-04-06">Version 1.3.12 (2016-04-06)</a></li>
+<li><a href="#version-1311-2016-03-31">Version 1.3.11 (2016-03-31)</a></li>
+<li><a href="#version-1310-2016-03-30">Version 1.3.10 (2016-03-30)</a></li>
+<li><a href="#version-139-2016-03-29">Version 1.3.9 (2016-03-29)</a></li>
+<li><a href="#version-138-2016-03-29">Version 1.3.8 (2016-03-29)</a></li>
+<li><a href="#version-137-2016-03-29">Version 1.3.7 (2016-03-29)</a></li>
+<li><a href="#version-136-2016-03-29">Version 1.3.6 (2016-03-29)</a></li>
+<li><a href="#version-135-2016-03-29">Version 1.3.5 (2016-03-29)</a></li>
+<li><a href="#version-134-2016-03-24">Version 1.3.4 (2016-03-24)</a></li>
+<li><a href="#version-133-2016-02-18">Version 1.3.3 (2016-02-18)</a></li>
+<li><a href="#version-132-2016-02-16">Version 1.3.2 (2016-02-16)</a></li>
+<li><a href="#version-131-2016-02-16">Version 1.3.1 (2016-02-16)</a></li>
+<li><a href="#version-130-2016-02-16">Version 1.3.0 (2016-02-16)</a></li>
+<li><a href="#version-120-2016-02-06">Version 1.2.0 (2016-02-06)</a></li>
+<li><a href="#version-115-2016-02-05">Version 1.1.5 (2016-02-05)</a></li>
+<li><a href="#version-114-2016-02-04">Version 1.1.4 (2016-02-04)</a></li>
+<li><a href="#version-113-2016-01-27">Version 1.1.3 (2016-01-27)</a></li>
+<li><a href="#version-112-2016-01-06">Version 1.1.2 (2016-01-06)</a></li>
+<li><a href="#version-111-2016-01-04">Version 1.1.1 (2016-01-04)</a></li>
+<li><a href="#version-110-2016-01-02">Version 1.1.0 (2016-01-02)</a></li>
+<li><a href="#version-102-2015-12-21">Version 1.0.2 (2015-12-21)</a></li>
+<li><a href="#version-101-2015-12-16">Version 1.0.1 (2015-12-16)</a></li>
+<li><a href="#version-100-2015-12-10">Version 1.0.0 (2015-12-10)</a></li>
+<li><a href="#version-013-2015-12-05">Version 0.1.3 (2015-12-05)</a></li>
+<li><a href="#version-012-2015-12-04">Version 0.1.2 (2015-12-04)</a></li>
+<li><a href="#version-011-2015-12-04">Version 0.1.1 (2015-12-04)</a></li>
+<li><a href="#version-010-2015-12-04">Version 0.1.0 (2015-12-04)</a></li>
+</ul>
+</p>
+<h1 id="version-changes">Version changes</h1>
 <p>The following list gives a short overview about what is changed between
 individual versions:</p>
-<div class="pilwrap" id="version-2.0.0-2016-06-30">
-  <h2>
-    <a href="#version-2.0.0-2016-06-30" name="version-2.0.0-2016-06-30" class="pilcrow"></a>
-Version 2.0.0 (2016-06-30)
-  </h2>
-</div>
+<h2 id="version-220-2016-12-08">Version 2.2.0 (2016-12-08)</h2>
+<p>Boxes will stack together as tabbed box.</p>
+<ul>
+<li>Allow longer runtime for plantuml.</li>
+<li>Remove support for nodejs 0.10 because submodules no longer support it.</li>
+<li>Fix tests to work with variing html.</li>
+<li>Add top link in table of contents.</li>
+<li>Allow all tests to run again.</li>
+<li>Add implementation of output specific parts.</li>
+<li>Allow initialization with markdown.</li>
+<li>Remove unneccessary parts from documentation.</li>
+<li>Set default height for boxes to 300px.</li>
+<li>Added examples for tables within boxes.</li>
+<li>Finished code in boxes examples.</li>
+<li>Fix console output for boxed code.</li>
+<li>Colorize code tabs.</li>
+<li>Change html for code in boxes.</li>
+<li>Added tests for all box possibilities.</li>
+<li>Update async@2.1.4, clean-css@3.4.21, handlebars@4.0.6, alinex-util@2.5.0, debug@2.3.3, highlight.js@9.8.0, markdown-it@8.2.1, deasync@0.1.9</li>
+<li>Meke test for simple boxes.</li>
+<li>Inline document some more functions.</li>
+<li>Optimize console output of boxes.</li>
+<li>Extract translations into extra file.</li>
+<li>Finish box layout with tabs for html.</li>
+<li>Add color style to default boxes.</li>
+<li>Add print layout for boxes.</li>
+<li>Add simple tab css and upgrade fontawesome to 4.7.0</li>
+<li>Update npm markdown-it@8.2.1</li>
+<li>Change box transformation to create propper html for tabbed boxes.</li>
+<li>Transform box to tabs html structure.</li>
+<li>Merge branch ‘master’ of <a href="https://github.com/alinex/node-report">https://github.com/alinex/node-report</a></li>
+<li>Description of new code and box elements.</li>
+<li>Add testlayout for new box model.</li>
+<li>Add info for documentation which is created using the module itself.</li>
+<li>Fix blockquote nesting.</li>
+<li>Update style for boxes and more.</li>
+<li>Add example for stacked quotes.</li>
+<li>Optimize style of blockquotes.</li>
+<li>Create new documentation examples.</li>
+<li>Updated documentation.</li>
+<li>Remove unused style.</li>
+<li>Add header to detail box and optimize console output of boxes.</li>
+<li>Update alinex-fs@3.0.3 markdown-it@8.1.0 markdown-it-attrs@0.8.0 node-plantuml@0.5.0</li>
+<li>Create debug messages only if enabled.</li>
+</ul>
+<h2 id="version-2112-2016-10-19">Version 2.1.12 (2016-10-19)</h2>
+<ul>
+<li>Remove line breaks before html comments for rendering.</li>
+<li>Describe github comment handling.</li>
+<li>Updated ignore files.</li>
+<li>Update travis.</li>
+<li>Update travis.</li>
+</ul>
+<h2 id="version-2111-2016-08-18">Version 2.1.11 (2016-08-18)</h2>
+<ul>
+<li>Update html-pdf@2.1.0</li>
+<li>Fix test to allow slightly change of footnotes.</li>
+<li>Update markdown-it-attrs@0.6.3</li>
+<li>Update alinex-fs@2.0.7, markdown-it@7.0.1, markdown-it-footnote@3.0.1, phantomjs-prebuilt@2.1.12, alinex-builder@2.3.6, alinex-util@2.4.0, highlight.js@9.6.0</li>
+<li>Downgrade markdown-it to 6.1.0 because of markdown-it-attr dependency.</li>
+<li>Add support for alternative box titles.</li>
+</ul>
+<h2 id="version-2110-2016-08-02">Version 2.1.10 (2016-08-02)</h2>
+<ul>
+<li>Upgraded to phantomjs-prebuilt@2.1.9.</li>
+<li>Allow direct styles through api.</li>
+<li>Allow direct styles in each elements using curly braces.</li>
+</ul>
+<h2 id="version-219-2016-07-25">Version 2.1.9 (2016-07-25)</h2>
+<ul>
+<li>Support includes in handlebar templates.</li>
+<li>Allow handlebar template includes.</li>
+</ul>
+<h2 id="version-218-2016-07-21">Version 2.1.8 (2016-07-21)</h2>
+<ul>
+<li>Correct line number positioning to block before not at start.</li>
+</ul>
+<h2 id="version-217-2016-07-21">Version 2.1.7 (2016-07-21)</h2>
+<ul>
+<li>Upgrade alinex-fs@2.0.6, alinex-builder@2.3.1</li>
+<li>fix decorator problem for code elements</li>
+</ul>
+<h2 id="version-216-2016-07-19">Version 2.1.6 (2016-07-19)</h2>
+<ul>
+<li>Remove unneccessary modules.</li>
+<li>Add header to table of contents.</li>
+</ul>
+<h2 id="version-215-2016-07-19">Version 2.1.5 (2016-07-19)</h2>
+<ul>
+<li>Fix test for new code block structure.</li>
+<li>Update all language formats.</li>
+<li>Keep multiline code highliting intact.</li>
+<li>Add support for stylus and css.</li>
+<li>Move local links to codedoc.</li>
+<li>Better javascript and local link support.</li>
+</ul>
+<h2 id="version-214-2016-07-15">Version 2.1.4 (2016-07-15)</h2>
+<ul>
+<li>Fixed style links.</li>
+</ul>
+<h2 id="version-213-2016-07-15">Version 2.1.3 (2016-07-15)</h2>
+<ul>
+<li>Fixed style links.</li>
+</ul>
+<h2 id="version-212-2016-07-15">Version 2.1.2 (2016-07-15)</h2>
+<ul>
+<li>Updated test to work with new html structure.</li>
+<li>Allow style on code tag be transported to pre tag before.</li>
+<li>Rename links to Alinex Namespace.</li>
+<li>Move codedoc template into it’s own package.</li>
+<li>Fix extraction of title with starting alternative heading.</li>
+<li>Optimize Style.</li>
+<li>Update style for codedoc sidebar.</li>
+<li>Upgraded alinex-handlebars@1.2.1, alinex-builder@2.2.1, async@2.0.0</li>
+<li>Show file tree from context in handlebars template for codedoc.</li>
+<li>Add getReport method.</li>
+<li>Add files from context.</li>
+<li>Allow additional context for handlebars.</li>
+</ul>
+<h2 id="version-211-2016-07-12">Version 2.1.1 (2016-07-12)</h2>
+<ul>
+<li>Add inline styles for codedoc schema.</li>
+<li>Finish responsive top buttons.</li>
+<li>Create bootstrap layout for codedoc.</li>
+<li>Make own codedoc layout.</li>
+</ul>
+<h2 id="version-210-2016-07-11">Version 2.1.0 (2016-07-11)</h2>
+<ul>
+<li>Upgradet alinex-fs@2.0.3, alinex-util@2.3.1, alinex-builder@2.2.0</li>
+<li>Support handlebars for styles.</li>
+<li>Make handlebars template working.</li>
+<li>Use template search for css and handlebars.</li>
+<li>Add addintional style.</li>
+<li>Small code updates.</li>
+</ul>
+<h2 id="version-200-2016-06-30">Version 2.0.0 (2016-06-30)</h2>
 <p>Now with support for multiple graphical visualization, restructered documentation and more.</p>
 <ul>
 <li>Define mermaid as required binary package.</li>
@@ -254,203 +368,112 @@ Version 2.0.0 (2016-06-30)
 <li>Integrate jui-chart with partly working chart creation.</li>
 <li>Also transform visual effects for console output.</li>
 <li>Complete qr code integration.</li>
-<li>nOT WORKING TRY FOR MERMAID.</li>
 <li>Basic test for running markdown with separate parse and render calls.</li>
 <li>Implement graph parser in plugin.</li>
 <li>Add link to highlight.js for possible languages.</li>
 </ul>
-<div class="pilwrap" id="version-1.4.1-2016-05-31">
-  <h2>
-    <a href="#version-1.4.1-2016-05-31" name="version-1.4.1-2016-05-31" class="pilcrow"></a>
-Version 1.4.1 (2016-05-31)
-  </h2>
-</div>
+<h2 id="version-141-2016-05-31">Version 1.4.1 (2016-05-31)</h2>
 <ul>
 <li>Fix bug with duplicate callback in toHtml().</li>
 <li>Fix doxu style.</li>
 </ul>
-<div class="pilwrap" id="version-1.4.0-2016-05-31">
-  <h2>
-    <a href="#version-1.4.0-2016-05-31" name="version-1.4.0-2016-05-31" class="pilcrow"></a>
-Version 1.4.0 (2016-05-31)
-  </h2>
-</div>
-<p>Now supporting http://alinex.github.io/node-table instances.</p>
+<h2 id="version-140-2016-05-31">Version 1.4.0 (2016-05-31)</h2>
+<p>Now supporting <a href="http://alinex.github.io/node-table">http://alinex.github.io/node-table</a> instances.</p>
 <ul>
 <li>Added table examples to documentation.</li>
 <li>Upgraded table, markdown-it and emoji support packages.</li>
 <li>Add table instance support.</li>
 <li>Remove debug output.</li>
 </ul>
-<div class="pilwrap" id="version-1.3.15-2016-05-20">
-  <h2>
-    <a href="#version-1.3.15-2016-05-20" name="version-1.3.15-2016-05-20" class="pilcrow"></a>
-Version 1.3.15 (2016-05-20)
-  </h2>
-</div>
+<h2 id="version-1315-2016-05-20">Version 1.3.15 (2016-05-20)</h2>
 <ul>
 <li>Upgraded util, highlight, markdown-it and builder packages.</li>
 <li>Support new table format with header as first row.</li>
 <li>Upgraded markdown-it-toc-and-anchor to now working new version.</li>
 <li>Added test script for bug in toc package.</li>
 </ul>
-<div class="pilwrap" id="version-1.3.14-2016-05-04">
-  <h2>
-    <a href="#version-1.3.14-2016-05-04" name="version-1.3.14-2016-05-04" class="pilcrow"></a>
-Version 1.3.14 (2016-05-04)
-  </h2>
-</div>
+<h2 id="version-1314-2016-05-04">Version 1.3.14 (2016-05-04)</h2>
 <ul>
 <li>Fix console test (disabling autodetect color mode).</li>
 <li>Downgrade markdown-it-toc-and-anchor because of problems.</li>
 <li>Downgrade markdown-it-toc-and-anchor because of problems.</li>
 <li>Update util and async calls.</li>
 <li>Upgraded util, fs, markdownit-toc-and-anchor, builder packages.</li>
-<li>Added v6 for travis but didn't activate, yet.</li>
+<li>Added v6 for travis but didn’t activate, yet.</li>
 <li>Add missing package alinex-fs.</li>
 </ul>
-<div class="pilwrap" id="version-1.3.13-2016-04-06">
-  <h2>
-    <a href="#version-1.3.13-2016-04-06" name="version-1.3.13-2016-04-06" class="pilcrow"></a>
-Version 1.3.13 (2016-04-06)
-  </h2>
-</div>
+<h2 id="version-1313-2016-04-06">Version 1.3.13 (2016-04-06)</h2>
 <ul>
 <li>Fixes in console conversion.</li>
 <li>Fixes in console conversion.</li>
 <li>Fixes in console conversion.</li>
 <li>Fix code formats within toConsole() conversion.</li>
 </ul>
-<div class="pilwrap" id="version-1.3.12-2016-04-06">
-  <h2>
-    <a href="#version-1.3.12-2016-04-06" name="version-1.3.12-2016-04-06" class="pilcrow"></a>
-Version 1.3.12 (2016-04-06)
-  </h2>
-</div>
+<h2 id="version-1312-2016-04-06">Version 1.3.12 (2016-04-06)</h2>
 <ul>
 <li>Upgraded util, highlight, markdown-it and builder packages.</li>
 <li>Fixed bug in transform marked text to console.</li>
 </ul>
-<div class="pilwrap" id="version-1.3.11-2016-03-31">
-  <h2>
-    <a href="#version-1.3.11-2016-03-31" name="version-1.3.11-2016-03-31" class="pilcrow"></a>
-Version 1.3.11 (2016-03-31)
-  </h2>
-</div>
+<h2 id="version-1311-2016-03-31">Version 1.3.11 (2016-03-31)</h2>
 <ul>
 <li>upgraded builder.</li>
 <li>Clone object in table to prevent changes to the outside.</li>
 </ul>
-<div class="pilwrap" id="version-1.3.10-2016-03-30">
-  <h2>
-    <a href="#version-1.3.10-2016-03-30" name="version-1.3.10-2016-03-30" class="pilcrow"></a>
-Version 1.3.10 (2016-03-30)
-  </h2>
-</div>
+<h2 id="version-1310-2016-03-30">Version 1.3.10 (2016-03-30)</h2>
 <ul>
 <li>Fix wrong package in package.json.</li>
 <li>Fixed display of undefined values.</li>
 </ul>
-<div class="pilwrap" id="version-1.3.9-2016-03-29">
-  <h2>
-    <a href="#version-1.3.9-2016-03-29" name="version-1.3.9-2016-03-29" class="pilcrow"></a>
-Version 1.3.9 (2016-03-29)
-  </h2>
-</div>
+<h2 id="version-139-2016-03-29">Version 1.3.9 (2016-03-29)</h2>
 <ul>
 <li>Fix format of list-map tables.</li>
 </ul>
-<div class="pilwrap" id="version-1.3.8-2016-03-29">
-  <h2>
-    <a href="#version-1.3.8-2016-03-29" name="version-1.3.8-2016-03-29" class="pilcrow"></a>
-Version 1.3.8 (2016-03-29)
-  </h2>
-</div>
+<h2 id="version-138-2016-03-29">Version 1.3.8 (2016-03-29)</h2>
 <ul>
 <li>Add mask to instance table creation.</li>
 </ul>
-<div class="pilwrap" id="version-1.3.7-2016-03-29">
-  <h2>
-    <a href="#version-1.3.7-2016-03-29" name="version-1.3.7-2016-03-29" class="pilcrow"></a>
-Version 1.3.7 (2016-03-29)
-  </h2>
-</div>
+<h2 id="version-137-2016-03-29">Version 1.3.7 (2016-03-29)</h2>
 <ul>
 <li>Fix demask in toConsole().</li>
 </ul>
-<div class="pilwrap" id="version-1.3.6-2016-03-29">
-  <h2>
-    <a href="#version-1.3.6-2016-03-29" name="version-1.3.6-2016-03-29" class="pilcrow"></a>
-Version 1.3.6 (2016-03-29)
-  </h2>
-</div>
+<h2 id="version-136-2016-03-29">Version 1.3.6 (2016-03-29)</h2>
 <ul>
 <li>Demask markdown for text output.</li>
 <li>Add mask option to report and table format.</li>
 </ul>
-<div class="pilwrap" id="version-1.3.5-2016-03-29">
-  <h2>
-    <a href="#version-1.3.5-2016-03-29" name="version-1.3.5-2016-03-29" class="pilcrow"></a>
-Version 1.3.5 (2016-03-29)
-  </h2>
-</div>
+<h2 id="version-135-2016-03-29">Version 1.3.5 (2016-03-29)</h2>
 <ul>
 <li>Fix more toString() conversion problems with undefined values.</li>
-<li>Merge branch 'master' of https://github.com/alinex/node-report</li>
+<li>Merge branch ‘master’ of <a href="https://github.com/alinex/node-report">https://github.com/alinex/node-report</a></li>
 <li>Fix more toString() conversion problems with undefined values.</li>
 </ul>
-<div class="pilwrap" id="version-1.3.4-2016-03-24">
-  <h2>
-    <a href="#version-1.3.4-2016-03-24" name="version-1.3.4-2016-03-24" class="pilcrow"></a>
-Version 1.3.4 (2016-03-24)
-  </h2>
-</div>
+<h2 id="version-134-2016-03-24">Version 1.3.4 (2016-03-24)</h2>
 <ul>
 <li>Update examples.</li>
 <li>Update dependent packages twemoji, highlight, css, deflist, util and builder.</li>
 <li>Fix rendering of tables with empty cells.</li>
-<li>Merge branch 'master' of http://github.com/alinex/node-report</li>
+<li>Merge branch ‘master’ of <a href="http://github.com/alinex/node-report">http://github.com/alinex/node-report</a></li>
 <li>Updated examples.</li>
 </ul>
-<div class="pilwrap" id="version-1.3.3-2016-02-18">
-  <h2>
-    <a href="#version-1.3.3-2016-02-18" name="version-1.3.3-2016-02-18" class="pilcrow"></a>
-Version 1.3.3 (2016-02-18)
-  </h2>
-</div>
+<h2 id="version-133-2016-02-18">Version 1.3.3 (2016-02-18)</h2>
 <ul>
 <li>Upgraded pdf creation.</li>
 <li>Added specific decorator styles.</li>
 </ul>
-<div class="pilwrap" id="version-1.3.2-2016-02-16">
-  <h2>
-    <a href="#version-1.3.2-2016-02-16" name="version-1.3.2-2016-02-16" class="pilcrow"></a>
-Version 1.3.2 (2016-02-16)
-  </h2>
-</div>
+<h2 id="version-132-2016-02-16">Version 1.3.2 (2016-02-16)</h2>
 <ul>
 <li>Make table header bold in console output.</li>
 <li>Updated documentation.</li>
 <li>Updated examples.</li>
 </ul>
-<div class="pilwrap" id="version-1.3.1-2016-02-16">
-  <h2>
-    <a href="#version-1.3.1-2016-02-16" name="version-1.3.1-2016-02-16" class="pilcrow"></a>
-Version 1.3.1 (2016-02-16)
-  </h2>
-</div>
+<h2 id="version-131-2016-02-16">Version 1.3.1 (2016-02-16)</h2>
 <ul>
 <li>Increase test time for image inclusion.</li>
 <li>Updated example output.</li>
 <li>Also support locales with country.</li>
 <li>Updated examples.</li>
 </ul>
-<div class="pilwrap" id="version-1.3.0-2016-02-16">
-  <h2>
-    <a href="#version-1.3.0-2016-02-16" name="version-1.3.0-2016-02-16" class="pilcrow"></a>
-Version 1.3.0 (2016-02-16)
-  </h2>
-</div>
+<h2 id="version-130-2016-02-16">Version 1.3.0 (2016-02-16)</h2>
 <ul>
 <li>Upgraded markdown-it package.</li>
 <li>Support locale-option with german language.</li>
@@ -462,36 +485,21 @@ Version 1.3.0 (2016-02-16)
 <li>Added description of markup style.</li>
 <li>Added example pdf and images.</li>
 </ul>
-<div class="pilwrap" id="version-1.2.0-2016-02-06">
-  <h2>
-    <a href="#version-1.2.0-2016-02-06" name="version-1.2.0-2016-02-06" class="pilcrow"></a>
-Version 1.2.0 (2016-02-06)
-  </h2>
-</div>
+<h2 id="version-120-2016-02-06">Version 1.2.0 (2016-02-06)</h2>
 <ul>
 <li>Support newest toc plugin.</li>
 <li>Extended documentation.</li>
 <li>Added pdf, png and jpg export.</li>
 <li>Add example for simple convert.</li>
 </ul>
-<div class="pilwrap" id="version-1.1.5-2016-02-05">
-  <h2>
-    <a href="#version-1.1.5-2016-02-05" name="version-1.1.5-2016-02-05" class="pilcrow"></a>
-Version 1.1.5 (2016-02-05)
-  </h2>
-</div>
+<h2 id="version-115-2016-02-05">Version 1.1.5 (2016-02-05)</h2>
 <ul>
 <li>Upgraded alinex-builder.</li>
 <li>Fixed style to display sql code.</li>
 <li>Fixed layout of html.</li>
 <li>Fixed constructor with source to work.</li>
 </ul>
-<div class="pilwrap" id="version-1.1.4-2016-02-04">
-  <h2>
-    <a href="#version-1.1.4-2016-02-04" name="version-1.1.4-2016-02-04" class="pilcrow"></a>
-Version 1.1.4 (2016-02-04)
-  </h2>
-</div>
+<h2 id="version-114-2016-02-04">Version 1.1.4 (2016-02-04)</h2>
 <ul>
 <li>Fixed small bug in tests.</li>
 <li>Load initial markup with starting newlines.</li>
@@ -504,24 +512,14 @@ Version 1.1.4 (2016-02-04)
 <li>Include local resources locally in html as data uri.</li>
 <li>Updated copyright, travis and npmignore.</li>
 </ul>
-<div class="pilwrap" id="version-1.1.3-2016-01-27">
-  <h2>
-    <a href="#version-1.1.3-2016-01-27" name="version-1.1.3-2016-01-27" class="pilcrow"></a>
-Version 1.1.3 (2016-01-27)
-  </h2>
-</div>
+<h2 id="version-113-2016-01-27">Version 1.1.3 (2016-01-27)</h2>
 <ul>
 <li>Stick markdown-it-toc-and-anchor to version 2.0.0 because it breaks in version 2.1.0.</li>
 <li>Remove unused variables from script.</li>
 <li>Fixed html conversion to work on second run without reinitializing, too.</li>
 <li>Make checked checkbox in toText() better visible.</li>
 </ul>
-<div class="pilwrap" id="version-1.1.2-2016-01-06">
-  <h2>
-    <a href="#version-1.1.2-2016-01-06" name="version-1.1.2-2016-01-06" class="pilcrow"></a>
-Version 1.1.2 (2016-01-06)
-  </h2>
-</div>
+<h2 id="version-112-2016-01-06">Version 1.1.2 (2016-01-06)</h2>
 <ul>
 <li>Optimized regex for emoji.</li>
 <li>Fixed tests for new possibilities in lists.</li>
@@ -531,24 +529,14 @@ Version 1.1.2 (2016-01-06)
 <li>Added direct markdown support for inline elements.</li>
 <li>Format tt text for console and fixed length calculation in boxes for console out.</li>
 </ul>
-<div class="pilwrap" id="version-1.1.1-2016-01-04">
-  <h2>
-    <a href="#version-1.1.1-2016-01-04" name="version-1.1.1-2016-01-04" class="pilcrow"></a>
-Version 1.1.1 (2016-01-04)
-  </h2>
-</div>
+<h2 id="version-111-2016-01-04">Version 1.1.1 (2016-01-04)</h2>
 <ul>
 <li>Updated test.</li>
 <li>Updated documentation.</li>
 <li>Added Report.style() method for decoration.</li>
 <li>Reenable decorator after it is better backward compatible with es3.</li>
 </ul>
-<div class="pilwrap" id="version-1.1.0-2016-01-02">
-  <h2>
-    <a href="#version-1.1.0-2016-01-02" name="version-1.1.0-2016-01-02" class="pilcrow"></a>
-Version 1.1.0 (2016-01-02)
-  </h2>
-</div>
+<h2 id="version-110-2016-01-02">Version 1.1.0 (2016-01-02)</h2>
 <ul>
 <li>Deactivated decorate module because it has syntax errors.</li>
 <li>Add decorator support.</li>
@@ -565,14 +553,9 @@ Version 1.1.0 (2016-01-02)
 <li>Replace tables with ascii art table in toConsole().</li>
 <li>Added example ascii art table for console in comment.</li>
 </ul>
-<div class="pilwrap" id="version-1.0.2-2015-12-21">
-  <h2>
-    <a href="#version-1.0.2-2015-12-21" name="version-1.0.2-2015-12-21" class="pilcrow"></a>
-Version 1.0.2 (2015-12-21)
-  </h2>
-</div>
+<h2 id="version-102-2015-12-21">Version 1.0.2 (2015-12-21)</h2>
 <ul>
-<li>Don't trim in toString().</li>
+<li>Don’t trim in toString().</li>
 <li>Git text and markdown working, too.</li>
 <li>Now got the link working to display html as is.</li>
 <li>Changed link to examples.</li>
@@ -587,12 +570,7 @@ Version 1.0.2 (2015-12-21)
 <li>Optimize highlighter to support shorter css styles.</li>
 <li>Get html title through plugin and optimize code style.</li>
 </ul>
-<div class="pilwrap" id="version-1.0.1-2015-12-16">
-  <h2>
-    <a href="#version-1.0.1-2015-12-16" name="version-1.0.1-2015-12-16" class="pilcrow"></a>
-Version 1.0.1 (2015-12-16)
-  </h2>
-</div>
+<h2 id="version-101-2015-12-16">Version 1.0.1 (2015-12-16)</h2>
 <ul>
 <li>Fixed bug in console.log output converter for bold elements.</li>
 <li>Added support for table of contents.</li>
@@ -601,12 +579,7 @@ Version 1.0.1 (2015-12-16)
 <li>Automatically extract title from html content.</li>
 <li>Remove console.log debugging output.</li>
 </ul>
-<div class="pilwrap" id="version-1.0.0-2015-12-10">
-  <h2>
-    <a href="#version-1.0.0-2015-12-10" name="version-1.0.0-2015-12-10" class="pilcrow"></a>
-Version 1.0.0 (2015-12-10)
-  </h2>
-</div>
+<h2 id="version-100-2015-12-10">Version 1.0.0 (2015-12-10)</h2>
 <ul>
 <li>Adding support for abbr() and footnote().</li>
 <li>Allow adding reports.</li>
@@ -618,42 +591,22 @@ Version 1.0.0 (2015-12-10)
 <li>updated</li>
 <li>Added html transformation.</li>
 </ul>
-<div class="pilwrap" id="version-0.1.3-2015-12-05">
-  <h2>
-    <a href="#version-0.1.3-2015-12-05" name="version-0.1.3-2015-12-05" class="pilcrow"></a>
-Version 0.1.3 (2015-12-05)
-  </h2>
-</div>
+<h2 id="version-013-2015-12-05">Version 0.1.3 (2015-12-05)</h2>
 <ul>
 <li>Separate instance tests.</li>
 <li>Change console color mode to work at last using toConsole().</li>
 <li>Support optional color mode for console output.</li>
 </ul>
-<div class="pilwrap" id="version-0.1.2-2015-12-04">
-  <h2>
-    <a href="#version-0.1.2-2015-12-04" name="version-0.1.2-2015-12-04" class="pilcrow"></a>
-Version 0.1.2 (2015-12-04)
-  </h2>
-</div>
+<h2 id="version-012-2015-12-04">Version 0.1.2 (2015-12-04)</h2>
 <ul>
 <li>Added option to preload source into new instance.</li>
 <li>Add log support to the report class.</li>
 </ul>
-<div class="pilwrap" id="version-0.1.1-2015-12-04">
-  <h2>
-    <a href="#version-0.1.1-2015-12-04" name="version-0.1.1-2015-12-04" class="pilcrow"></a>
-Version 0.1.1 (2015-12-04)
-  </h2>
-</div>
+<h2 id="version-011-2015-12-04">Version 0.1.1 (2015-12-04)</h2>
 <ul>
 <li>Added table to instance methods.</li>
 </ul>
-<div class="pilwrap" id="version-0.1.0-2015-12-04">
-  <h2>
-    <a href="#version-0.1.0-2015-12-04" name="version-0.1.0-2015-12-04" class="pilcrow"></a>
-Version 0.1.0 (2015-12-04)
-  </h2>
-</div>
+<h2 id="version-010-2015-12-04">Version 0.1.0 (2015-12-04)</h2>
 <ul>
 <li>Remove some empty lines.</li>
 <li>Finish table() with corrected default align and easy map support.</li>
@@ -667,7 +620,69 @@ Version 0.1.0 (2015-12-04)
 <li>Made initial structure for class oriented design.</li>
 <li>Initial commit</li>
 </ul>
-</div>
-  </div>
-</body>
+</main>
+        </div>
+        <div class="col-sm-3 col-cm-pull-9 sidebar">
+          <ul class="nav nav-sidebar">
+            <li class="header">
+              <a href="README.md.html">Alinex Report</a>
+            </li>
+                <li class="level0">
+                  <a href="README.md.html" title="Alinex Report: Readme (/README.md)">Readme</a>
+                </li>
+                <li class="level1">
+                  <a href="src/element/index.md.html" title="Report Elements (/src/element/index.md)">Report Elements</a>
+                </li>
+                <li class="level2">
+                  <a href="src/element/01_heading.md.html" title="Headings (/src/element/01_heading.md)">Headings</a>
+                </li>
+                <li class="level2">
+                  <a href="src/element/02_block.md.html" title="Blocks (/src/element/02_block.md)">Blocks</a>
+                </li>
+                <li class="level2">
+                  <a href="src/element/03_list.md.html" title="Lists (/src/element/03_list.md)">Lists</a>
+                </li>
+                <li class="level2">
+                  <a href="src/element/04_inline.md.html" title="Inline Formats (/src/element/04_inline.md)">Inline Formats</a>
+                </li>
+                <li class="level2">
+                  <a href="src/element/05_link.md.html" title="Links and Images (/src/element/05_link.md)">Links and Images</a>
+                </li>
+                <li class="level2">
+                  <a href="src/element/06_sign.md.html" title="Special Signs (/src/element/06_sign.md)">Special Signs</a>
+                </li>
+                <li class="level2">
+                  <a href="src/element/07_table.md.html" title="Tables (/src/element/07_table.md)">Tables</a>
+                </li>
+                <li class="level2">
+                  <a href="src/element/08_box.md.html" title="Tabbed Boxes (/src/element/08_box.md)">Tabbed Boxes</a>
+                </li>
+                <li class="level2">
+                  <a href="src/element/09_document.md.html" title="Document Elements (/src/element/09_document.md)">Document Elements</a>
+                </li>
+                <li class="level2">
+                  <a href="src/element/10_visual.md.html" title="Visualization (/src/element/10_visual.md)">Visualization</a>
+                </li>
+                <li class="level2">
+                  <a href="src/element/11_html.md.html" title="HTML Setup (/src/element/11_html.md)">HTML Setup</a>
+                </li>
+                <li class="level2">
+                  <a href="src/examples/test.md.html" title="h1 Heading (/src/examples/test.md)">h1 Heading</a>
+                </li>
+                <li class="active level0">
+                  <a href="Changelog.md.html" title="Version changes (/Changelog.md)">Version changes <span class="sr-only">(current)</span></a>
+                </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script type="text/javascript"><!--
+    $(".table-of-contents").bind("mouseleave", function(event) { $(".table-of-contents").scrollTop(0); });
+    //--></script>
+  </body>
 </html>
