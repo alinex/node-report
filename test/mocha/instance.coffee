@@ -188,6 +188,7 @@ describe "instance", ->
       console.log report.toConsole()
       fs = require 'fs'
       fd = fs.createWriteStream "#{__dirname}/../../src/examples/test.md"
+      fd.write "<!-- internal -->\n\n"
       fd.write report.toString().trim()
       fd.end()
       fd = fs.createWriteStream "#{__dirname}/../../src/examples/test.txt"

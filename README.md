@@ -250,11 +250,11 @@ report.toHtml options, (err, html) ->
 Options are:
 
 - title (string) - to be used instead of h1 content
-- style (string) - reference to the used style under var/src/template/report/xxx.css
+- style (string) - reference to the used theme under 'template/report'
 - locale (string) - language to use like 'de'
 - inlineCss (boolean) - move css from head to the tags as styles (useful for mails)
 - noJS (boolean) - make everything static
-- contexxt (object) - additional elements for handlebars template
+- context (object) - additional elements for handlebars template
 
 This is the most powerful output method. In which all markdown elements will be
 supported and interpreted. It will create one HTML file to be used in emails...
@@ -264,6 +264,8 @@ links in the format 'file:///....' will be replaced with their content included
 as data uri in the document. This makes the document larger but helps to keep
 everything in one file. In emails you may extract these again and replace them
 with cid uri to the now attached resource.
+
+To change the style and make your own theme see {@link src/theme/index.md}.
 
 ### PDF Document
 
