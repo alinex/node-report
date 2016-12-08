@@ -4,6 +4,52 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 2.2.0 (2016-12-08)
+-------------------------------------------------
+Boxes will stack together as tabbed box.
+
+- Allow longer runtime for plantuml.
+- Remove support for nodejs 0.10 because submodules no longer support it.
+- Fix tests to work with variing html.
+- Add top link in table of contents.
+- Allow all tests to run again.
+- Add implementation of output specific parts.
+- Allow initialization with markdown.
+- Remove unneccessary parts from documentation.
+- Set default height for boxes to 300px.
+- Added examples for tables within boxes.
+- Finished code in boxes examples.
+- Fix console output for boxed code.
+- Colorize code tabs.
+- Change html for code in boxes.
+- Added tests for all box possibilities.
+- Update async@2.1.4, clean-css@3.4.21, handlebars@4.0.6, alinex-util@2.5.0, debug@2.3.3, highlight.js@9.8.0, markdown-it@8.2.1, deasync@0.1.9
+- Meke test for simple boxes.
+- Inline document some more functions.
+- Optimize console output of boxes.
+- Extract translations into extra file.
+- Finish box layout with tabs for html.
+- Add color style to default boxes.
+- Add print layout for boxes.
+- Add simple tab css and upgrade fontawesome to 4.7.0
+- Update npm markdown-it@8.2.1
+- Change box transformation to create propper html for tabbed boxes.
+- Transform box to tabs html structure.
+- Merge branch 'master' of https://github.com/alinex/node-report
+- Description of new code and box elements.
+- Add testlayout for new box model.
+- Add info for documentation which is created using the module itself.
+- Fix blockquote nesting.
+- Update style for boxes and more.
+- Add example for stacked quotes.
+- Optimize style of blockquotes.
+- Create new documentation examples.
+- Updated documentation.
+- Remove unused style.
+- Add header to detail box and optimize console output of boxes.
+- Update alinex-fs@3.0.3 markdown-it@8.1.0 markdown-it-attrs@0.8.0 node-plantuml@0.5.0
+- Create debug messages only if enabled.
+
 Version 2.1.12 (2016-10-19)
 -------------------------------------------------
 - Remove line breaks before html comments for rendering.
