@@ -4,6 +4,12 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 2.2.1 (2016-12-08)
+-------------------------------------------------
+- Bug fix include of trans submodule.
+- Add documentation of themes.
+- Fix links of general examples.
+
 Version 2.2.0 (2016-12-08)
 -------------------------------------------------
 Boxes will stack together as tabbed box.
