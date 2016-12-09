@@ -110,7 +110,7 @@ module.exports = (report, setup = {}, cb) ->
     .replace /(:{3,}\s+\w+)([^{\n]+)?(\{[^}]*?\})?\n(`{3,})\s+(\w+)/g
     , (_, box, title, style, code, language) ->
       language = langAlias[language] if langAlias[language]
-      title = if title then title.trim() else trans.get "lang.#{language}", locale
+      title = if title?.trim().length then title.trim() else trans.get "lang.#{language}", locale
       style = if style then style.replace /}/, " .pre .#{language}}" else "{.pre .#{language}}"
       "#{box} #{title} #{style}\n#{code} #{language}"
     # transform to html
@@ -342,7 +342,8 @@ optimizeHtml = (html, locale = 'en') ->
     [ # table-of-contents: add index title
       /(<ul class="table-of-contents")>/g
       "$1 aria-hidden=\"true\"><header>#{trans.get 'index', locale}\
-      <a href=\"#top\" class=\"fa fa-arrow-up toplink\"></a></header>"
+      <a href=\"#top\" class=\"fa fa-arrow-up toplink\"
+      title=\"#{trans.get 'toplink', locale}\"></a></header>"
     ]
   ,
     [ # move style settings from code to parent pre

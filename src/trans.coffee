@@ -15,6 +15,9 @@ exports.data =
     de: 'Inhalt'
   index:
     en: 'Index'
+  toplink:
+    en: 'Top of Page'
+    de: 'Seitenanfang'
   lang:
     coffeescript:
       en: 'CoffeeScript'
