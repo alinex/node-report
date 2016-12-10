@@ -4,6 +4,15 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 2.2.2 (2016-12-10)
+-------------------------------------------------
+- Fixed test for title in table of contents.
+- Remove empty lines from handlebars templates.
+- Update phantomjs-prebuilt@2.1.14
+- Fixed: Tables were being removed in the process of putting boxes into tabs.
+- Optimize table of contents display and box titles.
+- Smaller fixes in html style.
+
 Version 2.2.1 (2016-12-08)
 -------------------------------------------------
 - Bug fix include of trans submodule.
