@@ -367,7 +367,7 @@ optimizeHtml = (html, locale = 'en') ->
     ]
   ,
     [ # box: wrap tab in tabs collection
-      /(<tab[\s\S]+?<\/tab>)/g
+      /(<tab(?:[ >])[\s\S]+?<\/tab>)/g
       "<tabs>$1</tabs>"
     ]
   ,
@@ -378,12 +378,12 @@ optimizeHtml = (html, locale = 'en') ->
   ,
     [ # box: convert boxes to tabs
       /<tabs>([\s\S]*?)<\/tabs>/g
-      (_, html) ->
+      (_, code) ->
         # parse tabs
         tabRE = /<tab ([^>]+)>(?:<header>(.*?)<\/header>)?([\s\S]+?)<\/tab>/g
         attrsRE = /\s*(\w+)=\"([^\"]*?)\"/g
         tabs = []
-        tabs.push match while match = tabRE.exec html
+        tabs.push match while match = tabRE.exec code
         size = 'scroll'
         # parse attributes
         tabs = tabs.map (e) ->
@@ -395,7 +395,7 @@ optimizeHtml = (html, locale = 'en') ->
           e
         # create html
         tabGroup = ++lastTabGroup
-        html = "<div class=\"tabs\">\n"
+        out = "<div class=\"tabs\">\n"
         # add tab switches
         tabNum = 0
         for e, n in tabs
@@ -403,7 +403,7 @@ optimizeHtml = (html, locale = 'en') ->
           e[2] ?= trans.get "boxes.#{type}", locale
           tabID = ++lastTabID
           checked = if tabNum then '' else ' checked=\"\"'
-          html += "<input type=\"radio\" name=\"tabs#{tabGroup}\"
+          out += "<input type=\"radio\" name=\"tabs#{tabGroup}\"
           class=\"tab tab#{++tabNum}\" id=\"tab#{tabID}\"#{checked}>\
           <label for=\"tab#{tabID}\" class=\"#{e[1].class ? ''}\"
           title=\"#{trans.get "tabs.switch", locale}\">#{e[2]}</label>\n"
@@ -411,17 +411,17 @@ optimizeHtml = (html, locale = 'en') ->
         checked = {}
         for k, n of tabActions
           checked = if size is k then ' checked=""' else ''
-          html += "<input type=\"radio\" name=\"tabs-size#{tabGroup}\"
+          out += "<input type=\"radio\" name=\"tabs-size#{tabGroup}\"
           class=\"tabs-size tabs-size-#{k}\" id=\"tabs-size-#{k}#{tabGroup}\"#{checked}>\
           <label for=\"tabs-size-#{k}#{tabGroup}\"
           title=\"#{trans.get 'tabs.' + k, locale}\">#{n}</label>\n"
         # add html content
         tabNum = 0
         for e, n in tabs
-          html += "<div class=\"tab-content tab-content#{++tabNum}
+          out += "<div class=\"tab-content tab-content#{++tabNum}
           #{e[1].class ? ''}\">#{e[3]}</div>\n"
         # return complete
-        html + "</div>"
+        out + "</div>"
     ]
   ,
     [ # box optimize containing pre
@@ -430,7 +430,6 @@ optimizeHtml = (html, locale = 'en') ->
     ]
   ,
     [ # box optimize containing pre
-#      /(<div class="tab-content[^"]*)(">\n<table>[\s\S]*?<\/table>\n<\/div>")/g
       /(<div class="tab-content[^"]*)(">\n<table[\s\S]*?<\/table>\n<\/div>)/g
       "$1 pre$2"
     ]
