@@ -366,6 +366,11 @@ optimizeHtml = (html, locale = 'en') ->
       "<pre $2 $1"
     ]
   ,
+    [ # code: remove empty lines from handlebars code
+      /\n<code>(<span class="xml">)?<\/span><\/code><\/pre>/g
+      "</pre>"
+    ]
+  ,
     [ # box: wrap tab in tabs collection
       /(<tab(?:[ >])[\s\S]+?<\/tab>)/g
       "<tabs>$1</tabs>"
