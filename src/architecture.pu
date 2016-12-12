@@ -1,0 +1,47 @@
+@startuml
+
+start
+partition Builder {
+    fork
+      :API;
+    fork again
+      :Lexer;
+    end fork
+    :SourceTokens]
+}
+partition Transformer {
+  :select format;
+  note right
+    - html
+    - console
+    - text
+  end note
+  :pre optimize;
+  :PreTokens]
+  :transform format;
+  :TransTokens]
+  :post optimize;
+  :PostTokens]
+  :join into stream;
+  :Output]
+}
+stop
+
+@enduml
+
+@startuml
+[*] --> Lexer : Markdown
+
+state Lexer {
+  [*] -> Markdown
+  Markdown --> Raw
+  Raw --> Markdown
+  Markdown --> HTML
+  HTML --> Markdown
+  Markdown --> CSV
+  CSV --> Markdown
+  Markdown --> [*]
+}
+
+Block : P, PRE
+@enduml
