@@ -1,4 +1,12 @@
+###
+Headings
+=================================================
+###
 
+
+# Lexer definition
+#
+# @type {Object<Lexer>} lexer rules
 exports.lexer =
 
   md:
@@ -31,8 +39,11 @@ exports.lexer =
         nesting: if m[1] then -1 else 1
         data: parseInt m[2]
 
+# Modifications before transforming
 exports.pre = {}
 
+# Transform routines
 exports.transform = {}
 
+# Modifications after transform
 exports.post = {}
