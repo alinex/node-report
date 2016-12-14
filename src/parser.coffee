@@ -57,7 +57,9 @@ if debugData.enabled
 # Tokens:
 # - type
 # - nesting - 1 open, 0 atomic, -1 close
+# - autoclose
 # - level
+# - parent
 # - data
 # - index - position from input
 # - pos
@@ -77,6 +79,7 @@ class Parser
     @tokens = []
     @level = 0
     @state ?= if @input.match /<body/ then 'html' else 'md'
+    @states = [@state]
 
   # Run parsing a chunk of the input.
   #
@@ -87,12 +90,14 @@ class Parser
         ds = util.inspect chars.substr(0, 30).replace /\n/g, '\\n'
         debugData "parse index:#{@index} #{ds} as #{@state}" if debugData.enabled
       done = false
+      # try rules for state
       for rule in lexer[@state]
         continue unless @state in rule.state
         if m = rule.re.exec chars
           if skip = rule.fn?.call this, m
             chars = chars.substr skip
             done = true
+      # check for problems
       unless done
         throw new Error "Not parseable maybe missing a rule at line #{@pos()}"
     this
@@ -101,16 +106,49 @@ class Parser
   #
   # @param {Array<Token>} t `Token` object to be added
   add: (t) ->
-    @level += t.nesting if t.nesting < 0
+    prev = if @tokens[@tokens.length - 1] then @tokens[@tokens.length - 1] else null
+    if t.nesting < 0
+      @state = @states.pop()
+      @level--
     t.nesting ?= 0
     t.level = @level
+    t.parent = switch
+      when prev?.nesting is 1 then prev
+      when t.nesting is -1
+        if prev.level > @level then prev.parent.parent
+        else prev.parent
+      else prev?.parent ? null
     t.index ?= @index
     t.pos = @pos()
     @tokens.push t
     debugData "add token #{util.inspect(t).replace /\n */g, ' '}" if debugData.enabled
-    if t.state
-      @state = t.state
-    @level += t.nesting if t.nesting > 0
+    if t.nesting > 0
+      @state = t.state if t.state
+      @states.push @state
+      @level++
+
+  # Check if tags could be autoclosed to come into defined state.
+  #
+  # @param {String} state to reach by autoclosing
+  # @return {Boolean} `true` if state could be reached by autoclose
+  autoclose: (state) ->
+    token = @tokens[@tokens.length -1]
+    list = []
+    while token = token.parent
+      return false unless token
+      list.push token
+      break if token.state is state
+    # close tags
+    for token in list
+      t = util.clone token
+      t.nesting = -1
+      t.index = @index
+      delete t.state
+      @level = t.level
+      @state = @states.pop()
+      @tokens.push t
+      if debugData.enabled
+        debugData "auto close token #{util.inspect(t).replace /\n */g, ' '}"
 
   # Get the current position in file.
   #
@@ -120,6 +158,19 @@ class Parser
     line = part.match(/\n/g) ? 0
     col = @index - part.lastIndexOf('\n') - 1
     "#{line}:#{col}"
+
+  # End the parsing and check the result.
+  #
+  # @return {Array<Token>} list of parsed tokens
+  end: ->
+    # check if parsing started
+    throw new Error "Nothing parsed" unless @tokens.length
+    # check for correct structure
+    if @level
+      unless @autoclose @states[0]
+        throw new Error "Not all elements closed correctly (ending in level #{@level})"
+    # return token list
+    @tokens
 
 
 
@@ -133,8 +184,4 @@ module.exports = parse = (text, format = 'md') ->
   parser = new Parser text, format
   parser.parse()
   debug "Done parsing" if debug.enabled
-  parser.tokens
-
-out = parse '# Text **15** Number 6'
-console.log '######################################################'
-console.log out
+  parser.end()
