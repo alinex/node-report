@@ -12,6 +12,19 @@ path = require 'path'
 util = require 'alinex-util'
 
 
+# Config
+# -------------------------------------------------
+
+# List of replacement rules to cleanup text for better parsing.
+#
+# @type {Array<Array>} list of replacements
+CLEANUP = [
+  [/\r\n|\r|\u2424/g, '\n'] # replcae carriage return and unicode newlines
+  [/\t/g, '  ']             # replace tabs with spaces
+  [/\u00a0/g, ' ']          # replace other whitechar with space
+]
+
+
 # Setup
 # -------------------------------------------------
 debug "Initializing..."
@@ -179,8 +192,10 @@ class Parser
 # @param `String` text to be parsed
 # @param `String` [format] to parse from (default: 'md')
 # @return `Array<Token>` token list
-module.exports = parse = (text, format = 'md') ->
+module.exports = (text, format = 'md') ->
   debug "Run parser in state #{format}" if debug.enabled
+  for rule in CLEANUP
+    text = text.replace rule[0], rule[1]
   parser = new Parser text, format
   parser.parse()
   debug "Done parsing" if debug.enabled
