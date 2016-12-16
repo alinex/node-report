@@ -1,5 +1,10 @@
 # Parser
 # =================================================
+#  This may parse multiple text formats.
+
+# Markdown parsing is based on http://spec.commonmark.org/
+
+
 
 
 # Node Modules
@@ -20,8 +25,9 @@ util = require 'alinex-util'
 # @type {Array<Array>} list of replacements
 CLEANUP = [
   [/\r\n|\r|\u2424/g, '\n'] # replcae carriage return and unicode newlines
-  [/\t/g, '  ']             # replace tabs with spaces
+  [/\t/g, '    ']           # replace tabs with four spaces
   [/\u00a0/g, ' ']          # replace other whitechar with space
+  [/\u0000/g, '\ufffd']     # replace \0 as non visible replacement char
 ]
 
 
