@@ -2,7 +2,7 @@
 exports.lexer =
 
   char:
-    state: ['md-inline', 'html-inline']
+    state: ['m-inline', 'mh-inline', 'h-inline']
     re: /^./
     fn: (m) ->
       last = @tokens[@tokens.length-1]

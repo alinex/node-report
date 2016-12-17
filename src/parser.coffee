@@ -1,10 +1,44 @@
 # Parser
 # =================================================
-#  This may parse multiple text formats.
+# This may parse multiple text formats into token lists. This is done using the
+# plugable structure with the concrete commands from each elements definition module.
+#
+# ### Lexer
+#
+# The parsing is done by first substituting some problematic characters and then
+# running the result through the partly recursive lexer. In this steps the text is
+# processed in a linear way character by character against a list of regular expressions
+# of the possible elements. To decide which elements are possible at the current
+# position a state is defined, which may change for sub parts. The state consists
+# mostly of two parts: `<domain>-<area>` the possible domains are: `m` for markdown,
+# `mh` for markdown with html and `h` for html. Within the rules the new state may
+# be set to `-<name>` meaning that the domain before will be kept.
+#
+# Each element may contain multiple named lexer rules under the `lexer` object with
+# the following data:
+# - `String` - `element` name of this element (automatically set)
+# - `String` - `name` of this rule (automatically set)
+# - `Array<String>` - `state` all the possible states in which this rule is allowed
+# - `RegExp` - `re` to check if this rule should be applied
+# - `Function(Match)` - `fn` to run if the rule matched.
+#   Here you may call `add()`, change the index position run sub `parse()` and lastly
+#   return the number of characters which werde done and can be skipped for the
+#   next run.
+#
+# ### Tokens
+#
+# The resulting token list may contain any of the defined elements. And are stored
+# in an array as object:
+# - `String` - `type` name of the element
+# - `Integer` - `nesting` type: `1` = open, `0` = atomic, `-1` = close
+# - `Integer` - `level` depth of structure
+# - `Object` - `parent` reference
+# - `Mixed` - `data` content of this element
+# - `String` - `index` position from input
+# - `String` - `pos` current position in input text
+# - `String` - `state` that is allowed within the current element
 
 # Markdown parsing is based on http://spec.commonmark.org/
-
-
 
 
 # Node Modules
@@ -56,7 +90,7 @@ for key, lib of elements
   for name, rule of lib.lexer
     for state in rule.state
       rule.element = key
-      rule.name = key + if rule.name then ":#{rule.name}" else ''
+      rule.name = key + if name then ":#{name}" else ''
       lexer[state] ?= []
       lexer[state].push rule
 if debugData.enabled
@@ -65,27 +99,7 @@ if debugData.enabled
       debugData "lexer rule for #{k}:", e.name, e.re
 
 
-
-# Rule:
-# - element
-# - name
-# - state - where is the rule allowed
-# - re
-# - fn
-
-# Tokens:
-# - type
-# - nesting - 1 open, 0 atomic, -1 close
-# - autoclose
-# - level
-# - parent
-# - data
-# - index - position from input
-# - pos
-# - state - that is allowed within
-
-
-# Parser
+# Parser Class
 # -------------------------------------------------
 class Parser
 
@@ -97,7 +111,7 @@ class Parser
     @index = 0
     @tokens = []
     @level = 0
-    @state ?= if @input.match /<body/ then 'html' else 'md'
+    @state ?= if @input.match /<body/ then 'h-block' else 'm-block'
     @states = [@state]
 
   # Run parsing a chunk of the input.
@@ -137,6 +151,7 @@ class Parser
         if prev.level > @level then prev.parent.parent
         else prev.parent
       else prev?.parent ? null
+    t.state = @state.split(/-/)[0] + t.state if t.state?[0] is '-'
     t.index ?= @index
     t.pos = @pos()
     @tokens.push t
@@ -151,6 +166,7 @@ class Parser
   # @param {String} state to reach by autoclosing
   # @return {Boolean} `true` if state could be reached by autoclose
   autoclose: (state) ->
+    state = @state.split(/-/)[0] + state if state[0] is '-'
     token = @tokens[@tokens.length -1]
     list = []
     while token = token.parent
@@ -196,9 +212,9 @@ class Parser
 # Parse a text into `Token` list.
 #
 # @param `String` text to be parsed
-# @param `String` [format] to parse from (default: 'md')
+# @param `String` [format] to parse from (default: 'm')
 # @return `Array<Token>` token list
-module.exports = (text, format = 'md') ->
+module.exports = (text, format = 'm-block') ->
   debug "Run parser in state #{format}" if debug.enabled
   for rule in CLEANUP
     text = text.replace rule[0], rule[1]

@@ -9,8 +9,8 @@ Headings
 # @type {Object<Lexer>} lexer rules
 exports.lexer =
 
-  md_ast:
-    state: ['md']
+  md:
+    state: ['m-block', 'mh-block']
     re: /^(\n*(#{1,6}) )([^\n]+)(?:\n|$)/
     fn: (m) ->
       level = m[2].length
@@ -19,7 +19,7 @@ exports.lexer =
         type: 'heading'
         data: level
         nesting: 1
-        state: 'md-inline'
+        state: '-inline'
       @index += m[1].length
       # parse subtext
       @parse m[3]
@@ -33,12 +33,12 @@ exports.lexer =
       m[0].length
 
   html:
-    state: ['html-block', 'html-inline']
+    state: ['h-block', 'h-inline', 'mh-block', 'mh-inline']
     re: /^<(\/)h([1-6])>/
     fn: (m) ->
       # check for autoclose
-      if @state is 'html-inline'
-        return unless @autoclose 'html-block'
+      if @state.match /m?h-inline/
+        return unless @autoclose '-block'
       # add token
       level = parseInt m[2]
       unless m[1]
@@ -46,7 +46,7 @@ exports.lexer =
           type: 'heading'
           data: level
           nesting: 1
-          state: 'html-inline'
+          state: '-inline'
       else
         @add
           type: 'heading'
