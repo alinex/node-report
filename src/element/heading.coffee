@@ -17,7 +17,8 @@ exports.lexer =
       # opening
       @add
         type: 'heading'
-        data: level
+        data:
+          level: level
         nesting: 1
         state: '-inline'
       @index += m[1].length
@@ -26,7 +27,8 @@ exports.lexer =
       # closing
       @add
         type: 'heading'
-        data: level
+        data:
+          level: level
         nesting: -1
         index: @index + m[1].length + m[3].length
       # done
@@ -44,13 +46,15 @@ exports.lexer =
       unless m[1]
         @add
           type: 'heading'
-          data: level
+          data:
+            level: level
           nesting: 1
           state: '-inline'
       else
         @add
           type: 'heading'
-          data: level
+          data:
+            level: level
           nesting: -1
       # done
       m[0].length
@@ -59,7 +63,16 @@ exports.lexer =
 exports.pre = {}
 
 # Transform routines
-exports.transform = {}
+exports.transform =
+  text: (t) ->
+
+  html: (t) ->
+    if t.nesting > 0
+      t.text = "<h#{t.data.level}"
+      t.text += " class=\"#{t.data.class.join ' '}\"" if t.data.class
+      t.text += ">"
+    else
+      t.text = "</h#{t.data.level}>"
 
 # Modifications after transform
 exports.post = {}

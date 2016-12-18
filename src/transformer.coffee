@@ -1,42 +1,22 @@
-# Parser
+# Transformer
 # =================================================
-# This may parse multiple text formats into token lists. This is done using the
-# plugable structure with the concrete commands from each elements definition module.
+# This will convert a tokenlist into one of the following formats:
+# - markdown - the internal format with all data
+# - text - only the parts that are representable as plain text
+# - console - also with console color and formatting
+# - html
+# - pdf
+# - png
+# - odf
 #
-# ### Lexer
-#
-# The parsing is done by first substituting some problematic characters and then
-# running the result through the partly recursive lexer. In this steps the text is
-# processed in a linear way character by character against a list of regular expressions
-# of the possible elements. To decide which elements are possible at the current
-# position a state is defined, which may change for sub parts. The state consists
-# mostly of two parts: `<domain>-<area>` the possible domains are: `m` for markdown,
-# `mh` for markdown with html and `h` for html. Within the rules the new state may
-# be set to `-<name>` meaning that the domain before will be kept.
-#
-# Each element may contain multiple named lexer rules under the `lexer` object with
-# the following data:
-# - `String` - `element` name of this element (automatically set)
-# - `String` - `name` of this rule (automatically set)
-# - `Array<String>` - `state` all the possible states in which this rule is allowed
-# - `RegExp` - `re` to check if this rule should be applied
-# - `Function(Match)` - `fn` to run if the rule matched.
-#   Here you may call `add()`, change the index position run sub `parse()` and lastly
-#   return the number of characters which werde done and can be skipped for the
-#   next run.
-#
-# ### Tokens
-#
-# The resulting token list may contain any of the defined elements. And are stored
-# in an array as object:
-# - `String` - `type` name of the element
-# - `Integer` - `nesting` type: `1` = open, `0` = atomic, `-1` = close
-# - `Integer` - `level` depth of structure
-# - `Object` - `parent` reference
-# - `Object` - `data` content of this element
-# - `String` - `index` position from input
-# - `String` - `pos` current position in input text
-# - `String` - `state` that is allowed within the current element
+# For each format rule go through token list.
+
+###########
+# parser elements - md tokens
+# pre elements - md optimized
+# transformer elements - html tokens
+# post elements - html optimized
+# output - data stream binary/text
 
 # Markdown parsing is based on http://spec.commonmark.org/
 
@@ -49,20 +29,6 @@ fs = require 'fs'
 path = require 'path'
 # alinex modules
 util = require 'alinex-util'
-
-
-# Config
-# -------------------------------------------------
-
-# List of replacement rules to cleanup text for better parsing.
-#
-# @type {Array<Array>} list of replacements
-CLEANUP = [
-  [/\r\n|\r|\u2424/g, '\n'] # replcae carriage return and unicode newlines
-  [/\t/g, '    ']           # replace tabs with four spaces
-  [/\u00a0/g, ' ']          # replace other whitechar with space
-  [/\u0000/g, '\ufffd']     # replace \0 as non visible replacement char
-]
 
 
 # Setup
@@ -214,7 +180,7 @@ class Parser
 # @param `String` text to be parsed
 # @param `String` [format] to parse from (default: 'm')
 # @return `Array<Token>` token list
-module.exports = (text, format = 'm-block') ->
+module.exports = (tokens, format = 'html') ->
   debug "Run parser in state #{format}" if debug.enabled
   for rule in CLEANUP
     text = text.replace rule[0], rule[1]

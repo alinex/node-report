@@ -7,11 +7,12 @@ exports.lexer =
     fn: (m) ->
       last = @tokens[@tokens.length-1]
       if last.type is 'text'
-        last.data += m[0]
+        last.data.text += m[0]
       else
         @add
           type: 'text'
-          data: m[0]
+          data:
+            text: m[0]
       @index++
       # done processing
       m[0].length
