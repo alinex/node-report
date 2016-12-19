@@ -1,47 +1,41 @@
 @startuml
 
 start
-partition Builder {
+partition "Create Report" {
     fork
-      :API;
+      :Parser|
+      :Pre Optimize;
+      :Transform;
+      :Token List]
+      :Post Format;
     fork again
-      :Lexer;
+      :Builder|
+      :API Calls;
+      if (has text?) then (yes)
+        :Parser|
+      else (no)
+        :Create Token;
+      endif
     end fork
-    :SourceTokens]
+    :Token Tree]
 }
-partition Transformer {
+partition "Output Report" {
+  :Formatter|
   :select format;
   note right
     - html
     - console
     - text
+    - markdown
   end note
   :pre optimize;
-  :PreTokens]
   :transform format;
-  :TransTokens]
   :post optimize;
-  :PostTokens]
   :join into stream;
+  :Text]
+  :convert;
   :Output]
 }
 stop
 
-@enduml
-
-@startuml
-[*] --> Lexer : Markdown
-
-state Lexer {
-  [*] -> Markdown
-  Markdown --> Raw
-  Raw --> Markdown
-  Markdown --> HTML
-  HTML --> Markdown
-  Markdown --> CSV
-  CSV --> Markdown
-  Markdown --> [*]
-}
-
-Block : P, PRE
 @enduml
