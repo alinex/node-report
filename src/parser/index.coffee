@@ -51,30 +51,29 @@ path = require 'path'
 util = require 'alinex-util'
 
 
-# Config
-# -------------------------------------------------
-
-# List of replacement rules to cleanup text for better parsing.
-#
-# @type {Array<Array>} list of replacements
-CLEANUP = [
-  [/\r\n|\r|\u2424/g, '\n'] # replcae carriage return and unicode newlines
-  [/\t/g, '    ']           # replace tabs with four spaces
-  [/\u00a0/g, ' ']          # replace other whitechar with space
-  [/\u0000/g, '\ufffd']     # replace \0 as non visible replacement char
-]
-
-
 # Setup
 # -------------------------------------------------
 debug "Initializing..."
-# load element definitions
-elements = {}
-list = fs.readdirSync "#{__dirname}/element"
-list.sort()
-for file in list
-  elements[path.basename file, path.extname file] = require "./element/#{file}"
-debugData "possible elements:", Object.keys elements if debugData.enabled
+
+# @param {String} type to load
+# @return {Object<Module>} the loaded modules
+libs = (type) ->
+  list = fs.readdirSync "#{__dirname}/#{type}"
+  list.sort()
+  map = {}
+  for file in list
+    continue unless path.extname(file) in ['.js', '.coffee']
+    map[path.basename file, path.extname file] = require "./#{type}/#{file}"
+  map
+
+# Load helper
+preLibs = libs 'pre'
+debugData "possible pre optimizations:", Object.keys preLibs if debugData.enabled
+transLibs = libs 'transform'
+debugData "possible transformer:", Object.keys transLibs if debugData.enabled
+preLibs = libs 'post'
+debugData "possible post optimizations:", Object.keys preLibs if debugData.enabled
+
 # collect possible states
 states = []
 for key, lib of elements
