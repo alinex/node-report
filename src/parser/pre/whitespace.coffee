@@ -23,11 +23,12 @@ CLEANUP = [
 cleanup = (t) ->
   for r in CLEANUP
     t = t.replace r[0], r[1]
+  t
 
 
 # Parser Domain
 # -------------------------------------------------
 # Specify for which parser domain to run which function.
-module.export =
+module.exports =
   m: cleanup
   mh: cleanup

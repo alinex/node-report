@@ -8,8 +8,14 @@ The possible domains are:
 - `h` for html parsing
 
 
-Mofdules
+Modules
 -------------------------------------------------
 Each module will export an object containing functions for one or multiple
 domains. They will get the complete source text to manipulate and return if
 defined.
+
+The interface of these methods should be:
+
+@name <domain>
+@param {String} t as text to be optimized
+@return {String} optimized text

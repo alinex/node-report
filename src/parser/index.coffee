@@ -1,8 +1,10 @@
 # Parser
 # =================================================
 # This may parse multiple text formats into token lists. This is done using the
-# plugable structure with the concrete commands from each elements definition module.
+# plugable structure with the concrete commands within.
 #
+
+
 # ### Lexer
 #
 # The parsing is done by first substituting some problematic characters and then
@@ -71,25 +73,21 @@ preLibs = libs 'pre'
 debugData "possible pre optimizations:", Object.keys preLibs if debugData.enabled
 transLibs = libs 'transform'
 debugData "possible transformer:", Object.keys transLibs if debugData.enabled
-preLibs = libs 'post'
+postLibs = libs 'post'
 debugData "possible post optimizations:", Object.keys preLibs if debugData.enabled
-
 # collect possible states
 states = []
-for key, lib of elements
-  continue unless lib.lexer
-  for name, rule of lib.lexer
+for key, lib of transLibs
+  for name, rule of lib
     for state in rule.state
       states.push state unless state in states
 debugData "possible states:", states if debugData.enabled
 # collect rules for each state
 lexer = {}
-for key, lib of elements
-  continue unless lib.lexer
-  for name, rule of lib.lexer
+for key, lib of transLibs
+  for name, rule of lib
+    rule.name = "#{key}:#{name}"
     for state in rule.state
-      rule.element = key
-      rule.name = key + if name then ":#{name}" else ''
       lexer[state] ?= []
       lexer[state].push rule
 if debugData.enabled
@@ -211,13 +209,16 @@ class Parser
 # Parse a text into `Token` list.
 #
 # @param `String` text to be parsed
-# @param `String` [format] to parse from (default: 'm')
+# @param `String` [state] to parse from (default: 'm-block')
 # @return `Array<Token>` token list
-module.exports = (text, format = 'm-block') ->
-  debug "Run parser in state #{format}" if debug.enabled
-  for rule in CLEANUP
-    text = text.replace rule[0], rule[1]
-  parser = new Parser text, format
+module.exports = (text, state = 'm-block') ->
+  domain = state.split(/-/)[0]
+  debug "pre optimizations for domain #{domain}" if debug.enabled
+  for name, rule of preLibs
+    continue unless rule[domain]
+    text = rule[domain] text
+  debug "start transformation in state #{state}" if debug.enabled
+  parser = new Parser text, state
   parser.parse()
   debug "Done parsing" if debug.enabled
   parser.end()
