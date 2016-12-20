@@ -20,7 +20,7 @@ module.exports =
         state: '-inline'
       @index += m[1].length
       # parse subtext
-      @parse m[3]
+      @lexer m[3]
       # closing
       @add
         type: 'heading'
@@ -32,7 +32,7 @@ module.exports =
       m[0].length
 
   html:
-    state: ['h-block', 'h-inline', 'mh-block', 'mh-inline']
+    state: ['h-block', 'mh-block']
     re: /^<(\/)h([1-6])>/
     fn: (m) ->
       # check for autoclose

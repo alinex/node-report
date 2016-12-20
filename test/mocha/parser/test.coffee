@@ -4,14 +4,15 @@ expect = chai.expect
 
 debug = require('debug') 'test'
 util = require 'util'
-parser = require '../../../src/parser'
+Parser = require '../../../src/parser'
 
 module.exports = (input, data) ->
-  out = parser input, 'm'
-  debug util.inspect out, {depth: 1}
-  return out unless data
-  expect(out.length, 'num tokens').to.equal data.length
+  parser = new Parser input, 'm'
+  parser.parse()
+  debug util.inspect parser.tokens, {depth: 1}
+  return parser.tokens unless data
+  expect(parser.tokens.length, 'num tokens').to.equal data.length
   for num, token in data
     for k, v of token
-      expect(out[num][k], "data[#{num}].#{k}").to.equal v
-  out
+      expect(parser.tokens[num][k], "data[#{num}].#{k}").to.equal v
+  parser.tokens

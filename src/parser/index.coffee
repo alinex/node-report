@@ -3,31 +3,13 @@
 # This may parse multiple text formats into token lists. This is done using the
 # plugable structure with the concrete commands within.
 #
-
-
-# ### Lexer
+# The parsing is done in three steps:
+# 1. pre optimize some problematic characters in source for the defined domain
+# 2. transform text into token list
+# 3. post format the transformer list
 #
-# The parsing is done by first substituting some problematic characters and then
-# running the result through the partly recursive lexer. In this steps the text is
-# processed in a linear way character by character against a list of regular expressions
-# of the possible elements. To decide which elements are possible at the current
-# position a state is defined, which may change for sub parts. The state consists
-# mostly of two parts: `<domain>-<area>` the possible domains are: `m` for markdown,
-# `mh` for markdown with html and `h` for html. Within the rules the new state may
-# be set to `-<name>` meaning that the domain before will be kept.
 #
-# Each element may contain multiple named lexer rules under the `lexer` object with
-# the following data:
-# - `String` - `element` name of this element (automatically set)
-# - `String` - `name` of this rule (automatically set)
-# - `Array<String>` - `state` all the possible states in which this rule is allowed
-# - `RegExp` - `re` to check if this rule should be applied
-# - `Function(Match)` - `fn` to run if the rule matched.
-#   Here you may call `add()`, change the index position run sub `parse()` and lastly
-#   return the number of characters which werde done and can be skipped for the
-#   next run.
-#
-# ### Tokens
+# ### Resulting Tokens
 #
 # The resulting token list may contain any of the defined elements. And are stored
 # in an array as object:
@@ -40,13 +22,13 @@
 # - `String` - `pos` current position in input text
 # - `String` - `state` that is allowed within the current element
 
-# Markdown parsing is based on http://spec.commonmark.org/
-
 
 # Node Modules
 # -------------------------------------------------
 debug = require('debug') 'report:parser'
 debugData = require('debug') 'report:parser:data'
+debugRule = require('debug') 'report:parser:rule'
+chalk = require 'chalk'
 fs = require 'fs'
 path = require 'path'
 # alinex modules
@@ -56,6 +38,12 @@ util = require 'alinex-util'
 # Setup
 # -------------------------------------------------
 debug "Initializing..."
+
+# @type {Object<String>} start state for domain
+START =
+  m: 'm-block'
+  mh: 'mh-block'
+  h: 'h-doc'
 
 # @param {String} type to load
 # @return {Object<Module>} the loaded modules
@@ -70,18 +58,18 @@ libs = (type) ->
 
 # Load helper
 preLibs = libs 'pre'
-debugData "possible pre optimizations:", Object.keys preLibs if debugData.enabled
+debugRule "possible pre optimizations:", Object.keys preLibs if debugRule.enabled
 transLibs = libs 'transform'
-debugData "possible transformer:", Object.keys transLibs if debugData.enabled
+debugRule "possible transformer:", Object.keys transLibs if debugRule.enabled
 postLibs = libs 'post'
-debugData "possible post optimizations:", Object.keys preLibs if debugData.enabled
+debugRule "possible post optimizations:", Object.keys preLibs if debugRule.enabled
 # collect possible states
 states = []
 for key, lib of transLibs
   for name, rule of lib
     for state in rule.state
       states.push state unless state in states
-debugData "possible states:", states if debugData.enabled
+debugRule "possible states:", util.inspect(states).replace /\n +/g, ' ' if debugRule.enabled
 # collect rules for each state
 lexer = {}
 for key, lib of transLibs
@@ -90,43 +78,72 @@ for key, lib of transLibs
     for state in rule.state
       lexer[state] ?= []
       lexer[state].push rule
-if debugData.enabled
+if debugRule.enabled
   for k, v of lexer
     for e in v
-      debugData "lexer rule for #{k}:", e.name, e.re
+      debugRule "lexer rule for #{k}:", e.name, chalk.grey e.re
 
 
 # Parser Class
 # -------------------------------------------------
 class Parser
 
+  # Auto detect state for text.
+  #
+  # @param {String} [text] to autodetect start state (defaults to @input)
+  # @return {String} start state or null if not possible
+  @detect: (text) ->
+    return null unless text
+    if text.match /<body/ then 'h-block' else 'm-block'
+
   # Create a new parser object.
   #
   # @param {String} input text to be parsed
-  # @param {String} [state] used initialy for the lexer
-  constructor: (@input, @state) ->
+  # @param {String} [state] or domain used initialy for the lexer
+  constructor: (@input = '', @state) ->
+    @state ?= Parser.detect @input
+    @state = START[@state] if START[@state]
+    @domain = @state.split(/-/)[0]
+    # initial parsing data
     @index = 0
     @tokens = []
     @level = 0
-    @state ?= if @input.match /<body/ then 'h-block' else 'm-block'
     @states = [@state]
+
+  # Parse a text into `Token` list or add them to the exisitng one if called
+  # again.
+  #
+  # @param {String} text to be parsed (defaults to @input)
+  # @return {Parser} for command concatenation
+  parse: (text) ->
+    if text then @input += text else text = @input
+    debug "pre optimizations for domain #{@domain}" if debug.enabled
+    for name, rule of preLibs
+      continue unless rule[@domain]
+      old = text if debugRule
+      text = rule[@domain] text
+      debugRule "changed by rule #{name}" if debugRule and old isnt text
+    debug "start transformation in state #{@state}" if debug.enabled
+    @lexer text
 
   # Run parsing a chunk of the input.
   #
   # @param {String} [chars] the part to be parsed now (may be called from lexer function recursivly)
-  parse: (chars = @input) ->
+  lexer: (chars) ->
     while chars.length
       if debug.enabled
         ds = util.inspect chars.substr(0, 30).replace /\n/g, '\\n'
-        debugData "parse index:#{@index} #{ds} as #{@state}" if debugData.enabled
+        debugData "parse index:#{@index} #{chalk.grey ds} in state #{@state}" if debugData.enabled
       done = false
       # try rules for state
       for rule in lexer[@state]
         continue unless @state in rule.state
+        debugRule "check rule #{rule.name}: #{chalk.grey rule.re}" if debugRule
         if m = rule.re.exec chars
           if skip = rule.fn?.call this, m
             chars = chars.substr skip
             done = true
+            break
       # check for problems
       unless done
         throw new Error "Not parseable maybe missing a rule at line #{@pos()}"
@@ -152,7 +169,7 @@ class Parser
     t.index ?= @index
     t.pos = @pos()
     @tokens.push t
-    debugData "add token #{util.inspect(t).replace /\n */g, ' '}" if debugData.enabled
+    debugData "add token #{chalk.grey util.inspect(t).replace /\n */g, ' '}" if debugData.enabled
     if t.nesting > 0
       @state = t.state if t.state
       @states.push @state
@@ -201,24 +218,11 @@ class Parser
     if @level
       unless @autoclose @states[0]
         throw new Error "Not all elements closed correctly (ending in level #{@level})"
+    debug "Done parsing" if debug.enabled
     # return token list
     @tokens
 
 
 
-# Parse a text into `Token` list.
-#
-# @param `String` text to be parsed
-# @param `String` [state] to parse from (default: 'm-block')
-# @return `Array<Token>` token list
-module.exports = (text, state = 'm-block') ->
-  domain = state.split(/-/)[0]
-  debug "pre optimizations for domain #{domain}" if debug.enabled
-  for name, rule of preLibs
-    continue unless rule[domain]
-    text = rule[domain] text
-  debug "start transformation in state #{state}" if debug.enabled
-  parser = new Parser text, state
-  parser.parse()
-  debug "Done parsing" if debug.enabled
-  parser.end()
+# Make class available from the outside
+module.exports = Parser
