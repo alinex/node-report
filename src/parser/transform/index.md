@@ -15,7 +15,8 @@ domains are:
 Within the rules the new state may be set to `-<name>` meaning that the domain
 before will be kept.
 
-Markdown parsing is based on http://spec.commonmark.org/.
+Markdown parsing is based on http://spec.commonmark.org/ and the example from there
+are checked against this implementation, too.
 
 
 Modules

@@ -1,4 +1,4 @@
-# Detect Headings
+# Text Paragraph
 # =================================================
 
 # Transformer rules
@@ -8,26 +8,23 @@ module.exports =
 
   md:
     state: ['m-block', 'mh-block']
-    re: /^(\n*(#{1,6}) )([^\n]+)(?:\n|$)/
+    re: /^(\n*)([^\n]+)(\n|$)/
     fn: (m) ->
-      level = m[2].length
+      if m[1].length is 0 and @tokens[@tokens.length - 1]?.type is 'paragraph'
+        @tokens.pop()
       # opening
       @add
-        type: 'heading'
-        data:
-          level: level
+        type: 'paragraph'
         nesting: 1
         state: '-inline'
       @index += m[1].length
       # parse subtext
-      @lexer m[3]
+      @lexer m[2]
       # closing
+      @index += m[3].length
       @add
-        type: 'heading'
-        data:
-          level: level
+        type: 'paragraph'
         nesting: -1
-        index: @index + m[1].length + m[3].length
       # done
       m[0].length
 

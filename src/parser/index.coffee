@@ -53,7 +53,8 @@ libs = (type) ->
   map = {}
   for file in list
     continue unless path.extname(file) in ['.js', '.coffee']
-    map[path.basename file, path.extname file] = require "./#{type}/#{file}"
+    name = path.basename(file, path.extname file).replace /^\d+_/, ''
+    map[name] = require "./#{type}/#{file}"
   map
 
 # Load helper
@@ -132,7 +133,7 @@ class Parser
   lexer: (chars) ->
     while chars.length
       if debug.enabled
-        ds = util.inspect chars.substr(0, 30).replace /\n/g, '\\n'
+        ds = util.inspect chars.substr(0, 30) #.replace /\n/g, '\\n'
         debugData "parse index:#{@index} #{chalk.grey ds} in state #{@state}" if debugData.enabled
       done = false
       # try rules for state
@@ -155,7 +156,8 @@ class Parser
   add: (t) ->
     prev = if @tokens[@tokens.length - 1] then @tokens[@tokens.length - 1] else null
     if t.nesting < 0
-      @state = @states.pop()
+      @states.pop()
+      @state = @states[@states.length - 1]
       @level--
     t.nesting ?= 0
     t.level = @level
