@@ -125,16 +125,27 @@ class Parser
       text = rule[@domain] text
       debugRule "changed by rule #{name}" if debugRule and old isnt text
     debug "start transformation in state #{@state}" if debug.enabled
+    start = @tokens.length
     @lexer text
+    end = @tokens.length - 1
+    if start <= end
+      debug "post optimization"
+      for name, lib of postLibs
+        for sub, rule of lib
+          for token, num in @tokens
+            continue if token.type isnt rule.type
+            continue if rule.state and not token.state in rule.state
+            debugRule "call rule #{name}:#{sub} for token ##{num}" if debugRule
+            rule.fn.call this, num, token
 
   # Run parsing a chunk of the input.
   #
   # @param {String} [chars] the part to be parsed now (may be called from lexer function recursivly)
   lexer: (chars) ->
     while chars.length
-      if debug.enabled
-        ds = util.inspect chars.substr(0, 30) #.replace /\n/g, '\\n'
-        debugData "parse index:#{@index} #{chalk.grey ds} in state #{@state}" if debugData.enabled
+      if debugData.enabled
+        ds = util.inspect chars.substr 0, 30
+        debugData "parse index:#{@index} #{chalk.grey ds} in state #{@state}"
       done = false
       # try rules for state
       for rule in lexer[@state]
