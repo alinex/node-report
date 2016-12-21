@@ -1,7 +1,11 @@
-# Detect Headings
-# =================================================
+###
+Headings
+=================================================
+###
+
 
 # Transformer rules
+# ----------------------------------------------
 #
 # @type {Object<Transformer>} rules to transform text into tokens
 module.exports =

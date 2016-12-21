@@ -79,3 +79,40 @@ module.exports =
         nesting: -1
       # done
       m[0].length
+
+  setext:
+    state: ['m-block', 'mh-block']
+    re: ///
+      ^(\n*       # 1: start of line
+        \ {0,3}   # indented by 1-3 spaces (optional)
+      )           # end of start
+      ([\s\S]*?)  # 2: text with trailing spaces (optional)
+      (\n\s{0,3}[=-]{3,}) # 3: type of heading
+      (           # 4: ending heading
+        [\ \t]*   # trailing spaces (optional)
+        (?:\n|$)  # end of line
+      )
+      ///
+    fn: (m) ->
+      level = switch m[3].trim()[0]
+        when '=' then 1
+        when '-' then 2
+      # opening
+      @add
+        type: 'heading'
+        data:
+          level: level
+        nesting: 1
+        state: '-inline'
+      @index += m[1].length
+      # parse subtext
+      @lexer m[2]
+      # closing
+      @index += m[4].length
+      @add
+        type: 'heading'
+        data:
+          level: level
+        nesting: -1
+      # done
+      m[0].length

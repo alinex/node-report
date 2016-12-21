@@ -1,14 +1,13 @@
 ### eslint-env node, mocha ###
-
 test = require './test'
 
 describe "parser", ->
 
   describe "markdown", ->
 
-    describe "heading", ->
+    describe "atx heading", ->
 
-      it "should work with ATX level 1", ->
+      it "should work with level 1", ->
         test.success '# foo', [
           type: 'heading'
           data:
@@ -24,7 +23,7 @@ describe "parser", ->
             level: 1
           nesting: -1
         ]
-      it "should work with ATX level 2", ->
+      it "should work with level 2", ->
         test.success '## foo', [
           type: 'heading'
           data:
@@ -40,7 +39,7 @@ describe "parser", ->
             level: 2
           nesting: -1
         ]
-      it "should work with ATX level 3", ->
+      it "should work with level 3", ->
         test.success '### foo', [
           type: 'heading'
           data:
@@ -56,7 +55,7 @@ describe "parser", ->
             level: 3
           nesting: -1
         ]
-      it "should work with ATX level 4", ->
+      it "should work with level 4", ->
         test.success '#### foo', [
           type: 'heading'
           data:
@@ -72,7 +71,7 @@ describe "parser", ->
             level: 4
           nesting: -1
         ]
-      it "should work with ATX level 5", ->
+      it "should work with level 5", ->
         test.success '##### foo', [
           type: 'heading'
           data:
@@ -88,7 +87,7 @@ describe "parser", ->
             level: 5
           nesting: -1
         ]
-      it "should work with ATX level 6", ->
+      it "should work with level 6", ->
         test.success '###### foo', [
           type: 'heading'
           data:
@@ -406,5 +405,39 @@ describe "parser", ->
           type: 'heading'
           data:
             level: 3
+          nesting: -1
+        ]
+
+    describe "setext heading", ->
+
+      it "should work with level 1", ->
+        test.success 'Foo bar\n=========', [
+          type: 'heading'
+          data:
+            level: 1
+          nesting: 1
+        ,
+          type: 'text'
+          data:
+            text: 'Foo bar'
+        ,
+          type: 'heading'
+          data:
+            level: 1
+          nesting: -1
+        ]
+        test.success 'Foo bar\n---------', [
+          type: 'heading'
+          data:
+            level: 2
+          nesting: 1
+        ,
+          type: 'text'
+          data:
+            text: 'Foo bar'
+        ,
+          type: 'heading'
+          data:
+            level: 2
           nesting: -1
         ]

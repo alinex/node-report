@@ -15,7 +15,7 @@ Text may also contain some other inline markup.
 module.exports =
 
   char:
-    state: ['m-inline', 'mh-inline', 'h-inline']
+    state: ['m-inline', 'mh-inline', 'h-inline', 'cache']
     re: /^./
     fn: (m) ->
       last = @tokens[@tokens.length-1]

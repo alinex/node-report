@@ -1,6 +1,4 @@
 ### eslint-env node, mocha ###
-
-parser = require '../../../../src/parser'
 test = require './test'
 
 describe "parser", ->

@@ -21,6 +21,7 @@
 # - `String` - `index` position from input
 # - `String` - `pos` current position in input text
 # - `String` - `state` that is allowed within the current element
+# - `Boolean` - `closed` is set to true on blank line to stop continuing it
 
 
 # Node Modules
@@ -148,6 +149,7 @@ class Parser
         debugData "parse index:#{@index} #{chalk.grey ds} in state #{@state}"
       done = false
       # try rules for state
+      console.log @state
       for rule in lexer[@state]
         continue unless @state in rule.state
         debugRule "check rule #{rule.name}: #{chalk.grey rule.re}" if debugRule
@@ -217,7 +219,7 @@ class Parser
   # @return {String} line and column position
   pos: ->
     part = @input.substr 0, @index
-    line = part.match(/\n/g) ? 0
+    line = part.match(/\n/g)?.length ? 0
     col = @index - part.lastIndexOf('\n') - 1
     "#{line}:#{col}"
 

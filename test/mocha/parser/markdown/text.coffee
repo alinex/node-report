@@ -1,10 +1,4 @@
-chai = require 'chai'
-expect = chai.expect
 ### eslint-env node, mocha ###
-
-debug = require('debug') 'test'
-util = require 'util'
-parser = require '../../../../src/parser'
 test = require './test'
 
 describe "parser", ->
