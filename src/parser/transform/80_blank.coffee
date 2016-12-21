@@ -14,7 +14,7 @@ module.exports =
 
   empty:
     state: ['m-block', 'mh-block']
-    re: /^\n\s*/ # multiple empty lines
+    re: /^\s*\n\s*/ # multiple empty lines
     fn: (m) ->
       # check for concatenating
       last = @tokens[@tokens.length - 1]

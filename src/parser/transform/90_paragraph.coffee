@@ -14,6 +14,7 @@ module.exports =
       last = @tokens[@tokens.length - 1]
       text = @tokens[@tokens.length - 2]
       if last?.nesting is -1 and text?.type is 'text' and not last?.closed
+        # remove old closing tag and continue on existing as if it was just created
         text.data.text += '\n'
         @tokens.pop()
         @states.push text.state
@@ -30,7 +31,7 @@ module.exports =
       # closing
       @index += m[3].length
       @add
-        type: 'paragraph'
+        type: @tokens[@tokens.length - 2].type
         nesting: -1
       # done
       m[0].length

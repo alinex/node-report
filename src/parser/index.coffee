@@ -149,7 +149,6 @@ class Parser
         debugData "parse index:#{@index} #{chalk.grey ds} in state #{@state}"
       done = false
       # try rules for state
-      console.log @state
       for rule in lexer[@state]
         continue unless @state in rule.state
         debugRule "check rule #{rule.name}: #{chalk.grey rule.re}" if debugRule
