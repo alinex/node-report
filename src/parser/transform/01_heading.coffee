@@ -1,21 +1,62 @@
-# Detect Headings
-# =================================================
+###
+Headings
+=================================================
+This supports ATX headings and Setext headings like defined in http://spec.commonmark.org/.
+###
+
 
 # Transformer rules
+# ----------------------------------------------
 #
 # @type {Object<Transformer>} rules to transform text into tokens
 module.exports =
 
-  md:
+  empty:
     state: ['m-block', 'mh-block']
     re: ///
       ^(\n*       # 1: start of line
-        \ {0,3}   # indented by 1-3 spaces
+        \ {0,3}   # indented by 1-3 spaces (optional)
+        (\#{1,6}) # 2: level 1-6
+      )           # end of start
+      (           # 4: ending heading
+        (?:\ +\#*)? # closing sequence with space and hashes (optional)
+        \ *       # trailing spaces (optional)
+        (?:\n|$)  # end of line
+      )
+      ///
+    fn: (m) ->
+      level = m[2].length
+      # opening
+      @add
+        type: 'heading'
+        data:
+          level: level
+        nesting: 1
+        state: '-inline'
+      # closing
+      @index += m[0].length
+      @add
+        type: 'heading'
+        data:
+          level: level
+        nesting: -1
+      # done
+      m[0].length
+
+  atx:
+    state: ['m-block', 'mh-block']
+    re: ///
+      ^(\n*       # 1: start of line
+        \ {0,3}   # indented by 1-3 spaces (optional)
         (\#{1,6}) # 2: level 1-6
         [\ \t]+   # at least one space
       )           # end of start
-      ([^\n]*?)   # 3: text with optional trailing spaces
-      (\n|$)      # 4: end of line
+      ([^\n]*?)   # 3: text with trailing spaces (optional)
+      (           # 4: ending heading
+        (?:\ +\#*)? # closing sequence with space and hashes (optional)
+        \ *       # trailing spaces (optional)
+        (?:\n|$)  # end of line
+      )
       ///
     fn: (m) ->
       level = m[2].length
@@ -28,39 +69,13 @@ module.exports =
         state: '-inline'
       @index += m[1].length
       # parse subtext
-      text = m[3].replace /\s+$/, ''
-      @lexer text
+      @lexer m[3]
       # closing
-      @index += m[3].length - text.length + m[4].length
+      @index += m[4].length
       @add
         type: 'heading'
         data:
           level: level
         nesting: -1
-      # done
-      m[0].length
-
-  html:
-    state: ['h-block', 'mh-block']
-    re: /^<(\/)h([1-6])>/
-    fn: (m) ->
-      # check for autoclose
-      if @state.match /m?h-inline/
-        return unless @autoclose '-block'
-      # add token
-      level = parseInt m[2]
-      unless m[1]
-        @add
-          type: 'heading'
-          data:
-            level: level
-          nesting: 1
-          state: '-inline'
-      else
-        @add
-          type: 'heading'
-          data:
-            level: level
-          nesting: -1
       # done
       m[0].length

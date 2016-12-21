@@ -1,7 +1,15 @@
-# Text Phrases
-# =================================================
+###
+Inline Text
+=================================================
+Text may also contain some other inline markup.
+
+> In the post optimization masking of characters (used to prevent interpreting special
+> chars as markdown) is replaced.
+###
+
 
 # Transformer rules
+# ----------------------------------------------
 #
 # @type {Object<Transformer>} rules to transform text into tokens
 module.exports =

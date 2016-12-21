@@ -1,10 +1,5 @@
-chai = require 'chai'
-expect = chai.expect
 ### eslint-env node, mocha ###
 
-debug = require('debug') 'test'
-util = require 'util'
-parser = require '../../../../src/parser'
 test = require './test'
 
 describe "parser", ->
@@ -157,5 +152,259 @@ describe "parser", ->
           type: 'heading'
           data:
             level: 1
+          nesting: -1
+        ]
+
+      it "should work 1-3 spaces indention", ->
+        test.success ' ### foo', [{type: 'heading'}, {type: 'text'}, {type: 'heading'}]
+        test.success '  ## foo', [{type: 'heading'}, {type: 'text'}, {type: 'heading'}]
+        test.success '   # foo', [{type: 'heading'}, {type: 'text'}, {type: 'heading'}]
+
+      it "should fail with over 3 spaces indention", ->
+        test.success '    # foo', [{type: 'paragraph'}, {type: 'text'}, {type: 'paragraph'}]
+        test.success '\t# foo', [{type: 'paragraph'}, {type: 'text'}, {type: 'paragraph'}]
+
+      it "should work with closing # characters", ->
+        test.success '## foo ##', [
+          type: 'heading'
+          data:
+            level: 2
+          nesting: 1
+        ,
+          type: 'text'
+          data:
+            text: 'foo'
+        ,
+          type: 'heading'
+          data:
+            level: 2
+          nesting: -1
+        ]
+        test.success '  ###   bar    ###', [
+          type: 'heading'
+          data:
+            level: 3
+          nesting: 1
+        ,
+          type: 'text'
+          data:
+            text: 'bar'
+        ,
+          type: 'heading'
+          data:
+            level: 3
+          nesting: -1
+        ]
+
+      it "should work with more or less # characters at the end than at the start", ->
+        test.success '# foo ##################################', [
+          type: 'heading'
+          data:
+            level: 1
+          nesting: 1
+        ,
+          type: 'text'
+          data:
+            text: 'foo'
+        ,
+          type: 'heading'
+          data:
+            level: 1
+          nesting: -1
+        ]
+        test.success '##### foo ##', [
+          type: 'heading'
+          data:
+            level: 5
+          nesting: 1
+        ,
+          type: 'text'
+          data:
+            text: 'foo'
+        ,
+          type: 'heading'
+          data:
+            level: 5
+          nesting: -1
+        ]
+
+      it "should work with closing # characters and ending spaces", ->
+        test.success '### foo ### ', [
+          type: 'heading'
+          data:
+            level: 3
+          nesting: 1
+        ,
+          type: 'text'
+          data:
+            text: 'foo'
+        ,
+          type: 'heading'
+          data:
+            level: 3
+          nesting: -1
+        ]
+
+      it "should work with closing # characters and others go into text", ->
+        test.success '### foo ### b', [
+          type: 'heading'
+          data:
+            level: 3
+          nesting: 1
+        ,
+          type: 'text'
+          data:
+            text: 'foo ### b'
+        ,
+          type: 'heading'
+          data:
+            level: 3
+          nesting: -1
+        ]
+
+      it "should work with closing # characters not separated go into text", ->
+        test.success '# foo#', [
+          type: 'heading'
+          data:
+            level: 1
+          nesting: 1
+        ,
+          type: 'text'
+          data:
+            text: 'foo#'
+        ,
+          type: 'heading'
+          data:
+            level: 1
+          nesting: -1
+        ]
+
+      it "should work with escaped closing # characters go into text", ->
+        test.success '### foo \\###', [
+          type: 'heading'
+          data:
+            level: 3
+          nesting: 1
+        ,
+          type: 'text'
+          data:
+            text: 'foo ###'
+        ,
+          type: 'heading'
+          data:
+            level: 3
+          nesting: -1
+        ]
+        test.success '## foo #\\##', [
+          type: 'heading'
+          data:
+            level: 2
+          nesting: 1
+        ,
+          type: 'text'
+          data:
+            text: 'foo ###'
+        ,
+          type: 'heading'
+          data:
+            level: 2
+          nesting: -1
+        ]
+        test.success '# foo \\#', [
+          type: 'heading'
+          data:
+            level: 1
+          nesting: 1
+        ,
+          type: 'text'
+          data:
+            text: 'foo #'
+        ,
+          type: 'heading'
+          data:
+            level: 1
+          nesting: -1
+        ]
+
+      it "should work without separation to surrounding content", ->
+        test.success '****\n## foo\n****', [
+          type: 'thematic_break'
+        ,
+          type: 'heading'
+          data:
+            level: 2
+          nesting: 1
+        ,
+          type: 'text'
+          data:
+            text: 'foo'
+        ,
+          type: 'heading'
+          data:
+            level: 2
+          nesting: -1
+        ,
+          type: 'thematic_break'
+        ]
+        test.success 'Foo bar\n# baz\nBar foo', [
+          type: 'paragraph'
+        ,
+          type: 'text'
+        ,
+          type: 'paragraph'
+        ,
+          type: 'heading'
+          data:
+            level: 1
+          nesting: 1
+        ,
+          type: 'text'
+          data:
+            text: 'baz'
+        ,
+          type: 'heading'
+          data:
+            level: 1
+          nesting: -1
+        ,
+          type: 'paragraph'
+        ,
+          type: 'text'
+        ,
+          type: 'paragraph'
+        ]
+
+      it "should work with empty headings", ->
+        test.success '## ', [
+          type: 'heading'
+          data:
+            level: 2
+          nesting: 1
+        ,
+          type: 'heading'
+          data:
+            level: 2
+          nesting: -1
+        ]
+        test.success '#', [
+          type: 'heading'
+          data:
+            level: 1
+          nesting: 1
+        ,
+          type: 'heading'
+          data:
+            level: 1
+          nesting: -1
+        ]
+        test.success '### ###', [
+          type: 'heading'
+          data:
+            level: 3
+          nesting: 1
+        ,
+          type: 'heading'
+          data:
+            level: 3
           nesting: -1
         ]
