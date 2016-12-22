@@ -17,7 +17,7 @@ module.exports =
     re: /^\s*\n\s*/ # multiple empty lines
     fn: (m) ->
       # check for concatenating
-      last = @tokens[@tokens.length - 1]
+      last = @get -1
       last.closed = true if last
       # done
       @index += m[0].length

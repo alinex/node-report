@@ -9,19 +9,10 @@ describe "parser", ->
 
       it "should ignore blank lines at beginnin and end", ->
         test.success '\n  \naaa\n  \n# bbb\n  \n', [
-          type: 'paragraph'
-        ,
-          type: 'text'
-          data:
-            text: 'aaa'
-        ,
-          type: 'paragraph'
-        ,
-          type: 'heading'
-        ,
-          type: 'text'
-          data:
-            text: 'bbb'
-        ,
-          type: 'heading'
+          {type: 'paragraph'}
+          {type: 'text', data: {text: 'aaa'}}
+          {type: 'paragraph'}
+          {type: 'heading'}
+          {type: 'text', data: {text: 'bbb'}}
+          {type: 'heading'}
         ]

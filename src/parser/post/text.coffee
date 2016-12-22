@@ -8,6 +8,6 @@ module.exports =
 
   masked:
     type: 'text'
-    state: ['m-inline', 'mh-inline', 'cache']
+    state: ['m-inline', 'mh-inline']
     fn: (num, token) ->
       token.data.text = token.data.text.replace /\\#/g, '#'

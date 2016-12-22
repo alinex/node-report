@@ -112,6 +112,59 @@ class Parser
     @level = 0
     @states = [@state]
 
+  # Get the defined number of token.
+  #
+  # @return {Token} at the given position
+  get: (num) ->
+    if num >= 0 then @tokens[num]
+    else @tokens[@tokens.length + num]
+
+  # Insert token at defined position
+  #
+  # @param {Integer} [idx] position in tokenlist to add new token
+  # @param {Token} t new token to be added
+  insert: (idx, t) ->
+    idx = @tokens.length unless idx
+    # auto add token info
+    prev = @get idx - 1
+    t.nesting ?= 0
+    if prev
+      t.level ?= prev.level + prev.nesting
+      t.index ?= @index
+      t.state ?= prev.state
+      t.state = prev.state.split(/-/)[0] + t.state if t.state?[0] is '-'
+    else
+      t.level ?= @level
+      t.index ?= @index
+      t.state ?= @state
+      t.state = @state.split(/-/)[0] + t.state if t.state?[0] is '-'
+    t.parent = switch
+      when t.nesting is -1
+        if prev.level > t.level then prev.parent?.parent
+        else prev.parent
+      when prev?.nesting is 1 then prev
+      else prev?.parent ? null
+    t.pos = @pos t.index
+    # add token to list
+    if debugData.enabled and @tokens.length is idx
+      debugData "insert token #{chalk.grey util.inspect(t).replace /\n */g, ' '}"
+    @tokens.splice idx, 0, t
+
+  # Add a token to the internal list.
+  #
+  # @param {Array<Token>} t `Token` object to be added
+  add: (t) ->
+    if t.nesting < 0
+      @states.pop()
+      @state = @states[@states.length - 1]
+      @level--
+    debugData "add token #{chalk.grey util.inspect(t).replace /\n */g, ' '}" if debugData.enabled
+    @insert null, t
+    if t.nesting > 0
+      @state = t.state if t.state
+      @states.push @state
+      @level++
+
   # Parse a text into `Token` list or add them to the exisitng one if called
   # again.
   #
@@ -133,9 +186,12 @@ class Parser
       debug "post optimization"
       for name, lib of postLibs
         for sub, rule of lib
-          for token, num in @tokens
+          num = -1
+          while ++num < @tokens.length and num < 10
+            token = @get num
             continue if token.type isnt rule.type
             continue if rule.state and not token.state in rule.state
+            continue if rule.nesting and token.nesting isnt rule.nesting
             debugRule "call rule #{name}:#{sub} for token ##{num}" if debugRule
             rule.fn.call this, num, token
 
@@ -161,33 +217,6 @@ class Parser
       unless done
         throw new Error "Not parseable maybe missing a rule at line #{@pos()}"
     this
-
-  # Add a token to the internal list.
-  #
-  # @param {Array<Token>} t `Token` object to be added
-  add: (t) ->
-    prev = if @tokens[@tokens.length - 1] then @tokens[@tokens.length - 1] else null
-    if t.nesting < 0
-      @states.pop()
-      @state = @states[@states.length - 1]
-      @level--
-    t.nesting ?= 0
-    t.level = @level
-    t.parent = switch
-      when prev?.nesting is 1 then prev
-      when t.nesting is -1
-        if prev.level > @level then prev.parent.parent
-        else prev.parent
-      else prev?.parent ? null
-    t.state = @state.split(/-/)[0] + t.state if t.state?[0] is '-'
-    t.index ?= @index
-    t.pos = @pos()
-    @tokens.push t
-    debugData "add token #{chalk.grey util.inspect(t).replace /\n */g, ' '}" if debugData.enabled
-    if t.nesting > 0
-      @state = t.state if t.state
-      @states.push @state
-      @level++
 
   # Check if tags could be autoclosed to come into defined state.
   #
@@ -215,11 +244,12 @@ class Parser
 
   # Get the current position in file.
   #
+  # @param {Integer} index position in source text
   # @return {String} line and column position
-  pos: ->
-    part = @input.substr 0, @index
+  pos: (index = @index) ->
+    part = @input.substr 0, index
     line = part.match(/\n/g)?.length ? 0
-    col = @index - part.lastIndexOf('\n') - 1
+    col = index - part.lastIndexOf('\n') - 1
     "#{line}:#{col}"
 
   # End the parsing and check the result.

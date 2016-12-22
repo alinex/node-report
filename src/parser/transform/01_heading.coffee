@@ -39,8 +39,7 @@ module.exports =
         type: 'heading'
         data:
           level: level
-        nesting: -1#
-        closed: true
+        nesting: -1
       # done
       m[0].length
 

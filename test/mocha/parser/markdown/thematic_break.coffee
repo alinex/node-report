@@ -50,19 +50,13 @@ describe "parser", ->
 
       it "should work without blank lines before and after", ->
         test.success "foo\n***\nbar", [
-          type: 'paragraph'
-        ,
-          type: 'text'
-        ,
-          type: 'paragraph'
-        ,
-          type: 'thematic_break'
-        ,
-          type: 'paragraph'
-        ,
-          type: 'text'
-        ,
-          type: 'paragraph'
+          {type: 'paragraph', nesting: 1}
+          {type: 'text', data: {text: 'foo'}}
+          {type: 'paragraph', nesting: -1}
+          {type: 'thematic_break'}
+          {type: 'paragraph', nesting: 1}
+          {type: 'text', data: {text: 'bar'}}
+          {type: 'paragraph', nesting: -1}
         ]
 
 #If a line of dashes that meets the above conditions for being a thematic break could also be interpreted as the underline of a setext heading, the interpretation as a setext heading takes precedence. Thus, for example, this is a setext heading, not a paragraph followed by a thematic break:

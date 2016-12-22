@@ -15,10 +15,10 @@ Text may also contain some other inline markup.
 module.exports =
 
   char:
-    state: ['m-inline', 'mh-inline', 'h-inline', 'cache']
+    state: ['m-inline', 'mh-inline', 'h-inline']
     re: /^./
     fn: (m) ->
-      last = @tokens[@tokens.length-1]
+      last = @get -1
       if last.type is 'text'
         last.data.text += m[0]
       else
@@ -26,6 +26,6 @@ module.exports =
           type: 'text'
           data:
             text: m[0]
-      @index++
       # done processing
+      @index++
       m[0].length
