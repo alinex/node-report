@@ -199,7 +199,7 @@ describe "parser", ->
 
     describe "setext heading", ->
 
-      it "should work with level 1", ->
+      it "should work with level 1 and 2", ->
         test.success 'Foo bar\n=========', [
           {type: 'heading', data: {level: 1}, nesting: 1}
           {type: 'text', data: {text: 'Foo bar'}}
@@ -210,3 +210,89 @@ describe "parser", ->
           {type: 'text', data: {text: 'Foo bar'}}
           {type: 'heading', data: {level: 2}, nesting: -1}
         ]
+
+      it "should work with multiline header", ->
+        test.success 'Foo bar\nbaz\n===', [
+          {type: 'heading', data: {level: 1}, nesting: 1}
+          {type: 'text', data: {text: 'Foo bar\nbaz'}}
+          {type: 'heading', data: {level: 1}, nesting: -1}
+        ]
+
+      it "should work with different underline length", ->
+        test.success 'Foo\n-------------------------\nFoo\n=', [
+          {type: 'heading', data: {level: 2}, nesting: 1}
+          {type: 'text', data: {text: 'Foo'}}
+          {type: 'heading', data: {level: 2}, nesting: -1}
+          {type: 'heading', data: {level: 1}, nesting: 1}
+          {type: 'text', data: {text: 'Foo'}}
+          {type: 'heading', data: {level: 1}, nesting: -1}
+        ]
+
+      it "should work with different indention", ->
+        test.success '   Foo\n---\n  Foo\n-----\n  Foo\n  ===', [
+          {type: 'heading', data: {level: 2}, nesting: 1}
+          {type: 'text', data: {text: 'Foo'}}
+          {type: 'heading', data: {level: 2}, nesting: -1}
+          {type: 'heading', data: {level: 2}, nesting: 1}
+          {type: 'text', data: {text: 'Foo'}}
+          {type: 'heading', data: {level: 2}, nesting: -1}
+          {type: 'heading', data: {level: 1}, nesting: 1}
+          {type: 'text', data: {text: 'Foo'}}
+          {type: 'heading', data: {level: 1}, nesting: -1}
+        ]
+#Four spaces indent is too much:
+#Example 54Try It
+#
+#    Foo
+#    ---
+#
+#    Foo
+#---
+#
+#<pre><code>Foo
+#---
+#
+#Foo
+#</code></pre>
+#<hr />
+
+      it "should work with different indention of underline", ->
+        test.success 'Foo\n   ----      ', [
+          {type: 'heading', data: {level: 2}, nesting: 1}
+          {type: 'text', data: {text: 'Foo'}}
+          {type: 'heading', data: {level: 2}, nesting: -1}
+        ]
+
+      it "should fail with 4 or more spaces of indention of underline", ->
+        test.success 'Foo\n    ---', [
+          {type: 'paragraph', nesting: 1}
+          {type: 'text', data: {text: 'Foo\n---'}}
+          {type: 'paragraph', nesting: -1}
+        ]
+
+      it "should fail with spaces in underline", ->
+        test.success 'Foo\n= =\n\nFoo\n--- -', [
+          {type: 'paragraph', nesting: 1}
+          {type: 'text', data: {text: 'Foo\n= ='}}
+          {type: 'paragraph', nesting: -1}
+          {type: 'paragraph', nesting: 1}
+          {type: 'text', data: {text: 'Foo'}}
+          {type: 'paragraph', nesting: -1}
+          {type: 'thematic_break'}
+        ]
+#Trailing spaces in the content line do not cause a line break:
+#Example 58Try It
+#
+#Foo
+#-----
+#
+#<h2>Foo</h2>
+#
+#Nor does a backslash at the end:
+#Example 59Try It
+#
+#Foo\
+#----
+#
+#<h2>Foo\</h2>
+#

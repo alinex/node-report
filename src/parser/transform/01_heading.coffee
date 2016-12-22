@@ -88,7 +88,7 @@ module.exports =
         \ {0,3}   # indented by 1-3 spaces (optional)
       )           # end of start
       ([\s\S]*?)  # 2: text with trailing spaces (optional)
-      (\n\s{0,3}[=-]{3,}) # 3: type of heading
+      (\n\s{0,3}[=-]{1,}) # 3: type of heading
       (           # 4: ending heading
         [\ \t]*   # trailing spaces (optional)
         (?:\n|$)  # end of line

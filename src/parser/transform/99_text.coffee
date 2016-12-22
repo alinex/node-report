@@ -16,7 +16,7 @@ module.exports =
 
   char:
     state: ['m-inline', 'mh-inline', 'h-inline']
-    re: /^./
+    re: /^[\s\S]/
     fn: (m) ->
       last = @get -1
       if last.type is 'text'
