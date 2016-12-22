@@ -7,7 +7,7 @@ describe "parser", ->
 
     describe "blank", ->
 
-      it "should ignore blank lines at beginnin and end", ->
+      it "should ignore blank lines at beginning and end", ->
         test.success '\n  \naaa\n  \n# bbb\n  \n', [
           {type: 'paragraph'}
           {type: 'text', data: {text: 'aaa'}}

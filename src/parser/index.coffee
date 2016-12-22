@@ -150,7 +150,7 @@ class Parser
       debugData "insert token #{chalk.grey util.inspect(t).replace /\n */g, ' '}"
     @tokens.splice idx, 0, t
 
-  # Add a token to the internal list.
+  # Add a token add the end of the internal list.
   #
   # @param {Array<Token>} t `Token` object to be added
   add: (t) ->

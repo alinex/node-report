@@ -14,7 +14,7 @@ module.exports =
     state: ['m-block', 'mh-block']
     re: ///
       ^(\n*       # 1: start of line
-        \ {0,3}   # indented by 1-3 spaces (optional)
+        [\t\ ]*   # indented by spaces (optional)
       )           # end of start
       (           # 2: ending heading
         [^\n]+    # content
@@ -24,19 +24,12 @@ module.exports =
     fn: (m) ->
       # check for concatenating
       last = @get -1
-      if last?.nesting is 0 and last.content and not last.closed
-        # insert padding for accurate positioning
-        pad = util.string.repeat '\ufffd', m[1].length
-        # add text
-        last.content.text += "\n#{pad}#{m[2]}"
-      else
-        # opening
-        @add
-          type: 'paragraph'
-          state: '-inline'
-          content:
-            index: @index + m[1].length
-            text: m[2]
+      return false unless last and last.type is 'paragraph'
+      return unless last?.nesting is 0 and last.content and not last.closed
+      # insert padding for accurate positioning
+      pad = util.string.repeat '\ufffd', m[1].length
+      # add text
+      last.content.text += "\n#{pad}#{m[2]}"
       # done
       @index += m[0].length
       m[0].length

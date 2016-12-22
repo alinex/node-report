@@ -6,8 +6,12 @@
 # @type {Object<Transformer>} rules to transform text into tokens
 module.exports =
 
-  masked:
+  character:
     type: 'text'
     state: ['m-inline', 'mh-inline']
     fn: (num, token) ->
-      token.data.text = token.data.text.replace /\\#/g, '#'
+      token.data.text = token.data.text
+      .replace /\\#/g, '#'    # remove mask
+      .replace /\ufffd/g, ''  # remove not displayable character
+      .replace /(?:\t|\ \ )[\t\ ]*\n/g, '\\\n' # line break
+      .replace /(\S)(?:\t|\ \ )[\t\ ]*$/, '$1' # right trim last line
