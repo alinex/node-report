@@ -23,7 +23,7 @@ module.exports =
       /// # one line
     fn: (m) ->
       # check for concatenating
-      last = @get -1
+      last = @get @idx ? -1
       return false unless last and last.type is 'paragraph'
       return unless last?.nesting is 0 and last.content and not last.closed
       # insert padding for accurate positioning

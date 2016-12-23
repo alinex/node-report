@@ -67,8 +67,8 @@ module.exports =
           level: level
         nesting: 1
         state: '-inline'
-      @index += m[1].length
       # parse subtext
+      @index += m[1].length
       @lexer m[3]
       # closing
       @index += m[4].length
@@ -105,8 +105,8 @@ module.exports =
           level: level
         nesting: 1
         state: '-inline'
-      @index += m[1].length
       # parse subtext
+      @index += m[1].length
       @lexer m[2]
       # closing
       @index += m[4].length

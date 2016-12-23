@@ -280,19 +280,19 @@ describe "parser", ->
           {type: 'paragraph', nesting: -1}
           {type: 'thematic_break'}
         ]
-#Trailing spaces in the content line do not cause a line break:
-#Example 58Try It
-#
-#Foo
-#-----
-#
-#<h2>Foo</h2>
-#
-#Nor does a backslash at the end:
-#Example 59Try It
-#
-#Foo\
-#----
-#
-#<h2>Foo\</h2>
-#
+
+      it "should work with trailing spaces removed", ->
+        test.success 'Foo  \n-----', [
+          {type: 'heading', data: {level: 2}, nesting: 1}
+          {type: 'text', data: {text: 'Foo'}}
+          {type: 'heading', data: {level: 2}, nesting: -1}
+        ]
+
+      it "should work with backslash at the end not replaced", ->
+        test.success 'Foo\\\n----', [
+          {type: 'heading', data: {level: 2}, nesting: 1}
+          {type: 'text', data: {text: 'Foo\\'}}
+          {type: 'heading', data: {level: 2}, nesting: -1}
+        ]
+
+# go on at example 60

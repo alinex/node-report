@@ -60,11 +60,14 @@ libs = (type) ->
 
 # Load helper
 preLibs = libs 'pre'
-debugRule "possible pre optimizations:", Object.keys preLibs if debugRule.enabled
+if debugRule.enabled
+  debugRule "possible pre optimizations:", util.inspect(Object.keys preLibs).replace /\n\s*/g, ' '
 transLibs = libs 'transform'
-debugRule "possible transformer:", Object.keys transLibs if debugRule.enabled
+if debugRule.enabled
+  debugRule "possible transformer:", util.inspect(Object.keys transLibs).replace /\n\s*/g, ' '
 postLibs = libs 'post'
-debugRule "possible post optimizations:", Object.keys preLibs if debugRule.enabled
+if debugRule.enabled
+  debugRule "possible post optimizations:", util.inspect(Object.keys preLibs).replace /\n\s*/g, ' '
 # collect possible states
 states = []
 for key, lib of transLibs
@@ -105,31 +108,34 @@ class Parser
   constructor: (@input = '', @state) ->
     @state ?= Parser.detect @input
     @state = START[@state] if START[@state]
+    @initialState = @state
     @domain = @state.split(/-/)[0]
-    # initial parsing data
-    @index = 0
+    # result collection
     @tokens = []
+    # initial parsing data
+    @token = -1
+    @index = 0
     @level = 0
-    @states = [@state]
 
   # Get the defined number of token.
   #
   # @return {Token} at the given position
-  get: (num) ->
+  get: (num = @token) ->
     if num >= 0 then @tokens[num]
     else @tokens[@tokens.length + num]
 
   # Insert token at defined position
   #
-  # @param {Integer} [idx] position in tokenlist to add new token
+  # @param {Integer} [num] position in tokenlist to add new token
   # @param {Token} t new token to be added
-  insert: (idx, t) ->
-    idx = @tokens.length unless idx
+  insert: (num, t) ->
+    num = @token + 1 unless num
+    @level-- if t.nesting < 0
     # auto add token info
-    prev = @get idx - 1
+    prev = @get num - 1
     t.nesting ?= 0
     if prev
-      t.level ?= prev.level + prev.nesting
+      t.level ?= prev.level + prev.nesting + (if t.nesting is -1 then -1 else 0)
       t.index ?= @index
       t.state ?= prev.state
       t.state = prev.state.split(/-/)[0] + t.state if t.state?[0] is '-'
@@ -146,24 +152,25 @@ class Parser
       else prev?.parent ? null
     t.pos = @pos t.index
     # add token to list
-    if debugData.enabled and @tokens.length is idx
-      debugData "insert token #{chalk.grey util.inspect(t).replace /\n */g, ' '}"
-    @tokens.splice idx, 0, t
+    if debugData.enabled
+      debugData "token insert ##{num}/#{@tokens.length} #{chalk.grey util.inspect(t).replace /\s*\n\s*/g, ' '}"
+    @tokens.splice num, 0, t
+    # set lexer for next round
+    @state = if t.nesting is 1 then t.state else t.parent?.state ? @initialState
+    @level++ if t.nesting > 0
+    @token++
+
+  change: (num) ->
+    return unless debugData.enabled
+    num = @tokens.length + num if num < 0
+    t = @get num
+    debugData "token change ##{num}/#{@tokens.length} #{chalk.grey util.inspect(t).replace /\s*\n\s*/g, ' '}"
 
   # Add a token add the end of the internal list.
   #
   # @param {Array<Token>} t `Token` object to be added
   add: (t) ->
-    if t.nesting < 0
-      @states.pop()
-      @state = @states[@states.length - 1]
-      @level--
-    debugData "add token #{chalk.grey util.inspect(t).replace /\n */g, ' '}" if debugData.enabled
     @insert null, t
-    if t.nesting > 0
-      @state = t.state if t.state
-      @states.push @state
-      @level++
 
   # Parse a text into `Token` list or add them to the exisitng one if called
   # again.
@@ -182,6 +189,7 @@ class Parser
     start = @tokens.length
     @lexer text
     end = @tokens.length - 1
+    console.log @tokens
     if start <= end
       debug "post optimization"
       for name, lib of postLibs
@@ -202,9 +210,10 @@ class Parser
     while chars.length
       if debugData.enabled
         ds = util.inspect chars.substr 0, 30
-        debugData "parse index:#{@index} #{chalk.grey ds} in state #{@state}"
+        debugData "parse input:#{@index} #{chalk.grey ds} in state #{@state}"
       done = false
       # try rules for state
+      throw new Error "No rules for state #{@state}" unless lexer[@state]
       for rule in lexer[@state]
         continue unless @state in rule.state
         debugRule "check rule #{rule.name}: #{chalk.grey rule.re}" if debugRule

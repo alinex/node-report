@@ -18,11 +18,16 @@ module.exports =
       delete token.content
       token.nesting = 1
       # add content tokens
-      @insert num + 1,
-        type: 'text'
-        data:
-          text: content.text
-        index: content.index
+      @token = num
+      @index = content.index
+      @state = token.state
+      @lexer content.text
+#      # add content tokens
+#      @insert num + 1,
+#        type: 'text'
+#        data:
+#          text: content.text
+#        index: content.index
       # close token
       @insert num + 2,
         util.extend {}, token,

@@ -28,10 +28,11 @@ module.exports =
         # insert padding for accurate positioning
         pad = util.string.repeat '\ufffd', m[1].length
         # add text
+        @change -1
         last.content.text += "\n#{pad}#{m[2]}"
       else
         # opening
-        @add
+        @insert null,
           type: 'paragraph'
           state: '-inline'
           content:
