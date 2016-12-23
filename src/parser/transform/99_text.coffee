@@ -18,12 +18,12 @@ module.exports =
     state: ['m-inline', 'mh-inline', 'h-inline']
     re: /^[\s\S]/
     fn: (m) ->
-      last = @get null
+      last = @get()
       if last.type is 'text'
-        @change -1
         last.data.text += m[0]
+        @change()
       else
-        @add
+        @insert null,
           type: 'text'
           data:
             text: m[0]

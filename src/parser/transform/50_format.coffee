@@ -24,7 +24,7 @@ module.exports =
     fn: (m) ->
       return
       # opening
-      @add
+      @insert null,
         type: 'code'
         nesting: 1
       # parse subtext
@@ -32,7 +32,7 @@ module.exports =
       @lexer m[2]
       # closing
       @index += m[1].length
-      @add
+      @insert null,
         type: 'code'
         nesting: -1
       # done

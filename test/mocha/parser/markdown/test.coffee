@@ -10,8 +10,9 @@ module.exports =
 
   success: (input, data) ->
     parser = new Parser input, 'm'
+    debug 'IN', util.inspect input
     parser.parse()
-    debug util.inspect parser.tokens, {depth: 2}
+    debug 'OUT', util.inspect parser.tokens, {depth: 2}
     return parser.tokens unless data
     expect(parser.tokens.length, 'num tokens').to.equal data.length
     for token, num in data
@@ -22,8 +23,9 @@ module.exports =
   fail: (input, data) ->
     ok = true
     parser = new Parser input, 'm'
+    debug 'IN', util.inspect input
     parser.parse()
-    debug util.inspect parser.tokens, {depth: 2}
+    debug 'OUT', util.inspect parser.tokens, {depth: 2}
     return parser.tokens unless data
     ok = false if parser.tokens.length isnt data.length
     for token, num in data

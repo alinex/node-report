@@ -7,8 +7,19 @@
 # 1. pre optimize some problematic characters in source for the defined domain
 # 2. transform text into token list
 # 3. post format the transformer list
+
+# ### Status Variables
 #
+# The parser is influenced by the following status information:
+# - `token` - `Integer` current position in `@tokens` list
+# - `index` - `Integer` current position in overall `@input` text
+# - `level` - `Integr` current depth in structure
+
+# ### Lexer
 #
+# The lexer itself runs through the diven character string and tries to create tokens
+# out of it. It is influenced by the current parser settings (above).
+
 # ### Resulting Tokens
 #
 # The resulting token list may contain any of the defined elements. And are stored
@@ -160,17 +171,11 @@ class Parser
     @level++ if t.nesting > 0
     @token++
 
-  change: (num) ->
+  change: (num = @token) ->
     return unless debugData.enabled
     num = @tokens.length + num if num < 0
     t = @get num
     debugData "token change ##{num}/#{@tokens.length} #{chalk.grey util.inspect(t).replace /\s*\n\s*/g, ' '}"
-
-  # Add a token add the end of the internal list.
-  #
-  # @param {Array<Token>} t `Token` object to be added
-  add: (t) ->
-    @insert null, t
 
   # Parse a text into `Token` list or add them to the exisitng one if called
   # again.
@@ -184,24 +189,27 @@ class Parser
       continue unless rule[@domain]
       old = text if debugRule
       text = rule[@domain] text
-      debugRule "changed by rule #{name}" if debugRule and old isnt text
+      debugRule "changed by pre #{name}" if debugRule and old isnt text
     debug "start transformation in state #{@state}" if debug.enabled
     start = @tokens.length
     @lexer text
     end = @tokens.length - 1
-    console.log @tokens
+#    console.log @tokens
     if start <= end
       debug "post optimization"
       for name, lib of postLibs
-        for sub, rule of lib
+        for sub, post of lib
           num = -1
-          while ++num < @tokens.length and num < 10
+          while ++num < @tokens.length
             token = @get num
-            continue if token.type isnt rule.type
-            continue if rule.state and not token.state in rule.state
-            continue if rule.nesting and token.nesting isnt rule.nesting
-            debugRule "call rule #{name}:#{sub} for token ##{num}" if debugRule
-            rule.fn.call this, num, token
+            continue if post.type and token.type isnt post.type
+            continue if post.state and not token.state in post.state
+            continue if post.nesting and token.nesting isnt post.nesting
+            continue if post.data and not token.data
+            continue if post.data?.text and not token.data?.text
+            continue if post.content and not token.content
+            debugRule "call post #{name}:#{sub} for token ##{num}" if debugRule
+            post.fn.call this, num, token
 
   # Run parsing a chunk of the input.
   #

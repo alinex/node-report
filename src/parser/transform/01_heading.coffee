@@ -27,7 +27,7 @@ module.exports =
     fn: (m) ->
       level = m[2].length
       # opening
-      @add
+      @insert null,
         type: 'heading'
         data:
           level: level
@@ -35,7 +35,7 @@ module.exports =
         state: '-inline'
       # closing
       @index += m[0].length
-      @add
+      @insert null,
         type: 'heading'
         data:
           level: level
@@ -61,7 +61,7 @@ module.exports =
     fn: (m) ->
       level = m[2].length
       # opening
-      @add
+      @insert null,
         type: 'heading'
         data:
           level: level
@@ -72,7 +72,7 @@ module.exports =
       @lexer m[3]
       # closing
       @index += m[4].length
-      @add
+      @insert null,
         type: 'heading'
         data:
           level: level
@@ -99,7 +99,7 @@ module.exports =
         when '=' then 1
         when '-' then 2
       # opening
-      @add
+      @insert null,
         type: 'heading'
         data:
           level: level
@@ -110,7 +110,7 @@ module.exports =
       @lexer m[2]
       # closing
       @index += m[4].length
-      @add
+      @insert null,
         type: 'heading'
         data:
           level: level

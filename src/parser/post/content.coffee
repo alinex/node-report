@@ -12,6 +12,7 @@ module.exports =
     type: 'paragraph'
     state: ['m-inline', 'mh-inline']
     nesting: 0
+    content: true
     fn: (num, token) ->
       return unless content = token.content
       # change token

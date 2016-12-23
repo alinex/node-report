@@ -23,12 +23,12 @@ module.exports =
       /// # one line
     fn: (m) ->
       # check for concatenating
-      last = @get -1
+      last = @get()
       if last?.nesting is 0 and last.content and not last.closed
         # insert padding for accurate positioning
         pad = util.string.repeat '\ufffd', m[1].length
         # add text
-        @change -1
+        @change()
         last.content.text += "\n#{pad}#{m[2]}"
       else
         # opening

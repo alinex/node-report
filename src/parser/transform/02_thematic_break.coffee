@@ -21,7 +21,7 @@ module.exports =
       (?:\n|$)            # end of line
       ///
     fn: (m) ->
-      @add
+      @insert null,
         type: 'thematic_break'
       # done
       @index += m[0].length

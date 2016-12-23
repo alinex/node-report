@@ -7,7 +7,7 @@ describe "parser", ->
 
     describe "format", ->
 
-      it "should detect code element", ->
+      it.skip "should detect code element", ->
         test.success '`hi`lo`', [
           {type: 'paragraph', nesting: 1}
           {type: 'code', nesting: 1}

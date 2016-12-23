@@ -30,6 +30,7 @@ module.exports =
       pad = util.string.repeat '\ufffd', m[1].length
       # add text
       last.content.text += "\n#{pad}#{m[2]}"
+      @change()
       # done
       @index += m[0].length
       m[0].length
