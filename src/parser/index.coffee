@@ -30,7 +30,6 @@
 # - `Object` - `parent` reference
 # - `Object` - `data` content of this element
 # - `String` - `index` position from input
-# - `String` - `pos` current position in input text
 # - `String` - `state` that is allowed within the current element
 # - `Boolean` - `closed` is set to true on blank line to stop continuing it
 
@@ -78,7 +77,7 @@ if debugRule.enabled
   debugRule "possible transformer:", util.inspect(Object.keys transLibs).replace /\n\s*/g, ' '
 postLibs = libs 'post'
 if debugRule.enabled
-  debugRule "possible post optimizations:", util.inspect(Object.keys preLibs).replace /\n\s*/g, ' '
+  debugRule "possible post optimizations:", util.inspect(Object.keys postLibs).replace /\n\s*/g, ' '
 # collect possible states
 states = []
 for key, lib of transLibs
@@ -107,9 +106,9 @@ class Parser
   # Auto detect state for text.
   #
   # @param {String} [text] to autodetect start state (defaults to @input)
-  # @return {String} start state or null if not possible
+  # @return {String} start state or `m` if not possible
   @detect: (text) ->
-    return null unless text
+    return 'm' unless text
     if text.match /<body/ then 'h-block' else 'm-block'
 
   # Create a new parser object.
@@ -161,7 +160,6 @@ class Parser
         else prev.parent
       when prev?.nesting is 1 then prev
       else prev?.parent ? null
-    t.pos = @pos t.index
     # add token to list
     if debugData.enabled
       debugData "token insert ##{num}/#{@tokens.length} #{chalk.grey util.inspect(t).replace /\s*\n\s*/g, ' '}"

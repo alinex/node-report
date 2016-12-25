@@ -4,7 +4,7 @@ expect = chai.expect
 
 debug = require('debug') 'test'
 util = require 'util'
-Parser = require '../../../../src/parser'
+Parser = require '../../../src/parser'
 
 module.exports =
 
@@ -18,7 +18,7 @@ module.exports =
     for token, num in data
       for k, v of token
         expect(parser.tokens[num][k], "data[#{num}].#{k}").to.deep.equal v
-    parser.tokens
+    parser
 
   fail: (input, data) ->
     ok = true
@@ -32,4 +32,9 @@ module.exports =
       for k, v of token
         ok = false if parser.tokens[num][k] isnt v
     expect(ok).to.equal false
-    parser.tokens
+    parser
+
+  markdown: (name, parser, re) ->
+  console: (name, parser, re) ->
+  log: (name, parser, re) ->
+  html: (name, parser, re) ->

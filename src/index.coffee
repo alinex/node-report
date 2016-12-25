@@ -12,7 +12,8 @@ deasync = require 'deasync'
 util = require 'alinex-util'
 config = require 'alinex-config'
 # modules
-parser = require './parser/index'
+Parser = require './parser/index'
+Formatter = require './formatter/index'
 
 
 # Setup
@@ -23,10 +24,81 @@ parser = require './parser/index'
 # -------------------------------------------------
 class Report
 
+  # Report instance
+  #
   constructor: ->
-    @source = []
+    @input = ''
+    @tokens = []
 
-  import: (text) ->
+  # Get the defined number of token.
+  #
+  # @return {Token} at the given position
+  _get: (num = -1) ->
+    if num >= 0 then @tokens[num]
+    else @tokens[@tokens.length + num]
+
+  _add: (t) ->
+    t.nesting ?= 0
+    unless t.level
+      last = @_get()
+      t.level = switch
+        when not last?.level then 0
+        when last.nesting > 0 then last.level + 1
+        else last.level + t.nesting
+    @tokens.push t
+
+  # Add markdown to report.
+  #
+  # @param {String} text to be parsed
+  # @return {Report} instance itself for command concatenation
+  markdown: (text) ->
+    last = @_get()
+    parser = new Parser text, last?.state
+    parser.parse()
+    for token in parser.tokens
+      if last
+        token.index += parser.input.length
+        token.level += last.level
+      delete token.parent
+      delete token.closed
+      @tokens.push token
+    @input += parser.input
+    this
+
+  # Add heading level 1.
+  #
+  # @param {String|Boolean} text with content of heading or true to open tag and
+  # false to close tag if content is added manually.
+  # @return {Report} instance itself for command concatenation
+  h1: (text) ->
+    if typeof text is 'boolean'
+      @_add
+        type: 'heading'
+        data:
+          level: 1
+        nesting: if text then 1 else -1
+      return this
+    # add text
+    @_add
+      type: 'heading'
+      data:
+        level: 1
+      nesting: 1
+    @_add
+      type: 'text'
+      data:
+        text: text
+    @_add
+      type: 'heading'
+      data:
+        level: 1
+      nesting: -1
+
+
+  format: (setup, cb) ->
+    formatter = new Formatter this, setup
+    formatter.format cb
+
 
 
 module.exports = Report

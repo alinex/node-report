@@ -99,6 +99,30 @@ Always have a look at the latest [changes](Changelog.md).
 Usage
 -------------------------------------------------
 
+``` coffee
+report = new Report()
+
+report.markdown 'My **markdown** is ok.'
+report.h1 'heading'
+
+report.p true
+.text 'This '
+.bold true
+.text 'is bold'
+.bold false
+.p false
+
+report.p 'This' + Report.bold('is bold')
+
+report.format
+  type: 'markdown'
+, (err, result) =>
+
+```
+
+
+
+
 The first step is to load the module and setup it:
 
 ``` coffee

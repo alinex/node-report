@@ -22,7 +22,6 @@ module.exports =
       \1          # 3: end of element
       ///
     fn: (m) ->
-      return
       # opening
       @insert null,
         type: 'code'
@@ -37,3 +36,5 @@ module.exports =
         nesting: -1
       # done
       m[0].length
+
+x = /^\*\*(\w[^*]*\w)\*\*/g
