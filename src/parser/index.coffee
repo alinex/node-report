@@ -138,6 +138,7 @@ class Parser
   #
   # @param {Integer} [num] position in tokenlist to add new token
   # @param {Token} t new token to be added
+  # @return {Parser} instance itself for command concatenation
   insert: (num, t) ->
     num = @token + 1 unless num
     @level-- if t.nesting < 0
@@ -168,7 +169,11 @@ class Parser
     @state = if t.nesting is 1 then t.state else t.parent?.state ? @initialState
     @level++ if t.nesting > 0
     @token++
+    this
 
+  # Log changes of token to debug.
+  #
+  # @param {Integer} num the token id in list
   change: (num = @token) ->
     return unless debugData.enabled
     num = @tokens.length + num if num < 0
@@ -208,6 +213,7 @@ class Parser
             continue if post.content and not token.content
             debugRule "call post #{name}:#{sub} for token ##{num}" if debugRule
             post.fn.call this, num, token
+    this
 
   # Run parsing a chunk of the input.
   #
@@ -256,6 +262,7 @@ class Parser
       @tokens.push t
       if debugData.enabled
         debugData "auto close token #{util.inspect(t).replace /\n */g, ' '}"
+    true
 
   # Get the current position in file.
   #

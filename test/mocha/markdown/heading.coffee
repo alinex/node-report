@@ -7,12 +7,15 @@ describe "parser", ->
 
     describe "atx heading", ->
 
-      it "should work with level 1", ->
-        test.success '# foo', [
+      it.only "should work with level 1", (cb) ->
+        test.success 'heading-1', '# foo', [
           {type: 'heading', data: {level: 1}, nesting: 1}
           {type: 'text', data: {text: 'foo'}}
           {type: 'heading', data: {level: 1}, nesting: -1}
-        ]
+        ], [
+          {format: 'md', re: /foo\n===+\n/}
+          {format: 'html', text: "<h1>foo</h1>"}
+        ], cb
       it "should work with level 2", ->
         test.success '## foo', [
           {type: 'heading', data: {level: 2}, nesting: 1}

@@ -31,19 +31,32 @@ libs = (type) ->
   map
 
 # Load helper
-preLibs = libs 'pre'
-if debugRule.enabled
-  debugRule "possible pre optimizations:", util.inspect(Object.keys preLibs).replace /\n\s*/g, ' '
+#preLibs = libs 'pre'
+#if debugRule.enabled
+#  debugRule "possible pre optimizations:", util.inspect(Object.keys preLibs).replace /\n\s*/g, ' '
 transLibs = libs 'transform'
+# group by format
+grouped = {}
+for key, lib of transLibs
+  for name, rule of lib
+    rule.name = "#{key}:#{name}"
+    grouped[rule.format] ?= []
+    grouped[rule.format].push rule
+transLibs = grouped
 if debugRule.enabled
-  debugRule "possible transformer:", util.inspect(Object.keys transLibs).replace /\n\s*/g, ' '
-postLibs = libs 'post'
-if debugRule.enabled
-  debugRule "possible post optimizations:", util.inspect(Object.keys postLibs).replace /\n\s*/g, ' '
-convertLibs = libs 'post'
-if debugRule.enabled
-  debugRule "possible converters:", util.inspect(Object.keys convertLibs).replace /\n\s*/g, ' '
+  for type, rules of transLibs
+    debugRule "possible #{type} transformers:", util.inspect(rules.map (e) -> e.name).replace /\n +/g, ' '
 
+#postLibs = libs 'post'
+#if debugRule.enabled
+#  debugRule "possible post optimizations:", util.inspect(Object.keys postLibs).replace /\n\s*/g, ' '
+#convertLibs = libs 'post'
+#if debugRule.enabled
+#  debugRule "possible converters:", util.inspect(Object.keys convertLibs).replace /\n\s*/g, ' '
+
+DEFAULTS =
+  md:
+    width: 100
 
 # Formatter Class
 # -------------------------------------------------
@@ -51,11 +64,13 @@ class Formatter
 
   # Create a new parser object.
   #
-  # @param {Report} report to format
+  # @param {Parser} parser object to format
   # @param {Object} setup for the format
-  constructor: (report, setup) ->
-    @tokens = util.clone report.tokens
-    @type = setup.format ? 'markdown'
+  constructor: (@parser, @setup) ->
+    @setup.format ?= 'md'
+    util.extend @setup, DEFAULTS[@setup.format]
+    @tokens = null
+    @output = ''
 
   # Get the defined number of token.
   #
@@ -107,13 +122,27 @@ class Formatter
     t = @get num
     debugData "token change ##{num}/#{@tokens.length} #{chalk.grey util.inspect(t).replace /\s*\n\s*/g, ' '}"
 
-  # Parse a text into `Token` list or add them to the exisitng one if called
-  # again.
+  # Process the parser content and generate format.
   #
-  # @param {String} text to be parsed (defaults to @input)
-  # @return {Formatter} for command concatenation
-  format: (cb) ->
-
+  process: (cb) ->
+    @parser.end()
+    debug "create output as #{@setup.format}" if debug
+    debugData "setup:", @setup if debugData
+    @tokens = util.clone @parser.tokens
+    # run transformation
+    for token, num in @tokens
+      for rule in transLibs[@setup.format]
+        continue if rule.type and token.type isnt rule.type
+        continue if rule.state and not token.state in rule.state
+        continue if rule.nesting and token.nesting isnt rule.nesting
+        continue if rule.data and not token.data
+        continue if rule.data?.text and not token.data?.text
+        debugRule "call trans #{rule.name} for token ##{num}" if debugRule
+        rule.fn.call this, num, token
+    # collect output
+    for token, num in @tokens
+      @output += token.out if token.out
+    cb()
 
 
 

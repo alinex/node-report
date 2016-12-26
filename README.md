@@ -114,9 +114,10 @@ report.p true
 
 report.p 'This' + Report.bold('is bold')
 
-report.format
+report.format 'md',
   type: 'markdown'
 , (err, result) =>
+  report.output result
 
 ```
 

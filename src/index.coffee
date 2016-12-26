@@ -20,50 +20,42 @@ Formatter = require './formatter/index'
 # -------------------------------------------------
 
 
-# API
+# Report Class
 # -------------------------------------------------
 class Report
 
   # Report instance
   #
   constructor: ->
-    @input = ''
-    @tokens = []
+    @parser = new Parser()
+    @formatter = {}
 
-  # Get the defined number of token.
-  #
-  # @return {Token} at the given position
-  _get: (num = -1) ->
-    if num >= 0 then @tokens[num]
-    else @tokens[@tokens.length + num]
-
-  _add: (t) ->
-    t.nesting ?= 0
-    unless t.level
-      last = @_get()
-      t.level = switch
-        when not last?.level then 0
-        when last.nesting > 0 then last.level + 1
-        else last.level + t.nesting
-    @tokens.push t
+  # Parsing
+  # -------------------------------------------------
 
   # Add markdown to report.
   #
   # @param {String} text to be parsed
   # @return {Report} instance itself for command concatenation
   markdown: (text) ->
-    last = @_get()
-    parser = new Parser text, last?.state
-    parser.parse()
-    for token in parser.tokens
-      if last
-        token.index += parser.input.length
-        token.level += last.level
-      delete token.parent
-      delete token.closed
-      @tokens.push token
-    @input += parser.input
+    @parser.parse text
     this
+
+  # Formatting / Output
+  # -------------------------------------------------
+
+  format: (setup, cb) ->
+    name = setup.format ?= 'md'
+    @formatter[name] = new Formatter @parser, setup
+    @formatter[name].process (err) ->
+      return cb err if err
+      cb null, name
+
+  output: (name) ->
+    @formatter[name].output
+
+  # API Creation
+  # -------------------------------------------------
 
   # Add heading level 1.
   #
@@ -72,32 +64,27 @@ class Report
   # @return {Report} instance itself for command concatenation
   h1: (text) ->
     if typeof text is 'boolean'
-      @_add
+      @parser.insert null,
         type: 'heading'
         data:
           level: 1
         nesting: if text then 1 else -1
       return this
     # add text
-    @_add
+    @parser.insert null,
       type: 'heading'
       data:
         level: 1
       nesting: 1
-    @_add
+    @parser.insert null,
       type: 'text'
       data:
         text: text
-    @_add
+    @parser.insert null,
       type: 'heading'
       data:
         level: 1
       nesting: -1
-
-
-  format: (setup, cb) ->
-    formatter = new Formatter this, setup
-    formatter.format cb
 
 
 
