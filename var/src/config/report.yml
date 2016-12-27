@@ -10,3 +10,7 @@ format:
   md:
     type: md
     width: 100
+
+  html:
+    type: html
+    

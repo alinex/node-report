@@ -78,8 +78,9 @@ class Report
   format: (setup, cb) ->
     # load defaults for setup
     if typeof setup is 'string'
-      setup = config.get "/report/format/#{setup}"
-      setup.format = setup
+      name = setup
+      setup = config.get "/report/format/#{name}"
+      setup.format = name
     else
       opt = config.get("/report/format/#{setup.format}") ? config.get "/report/format/md"
       util.extend setup, opt
