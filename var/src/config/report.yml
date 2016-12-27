@@ -1,0 +1,12 @@
+# Default settings for Report
+# ============================================
+# This contains the default for different settings.
+
+format:
+
+
+  # Markdown Format
+  # --------------------------------------------
+  md:
+    type: md
+    width: 100

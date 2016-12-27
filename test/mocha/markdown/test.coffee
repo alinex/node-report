@@ -4,14 +4,16 @@ expect = chai.expect
 
 debug = require('debug') 'test'
 async = require 'async'
-fs = require 'fs'
+fspath = require 'path'
 util = require 'alinex-util'
+fs = require 'alinex-fs'
 Report = require '../../../src'
 
 module.exports =
 
   success: (id, input, data, format, cb) ->
-    id = __dirname + "/../../../src/examples/#{id}" if id
+    id = __dirname + "/../../../src/elements/#{id}" if id
+    fs.mkdirsSync fspath.dirname id
     report = new Report()
     debug 'IN', util.inspect input
     fs.writeFileSync "#{id}.source", input if id and process.env.EXAMPLES

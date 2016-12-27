@@ -12,6 +12,7 @@ fs = require 'fs'
 path = require 'path'
 # alinex modules
 util = require 'alinex-util'
+config = require 'alinex-config'
 
 
 # Setup
@@ -54,10 +55,6 @@ if debugRule.enabled
 #if debugRule.enabled
 #  debugRule "possible converters:", util.inspect(Object.keys convertLibs).replace /\n\s*/g, ' '
 
-DEFAULTS =
-  md:
-    width: 100
-
 # Formatter Class
 # -------------------------------------------------
 class Formatter
@@ -67,8 +64,6 @@ class Formatter
   # @param {Parser} parser object to format
   # @param {Object} setup for the format
   constructor: (@parser, @setup) ->
-    @setup.format ?= 'md'
-    util.extend @setup, DEFAULTS[@setup.format]
     @tokens = null
     @output = ''
 

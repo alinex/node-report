@@ -8,7 +8,7 @@ describe "parser", ->
     describe "atx heading", ->
 
       it.only "should work with level 1", (cb) ->
-        test.success 'heading-1', '# foo', [
+        test.success 'heading/level1', '# foo', [
           {type: 'heading', data: {level: 1}, nesting: 1}
           {type: 'text', data: {text: 'foo'}}
           {type: 'heading', data: {level: 1}, nesting: -1}
