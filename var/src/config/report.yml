@@ -23,3 +23,6 @@ format:
 
   html:
     type: html
+
+  man:
+    type: roff

@@ -61,6 +61,19 @@ html =
       type: 'string'
       values: ['html']
 
+# #3 ROFF Setup (format/<name>/)
+#
+# {@schema #keys/format/entries/0/or/3}
+roff =
+  title: "ROFF Setup"
+  description: "the definition of roff formats"
+  type: 'object'
+  allowedKeys: true
+  keys:
+    type:
+      type: 'string'
+      values: ['roff']
+
 
 # Complete config
 # -----------------------------------------------------------
@@ -81,5 +94,6 @@ module.exports =
           md
           text
           html
+          roff
         ]
       ]

@@ -49,5 +49,19 @@ module.exports =
     fn: (num, token) ->
       token.out = switch token.nesting
         when 1 then "<h#{token.data.level}>"
-        when -1 then "</h#{token.data.level}>"
-        else "<h#{token.data.level} />"
+        when -1 then "</h#{token.data.level}>\n"
+        else "<h#{token.data.level} />\n"
+
+  roff:
+    format: 'roff'
+    type: 'heading'
+    fn: (num, token) ->
+      if token.nesting isnt -1
+        token.out = switch token.data.level
+          when 1 then '.TH '
+          when 2 then '.SH '
+          else '.SS '
+      else
+        token.out = ''
+      if token.nesting isnt 1
+        token.out += '\n'

@@ -21,3 +21,9 @@ module.exports =
     format: 'html'
     type: 'text'
     fn: (num, token) -> token.out = token.data.text
+
+  roff:
+    format: 'roff'
+    type: 'text'
+    fn: (num, token) -> token.out = token.data.text
+    

@@ -126,7 +126,7 @@ class Formatter
     @tokens = util.clone @parser.tokens
     # run transformation
     for token, num in @tokens
-      for rule in transLibs[@setup.format]
+      for rule in transLibs[@setup.type]
         continue if rule.type and token.type isnt rule.type
         continue if rule.state and not token.state in rule.state
         continue if rule.nesting and token.nesting isnt rule.nesting
