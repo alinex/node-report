@@ -11,6 +11,15 @@ format:
     type: md
     width: 100
 
+  text:
+    type: text
+    width: 100
+    ascii_art: true
+
+  console:
+    type: text
+    width: 100
+    ascii_art: true
+
   html:
     type: html
-    

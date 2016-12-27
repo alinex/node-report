@@ -9,11 +9,14 @@ describe "parser", ->
 
       it.only "should work with level 1", (cb) ->
         test.success 'heading/level1', '# foo', [
+          {type: 'document', nesting: 1}
           {type: 'heading', data: {level: 1}, nesting: 1}
           {type: 'text', data: {text: 'foo'}}
           {type: 'heading', data: {level: 1}, nesting: -1}
+          {type: 'document', nesting: -1}
         ], [
           {format: 'md', re: /foo\n===+\n/}
+          {format: 'text', re: /foo\n═══+\n/}
           {format: 'html', text: "<h1>foo</h1>"}
         ], cb
       it "should work with level 2", ->

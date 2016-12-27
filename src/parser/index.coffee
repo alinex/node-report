@@ -52,8 +52,8 @@ debug "Initializing..."
 
 # @type {Object<String>} start state for domain
 START =
-  m: 'm-block'
-  mh: 'mh-block'
+  m: 'm-doc'
+  mh: 'mh-doc'
   h: 'h-doc'
 
 # @param {String} type to load
@@ -245,7 +245,7 @@ class Parser
   # @return {Boolean} `true` if state could be reached by autoclose
   autoclose: (state) ->
     state = @state.split(/-/)[0] + state if state[0] is '-'
-    token = @tokens[@tokens.length -1]
+    token = @get -1
     list = []
     while token = token.parent
       return false unless token
@@ -258,7 +258,7 @@ class Parser
       t.index = @index
       delete t.state
       @level = t.level
-      @state = @states.pop()
+      @state = t.parent?.state ? t.state
       @tokens.push t
       if debugData.enabled
         debugData "auto close token #{util.inspect(t).replace /\n */g, ' '}"
@@ -278,11 +278,12 @@ class Parser
   #
   # @return {Array<Token>} list of parsed tokens
   end: ->
+    return unless @get(-1).level
     # check if parsing started
     throw new Error "Nothing parsed" unless @tokens.length
     # check for correct structure
     if @level
-      unless @autoclose @states[0]
+      unless @autoclose @tokens[0].state
         throw new Error "Not all elements closed correctly (ending in level #{@level})"
     debug "Done parsing" if debug.enabled
     # return token list

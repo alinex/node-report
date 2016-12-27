@@ -18,6 +18,7 @@ module.exports =
     debug 'IN', util.inspect input
     fs.writeFileSync "#{id}.source", input if id and process.env.EXAMPLES
     report.markdown input
+    report.parser.end()
     parsed = util.clone report.parser.tokens
     .map (e) ->
       delete e.parent

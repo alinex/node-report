@@ -12,6 +12,11 @@ module.exports =
     type: 'text'
     fn: (num, token) -> token.out = token.data.text
 
+  text:
+    format: 'text'
+    type: 'text'
+    fn: (num, token) -> token.out = token.data.text
+
   html:
     format: 'html'
     type: 'text'

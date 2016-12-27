@@ -28,9 +28,29 @@ md =
       min: 40
       default: 100
 
-# #3 HTML Setup (format/<name>/)
+# #3 Text Setup (format/<name>/)
 #
 # {@schema #keys/format/entries/0/or/1}
+text =
+  title: "Plain Text Setup"
+  description: "the definition of text formats"
+  type: 'object'
+  allowedKeys: true
+  keys:
+    type:
+      type: 'string'
+      values: ['text']
+    width:
+      type: 'integer'
+      min: 40
+      default: 100
+    ascii_art:
+      type: 'boolean'
+      optional: true
+
+# #3 HTML Setup (format/<name>/)
+#
+# {@schema #keys/format/entries/0/or/2}
 html =
   title: "HTML Text Setup"
   description: "the definition of html formats"
@@ -59,6 +79,7 @@ module.exports =
         type: 'or'
         or: [
           md
+          text
           html
         ]
       ]

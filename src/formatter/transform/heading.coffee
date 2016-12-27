@@ -22,6 +22,27 @@ module.exports =
       else if token.data.level > 2
         token.out = "\n#{util.string.repeat '#', token.data.level} "
 
+  text:
+    format: 'text'
+    type: 'heading'
+    fn: (num, token) ->
+      # make atx heading for first two levels
+      if token.nesting is -1
+        char = switch token.data.level
+          when 1
+            if @setup.ascii_art then '═' else '#'
+          when 2
+            if @setup.ascii_art then '━' else '='
+          when 3
+            if @setup.ascii_art then '╍' else '-'
+          when 4
+            if @setup.ascii_art then '┅' else '-'
+          when 5
+            if @setup.ascii_art then '─' else '-'
+          when 6
+            if @setup.ascii_art then '┄' else '-'
+        token.out = "\n#{util.string.repeat char, @setup.width}\n"
+
   html:
     format: 'html'
     type: 'heading'
