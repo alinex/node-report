@@ -1,6 +1,7 @@
-# Report generation
-# =================================================
-# This package will give you an easy and robust way to access mysql databases.
+###
+Report Generation - API Usage
+=================================================
+###
 
 
 # Node Modules
@@ -22,6 +23,11 @@ schema = require './configSchema'
 # Report Class
 # -------------------------------------------------
 class Report
+
+  ###
+  Setup
+  ----------------------------------------------------
+  ###
 
   ###
   Set the modules config paths and validation schema.
@@ -51,30 +57,38 @@ class Report
       return cb err if err
       config.init cb
 
-  # Report instance
+  # Create Report instance
   #
   constructor: ->
     @parser = new Parser()
     @formatter = {}
 
 
-  # Parsing
-  # -------------------------------------------------
+  ###
+  Parsing
+  -------------------------------------------------
+  ###
 
-  # Add markdown to report.
-  #
-  # @param {String} text to be parsed
-  # @return {Report} instance itself for command concatenation
+  ###
+  Add markdown to report.
+
+  @param {String} text to be parsed
+  @return {Report} instance itself for command concatenation
+  ###
   markdown: (text) ->
     @parser.parse text
     this
 
 
-  # Formatting / Output
-  # -------------------------------------------------
+  ###
+  Formatting / Output
+  -------------------------------------------------
+  ###
 
-  # @param {Object|String} setup complete definition or name of configured setup
-  # @param {Function(Error, String)} cb with name of formatter to access if no `Èrror` occured
+  ###
+  @param {Object|String} setup complete definition or name of configured setup
+  @param {Function(Error, String)} cb with name of formatter to access if no `Èrror` occured
+  ###
   format: (setup, cb) ->
     # load defaults for setup
     if typeof setup is 'string'
@@ -90,20 +104,26 @@ class Report
       return cb err if err
       cb null, setup.format
 
-  # @param {String} name to access (from previous process call)
-  # @return {String} complete output document
+  ###
+  @param {String} name to access (from previous process call)
+  @return {String} complete output document
+  ###
   output: (name) ->
     @formatter[name].output
 
 
-  # API Creation
-  # -------------------------------------------------
+  ###
+  API Creation
+  -------------------------------------------------
+  ###
 
-  # Add heading level 1.
-  #
-  # @param {String|Boolean} text with content of heading or true to open tag and
-  # false to close tag if content is added manually.
-  # @return {Report} instance itself for command concatenation
+  ###
+  Add heading level 1.
+
+  @param {String|Boolean} text with content of heading or true to open tag and
+  false to close tag if content is added manually.
+  @return {Report} instance itself for command concatenation
+  ###
   h1: (text) ->
     if typeof text is 'boolean'
       @parser.insert null,

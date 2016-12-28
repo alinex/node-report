@@ -45,7 +45,8 @@ The key features are:
 - feature rich markdown
 - export as text, console, html (also optimized for email), pdf, png or jpg
 - convert text to visual representation like qr, chart or UML
-- optimized interactive tables
+- optimized interactive elements in html
+- configurable/themeable output
 
 See example output within the different element descriptions below.
 
@@ -99,6 +100,20 @@ Always have a look at the latest [changes](Changelog.md).
 Usage
 -------------------------------------------------
 
+The first step is to load the module and initialize it:
+
+``` coffee
+Report = require 'alinex-report'
+Report.init ->
+  # go on
+```
+
+Because it uses the {@link alinex-config} module you may use the `setup()` and
+`init()` methods the same way.
+
+
+
+
 ``` coffee
 report = new Report()
 
@@ -124,13 +139,6 @@ report.format 'md',
 
 
 
-The first step is to load the module and setup it:
-
-``` coffee
-Report = require 'alinex-report'
-Report.setup ->
-  # go on
-```
 
 And now you create a new object:
 

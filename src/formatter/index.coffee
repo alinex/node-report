@@ -125,7 +125,9 @@ class Formatter
     debugData "setup:", @setup if debugData
     @tokens = util.clone @parser.tokens
     # run transformation
-    for token, num in @tokens
+    num = -1
+    while ++num < @tokens.length
+      token = @get num
       for rule in transLibs[@setup.type]
         continue if rule.type and token.type isnt rule.type
         continue if rule.state and not token.state in rule.state

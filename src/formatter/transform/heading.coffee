@@ -47,10 +47,11 @@ module.exports =
     format: 'html'
     type: 'heading'
     fn: (num, token) ->
+      nl = if @setup.compress then '' else '\n'
       token.out = switch token.nesting
         when 1 then "<h#{token.data.level}>"
-        when -1 then "</h#{token.data.level}>\n"
-        else "<h#{token.data.level} />\n"
+        when -1 then "</h#{token.data.level}>#{nl}"
+        else "<h#{token.data.level} />#{nl}"
 
   roff:
     format: 'roff'

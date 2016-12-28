@@ -23,6 +23,7 @@ format:
 
   html:
     type: html
+    compress: false
 
   man:
     type: roff

@@ -21,9 +21,13 @@ md =
   allowedKeys: true
   keys:
     type:
+      title: "Base Format"
+      description: "the base format used for conversion"
       type: 'string'
       values: ['md']
     width:
+      title: "Character Width"
+      description: "the maximum number of characters per line"
       type: 'integer'
       min: 40
       default: 100
@@ -38,13 +42,19 @@ text =
   allowedKeys: true
   keys:
     type:
+      title: "Base Format"
+      description: "the base format used for conversion"
       type: 'string'
       values: ['text']
     width:
+      title: "Character Width"
+      description: "the maximum number of characters per line"
       type: 'integer'
       min: 40
       default: 100
     ascii_art:
+      title: "Use ASCII Art"
+      description: "a flag to use ASCII art characters for formatting"
       type: 'boolean'
       optional: true
 
@@ -58,8 +68,15 @@ html =
   allowedKeys: true
   keys:
     type:
+      title: "Base Format"
+      description: "the base format used for conversion"
       type: 'string'
       values: ['html']
+    compress:
+      title: "Compress"
+      description: "a flag to output in compressed form without unneccessary newlines..."
+      type: 'boolean'
+      optional: true
 
 # #3 ROFF Setup (format/<name>/)
 #
@@ -71,6 +88,8 @@ roff =
   allowedKeys: true
   keys:
     type:
+      title: "Base Format"
+      description: "the base format used for conversion"
       type: 'string'
       values: ['roff']
 
