@@ -1,14 +1,37 @@
 ### eslint-env node, mocha ###
 test = require './test'
 
-describe "parser", ->
+Report = require '../../../src'
+before (cb) -> Report.init cb
+
+describe "heading", ->
+
+  describe "api", ->
+
+    it.only "should create level 1", (cb) ->
+      # create report
+      report = new Report()
+      report.h1 'foo'
+      # check it
+      test.report null, report, [
+        {type: 'document', nesting: 1}
+        {type: 'heading', data: {level: 1}, nesting: 1}
+        {type: 'text', data: {text: 'foo'}}
+        {type: 'heading', data: {level: 1}, nesting: -1}
+        {type: 'document', nesting: -1}
+      ], [
+        {format: 'md', re: /foo\n===+\n/}
+        {format: 'text', re: /foo\n═══+\n/}
+        {format: 'html', text: "<h1>foo</h1>\n"}
+        {format: 'man', text: ".TH foo\n"}
+      ], cb
 
   describe "markdown", ->
 
     describe "atx heading", ->
 
       it.only "should work with level 1", (cb) ->
-        test.success 'heading/level1', '# foo', [
+        test.markdown 'heading/level1', '# foo', [
           {type: 'document', nesting: 1}
           {type: 'heading', data: {level: 1}, nesting: 1}
           {type: 'text', data: {text: 'foo'}}

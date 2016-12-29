@@ -261,7 +261,7 @@ class Parser
       @state = t.parent?.state ? t.state
       @tokens.push t
       if debugData.enabled
-        debugData "auto close token #{util.inspect(t).replace /\n */g, ' '}"
+        debugData "auto close token #{chalk.grey util.inspect(t).replace /\n */g, ' '}"
     true
 
   # Get the current position in file.
@@ -273,6 +273,13 @@ class Parser
     line = part.match(/\n/g)?.length ? 0
     col = index - part.lastIndexOf('\n') - 1
     "#{line}:#{col}"
+
+  begin: ->
+    return if @tokens.length
+    @insert null,
+      type: 'document'
+      nesting: 1
+      state: '-block'
 
   # End the parsing and check the result.
   #

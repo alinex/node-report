@@ -11,13 +11,20 @@ Report = require '../../../src'
 
 module.exports =
 
-  success: (id, input, data, format, cb) ->
-    id = __dirname + "/../../../src/elements/#{id}" if id
-    fs.mkdirsSync fspath.dirname id
+  markdown: (id, input, data, format, cb) ->
     report = new Report()
     debug 'IN', util.inspect input
-    fs.writeFileSync "#{id}.source", input if id and process.env.EXAMPLES
+    if id and process.env.EXAMPLES
+      example = __dirname + "/../../../src/elements/#{id}"
+      fs.mkdirsSync fspath.dirname example
+      fs.writeFileSync "#{example}.source", input
     report.markdown input
+    module.exports.report id, report, data, format, cb
+
+  report: (id, report, data, format, cb) ->
+    if id and process.env.EXAMPLES
+      example = __dirname + "/../../../src/elements/#{id}"
+      fs.mkdirsSync fspath.dirname example
     report.parser.end()
     parsed = util.clone report.parser.tokens
     .map (e) ->
@@ -26,8 +33,8 @@ module.exports =
     tokenList = util.inspect(parsed, {depth: 2})
     .replace /\s*\n\s*/g, ' '
     .replace /(\{ type:)/g, '\n$1'
-    debug 'PARSED tokens', tokenList
-    fs.writeFileSync "#{id}.tokens", tokenList if id and process.env.EXAMPLES
+    debug 'TOKENS', tokenList
+    fs.writeFileSync "#{example}.tokens", tokenList if example
     if data
       expect(report.parser.tokens.length, 'num tokens').to.equal data.length
       for token, num in data
@@ -36,8 +43,9 @@ module.exports =
     return cb null, report unless format
     async.eachSeries format, (test, cb) ->
       report.format test.format, (err, name) ->
+        return cb err if err
         debug 'OUT', name, util.inspect report.output(name), {depth: 2}
-        fs.writeFileSync "#{id}.#{name}", report.output(name) if id and process.env.EXAMPLES
+        fs.writeFileSync "#{example}.#{name}", report.output(name) if example
         expect(err, 'format exception').to.not.exist
         if test.re
           expect(report.output(name), "#{name} output").to.match test.re
@@ -45,17 +53,3 @@ module.exports =
           expect(report.output(name), "#{name} output").to.contain test.text
         cb()
     , cb
-
-  fail: (input, data) ->
-    ok = true
-    report = new Report()
-    debug 'IN', util.inspect input
-    report.markdown input
-    debug 'OUT', util.inspect report.parser.tokens, {depth: 2}
-    if data
-      ok = false if report.parser.tokens.length isnt data.length
-      for token, num in data
-        for k, v of token
-          ok = false if report.parser.tokens[num][k] isnt v
-      expect(ok).to.equal false
-    report

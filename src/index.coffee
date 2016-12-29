@@ -94,9 +94,11 @@ class Report
     if typeof setup is 'string'
       name = setup
       setup = config.get "/report/format/#{name}"
+      return cb new Error "Unknown format '#{name}' for output." unless setup
       setup.format = name
     else
       opt = config.get("/report/format/#{setup.format}") ? config.get "/report/format/md"
+      return cb new Error "Unknown format '#{setup}' for output." unless opt
       util.extend setup, opt
     # initialize formatter and run it
     @formatter[setup.format] = new Formatter @parser, setup
@@ -125,6 +127,7 @@ class Report
   @return {Report} instance itself for command concatenation
   ###
   h1: (text) ->
+    @parser.begin()
     if typeof text is 'boolean'
       @parser.insert null,
         type: 'heading'
