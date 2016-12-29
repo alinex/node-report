@@ -23,3 +23,29 @@ module.exports =
         when -1
           "</body>#{nl}\
           </html>"
+
+  latex:
+    format: 'latex'
+    type: 'document'
+    fn: (num, token) ->
+      # write output
+      token.out = switch token.nesting
+        when 1
+          """
+          \\documentclass{article}
+          \\title{#{token.data?.title}}
+          \\begin{document}
+          """
+        when -1
+          "\n\\end{document}"
+
+  rtf:
+    format: 'rtf'
+    type: 'document'
+    fn: (num, token) ->
+      # write output
+      token.out = switch token.nesting
+        when 1
+          "{\\rtf1"
+        when -1
+          "}"

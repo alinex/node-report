@@ -66,3 +66,20 @@ module.exports =
         token.out = ''
       if token.nesting isnt 1
         token.out += '\n'
+
+  latex:
+    format: 'latex'
+    type: 'heading'
+    nesting: 1
+    fn: (num, token) ->
+      token.out = "\n   \\maketitle\n   "
+
+  rtf:
+    format: 'rtf'
+    type: 'heading'
+    fn: (num, token) ->
+      token.out = switch token.nesting
+        when 1
+          "\\b{"
+        when -1
+          "}"

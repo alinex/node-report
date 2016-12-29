@@ -42,6 +42,8 @@ describe "heading", ->
           {format: 'text', re: /foo\n═══+\n/}
           {format: 'html', text: "<h1>foo</h1>\n"}
           {format: 'man', text: ".TH foo\n"}
+          {format: 'latex'}
+          {format: 'rtf'}
         ], cb
       it "should work with level 2", ->
         test.success '## foo', [

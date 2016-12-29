@@ -93,6 +93,36 @@ roff =
       type: 'string'
       values: ['roff']
 
+# #3 ROFF Setup (format/<name>/)
+#
+# {@schema #keys/format/entries/0/or/4}
+latex =
+  title: "LaTeX Setup"
+  description: "the definition of latex formats"
+  type: 'object'
+  allowedKeys: true
+  keys:
+    type:
+      title: "Base Format"
+      description: "the base format used for conversion"
+      type: 'string'
+      values: ['latex']
+
+# #3 ROFF Setup (format/<name>/)
+#
+# {@schema #keys/format/entries/0/or/5}
+rtf =
+  title: "RTF Setup"
+  description: "the definition of rtf formats"
+  type: 'object'
+  allowedKeys: true
+  keys:
+    type:
+      title: "Base Format"
+      description: "the base format used for conversion"
+      type: 'string'
+      values: ['rtf']
+
 
 # Complete config
 # -----------------------------------------------------------
@@ -114,5 +144,7 @@ module.exports =
           text
           html
           roff
+          latex
+          rtf
         ]
       ]

@@ -27,3 +27,9 @@ format:
 
   man:
     type: roff
+
+  latex:
+    type: latex
+
+  rtf:
+    type: rtf

@@ -8,22 +8,6 @@
 module.exports =
 
   markdown:
-    format: 'md'
+    format: ['md', 'text', 'html', 'roff', 'latex', 'rtf']
     type: 'text'
     fn: (num, token) -> token.out = token.data.text
-
-  text:
-    format: 'text'
-    type: 'text'
-    fn: (num, token) -> token.out = token.data.text
-
-  html:
-    format: 'html'
-    type: 'text'
-    fn: (num, token) -> token.out = token.data.text
-
-  roff:
-    format: 'roff'
-    type: 'text'
-    fn: (num, token) -> token.out = token.data.text
-    
