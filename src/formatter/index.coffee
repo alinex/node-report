@@ -31,29 +31,29 @@ libs = (type) ->
     map[name] = require "./#{type}/#{file}"
   map
 
+formatLibs = (type) ->
+  list = libs type
+  # group by format
+  grouped = {}
+  for key, lib of list
+    for name, rule of lib
+      rule.name = "#{key}:#{name}"
+      rule.format = [rule.format] unless Array.isArray rule.format
+      for f in rule.format
+        grouped[f] ?= []
+        grouped[f].push rule
+  grouped
+
 # Load helper
-#preLibs = libs 'pre'
-#if debugRule.enabled
-#  debugRule "possible pre optimizations:", util.inspect(Object.keys preLibs).replace /\n\s*/g, ' '
-transLibs = libs 'transform'
-# group by format
-grouped = {}
-for key, lib of transLibs
-  for name, rule of lib
-    rule.name = "#{key}:#{name}"
-    grouped[rule.format] ?= []
-    grouped[rule.format].push rule
-transLibs = grouped
+preLibs = formatLibs 'pre'
+if debugRule.enabled
+  for type, rules of preLibs
+    debugRule "possible #{type} pre formatters:", util.inspect(rules.map (e) -> e.name).replace /\n +/g, ' '
+transLibs = formatLibs 'transform'
 if debugRule.enabled
   for type, rules of transLibs
     debugRule "possible #{type} transformers:", util.inspect(rules.map (e) -> e.name).replace /\n +/g, ' '
 
-#postLibs = libs 'post'
-#if debugRule.enabled
-#  debugRule "possible post optimizations:", util.inspect(Object.keys postLibs).replace /\n\s*/g, ' '
-#convertLibs = libs 'post'
-#if debugRule.enabled
-#  debugRule "possible converters:", util.inspect(Object.keys convertLibs).replace /\n\s*/g, ' '
 
 # Formatter Class
 # -------------------------------------------------
@@ -124,6 +124,19 @@ class Formatter
     debug "create output as #{@setup.format}" if debug
     debugData "setup:", @setup if debugData
     @tokens = util.clone @parser.tokens
+    # run pre formatter
+    num = -1
+    while ++num < @tokens.length
+      token = @get num
+      if preLibs[@setup.type]
+        for rule in preLibs[@setup.type]
+          continue if rule.type and token.type isnt rule.type
+          continue if rule.state and not token.state in rule.state
+          continue if rule.nesting and token.nesting isnt rule.nesting
+          continue if rule.data and not token.data
+          continue if rule.data?.text and not token.data?.text
+          debugRule "call pre #{rule.name} for token ##{num}" if debugRule
+          rule.fn.call this, num, token
     # run transformation
     num = -1
     while ++num < @tokens.length

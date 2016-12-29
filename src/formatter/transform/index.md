@@ -15,7 +15,7 @@ for this element.
 The interface of these methods should be:
 
 @name <alias>
-@param {String} format to be matched against format
+@param {Array|String} format to be matched against format
 @param {String} type to be matched against token
 @param {Array} state to be matched against token
 @param {Function(Integer, Token)} fn to be run on token
