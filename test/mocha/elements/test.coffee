@@ -42,14 +42,14 @@ module.exports =
           expect(report.parser.tokens[num][k], "data[#{num}].#{k}").to.deep.equal v
     return cb null, report unless format
     async.eachSeries format, (test, cb) ->
-      report.format test.format, (err, name) ->
+      report.format test.format, (err, result) ->
         return cb err if err
-        debug 'OUT', name, util.inspect report.output(name), {depth: 2}
-        fs.writeFileSync "#{example}.#{name}", report.output(name) if example
+        debug 'OUT', test.format, util.inspect result, {depth: 2}
+        fs.writeFileSync "#{example}.#{test.format}", result if example
         expect(err, 'format exception').to.not.exist
         if test.re
-          expect(report.output(name), "#{name} output").to.match test.re
+          expect(result, "#{test.format} output").to.match test.re
         else if test.text
-          expect(report.output(name), "#{name} output").to.contain test.text
+          expect(result, "#{test.format} output").to.contain test.text
         cb()
     , cb

@@ -102,9 +102,9 @@ class Report
       util.extend setup, opt
     # initialize formatter and run it
     @formatter[setup.format] = new Formatter @parser, setup
-    @formatter[setup.format].process (err) ->
+    @formatter[setup.format].process (err) =>
       return cb err if err
-      cb null, setup.format
+      cb null, @formatter[setup.format].output
 
   ###
   @param {String} name to access (from previous process call)
@@ -112,6 +112,12 @@ class Report
   ###
   output: (name) ->
     @formatter[name].output
+
+
+  toFile: (name, file, cb) ->
+    file += @formatter[name].extension unless fspath.extname file
+    debug "write #{name} output to file #{file}..."
+    cb()
 
 
   ###

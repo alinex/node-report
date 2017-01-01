@@ -53,6 +53,10 @@ transLibs = formatLibs 'transform'
 if debugRule.enabled
   for type, rules of transLibs
     debugRule "possible #{type} transformers:", util.inspect(rules.map (e) -> e.name).replace /\n +/g, ' '
+convLibs = libs 'convert'
+if debugRule.enabled
+  debugRule "possible converters:", util.inspect(convLibs).replace /\n +/g, ' '
+
 
 
 # Formatter Class
@@ -154,6 +158,15 @@ class Formatter
       @output += token.out if token.out
     cb()
 
+
+  convert: (format, cb) ->
+    return new Error "call process() before convert()" unless @output
+    unless convLibs[@setup.format][format]
+      return new Error "conversion from #{@setup.format} to #{format} not possible"
+    # run conversion
+    @cpnverted ?= {}
+    convLibs[@setup.format][format].call this, @output, (err, result) ->
+      cb err, result
 
 
   # Get the current position in file.

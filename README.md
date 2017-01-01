@@ -132,8 +132,8 @@ report.p 'This' + Report.bold('is bold')
 report.format 'md',
   type: 'markdown'
 , (err, result) =>
-  report.output result
-
+  report.output 'md' # same as result
+  report.toFile 'md', 'test.md', (err) ->
 ```
 
 

@@ -10,26 +10,39 @@ format:
   md:
     type: md
     width: 100
+    extension: '.md'
 
   text:
     type: text
     width: 100
     ascii_art: true
+    extension: '.txt'
 
   console:
     type: text
     width: 100
     ascii_art: true
+    extension: '.console'
 
   html:
     type: html
     compress: false
+    extension: '.html'
 
   man:
     type: roff
+    extension: '.man'
 
   latex:
     type: latex
+    extension: '.latex'
+
+  pdf:
+    type: latex
+    convert:
+      type: pdf
+    extension: '.pdf'
 
   rtf:
     type: rtf
+    extension: '.rtf'

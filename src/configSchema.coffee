@@ -3,8 +3,16 @@ Configuration
 ===================================================
 This configuration will set the defaukt for the reports but you may always give
 other options on initialization of a new format.
+###
+
+extension =
+  title: "File Extension"
+  description: "the default file extension"
+  type: 'string'
+  mandatory: true
 
 
+###
 Formats
 ---------------------------------------------------
 Multiple settings for various formats may be defined but they all go back to one
@@ -25,6 +33,7 @@ md =
       description: "the base format used for conversion"
       type: 'string'
       values: ['md']
+    extension: extension
     width:
       title: "Character Width"
       description: "the maximum number of characters per line"
@@ -46,6 +55,7 @@ text =
       description: "the base format used for conversion"
       type: 'string'
       values: ['text']
+    extension: extension
     width:
       title: "Character Width"
       description: "the maximum number of characters per line"
@@ -72,6 +82,7 @@ html =
       description: "the base format used for conversion"
       type: 'string'
       values: ['html']
+    extension: extension
     compress:
       title: "Compress"
       description: "a flag to output in compressed form without unneccessary newlines..."
@@ -92,10 +103,11 @@ roff =
       description: "the base format used for conversion"
       type: 'string'
       values: ['roff']
+    extension: extension
 
 # #3 ROFF Setup (format/<name>/)
 #
-# {@schema #keys/format/entries/0/or/4}
+# {@schema #keys/format/entries/0/or/5}
 latex =
   title: "LaTeX Setup"
   description: "the definition of latex formats"
@@ -107,6 +119,17 @@ latex =
       description: "the base format used for conversion"
       type: 'string'
       values: ['latex']
+    extension: extension
+    convert:
+      title: "Conversion"
+      description: "a possible conversion to run on the resulting format"
+      type: 'object'
+      keys:
+        type:
+          title: "Conversion Type"
+          description: "the type to convert output into"
+          type: 'string'
+          values: ['dvi', 'pdf']
 
 # #3 ROFF Setup (format/<name>/)
 #
@@ -122,6 +145,7 @@ rtf =
       description: "the base format used for conversion"
       type: 'string'
       values: ['rtf']
+    extension: extension
 
 
 # Complete config
