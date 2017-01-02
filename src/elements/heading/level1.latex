@@ -1,6 +1,0 @@
-\documentclass{article}
-\title{foo}
-\begin{document}
-   \maketitle
-   foo
-\end{document}

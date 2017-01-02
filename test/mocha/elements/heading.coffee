@@ -6,6 +6,23 @@ before (cb) -> Report.init cb
 
 describe "heading", ->
 
+  describe "examples", ->
+
+    it "should make heading examples", (cb) ->
+      test.markdown 'heading/levels', """
+      # heading 1
+      ## heading 2
+      ### heading 3
+      #### heading 4
+      ##### heading 5
+      ###### heading 6
+      """, null, [
+        {format: 'md'}
+        {format: 'text'}
+        {format: 'html'}
+        {format: 'man'}
+      ], cb
+
   describe "api", ->
 
     it "should create level 1", (cb) ->
@@ -31,7 +48,7 @@ describe "heading", ->
     describe "atx heading", ->
 
       it "should work with level 1", (cb) ->
-        test.markdown 'heading/level1', '# foo', [
+        test.markdown null, '# foo', [
           {type: 'document', nesting: 1}
           {type: 'heading', data: {level: 1}, nesting: 1}
           {type: 'text', data: {text: 'foo'}}
@@ -44,7 +61,7 @@ describe "heading", ->
           {format: 'man', text: ".TH foo\n"}
         ], cb
       it "should work with level 2", (cb) ->
-        test.markdown 'heading/level2', '## foo', [
+        test.markdown null, '## foo', [
           {type: 'document', nesting: 1}
           {type: 'heading', data: {level: 2}, nesting: 1}
           {type: 'text', data: {text: 'foo'}}
@@ -57,7 +74,7 @@ describe "heading", ->
           {format: 'man', text: ".SH foo\n"}
         ], cb
       it "should work with level 3", (cb) ->
-        test.markdown 'heading/level3', '### foo', [
+        test.markdown null, '### foo', [
           {type: 'document', nesting: 1}
           {type: 'heading', data: {level: 3}, nesting: 1}
           {type: 'text', data: {text: 'foo'}}
@@ -70,7 +87,7 @@ describe "heading", ->
           {format: 'man', text: ".SS foo\n"}
         ], cb
       it "should work with level 4", (cb) ->
-        test.markdown 'heading/level4', '#### foo', [
+        test.markdown null, '#### foo', [
           {type: 'document', nesting: 1}
           {type: 'heading', data: {level: 4}, nesting: 1}
           {type: 'text', data: {text: 'foo'}}
@@ -83,7 +100,7 @@ describe "heading", ->
           {format: 'man', text: ".SS foo\n"}
         ], cb
       it "should work with level 5", (cb) ->
-        test.markdown 'heading/level5', '##### foo', [
+        test.markdown null, '##### foo', [
           {type: 'document', nesting: 1}
           {type: 'heading', data: {level: 5}, nesting: 1}
           {type: 'text', data: {text: 'foo'}}
@@ -96,7 +113,7 @@ describe "heading", ->
           {format: 'man', text: ".SS foo\n"}
         ], cb
       it "should work with level 6", (cb) ->
-        test.markdown 'heading/level6', '###### foo', [
+        test.markdown null, '###### foo', [
           {type: 'document', nesting: 1}
           {type: 'heading', data: {level: 6}, nesting: 1}
           {type: 'text', data: {text: 'foo'}}
