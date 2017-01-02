@@ -5,7 +5,7 @@ describe "parser", ->
 
   describe "markdown", ->
 
-    describe "text", ->
+    describe.skip "text", ->
 
       it "should remove backslash before initial # character", ->
         test.success '\\## foo', [

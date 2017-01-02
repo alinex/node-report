@@ -8,7 +8,7 @@ describe "heading", ->
 
   describe "api", ->
 
-    it.only "should create level 1", (cb) ->
+    it "should create level 1", (cb) ->
       # create report
       report = new Report()
       report.h1 'foo'
@@ -30,7 +30,7 @@ describe "heading", ->
 
     describe "atx heading", ->
 
-      it.only "should work with level 1", (cb) ->
+      it "should work with level 1", (cb) ->
         test.markdown 'heading/level1', '# foo', [
           {type: 'document', nesting: 1}
           {type: 'heading', data: {level: 1}, nesting: 1}
@@ -42,39 +42,76 @@ describe "heading", ->
           {format: 'text', re: /foo\n═══+\n/}
           {format: 'html', text: "<h1>foo</h1>\n"}
           {format: 'man', text: ".TH foo\n"}
-          {format: 'latex'}
-          {format: 'rtf'}
         ], cb
-      it "should work with level 2", ->
-        test.success '## foo', [
+      it "should work with level 2", (cb) ->
+        test.markdown 'heading/level2', '## foo', [
+          {type: 'document', nesting: 1}
           {type: 'heading', data: {level: 2}, nesting: 1}
           {type: 'text', data: {text: 'foo'}}
           {type: 'heading', data: {level: 2}, nesting: -1}
-        ]
-      it "should work with level 3", ->
-        test.success '### foo', [
+          {type: 'document', nesting: -1}
+        ], [
+          {format: 'md', re: /foo\n---+\n/}
+          {format: 'text', re: /foo\n━━━+\n/}
+          {format: 'html', text: "<h2>foo</h2>\n"}
+          {format: 'man', text: ".SH foo\n"}
+        ], cb
+      it "should work with level 3", (cb) ->
+        test.markdown 'heading/level3', '### foo', [
+          {type: 'document', nesting: 1}
           {type: 'heading', data: {level: 3}, nesting: 1}
           {type: 'text', data: {text: 'foo'}}
           {type: 'heading', data: {level: 3}, nesting: -1}
-        ]
-      it "should work with level 4", ->
-        test.success '#### foo', [
+          {type: 'document', nesting: -1}
+        ], [
+          {format: 'md', re: /### foo\n/}
+          {format: 'text', re: /foo\n╍╍╍+\n/}
+          {format: 'html', text: "<h3>foo</h3>\n"}
+          {format: 'man', text: ".SS foo\n"}
+        ], cb
+      it "should work with level 4", (cb) ->
+        test.markdown 'heading/level4', '#### foo', [
+          {type: 'document', nesting: 1}
           {type: 'heading', data: {level: 4}, nesting: 1}
           {type: 'text', data: {text: 'foo'}}
           {type: 'heading', data: {level: 4}, nesting: -1}
-        ]
-      it "should work with level 5", ->
-        test.success '##### foo', [
+          {type: 'document', nesting: -1}
+        ], [
+          {format: 'md', re: /#### foo\n/}
+          {format: 'text', re: /foo\n┅┅┅+\n/}
+          {format: 'html', text: "<h4>foo</h4>\n"}
+          {format: 'man', text: ".SS foo\n"}
+        ], cb
+      it "should work with level 5", (cb) ->
+        test.markdown 'heading/level5', '##### foo', [
+          {type: 'document', nesting: 1}
           {type: 'heading', data: {level: 5}, nesting: 1}
           {type: 'text', data: {text: 'foo'}}
           {type: 'heading', data: {level: 5}, nesting: -1}
-        ]
-      it "should work with level 6", ->
-        test.success '###### foo', [
+          {type: 'document', nesting: -1}
+        ], [
+          {format: 'md', re: /##### foo\n/}
+          {format: 'text', re: /foo\n───+\n/}
+          {format: 'html', text: "<h5>foo</h5>\n"}
+          {format: 'man', text: ".SS foo\n"}
+        ], cb
+      it "should work with level 6", (cb) ->
+        test.markdown 'heading/level6', '###### foo', [
+          {type: 'document', nesting: 1}
           {type: 'heading', data: {level: 6}, nesting: 1}
           {type: 'text', data: {text: 'foo'}}
           {type: 'heading', data: {level: 6}, nesting: -1}
-        ]
+          {type: 'document', nesting: -1}
+        ], [
+          {format: 'md', re: /###### foo\n/}
+          {format: 'text', re: /foo\n┄┄┄┄+\n/}
+          {format: 'html', text: "<h6>foo</h6>\n"}
+          {format: 'man', text: ".SS foo\n"}
+        ], cb
+
+
+
+
 
       it "should fail with more than 6 # characters", ->
         test.success '####### foo', [

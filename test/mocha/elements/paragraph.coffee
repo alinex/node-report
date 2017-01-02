@@ -5,7 +5,7 @@ describe "parser", ->
 
   describe "markdown", ->
 
-    describe "paragraph", ->
+    describe.skip "paragraph", ->
 
       it "should work with single line paragraphs", ->
         test.success 'aaa\n\nbbb', [

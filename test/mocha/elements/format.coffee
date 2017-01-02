@@ -5,7 +5,7 @@ describe "parser", ->
 
   describe "markdown", ->
 
-    describe "format", ->
+    describe.skip "format", ->
 
       it "should detect code element", ->
         test.success '`hi`lo`', [

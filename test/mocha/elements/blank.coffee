@@ -5,7 +5,7 @@ describe "parser", ->
 
   describe "markdown", ->
 
-    describe "blank", ->
+    describe.skip "blank", ->
 
       it "should ignore blank lines at beginning and end", ->
         test.success '\n  \naaa\n  \n# bbb\n  \n', [

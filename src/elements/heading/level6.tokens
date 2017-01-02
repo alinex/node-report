@@ -1,0 +1,6 @@
+[ 
+{ type: 'document', nesting: 1, state: 'm-block', level: 0, index: 0 }, 
+{ type: 'heading', data: { level: 6 }, nesting: 1, state: 'm-inline', level: 1, index: 0 }, 
+{ type: 'text', data: { text: 'foo' }, nesting: 0, level: 2, index: 7, state: 'm-inline' }, 
+{ type: 'heading', data: { level: 6 }, nesting: -1, closed: true, level: 1, index: 10, state: 'm-inline' }, 
+{ type: 'document', nesting: -1, level: 0, index: 10 } ]

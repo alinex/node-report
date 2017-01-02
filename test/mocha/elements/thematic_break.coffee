@@ -5,7 +5,7 @@ describe "parser", ->
 
   describe "markdown", ->
 
-    describe "thematic break", ->
+    describe.skip "thematic break", ->
 
       it "should work with three characters", ->
         test.success '***', [type: 'thematic_break']

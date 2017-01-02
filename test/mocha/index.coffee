@@ -5,7 +5,7 @@ expect = chai.expect
 debug = require('debug') 'test'
 
 
-describe.only "Base", ->
+describe "Base", ->
 
   Report = require '../../src/index'
 

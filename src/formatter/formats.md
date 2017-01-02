@@ -14,11 +14,12 @@ Each of the formats support different options you may set ba configuration or on
 Currently supported Elements
 -------------------------------------------------------------
 
-| Element | MD  | Text | HTML | ROFF | LaTeX | RTF |
-|:------- |:---:|:----:|:----:|:----:|:-----:|:---:|
-| Text    |  X  |  X   |  X   |  X   |  X    |  X  |
-| Heading |  X  |  X   |  X   |  X   |       |     |
-| Text    |     |      |      |      |       |     |
-| Text    |     |      |      |      |       |     |
+| Element   | MD  | Text | HTML | ROFF | LaTeX | RTF |
+|:--------- |:---:|:----:|:----:|:----:|:-----:|:---:|
+| Text      |  X  |  X   |  X   |  X   |  X    |  X  |
+| Heading   |  X  |  X   |  X   |  X   |       |     |
+| Paragraph |  X  |  X   |  X   |  X   |       |     |
+| Text      |     |      |      |      |       |     |
 
-^`X` -> supported; `-` -> not possible; `(X)` -> partly supported^
+^`X` -> supported; `-` -> not possible; `(X)` -> partly supported;
+empty -> not currently done^
