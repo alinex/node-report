@@ -156,17 +156,13 @@ class Formatter
     # collect output
     for token, num in @tokens
       @output += token.out if token.out
-    cb()
-
-
-  convert: (format, cb) ->
-    return new Error "call process() before convert()" unless @output
-    unless convLibs[@setup.format][format]
-      return new Error "conversion from #{@setup.format} to #{format} not possible"
+    return cb() unless @setup.convert
     # run conversion
-    @cpnverted ?= {}
-    convLibs[@setup.format][format].call this, @output, (err, result) ->
-      cb err, result
+    debug "convert to #{@setup.convert.type}..."
+    convLibs[@setup.format][@setup.convert.type].call this, @output, (err, result) =>
+      @output = result
+
+      cb()
 
 
   # Get the current position in file.

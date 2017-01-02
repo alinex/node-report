@@ -2,7 +2,7 @@
   "name": "alinex-report",
   "version": "2.2.2",
   "description": "Easy report generating using markdown.",
-  "copyright": "Alexander Schilling 2015-2016",
+  "copyright": "Alexander Schilling 2016-2017",
   "private": false,
   "keywords": [
     "report",

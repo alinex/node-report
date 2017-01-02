@@ -113,10 +113,19 @@ class Report
   output: (name) ->
     @formatter[name].output
 
-
+  ###
+  @param {String} name to access (from previous process call)
+  @param {String} file to write output to
+  @param {Function(Error} cb with possible error
+  ###
   toFile: (name, file, cb) ->
     file += @formatter[name].extension unless fspath.extname file
     debug "write #{name} output to file #{file}..."
+
+
+
+
+
     cb()
 
 

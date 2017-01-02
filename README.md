@@ -111,24 +111,38 @@ Report.init ->
 Because it uses the {@link alinex-config} module you may use the `setup()` and
 `init()` methods the same way.
 
-
-
+And now you create a new object:
 
 ``` coffee
 report = new Report()
+```
 
+The next part is to create the report by loading it with a markdown document or
+creating the content with the different Builder methods. Both may be combined:
+
+``` coffee
+# load from markdown
 report.markdown 'My **markdown** is ok.'
-report.h1 'heading'
 
+# add using builder methods with content
+report.h1 'heading'
+# using builder with open and close calls (`true`/`false`)
 report.p true
 .text 'This '
 .bold true
 .text 'is bold'
 .bold false
 .p false
+# or at last you may concat reports into one
+inline = new Report()
+inline.bold 'is bold'
+report.concat inline
+```
 
-report.p 'This' + Report.bold('is bold')
+After creating the report you may format it in multiple different output formats
+and get it's content or write it to file:
 
+``` coffee
 report.format 'md',
   type: 'markdown'
 , (err, result) =>
@@ -137,219 +151,15 @@ report.format 'md',
 ```
 
 
-
-
-
-And now you create a new object:
-
-``` coffee
-report = new Report()
-```
-
-You may also give one of the following options:
-
-- `source` - markdown text to preload
-- `log` - a function called each time something is added with the added text
-- `width` - the width for line breaks (default: 80)
-
-### Report builder
-
-The report builder is a collection of methods used to easily create the needed
-markup. They often are handy to convert your objects into formatted text:
-
-``` coffee
-report.h1 "My Test"
-report.p "This is a short demonstrative test with:"
-report.list [
-  "headings"
-  "text blocks"
-  "unnumbered lists"
-]
-```
-
-### Format output
-
-And finally get the complete result:
-
-``` coffee
-console.log report # same as report.toString()
-text = report.toString() # markdown syntax
-html = report.toHtml()   # html
-log = report.toConsole() # text with ansi colors
-```
-
-### Convert to Markdown
-
-Instead of creating a report to collect everything, you can also let this module
-convert single elements on the fly:
-
-``` coffee
-console.log Report.ul ['one', 'two', 'three']
-console.log Report.p "This text contains a #{Result.b 'bold'} word."
-```
-
-### Markdown as Base
-
-If you want to only convert existing markdown into html do this like:
-
-``` coffee
-html = new Report({source: markdownText}).toHtml()
-```
-### Mask characters
-
-To mask some characters to be not interpreted as markdown, you may use `\` before
-
-the special markdown signs or automatically mask them using `Report.mask text`
-if you didn't want to interpret them as markdown.
-
-### Differences to Other Markdown
-
-This class is based on the [CommonMark Spec](http://spec.commonmark.org/) but it
-extends it with higher level and more complex transformations like boxes, graph,
-diagram or interactive tables.
-
-That's the cause for not displaying completely in other markdown implementations
-like Github.
-
-
-Output
+Output Examples
 -------------------------------------------------
-You have multiple possibilities to output the created markdown object.
-
-Before you look at each of them you can also specify some parts of the content
-specifically for an output type:
-
-``` coffee
-html = new Report
-  source: "This is<!-- begin no-html --> not<!-- end no-html --> html
-  <!-- begin html -->= the best format<!-- end html -->".toHtml()
-```
-
-This shows the possibilities to specify a part of the content for a specific output
-format or exclude it from one.
-
-The possible output formats to select are:
-- text
-- console
-- html (including pdf and image)
-
-> For html you may also exclude something using the `.hidden` class through styles.
-
-### Markdown
-
-Example: [markdown](https://raw.githubusercontent.com/alinex/node-report/master/src/examples/test.md)
-
-To get this native output you can directly convert the object to a string:
-
-``` coffee
-report.toString()
-```
-
-### Text Output
-
-Example: [text](https://raw.githubusercontent.com/alinex/node-report/master/src/examples/test.txt)
-
-``` coffee
-report.toText()
-```
-
-Here all non presentable elements are removed to get a clean plain text output.
-This means the table of contents, decorator rules and backslashes at the end of line
-are removed as well as image sources.
-
-### Console Output
-
-``` coffee
-report.toConsole()
-```
-
-This is targeted to output on the console. Therefore the plain text from above will
-be marked with ascii escape sequences to add color highlighting. All markup which
-is possible in console like bold, strikethrough, italic... will be used.
-
-Tables will be drawn using ASCII art grid lines.
-
-### HTML Document
-
-Example: [html](http://htmlpreview.github.io/?https://github.com/alinex/node-report/blob/master/src/examples/test.html)
-
-``` coffee
-report.toHtml() # deprectaed syntax without inline css support
-
-report.toHtml options, (err, html) ->
-  # use the html
-```
-
-Options are:
-
-- title (string) - to be used instead of h1 content
-- style (string) - reference to the used theme under 'template/report'
-- locale (string) - language to use like 'de'
-- inlineCss (boolean) - move css from head to the tags as styles (useful for mails)
-- noJS (boolean) - make everything static
-- context (object) - additional elements for handlebars template
-
-This is the most powerful output method. In which all markdown elements will be
-supported and interpreted. It will create one HTML file to be used in emails...
-
-Only links to internet resources like images and css are kept as they are. local
-links in the format 'file:///....' will be replaced with their content included
-as data uri in the document. This makes the document larger but helps to keep
-everything in one file. In emails you may extract these again and replace them
-with cid uri to the now attached resource.
-
-To change the style and make your own theme see {@link src/theme/index.md}.
-
-### PDF Document
-
-Example: [PDF](https://raw.githubusercontent.com/alinex/node-report/master/src/examples/test.pdf)
-
-``` coffee
-report.toPdf (err, data) ->
-  # [](you may store this to a file)
-```
-
-You can also give some options:
-
-``` coffee
-report.toPdf options, (err, data) ->
-  # you may store this to a file
-```
-
-Possible options are:
-
-- format - A3, A4, A5, Legal, Letter or Tabloid
-- height - like "10.5in" allowed units: mm, cm, in, px
-- width - like "8in" allowed units: mm, cm, in, px
-- orientation - portrait or landscape
-- border - like "0" allowed units: mm, cm, in, px \
-  or as an object with top, right, bottom nad left settings
-
-### Image
-
-Example: [PNG](https://raw.githubusercontent.com/alinex/node-report/master/src/examples/test.png)
-
-``` coffee
-report.toImage (err, data) ->
-  # you may store this to a file
-```
-
-### File
-
-Also you may let the report be written directly to a file.
-
-``` coffee
-report.toFile filename, options, (err) ->
-  # you may store this to a file
-```
-
-The format will be autodetected from the filename's extension.
+Coming soon...
 
 
 License
 -------------------------------------------------
 
-(C) Copyright 2016 Alexander Schilling
+(C) Copyright 2016-20117 Alexander Schilling
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
