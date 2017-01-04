@@ -1,5 +1,5 @@
 ### eslint-env node, mocha ###
-test = require './test'
+test = require '../test'
 
 Report = require '../../../src'
 before (cb) -> Report.init cb

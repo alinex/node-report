@@ -7,7 +7,9 @@ async = require 'async'
 fspath = require 'path'
 util = require 'alinex-util'
 fs = require 'alinex-fs'
-Report = require '../../../src'
+Report = require '../../src'
+
+EXAMPLES_DIR = 'src/examples'
 
 module.exports =
 
@@ -15,7 +17,7 @@ module.exports =
     report = new Report()
     debug 'IN', util.inspect input
     if id and process.env.EXAMPLES
-      example = __dirname + "/../../../src/elements/#{id}"
+      example = __dirname + "/../../../#{EXAMPLES_DIR}/#{id}"
       fs.mkdirsSync fspath.dirname example
       fs.writeFileSync "#{example}.source", input
     report.markdown input
@@ -23,7 +25,7 @@ module.exports =
 
   report: (id, report, data, format, cb) ->
     if id and process.env.EXAMPLES
-      example = __dirname + "/../../../src/elements/#{id}"
+      example = __dirname + "/../../../#{EXAMPLES_DIR}/#{id}"
       fs.mkdirsSync fspath.dirname example
     report.parser.end()
     parsed = util.clone report.parser.tokens
