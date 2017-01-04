@@ -7,6 +7,27 @@ As an inline element you may mark some text with specific display like:
 - italic
 ###
 
+# ` typewriter
+# ** bold
+# __ bold
+# * italic
+# _ italic
+# ^ superscript
+# ~ subscript
+# ~~ strikethrough
+# == marked
+
+MARKER =
+  '**': 'bold'
+  '__': 'bold'
+  '*': 'italic'
+  '_': 'italic'
+  '~~': 'strikethrough'
+  '~': 'subscript'
+  '^': 'superscript'
+  '==': 'highlight'
+  '`': 'code'
+
 
 # Transformer rules
 # ----------------------------------------------
@@ -14,17 +35,21 @@ As an inline element you may mark some text with specific display like:
 # @type {Object<Transformer>} rules to transform text into tokens
 module.exports =
 
-  code:
+  all:
     state: ['m-inline', 'mh-inline']
     re: ///
-      ^(`)        # 1: start of part
-      ([\s\S]*?)  # 2: content
-      \1          # 3: end of element
+      ^([*_~]{1,2}|[=]{2}|[`^])   # 1: start MARKER
+      (                           # 2: content
+        [*_~=`^]*\w               # start with marker + word character
+        [\s\S]*?                  # content
+        \w[*_~=`^]*               # end with word character + marker
+      )
+      \1                          # 3: end of element
       ///
     fn: (m) ->
       # opening
       @insert null,
-        type: 'code'
+        type: MARKER[m[1]]
         nesting: 1
       # parse subtext
       @index += m[1].length
@@ -32,9 +57,7 @@ module.exports =
       # closing
       @index += m[1].length
       @insert null,
-        type: 'code'
+        type: MARKER[m[1]]
         nesting: -1
       # done
       m[0].length
-
-x = /^\*\*(\w[^*]*\w)\*\*/g

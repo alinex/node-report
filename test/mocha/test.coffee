@@ -17,7 +17,7 @@ module.exports =
     report = new Report()
     debug 'IN', util.inspect input
     if id and process.env.EXAMPLES
-      example = __dirname + "/../../../#{EXAMPLES_DIR}/#{id}"
+      example = __dirname + "/../../#{EXAMPLES_DIR}/#{id}"
       fs.mkdirsSync fspath.dirname example
       fs.writeFileSync "#{example}.source", input
     report.markdown input
@@ -25,7 +25,7 @@ module.exports =
 
   report: (id, report, data, format, cb) ->
     if id and process.env.EXAMPLES
-      example = __dirname + "/../../../#{EXAMPLES_DIR}/#{id}"
+      example = __dirname + "/../../#{EXAMPLES_DIR}/#{id}"
       fs.mkdirsSync fspath.dirname example
     report.parser.end()
     parsed = util.clone report.parser.tokens

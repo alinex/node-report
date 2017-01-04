@@ -10,4 +10,6 @@ module.exports =
   markdown:
     format: ['md', 'text', 'html', 'roff', 'latex', 'rtf']
     type: 'text'
-    fn: (num, token) -> token.out = token.data.text
+    fn: (num, token) ->
+      token.out = token.data.text
+      .replace /^(#+\ )/, "\\$1"    # mask to not be interpreted as heading

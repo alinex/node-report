@@ -1,5 +1,6 @@
 ### eslint-env node, mocha ###
 test = require '../test'
+async = require 'async'
 
 Report = require '../../../src'
 before (cb) -> Report.init cb
@@ -126,27 +127,43 @@ describe "heading", ->
           {format: 'man', text: ".SS foo\n"}
         ], cb
 
+      it "should fail with more than 6 # characters", (cb) ->
+        test.markdown null, '####### foo', [
+          {type: 'document', nesting: 1}
+          {type: 'paragraph'}
+          {type: 'text', data: {text: '####### foo'}}
+          {type: 'paragraph'}
+          {type: 'document', nesting: -1}
+        ], null, cb
 
+      it "should fail if the space after # characters is missing", (cb) ->
+        async.series [
+          (cb) -> test.markdown null, '#5 bolt', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph'}
+            {type: 'text', data: {text: '#5 bolt'}}
+            {type: 'paragraph'}
+            {type: 'document', nesting: -1}
+            ], null, cb
+          (cb) -> test.markdown null, '#hashtag', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph'}
+            {type: 'text', data: {text: '#hashtag'}}
+            {type: 'paragraph'}
+            {type: 'document', nesting: -1}
+            ], null, cb
+        ], cb
 
-
-
-      it "should fail with more than 6 # characters", ->
-        test.success '####### foo', [
-          {type: 'paragraph'}, {type: 'text'}, {type: 'paragraph'}
-        ]
-
-      it "should fail if the space after # characters is missing", ->
-        test.success '#5 bolt', [
-          {type: 'paragraph'}, {type: 'text'}, {type: 'paragraph'}
-        ]
-        test.success '#hashtag', [
-          {type: 'paragraph'}, {type: 'text'}, {type: 'paragraph'}
-        ]
-
-      it "should fail if the first # characters is escaped", ->
-        test.success '\\## foo', [
-          {type: 'paragraph'}, {type: 'text'}, {type: 'paragraph'}
-        ]
+      it "should fail if the first # characters is escaped", (cb) ->
+        test.markdown null, '\\## foo', [
+          {type: 'document', nesting: 1}
+          {type: 'paragraph'}
+          {type: 'text', data: {text: '## foo'}}
+          {type: 'paragraph'}
+          {type: 'document', nesting: -1}
+        ], [
+          format: 'md', text: '\\## foo'
+        ], cb
 
 
 #Contents are parsed as inlines:
