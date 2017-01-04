@@ -163,7 +163,8 @@ class Parser
       else prev?.parent ? null
     # add token to list
     if debugData.enabled
-      debugData "token insert ##{num}/#{@tokens.length} #{chalk.grey util.inspect(t).replace /\s*\n\s*/g, ' '}"
+      debugData "token insert ##{num}/#{@tokens.length}
+        #{chalk.grey util.inspect(t).replace /\s*\n\s*/g, ' '}"
     @tokens.splice num, 0, t
     # set lexer for next round
     @state = if t.nesting is 1 then t.state else t.parent?.state ? @initialState
@@ -178,7 +179,8 @@ class Parser
     return unless debugData.enabled
     num = @tokens.length + num if num < 0
     t = @get num
-    debugData "token change ##{num}/#{@tokens.length} #{chalk.grey util.inspect(t).replace /\s*\n\s*/g, ' '}"
+    debugData "token change ##{num}/#{@tokens.length}
+      #{chalk.grey util.inspect(t).replace /\s*\n\s*/g, ' '}"
 
   # Parse a text into `Token` list or add them to the exisitng one if called
   # again.

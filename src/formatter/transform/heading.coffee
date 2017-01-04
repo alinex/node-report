@@ -18,7 +18,7 @@ module.exports =
         token.out = switch token.data.level
           when 1 then "\n#{util.string.repeat '=', @setup.width}\n"
           when 2 then "\n#{util.string.repeat '-', @setup.width}\n"
-          else "\n" 
+          else "\n"
       # setext headings for the rest
       else if token.data.level > 2
         token.out = "\n#{util.string.repeat '#', token.data.level} "

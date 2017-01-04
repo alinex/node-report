@@ -12,7 +12,6 @@ fs = require 'fs'
 path = require 'path'
 # alinex modules
 util = require 'alinex-util'
-config = require 'alinex-config'
 
 
 # Setup
@@ -48,11 +47,13 @@ formatLibs = (type) ->
 preLibs = formatLibs 'pre'
 if debugRule.enabled
   for type, rules of preLibs
-    debugRule "possible #{type} pre formatters:", util.inspect(rules.map (e) -> e.name).replace /\n +/g, ' '
+    debugRule "possible #{type} pre formatters:", util.inspect(rules.map (e) ->
+      e.name).replace /\n +/g, ' '
 transLibs = formatLibs 'transform'
 if debugRule.enabled
   for type, rules of transLibs
-    debugRule "possible #{type} transformers:", util.inspect(rules.map (e) -> e.name).replace /\n +/g, ' '
+    debugRule "possible #{type} transformers:", util.inspect(rules.map (e) ->
+      e.name).replace /\n +/g, ' '
 convLibs = libs 'convert'
 if debugRule.enabled
   debugRule "possible converters:", util.inspect(convLibs).replace /\n +/g, ' '
@@ -108,7 +109,8 @@ class Formatter
       else prev?.parent ? null
     # add token to list
     if debugData.enabled
-      debugData "token insert ##{num}/#{@tokens.length} #{chalk.grey util.inspect(t).replace /\s*\n\s*/g, ' '}"
+      debugData "token insert ##{num}/#{@tokens.length}
+        #{chalk.grey util.inspect(t).replace /\s*\n\s*/g, ' '}"
     @tokens.splice num, 0, t
     # set lexer for next round
     @state = if t.nesting is 1 then t.state else t.parent?.state ? @initialState
@@ -119,7 +121,8 @@ class Formatter
     return unless debugData.enabled
     num = @tokens.length + num if num < 0
     t = @get num
-    debugData "token change ##{num}/#{@tokens.length} #{chalk.grey util.inspect(t).replace /\s*\n\s*/g, ' '}"
+    debugData "token change ##{num}/#{@tokens.length}
+      #{chalk.grey util.inspect(t).replace /\s*\n\s*/g, ' '}"
 
   # Process the parser content and generate format.
   #
