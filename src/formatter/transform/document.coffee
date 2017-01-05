@@ -18,11 +18,20 @@ module.exports =
           "<!DOCTYPE html>#{nl}\
           <html>#{nl}\
           <head><title>#{token.data?.title}</title>#{@setup.head_end}#{nl}\
-          #{@setup.body_begin}
+          #{@setup.body_begin}#{nl}\
           "
         when -1
           "#{@setup.body_end}#{nl}\
           </html>"
+
+  text:
+    format: 'text'
+    type: 'document'
+    fn: (num, token) ->
+      # write output
+      token.out = switch token.nesting
+        when 1 then @setup.begin ? ''
+        when -1 then @setup.end ? ''
 
   latex:
     format: 'latex'

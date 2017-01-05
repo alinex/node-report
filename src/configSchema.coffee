@@ -67,6 +67,16 @@ text =
       description: "a flag to use ASCII art characters for formatting"
       type: 'boolean'
       optional: true
+    begin:
+      title: "Document Header"
+      description: "the text used as document header"
+      type: 'string'
+      optional: true
+    end:
+      title: "Document Footer"
+      description: "the text used as document footer"
+      type: 'string'
+      optional: true
 
 # #3 HTML Setup (format/<name>/)
 #
