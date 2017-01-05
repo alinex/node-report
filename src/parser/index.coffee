@@ -146,7 +146,7 @@ class Parser
     prev = @get num - 1
     t.nesting ?= 0
     if prev
-      t.level ?= prev.level + prev.nesting + (if t.nesting is -1 then -1 else 0)
+      t.level ?= prev.level + (if t.nesting is -1 then -1 else 0)
       t.index ?= @index
       t.state ?= prev.state
       t.state = prev.state.split(/-/)[0] + t.state if t.state?[0] is '-'
@@ -164,7 +164,7 @@ class Parser
     # add token to list
     if debugData.enabled
       debugData "token insert ##{num}/#{@tokens.length}
-        #{chalk.grey util.inspect(t).replace /\s*\n\s*/g, ' '}"
+        #{chalk.yellow util.inspect(t).replace /\s*\n\s*/g, ' '}"
     @tokens.splice num, 0, t
     # set lexer for next round
     @state = if t.nesting is 1 then t.state else t.parent?.state ? @initialState
@@ -180,7 +180,7 @@ class Parser
     num = @tokens.length + num if num < 0
     t = @get num
     debugData "token change ##{num}/#{@tokens.length}
-      #{chalk.grey util.inspect(t).replace /\s*\n\s*/g, ' '}"
+      #{chalk.yellow util.inspect(t).replace /\s*\n\s*/g, ' '}"
 
   # Parse a text into `Token` list or add them to the exisitng one if called
   # again.
@@ -287,11 +287,11 @@ class Parser
   #
   # @return {Array<Token>} list of parsed tokens
   end: ->
-    return unless @get(-1).level
+    return unless last = @get(-1).level
     # check if parsing started
     throw new Error "Nothing parsed" unless @tokens.length
     # check for correct structure
-    if @level
+    if @level = last
       unless @autoclose @tokens[0].state
         throw new Error "Not all elements closed correctly (ending in level #{@level})"
     debug "Done parsing" if debug.enabled

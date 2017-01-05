@@ -13,3 +13,4 @@ module.exports =
     fn: (num, token) ->
       token.out = token.data.text
       .replace /^(#+\ )/, "\\$1"    # mask to not be interpreted as heading
+      .replace /([*_~=`^])(?=\w|[*_~=`^]|$)/g, "\\$1"

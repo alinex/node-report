@@ -18,10 +18,10 @@ As an inline element you may mark some text with specific display like:
 # == marked
 
 MARKER =
-  '**': 'bold'
-  '__': 'bold'
-  '*': 'italic'
-  '_': 'italic'
+  '**': 'strong'
+  '__': 'strong'
+  '*': 'emphasis'
+  '_': 'emphasis'
   '~~': 'strikethrough'
   '~': 'subscript'
   '^': 'superscript'

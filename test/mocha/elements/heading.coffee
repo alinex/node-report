@@ -7,7 +7,7 @@ before (cb) -> Report.init cb
 
 describe "heading", ->
 
-  describe.only "examples", ->
+  describe "examples", ->
 
     it "should make heading examples", (cb) ->
       test.markdown 'heading/levels', """
@@ -165,13 +165,24 @@ describe "heading", ->
           format: 'md', text: '\\## foo'
         ], cb
 
+      it.only "should parse inline content", (cb) ->
+        test.markdown null, '# foo *bar* \\*baz\\*', [
+          {type: 'document', nesting: 1}
+          {type: 'heading', data: {level: 1}, nesting: 1}
+          {type: 'text', data: {text: 'foo '}}
+          {type: 'emphasis', nesting: 1}
+          {type: 'text', data: {text: 'bar'}}
+          {type: 'emphasis', nesting: -1}
+          {type: 'text', data: {text: ' *baz*'}}
+          {type: 'heading', data: {level: 1}, nesting: -1}
+          {type: 'document', nesting: -1}
+        ], [
+          format: 'md', text: 'foo *bar* \\*baz\\*\n==='
+        ], cb
 
-#Contents are parsed as inlines:
-#Example 36Try It
-#
-## foo *bar* \*baz\*
-#
-#<h1>foo <em>bar</em> *baz*</h1>
+
+
+
 
       it "should work with more leading or trailing spaces", ->
         test.success '#       foo', [
