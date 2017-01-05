@@ -18,7 +18,13 @@ module.exports =
         token.out = switch token.data.level
           when 1 then "\n#{util.string.repeat '=', @setup.width}\n"
           when 2 then "\n#{util.string.repeat '-', @setup.width}\n"
-          else "\n"
+          else
+            # mask trailing hashes in last text bloxk
+            if last = @get -1
+              if last.type is 'text'
+                last.data.text.replace /\#$/, '\\#'              
+            # add newline
+            "\n"
       # setext headings for the rest
       else if token.data.level > 2
         token.out = "\n#{util.string.repeat '#', token.data.level} "

@@ -227,115 +227,181 @@ describe.only "heading", ->
             ], null, cb
         ], cb
 
+      it "should fail with over 3 spaces indention", (cb) ->
+        async.series [
+          (cb) ->
+            test.markdown null, '    # foo', [
+              {type: 'document', nesting: 1}
+              {type: 'paragraph', nesting: 1}
+              {type: 'text', data: {text: ' # foo'}}
+              {type: 'paragraph', nesting: -1}
+              {type: 'document', nesting: -1}
+            ], null, cb
+          (cb) ->
+            test.markdown null, '\t# foo', [
+              {type: 'document', nesting: 1}
+              {type: 'paragraph', nesting: 1}
+              {type: 'text', data: {text: '\t# foo'}}
+              {type: 'paragraph', nesting: -1}
+              {type: 'document', nesting: -1}
+            ], null, cb
+        ], cb
 
+      it "should work with closing # characters", (cb) ->
+        async.series [
+          (cb) ->
+            test.markdown null, '## foo ##', [
+              {type: 'document', nesting: 1}
+              {type: 'heading', data: {level: 2}, nesting: 1}
+              {type: 'text', data: {text: 'foo'}}
+              {type: 'heading', data: {level: 2}, nesting: -1}
+              {type: 'document', nesting: -1}
+            ], null, cb
+          (cb) ->
+            test.markdown null, '  ###   bar    ###', [
+              {type: 'document', nesting: 1}
+              {type: 'heading', data: {level: 3}, nesting: 1}
+              {type: 'text', data: {text: 'bar'}}
+              {type: 'heading', data: {level: 3}, nesting: -1}
+              {type: 'document', nesting: -1}
+            ], null, cb
+        ], cb
 
+      it "should work with more or less # characters at the end than at the start", (cb) ->
+        async.series [
+          (cb) ->
+            test.markdown null, '# foo ##################################', [
+              {type: 'document', nesting: 1}
+              {type: 'heading', data: {level: 1}, nesting: 1}
+              {type: 'text', data: {text: 'foo'}}
+              {type: 'heading', data: {level: 1}, nesting: -1}
+              {type: 'document', nesting: -1}
+            ], null, cb
+          (cb) ->
+            test.markdown null, '##### foo ##', [
+              {type: 'document', nesting: 1}
+              {type: 'heading', data: {level: 5}, nesting: 1}
+              {type: 'text', data: {text: 'foo'}}
+              {type: 'heading', data: {level: 5}, nesting: -1}
+              {type: 'document', nesting: -1}
+            ], null, cb
+        ], cb
 
-
-
-
-      it "should fail with over 3 spaces indention", ->
-        test.success '    # foo', [
-          {type: 'paragraph'}, {type: 'text'}, {type: 'paragraph'}
-        ]
-        test.success '\t# foo', [
-          {type: 'paragraph'}, {type: 'text'}, {type: 'paragraph'}
-        ]
-
-      it "should work with closing # characters", ->
-        test.success '## foo ##', [
-          {type: 'heading', data: {level: 2}, nesting: 1}
-          {type: 'text', data: {text: 'foo'}}
-          {type: 'heading', data: {level: 2}, nesting: -1}
-        ]
-        test.success '  ###   bar    ###', [
+      it "should work with closing # characters and ending spaces", (cb) ->
+        test.markdown null, '### foo ### ', [
+          {type: 'document', nesting: 1}
           {type: 'heading', data: {level: 3}, nesting: 1}
-          {type: 'text', data: {text: 'bar'}}
-          {type: 'heading', data: {level: 3}, nesting: -1}
-        ]
-
-      it "should work with more or less # characters at the end than at the start", ->
-        test.success '# foo ##################################', [
-          {type: 'heading', data: {level: 1}, nesting: 1}
-          {type: 'text', data: {text: 'foo'}}
-          {type: 'heading', data: {level: 1}, nesting: -1}
-        ]
-        test.success '##### foo ##', [
-          {type: 'heading', data: {level: 5}, nesting: 1}
-          {type: 'text', data: {text: 'foo'}}
-          {type: 'heading', data: {level: 5}, nesting: -1}
-        ]
-
-      it "should work with closing # characters and ending spaces", ->
-        test.success '### foo ### ', [
-          {type: 'heading', data: {level: 3}, nesting: 1}
           {type: 'text', data: {text: 'foo'}}
           {type: 'heading', data: {level: 3}, nesting: -1}
-        ]
+          {type: 'document', nesting: -1}
+        ], null, cb
 
-      it "should work with closing # characters and others go into text", ->
-        test.success '### foo ### b', [
+      it "should work with closing # characters and others go into text", (cb) ->
+        test.markdown null, '### foo ### b', [
+          {type: 'document', nesting: 1}
           {type: 'heading', data: {level: 3}, nesting: 1}
           {type: 'text', data: {text: 'foo ### b'}}
           {type: 'heading', data: {level: 3}, nesting: -1}
-        ]
+          {type: 'document', nesting: -1}
+        ], null, cb
 
-      it "should work with closing # characters not separated go into text", ->
-        test.success '# foo#', [
+      it "should work with closing # characters not separated go into text", (cb) ->
+        test.markdown null, '# foo#', [
+          {type: 'document', nesting: 1}
           {type: 'heading', data: {level: 1}, nesting: 1}
           {type: 'text', data: {text: 'foo#'}}
           {type: 'heading', data: {level: 1}, nesting: -1}
-        ]
+          {type: 'document', nesting: -1}
+        ], null, cb
 
-      it "should work with escaped closing # characters go into text", ->
-        test.success '### foo \\###', [
-          {type: 'heading', data: {level: 3}, nesting: 1}
-          {type: 'text', data: {text: 'foo ###'}}
-          {type: 'heading', data: {level: 3}, nesting: -1}
-        ]
-        test.success '## foo #\\##', [
-          {type: 'heading', data: {level: 2}, nesting: 1}
-          {type: 'text', data: {text: 'foo ###'}}
-          {type: 'heading', data: {level: 2}, nesting: -1}
-        ]
-        test.success '# foo \\#', [
-          {type: 'heading', data: {level: 1}, nesting: 1}
-          {type: 'text', data: {text: 'foo #'}}
-          {type: 'heading', data: {level: 1}, nesting: -1}
-        ]
+      it "should work with escaped closing # characters go into text", (cb) ->
+        async.series [
+          (cb) ->
+            test.markdown null, '### foo \\###', [
+              {type: 'document', nesting: 1}
+              {type: 'heading', data: {level: 3}, nesting: 1}
+              {type: 'text', data: {text: 'foo ###'}}
+              {type: 'heading', data: {level: 3}, nesting: -1}
+              {type: 'document', nesting: -1}
+            ], null, cb
+          (cb) ->
+            test.markdown null, '## foo #\\##', [
+              {type: 'document', nesting: 1}
+              {type: 'heading', data: {level: 2}, nesting: 1}
+              {type: 'text', data: {text: 'foo ###'}}
+              {type: 'heading', data: {level: 2}, nesting: -1}
+              {type: 'document', nesting: -1}
+            ], null, cb
+          (cb) ->
+            test.markdown null, '# foo ##\\#', [
+              {type: 'document', nesting: 1}
+              {type: 'heading', data: {level: 1}, nesting: 1}
+              {type: 'text', data: {text: 'foo ###'}}
+              {type: 'heading', data: {level: 1}, nesting: -1}
+              {type: 'document', nesting: -1}
+            ], null, cb
+        ], cb
 
-      it "should work without separation to surrounding content", ->
-        test.success '****\n## foo\n****', [
-          {type: 'thematic_break'}
-          {type: 'heading', data: {level: 2}, nesting: 1}
-          {type: 'text', data: {text: 'foo'}}
-          {type: 'heading', data: {level: 2}, nesting: -1}
-          {type: 'thematic_break'}
-        ]
-        test.success 'Foo bar\n# baz\nBar foo', [
-          {type: 'paragraph'}
-          {type: 'text'}
-          {type: 'paragraph'}
-          {type: 'heading', data: {level: 1}, nesting: 1}
-          {type: 'text', data: {text: 'baz'}}
-          {type: 'heading', data: {level: 1}, nesting: -1}
-          {type: 'paragraph'}
-          {type: 'text'}
-          {type: 'paragraph'}
-        ]
+      it "should work without separation to surrounding content", (cb) ->
+        async.series [
+          (cb) ->
+            test.markdown null, '****\n## foo\n****', [
+              {type: 'document', nesting: 1}
+              {type: 'thematic_break'}
+              {type: 'heading', data: {level: 2}, nesting: 1}
+              {type: 'text', data: {text: 'foo'}}
+              {type: 'heading', data: {level: 2}, nesting: -1}
+              {type: 'thematic_break'}
+              {type: 'document', nesting: -1}
+            ], [
+              format: 'md'
+            ], cb
+          (cb) ->
+            test.markdown null, 'Foo bar\n# baz\nBar foo', [
+              {type: 'document', nesting: 1}
+              {type: 'paragraph'}
+              {type: 'text'}
+              {type: 'paragraph'}
+              {type: 'heading', data: {level: 1}, nesting: 1}
+              {type: 'text', data: {text: 'baz'}}
+              {type: 'heading', data: {level: 1}, nesting: -1}
+              {type: 'paragraph'}
+              {type: 'text'}
+              {type: 'paragraph'}
+              {type: 'document', nesting: -1}
+            ], null, cb
+        ], cb
 
-      it "should work with empty headings", ->
-        test.success '## ', [
-          {type: 'heading', data: {level: 2}, nesting: 1}
-          {type: 'heading', data: {level: 2}, nesting: -1}
-        ]
-        test.success '#', [
-          {type: 'heading', data: {level: 1}, nesting: 1}
-          {type: 'heading', data: {level: 1}, nesting: -1}
-        ]
-        test.success '### ###', [
-          {type: 'heading', data: {level: 3}, nesting: 1}
-          {type: 'heading', data: {level: 3}, nesting: -1}
-        ]
+      it "should work with empty headings", (cb) ->
+        async.series [
+          (cb) ->
+            test.markdown null, '## ', [
+              {type: 'document', nesting: 1}
+              {type: 'heading', data: {level: 2}, nesting: 1}
+              {type: 'heading', data: {level: 2}, nesting: -1}
+              {type: 'document', nesting: -1}
+            ], null, cb
+          (cb) ->
+            test.markdown null, '#', [
+              {type: 'document', nesting: 1}
+              {type: 'heading', data: {level: 1}, nesting: 1}
+              {type: 'heading', data: {level: 1}, nesting: -1}
+              {type: 'document', nesting: -1}
+            ], null, cb
+          (cb) ->
+            test.markdown null, '### ###', [
+              {type: 'document', nesting: 1}
+              {type: 'heading', data: {level: 3}, nesting: 1}
+              {type: 'heading', data: {level: 3}, nesting: -1}
+              {type: 'document', nesting: -1}
+            ], null, cb
+        ], cb
+
+
+
+
+
+
 
     describe "setext heading", ->
 

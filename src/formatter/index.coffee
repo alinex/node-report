@@ -164,7 +164,6 @@ class Formatter
     debug "convert to #{@setup.convert.type}..."
     convLibs[@setup.format][@setup.convert.type].call this, @output, (err, result) =>
       @output = result
-
       cb()
 
 

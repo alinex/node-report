@@ -35,7 +35,6 @@ module.exports =
         @insert null,
           type: 'paragraph'
           state: '-inline'
-          nesting: 1
           content:
             index: @index + m[1].length
             text: m[2]
