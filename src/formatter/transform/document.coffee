@@ -17,11 +17,11 @@ module.exports =
         when 1
           "<!DOCTYPE html>#{nl}\
           <html>#{nl}\
-          <head><title>#{token.data?.title}</title></head>#{nl}\
-          <body>#{nl}\
+          <head><title>#{token.data?.title}</title>#{@setup.head_end}#{nl}\
+          #{@setup.body_begin}
           "
         when -1
-          "</body>#{nl}\
+          "#{@setup.body_end}#{nl}\
           </html>"
 
   latex:

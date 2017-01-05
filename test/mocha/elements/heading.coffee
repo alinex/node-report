@@ -7,7 +7,7 @@ before (cb) -> Report.init cb
 
 describe "heading", ->
 
-  describe "examples", ->
+  describe.only "examples", ->
 
     it "should make heading examples", (cb) ->
       test.markdown 'heading/levels', """

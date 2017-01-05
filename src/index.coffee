@@ -121,10 +121,10 @@ class Report
   ###
   toFile: (name, file, cb) ->
     file += @formatter[name].setup.extension unless fspath.extname file
+    file = fspath.resolve file
     debug "write #{name} output to file #{file}..."
     fs.mkdirs fspath.dirname(file), (err) =>
       return cb err if err
-      console.log @formatter[name].output
       fs.writeFile file, @formatter[name].output, cb
 
 

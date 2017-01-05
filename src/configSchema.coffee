@@ -88,6 +88,21 @@ html =
       description: "a flag to output in compressed form without unneccessary newlines..."
       type: 'boolean'
       optional: true
+    head_end:
+      title: "Ending Head Section"
+      description: "the html code used to end the head part"
+      type: 'string'
+      default: '</head>'
+    body_begin:
+      title: "Start Body Section"
+      description: "the html code used to begin the body part"
+      type: 'string'
+      default: '<body>'
+    body_end:
+      title: "Ending Body Section"
+      description: "the html code used to end the body part"
+      type: 'string'
+      default: '</body>'
 
 # #3 ROFF Setup (format/<name>/)
 #

@@ -14,35 +14,38 @@ format:
 
   text:
     type: text
+    extension: .txt
     width: 100
     ascii_art: true
-    extension: '.txt'
 
   console:
     type: text
+    extension: .console
     width: 100
     ascii_art: true
-    extension: '.console'
 
   html:
     type: html
+    extension: .html
     compress: false
-    extension: '.html'
+    head_end: <meta name="generator" content="alinex-report" /></html>
+    body_begin: <body><div id="page">
+    body_end: </div></body>
 
   man:
     type: roff
-    extension: '.man'
+    extension: .man
 
   latex:
     type: latex
-    extension: '.latex'
+    extension: .latex
 
   pdf:
     type: latex
     convert:
       type: pdf
-    extension: '.pdf'
+    extension: .pdf
 
   rtf:
     type: rtf
-    extension: '.rtf'
+    extension: .rtf
