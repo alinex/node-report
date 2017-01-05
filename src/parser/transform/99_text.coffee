@@ -16,7 +16,7 @@ module.exports =
 
   escape:
     state: ['m-inline', 'mh-inline', 'h-inline']
-    re: /^\\([\s\S])/
+    re: /^\\([*_~=`^])/
     fn: (m) ->
       last = @get()
       if last.type is 'text'

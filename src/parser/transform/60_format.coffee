@@ -35,10 +35,43 @@ MARKER =
 # @type {Object<Transformer>} rules to transform text into tokens
 module.exports =
 
-  all:
+  underscore:
     state: ['m-inline', 'mh-inline']
     re: ///
-      ^([*_~]{1,2}|[=]{2}|[`^])   # 1: start MARKER
+      ^(_{1,2})                   # 1: start MARKER
+      (                           # 2: content
+        [*_~=`^]*\w               # start with marker + word character
+        [\s\S]*?                  # content
+        \w[*_~=`^]*               # end with word character + marker
+      )
+      \1                          # 3: end of element
+      (?![*_~=`^]*\w)             # not following marker + word character
+      ///
+    fn: (m) ->
+      # not the ones within the text
+      last = @get()
+      if last.type isnt 'text' \
+      or last.data.text.substr(-1).matches /\w|[*_~=`^]/
+        return
+      # opening
+      @insert null,
+        type: MARKER[m[1]]
+        nesting: 1
+      # parse subtext
+      @index += m[1].length
+      @lexer m[2]
+      # closing
+      @index += m[1].length
+      @insert null,
+        type: MARKER[m[1]]
+        nesting: -1
+      # done
+      m[0].length
+
+  other:
+    state: ['m-inline', 'mh-inline']
+    re: ///
+      ^([*~]{1,2}|[=]{2}|[`^])   # 1: start MARKER
       (                           # 2: content
         [*_~=`^]*\w               # start with marker + word character
         [\s\S]*?                  # content

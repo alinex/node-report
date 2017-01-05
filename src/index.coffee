@@ -13,6 +13,7 @@ fspath = require 'path'
 # include more alinex modules
 util = require 'alinex-util'
 config = require 'alinex-config'
+fs = require 'alinex-fs'
 # modules
 Parser = require './parser/index'
 Formatter = require './formatter/index'
@@ -119,14 +120,12 @@ class Report
   @param {Function(Error} cb with possible error
   ###
   toFile: (name, file, cb) ->
-    file += @formatter[name].extension unless fspath.extname file
+    file += @formatter[name].setup.extension unless fspath.extname file
     debug "write #{name} output to file #{file}..."
-
-
-
-
-
-    cb()
+    fs.mkdirs fspath.dirname(file), (err) =>
+      return cb err if err
+      console.log @formatter[name].output
+      fs.writeFile file, @formatter[name].output, cb
 
 
   ###
