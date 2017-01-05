@@ -1,0 +1,178 @@
+Thu, 05 Jan 2017 14:55:47 GMT test IN '# heading 1\n## heading 2\n### heading 3\n#### heading 4\n##### heading 5\n###### heading 6'
+Thu, 05 Jan 2017 14:55:47 GMT test TOKENS [ 
+{ type: 'document', nesting: 1, state: 'm-block', level: 0, index: 0 }, 
+{ type: 'heading', data: { level: 1 }, nesting: 1, state: 'm-inline', level: 1, index: 0 }, 
+{ type: 'text', data: { text: 'heading 1' }, nesting: 0, level: 2, index: 2, state: 'm-inline' }, 
+{ type: 'heading', data: { level: 1 }, nesting: -1, closed: true, level: 1, index: 12, state: 'm-inline' }, 
+{ type: 'heading', data: { level: 2 }, nesting: 1, state: 'm-inline', level: 1, index: 12 }, 
+{ type: 'text', data: { text: 'heading 2' }, nesting: 0, level: 2, index: 15, state: 'm-inline' }, 
+{ type: 'heading', data: { level: 2 }, nesting: -1, closed: true, level: 1, index: 25, state: 'm-inline' }, 
+{ type: 'heading', data: { level: 3 }, nesting: 1, state: 'm-inline', level: 1, index: 25 }, 
+{ type: 'text', data: { text: 'heading 3' }, nesting: 0, level: 2, index: 29, state: 'm-inline' }, 
+{ type: 'heading', data: { level: 3 }, nesting: -1, closed: true, level: 1, index: 39, state: 'm-inline' }, 
+{ type: 'heading', data: { level: 4 }, nesting: 1, state: 'm-inline', level: 1, index: 39 }, 
+{ type: 'text', data: { text: 'heading 4' }, nesting: 0, level: 2, index: 44, state: 'm-inline' }, 
+{ type: 'heading', data: { level: 4 }, nesting: -1, closed: true, level: 1, index: 54, state: 'm-inline' }, 
+{ type: 'heading', data: { level: 5 }, nesting: 1, state: 'm-inline', level: 1, index: 54 }, 
+{ type: 'text', data: { text: 'heading 5' }, nesting: 0, level: 2, index: 60, state: 'm-inline' }, 
+{ type: 'heading', data: { level: 5 }, nesting: -1, closed: true, level: 1, index: 70, state: 'm-inline' }, 
+{ type: 'heading', data: { level: 6 }, nesting: 1, state: 'm-inline', level: 1, index: 70 }, 
+{ type: 'text', data: { text: 'heading 6' }, nesting: 0, level: 2, index: 77, state: 'm-inline' }, 
+{ type: 'heading', data: { level: 6 }, nesting: -1, closed: true, level: 1, index: 86, state: 'm-inline' }, 
+{ type: 'document', nesting: -1, level: 0, index: 86 } ]
+Thu, 05 Jan 2017 14:55:47 GMT test OUT md 'heading 1\n====================================================================================================\nheading 2\n----------------------------------------------------------------------------------------------------\n\n### heading 3\n\n#### heading 4\n\n##### heading 5\n\n###### heading 6\n'
+Thu, 05 Jan 2017 14:55:47 GMT test OUT text 'heading 1\n════════════════════════════════════════════════════════════════════════════════════════════════════\nheading 2\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\nheading 3\n╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍\nheading 4\n┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅\nheading 5\n────────────────────────────────────────────────────────────────────────────────────────────────────\nheading 6\n┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄\n'
+Thu, 05 Jan 2017 14:55:47 GMT test OUT html '<!DOCTYPE html>\n<html>\n<head><title>heading 1</title><meta name="generator" content="alinex-report" /></html>\n<body><div id="page">\n<h1>heading 1</h1>\n<h2>heading 2</h2>\n<h3>heading 3</h3>\n<h4>heading 4</h4>\n<h5>heading 5</h5>\n<h6>heading 6</h6>\n</div></body>\n</html>'
+Thu, 05 Jan 2017 14:55:47 GMT test OUT man '.TH heading 1\n.SH heading 2\n.SS heading 3\n.SS heading 4\n.SS heading 5\n.SS heading 6\n'
+Thu, 05 Jan 2017 14:55:47 GMT test TOKENS [ 
+{ type: 'document', nesting: 1, state: 'm-block', level: 0, index: 0 }, 
+{ type: 'heading', data: { level: 1 }, nesting: 1, level: 1, index: 0, state: 'm-block' }, 
+{ type: 'text', data: { text: 'foo' }, nesting: 0, level: 2, index: 0, state: 'm-block' }, 
+{ type: 'heading', data: { level: 1 }, nesting: -1, level: 1, index: 0, state: 'm-block' }, 
+{ type: 'document', nesting: -1, level: 0, index: 0 } ]
+Thu, 05 Jan 2017 14:55:47 GMT test OUT md 'foo\n====================================================================================================\n'
+Thu, 05 Jan 2017 14:55:47 GMT test OUT text 'foo\n════════════════════════════════════════════════════════════════════════════════════════════════════\n'
+Thu, 05 Jan 2017 14:55:47 GMT test OUT html '<!DOCTYPE html>\n<html>\n<head><title>foo</title><meta name="generator" content="alinex-report" /></html>\n<body><div id="page">\n<h1>foo</h1>\n</div></body>\n</html>'
+Thu, 05 Jan 2017 14:55:47 GMT test OUT man '.TH foo\n'
+Thu, 05 Jan 2017 14:55:47 GMT test IN '# foo'
+Thu, 05 Jan 2017 14:55:47 GMT test TOKENS [ 
+{ type: 'document', nesting: 1, state: 'm-block', level: 0, index: 0 }, 
+{ type: 'heading', data: { level: 1 }, nesting: 1, state: 'm-inline', level: 1, index: 0 }, 
+{ type: 'text', data: { text: 'foo' }, nesting: 0, level: 2, index: 2, state: 'm-inline' }, 
+{ type: 'heading', data: { level: 1 }, nesting: -1, closed: true, level: 1, index: 5, state: 'm-inline' }, 
+{ type: 'document', nesting: -1, level: 0, index: 5 } ]
+Thu, 05 Jan 2017 14:55:47 GMT test OUT md 'foo\n====================================================================================================\n'
+Thu, 05 Jan 2017 14:55:47 GMT test OUT text 'foo\n════════════════════════════════════════════════════════════════════════════════════════════════════\n'
+Thu, 05 Jan 2017 14:55:47 GMT test OUT html '<!DOCTYPE html>\n<html>\n<head><title>foo</title><meta name="generator" content="alinex-report" /></html>\n<body><div id="page">\n<h1>foo</h1>\n</div></body>\n</html>'
+Thu, 05 Jan 2017 14:55:47 GMT test OUT man '.TH foo\n'
+Thu, 05 Jan 2017 14:55:47 GMT test IN '## foo'
+Thu, 05 Jan 2017 14:55:47 GMT test TOKENS [ 
+{ type: 'document', nesting: 1, state: 'm-block', level: 0, index: 0 }, 
+{ type: 'heading', data: { level: 2 }, nesting: 1, state: 'm-inline', level: 1, index: 0 }, 
+{ type: 'text', data: { text: 'foo' }, nesting: 0, level: 2, index: 3, state: 'm-inline' }, 
+{ type: 'heading', data: { level: 2 }, nesting: -1, closed: true, level: 1, index: 6, state: 'm-inline' }, 
+{ type: 'document', nesting: -1, level: 0, index: 6 } ]
+Thu, 05 Jan 2017 14:55:47 GMT test OUT md 'foo\n----------------------------------------------------------------------------------------------------\n'
+Thu, 05 Jan 2017 14:55:47 GMT test OUT text 'foo\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n'
+Thu, 05 Jan 2017 14:55:47 GMT test OUT html '<!DOCTYPE html>\n<html>\n<head><title>foo</title><meta name="generator" content="alinex-report" /></html>\n<body><div id="page">\n<h2>foo</h2>\n</div></body>\n</html>'
+Thu, 05 Jan 2017 14:55:47 GMT test OUT man '.SH foo\n'
+Thu, 05 Jan 2017 14:55:47 GMT test IN '### foo'
+Thu, 05 Jan 2017 14:55:47 GMT test TOKENS [ 
+{ type: 'document', nesting: 1, state: 'm-block', level: 0, index: 0 }, 
+{ type: 'heading', data: { level: 3 }, nesting: 1, state: 'm-inline', level: 1, index: 0 }, 
+{ type: 'text', data: { text: 'foo' }, nesting: 0, level: 2, index: 4, state: 'm-inline' }, 
+{ type: 'heading', data: { level: 3 }, nesting: -1, closed: true, level: 1, index: 7, state: 'm-inline' }, 
+{ type: 'document', nesting: -1, level: 0, index: 7 } ]
+Thu, 05 Jan 2017 14:55:47 GMT test OUT md '\n### foo\n'
+Thu, 05 Jan 2017 14:55:47 GMT test OUT text 'foo\n╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍\n'
+Thu, 05 Jan 2017 14:55:47 GMT test OUT html '<!DOCTYPE html>\n<html>\n<head><title>foo</title><meta name="generator" content="alinex-report" /></html>\n<body><div id="page">\n<h3>foo</h3>\n</div></body>\n</html>'
+Thu, 05 Jan 2017 14:55:47 GMT test OUT man '.SS foo\n'
+Thu, 05 Jan 2017 14:55:47 GMT test IN '#### foo'
+Thu, 05 Jan 2017 14:55:47 GMT test TOKENS [ 
+{ type: 'document', nesting: 1, state: 'm-block', level: 0, index: 0 }, 
+{ type: 'heading', data: { level: 4 }, nesting: 1, state: 'm-inline', level: 1, index: 0 }, 
+{ type: 'text', data: { text: 'foo' }, nesting: 0, level: 2, index: 5, state: 'm-inline' }, 
+{ type: 'heading', data: { level: 4 }, nesting: -1, closed: true, level: 1, index: 8, state: 'm-inline' }, 
+{ type: 'document', nesting: -1, level: 0, index: 8 } ]
+Thu, 05 Jan 2017 14:55:47 GMT test OUT md '\n#### foo\n'
+Thu, 05 Jan 2017 14:55:47 GMT test OUT text 'foo\n┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅\n'
+Thu, 05 Jan 2017 14:55:47 GMT test OUT html '<!DOCTYPE html>\n<html>\n<head><title>foo</title><meta name="generator" content="alinex-report" /></html>\n<body><div id="page">\n<h4>foo</h4>\n</div></body>\n</html>'
+Thu, 05 Jan 2017 14:55:47 GMT test OUT man '.SS foo\n'
+Thu, 05 Jan 2017 14:55:47 GMT test IN '##### foo'
+Thu, 05 Jan 2017 14:55:47 GMT test TOKENS [ 
+{ type: 'document', nesting: 1, state: 'm-block', level: 0, index: 0 }, 
+{ type: 'heading', data: { level: 5 }, nesting: 1, state: 'm-inline', level: 1, index: 0 }, 
+{ type: 'text', data: { text: 'foo' }, nesting: 0, level: 2, index: 6, state: 'm-inline' }, 
+{ type: 'heading', data: { level: 5 }, nesting: -1, closed: true, level: 1, index: 9, state: 'm-inline' }, 
+{ type: 'document', nesting: -1, level: 0, index: 9 } ]
+Thu, 05 Jan 2017 14:55:47 GMT test OUT md '\n##### foo\n'
+Thu, 05 Jan 2017 14:55:47 GMT test OUT text 'foo\n────────────────────────────────────────────────────────────────────────────────────────────────────\n'
+Thu, 05 Jan 2017 14:55:47 GMT test OUT html '<!DOCTYPE html>\n<html>\n<head><title>foo</title><meta name="generator" content="alinex-report" /></html>\n<body><div id="page">\n<h5>foo</h5>\n</div></body>\n</html>'
+Thu, 05 Jan 2017 14:55:47 GMT test OUT man '.SS foo\n'
+Thu, 05 Jan 2017 14:55:47 GMT test IN '###### foo'
+Thu, 05 Jan 2017 14:55:47 GMT test TOKENS [ 
+{ type: 'document', nesting: 1, state: 'm-block', level: 0, index: 0 }, 
+{ type: 'heading', data: { level: 6 }, nesting: 1, state: 'm-inline', level: 1, index: 0 }, 
+{ type: 'text', data: { text: 'foo' }, nesting: 0, level: 2, index: 7, state: 'm-inline' }, 
+{ type: 'heading', data: { level: 6 }, nesting: -1, closed: true, level: 1, index: 10, state: 'm-inline' }, 
+{ type: 'document', nesting: -1, level: 0, index: 10 } ]
+Thu, 05 Jan 2017 14:55:47 GMT test OUT md '\n###### foo\n'
+Thu, 05 Jan 2017 14:55:47 GMT test OUT text 'foo\n┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄\n'
+Thu, 05 Jan 2017 14:55:47 GMT test OUT html '<!DOCTYPE html>\n<html>\n<head><title>foo</title><meta name="generator" content="alinex-report" /></html>\n<body><div id="page">\n<h6>foo</h6>\n</div></body>\n</html>'
+Thu, 05 Jan 2017 14:55:47 GMT test OUT man '.SS foo\n'
+Thu, 05 Jan 2017 14:55:47 GMT test IN '####### foo'
+Thu, 05 Jan 2017 14:55:47 GMT test TOKENS [ 
+{ type: 'document', nesting: 1, state: 'm-block', level: 0, index: 0 }, 
+{ type: 'paragraph', state: 'm-inline', nesting: 1, level: 1, index: 0 }, 
+{ type: 'text', data: { text: '####### foo' }, nesting: 0, level: 2, index: 0, state: 'm-inline' }, 
+{ type: 'paragraph', state: 'm-inline', nesting: -1, level: 1, index: 11 }, 
+{ type: 'document', nesting: -1, level: 0, index: 11 } ]
+Thu, 05 Jan 2017 14:55:47 GMT test IN '#5 bolt'
+Thu, 05 Jan 2017 14:55:47 GMT test TOKENS [ 
+{ type: 'document', nesting: 1, state: 'm-block', level: 0, index: 0 }, 
+{ type: 'paragraph', state: 'm-inline', nesting: 1, level: 1, index: 0 }, 
+{ type: 'text', data: { text: '#5 bolt' }, nesting: 0, level: 2, index: 0, state: 'm-inline' }, 
+{ type: 'paragraph', state: 'm-inline', nesting: -1, level: 1, index: 7 }, 
+{ type: 'document', nesting: -1, level: 0, index: 7 } ]
+Thu, 05 Jan 2017 14:55:47 GMT test IN '#hashtag'
+Thu, 05 Jan 2017 14:55:47 GMT test TOKENS [ 
+{ type: 'document', nesting: 1, state: 'm-block', level: 0, index: 0 }, 
+{ type: 'paragraph', state: 'm-inline', nesting: 1, level: 1, index: 0 }, 
+{ type: 'text', data: { text: '#hashtag' }, nesting: 0, level: 2, index: 0, state: 'm-inline' }, 
+{ type: 'paragraph', state: 'm-inline', nesting: -1, level: 1, index: 8 }, 
+{ type: 'document', nesting: -1, level: 0, index: 8 } ]
+Thu, 05 Jan 2017 14:55:47 GMT test IN '\\## foo'
+Thu, 05 Jan 2017 14:55:47 GMT test TOKENS [ 
+{ type: 'document', nesting: 1, state: 'm-block', level: 0, index: 0 }, 
+{ type: 'paragraph', state: 'm-inline', nesting: 1, level: 1, index: 0 }, 
+{ type: 'text', data: { text: '## foo' }, nesting: 0, level: 2, index: 0, state: 'm-inline' }, 
+{ type: 'paragraph', state: 'm-inline', nesting: -1, level: 1, index: 7 }, 
+{ type: 'document', nesting: -1, level: 0, index: 7 } ]
+Thu, 05 Jan 2017 14:55:47 GMT test OUT md '\\## foo'
+Thu, 05 Jan 2017 14:55:47 GMT test IN '# foo *bar* \\*baz\\*'
+Thu, 05 Jan 2017 14:55:47 GMT test TOKENS [ 
+{ type: 'document', nesting: 1, state: 'm-block', level: 0, index: 0 }, 
+{ type: 'heading', data: { level: 1 }, nesting: 1, state: 'm-inline', level: 1, index: 0 }, 
+{ type: 'text', data: { text: 'foo ' }, nesting: 0, level: 2, index: 2, state: 'm-inline' }, 
+{ type: 'emphasis', nesting: 1, level: 2, index: 6, state: 'm-inline' }, 
+{ type: 'text', data: { text: 'bar' }, nesting: 0, level: 3, index: 7, state: 'm-inline' }, 
+{ type: 'emphasis', nesting: -1, level: 2, index: 11, state: 'm-inline' }, 
+{ type: 'text', data: { text: ' *baz*' }, nesting: 0, level: 2, index: 11, state: 'm-inline' }, 
+{ type: 'heading', data: { level: 1 }, nesting: -1, closed: true, level: 1, index: 19, state: 'm-inline' }, 
+{ type: 'document', nesting: -1, level: 0, index: 19 } ]
+Thu, 05 Jan 2017 14:55:47 GMT test OUT md 'foo *bar* \\*baz\\*\n====================================================================================================\n'
+Thu, 05 Jan 2017 14:55:47 GMT test IN '#       foo'
+Thu, 05 Jan 2017 14:55:47 GMT test TOKENS [ 
+{ type: 'document', nesting: 1, state: 'm-block', level: 0, index: 0 }, 
+{ type: 'heading', data: { level: 1 }, nesting: 1, state: 'm-inline', level: 1, index: 0 }, 
+{ type: 'text', data: { text: 'foo' }, nesting: 0, level: 2, index: 8, state: 'm-inline' }, 
+{ type: 'heading', data: { level: 1 }, nesting: -1, closed: true, level: 1, index: 11, state: 'm-inline' }, 
+{ type: 'document', nesting: -1, level: 0, index: 11 } ]
+Thu, 05 Jan 2017 14:55:47 GMT test IN '#       foo          '
+Thu, 05 Jan 2017 14:55:47 GMT test TOKENS [ 
+{ type: 'document', nesting: 1, state: 'm-block', level: 0, index: 0 }, 
+{ type: 'heading', data: { level: 1 }, nesting: 1, state: 'm-inline', level: 1, index: 0 }, 
+{ type: 'text', data: { text: 'foo' }, nesting: 0, level: 2, index: 8, state: 'm-inline' }, 
+{ type: 'heading', data: { level: 1 }, nesting: -1, closed: true, level: 1, index: 21, state: 'm-inline' }, 
+{ type: 'document', nesting: -1, level: 0, index: 21 } ]
+Thu, 05 Jan 2017 14:55:47 GMT test IN ' ### foo'
+Thu, 05 Jan 2017 14:55:47 GMT test TOKENS [ 
+{ type: 'document', nesting: 1, state: 'm-block', level: 0, index: 0 }, 
+{ type: 'heading', data: { level: 3 }, nesting: 1, state: 'm-inline', level: 1, index: 0 }, 
+{ type: 'text', data: { text: 'foo' }, nesting: 0, level: 2, index: 5, state: 'm-inline' }, 
+{ type: 'heading', data: { level: 3 }, nesting: -1, closed: true, level: 1, index: 8, state: 'm-inline' }, 
+{ type: 'document', nesting: -1, level: 0, index: 8 } ]
+Thu, 05 Jan 2017 14:55:47 GMT test IN '  ## foo'
+Thu, 05 Jan 2017 14:55:47 GMT test TOKENS [ 
+{ type: 'document', nesting: 1, state: 'm-block', level: 0, index: 0 }, 
+{ type: 'heading', data: { level: 2 }, nesting: 1, state: 'm-inline', level: 1, index: 0 }, 
+{ type: 'text', data: { text: 'foo' }, nesting: 0, level: 2, index: 5, state: 'm-inline' }, 
+{ type: 'heading', data: { level: 2 }, nesting: -1, closed: true, level: 1, index: 8, state: 'm-inline' }, 
+{ type: 'document', nesting: -1, level: 0, index: 8 } ]
+Thu, 05 Jan 2017 14:55:47 GMT test IN '   # foo'
+Thu, 05 Jan 2017 14:55:47 GMT test TOKENS [ 
+{ type: 'document', nesting: 1, state: 'm-block', level: 0, index: 0 }, 
+{ type: 'heading', data: { level: 1 }, nesting: 1, state: 'm-inline', level: 1, index: 0 }, 
+{ type: 'text', data: { text: 'foo' }, nesting: 0, level: 2, index: 5, state: 'm-inline' }, 
+{ type: 'heading', data: { level: 1 }, nesting: -1, closed: true, level: 1, index: 8, state: 'm-inline' }, 
+{ type: 'document', nesting: -1, level: 0, index: 8 } ]

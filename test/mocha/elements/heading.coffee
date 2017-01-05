@@ -5,7 +5,7 @@ async = require 'async'
 Report = require '../../../src'
 before (cb) -> Report.init cb
 
-describe "heading", ->
+describe.only "heading", ->
 
   describe "examples", ->
 
@@ -138,19 +138,21 @@ describe "heading", ->
 
       it "should fail if the space after # characters is missing", (cb) ->
         async.series [
-          (cb) -> test.markdown null, '#5 bolt', [
-            {type: 'document', nesting: 1}
-            {type: 'paragraph'}
-            {type: 'text', data: {text: '#5 bolt'}}
-            {type: 'paragraph'}
-            {type: 'document', nesting: -1}
+          (cb) ->
+            test.markdown null, '#5 bolt', [
+              {type: 'document', nesting: 1}
+              {type: 'paragraph'}
+              {type: 'text', data: {text: '#5 bolt'}}
+              {type: 'paragraph'}
+              {type: 'document', nesting: -1}
             ], null, cb
-          (cb) -> test.markdown null, '#hashtag', [
-            {type: 'document', nesting: 1}
-            {type: 'paragraph'}
-            {type: 'text', data: {text: '#hashtag'}}
-            {type: 'paragraph'}
-            {type: 'document', nesting: -1}
+          (cb) ->
+            test.markdown null, '#hashtag', [
+              {type: 'document', nesting: 1}
+              {type: 'paragraph'}
+              {type: 'text', data: {text: '#hashtag'}}
+              {type: 'paragraph'}
+              {type: 'document', nesting: -1}
             ], null, cb
         ], cb
 
@@ -165,7 +167,7 @@ describe "heading", ->
           format: 'md', text: '\\## foo'
         ], cb
 
-      it.only "should parse inline content", (cb) ->
+      it "should parse inline content", (cb) ->
         test.markdown null, '# foo *bar* \\*baz\\*', [
           {type: 'document', nesting: 1}
           {type: 'heading', data: {level: 1}, nesting: 1}
@@ -180,32 +182,56 @@ describe "heading", ->
           format: 'md', text: 'foo *bar* \\*baz\\*\n==='
         ], cb
 
-
-
-
-
-      it "should work with more leading or trailing spaces", ->
-        test.success '#       foo', [
+      it "should work with more leading spaces", (cb) ->
+        test.markdown null, '#       foo', [
+          {type: 'document', nesting: 1}
           {type: 'heading', data: {level: 1}, nesting: 1}
           {type: 'text', data: {text: 'foo'}}
           {type: 'heading', data: {level: 1}, nesting: -1}
-        ]
-        test.success '#       foo          ', [
+          {type: 'document', nesting: -1}
+        ], null, cb
+      it "should work with more leading and trailing spaces", (cb) ->
+        test.markdown null, '#       foo          ', [
+          {type: 'document', nesting: 1}
           {type: 'heading', data: {level: 1}, nesting: 1}
           {type: 'text', data: {text: 'foo'}}
           {type: 'heading', data: {level: 1}, nesting: -1}
-        ]
+          {type: 'document', nesting: -1}
+        ], null, cb
 
-      it "should work 1-3 spaces indention", ->
-        test.success ' ### foo', [
-          {type: 'heading'}, {type: 'text'}, {type: 'heading'}
-        ]
-        test.success '  ## foo', [
-          {type: 'heading'}, {type: 'text'}, {type: 'heading'}
-        ]
-        test.success '   # foo', [
-          {type: 'heading'}, {type: 'text'}, {type: 'heading'}
-        ]
+      it "should work with m1-3 spaces indention", (cb) ->
+        async.series [
+          (cb) ->
+            test.markdown null, ' ### foo', [
+              {type: 'document', nesting: 1}
+              {type: 'heading', data: {level: 3}, nesting: 1}
+              {type: 'text', data: {text: 'foo'}}
+              {type: 'heading', data: {level: 3}, nesting: -1}
+              {type: 'document', nesting: -1}
+            ], null, cb
+          (cb) ->
+            test.markdown null, '  ## foo', [
+              {type: 'document', nesting: 1}
+              {type: 'heading', data: {level: 2}, nesting: 1}
+              {type: 'text', data: {text: 'foo'}}
+              {type: 'heading', data: {level: 2}, nesting: -1}
+              {type: 'document', nesting: -1}
+            ], null, cb
+          (cb) ->
+            test.markdown null, '   # foo', [
+              {type: 'document', nesting: 1}
+              {type: 'heading', data: {level: 1}, nesting: 1}
+              {type: 'text', data: {text: 'foo'}}
+              {type: 'heading', data: {level: 1}, nesting: -1}
+              {type: 'document', nesting: -1}
+            ], null, cb
+        ], cb
+
+
+
+
+
+
 
       it "should fail with over 3 spaces indention", ->
         test.success '    # foo', [

@@ -146,7 +146,8 @@ class Parser
     prev = @get num - 1
     t.nesting ?= 0
     if prev
-      t.level ?= prev.level + (if t.nesting is -1 then -1 else 0)
+      t.level ?= prev.level + (if prev.nesting is 1 then 1 else 0) \
+      + (if t.nesting is -1 then -1 else 0)
       t.index ?= @index
       t.state ?= prev.state
       t.state = prev.state.split(/-/)[0] + t.state if t.state?[0] is '-'
