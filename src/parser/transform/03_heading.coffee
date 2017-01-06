@@ -14,7 +14,7 @@ module.exports =
   empty:
     state: ['m-block', 'mh-block']
     re: ///
-      ^(\n*       # 1: start of line
+      ^(\n?       # 1: start of line
         \ {0,3}   # indented by 1-3 spaces (optional)
         (\#{1,6}) # 2: level 1-6
       )           # end of start
@@ -46,7 +46,7 @@ module.exports =
   atx:
     state: ['m-block', 'mh-block']
     re: ///
-      ^(\n*       # 1: start of line
+      ^(\n?       # 1: start of line
         \ {0,3}   # indented by 1-3 spaces (optional)
         (\#{1,6}) # 2: level 1-6
         [\ \t]+   # at least one space
@@ -84,14 +84,20 @@ module.exports =
   setext:
     state: ['m-block', 'mh-block']
     re: ///
-      ^(\n*       # 1: start of line
-        \ {0,3}   # indented by 1-3 spaces (optional)
+      ^(\n?       # 1: start of line
+        \ {0,3}       # indented by 1-3 spaces (optional)
       )           # end of start
-      ([\s\S]*?)  # 2: text with trailing spaces (optional)
-      (\n\s{0,3}[=-]{1,}) # 3: type of heading
+      (           # 2: text with trailing spaces (optional)
+        (?:\r?\n[^\n] # containing only single newlines
+        |[^\r\n])+?   # and otehr characters
+      )           # end of text
+      (           # 3: type of heading
+        \n[\ \t]{0,3} # underline up to 3 spaces indent
+        [=-]{1,}      # underline characters 1+
+      )           # end of underline
       (           # 4: ending heading
-        [\ \t]*   # trailing spaces (optional)
-        (?:\n|$)  # end of line
+        [\ \t]*       # trailing spaces (optional)
+        (?:\n|$)      # end of line
       )
       ///
     fn: (m) ->
