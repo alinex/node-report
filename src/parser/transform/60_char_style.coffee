@@ -26,7 +26,7 @@ MARKER =
   '~': 'subscript'
   '^': 'superscript'
   '==': 'highlight'
-  '`': 'code'
+  '`': 'typewriter'
 
 
 # Transformer rules
@@ -51,7 +51,7 @@ module.exports =
       # not the ones within the text
       last = @get()
       if last.type isnt 'text' \
-      or last.data.text.substr(-1).matches /\w|[*_~=`^]/
+      or last.data.text.substr(-1).match /\w|[*_~=`^]/
         return
       # opening
       @insert null,

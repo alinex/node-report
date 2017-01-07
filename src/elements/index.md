@@ -16,6 +16,7 @@ can also be used to store and reread data without loss of information.
 | Heading    |  X  |  X   |      |
 | Paragraph  |     |  X   |      |
 | ThemaBreak |  X  |  X   |      |
+| CharStyle  |  X  |  X   |      |
 | Text       |     |  X   |      |
 
 ^`X` -> supported; `-` -> not possible; `(X)` -> partly supported;
@@ -41,6 +42,7 @@ Each of the formats support different options you may set ba configuration or on
 | Heading    |  X  |  X   |  X   |  X   |       |     |
 | Paragraph  |  X  |  X   |  X   |  X   |       |     |
 | ThemaBreak |  X  |  X   |  X   |  X   |       |     |
+| CharStyle  |  X  | (X)  |  X   |  X   |       |     |
 | Text       |     |      |      |      |       |     |
 
 ^`X` -> supported; `-` -> not possible; `(X)` -> partly supported;

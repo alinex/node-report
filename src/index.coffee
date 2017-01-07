@@ -19,6 +19,7 @@ Parser = require './parser/index'
 Formatter = require './formatter/index'
 # internal helpers
 schema = require './configSchema'
+initApi = require './api'
 
 
 # Report Class
@@ -53,6 +54,7 @@ class Report
   ###
   @init: util.function.once this, (cb) ->
     debug "initialize"
+    initApi()
     # set module search path
     @setup (err) ->
       return cb err if err
@@ -128,47 +130,9 @@ class Report
       fs.writeFile file, @formatter[name].output, cb
 
 
-  ###
-  API Creation
-  -------------------------------------------------
-  ###
-
-  ###
-  Add heading level 1.
-
-  @param {String|Boolean} text with content of heading or true to open tag and
-  false to close tag if content is added manually.
-  @return {Report} instance itself for command concatenation
-  ###
-  h1: (text) ->
-    @parser.begin()
-    if typeof text is 'boolean'
-      @parser.insert null,
-        type: 'heading'
-        data:
-          level: 1
-        nesting: if text then 1 else -1
-      return this
-    # add text
-    @parser.insert null,
-      type: 'heading'
-      data:
-        level: 1
-      nesting: 1
-    @parser.insert null,
-      type: 'text'
-      data:
-        text: text
-    @parser.insert null,
-      type: 'heading'
-      data:
-        level: 1
-      nesting: -1
-
-  hr: ->
-    @parser.begin()
-    @parser.insert null,
-      type: 'thematic_break'
-
+###
+Export Report Class
+------------------------------------------------------------------
+###
 
 module.exports = Report

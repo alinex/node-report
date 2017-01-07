@@ -5,7 +5,7 @@ async = require 'async'
 Report = require '../../../src'
 before (cb) -> Report.init cb
 
-describe "heading", ->
+describe.only "heading", ->
 
   describe "examples", ->
 
@@ -24,9 +24,10 @@ describe "heading", ->
         {format: 'man'}
       ], cb
 
-  describe "api", ->
 
-    it "should create level 1", (cb) ->
+  describe.only "api", ->
+
+    it "should create with given text", (cb) ->
       # create report
       report = new Report()
       report.h1 'foo'
@@ -43,6 +44,29 @@ describe "heading", ->
         {format: 'html', text: "<h1>foo</h1>\n"}
         {format: 'man', text: ".TH foo\n"}
       ], cb
+
+    it "should create in multiple steps", (cb) ->
+      # create report
+      report = new Report()
+      report.h1 true
+      report.text 'foo'
+      report.text 'bar'
+      report.h1 false
+      # check it
+      test.report null, report, [
+        {type: 'document', nesting: 1}
+        {type: 'heading', data: {level: 1}, nesting: 1}
+        {type: 'text', data: {text: 'foo'}}
+        {type: 'text', data: {text: 'bar'}}
+        {type: 'heading', data: {level: 1}, nesting: -1}
+        {type: 'document', nesting: -1}
+      ], [
+        {format: 'md', re: /foobar\n===+\n/}
+        {format: 'text', re: /foobar\n═══+\n/}
+        {format: 'html', text: "<h1>foobar</h1>\n"}
+        {format: 'man', text: ".TH foobar\n"}
+      ], cb
+
 
   describe "markdown", ->
 
