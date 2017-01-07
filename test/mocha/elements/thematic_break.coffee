@@ -1,73 +1,283 @@
 ### eslint-env node, mocha ###
 test = require '../test'
+async = require 'async'
 
-describe "parser", ->
+Report = require '../../../src'
+before (cb) -> Report.init cb
+
+describe "thematic break", ->
+
+  describe "examples", ->
+
+    it "should make examples", (cb) ->
+      test.markdown 'thematic_break/line', '---', null, [
+        {format: 'md'}
+        {format: 'text'}
+        {format: 'html'}
+        {format: 'man'}
+      ], cb
+
+  describe "api", ->
+
+    it "should create line", (cb) ->
+      # create report
+      report = new Report()
+      report.hr()
+      # check it
+      test.report null, report, [
+        {type: 'document', nesting: 1}
+        {type: 'thematic_break'}
+        {type: 'document', nesting: -1}
+      ], [
+        {format: 'md', re: /---+\n/}
+        {format: 'text', re: /───+\n/}
+        {format: 'html', text: "<hr />\n"}
+        {format: 'man', text: ".HR\n"}
+      ], cb
 
   describe "markdown", ->
 
-    describe.skip "thematic break", ->
+    # http://spec.commonmark.org/0.27/#example-13
+    it "should work with three characters", (cb) ->
+      async.series [
+        (cb) ->
+          test.markdown null, '***', [
+            {type: 'document', nesting: 1}
+            {type: 'thematic_break'}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '---', [
+            {type: 'document', nesting: 1}
+            {type: 'thematic_break'}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '___', [
+            {type: 'document', nesting: 1}
+            {type: 'thematic_break'}
+            {type: 'document', nesting: -1}
+          ], null, cb
+      ], cb
 
-      it "should work with three characters", ->
-        test.success '***', [type: 'thematic_break']
-        test.success '---', [type: 'thematic_break']
-        test.success '___', [type: 'thematic_break']
+    # http://spec.commonmark.org/0.27/#example-14
+    # http://spec.commonmark.org/0.27/#example-15
+    it "should fail with wrong characters", (cb) ->
+      async.series [
+        (cb) ->
+          test.markdown null, '+++', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', data: {text: '+++'}}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '===', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', data: {text: '==='}}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+      ], cb
 
-      it "should fail with wrong characters", ->
-        test.success '+++', [{type: 'paragraph'}, {type: 'text'}, {type: 'paragraph'}]
-        test.success '===', [{type: 'paragraph'}, {type: 'text'}, {type: 'paragraph'}]
+    # http://spec.commonmark.org/0.27/#example-16
+    it "should fail with not enough characters", (cb) ->
+      async.series [
+        (cb) ->
+          test.markdown null, '--', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', data: {text: '--'}}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '**', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', data: {text: '**'}}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '__', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', data: {text: '__'}}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+      ], cb
 
-      it "should fail with not enough characters", ->
-        test.success '--', [{type: 'paragraph'}, {type: 'text'}, {type: 'paragraph'}]
-        test.success '**', [{type: 'paragraph'}, {type: 'text'}, {type: 'paragraph'}]
-        test.success '__', [{type: 'paragraph'}, {type: 'text'}, {type: 'paragraph'}]
 
-      it "should work with one to three spaces indent", ->
-        test.success ' ***', [type: 'thematic_break']
-        test.success '  ***', [type: 'thematic_break']
-        test.success '   ***', [type: 'thematic_break']
+    # http://spec.commonmark.org/0.27/#example-17
+    it "should work with one to three spaces indent", (cb) ->
+      async.series [
+        (cb) ->
+          test.markdown null, ' ***', [
+            {type: 'document', nesting: 1}
+            {type: 'thematic_break'}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '  ***', [
+            {type: 'document', nesting: 1}
+            {type: 'thematic_break'}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '   ***', [
+            {type: 'document', nesting: 1}
+            {type: 'thematic_break'}
+            {type: 'document', nesting: -1}
+          ], null, cb
+      ], cb
 
-      it "should fail with four spaces indent", ->
-        test.fail '    ***', [type: 'thematic_break']
+    # http://spec.commonmark.org/0.27/#example-18
+    # http://spec.commonmark.org/0.27/#example-19
+    it "should fail with not enough characters", (cb) ->
+      async.series [
+        (cb) ->
+          test.markdown null, '    ****', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', data: {text: ' ****'}}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, 'Foo\n    ***', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', data: {text: 'Foo\n***'}}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+      ], cb
 
-      it "should work with more than three characters", ->
-        test.success '_____________________________________', [type: 'thematic_break']
+    # http://spec.commonmark.org/0.27/#example-20
+    it "should work with more than three characters", (cb) ->
+      test.markdown null, '_____________________________________', [
+        {type: 'document', nesting: 1}
+        {type: 'thematic_break'}
+        {type: 'document', nesting: -1}
+      ], null, cb
 
-      it "should work with spaces between the characters", ->
-        test.success ' - - -', [type: 'thematic_break']
-        test.success ' **  * ** * ** * **', [type: 'thematic_break']
-        test.success '-     -      -      -', [type: 'thematic_break']
+    # http://spec.commonmark.org/0.27/#example-21
+    # http://spec.commonmark.org/0.27/#example-22
+    # http://spec.commonmark.org/0.27/#example-23
+    it "should work with spaces between the characters", (cb) ->
+      async.series [
+        (cb) ->
+          test.markdown null, ' - - -', [
+            {type: 'document', nesting: 1}
+            {type: 'thematic_break'}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, ' **  * ** * ** * **', [
+            {type: 'document', nesting: 1}
+            {type: 'thematic_break'}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '-     -      -      -', [
+            {type: 'document', nesting: 1}
+            {type: 'thematic_break'}
+            {type: 'document', nesting: -1}
+          ], null, cb
+      ], cb
 
-      it "should work with spaces at the end", ->
-        test.success '- - - -    ', [type: 'thematic_break']
+    # http://spec.commonmark.org/0.27/#example-24
+    it "should work with spaces at the end", (cb) ->
+      test.markdown null, '- - - -    ', [
+        {type: 'document', nesting: 1}
+        {type: 'thematic_break'}
+        {type: 'document', nesting: -1}
+      ], null, cb
 
-      it "should fail with other characters within the line", ->
-        test.success '_ _ _ _ a', [{type: 'paragraph'}, {type: 'text'}, {type: 'paragraph'}]
-        test.success 'a------', [{type: 'paragraph'}, {type: 'text'}, {type: 'paragraph'}]
-        test.success '---a---', [{type: 'paragraph'}, {type: 'text'}, {type: 'paragraph'}]
+    # http://spec.commonmark.org/0.27/#example-25
+    it "should fail with other characters within the line", (cb) ->
+      async.series [
+        (cb) ->
+          test.markdown null, '_ _ _ _ a', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', data: {text: '_ _ _ _ a'}}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, 'a------', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', data: {text: 'a------'}}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '---a---', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', data: {text: '---a---'}}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+      ], cb
 
-      it "should fail with different line characters", ->
-        test.success ' *-*', [{type: 'paragraph'}, {type: 'text'}, {type: 'paragraph'}]
+    # http://spec.commonmark.org/0.27/#example-26
+    it "should fail with different line characters", (cb) ->
+      test.markdown null, ' *-*', [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', data: {text: '*-*'}}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
 
-      it "should work without blank lines before and after", ->
-        test.success "foo\n***\nbar", [
-          {type: 'paragraph', nesting: 1}
-          {type: 'text', data: {text: 'foo'}}
-          {type: 'paragraph', nesting: -1}
-          {type: 'thematic_break'}
-          {type: 'paragraph', nesting: 1}
-          {type: 'text', data: {text: 'bar'}}
-          {type: 'paragraph', nesting: -1}
-        ]
+    # http://spec.commonmark.org/0.27/#example-27
+    it "should work without blank lines before and after", (cb) ->
+      test.markdown null, '- foo\n***\n- bar', [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', data: {text: '- foo'}}
+        {type: 'paragraph', nesting: -1}
+        {type: 'thematic_break'}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', data: {text: '- bar'}}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
 
-#If a line of dashes that meets the above conditions for being a thematic break could also be interpreted as the underline of a setext heading, the interpretation as a setext heading takes precedence. Thus, for example, this is a setext heading, not a paragraph followed by a thematic break:
-#Example 29Try It
-#
-#Foo
-#---
-#bar
-#
-#
-#
+    # http://spec.commonmark.org/0.27/#example-28
+    it "should interrupt a paragraph", (cb) ->
+      test.markdown null, 'foo\n***\nbar', [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', data: {text: 'foo'}}
+        {type: 'paragraph', nesting: -1}
+        {type: 'thematic_break'}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', data: {text: 'bar'}}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-29
+    it "should fail if line may interpreted as setext", (cb) ->
+      test.markdown null, 'Foo\n---\nbar', [
+        {type: 'document', nesting: 1}
+        {type: 'heading', data: {level: 2}, nesting: 1}
+        {type: 'text', data: {text: 'Foo'}}
+        {type: 'heading', data: {level: 2}, nesting: -1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', data: {text: 'bar'}}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
 #When both a thematic break and a list item are possible interpretations of a line, the thematic break takes precedence:
 #Example 30Try It
 #

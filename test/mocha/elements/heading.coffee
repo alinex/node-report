@@ -5,12 +5,11 @@ async = require 'async'
 Report = require '../../../src'
 before (cb) -> Report.init cb
 
-describe.only "heading", ->
+describe "heading", ->
 
   describe "examples", ->
 
-      # http://spec.commonmark.org/0.27/#example-65
-    it "should make heading examples", (cb) ->
+    it "should make examples", (cb) ->
       test.markdown 'heading/levels', """
       # heading 1
       ## heading 2
@@ -27,7 +26,6 @@ describe.only "heading", ->
 
   describe "api", ->
 
-      # http://spec.commonmark.org/0.27/#example-65
     it "should create level 1", (cb) ->
       # create report
       report = new Report()

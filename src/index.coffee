@@ -165,6 +165,10 @@ class Report
         level: 1
       nesting: -1
 
+  hr: ->
+    @parser.begin()
+    @parser.insert null,
+      type: 'thematic_break'
 
 
 module.exports = Report
