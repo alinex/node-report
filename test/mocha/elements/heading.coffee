@@ -5,7 +5,7 @@ async = require 'async'
 Report = require '../../../src'
 before (cb) -> Report.init cb
 
-describe.only "heading", ->
+describe "heading", ->
 
   describe "examples", ->
 
@@ -25,12 +25,12 @@ describe.only "heading", ->
       ], cb
 
 
-  describe.only "api", ->
+  describe "api", ->
 
     it "should create with given text", (cb) ->
       # create report
       report = new Report()
-      report.h1 'foo'
+      report.heading 1, 'foo'
       # check it
       test.report null, report, [
         {type: 'document', nesting: 1}
@@ -65,6 +65,94 @@ describe.only "heading", ->
         {format: 'text', re: /foobar\n═══+\n/}
         {format: 'html', text: "<h1>foobar</h1>\n"}
         {format: 'man', text: ".TH foobar\n"}
+      ], cb
+
+    it "should work with shortcut", (cb) ->
+      # create report
+      report = new Report()
+      report.h 1, 'foo'
+      # check it
+      test.report null, report, [
+        {type: 'document', nesting: 1}
+        {type: 'heading', data: {level: 1}, nesting: 1}
+        {type: 'text', data: {text: 'foo'}}
+        {type: 'heading', data: {level: 1}, nesting: -1}
+        {type: 'document', nesting: -1}
+      ], [
+        {format: 'md', re: /foo\n===+\n/}
+        {format: 'text', re: /foo\n═══+\n/}
+        {format: 'html', text: "<h1>foo</h1>\n"}
+        {format: 'man', text: ".TH foo\n"}
+      ], cb
+
+    it "should allow level shortcuts", (cb) ->
+      async.series [
+        (cb) ->
+          report = new Report()
+          report.h1 'foo'
+          # check it
+          test.report null, report, [
+            {type: 'document', nesting: 1}
+            {type: 'heading', data: {level: 1}, nesting: 1}
+            {type: 'text', data: {text: 'foo'}}
+            {type: 'heading', data: {level: 1}, nesting: -1}
+            {type: 'document', nesting: -1}
+            ], null, cb
+        (cb) ->
+          report = new Report()
+          report.h2 'foo'
+          # check it
+          test.report null, report, [
+            {type: 'document', nesting: 1}
+            {type: 'heading', data: {level: 2}, nesting: 1}
+            {type: 'text', data: {text: 'foo'}}
+            {type: 'heading', data: {level: 2}, nesting: -1}
+            {type: 'document', nesting: -1}
+            ], null, cb
+        (cb) ->
+          report = new Report()
+          report.h3 'foo'
+          # check it
+          test.report null, report, [
+            {type: 'document', nesting: 1}
+            {type: 'heading', data: {level: 3}, nesting: 1}
+            {type: 'text', data: {text: 'foo'}}
+            {type: 'heading', data: {level: 3}, nesting: -1}
+            {type: 'document', nesting: -1}
+            ], null, cb
+        (cb) ->
+          report = new Report()
+          report.h4 'foo'
+          # check it
+          test.report null, report, [
+            {type: 'document', nesting: 1}
+            {type: 'heading', data: {level: 4}, nesting: 1}
+            {type: 'text', data: {text: 'foo'}}
+            {type: 'heading', data: {level: 4}, nesting: -1}
+            {type: 'document', nesting: -1}
+            ], null, cb
+        (cb) ->
+          report = new Report()
+          report.h5 'foo'
+          # check it
+          test.report null, report, [
+            {type: 'document', nesting: 1}
+            {type: 'heading', data: {level: 5}, nesting: 1}
+            {type: 'text', data: {text: 'foo'}}
+            {type: 'heading', data: {level: 5}, nesting: -1}
+            {type: 'document', nesting: -1}
+            ], null, cb
+        (cb) ->
+          report = new Report()
+          report.h6 'foo'
+          # check it
+          test.report null, report, [
+            {type: 'document', nesting: 1}
+            {type: 'heading', data: {level: 6}, nesting: 1}
+            {type: 'text', data: {text: 'foo'}}
+            {type: 'heading', data: {level: 6}, nesting: -1}
+            {type: 'document', nesting: -1}
+            ], null, cb
       ], cb
 
 
@@ -212,15 +300,6 @@ describe.only "heading", ->
         ], cb
 
       # http://spec.commonmark.org/0.27/#example-37
-      it "should work with more leading spaces", (cb) ->
-        test.markdown null, '#       foo', [
-          {type: 'document', nesting: 1}
-          {type: 'heading', data: {level: 1}, nesting: 1}
-          {type: 'text', data: {text: 'foo'}}
-          {type: 'heading', data: {level: 1}, nesting: -1}
-          {type: 'document', nesting: -1}
-        ], null, cb
-      # http://spec.commonmark.org/0.27/#example-38
       it "should work with more leading and trailing spaces", (cb) ->
         test.markdown null, '#       foo          ', [
           {type: 'document', nesting: 1}
@@ -230,8 +309,8 @@ describe.only "heading", ->
           {type: 'document', nesting: -1}
         ], null, cb
 
-      # http://spec.commonmark.org/0.27/#example-39
-      it "should work with m1-3 spaces indention", (cb) ->
+      # http://spec.commonmark.org/0.27/#example-38
+      it "should work with 1-3 spaces indention", (cb) ->
         async.series [
           (cb) ->
             test.markdown null, ' ### foo', [
@@ -259,22 +338,21 @@ describe.only "heading", ->
             ], null, cb
         ], cb
 
+      # http://spec.commonmark.org/0.27/#example-39
       # http://spec.commonmark.org/0.27/#example-40
       it "should fail with over 3 spaces indention", (cb) ->
         async.series [
           (cb) ->
             test.markdown null, '    # foo', [
               {type: 'document', nesting: 1}
-              {type: 'paragraph', nesting: 1}
-              {type: 'text', data: {text: ' # foo'}}
-              {type: 'paragraph', nesting: -1}
+              {type: 'preformatted', data: {text: '# foo'}}
               {type: 'document', nesting: -1}
             ], null, cb
           (cb) ->
-            test.markdown null, '\t# foo', [
+            test.markdown null, 'foo\n    # bar', [
               {type: 'document', nesting: 1}
               {type: 'paragraph', nesting: 1}
-              {type: 'text', data: {text: '\t# foo'}}
+              {type: 'text', data: {text: 'foo\n# bar'}}
               {type: 'paragraph', nesting: -1}
               {type: 'document', nesting: -1}
             ], null, cb

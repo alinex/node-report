@@ -2,9 +2,6 @@
 # =================================================
 
 
-util = require 'alinex-util'
-
-
 # Transformer rules
 #
 # @type {Object<Transformer>} rules to transform text into tokens
@@ -14,29 +11,25 @@ module.exports =
     state: ['m-block', 'mh-block']
     re: ///
       ^(\n*       # 1: start of line
-        \ {0,3}   # indented by 1-3 spaces (optional)
+        (?:\ {4}|\t)   # indented by 4 spaces or tab
       )           # end of start
       (           # 2: content
-        [^\n]+    # all to end of line
+        [^\n]+    # all till end of line
       )           # end content
       (\n|$)      # 3: end of line
       /// # one line
     fn: (m) ->
       # check for concatenating
       last = @get()
-      if last?.nesting is 0 and last.content and not last.closed
-        # insert padding for accurate positioning
-        pad = util.string.repeat '\ufffd', m[1].length
+      if last?.type is 'preformatted'
         # add text
+        last.data.text += "\n#{m[2]}"
         @change()
-        last.content.text += "\n#{pad}#{m[2]}"
       else
         # opening
         @insert null,
-          type: 'paragraph'
-          state: '-inline'
-          content:
-            index: @index + m[1].length
+          type: 'preformatted'
+          data:
             text: m[2]
       # done
       @index += m[0].length

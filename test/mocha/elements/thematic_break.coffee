@@ -137,14 +137,12 @@ describe "thematic break", ->
 
     # http://spec.commonmark.org/0.27/#example-18
     # http://spec.commonmark.org/0.27/#example-19
-    it "should fail with not enough characters", (cb) ->
+    it "should fail with too much indention", (cb) ->
       async.series [
         (cb) ->
           test.markdown null, '    ****', [
             {type: 'document', nesting: 1}
-            {type: 'paragraph', nesting: 1}
-            {type: 'text', data: {text: ' ****'}}
-            {type: 'paragraph', nesting: -1}
+            {type: 'preformatted', data: {text: '****'}}
             {type: 'document', nesting: -1}
           ], null, cb
         (cb) ->

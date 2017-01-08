@@ -15,5 +15,5 @@ module.exports =
       token.data.text = token.data.text
       .replace /\\([\\!\"#$%&'()*+,\-./:;<=>?@[\]^_`{|}~])/g, '$1'    # remove mask
       .replace /\ufffd/g, ''  # remove not displayable character
-      .replace /(?:\t|\ \ )[\t\ ]*\n/g, '\\\n' # line break
+      .replace /(?:\t|\ \ )[\t\ ]*\n/g, '\n' # line break
       .replace /(\S)(?:\t|\ \ )[\t\ ]*$/, '$1' # right trim last line
