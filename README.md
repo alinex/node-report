@@ -159,7 +159,7 @@ Coming soon...
 License
 -------------------------------------------------
 
-(C) Copyright 2016-20117 Alexander Schilling
+(C) Copyright 2016-2017 Alexander Schilling
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
