@@ -13,13 +13,13 @@ module.exports =
   text:
     state: ['m-block', 'mh-block']
     re: ///
-      ^(\n*       # 1: start of line
+      ^(\r?\n?    # 1: start of line
         \ {0,3}   # indented by 1-3 spaces (optional)
       )           # end of start
       (           # 2: content
         [^\n]+    # all to end of line
       )           # end content
-      (\n|$)      # 3: end of line
+      (\r?\n|$)   # 3: end of line
       /// # one line
     fn: (m) ->
       # check for concatenating
