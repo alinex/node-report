@@ -105,7 +105,7 @@
           <y:Geometry height="30.0" width="113.0" x="428.1078931750742" y="246.44718100890216"/>
           <y:Fill color="#FFFFFF" transparent="false"/>
           <y:BorderStyle color="#000000" raised="false" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="33.876953125" x="39.5615234375" y="6.015625">latex<y:LabelModel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="33.876953125" x="39.5615234375" y="6.015624999999972">latex<y:LabelModel>
               <y:SmartNodeLabelModel distance="4.0"/>
             </y:LabelModel>
             <y:ModelParameter>
@@ -466,11 +466,10 @@
       </data>
     </edge>
     <edge id="e15" source="n3" target="n10">
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
-            <y:Point x="571.0" y="115.0"/>
+            <y:Point x="571.0" y="127.0"/>
             <y:Point x="614.0" y="226.64670623145403"/>
           </y:Path>
           <y:LineStyle color="#000000" type="line" width="1.0"/>
@@ -480,7 +479,6 @@
       </data>
     </edge>
     <edge id="e16" source="n3" target="n16">
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>

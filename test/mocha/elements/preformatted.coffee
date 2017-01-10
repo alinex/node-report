@@ -5,9 +5,9 @@ async = require 'async'
 Report = require '../../../src'
 before (cb) -> Report.init cb
 
-describe "preformatted", ->
+describe.only "preformatted", ->
 
-  describe.only "examples", ->
+  describe "examples", ->
 
     it "should make preformatted text", (cb) ->
       test.markdown 'preformatted/data', """

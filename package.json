@@ -39,7 +39,7 @@
     "alinex-fs": "^3.0.3",
     "alinex-handlebars": "^1.2.1",
     "alinex-table": "^1.2.4",
-    "alinex-util": "^2.5.0",
+    "alinex-util": "^2.5.1",
     "async": "^2.1.4",
     "chalk": "^1.1.1",
     "clean-css": "^3.4.23",
@@ -65,7 +65,7 @@
   },
   "optionalDependencies": {},
   "engines": {
-    "node": ">=0.10"
+    "node": ">=4"
   },
   "os": []
 }

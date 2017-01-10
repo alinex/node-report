@@ -1,9 +1,9 @@
 language: node_js
 node_js:
-  - "0.12" # from 2015-02 maintenance till 2016-12
   - "4"  # LTS   from 2015-10 maintenance till 2018-04
   - "6"  # LTS   from 2016-10 maintenance till 2019-04
-#  - "7"  # devel from 2016-10
+  - "7"  # devel till 2017-08
+#  - "8"  # LTS   from 2017-10 maintenance till 2020-04
 
 # coveralls integration
 after_success:

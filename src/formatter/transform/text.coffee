@@ -1,6 +1,8 @@
 # Text Phrases
 # =================================================
 
+util = require 'alinex-util'
+
 
 # Transformer rules
 #
@@ -19,7 +21,7 @@ module.exports =
     format: ['html']
     type: 'text'
     fn: (num, token) ->
-      token.out = token.data.text
+      token.out = util.string.htmlEncode token.data.text
 
   other:
     format: ['text', 'roff', 'latex', 'rtf']
