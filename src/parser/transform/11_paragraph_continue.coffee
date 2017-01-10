@@ -11,7 +11,7 @@ util = require 'alinex-util'
 module.exports =
 
   text:
-    state: ['m-block', 'mh-block']
+    state: ['m-block']
     re: ///
       ^(\r?\n?    # 1: start of line
         [\t\ ]*   # indented by spaces (optional)

@@ -1,6 +1,8 @@
 # Text Paragraph
 # =================================================
 
+util = require 'alinex-util'
+
 
 # Transformer rules
 #
@@ -8,7 +10,7 @@
 module.exports =
 
   text:
-    state: ['m-block', 'mh-block']
+    state: ['m-block']
     re: ///
       ^(\r?\n?    # 1: start of line
         (?:\ {4}|\t)   # indented by 4 spaces or tab
@@ -21,15 +23,19 @@ module.exports =
     fn: (m) ->
       # check for concatenating
       last = @get()
-      if last?.type is 'preformatted'
+      if last?.nesting is 0 and last.content and not last.closed
+        # insert padding for accurate positioning
+        pad = util.string.repeat '\ufffd', m[1].length
         # add text
-        last.data.text += "\n#{m[2]}"
         @change()
+        last.content.text += "\n#{pad}#{m[2]}"
       else
         # opening
         @insert null,
           type: 'preformatted'
-          data:
+          state: '-text'
+          content:
+            index: @index + m[1].length
             text: m[2]
       # done
       @index += m[0].length

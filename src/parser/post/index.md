@@ -13,6 +13,6 @@ only.
 The interface of these methods should be:
 
 @name <alias>
-@param {String} type to be matched against token
+@param {String|Array} type to be matched against token
 @param {Array} state to be matched against token
 @param {Function(Integer, Token)} fn to be run on token

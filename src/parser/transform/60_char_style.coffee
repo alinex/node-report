@@ -36,7 +36,7 @@ MARKER =
 module.exports =
 
   underscore:
-    state: ['m-inline', 'mh-inline']
+    state: ['m-inline']
     re: ///
       ^(_{1,2})                   # 1: start MARKER
       (                           # 2: content
@@ -69,7 +69,7 @@ module.exports =
       m[0].length
 
   other:
-    state: ['m-inline', 'mh-inline']
+    state: ['m-inline']
     re: ///
       ^([*~]{1,2}|[=]{2}|[`^])   # 1: start MARKER
       (                           # 2: content

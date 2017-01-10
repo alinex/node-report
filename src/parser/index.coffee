@@ -53,7 +53,6 @@ debug "Initializing..."
 # @type {Object<String>} start state for domain
 START =
   m: 'm-doc'
-  mh: 'mh-doc'
   h: 'h-doc'
 
 # @param {String} type to load
@@ -76,6 +75,8 @@ transLibs = libs 'transform'
 if debugRule.enabled
   debugRule "possible transformer:", util.inspect(Object.keys transLibs).replace /\n\s*/g, ' '
 postLibs = libs 'post'
+for rule in postLibs
+  rule.type = [rule.type] unless Array.isArray rule.type
 if debugRule.enabled
   debugRule "possible post optimizations:", util.inspect(Object.keys postLibs).replace /\n\s*/g, ' '
 # collect possible states
@@ -208,7 +209,7 @@ class Parser
           num = -1
           while ++num < @tokens.length
             token = @get num
-            continue if post.type and token.type isnt post.type
+            continue if post.type and token.type not in post.type
             continue if post.state and not token.state in post.state
             continue if post.nesting and token.nesting isnt post.nesting
             continue if post.data and not token.data

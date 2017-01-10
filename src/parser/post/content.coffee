@@ -9,8 +9,8 @@ util = require 'alinex-util'
 module.exports =
 
   paragraph:
-    type: 'paragraph'
-    state: ['m-inline', 'mh-inline']
+    type: ['paragraph', 'preformatted']
+    state: ['m-inline']
     nesting: 0
     content: true
     fn: (num, token) ->

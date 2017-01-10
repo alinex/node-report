@@ -15,7 +15,7 @@ Text may also contain some other inline markup.
 module.exports =
 
   backslash:
-    state: ['m-inline', 'mh-inline', 'h-inline']
+    state: ['m-inline']
     re: /^\\\\/
     fn: (m) ->
       last = @get()
@@ -32,7 +32,7 @@ module.exports =
       m[0].length
 
   escaped:
-    state: ['m-inline', 'mh-inline', 'h-inline']
+    state: ['m-inline']
     re: /^\\[\s\S]/
     fn: (m) ->
       last = @get()

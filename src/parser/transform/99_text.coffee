@@ -15,7 +15,7 @@ Text may also contain some other inline markup.
 module.exports =
 
   escape:
-    state: ['m-inline', 'mh-inline', 'h-inline']
+    state: ['m-inline', 'm-text']
     re: /^\\([*_~=`^])/
     fn: (m) ->
       last = @get()
@@ -32,7 +32,7 @@ module.exports =
       m[0].length
 
   char:
-    state: ['m-inline', 'mh-inline', 'h-inline']
+    state: ['m-inline', 'm-text']
     re: /^[\s\S]/
     fn: (m) ->
       last = @get()

@@ -31,4 +31,3 @@ cleanup = (t) ->
 # Specify for which parser domain to run which function.
 module.exports =
   m: cleanup
-  mh: cleanup

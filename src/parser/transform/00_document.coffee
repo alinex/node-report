@@ -12,7 +12,7 @@ This supports ATX headings and Setext headings like defined in http://spec.commo
 module.exports =
 
   empty:
-    state: ['m-doc', 'mh-doc']
+    state: ['m-doc']
     re: /./
     fn: ->
       # opening

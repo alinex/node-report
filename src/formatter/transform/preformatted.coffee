@@ -1,8 +1,6 @@
 # Headings
 # =================================================
 
-util = require 'alinex-util'
-
 
 # Transformer rules
 #
@@ -10,31 +8,19 @@ util = require 'alinex-util'
 module.exports =
 
   markdown:
-    format: 'md'
+    format: ['md', 'text']
     type: 'preformatted'
     fn: (num, token) ->
-      token.out = "#{util.string.repeat '-', @setup.width}\n"
-
-  text:
-    format: 'text'
-    type: 'preformatted'
-    fn: (num, token) ->
-      token.out = "#{util.string.repeat '─', @setup.width}\n"
+      return unless token.nesting is 1
+      # indent with four spaces on start
+      token.out = '    '
 
   html:
     format: 'html'
     type: 'preformatted'
     fn: (num, token) ->
       nl = if @setup.compress then '' else '\n'
-      token.out = "<pre><code>#{token.data.text}</code></pre>#{nl}"
-      nl = if @setup.compress then '' else '\n'
       token.out = switch token.nesting
-        when 1 then "<p>"
-        when -1 then "</p>#{nl}"
-        else "<p />#{nl}"
-
-  roff:
-    format: 'roff'
-    type: 'preformatted'
-    fn: (num, token) ->
-      token.out = ".HR\n"
+        when 1 then "<pre><code>"
+        when -1 then "</code></pre>#{nl}"
+        else "<pre><code></code></pre>#{nl}"

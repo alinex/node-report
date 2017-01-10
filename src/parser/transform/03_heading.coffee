@@ -12,7 +12,7 @@ This supports ATX headings and Setext headings like defined in http://spec.commo
 module.exports =
 
   empty:
-    state: ['m-block', 'mh-block']
+    state: ['m-block']
     re: ///
       ^(\r?\n?    # 1: start of line
         \ {0,3}   # indented by 1-3 spaces (optional)
@@ -44,7 +44,7 @@ module.exports =
       m[0].length
 
   atx:
-    state: ['m-block', 'mh-block']
+    state: ['m-block']
     re: ///
       ^(\n?       # 1: start of line
         \ {0,3}   # indented by 1-3 spaces (optional)
@@ -82,7 +82,7 @@ module.exports =
       m[0].length
 
   setext:
-    state: ['m-block', 'mh-block']
+    state: ['m-block']
     re: ///
       ^(\n?       # 1: start of line
         \ {0,3}       # indented by 1-3 spaces (optional)

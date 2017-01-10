@@ -11,7 +11,7 @@ Headings
 module.exports =
 
   md:
-    state: ['m-block', 'mh-block']
+    state: ['m-block']
     re: ///
       ^\r?\n?             # start with possible newlines
       \ {0,3}             # indented by 1-3 spaces

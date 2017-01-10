@@ -13,7 +13,7 @@ will definetly close the previous block to not continue.
 module.exports =
 
   empty:
-    state: ['m-block', 'mh-block']
+    state: ['m-block']
     re: /^\s*\n/ # multiple empty lines
     fn: (m) ->
       # check for concatenating
