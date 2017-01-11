@@ -19,7 +19,6 @@ Parser = require './parser/index'
 Formatter = require './formatter/index'
 # internal helpers
 schema = require './configSchema'
-initApi = require './api'
 
 
 # Report Class
@@ -54,7 +53,7 @@ class Report
   ###
   @init: util.function.once this, (cb) ->
     debug "initialize"
-    initApi()
+    require './api'
     # set module search path
     @setup (err) ->
       return cb err if err

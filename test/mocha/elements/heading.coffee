@@ -155,6 +155,26 @@ describe "heading", ->
             ], null, cb
       ], cb
 
+    it.only "should autoclose paragraph if heading is added", (cb) ->
+      # create report
+      report = new Report()
+      report.p true
+      report.h 1, 'foo'
+      # check it
+      test.report null, report, [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'paragraph', nesting: -1}
+        {type: 'heading', data: {level: 1}, nesting: 1}
+        {type: 'text', data: {text: 'foo'}}
+        {type: 'heading', data: {level: 1}, nesting: -1}
+        {type: 'document', nesting: -1}
+      ], [
+        {format: 'md', re: /foo\n===+\n/}
+        {format: 'text', re: /foo\n═══+\n/}
+        {format: 'html', text: "<h1>foo</h1>\n"}
+        {format: 'man', text: ".TH foo\n"}
+      ], cb
 
   describe "markdown", ->
 

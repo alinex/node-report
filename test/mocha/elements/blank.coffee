@@ -1,18 +1,22 @@
 ### eslint-env node, mocha ###
 test = require '../test'
 
-describe "parser", ->
+Report = require '../../../src'
+before (cb) -> Report.init cb
+
+describe "blank", ->
 
   describe "markdown", ->
 
-    describe.skip "blank", ->
-
-      it "should ignore blank lines at beginning and end", ->
-        test.success '\n  \naaa\n  \n# bbb\n  \n', [
-          {type: 'paragraph'}
-          {type: 'text', data: {text: 'aaa'}}
-          {type: 'paragraph'}
-          {type: 'heading'}
-          {type: 'text', data: {text: 'bbb'}}
-          {type: 'heading'}
-        ]
+    # http://spec.commonmark.org/0.27/#example-188
+    it "should ignore blank lines at beginning and end", (cb) ->
+      test.markdown null, "\n  \naaa\n  \n# bbb\n  \n", [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph'}
+        {type: 'text', data: {text: 'aaa'}}
+        {type: 'paragraph'}
+        {type: 'heading'}
+        {type: 'text', data: {text: 'bbb'}}
+        {type: 'heading'}
+        {type: 'document', nesting: -1}
+      ], null, cb
