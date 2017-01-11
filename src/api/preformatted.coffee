@@ -23,8 +23,9 @@ false to close tag if content is added manually.
 @return {Report} instance itself for command concatenation
 ###
 Report.prototype.preformatted = (input) ->
-  @parser.begin()
   if typeof input is 'boolean'
+    @parser.begin()
+    @parser.autoclose '-block', true if input
     @parser.insert null,
       type: 'preformatted'
       nesting: if input then 1 else -1

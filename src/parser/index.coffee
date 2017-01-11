@@ -246,8 +246,15 @@ class Parser
   # Check if tags could be autoclosed to come into defined state.
   #
   # @param {String} [state] to reach by autoclosing (null for all)
+  # @param {Boolean} [errThrow] set to true to throw error if autoclose is impossible
   # @return {Boolean} `true` if state could be reached by autoclose
-  autoclose: (state) ->
+  autoclose: (state, errThrow) ->
+    if errThrow
+      unless @autoclose state
+        last = @get @token
+        el = if last.nesting is 1 then last else last.parent
+        throw new Error "Could not place heading into #{el}"
+      return true
     state = @state.split(/-/)[0] + state if state?[0] is '-'
     token = @get -1
     list = []
@@ -283,7 +290,10 @@ class Parser
   #
   # @return {Array<Token>} list of parsed tokens
   end: ->
-    return unless last = @get(-1).level
+    last = @get -1
+    return unless last.level
+    @token = @tokens.length - 1
+    @state = last.state ? last.parent?.state ? @state
     # check if parsing started
     throw new Error "Nothing parsed" unless @tokens.length
     # check for correct structure

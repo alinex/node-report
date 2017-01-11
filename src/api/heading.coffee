@@ -29,9 +29,9 @@ false to close tag if content is added manually.
 @return {Report} instance itself for command concatenation
 ###
 Report.prototype.heading = (level, input) ->
-  @parser.begin()
   if typeof input is 'boolean'
-    @parser.autoclose '-block' if input
+    @parser.begin()
+    @parser.autoclose '-block', true if input
     @parser.insert null,
       type: 'heading'
       data:

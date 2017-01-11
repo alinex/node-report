@@ -42,7 +42,6 @@ __Support for Parsing__
 empty -> not currently done^
 
 
-
 Output Formats
 ------------------------------------------------------
 
@@ -63,6 +62,18 @@ Each of the formats support different options you may set ba configuration or on
 
 ^`X` -> supported; `-` -> not possible; `(X)` -> partly supported;
 empty -> not currently done^
+
+
+Builder API
+------------------------------------------------------
+This follows a common schema with most methods are available with its full name
+and a short name. Block elements can be called completely with all data or with a
+boolean value to open and close it separately.
+
+As far as possible the API won't throw errors but interpret all calls like you maybe
+wanted them by autoclosing tags.
+
+
 ###
 
 fs = require 'fs'
