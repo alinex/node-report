@@ -12,8 +12,7 @@
 #
 # The parser is influenced by the following status information:
 # - `token` - `Integer` current position in `@tokens` list
-# - `index` - `Integer` current position in overall `@input` text
-# - `level` - `Integr` current depth in structure
+# - `level` - `Integer` current depth in structure
 
 # ### Lexer
 #
@@ -29,9 +28,9 @@
 # - `Integer` - `level` depth of structure
 # - `Object` - `parent` reference
 # - `Object` - `data` content of this element
-# - `String` - `index` position from input
 # - `String` - `state` that is allowed within the current element
 # - `Boolean` - `closed` is set to true on blank line to stop continuing it
+# - `String` - `content` content of element not parsed, yet
 
 
 # Node Modules
@@ -75,8 +74,9 @@ transLibs = libs 'transform'
 if debugRule.enabled
   debugRule "possible transformer:", util.inspect(Object.keys transLibs).replace /\n\s*/g, ' '
 postLibs = libs 'post'
-for rule in postLibs
-  rule.type = [rule.type] unless Array.isArray rule.type
+for _, sub of postLibs
+  for _, rule of sub
+    rule.type = [rule.type] unless Array.isArray rule.type
 if debugRule.enabled
   debugRule "possible post optimizations:", util.inspect(Object.keys postLibs).replace /\n\s*/g, ' '
 # collect possible states
@@ -110,7 +110,7 @@ class Parser
   # @return {String} start state or `m` if not possible
   @detect: (text) ->
     return 'm' unless text
-    if text.match /<body/ then 'h-block' else 'm-block'
+    if text.match /<body/ then 'h-doc' else 'm-doc'
 
   # Create a new parser object.
   #
@@ -125,7 +125,6 @@ class Parser
     @tokens = []
     # initial parsing data
     @token = -1
-    @index = 0
     @level = 0
 
   # Get the defined number of token.
@@ -149,12 +148,10 @@ class Parser
     if prev
       t.level ?= prev.level + (if prev.nesting is 1 then 1 else 0) \
       + (if t.nesting is -1 then -1 else 0)
-      t.index ?= @index
       t.state ?= prev.state
       t.state = prev.state.split(/-/)[0] + t.state if t.state?[0] is '-'
     else
       t.level ?= @level
-      t.index ?= @index
       t.state ?= @state
       t.state = @state.split(/-/)[0] + t.state if t.state?[0] is '-'
     t.parent = switch
@@ -165,8 +162,10 @@ class Parser
       else prev?.parent ? null
     # add token to list
     if debugData.enabled
-      debugData "token insert ##{num}/#{@tokens.length}
-        #{chalk.yellow util.inspect(t).replace /\s*\n\s*/g, ' '}"
+      ts = chalk.yellow util.inspect(t, {depth: 1})
+      .replace /,\s+parent:\s+\{\s+type:\s+'(.*?)'[\s\S]*?\}/g, ", parent: <$1>"
+      .replace /\s*\n\s*/g, ' '
+      debugData "token insert ##{num}/#{@tokens.length} #{ts}"
     @tokens.splice num, 0, t
     # set lexer for next round
     @state = if t.nesting is 1 then t.state else t.parent?.state ? @initialState
@@ -181,8 +180,10 @@ class Parser
     return unless debugData.enabled
     num = @tokens.length + num if num < 0
     t = @get num
-    debugData "token change ##{num}/#{@tokens.length}
-      #{chalk.yellow util.inspect(t).replace /\s*\n\s*/g, ' '}"
+    ts = chalk.yellow util.inspect(t, {depth: 1})
+    .replace /,\s+parent:\s+\{\s+type:\s+'(.*?)'[\s\S]*?\}/g, ", parent: <$1>"
+    .replace /\s*\n\s*/g, ' '
+    debugData "token change ##{num}/#{@tokens.length} #{ts}"
 
   # Parse a text into `Token` list or add them to the exisitng one if called
   # again.
@@ -226,7 +227,7 @@ class Parser
     while chars.length
       if debugData.enabled
         ds = util.inspect chars.substr 0, 30
-        debugData "parse input:#{@index} #{chalk.grey ds} in state #{@state}"
+        debugData "parse #{chalk.grey ds} in state #{@state}"
       done = false
       # try rules for state
       throw new Error "No rules for state #{@state}" unless lexer[@state]
@@ -240,7 +241,7 @@ class Parser
             break
       # check for problems
       unless done
-        throw new Error "Not parseable maybe missing a rule at line #{@pos()}"
+        throw new Error "Not parseable maybe missing a rule at '#{util.inspect chars.substr 0, 30}'"
     this
 
   # Check if tags could be autoclosed to come into defined state.
@@ -259,7 +260,6 @@ class Parser
     for token in list
       t = util.clone token
       t.nesting = -1
-      t.index = @index
       delete t.state
       @level = t.level
       @state = t.parent?.state ? t.state
@@ -268,16 +268,8 @@ class Parser
         debugData "auto close token #{chalk.grey util.inspect(t).replace /\n */g, ' '}"
     true
 
-  # Get the current position in file.
+  # Start new document if not done.
   #
-  # @param {Integer} index position in source text
-  # @return {String} line and column position
-  pos: (index = @index) ->
-    part = @input.substr 0, index
-    line = part.match(/\n/g)?.length ? 0
-    col = index - part.lastIndexOf('\n') - 1
-    "#{line}:#{col}"
-
   begin: ->
     return if @tokens.length
     @insert null,
@@ -285,7 +277,7 @@ class Parser
       nesting: 1
       state: '-block'
 
-  # End the parsing and check the result.
+  # End the document and check the result.
   #
   # @return {Array<Token>} list of parsed tokens
   end: ->

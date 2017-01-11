@@ -345,7 +345,9 @@ describe "heading", ->
           (cb) ->
             test.markdown null, '    # foo', [
               {type: 'document', nesting: 1}
-              {type: 'preformatted', data: {text: '# foo'}}
+              {type: 'preformatted', nesting: 1}
+              {type: 'text', data: {text: '# foo'}}
+              {type: 'preformatted', nesting: -1}
               {type: 'document', nesting: -1}
             ], null, cb
           (cb) ->

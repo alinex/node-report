@@ -24,5 +24,4 @@ module.exports =
       @insert null,
         type: 'thematic_break'
       # done
-      @index += m[0].length
       m[0].length

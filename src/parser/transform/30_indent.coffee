@@ -1,8 +1,6 @@
 # Text Paragraph
 # =================================================
 
-util = require 'alinex-util'
-
 
 # Transformer rules
 #
@@ -24,19 +22,14 @@ module.exports =
       # check for concatenating
       last = @get()
       if last?.nesting is 0 and last.content and not last.closed
-        # insert padding for accurate positioning
-        pad = util.string.repeat '\ufffd', m[1].length
         # add text
         @change()
-        last.content.text += "\n#{pad}#{m[2]}"
+        last.content += "\n#{m[2]}"
       else
         # opening
         @insert null,
           type: 'preformatted'
           state: '-text'
-          content:
-            index: @index + m[1].length
-            text: m[2]
+          content: m[2]
       # done
-      @index += m[0].length
       m[0].length

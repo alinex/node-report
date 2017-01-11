@@ -20,5 +20,4 @@ module.exports =
       last = @get -1
       last.closed = true if last
       # done
-      @index += m[0].length
       m[0].length

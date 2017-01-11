@@ -117,7 +117,9 @@ describe "paragraph", ->
     it "should fail with 4 or more spaces", (cb) ->
       test.markdown null, '    aaa\nbbb', [
         {type: 'document', nesting: 1}
-        {type: 'preformatted', data: {text: 'aaa'}}
+        {type: 'preformatted', nesting: 1}
+        {type: 'text', data: {text: 'aaa'}}
+        {type: 'preformatted', nesting: -1}
         {type: 'paragraph', nesting: 1}
         {type: 'text', data: {text: 'bbb'}}
         {type: 'paragraph', nesting: -1}

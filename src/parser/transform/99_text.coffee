@@ -28,7 +28,6 @@ module.exports =
           data:
             text: m[1]
       # done processing
-      @index += 2
       m[0].length
 
   char:
@@ -45,5 +44,4 @@ module.exports =
           data:
             text: m[0]
       # done processing
-      @index++
       m[0].length

@@ -5,7 +5,7 @@ async = require 'async'
 Report = require '../../../src'
 before (cb) -> Report.init cb
 
-describe.only "preformatted", ->
+describe.skip "preformatted", ->
 
   describe "examples", ->
 

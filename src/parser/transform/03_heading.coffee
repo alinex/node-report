@@ -34,7 +34,6 @@ module.exports =
         nesting: 1
         state: '-inline'
       # closing
-      @index += m[0].length
       @insert null,
         type: 'heading'
         data:
@@ -68,10 +67,8 @@ module.exports =
         nesting: 1
         state: '-inline'
       # parse subtext
-      @index += m[1].length
       @lexer m[3]
       # closing
-      @index += m[4].length
       @insert null,
         type: 'heading'
         data:
@@ -112,10 +109,8 @@ module.exports =
         nesting: 1
         state: '-inline'
       # parse subtext
-      @index += m[1].length
       @lexer m[2]
       # closing
-      @index += m[4].length
       @insert null,
         type: 'heading'
         data:

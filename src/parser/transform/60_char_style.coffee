@@ -58,10 +58,8 @@ module.exports =
         type: MARKER[m[1]]
         nesting: 1
       # parse subtext
-      @index += m[1].length
       @lexer m[2]
       # closing
-      @index += m[1].length
       @insert null,
         type: MARKER[m[1]]
         nesting: -1
@@ -85,10 +83,8 @@ module.exports =
         type: MARKER[m[1]]
         nesting: 1
       # parse subtext
-      @index += m[1].length
       @lexer m[2]
       # closing
-      @index += m[1].length
       @insert null,
         type: MARKER[m[1]]
         nesting: -1

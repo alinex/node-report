@@ -20,11 +20,9 @@ module.exports =
       token.nesting = 1
       # add content tokens
       @token = num
-      @index = content.index
       @state = token.state
-      @lexer content.text
+      @lexer content
       # close token
       @insert null,
         util.extend {}, token,
           nesting: -1
-          index: content.index + content.text.length

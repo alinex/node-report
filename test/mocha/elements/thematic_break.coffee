@@ -142,7 +142,9 @@ describe "thematic break", ->
         (cb) ->
           test.markdown null, '    ****', [
             {type: 'document', nesting: 1}
-            {type: 'preformatted', data: {text: '****'}}
+            {type: 'preformatted', nesting: 1}
+            {type: 'text', data: {text: '****'}}
+            {type: 'preformatted', nesting: -1}
             {type: 'document', nesting: -1}
           ], null, cb
         (cb) ->

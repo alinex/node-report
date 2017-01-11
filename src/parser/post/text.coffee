@@ -8,7 +8,7 @@ module.exports =
 
   character:
     type: 'text'
-    state: ['m-inline', 'mh-inline']
+    state: ['m-inline']
     data:
       text: true
     fn: (num, token) ->

@@ -2,9 +2,6 @@
 # =================================================
 
 
-util = require 'alinex-util'
-
-
 # Transformer rules
 #
 # @type {Object<Transformer>} rules to transform text into tokens
@@ -26,11 +23,8 @@ module.exports =
       last = @get @idx ? -1
       return false unless last and last.type is 'paragraph'
       return unless last?.nesting is 0 and last.content and not last.closed
-      # insert padding for accurate positioning
-      pad = util.string.repeat '\ufffd', m[1].length
       # add text
-      last.content.text += "\n#{pad}#{m[2]}"
+      last.content += "\n#{m[2]}"
       @change()
       # done
-      @index += m[0].length
       m[0].length
