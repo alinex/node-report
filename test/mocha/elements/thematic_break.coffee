@@ -29,8 +29,8 @@ describe "thematic break", ->
         {type: 'thematic_break'}
         {type: 'document', nesting: -1}
       ], [
-        {format: 'md', re: /---+\n/}
-        {format: 'text', re: /───+\n/}
+        {format: 'md', re: /\*{3,}\n/}
+        {format: 'text', re: /─{3,}\n/}
         {format: 'html', text: "<hr />\n"}
         {format: 'man', text: ".HR\n"}
       ], cb

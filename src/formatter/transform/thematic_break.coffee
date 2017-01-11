@@ -13,7 +13,7 @@ module.exports =
     format: 'md'
     type: 'thematic_break'
     fn: (num, token) ->
-      token.out = "#{util.string.repeat '-', @setup.width}\n"
+      token.out = "#{util.string.repeat '*', @setup.width}\n"
 
   text:
     format: 'text'

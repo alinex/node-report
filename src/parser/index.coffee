@@ -202,7 +202,6 @@ class Parser
     start = @tokens.length
     @lexer text
     end = @tokens.length - 1
-#    console.log @tokens
     if start <= end
       debug "post optimization"
       for name, lib of postLibs
@@ -246,16 +245,19 @@ class Parser
 
   # Check if tags could be autoclosed to come into defined state.
   #
-  # @param {String} state to reach by autoclosing
+  # @param {String} [state] to reach by autoclosing (null for all)
   # @return {Boolean} `true` if state could be reached by autoclose
   autoclose: (state) ->
-    state = @state.split(/-/)[0] + state if state[0] is '-'
+    state = @state.split(/-/)[0] + state if state?[0] is '-'
     token = @get -1
     list = []
+    token = {parent: token} if token.nesting is 1
     while token = token.parent
-      return false unless token
-      list.push token
+      unless token
+        return false if state
+        break
       break if token.state is state
+      list.push token
     # close tags
     for token in list
       t = util.clone token
@@ -263,9 +265,9 @@ class Parser
       delete t.state
       @level = t.level
       @state = t.parent?.state ? t.state
-      @tokens.push t
       if debugData.enabled
-        debugData "auto close token #{chalk.grey util.inspect(t).replace /\n */g, ' '}"
+        debugData "auto close to come to #{state ? 'initial'} state"
+      @insert null, t
     true
 
   # Start new document if not done.
@@ -286,7 +288,7 @@ class Parser
     throw new Error "Nothing parsed" unless @tokens.length
     # check for correct structure
     if @level = last
-      unless @autoclose @tokens[0].state
+      unless @autoclose()
         throw new Error "Not all elements closed correctly (ending in level #{@level})"
     debug "Done parsing" if debug.enabled
     # return token list

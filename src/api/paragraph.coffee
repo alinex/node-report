@@ -1,5 +1,5 @@
 ###
-Builder API
+Paragraph
 =================================================
 ###
 
@@ -16,49 +16,34 @@ Builder API
 
 
 ###
-Add inline text formated as typewriter.
+Add a text paragraph.
 
-@param {String|Boolean} input with content of text or true to open tag and
+@param {String|Boolean} input with content of paragraph or true to open tag and
 false to close tag if content is added manually.
 @return {Report} instance itself for command concatenation
 ###
-Report.prototype.tt = (input) ->
-  return unless input
-  last = @parser.get -1
-  throw Error "Could only use `tt()` in inline area" unless last?.inline
+Report.prototype.paragraph = (input) ->
+  @parser.begin()
   if typeof input is 'boolean'
     @parser.insert null,
-      type: 'typewriter'
+      type: 'paragraph'
       nesting: if input then 1 else -1
-      inline: 1
+      state: '-inline'
+      inline: if input then true else false
     return this
   # add with text
-  @tt true
+  @paragraph true
   @text input
-  @tt false
-
-
-###
-Special Elements
-----------------------------------------------
-###
+  @paragraph false
 
 ###
-Add plain text to currently opened element.
+Add a text paragraph (shortcut).
 
-@param {String} text to be added in currently opened element..
+@param {String|Boolean} input with content of paragraph or true to open tag and
+false to close tag if content is added manually.
 @return {Report} instance itself for command concatenation
 ###
-Report.prototype.text = (text) ->
-  return unless text
-  last = @parser.get -1
-  throw Error "Could only use `text()` in inline area" unless last?.inline
-  @parser.insert null,
-    type: 'text'
-    data:
-      text: text
-    inline: true
-  this
+Report.prototype.p = (input) -> @paragraph input
 
 
 ###
