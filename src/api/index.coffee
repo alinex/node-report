@@ -26,10 +26,10 @@ __Support for Parsing__
 |:---------- |:---:|:----:|:----:|:----:|
 | Text       |  X  |  X   |      |      |
 | Heading    |  X  |  X   |      |      |
-| Paragraph  |  X  |  X   |      |      |
-| ThemaBreak |  X  |  X   |      |      |
-| CharStyle  |  X  |  X   |      |      |
+| Paragraph  |     |  X   |      |      |
 | Preformat  |     |  X   |      |      |
+| ThemaBreak |  X  |  X   |      |      |
+| CharStyle  |     |  X   |      |      |
 | List       |     |  X   |      |      |
 | Code       |     |  X   |      |      |
 | Box        |     |  X   |      |      |
@@ -48,17 +48,24 @@ Output Formats
 But not every format can handle all elements. The markdown format is the only one
 which can be used to store the report without loosing anything.
 
-Each of the formats support different options you may set ba configuration or on call
+Each of the formats support different options you may set by configuration or on call
 (see the {@link ../configSchema.coffee}).
 
 | Element    | MD  | Text | HTML | ROFF | ADOC | LaTeX | RTF |
 |:---------- |:---:|:----:|:----:|:----:|:----:|:-----:|:---:|
 | Text       |  X  |  X   |  X   |  X   |      |  X    |  X  |
-| Heading    |  X  |  X   |  X   |  X   |      |       |     |
 | Paragraph  |  X  |  X   |  X   |  X   |      |       |     |
+| Heading    |  X  |  X   |  X   |  X   |      |       |     |
+| Preformat  |     |      |      |      |      |       |     |
 | ThemaBreak |  X  |  X   |  X   |  X   |      |       |     |
 | CharStyle  |  X  | (X)  |  X   |  X   |      |       |     |
-| Text       |     |      |      |      |      |       |     |
+| List       |     |      |      |      |      |       |     |
+| Code       |     |      |      |      |      |       |     |
+| Box        |     |      |      |      |      |       |     |
+| Style      |     |      |      |      |      |       |     |
+| ToC        |     |      |      |      |      |       |     |
+| HTML       |     |      |      |      |      |       |     |
+| Execute    |     |      |      |      |      |       |     |
 
 ^`X` -> supported; `-` -> not possible; `(X)` -> partly supported;
 empty -> not currently done^

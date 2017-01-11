@@ -1,6 +1,9 @@
 ###
-Builder API
+Text
 =================================================
+Text may be added in block and inline elements like {@link paragraph.coffee},
+{@link heading.coffee} or {@link char_style.coffee}. To use it you have to open
+the element with value `true` before adding one or multiple text elements.
 ###
 
 
@@ -14,34 +17,6 @@ Builder API
 ----------------------------------------------------
 ###
 
-
-###
-Add inline text formated as typewriter.
-
-@param {String|Boolean} input with content of text or true to open tag and
-false to close tag if content is added manually.
-@return {Report} instance itself for command concatenation
-###
-Report.prototype.tt = (input) ->
-  return unless input
-  last = @parser.get -1
-  throw Error "Could only use `tt()` in inline area" unless last?.inline
-  if typeof input is 'boolean'
-    @parser.insert null,
-      type: 'typewriter'
-      nesting: if input then 1 else -1
-      inline: 1
-    return this
-  # add with text
-  @tt true
-  @text input
-  @tt false
-
-
-###
-Special Elements
-----------------------------------------------
-###
 
 ###
 Add plain text to currently opened element.
@@ -64,10 +39,15 @@ Report.prototype.text = (text) ->
 ###
 Markdown Input/Output
 ----------------------------------------------------
+While parsing backslashes used to escape special meaning will be removed in the
+element and readded on output. But only the really neccessary escapes are done in
+the output to keep it more readable.
 
 
 Other Output
 ----------------------------------------------------
+The text content is mostly outputed without any change. Only excepzion may be the
+transformation into emoji, special characters or fontawesome signs.
 
 
 Examples

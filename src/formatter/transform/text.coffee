@@ -15,7 +15,9 @@ module.exports =
     fn: (num, token) ->
       token.out = token.data.text
       .replace /^(#+\ )/, "\\$1"    # mask to not be interpreted as heading
+      .replace /\\/g, '\\\\'
       .replace /([*_~=`^])(?=\w|[*_~=`^]|$)/g, "\\$1" # mask special markdown
+#      .replace /([!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~])/g, "\\$1" # mask all
 
   html:
     format: ['html']
