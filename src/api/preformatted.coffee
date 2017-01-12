@@ -1,6 +1,9 @@
 ###
 Preformatted Text
 =================================================
+This section contains text which will be kept as si. No further markdown
+interpretation within this blocks and all characters stay as they are including
+line breaks. Also other whitespace like spaces are kept.
 ###
 
 

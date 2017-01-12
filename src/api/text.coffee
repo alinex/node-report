@@ -42,7 +42,7 @@ While parsing backslashes used to escape special meaning will be removed in the
 element and re-added on output. But only the really necessary escapes are done in
 the output to keep it more readable.
 
-The parsing is done after the commonmark standard:
+The parsing is done after the CommonMark standard:
 - [backslash escapes](http://spec.commonmark.org/0.27/#backslash-escapes)
 - [hard line break](http://spec.commonmark.org/0.27/#hard-line-break)
 - [soft line break](http://spec.commonmark.org/0.27/#soft-line-breaks)

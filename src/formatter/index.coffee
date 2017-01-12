@@ -1,5 +1,11 @@
 # Formatter
 # =================================================
+# Formatting is done in multiple steps:
+# 1. clone token list from parser
+# 2. run pre-routines which may change some tokens
+# 3. transform routines will create the `out` String
+# 4. post routines are used while collecting output strings together
+# 5. converter may be run afterwards
 
 
 # Node Modules
@@ -53,6 +59,11 @@ transLibs = formatLibs 'transform'
 if debugRule.enabled
   for type, rules of transLibs
     debugRule "possible #{type} transformers:", util.inspect(rules.map (e) ->
+      e.name).replace /\n +/g, ' '
+postLibs = formatLibs 'post'
+if debugRule.enabled
+  for type, rules of postLibs
+    debugRule "possible #{type} post formatters:", util.inspect(rules.map (e) ->
       e.name).replace /\n +/g, ' '
 convLibs = libs 'convert'
 if debugRule.enabled

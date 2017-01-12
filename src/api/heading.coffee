@@ -119,7 +119,7 @@ The markdown format is based on CommonMark Specification:
 
 Exceptions to the standard:
 - Escaped Underline of an setext heading is also not interpreted as thematic break
-  which makes it more consistent and the behaviour in
+  which makes it more consistent and the behavior in
   [example 75](http://spec.commonmark.org/0.27/#example-75)
   is never really needed.
 

@@ -12,12 +12,12 @@ Not all of them are currently fully supported, but see below.
 
 Input Data
 ------------------------------------------------------
-Beside using the programatical API some other file formats may be used. They will
+Beside using the programmable API some other file formats may be used. They will
 be parsed, but not every format can handle all elements. The main format is markdown
 but you may also use one of the others.
 
 But only markdown can at the moment be used to store and reread data without loss
-of information. The concret implementation is based on the standards but contains
+of information. The concrete implementation is based on the standards but contains
 some significant changes, too.
 
 __Support for Parsing__
@@ -78,7 +78,7 @@ and a short name. Block elements can be called completely with all data or with 
 boolean value to open and close it separately.
 
 As far as possible the API won't throw errors but interpret all calls like you maybe
-wanted them by autoclosing tags.
+wanted them by auto closing tags.
 
 
 ###
