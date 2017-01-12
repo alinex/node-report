@@ -83,7 +83,7 @@ class Formatter
 
   # Insert token at defined position
   #
-  # @param {Integer} [num] position in tokenlist to add new token
+  # @param {Integer} [num] position in token list to add new token
   # @param {Token} t new token to be added
   insert: (num, t) ->
     num = @token + 1 unless num
@@ -159,6 +159,7 @@ class Formatter
     # collect output
     for token, num in @tokens
       @output += token.out if token.out
+    # post optimization
     return cb() unless @setup.convert
     # run conversion
     debug "convert to #{@setup.convert.type}..."

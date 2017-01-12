@@ -37,16 +37,16 @@ Alinex Report: Readme
 
 This report module should help you create complex reports in an easy
 way. You create a new object and append different text objects step by step. At last
-you may access the markdown text or get it converted to HTML.
+you may access the markdown text or get it converted to HTML and other formats.
 
 The key features are:
 
-- easy markdown writing
-- feature rich markdown
-- export as text, console, html (also optimized for email), pdf, png or jpg
+- easy writing using API, markdown or AsciiDoc
+- feature rich markdown implementation based on commonmark
+- export as text, console, HTML (also optimized for email), PDF, PNG and more
 - convert text to visual representation like qr, chart or UML
-- optimized interactive elements in html
-- configurable/themeable output
+- optimized interactive elements in HTML output
+- configurable/theme able output
 
 See example output within the different element descriptions below.
 
@@ -55,9 +55,9 @@ but is easy to transform in nearly any other format. If you know markdown you wi
 find the possibilities here enormous. And you may also directly load markdown and
 process it using this package.
 
-The html export can also be optimized for email using `ìnlineCss` option. With
+The HTML export can also be optimized for email using `ìnlineCss` option. With
 this setting the styles from the head section will moved into the document because
-webmail client will remove the head section completely. Only for javascript there
+web mail client will remove the head section completely. Only for JavaScript there
 is no possible replacement.
 
 The [Documentation of this module](https://alinex.github.io/node-report) itself
@@ -91,7 +91,7 @@ And update it to the latest version later:
 npm update alinex-report --save
 ```
 
-This package will install a lot of subpackages to ensure the full functionality
+This package will install a lot of sub packages to ensure the full functionality
 but only the ones really needed are loaded on demand.
 
 Always have a look at the latest [changes](Changelog.md).

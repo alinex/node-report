@@ -12,8 +12,9 @@ module.exports =
     data:
       text: true
     fn: (num, token) ->
+      return if token.parent?.type is 'preformatted'
       token.data.text = token.data.text
-      .replace /\\([\\!\"#$%&'()*+,\-./:;<=>?@[\]^_`{|}~])/g, '$1'    # remove mask
-      .replace /\ufffd/g, ''  # remove not displayable character
-      .replace /(?:\t|\ \ )[\t\ ]*\n/g, '\n' # line break
-      .replace /(\S)(?:\t|\ \ )[\t\ ]*$/, '$1' # right trim last line
+      .replace /([^\\])\n/g, "$1 " # remove newlines if not escaped
+      .replace /([^\\])?\\\n/g, "$1\n" # remove escape characters before newlines
+      .replace /([^\\])?\\([\\!\"#$%&'()*+,\-./:;<=>?@[\]^_`{|}~])/g, '$1$2' # remove mask
+      .replace /[\t ]+/g, ' ' # multiple spaces

@@ -390,7 +390,7 @@ describe "heading", ->
             test.markdown null, 'foo\n    # bar', [
               {type: 'document', nesting: 1}
               {type: 'paragraph', nesting: 1}
-              {type: 'text', data: {text: 'foo\n# bar'}}
+              {type: 'text', data: {text: 'foo # bar'}}
               {type: 'paragraph', nesting: -1}
               {type: 'document', nesting: -1}
             ], null, cb
@@ -584,7 +584,7 @@ describe "heading", ->
         test.markdown null, 'Foo bar\nbaz\n===', [
           {type: 'document', nesting: 1}
           {type: 'heading', data: {level: 1}, nesting: 1}
-          {type: 'text', data: {text: 'Foo bar\nbaz'}}
+          {type: 'text', data: {text: 'Foo bar baz'}}
           {type: 'heading', data: {level: 1}, nesting: -1}
           {type: 'document', nesting: -1}
         ], null, cb
@@ -619,18 +619,18 @@ describe "heading", ->
         ], null, cb
 
       # http://spec.commonmark.org/0.27/#example-54
-#      it.only "should fail with 4 or more spaces of indention", (cb) ->
-#        test.markdown null, '    Foo\n    ---\n\n    Foo\n----', [
-#          {type: 'document', nesting: 1}
-#          {type: 'paragraph', nesting: 1}
-#          {type: 'text', data: {text: '    Foo\n---'}}
-#          {type: 'paragraph', nesting: -1}
-#          {type: 'paragraph', nesting: 1}
-#          {type: 'text', data: {text: '    Foo\n---'}}
-#          {type: 'paragraph', nesting: -1}
-#          {type: 'thematic_break'}
-#          {type: 'document', nesting: -1}
-#        ], null, cb
+      it "should fail with 4 or more spaces of indention", (cb) ->
+        test.markdown null, '    Foo\n    ---\n\n    Foo\n----', [
+          {type: 'document', nesting: 1}
+          {type: 'preformatted', nesting: 1}
+          {type: 'text', data: {text: 'Foo\n---'}}
+          {type: 'preformatted', nesting: -1}
+          {type: 'preformatted', nesting: 1}
+          {type: 'text', data: {text: 'Foo'}}
+          {type: 'preformatted', nesting: -1}
+          {type: 'thematic_break'}
+          {type: 'document', nesting: -1}
+        ], null, cb
 
       # http://spec.commonmark.org/0.27/#example-55
       it "should work with different indention of underline", (cb) ->
@@ -647,7 +647,7 @@ describe "heading", ->
         test.markdown null, 'Foo\n    ---', [
           {type: 'document', nesting: 1}
           {type: 'paragraph', nesting: 1}
-          {type: 'text', data: {text: 'Foo\n---'}}
+          {type: 'text', data: {text: 'Foo ---'}}
           {type: 'paragraph', nesting: -1}
           {type: 'document', nesting: -1}
         ], null, cb
@@ -657,7 +657,7 @@ describe "heading", ->
         test.markdown null, 'Foo\n= =\n\nFoo\n--- -', [
           {type: 'document', nesting: 1}
           {type: 'paragraph', nesting: 1}
-          {type: 'text', data: {text: 'Foo\n= ='}}
+          {type: 'text', data: {text: 'Foo = ='}}
           {type: 'paragraph', nesting: -1}
           {type: 'paragraph', nesting: 1}
           {type: 'text', data: {text: 'Foo'}}
@@ -667,14 +667,16 @@ describe "heading", ->
         ], null, cb
 
       # http://spec.commonmark.org/0.27/#example-58
-      it "should work with trailing spaces removed", (cb) ->
+      it "should work with trailing spaces reduced", (cb) ->
         test.markdown null, 'Foo  \n-----', [
           {type: 'document', nesting: 1}
           {type: 'heading', data: {level: 2}, nesting: 1}
-          {type: 'text', data: {text: 'Foo'}}
+          {type: 'text', data: {text: 'Foo '}}
           {type: 'heading', data: {level: 2}, nesting: -1}
           {type: 'document', nesting: -1}
-        ], null, cb
+        ], [
+          {format: 'html', re: /<h2>Foo<\/h2>/}
+        ], cb
 
       # http://spec.commonmark.org/0.27/#example-59
       it "should work with backslash at the end not replaced", (cb) ->

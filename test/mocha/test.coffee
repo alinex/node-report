@@ -19,7 +19,7 @@ module.exports =
     if id and process.env.EXAMPLES
       example = __dirname + "/../../#{EXAMPLES_DIR}/#{id}"
       fs.mkdirsSync fspath.dirname example
-      fs.writeFileSync "#{example}.source", input
+      fs.writeFileSync "#{example}.source.md", input
     report.markdown input
     module.exports.report id, report, data, format, cb
 
@@ -36,7 +36,7 @@ module.exports =
     .replace /\s*\n\s*/g, ' '
     .replace /(\{ type:)/g, '\n$1'
     debug 'TOKENS', tokenList
-    fs.writeFileSync "#{example}.tokens", tokenList if example
+    fs.writeFileSync "#{example}.tokens.js", tokenList if example
     if data
       expect(report.parser.tokens.length, 'num tokens').to.equal data.length
       for token, num in data

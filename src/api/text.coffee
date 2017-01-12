@@ -6,7 +6,6 @@ Text may be added in block and inline elements like {@link paragraph.coffee},
 the element with value `true` before adding one or multiple text elements.
 ###
 
-
 # Node Modules
 # -------------------------------------------------
 Report = require '../index'
@@ -40,13 +39,19 @@ Report.prototype.text = (text) ->
 Markdown Input/Output
 ----------------------------------------------------
 While parsing backslashes used to escape special meaning will be removed in the
-element and readded on output. But only the really neccessary escapes are done in
+element and re-added on output. But only the really necessary escapes are done in
 the output to keep it more readable.
+
+The parsing is done after the commonmark standard:
+- [backslash escapes](http://spec.commonmark.org/0.27/#backslash-escapes)
+- [hard line break](http://spec.commonmark.org/0.27/#hard-line-break)
+- [soft line break](http://spec.commonmark.org/0.27/#soft-line-breaks)
+- [textual content](http://spec.commonmark.org/0.27/#textual-content)
 
 
 Other Output
 ----------------------------------------------------
-The text content is mostly outputed without any change. Only excepzion may be the
+The text content is mostly outputted without any change. Only exception may be the
 transformation into emoji, special characters or fontawesome signs.
 
 

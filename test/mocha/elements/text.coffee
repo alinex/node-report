@@ -12,13 +12,17 @@ describe "text", ->
   describe "examples", ->
 
     it "should make examples", (cb) ->
-      test.markdown 'text/example', "This is a short text.\\\nWith two lines.", null, [
+      test.markdown 'text/simple', """
+        This is a short text.
+        With each sentence in a separate line.\\
+        And a hard break before this.
+      """, null, [
         {format: 'md'}
         {format: 'text'}
         {format: 'html'}
         {format: 'man'}
+        {format: 'adoc'}
       ], cb
-
 
   describe "api", ->
 
@@ -96,7 +100,7 @@ describe "text", ->
       """, [
         {type: 'document', nesting: 1}
         {type: 'paragraph', nesting: 1}
-        {type: 'text', data: {text: """
+        {type: 'text', data: {text: "
           *not emphasized*
           <br/> not a tag
           [not a link](/foo)
@@ -104,23 +108,44 @@ describe "text", ->
           1. not a list
           * not a list
           # not a heading
-          [foo]: /url "not a reference"
-          """}}
+          [foo]: /url \"not a reference\"
+        "}}
         {type: 'paragraph', nesting: -1}
         {type: 'document', nesting: -1}
       ], null, cb
 
     # http://spec.commonmark.org/0.27/#example-290
     it "should interpret element if backslash is escaped itself", (cb) ->
-      test.markdown null, '\\\\`hi`', [
+      test.markdown null, '\\\\*emphasis*', [
         {type: 'document', nesting: 1}
         {type: 'paragraph', nesting: 1}
         {type: 'text', data: {text: '\\'}}
-        {type: 'typewriter', nesting: 1}
-        {type: 'text', data: {text: 'hi'}}
-        {type: 'typewriter', nesting: -1}
+        {type: 'emphasis', nesting: 1}
+        {type: 'text', data: {text: 'emphasis'}}
+        {type: 'emphasis', nesting: -1}
         {type: 'paragraph', nesting: -1}
         {type: 'document', nesting: -1}
       ], null, cb
 
-############################### go on example 291
+    # http://spec.commonmark.org/0.27/#example-291
+    it "should interpret hard line break", (cb) ->
+      test.markdown null, 'foo\\\nbar', [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', data: {text: 'foo\nbar'}}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+#    # http://spec.commonmark.org/0.27/#example-292-296
+#    it "should keep backslash escapes in preformatted or typewriter style", (cb) ->
+#      test.markdown null, '`` \[\` ``', [
+#        {type: 'document', nesting: 1}
+#        {type: 'paragraph', nesting: 1}
+#        {type: 'typewriter', nesting: 1}
+#        {type: 'text', data: {text: '\[\`'}}
+#        {type: 'typewriter', nesting: -1}
+#        {type: 'paragraph', nesting: -1}
+#        {type: 'document', nesting: -1}
+#      ], null, cb
+####################################### more to come

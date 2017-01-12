@@ -130,7 +130,23 @@ roff =
       values: ['roff']
     extension: extension
 
-# #3 ROFF Setup (format/<name>/)
+# #3 AsciiDoc Setup (format/<name>/)
+#
+# {@schema #keys/format/entries/0/or/4}
+adoc =
+  title: "AsciiDoc Setup"
+  description: "the definition of AsciiDoc formats"
+  type: 'object'
+  allowedKeys: true
+  keys:
+    type:
+      title: "Base Format"
+      description: "the base format used for conversion"
+      type: 'string'
+      values: ['adoc']
+    extension: extension
+
+# #3 LaTeX Setup (format/<name>/)
 #
 # {@schema #keys/format/entries/0/or/5}
 latex =
@@ -156,9 +172,9 @@ latex =
           type: 'string'
           values: ['dvi', 'pdf']
 
-# #3 ROFF Setup (format/<name>/)
+# #3 RTF Setup (format/<name>/)
 #
-# {@schema #keys/format/entries/0/or/5}
+# {@schema #keys/format/entries/0/or/6}
 rtf =
   title: "RTF Setup"
   description: "the definition of rtf formats"
@@ -193,6 +209,7 @@ module.exports =
           text
           html
           roff
+          adoc
           latex
           rtf
         ]

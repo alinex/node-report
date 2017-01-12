@@ -14,14 +14,14 @@ module.exports =
   empty:
     state: ['m-block']
     re: ///
-      ^(\r?\n?    # 1: start of line
+      ^(\n?       # 1: start of line
         \ {0,3}   # indented by 1-3 spaces (optional)
         (\#{1,6}) # 2: level 1-6
       )           # end of start
       (           # 4: ending heading
         (?:\ +\#*)? # closing sequence with space and hashes (optional)
         \ *       # trailing spaces (optional)
-        (?:\r?\n|$)  # end of line
+        (?:\n|$)  # end of line
       )
       ///
     fn: (m) ->
@@ -85,8 +85,9 @@ module.exports =
         \ {0,3}       # indented by 1-3 spaces (optional)
       )           # end of start
       (           # 2: text with trailing spaces (optional)
-        (?:\r?\n[^\n] # containing only single newlines
-        |[^\r\n])+?   # and otehr characters
+        [^\n\ \t]   # at least one significant character
+        (?:\n[^\n]  # containing only single newlines
+        |[^\n])+?   # and other characters
       )           # end of text
       (           # 3: type of heading
         \n[\ \t]{0,3} # underline up to 3 spaces indent

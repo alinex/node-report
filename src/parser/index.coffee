@@ -106,7 +106,7 @@ class Parser
 
   # Auto detect state for text.
   #
-  # @param {String} [text] to autodetect start state (defaults to @input)
+  # @param {String} [text] to auto detect start state (defaults to @input)
   # @return {String} start state or `m` if not possible
   @detect: (text) ->
     return 'm' unless text
@@ -115,7 +115,7 @@ class Parser
   # Create a new parser object.
   #
   # @param {String} input text to be parsed
-  # @param {String} [state] or domain used initialy for the lexer
+  # @param {String} [state] or domain used initially for the lexer
   constructor: (@input = '', @state) ->
     @state ?= Parser.detect @input
     @state = START[@state] if START[@state]

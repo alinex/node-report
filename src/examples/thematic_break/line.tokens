@@ -1,0 +1,4 @@
+[ 
+{ type: 'document', nesting: 1, state: 'm-block', level: 0 }, 
+{ type: 'thematic_break', nesting: 0, level: 1, state: 'm-block' }, 
+{ type: 'document', nesting: -1, level: 0, state: 'm-block' } ]
