@@ -26,7 +26,7 @@ MARKER =
   '~': 'subscript'
   '^': 'superscript'
   '==': 'highlight'
-  '`': 'typewriter'
+  '`': 'fixed'
 
 
 # Transformer rules
@@ -56,6 +56,7 @@ module.exports =
       # opening
       @insert null,
         type: MARKER[m[1]]
+        state: if m[1] is 'fixed' then '-text' else '-inline'
         nesting: 1
       # parse subtext
       @lexer m[2]

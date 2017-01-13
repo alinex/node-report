@@ -8,8 +8,8 @@ util = require 'alinex-util'
 # @type {Object<Transformer>} rules to transform text into tokens
 module.exports =
 
-  paragraph:
-    type: ['paragraph', 'preformatted']
+  blocks:
+    type: ['paragraph', 'preformatted', 'blockquote']
     state: ['m-inline']
     nesting: 0
     content: true

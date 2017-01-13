@@ -193,7 +193,7 @@ class Parser
     ts = chalk.yellow util.inspect(t, {depth: 1})
     .replace /,\s+parent:\s+\{\s+type:\s+'(.*?)'[\s\S]*?\}/g, ", parent: <$1>"
     .replace /\s*\n\s*/g, ' '
-    debugData "token change ##{num}/#{@tokens.length} #{ts}"
+    debugData "token change ##{num}/#{@tokens.length-1} #{ts}"
 
   # Parse a text into `Token` list or add them to the exisitng one if called
   # again.
@@ -235,7 +235,7 @@ class Parser
   lexer: (chars) ->
     while chars.length
       if debugData.enabled
-        ds = util.inspect chars.substr 0, 30
+        ds = util.inspect chars.substr 0, 60
         debugData "parse #{chalk.grey ds} in state #{@state}"
       done = false
       # try rules for state
