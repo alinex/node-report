@@ -18,7 +18,6 @@ fs = require 'fs'
 path = require 'path'
 # alinex modules
 util = require 'alinex-util'
-config = require 'alinex-config'
 
 
 # Rules
@@ -27,7 +26,7 @@ config = require 'alinex-config'
 preLibs = null
 transLibs = null
 postLibs = null
-converter = null
+convLibs = null
 
 
 # Formatter Class

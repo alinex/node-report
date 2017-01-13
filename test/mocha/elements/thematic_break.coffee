@@ -151,7 +151,7 @@ describe "thematic break", ->
           test.markdown null, 'Foo\n    ***', [
             {type: 'document', nesting: 1}
             {type: 'paragraph', nesting: 1}
-            {type: 'text', data: {text: 'Foo\n***'}}
+            {type: 'text', data: {text: 'Foo ***'}}
             {type: 'paragraph', nesting: -1}
             {type: 'document', nesting: -1}
           ], null, cb

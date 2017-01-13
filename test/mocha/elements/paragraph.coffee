@@ -62,10 +62,10 @@ describe "paragraph", ->
       test.markdown null, 'aaa\nbbb\n\nccc\nddd', [
         {type: 'document', nesting: 1}
         {type: 'paragraph', nesting: 1}
-        {type: 'text', data: {text: 'aaa\nbbb'}}
+        {type: 'text', data: {text: 'aaa bbb'}}
         {type: 'paragraph', nesting: -1}
         {type: 'paragraph', nesting: 1}
-        {type: 'text', data: {text: 'ccc\nddd'}}
+        {type: 'text', data: {text: 'ccc ddd'}}
         {type: 'paragraph', nesting: -1}
         {type: 'document', nesting: -1}
       ], null, cb
@@ -75,10 +75,10 @@ describe "paragraph", ->
       test.markdown null, 'aaa\nbbb\n\nccc\nddd', [
         {type: 'document', nesting: 1}
         {type: 'paragraph', nesting: 1}
-        {type: 'text', data: {text: 'aaa\nbbb'}}
+        {type: 'text', data: {text: 'aaa bbb'}}
         {type: 'paragraph', nesting: -1}
         {type: 'paragraph', nesting: 1}
-        {type: 'text', data: {text: 'ccc\nddd'}}
+        {type: 'text', data: {text: 'ccc ddd'}}
         {type: 'paragraph', nesting: -1}
         {type: 'document', nesting: -1}
       ], null, cb
@@ -88,7 +88,7 @@ describe "paragraph", ->
       test.markdown null, '  aaa\n bbb', [
         {type: 'document', nesting: 1}
         {type: 'paragraph', nesting: 1}
-        {type: 'text', data: {text: 'aaa\nbbb'}}
+        {type: 'text', data: {text: 'aaa bbb'}}
         {type: 'paragraph', nesting: -1}
         {type: 'document', nesting: -1}
       ], null, cb
@@ -98,7 +98,7 @@ describe "paragraph", ->
       test.markdown null, 'aaa\n             bbb\n                                       ccc', [
         {type: 'document', nesting: 1}
         {type: 'paragraph', nesting: 1}
-        {type: 'text', data: {text: 'aaa\nbbb\nccc'}}
+        {type: 'text', data: {text: 'aaa bbb ccc'}}
         {type: 'paragraph', nesting: -1}
         {type: 'document', nesting: -1}
       ], null, cb
@@ -108,7 +108,7 @@ describe "paragraph", ->
       test.markdown null, '   aaa\nbbb', [
         {type: 'document', nesting: 1}
         {type: 'paragraph', nesting: 1}
-        {type: 'text', data: {text: 'aaa\nbbb'}}
+        {type: 'text', data: {text: 'aaa bbb'}}
         {type: 'paragraph', nesting: -1}
         {type: 'document', nesting: -1}
       ], null, cb
@@ -131,7 +131,7 @@ describe "paragraph", ->
       test.markdown null, 'aaa     \nbbb     ', [
         {type: 'document', nesting: 1}
         {type: 'paragraph', nesting: 1}
-        {type: 'text', data: {text: 'aaa\nbbb'}}
+        {type: 'text', data: {text: 'aaa bbb '}}
         {type: 'paragraph', nesting: -1}
         {type: 'document', nesting: -1}
       ], null, cb

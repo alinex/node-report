@@ -667,7 +667,7 @@ describe "heading", ->
         ], null, cb
 
       # http://spec.commonmark.org/0.27/#example-58
-      it.only "should work with trailing spaces reduced", (cb) ->
+      it "should work with trailing spaces reduced", (cb) ->
         test.markdown null, 'Foo  \n-----', [
           {type: 'document', nesting: 1}
           {type: 'heading', data: {level: 2}, nesting: 1}
@@ -724,7 +724,7 @@ describe "heading", ->
         test.markdown null, 'Foo\nBar\n---', [
           {type: 'document', nesting: 1}
           {type: 'heading', data: {level: 2}, nesting: 1}
-          {type: 'text', data: {text: 'Foo\nBar'}}
+          {type: 'text', data: {text: 'Foo Bar'}}
           {type: 'heading', data: {level: 2}, nesting: -1}
           {type: 'document', nesting: -1}
         ], null, cb
@@ -800,7 +800,7 @@ describe "heading", ->
         test.markdown null, 'Foo\nbar\n\n---\n\nbaz', [
           {type: 'document', nesting: 1}
           {type: 'paragraph', nesting: 1}
-          {type: 'text', data: {text: 'Foo\nbar'}}
+          {type: 'text', data: {text: 'Foo bar'}}
           {type: 'paragraph', nesting: -1}
           {type: 'thematic_break'}
           {type: 'paragraph', nesting: 1}
@@ -814,7 +814,7 @@ describe "heading", ->
         test.markdown null, 'Foo\nbar\n* * *\nbaz', [
           {type: 'document', nesting: 1}
           {type: 'paragraph', nesting: 1}
-          {type: 'text', data: {text: 'Foo\nbar'}}
+          {type: 'text', data: {text: 'Foo bar'}}
           {type: 'paragraph', nesting: -1}
           {type: 'thematic_break'}
           {type: 'paragraph', nesting: 1}
@@ -824,12 +824,11 @@ describe "heading", ->
         ], null, cb
 
       # http://spec.commonmark.org/0.27/#example-75
-      # behaviour chnaged to original to make all text here
       it "should contain dashes in text with escaping", (cb) ->
         test.markdown null, 'Foo\nbar\n\\---\nbaz', [
           {type: 'document', nesting: 1}
           {type: 'paragraph', nesting: 1}
-          {type: 'text', data: {text: 'Foo\nbar\n---\nbaz'}}
+          {type: 'text', data: {text: 'Foo bar --- baz'}}
           {type: 'paragraph', nesting: -1}
           {type: 'document', nesting: -1}
         ], null, cb

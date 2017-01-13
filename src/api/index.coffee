@@ -28,6 +28,7 @@ __Support for Parsing__
 | Heading    |  X  |  X   |      |      |
 | Paragraph  |     |  X   |      |      |
 | Preformat  |     |  X   |      |      |
+| Blockquote |     |  X   |      |      |
 | ThemaBreak |  X  |  X   |      |      |
 | CharStyle  |     |  X   |      |      |
 | List       |     |  X   |      |      |
@@ -57,6 +58,7 @@ Each of the formats support different options you may set by configuration or on
 | Paragraph  |  X  |  X   |  X   |  X   |      |       |     |
 | Heading    |  X  |  X   |  X   |  X   |      |       |     |
 | Preformat  |     |      |      |      |      |       |     |
+| Blockquote |     |      |      |      |      |       |     |
 | ThemaBreak |  X  |  X   |  X   |  X   |      |       |     |
 | CharStyle  |  X  | (X)  |  X   |  X   |      |       |     |
 | List       |     |      |      |      |      |       |     |
