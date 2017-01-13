@@ -21,4 +21,4 @@ module.exports =
         break if t.level is token.level
         title += t.data.text if t.data?.text
       @tokens[0].data ?= {}
-      @tokens[0].data.title = title
+      @tokens[0].data.title = title.trim()

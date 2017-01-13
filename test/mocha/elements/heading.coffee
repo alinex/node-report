@@ -667,7 +667,7 @@ describe "heading", ->
         ], null, cb
 
       # http://spec.commonmark.org/0.27/#example-58
-      it "should work with trailing spaces reduced", (cb) ->
+      it.only "should work with trailing spaces reduced", (cb) ->
         test.markdown null, 'Foo  \n-----', [
           {type: 'document', nesting: 1}
           {type: 'heading', data: {level: 2}, nesting: 1}

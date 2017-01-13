@@ -18,62 +18,72 @@ fs = require 'fs'
 path = require 'path'
 # alinex modules
 util = require 'alinex-util'
+config = require 'alinex-config'
 
 
-# Setup
+# Rules
 # -------------------------------------------------
-debug "Initializing..."
-
-# @param {String} type to load
-# @return {Object<Module>} the loaded modules
-libs = (type) ->
-  list = fs.readdirSync "#{__dirname}/#{type}"
-  list.sort()
-  map = {}
-  for file in list
-    continue unless path.extname(file) in ['.js', '.coffee']
-    name = path.basename(file, path.extname file).replace /^\d+_/, ''
-    map[name] = require "./#{type}/#{file}"
-  map
-
-formatLibs = (type) ->
-  list = libs type
-  # group by format
-  grouped = {}
-  for key, lib of list
-    for name, rule of lib
-      rule.name = "#{key}:#{name}"
-      rule.format = [rule.format] unless Array.isArray rule.format
-      for f in rule.format
-        grouped[f] ?= []
-        grouped[f].push rule
-  grouped
-
-# Load helper
-preLibs = formatLibs 'pre'
-if debugRule.enabled
-  for type, rules of preLibs
-    debugRule "possible #{type} pre formatters:", util.inspect(rules.map (e) ->
-      e.name).replace /\n +/g, ' '
-transLibs = formatLibs 'transform'
-if debugRule.enabled
-  for type, rules of transLibs
-    debugRule "possible #{type} transformers:", util.inspect(rules.map (e) ->
-      e.name).replace /\n +/g, ' '
-postLibs = formatLibs 'post'
-if debugRule.enabled
-  for type, rules of postLibs
-    debugRule "possible #{type} post formatters:", util.inspect(rules.map (e) ->
-      e.name).replace /\n +/g, ' '
-convLibs = libs 'convert'
-if debugRule.enabled
-  debugRule "possible converters:", util.inspect(convLibs).replace /\n +/g, ' '
-
+# They will be filled up on `init()` call.
+preLibs = null
+transLibs = null
+postLibs = null
+converter = null
 
 
 # Formatter Class
 # -------------------------------------------------
 class Formatter
+
+  # Setup
+  # -------------------------------------------------
+  @init: ->
+    debug "Initializing..."
+
+    # @param {String} type to load
+    # @return {Object<Module>} the loaded modules
+    libs = (type) ->
+      list = fs.readdirSync "#{__dirname}/#{type}"
+      list.sort()
+      map = {}
+      for file in list
+        continue unless path.extname(file) in ['.js', '.coffee']
+        name = path.basename(file, path.extname file).replace /^\d+_/, ''
+        map[name] = require "./#{type}/#{file}"
+      map
+
+    formatLibs = (type) ->
+      list = libs type
+      # group by format
+      grouped = {}
+      for key, lib of list
+        for name, rule of lib
+          rule.name = "#{key}:#{name}"
+          rule.format ?= ['md', 'text', 'html', 'adoc', 'roff', 'latex', 'rtf']
+          rule.format = [rule.format] unless Array.isArray rule.format
+          for f in rule.format
+            grouped[f] ?= []
+            grouped[f].push rule
+      grouped
+
+    # Load helper
+    preLibs = formatLibs 'pre'
+    if debugRule.enabled
+      for type, rules of preLibs
+        debugRule "possible #{type} pre formatters:", util.inspect(rules.map (e) ->
+          e.name).replace /\n +/g, ' '
+    transLibs = formatLibs 'transform'
+    if debugRule.enabled
+      for type, rules of transLibs
+        debugRule "possible #{type} transformers:", util.inspect(rules.map (e) ->
+          e.name).replace /\n +/g, ' '
+    postLibs = formatLibs 'post'
+    if debugRule.enabled
+      for type, rules of postLibs
+        debugRule "possible #{type} post formatters:", util.inspect(rules.map (e) ->
+          e.name).replace /\n +/g, ' '
+    convLibs = libs 'convert'
+    if debugRule.enabled
+      debugRule "possible converters:", util.inspect(convLibs).replace /\n +/g, ' '
 
   # Create a new parser object.
   #
@@ -168,8 +178,28 @@ class Formatter
         debugRule "call trans #{rule.name} for token ##{num}" if debugRule
         rule.fn.call this, num, token
     # collect output
-    for token, num in @tokens
-      @output += token.out if token.out
+    for num in [@tokens.length-1..0]
+      token = @get num
+      continue if token.nesting isnt 1 # only work on opening elements
+      # collect content
+      token.content = ''
+      n = num
+      loop
+        t = @get ++n
+        break if t.level is token.level # reached end of sub elements
+        if t.level is token.level + 1 # only one level deeper
+          token.content += t.out if t.out
+          token.content += t.content if t.content
+      # call post routine
+      for rule in postLibs[@setup.type]
+        continue if rule.type and token.type isnt rule.type
+        continue if rule.state and not token.state in rule.state
+        debugRule "call post #{rule.name} for token ##{num}" if debugRule
+        rule.fn.call this, num, token
+    # collect complete output
+    first = @get 0
+    last = @get -1
+    @output = first.out + first.content + last.out
     # post optimization
     return cb() unless @setup.convert
     # run conversion

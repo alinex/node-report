@@ -16,7 +16,7 @@
 
 # ### Lexer
 #
-# The lexer itself runs through the diven character string and tries to create tokens
+# The lexer itself runs through the character string and tries to create tokens
 # out of it. It is influenced by the current parser settings (above).
 
 # ### Resulting Tokens
@@ -45,64 +45,74 @@ path = require 'path'
 util = require 'alinex-util'
 
 
-# Setup
+# Rules
 # -------------------------------------------------
-debug "Initializing..."
+# They will be filled up on `init()` call.
+preLibs = null
+transLibs = null
+postLibs = null
+lexer = {}
 
 # @type {Object<String>} start state for domain
 START =
   m: 'm-doc'
   h: 'h-doc'
 
-# @param {String} type to load
-# @return {Object<Module>} the loaded modules
-libs = (type) ->
-  list = fs.readdirSync "#{__dirname}/#{type}"
-  list.sort()
-  map = {}
-  for file in list
-    continue unless path.extname(file) in ['.js', '.coffee']
-    name = path.basename(file, path.extname file).replace /^\d+_/, ''
-    map[name] = require "./#{type}/#{file}"
-  map
-
-# Load helper
-preLibs = libs 'pre'
-if debugRule.enabled
-  debugRule "possible pre optimizations:", util.inspect(Object.keys preLibs).replace /\n\s*/g, ' '
-transLibs = libs 'transform'
-if debugRule.enabled
-  debugRule "possible transformer:", util.inspect(Object.keys transLibs).replace /\n\s*/g, ' '
-postLibs = libs 'post'
-for _, sub of postLibs
-  for _, rule of sub
-    rule.type = [rule.type] unless Array.isArray rule.type
-if debugRule.enabled
-  debugRule "possible post optimizations:", util.inspect(Object.keys postLibs).replace /\n\s*/g, ' '
-# collect possible states
-states = []
-for key, lib of transLibs
-  for name, rule of lib
-    for state in rule.state
-      states.push state unless state in states
-debugRule "possible states:", util.inspect(states).replace /\n +/g, ' ' if debugRule.enabled
-# collect rules for each state
-lexer = {}
-for key, lib of transLibs
-  for name, rule of lib
-    rule.name = "#{key}:#{name}"
-    for state in rule.state
-      lexer[state] ?= []
-      lexer[state].push rule
-if debugRule.enabled
-  for k, v of lexer
-    for e in v
-      debugRule "lexer rule for #{k}:", e.name, chalk.grey e.re
-
 
 # Parser Class
 # -------------------------------------------------
 class Parser
+
+  # Setup
+  # -------------------------------------------------
+  @init: ->
+    debug "Initializing..."
+
+    # @param {String} type to load
+    # @return {Object<Module>} the loaded modules
+    libs = (type) ->
+      list = fs.readdirSync "#{__dirname}/#{type}"
+      list.sort()
+      map = {}
+      for file in list
+        continue unless path.extname(file) in ['.js', '.coffee']
+        name = path.basename(file, path.extname file).replace /^\d+_/, ''
+        map[name] = require "./#{type}/#{file}"
+      map
+
+    # Load helper
+    preLibs = libs 'pre'
+    if debugRule.enabled
+      debugRule "possible pre optimizations:", util.inspect(Object.keys preLibs
+      ).replace /\n\s*/g, ' '
+    transLibs = libs 'transform'
+    if debugRule.enabled
+      debugRule "possible transformer:", util.inspect(Object.keys transLibs).replace /\n\s*/g, ' '
+    postLibs = libs 'post'
+    for _, sub of postLibs
+      for _, rule of sub
+        rule.type = [rule.type] unless Array.isArray rule.type
+    if debugRule.enabled
+      debugRule "possible post optimizations:", util.inspect(Object.keys postLibs
+      ).replace /\n\s*/g, ' '
+    # collect possible states
+    states = []
+    for key, lib of transLibs
+      for name, rule of lib
+        for state in rule.state
+          states.push state unless state in states
+    debugRule "possible states:", util.inspect(states).replace /\n +/g, ' ' if debugRule.enabled
+    # collect rules for each state
+    for key, lib of transLibs
+      for name, rule of lib
+        rule.name = "#{key}:#{name}"
+        for state in rule.state
+          lexer[state] ?= []
+          lexer[state].push rule
+    if debugRule.enabled
+      for k, v of lexer
+        for e in v
+          debugRule "lexer rule for #{k}:", e.name, chalk.grey e.re
 
   # Auto detect state for text.
   #

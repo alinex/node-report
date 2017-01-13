@@ -57,7 +57,11 @@ class Report
     # set module search path
     @setup (err) ->
       return cb err if err
-      config.init cb
+      config.init (err) ->
+        return cb err if err
+        Parser.init()
+        Formatter.init()
+        cb()
 
   # Create Report instance
   #
