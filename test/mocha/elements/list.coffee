@@ -5,15 +5,12 @@ async = require 'async'
 Report = require '../../../src'
 before (cb) -> Report.init cb
 
-describe "blockquote", ->
+describe "list", ->
 
-  it "should run first test", (cb) ->
-    test.markdown 'blockquote/multiple', """
-      > Manfred said:
-      >
-      > > Everything will work next week.
-      >
-      But we don't think so.
+  it.only "should run first test", (cb) ->
+    test.markdown 'list/bullet', """
+      - write code
+      - test it
     """, null, null, cb
 
   describe "examples", ->

@@ -20,7 +20,7 @@ listType =
 module.exports =
 
   text:
-    state: ['m-block']
+    state: ['m-block', 'm-list']
     re: ///
       ^(\n?       # 1: start of line
         \ {0,3}   # indented by 1-3 spaces (optional)
@@ -44,11 +44,17 @@ module.exports =
       else
         # opening
         marker = m[4] ? m[2]
+        unless @state.match /-list$/ or last.parent.marker is marker
+          @insert null,
+            type: 'list'
+            start: m[3]
+            list: listType[marker]
+            state: '-list'
+            nesting: 1
+            marker: marker
         @insert null,
-          type: 'list'
-          start: m[3]
-          list: listType[marker]
-          marker: marker
+          type: 'item'
+          state: '-block'
           content: m[5]
       # done
       m[0].length
