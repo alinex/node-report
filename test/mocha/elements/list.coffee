@@ -5,9 +5,9 @@ async = require 'async'
 Report = require '../../../src'
 before (cb) -> Report.init cb
 
-describe "list", ->
+describe.skip "list", ->
 
-  it.only "should run first test", (cb) ->
+  it "should run first test", (cb) ->
     test.markdown 'list/bullet', """
       - write code
       - test it

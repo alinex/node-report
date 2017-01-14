@@ -21,7 +21,7 @@ module.exports =
       /// # one line
     fn: (m) ->
       # check for concatenating
-      last = @get @idx ? -1
+      last = @get()
       return false unless last and last.type is 'blockquote'
       return unless last?.nesting is 0 and last.content and not last.closed
       # add text
@@ -43,7 +43,7 @@ module.exports =
       /// # one line
     fn: (m) ->
       # check for concatenating
-      last = @get @idx ? -1
+      last = @get()
       return false unless last and last.type is 'paragraph'
       return unless last?.nesting is 0 and last.content and not last.closed
       # add text

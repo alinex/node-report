@@ -9,7 +9,7 @@ util = require 'alinex-util'
 module.exports =
 
   blocks:
-    type: ['paragraph', 'preformatted', 'blockquote']
+    type: ['paragraph', 'preformatted', 'blockquote', 'item']
     state: ['m-inline']
     nesting: 0
     content: true
@@ -18,6 +18,10 @@ module.exports =
       # change token
       delete token.content
       token.nesting = 1
+      # close item and list if not done already
+      if token.type is 'item'
+        token.closed = true
+        token.parent.closed = true
       # add content tokens
       @token = num
       @state = token.state

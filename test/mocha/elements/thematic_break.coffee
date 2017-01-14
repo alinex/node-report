@@ -239,15 +239,23 @@ describe "thematic break", ->
 
     # http://spec.commonmark.org/0.27/#example-27
     it "should work without blank lines before and after", (cb) ->
-      test.markdown null, '- foo\n***\n- bar', [
+      test.markdown null, '- foo\n***\n+ bar', [
         {type: 'document', nesting: 1}
+        {type: 'list', nesting: 1}
+        {type: 'item', nesting: 1}
         {type: 'paragraph', nesting: 1}
-        {type: 'text', data: {text: '- foo'}}
+        {type: 'text', data: {text: 'foo'}}
         {type: 'paragraph', nesting: -1}
+        {type: 'item', nesting: -1}
+        {type: 'list', nesting: -1}
         {type: 'thematic_break'}
+        {type: 'list', nesting: 1}
+        {type: 'item', nesting: 1}
         {type: 'paragraph', nesting: 1}
-        {type: 'text', data: {text: '- bar'}}
+        {type: 'text', data: {text: 'bar'}}
         {type: 'paragraph', nesting: -1}
+        {type: 'item', nesting: -1}
+        {type: 'list', nesting: -1}
         {type: 'document', nesting: -1}
       ], null, cb
 
