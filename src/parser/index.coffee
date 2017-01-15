@@ -7,6 +7,9 @@
 # 1. pre optimize some problematic characters in source for the defined domain
 # 2. transform text into token list
 # 3. post format the transformer list
+#
+# The parser may sometimes only parse the big structure and will run a recursive
+# call to the lexer in the post run.
 
 # ### Status Variables
 #
@@ -65,6 +68,9 @@ class Parser
 
   # Setup
   # -------------------------------------------------
+
+  # Initialize Parser and load the lexer rules.
+  #
   @init: ->
     debug "Initializing..."
 

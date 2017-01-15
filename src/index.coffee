@@ -65,8 +65,11 @@ class Report
 
   # Create Report instance
   #
-  constructor: ->
+  # @param {Object} setup specific start information
+  # - `String` - `basedir` to be used for relative includes
+  constructor: (setup) ->
     @parser = new Parser()
+    @parser.basedir = setup.basedir if setup?.basedir
     @formatter = {}
 
 

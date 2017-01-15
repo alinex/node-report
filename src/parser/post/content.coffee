@@ -25,6 +25,7 @@ module.exports =
       # add content tokens
       @token = num
       @state = token.state
+      @dirname = token.dirname if token.dirname
       @lexer content
       # close token
       @insert null,

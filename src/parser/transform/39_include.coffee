@@ -2,6 +2,14 @@
 # =================================================
 
 
+path = require 'path'
+fs = require 'fs'
+
+
+# use @basedir for relative links
+# change @basedir on post content for include
+
+
 # Transformer rules
 #
 # @type {Object<Transformer>} rules to transform text into tokens
@@ -19,10 +27,18 @@ module.exports =
       (\n|$)      # 3: end of line
       /// # one line
     fn: (m) ->
-      url = m[2]
+      if m[2].match /^/
+        throw new Error "web resource includes not supported, yet"
+# deasync request
+#        content =
+      else
+        # load content from file
+        url = path.resolve m[2], @basedir
+        content = fs.readFileSync url
       # opening
       @insert null,
         type: 'include'
-        content: url
+        content: content
+        basedir: path.dirname url
       # done
       m[0].length
