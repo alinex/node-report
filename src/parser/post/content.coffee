@@ -9,8 +9,8 @@ util = require 'alinex-util'
 module.exports =
 
   blocks:
-    type: ['paragraph', 'preformatted', 'blockquote', 'item']
-    state: ['m-inline']
+    type: ['paragraph', 'preformatted', 'blockquote', 'item', 'include']
+    state: ['m-inline', 'm-block']
     nesting: 0
     content: true
     fn: (num, token) ->
