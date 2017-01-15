@@ -41,7 +41,7 @@ describe "heading", ->
       ], [
         {format: 'md', re: /foo\n===+\n/}
         {format: 'text', re: /foo\n═══+\n/}
-        {format: 'html', text: "<h1>foo</h1>\n"}
+        {format: 'html', text: "<h1 id=\"foo\">foo</h1>\n"}
         {format: 'man', text: ".TH foo\n"}
       ], cb
 
@@ -63,7 +63,7 @@ describe "heading", ->
       ], [
         {format: 'md', re: /foobar\n===+\n/}
         {format: 'text', re: /foobar\n═══+\n/}
-        {format: 'html', text: "<h1>foobar</h1>\n"}
+        {format: 'html', text: "<h1 id=\"foobar\">foobar</h1>\n"}
         {format: 'man', text: ".TH foobar\n"}
       ], cb
 
@@ -81,7 +81,7 @@ describe "heading", ->
       ], [
         {format: 'md', re: /foo\n===+\n/}
         {format: 'text', re: /foo\n═══+\n/}
-        {format: 'html', text: "<h1>foo</h1>\n"}
+        {format: 'html', text: "<h1 id=\"foo\">foo</h1>\n"}
         {format: 'man', text: ".TH foo\n"}
       ], cb
 
@@ -172,7 +172,7 @@ describe "heading", ->
       ], [
         {format: 'md', re: /foo\n===+\n/}
         {format: 'text', re: /foo\n═══+\n/}
-        {format: 'html', text: "<h1>foo</h1>\n"}
+        {format: 'html', text: "<h1 id=\"foo\">foo</h1>\n"}
         {format: 'man', text: ".TH foo\n"}
       ], cb
 
@@ -207,7 +207,7 @@ describe "heading", ->
         ], [
           {format: 'md', re: /foo\n===+\n/}
           {format: 'text', re: /foo\n═══+\n/}
-          {format: 'html', text: "<h1>foo</h1>\n"}
+          {format: 'html', text: "<h1 id=\"foo\">foo</h1>\n"}
           {format: 'man', text: ".TH foo\n"}
         ], cb
       it "should work with level 2", (cb) ->
@@ -220,7 +220,7 @@ describe "heading", ->
         ], [
           {format: 'md', re: /foo\n---+\n/}
           {format: 'text', re: /foo\n━━━+\n/}
-          {format: 'html', text: "<h2>foo</h2>\n"}
+          {format: 'html', text: "<h2 id=\"foo\">foo</h2>\n"}
           {format: 'man', text: ".SH foo\n"}
         ], cb
       it "should work with level 3", (cb) ->
@@ -233,7 +233,7 @@ describe "heading", ->
         ], [
           {format: 'md', re: /### foo\n/}
           {format: 'text', re: /foo\n╍╍╍+\n/}
-          {format: 'html', text: "<h3>foo</h3>\n"}
+          {format: 'html', text: "<h3 id=\"foo\">foo</h3>\n"}
           {format: 'man', text: ".SS foo\n"}
         ], cb
       it "should work with level 4", (cb) ->
@@ -246,7 +246,7 @@ describe "heading", ->
         ], [
           {format: 'md', re: /#### foo\n/}
           {format: 'text', re: /foo\n┅┅┅+\n/}
-          {format: 'html', text: "<h4>foo</h4>\n"}
+          {format: 'html', text: "<h4 id=\"foo\">foo</h4>\n"}
           {format: 'man', text: ".SS foo\n"}
         ], cb
       it "should work with level 5", (cb) ->
@@ -259,7 +259,7 @@ describe "heading", ->
         ], [
           {format: 'md', re: /##### foo\n/}
           {format: 'text', re: /foo\n───+\n/}
-          {format: 'html', text: "<h5>foo</h5>\n"}
+          {format: 'html', text: "<h5 id=\"foo\">foo</h5>\n"}
           {format: 'man', text: ".SS foo\n"}
         ], cb
       it "should work with level 6", (cb) ->
@@ -272,7 +272,7 @@ describe "heading", ->
         ], [
           {format: 'md', re: /###### foo\n/}
           {format: 'text', re: /foo\n┄┄┄┄+\n/}
-          {format: 'html', text: "<h6>foo</h6>\n"}
+          {format: 'html', text: "<h6 id=\"foo\">foo</h6>\n"}
           {format: 'man', text: ".SS foo\n"}
         ], cb
 
@@ -675,7 +675,7 @@ describe "heading", ->
           {type: 'heading', data: {level: 2}, nesting: -1}
           {type: 'document', nesting: -1}
         ], [
-          {format: 'html', re: /<h2>Foo<\/h2>/}
+          {format: 'html', re: /<h2 id="foo">Foo<\/h2>/}
         ], cb
 
       # http://spec.commonmark.org/0.27/#example-59

@@ -22,7 +22,7 @@ module.exports =
             # mask trailing hashes in last text bloxk
             if last = @get -1
               if last.type is 'text'
-                last.data.text.replace /\#$/, '\\#'              
+                last.data.text.replace /\#$/, '\\#'
             # add newline
             "\n"
       # setext headings for the rest
@@ -54,11 +54,18 @@ module.exports =
     format: 'html'
     type: 'heading'
     fn: (num, token) ->
+      # collect attributes
+      attrib = ''
+      if token.html?
+        console.log token
+        attrib = ' ' + Object.keys(token.html).map (e) -> "#{e}=\"#{token.html[e]}\""
+        .join ' '
+      # write tag
       nl = if @setup.compress then '' else '\n'
       token.out = switch token.nesting
-        when 1 then "<h#{token.data.level}>"
+        when 1 then "<h#{token.data.level}#{attrib}>"
         when -1 then "</h#{token.data.level}>#{nl}"
-        else "<h#{token.data.level} />#{nl}"
+        else "<h#{token.data.level}#{attrib} />#{nl}"
 
   roff:
     format: 'roff'

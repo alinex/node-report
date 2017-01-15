@@ -50,15 +50,14 @@ The key features are:
 
 See example output within the different element descriptions below.
 
-Internally this works with a markdown syntax which has a limited number of possibilities
-but is easy to transform in nearly any other format. If you know markdown you will
-find the possibilities here enormous. And you may also directly load markdown and
-process it using this package.
+The report package is not another markdown to HTML converter like {@link markdown-it}
+and the others but a tool to do the same with support for more formats and already
+included plugins. This means you won't need to search for individual plugins which
+often works only partly as good as the core but have all ready to use.
 
-The HTML export can also be optimized for email using `ìnlineCss` option. With
-this setting the styles from the head section will moved into the document because
-web mail client will remove the head section completely. Only for JavaScript there
-is no possible replacement.
+Internally the report module will create a common element structure out of all given
+input formats. This may be transformed into a lot of output formats and all steps are
+based on rules which may be easily extended and maintained.
 
 The [Documentation of this module](https://alinex.github.io/node-report) itself
 uses the `alinex-report` module to generate the html pages.

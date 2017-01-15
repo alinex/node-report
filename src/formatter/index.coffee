@@ -2,10 +2,26 @@
 # =================================================
 # Formatting is done in multiple steps:
 # 1. clone token list from parser
-# 2. run pre-routines which may change some tokens
+# 2. run pre routines which may change some tokens
 # 3. transform routines will create the `out` String
 # 4. post routines are used while collecting output strings together
 # 5. converter may be run afterwards
+
+
+# Page Data
+# --------------------------------------------------
+# Some processing information of the formatter are needed:
+#
+#     @linkNames = <name> = <token> # used to prevent duplicate id
+
+
+# Token Data
+# --------------------------------------------------
+# The tokens may get some type specific information like:
+#
+#     token.html = <attrib> = <value>
+#
+# This will collect IDs for direct links or class attributes.
 
 
 # Node Modules
@@ -91,6 +107,7 @@ class Formatter
   constructor: (@parser, @setup) ->
     @tokens = null
     @output = ''
+    @linkNames = {}
 
   # Get the defined number of token.
   #

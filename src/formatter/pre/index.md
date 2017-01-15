@@ -1,6 +1,7 @@
 Pre Optimizations
 =================================================
-This optimization methods are run before transforming the token list.
+This optimization methods are run before transforming the token list. They will be
+used to change the tokens in combination with other ones before transforming each.
 
 
 Modules
