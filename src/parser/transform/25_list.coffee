@@ -41,24 +41,19 @@ module.exports =
     fn: (m) ->
       # check for concatenating
       last = @get()
-      if last?.type is 'list' and last.nesting is 0 and last.content and not last.closed
-        # add text
-        last.content += "\n#{m[5]}"
-        @change()
-      else
-        # opening
-        marker = m[4] ? m[2]
-        unless @state.match /-list$/ or last.parent.marker is marker
-          @insert null,
-            type: 'list'
-            start: m[3]
-            list: listType[marker]
-            nesting: 1
-            marker: marker
-            depth: m[1].length
+      # opening
+      marker = m[4] ? m[2]
+      unless @state.match /-list$/ or last.parent.marker is marker
         @insert null,
-          type: 'item'
+          type: 'list'
+          start: m[3]
+          list: listType[marker]
+          nesting: 1
+          marker: marker
           depth: m[1].length
-          content: m[5]
+      @insert null,
+        type: 'item'
+        depth: m[1].length
+        content: m[5]
       # done
       m[0].length

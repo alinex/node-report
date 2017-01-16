@@ -189,6 +189,18 @@ class Parser
     @token++
     this
 
+  # Remove element from tokens list.
+  #
+  # @param {Integer} num the token number to be removed
+  remove: (num = @token) ->
+    if debugData.enabled
+      t = @get num
+      ts = chalk.yellow util.inspect(t, {depth: 1})
+      .replace /,\s+parent:\s+\{\s+type:\s+'(.*?)'[\s\S]*?\}/g, ", parent: <$1>"
+      .replace /\s*\n\s*/g, ' '
+      debugData "token delete ##{num}/#{@tokens.length} #{ts}"
+    @tokens.splice num, 1
+
   # Log changes of token to debug.
   #
   # @param {Integer} num the token id in list

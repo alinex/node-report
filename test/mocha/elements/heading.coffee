@@ -802,9 +802,44 @@ describe "heading", ->
           {type: 'document', nesting: -1}
         ], null, cb
 
-#################################################
-# example 68-70 missing
-#################################################
+      # http://spec.commonmark.org/0.27/#example-68
+      it "should fail on list with unindented underline", (cb) ->
+        test.markdown null, '- foo\n-----', [
+          {type: 'document', nesting: 1}
+          {type: 'list', nesting: 1}
+          {type: 'item', nesting: 1}
+          {type: 'paragraph', nesting: 1}
+          {type: 'text', data: {text: 'foo'}}
+          {type: 'paragraph', nesting: -1}
+          {type: 'item', nesting: -1}
+          {type: 'list', nesting: -1}
+          {type: 'thematic_break'}
+          {type: 'document', nesting: -1}
+        ], null, cb
+
+      # http://spec.commonmark.org/0.27/#example-69
+      it "should fail on preformatted with unindented underline", (cb) ->
+        test.markdown null, '    foo\n---', [
+          {type: 'document', nesting: 1}
+          {type: 'preformatted', nesting: 1}
+          {type: 'text', data: {text: 'foo'}}
+          {type: 'preformatted', nesting: -1}
+          {type: 'thematic_break'}
+          {type: 'document', nesting: -1}
+        ], null, cb
+
+      # http://spec.commonmark.org/0.27/#example-70
+      it "should fail on blockquote with unindented underline", (cb) ->
+        test.markdown null, '> foo\n-----', [
+          {type: 'document', nesting: 1}
+          {type: 'blockquote', nesting: 1}
+          {type: 'paragraph', nesting: 1}
+          {type: 'text', data: {text: 'foo'}}
+          {type: 'paragraph', nesting: -1}
+          {type: 'blockquote', nesting: -1}
+          {type: 'thematic_break'}
+          {type: 'document', nesting: -1}
+        ], null, cb
 
       # http://spec.commonmark.org/0.27/#example-71
       it "should make heading of masked other characters", (cb) ->

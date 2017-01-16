@@ -286,28 +286,41 @@ describe "thematic break", ->
         {type: 'document', nesting: -1}
       ], null, cb
 
-#When both a thematic break and a list item are possible interpretations of a line, the thematic break takes precedence:
-#Example 30Try It
-#
-#* Foo
-#* * *
-#* Bar
-#
-#<ul>
-#<li>Foo</li>
-#</ul>
-#<hr />
-#<ul>
-#<li>Bar</li>
-#</ul>
-#
-#If you want a thematic break in a list item, use a different bullet:
-#Example 31Try It
-#
-#- Foo
-#- * * *
-#
-#<ul>
-#<li>Foo</li>
-#<li>
-#<hr />
+    # http://spec.commonmark.org/0.27/#example-30
+    it "should work in favor of list", (cb) ->
+      test.markdown null, '* Foo\n* * *\n* Bar', [
+        {type: 'document', nesting: 1}
+        {type: 'list', nesting: 1}
+        {type: 'item', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', data: {text: 'Foo'}}
+        {type: 'paragraph', nesting: -1}
+        {type: 'item', nesting: -1}
+        {type: 'list', nesting: -1}
+        {type: 'thematic_break'}
+        {type: 'list', nesting: 1}
+        {type: 'item', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', data: {text: 'Bar'}}
+        {type: 'paragraph', nesting: -1}
+        {type: 'item', nesting: -1}
+        {type: 'list', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-31
+    it.only "should work in favor of list", (cb) ->
+      test.markdown null, '- Foo\n- * * *', [
+        {type: 'document', nesting: 1}
+        {type: 'list', nesting: 1}
+        {type: 'item', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', data: {text: 'Foo'}}
+        {type: 'paragraph', nesting: -1}
+        {type: 'item', nesting: -1}
+        {type: 'item', nesting: 1}
+        {type: 'thematic_break'}
+        {type: 'item', nesting: -1}
+        {type: 'list', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
