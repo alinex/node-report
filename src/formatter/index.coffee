@@ -116,8 +116,6 @@ class Formatter
     if num >= 0 then @tokens[num]
     else @tokens[@tokens.length + num]
 
-  remove: (num) ->
-
   # Insert token at defined position
   #
   # @param {Integer} [num] position in token list to add new token
