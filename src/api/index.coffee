@@ -81,8 +81,6 @@ boolean value to open and close it separately.
 
 As far as possible the API won't throw errors but interpret all calls like you maybe
 wanted them by auto closing tags.
-
-
 ###
 
 fs = require 'fs'
@@ -91,3 +89,17 @@ list = fs.readdirSync __dirname
 .filter (e) -> not e.match /^index\./
 
 require "./#{file}" for file in list
+
+
+###
+Markdown Parser
+------------------------------------------------------
+The markdown parser is basically build on top of the
+[CommonMark Specification](http://spec.commonmark.org/0.27/).
+
+Generally all elements defined in this standard are build as described.
+Only small changes may occur like the elements won't keep newlines as so but will
+replace them with spaces if not in predefined blocks.
+
+See the elements itself of how much it is extended or optimized to this standard.
+###

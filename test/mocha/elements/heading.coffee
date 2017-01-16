@@ -715,9 +715,46 @@ describe "heading", ->
           {type: 'document', nesting: -1}
         ], null, cb
 
-#######################################################
-# go on at example 61 - 63
-#######################################################
+      # http://spec.commonmark.org/0.27/#example-61
+      it "should make lazy setext heading of blockquote", (cb) ->
+        test.markdown null, '> Foo\n---', [
+          {type: 'document', nesting: 1}
+          {type: 'blockquote', nesting: 1}
+          {type: 'paragraph', nesting: 1}
+          {type: 'text', data: {text: 'Foo'}}
+          {type: 'paragraph', nesting: -1}
+          {type: 'blockquote', nesting: -1}
+          {type: 'thematic_break'}
+          {type: 'document', nesting: -1}
+        ], null, cb
+
+      # http://spec.commonmark.org/0.27/#example-62
+      # changed because this is inconsistent
+      it "should make lazy multiline heading", (cb) ->
+        test.markdown null, '> foo\nbar\n===', [
+          {type: 'document', nesting: 1}
+          {type: 'blockquote', nesting: 1}
+          {type: 'paragraph', nesting: 1}
+          {type: 'text', data: {text: 'foo bar ==='}}
+          {type: 'paragraph', nesting: -1}
+          {type: 'blockquote', nesting: -1}
+          {type: 'document', nesting: -1}
+        ], null, cb
+
+      # http://spec.commonmark.org/0.27/#example-63
+      it "should make thematic_break after list instead of heading", (cb) ->
+        test.markdown null, '- Foo\n---', [
+          {type: 'document', nesting: 1}
+          {type: 'list', nesting: 1}
+          {type: 'item', nesting: 1}
+          {type: 'paragraph', nesting: 1}
+          {type: 'text', data: {text: 'Foo'}}
+          {type: 'paragraph', nesting: -1}
+          {type: 'item', nesting: -1}
+          {type: 'list', nesting: -1}
+          {type: 'thematic_break'}
+          {type: 'document', nesting: -1}
+        ], null, cb
 
       # http://spec.commonmark.org/0.27/#example-64
       it "should make heading if blank line is missing between paragraph and heading", (cb) ->
@@ -771,7 +808,7 @@ describe "heading", ->
 
       # http://spec.commonmark.org/0.27/#example-71
       it "should make heading of masked other characters", (cb) ->
-        test.markdown null, '\> foo\n------', [
+        test.markdown null, '\\> foo\n------', [
           {type: 'document', nesting: 1}
           {type: 'heading', data: {level: 2}, nesting: 1}
           {type: 'text', data: {text: '> foo'}}
