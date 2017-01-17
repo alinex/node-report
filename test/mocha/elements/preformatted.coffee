@@ -24,10 +24,10 @@ describe.skip "preformatted", ->
 
   describe "api", ->
 
-    it "should create paragraph", (cb) ->
+    it "should create preformatted text section", (cb) ->
       # create report
       report = new Report()
-      report.p 'foo'
+      report.pre 'foo'
       # check it
       test.report null, report, [
         {type: 'document', nesting: 1}

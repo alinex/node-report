@@ -213,7 +213,7 @@ class Formatter
     # collect complete output
     first = @get 0
     last = @get -1
-    @output = first.out + first.content + last.out
+    @output = (first.out ? '') + first.content + (last.out ? '')
     # post optimization
     return cb() unless @setup.convert
     # run conversion

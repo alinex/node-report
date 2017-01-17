@@ -22,7 +22,7 @@ describe "paragraph", ->
         {format: 'man'}
       ], cb
 
-  describe "api", ->
+  describe.only "api", ->
 
     it "should create paragraph", (cb) ->
       # create report
@@ -40,6 +40,28 @@ describe "paragraph", ->
         {format: 'text', re: /foo/}
         {format: 'html', text: "<p>foo</p>\n"}
         {format: 'man', text: "foo"}
+      ], cb
+
+    it "should create in multiple steps", (cb) ->
+      # create report
+      report = new Report()
+      report.p true
+      report.text 'foo'
+      report.text 'bar'
+      report.p false
+      # check it
+      test.report null, report, [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', data: {text: 'foo'}}
+        {type: 'text', data: {text: 'bar'}}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], [
+        {format: 'md', re: /foobar/}
+        {format: 'text', re: /foobar/}
+        {format: 'html', text: "<p>foobar</p>\n"}
+        {format: 'man', text: "foobar"}
       ], cb
 
   describe "markdown", ->
