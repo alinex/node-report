@@ -191,6 +191,21 @@ describe "heading", ->
         {type: 'document', nesting: -1}
       ], null, cb
 
+    it "should format with escape", (cb) ->
+      # create report
+      report = new Report()
+      report.paragraph '# foo'
+      # check it
+      test.report null, report, [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', data: {text: '# foo'}}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], [
+        {format: 'md', re: /\\# foo/}
+      ], cb
+
 
   describe "markdown", ->
 

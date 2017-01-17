@@ -309,7 +309,7 @@ describe "thematic break", ->
       ], null, cb
 
     # http://spec.commonmark.org/0.27/#example-31
-    it.only "should work in favor of list", (cb) ->
+    it "should work in favor of list", (cb) ->
       test.markdown null, '- Foo\n- * * *', [
         {type: 'document', nesting: 1}
         {type: 'list', nesting: 1}
