@@ -5,7 +5,7 @@ async = require 'async'
 Report = require '../../../src'
 before (cb) -> Report.init cb
 
-describe.skip "preformatted", ->
+describe "preformatted", ->
 
   describe "examples", ->
 
@@ -22,27 +22,26 @@ describe.skip "preformatted", ->
         {format: 'man'}
       ], cb
 
-  describe.skip "api", ->
+  describe "api", ->
 
     it "should create preformatted text section", (cb) ->
       # create report
       report = new Report()
-      report.pre 'foo'
+      report.pre 'foo\n   bar'
       # check it
       test.report null, report, [
         {type: 'document', nesting: 1}
-        {type: 'paragraph', nesting: 1}
-        {type: 'text', data: {text: 'foo'}}
-        {type: 'paragraph', nesting: -1}
+        {type: 'preformatted', nesting: 1}
+        {type: 'text', data: {text: 'foo\n   bar'}}
+        {type: 'preformatted', nesting: -1}
         {type: 'document', nesting: -1}
       ], [
-        {format: 'md', re: /foo/}
+        {format: 'md', re: / {4}foo\n {7}bar/}
         {format: 'text', re: /foo/}
-        {format: 'html', text: "<p>foo</p>\n"}
-        {format: 'man', text: "foo"}
+        {format: 'html', text: "<pre><code>foo\n   bar</code></pre>\n"}
       ], cb
 
-  describe "markdown", ->
+  describe.skip "markdown", ->
 
     # http://spec.commonmark.org/0.27/#example-180
     it "should work with single line paragraphs", (cb) ->

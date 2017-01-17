@@ -7,14 +7,6 @@
 # @type {Object<Transformer>} rules to set output text in token
 module.exports =
 
-  markdown:
-    format: ['md', 'text']
-    type: 'preformatted'
-    fn: (num, token) ->
-      return unless token.nesting is 1
-      # indent with four spaces on start
-      token.out = '    '
-
   html:
     format: 'html'
     type: 'preformatted'

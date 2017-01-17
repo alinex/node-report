@@ -9,8 +9,8 @@ module.exports =
 
   # Add title to document element from first heading
   title:
+    type: 'preformatted'
     format: ['md', 'text', 'roff', 'adoc']
-    type: 'document'
     nesting: 1
     fn: (num, token) ->
-      token.content = token.content.replace /^\n|\n$/, ''
+      token.content = '    ' + token.content.replace /\n/g, '\n    ' # indent text

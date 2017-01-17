@@ -14,6 +14,8 @@ module.exports =
     type: 'text'
     fn: (num, token) ->
       token.out = token.data.text
+      return if token.parent.type is 'preformatted'
+      token.out = token.out
       .replace /^(#+\ )/, "\\$1"    # mask to not be interpreted as heading
       .replace /\\(?=[^\n])/g, '\\\\'
       .replace /([*_~=`^])(?=\w|[*_~=`^]|$)/g, "\\$1" # mask special markdown
@@ -24,6 +26,8 @@ module.exports =
     type: 'text'
     fn: (num, token) ->
       token.out = util.string.htmlEncode token.data.text
+      return if token.parent.type is 'preformatted'
+      token.out = token.out
       .replace /\n/g, '<br />\n'
 
   roff:

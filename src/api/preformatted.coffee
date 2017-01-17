@@ -31,13 +31,14 @@ Report.prototype.preformatted = (input) ->
     @parser.autoclose '-block', true if input
     @parser.insert null,
       type: 'preformatted'
+      state: '-text'
       nesting: if input then 1 else -1
       inline: if input then true else false
     return this
   # add with text
-  @paragraph true
+  @preformatted true
   @text input
-  @paragraph false
+  @preformatted false
 
 ###
 Add a text paragraph (shortcut).
