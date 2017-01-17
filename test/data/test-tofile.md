@@ -1,1 +1,1 @@
-undefinedHelloundefined
+Hello

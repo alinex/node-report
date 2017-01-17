@@ -39,10 +39,10 @@ describe "heading", ->
         {type: 'heading', data: {level: 1}, nesting: -1}
         {type: 'document', nesting: -1}
       ], [
-        {format: 'md', re: /foo\n===+\n/}
-        {format: 'text', re: /foo\n═══+\n/}
+        {format: 'md', re: /foo\n===+/}
+        {format: 'text', re: /foo\n═══+/}
         {format: 'html', text: "<h1 id=\"foo\">foo</h1>\n"}
-        {format: 'man', text: ".TH foo\n"}
+        {format: 'man', text: ".TH foo"}
       ], cb
 
     it "should create in multiple steps", (cb) ->
@@ -61,10 +61,10 @@ describe "heading", ->
         {type: 'heading', data: {level: 1}, nesting: -1}
         {type: 'document', nesting: -1}
       ], [
-        {format: 'md', re: /foobar\n===+\n/}
-        {format: 'text', re: /foobar\n═══+\n/}
+        {format: 'md', re: /foobar\n===+/}
+        {format: 'text', re: /foobar\n═══+/}
         {format: 'html', text: "<h1 id=\"foobar\">foobar</h1>\n"}
-        {format: 'man', text: ".TH foobar\n"}
+        {format: 'man', text: ".TH foobar"}
       ], cb
 
     it "should work with shortcut", (cb) ->
@@ -79,10 +79,10 @@ describe "heading", ->
         {type: 'heading', data: {level: 1}, nesting: -1}
         {type: 'document', nesting: -1}
       ], [
-        {format: 'md', re: /foo\n===+\n/}
-        {format: 'text', re: /foo\n═══+\n/}
+        {format: 'md', re: /foo\n===+/}
+        {format: 'text', re: /foo\n═══+/}
         {format: 'html', text: "<h1 id=\"foo\">foo</h1>\n"}
-        {format: 'man', text: ".TH foo\n"}
+        {format: 'man', text: ".TH foo"}
       ], cb
 
     it "should allow level shortcuts", (cb) ->
@@ -170,10 +170,10 @@ describe "heading", ->
         {type: 'heading', data: {level: 1}, nesting: -1}
         {type: 'document', nesting: -1}
       ], [
-        {format: 'md', re: /foo\n===+\n/}
-        {format: 'text', re: /foo\n═══+\n/}
+        {format: 'md', re: /foo\n===+/}
+        {format: 'text', re: /foo\n═══+/}
         {format: 'html', text: "<h1 id=\"foo\">foo</h1>\n"}
-        {format: 'man', text: ".TH foo\n"}
+        {format: 'man', text: ".TH foo"}
       ], cb
 
     it "should close heading before opening new one", (cb) ->
@@ -220,10 +220,10 @@ describe "heading", ->
           {type: 'heading', data: {level: 1}, nesting: -1}
           {type: 'document', nesting: -1}
         ], [
-          {format: 'md', re: /foo\n===+\n/}
-          {format: 'text', re: /foo\n═══+\n/}
+          {format: 'md', re: /foo\n===+/}
+          {format: 'text', re: /foo\n═══+/}
           {format: 'html', text: "<h1 id=\"foo\">foo</h1>\n"}
-          {format: 'man', text: ".TH foo\n"}
+          {format: 'man', text: ".TH foo"}
         ], cb
       it "should work with level 2", (cb) ->
         test.markdown null, '## foo', [
@@ -233,10 +233,10 @@ describe "heading", ->
           {type: 'heading', data: {level: 2}, nesting: -1}
           {type: 'document', nesting: -1}
         ], [
-          {format: 'md', re: /foo\n---+\n/}
-          {format: 'text', re: /foo\n━━━+\n/}
+          {format: 'md', re: /foo\n---+/}
+          {format: 'text', re: /foo\n━━━+/}
           {format: 'html', text: "<h2 id=\"foo\">foo</h2>\n"}
-          {format: 'man', text: ".SH foo\n"}
+          {format: 'man', text: ".SH foo"}
         ], cb
       it "should work with level 3", (cb) ->
         test.markdown null, '### foo', [
@@ -246,10 +246,10 @@ describe "heading", ->
           {type: 'heading', data: {level: 3}, nesting: -1}
           {type: 'document', nesting: -1}
         ], [
-          {format: 'md', re: /### foo\n/}
-          {format: 'text', re: /foo\n╍╍╍+\n/}
+          {format: 'md', re: /### foo/}
+          {format: 'text', re: /foo\n╍╍╍+/}
           {format: 'html', text: "<h3 id=\"foo\">foo</h3>\n"}
-          {format: 'man', text: ".SS foo\n"}
+          {format: 'man', text: ".SS foo"}
         ], cb
       it "should work with level 4", (cb) ->
         test.markdown null, '#### foo', [
@@ -259,10 +259,10 @@ describe "heading", ->
           {type: 'heading', data: {level: 4}, nesting: -1}
           {type: 'document', nesting: -1}
         ], [
-          {format: 'md', re: /#### foo\n/}
-          {format: 'text', re: /foo\n┅┅┅+\n/}
+          {format: 'md', re: /#### foo/}
+          {format: 'text', re: /foo\n┅┅┅+/}
           {format: 'html', text: "<h4 id=\"foo\">foo</h4>\n"}
-          {format: 'man', text: ".SS foo\n"}
+          {format: 'man', text: ".SS foo"}
         ], cb
       it "should work with level 5", (cb) ->
         test.markdown null, '##### foo', [
@@ -272,10 +272,10 @@ describe "heading", ->
           {type: 'heading', data: {level: 5}, nesting: -1}
           {type: 'document', nesting: -1}
         ], [
-          {format: 'md', re: /##### foo\n/}
-          {format: 'text', re: /foo\n───+\n/}
+          {format: 'md', re: /##### foo/}
+          {format: 'text', re: /foo\n───+/}
           {format: 'html', text: "<h5 id=\"foo\">foo</h5>\n"}
-          {format: 'man', text: ".SS foo\n"}
+          {format: 'man', text: ".SS foo"}
         ], cb
       it "should work with level 6", (cb) ->
         test.markdown null, '###### foo', [
@@ -285,10 +285,10 @@ describe "heading", ->
           {type: 'heading', data: {level: 6}, nesting: -1}
           {type: 'document', nesting: -1}
         ], [
-          {format: 'md', re: /###### foo\n/}
-          {format: 'text', re: /foo\n┄┄┄┄+\n/}
+          {format: 'md', re: /###### foo/}
+          {format: 'text', re: /foo\n┄┄┄┄+/}
           {format: 'html', text: "<h6 id=\"foo\">foo</h6>\n"}
-          {format: 'man', text: ".SS foo\n"}
+          {format: 'man', text: ".SS foo"}
         ], cb
 
       # http://spec.commonmark.org/0.27/#example-33

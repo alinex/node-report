@@ -29,10 +29,10 @@ describe "thematic break", ->
         {type: 'thematic_break'}
         {type: 'document', nesting: -1}
       ], [
-        {format: 'md', re: /\*{3,}\n/}
-        {format: 'text', re: /─{3,}\n/}
+        {format: 'md', re: /\*{3,}/}
+        {format: 'text', re: /─{3,}/}
         {format: 'html', text: "<hr />\n"}
-        {format: 'man', text: ".HR\n"}
+        {format: 'man', text: ".HR"}
       ], cb
 
   describe "markdown", ->

@@ -22,7 +22,7 @@ describe.skip "preformatted", ->
         {format: 'man'}
       ], cb
 
-  describe "api", ->
+  describe.skip "api", ->
 
     it "should create preformatted text section", (cb) ->
       # create report

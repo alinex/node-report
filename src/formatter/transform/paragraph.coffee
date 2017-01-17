@@ -16,3 +16,9 @@ module.exports =
         when 1 then "<p>"
         when -1 then "</p>#{nl}"
         else "<p />#{nl}"
+
+  other:
+    format: ['md', 'text', 'roff', 'adoc']
+    type: 'paragraph'
+    fn: (num, token) ->
+      token.out = '\n'
