@@ -16,3 +16,11 @@ module.exports =
         when 1 then "<pre><code>"
         when -1 then "</code></pre>#{nl}"
         else "<pre><code></code></pre>#{nl}"
+
+  roff:
+    format: 'roff'
+    type: 'preformatted'
+    fn: (num, token) ->
+      token.out = switch token.nesting
+        when 1 then ".P\n.RS 2\n.nf\n"
+        when -1 then ".fi\n.RE\n"

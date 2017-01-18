@@ -17,8 +17,15 @@ module.exports =
         when -1 then "</p>#{nl}"
         else "<p />#{nl}"
 
+  roff:
+    format: 'roff'
+    type: 'paragraph'
+    nesting: 1
+    fn: (num, token) ->
+      token.out = '.P\n'
+
   other:
-    format: ['md', 'text', 'roff', 'adoc']
+    format: ['md', 'text', 'adoc']
     type: 'paragraph'
     fn: (num, token) ->
       token.out = '\n'

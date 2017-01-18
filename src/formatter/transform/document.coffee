@@ -2,6 +2,9 @@
 # =================================================
 
 
+moment = require 'moment'
+
+
 # Transformer rules
 #
 # @type {Object<Transformer>} rules to set output text in token
@@ -23,6 +26,14 @@ module.exports =
         when -1
           "#{@setup.body_end}#{nl}\
           </html>"
+
+  roff:
+    format: 'roff'
+    type: 'document'
+    nesting: 1
+    fn: (num, token) ->
+      token.out = ".TH \"#{token.data?.title.toUpperCase()}\" \"\"
+      \"#{moment().format 'MMMM YYYY'}\" \"\" \"\""
 
   text:
     format: 'text'

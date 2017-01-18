@@ -71,15 +71,13 @@ module.exports =
     format: 'roff'
     type: 'heading'
     fn: (num, token) ->
-      if token.nesting isnt -1
-        token.out = switch token.data.level
-          when 1 then '.TH '
-          when 2 then '.SH '
-          else '.SS '
-      else
-        token.out = ''
-      if token.nesting isnt 1
-        token.out += '\n'
+      token.out = switch token.data.level
+        when 1
+          if token.nesting is 1 then '.SH "NAME"\n\\fB' else '\\fR\n'
+        when 2
+          if token.nesting is 1 then '.SH ' else '\n'
+        else
+          if token.nesting is 1 then '.SS ' else '\n'
 
   latex:
     format: 'latex'

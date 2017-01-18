@@ -23,3 +23,9 @@ module.exports =
         when 1 then "<blockquote>"
         when -1 then "</blockquote>#{nl}"
         else "<blockquote />#{nl}"
+
+  roff:
+    format: 'roff'
+    type: 'blockquote'
+    fn: (num, token) ->
+      token.out = if token.nesting is 1 then '.P\n.RS 2\n.nf\n' else '.fi\n.RE\n'

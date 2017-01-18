@@ -44,7 +44,13 @@ module.exports =
     format: 'html'
     type: 'strong'
     fn: (num, token) ->
-      token.out = if token.nesting is -1 then '<strong>' else '</strong>'
+      token.out = if token.nesting is 1 then '<strong>' else '</strong>'
+
+  strong_roff:
+    format: 'roff'
+    type: 'strong'
+    fn: (num, token) ->
+      token.out = if token.nesting is 1 then '\\fB' else '\\fR'
 
   emphasis_md:
     format: 'md'
@@ -55,4 +61,4 @@ module.exports =
     format: 'html'
     type: 'emphasis'
     fn: (num, token) ->
-      token.out = if token.nesting is -1 then '<em>' else '</em>'
+      token.out = if token.nesting is 1 then '<em>' else '</em>'
