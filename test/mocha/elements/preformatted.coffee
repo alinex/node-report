@@ -41,54 +41,75 @@ describe "preformatted", ->
         {format: 'html', text: "<pre><code>foo\n   bar</code></pre>\n"}
       ], cb
 
-  describe.skip "markdown", ->
+  describe.only "markdown", ->
 
-    # http://spec.commonmark.org/0.27/#example-180
-    it "should work with single line paragraphs", (cb) ->
-      test.markdown null, 'aaa\n\nbbb', [
+    # http://spec.commonmark.org/0.27/#example-76
+    it "should work with simple block", (cb) ->
+      test.markdown null, '    a simple\n      indented code block', [
         {type: 'document', nesting: 1}
-        {type: 'paragraph', nesting: 1}
-        {type: 'text', data: {text: 'aaa'}}
-        {type: 'paragraph', nesting: -1}
-        {type: 'paragraph', nesting: 1}
-        {type: 'text', data: {text: 'bbb'}}
-        {type: 'paragraph', nesting: -1}
+        {type: 'preformatted', nesting: 1}
+        {type: 'text', data: {text: 'a simple\n  indented code block'}}
+        {type: 'preformatted', nesting: -1}
         {type: 'document', nesting: -1}
       ], null, cb
 
-    # http://spec.commonmark.org/0.27/#example-181
-    it "should work with multiple lines in paragraph", (cb) ->
-      test.markdown null, 'aaa\nbbb\n\nccc\nddd', [
+    # http://spec.commonmark.org/0.27/#example-77
+    # http://spec.commonmark.org/0.27/#example-78
+    it "should fail because list takes precedence", (cb) ->
+      async.series [
+        (cb) ->
+          test.markdown null, '- foo\n\n    bar', [
+            {type: 'document', nesting: 1}
+            {type: 'list', nesting: 1}
+            {type: 'item', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', data: {text: 'foo'}}
+            {type: 'paragraph', nesting: -1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', data: {text: 'bar'}}
+            {type: 'paragraph', nesting: -1}
+            {type: 'item', nesting: -1}
+            {type: 'list', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '1.  foo\n\n    - bar', [
+            {type: 'document', nesting: 1}
+            {type: 'list', nesting: 1}
+            {type: 'item', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', data: {text: 'foo'}}
+            {type: 'paragraph', nesting: -1}
+            {type: 'list', nesting: 1}
+            {type: 'item', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', data: {text: 'bar'}}
+            {type: 'paragraph', nesting: -1}
+            {type: 'item', nesting: -1}
+            {type: 'list', nesting: -1}
+            {type: 'item', nesting: -1}
+            {type: 'list', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+      ], cb
+
+    # http://spec.commonmark.org/0.27/#example-79
+    it "should work with contents not parsed", (cb) ->
+      test.markdown null, '    <a/>\n    *hi*\n    - one', [
         {type: 'document', nesting: 1}
-        {type: 'paragraph', nesting: 1}
-        {type: 'text', data: {text: 'aaa\nbbb'}}
-        {type: 'paragraph', nesting: -1}
-        {type: 'paragraph', nesting: 1}
-        {type: 'text', data: {text: 'ccc\nddd'}}
-        {type: 'paragraph', nesting: -1}
+        {type: 'preformatted', nesting: 1}
+        {type: 'text', data: {text: '<a/>\n*hi*\n- one'}}
+        {type: 'preformatted', nesting: -1}
         {type: 'document', nesting: -1}
       ], null, cb
 
-    # http://spec.commonmark.org/0.27/#example-182
-    it "should work with multiple blank lines in paragraph", (cb) ->
-      test.markdown null, 'aaa\nbbb\n\nccc\nddd', [
+    # http://spec.commonmark.org/0.27/#example-80
+    it "should work with multiple chunks", (cb) ->
+      test.markdown null, '    chunk1\n    chunk2\n  \n \n \n    chunk3', [
         {type: 'document', nesting: 1}
-        {type: 'paragraph', nesting: 1}
-        {type: 'text', data: {text: 'aaa\nbbb'}}
-        {type: 'paragraph', nesting: -1}
-        {type: 'paragraph', nesting: 1}
-        {type: 'text', data: {text: 'ccc\nddd'}}
-        {type: 'paragraph', nesting: -1}
-        {type: 'document', nesting: -1}
-      ], null, cb
-
-    # http://spec.commonmark.org/0.27/#example-183
-    it "should work with 1-3 leading spaces ignored", (cb) ->
-      test.markdown null, '  aaa\n bbb', [
-        {type: 'document', nesting: 1}
-        {type: 'paragraph', nesting: 1}
-        {type: 'text', data: {text: 'aaa\nbbb'}}
-        {type: 'paragraph', nesting: -1}
+        {type: 'preformatted', nesting: 1}
+        {type: 'text', data: {text: 'chunk1\nchunk2\n  \n \n \nchunk3'}}
+        {type: 'preformatted', nesting: -1}
         {type: 'document', nesting: -1}
       ], null, cb
 

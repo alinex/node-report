@@ -164,7 +164,7 @@ class Parser
     if prev
       t.level ?= prev.level + (if prev.nesting is 1 then 1 else 0) \
       + (if t.nesting is -1 then -1 else 0)
-      t.state ?= prev.state
+      t.state ?= if prev.nesting is 1 then prev.state else prev.parent.state
       t.state = prev.state.split(/-/)[0] + t.state if t.state?[0] is '-'
     else
       t.level ?= @level
@@ -178,7 +178,7 @@ class Parser
       else prev?.parent ? null
     # add token to list
     if debugData.enabled
-      ts = chalk.yellow util.inspect(t, {depth: 1})
+      ts = chalk.yellow.bold util.inspect(t, {depth: 1})
       .replace /,\s+parent:\s+\{\s+type:\s+'(.*?)'[\s\S]*?\}/g, ", parent: <$1>"
       .replace /\s*\n\s*/g, ' '
       debugData "token insert ##{num}/#{@tokens.length} #{ts}"
@@ -195,7 +195,7 @@ class Parser
   remove: (num = @token) ->
     if debugData.enabled
       t = @get num
-      ts = chalk.yellow util.inspect(t, {depth: 1})
+      ts = chalk.yellow.bold util.inspect(t, {depth: 1})
       .replace /,\s+parent:\s+\{\s+type:\s+'(.*?)'[\s\S]*?\}/g, ", parent: <$1>"
       .replace /\s*\n\s*/g, ' '
       debugData "token delete ##{num}/#{@tokens.length} #{ts}"
@@ -273,25 +273,41 @@ class Parser
 
   # Check if tags could be autoclosed to come into defined state.
   #
-  # @param {String} [state] to reach by autoclosing (null for all)
+  # @param {String|Integer} [goal] state or level to reach by autoclosing (null for all)
   # @param {Boolean} [errThrow] set to true to throw error if autoclose is impossible
   # @return {Boolean} `true` if state could be reached by autoclose
-  autoclose: (state, errThrow) ->
+  autoclose: (goal, errThrow) ->
+    if typeof goal is 'number'
+      t =
+        level: 99
+        parent: @get()
+      while t = t.parent
+        break if t.level <= goal
+        continue if t.nesting isnt 1
+        t = util.clone t
+        t.nesting = -1
+        delete t.state
+        @level = t.level
+        @state = t.parent?.state ? t.state
+        if debugData.enabled
+          debugData "auto close to come to level #{goal}"
+        @insert null, t
+      return
     if errThrow
-      unless @autoclose state
+      unless @autoclose goal
         last = @get @token
         el = if last.nesting is 1 then last else last.parent
         throw new Error "Could not place heading into #{el}"
       return true
-    state = @state.split(/-/)[0] + state if state?[0] is '-'
+    goal = @state.split(/-/)[0] + goal if goal?[0] is '-'
     token = @get -1
     list = []
     token = {parent: token} if token.nesting is 1
     while token = token.parent
       unless token
-        return false if state
+        return false if goal
         break
-      break if token.state is state
+      break if token.state is goal
       list.push token
     # close tags
     for token in list
@@ -301,7 +317,7 @@ class Parser
       @level = t.level
       @state = t.parent?.state ? t.state
       if debugData.enabled
-        debugData "auto close to come to #{state ? 'initial'} state"
+        debugData "auto close to come to #{goal ? 'initial'} state"
       @insert null, t
     true
 

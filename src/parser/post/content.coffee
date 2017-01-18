@@ -22,12 +22,15 @@ module.exports =
       if token.type is 'item'
         token.closed = true
         token.parent.closed = true
+      @change num
       # add content tokens
       @token = num
       @state = token.state
       @dirname = token.dirname if token.dirname
       @lexer content
+      @autoclose token.level
       # close token
       @insert null,
         util.extend {}, token,
           nesting: -1
+#      console.log @tokens.map (e) -> util.string.repeat(' ', e.level) + e.type

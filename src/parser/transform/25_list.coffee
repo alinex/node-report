@@ -28,12 +28,13 @@ module.exports =
     re: ///
       ^(\n?       # 1: start of line
         \ {0,3}   # indented by 1-3 spaces (optional)
-      (           # 2: type of list
-      [-+*:]      # bullet / definition list
-      |(\d+)([.)]) # ordered list - 3: start - 4: type
-      )\          # end of type
+        (           # 2: type of list
+        [-+*:]      # bullet / definition list
+        |(\d+)([.)]) # ordered list - 3: start - 4: type
+        )\          # end of type
+        (\ {0,4})   # 5: additional text indent
       )           # end of start
-      (           # 5: content
+      (           # 6: content
         [^\n]*    # all to end of line (maybe empty)
       )           # end content
       (\n|$)      # 6: end of line
@@ -54,6 +55,6 @@ module.exports =
       @insert null,
         type: 'item'
         depth: m[1].length
-        content: m[5]
+        content: m[5] + m[6]
       # done
       m[0].length

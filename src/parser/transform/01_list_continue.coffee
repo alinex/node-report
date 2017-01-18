@@ -1,6 +1,8 @@
 # List
 # =================================================
 
+debug = require('debug') 'report:parser:rule'
+
 
 # Transformer rules
 #
@@ -28,7 +30,8 @@ module.exports =
         last.closed = true
         return false
       # add text
-      last.content += "\n#{m[3]}"
+      last.content += '\n' if m[1][0] is '\n'
+      last.content += '\n' + "#{m[2]}#{m[3]}".substr last.depth
       @change()
       # done
       m[0].length
