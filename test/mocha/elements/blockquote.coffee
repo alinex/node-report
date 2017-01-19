@@ -5,25 +5,26 @@ async = require 'async'
 Report = require '../../../src'
 before (cb) -> Report.init cb
 
-describe.skip "blockquote", ->
+describe "blockquote", ->
 
-  it "should run first test", (cb) ->
-    test.markdown 'blockquote/multiple', """
-      > Manfred said:
-      >
-      > > Everything will work next week.
-      >
-      But we don't think so.
-    """, null, null, cb
+#  it "should run first test", (cb) ->
+#    test.markdown 'blockquote/multiple', """
+#      > Manfred said:
+#      >
+#      > > Everything will work next week.
+#      >
+#      But we don't think so.
+#    """, null, null, cb
 
-  describe "examples", ->
+  describe.only "examples", ->
 
     it "should make two blockquotes", (cb) ->
       test.markdown 'blockquote/multiple', """
-        This is an example of two paragraphs in markdown style there the separation
-        between them is done with an empty line.
-
-        This follows the common definition of markdown.
+        > Manfred said:
+        >
+        > > Everything will work next week.
+        >
+        But we don't think so.
       """, null, [
         {format: 'md'}
         {format: 'text'}
@@ -53,7 +54,7 @@ describe.skip "blockquote", ->
 
   describe "markdown", ->
 
-    # http://spec.commonmark.org/0.27/#example-180
+    # http://spec.commonmark.org/0.27/#example-189s
     it "should work with single line paragraphs", (cb) ->
       test.markdown null, 'aaa\n\nbbb', [
         {type: 'document', nesting: 1}

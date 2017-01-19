@@ -1,0 +1,16 @@
+.P
+.RS 2
+.nf
+.P
+Manfred said:
+.P
+.RS 2
+.nf
+.P
+Everything will work next week.
+.fi
+.RE
+.P
+But we don't think so.
+.fi
+.RE

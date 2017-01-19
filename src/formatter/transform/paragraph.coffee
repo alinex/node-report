@@ -20,9 +20,10 @@ module.exports =
   roff:
     format: 'roff'
     type: 'paragraph'
-    nesting: 1
     fn: (num, token) ->
-      token.out = '.P\n'
+      token.out = switch token.nesting
+        when 1 then '.P\n'
+        when -1 then '\n'
 
   other:
     format: ['md', 'text', 'adoc']

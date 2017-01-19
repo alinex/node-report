@@ -7,13 +7,6 @@
 # @type {Object<Transformer>} rules to set output text in token
 module.exports =
 
-  markdown:
-    format: ['md', 'text']
-    type: 'blockquote'
-    fn: (num, token) ->
-      return unless token.nesting is 1
-      token.out = '> '
-
   html:
     format: 'html'
     type: 'blockquote'

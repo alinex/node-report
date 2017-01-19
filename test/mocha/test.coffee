@@ -32,9 +32,13 @@ module.exports =
     .map (e) ->
       delete e.parent
       e
-    tokenList = util.inspect(parsed, {depth: 2})
-    .replace /\s*\n\s*/g, ' '
-    .replace /(\{ type:)/g, '\n$1'
+    tokenList = '\n' + parsed.map (e) -> "    \
+      #{util.string.rpad util.string.repeat(' ', e.level) + e.type, 16}
+      #{util.string.rpad e.state, 8}
+      #{util.string.lpad e.nesting, 2}
+      #{if e.data then util.inspect e.data else ''}
+      "
+    .join '\n'
     debug 'TOKENS', tokenList
     fs.writeFileSync "#{example}.tokens.js", tokenList if example
     if data
