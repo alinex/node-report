@@ -21,7 +21,7 @@ module.exports =
     fn: (m) ->
       # check for concatenating
       last = @get()
-      if last?.nesting is 0 and last.content and not last.closed
+      if last?.type is 'preformatted' and last.content and not last.closed
         # add text
         last.content += "\n#{m[2]}"
         @change()
@@ -31,5 +31,18 @@ module.exports =
           type: 'preformatted'
           state: '-text'
           content: m[2]
+      # done
+      m[0].length
+
+  empty:
+    state: ['m-block']
+    re: /^[\ \t]*\n/ # multiple empty lines
+    fn: (m) ->
+      # check for concatenating
+      last = @get()
+      return if last?.type isnt 'preformatted' or (not last.content) or last.closed
+      # add text
+      last.content += "\n"
+      @change()
       # done
       m[0].length

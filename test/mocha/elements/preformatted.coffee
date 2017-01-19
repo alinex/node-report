@@ -108,7 +108,7 @@ describe "preformatted", ->
       test.markdown null, '    chunk1\n    chunk2\n  \n \n \n    chunk3', [
         {type: 'document', nesting: 1}
         {type: 'preformatted', nesting: 1}
-        {type: 'text', data: {text: 'chunk1\nchunk2\n  \n \n \nchunk3'}}
+        {type: 'text', data: {text: 'chunk1\nchunk2\n\n\n\nchunk3'}}
         {type: 'preformatted', nesting: -1}
         {type: 'document', nesting: -1}
       ], null, cb
