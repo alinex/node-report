@@ -178,6 +178,11 @@ class Formatter
           continue if rule.data and not token.data
           continue if rule.data?.text and not token.data?.text
           debugRule "call pre #{rule.name} for token ##{num}" if debugRule
+          if token.out
+            ts = chalk.yellow.bold util.inspect(token, {depth: 1})
+            .replace /,\s+parent:\s+\{\s+type:\s+'(.*?)'[\s\S]*?\}/g, ", parent: <$1>"
+            .replace /\s*\n\s*/g, ' '
+            debugData "token ##{num} #{ts}"
           rule.fn.call this, num, token
     # run transformation
     num = -1
@@ -191,6 +196,9 @@ class Formatter
         continue if rule.data?.text and not token.data?.text
         debugRule "call trans #{rule.name} for token ##{num}" if debugRule
         rule.fn.call this, num, token
+        if token.out and debugData.enabled
+          debugData "token ##{num} out:
+          #{chalk.yellow util.inspect util.string.shorten token.out, 60}"
     # collect output
     for num in [@tokens.length-1..0]
       token = @get num
@@ -210,6 +218,9 @@ class Formatter
         continue if rule.state and not token.state in rule.state
         debugRule "call post #{rule.name} for token ##{num}" if debugRule
         rule.fn.call this, num, token
+        if token.content and debugData.enabled
+          debugData "token ##{num} content:
+          #{chalk.yellow util.inspect util.string.shorten token.content, 60}"
     # collect complete output
     first = @get 0
     last = @get -1

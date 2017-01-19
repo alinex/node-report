@@ -223,9 +223,11 @@ class Parser
     debug "pre optimizations for domain #{@domain}" if debug.enabled
     for name, rule of preLibs
       continue unless rule[@domain]
+      debugRule "call pre rule #{name}" if debugRule
       old = text if debugRule
       text = rule[@domain] text
-      debugRule "changed by pre #{name}" if debugRule and old isnt text
+      if debugData.enabled and old isnt text
+        debugData "text changed"
     debug "start transformation in state #{@state}" if debug.enabled
     start = @tokens.length
     @lexer text

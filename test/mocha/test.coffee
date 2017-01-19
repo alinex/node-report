@@ -32,7 +32,8 @@ module.exports =
     .map (e) ->
       delete e.parent
       e
-    tokenList = '\n' + parsed.map (e) -> "    \
+    lnum = 0
+    tokenList = '\n' + parsed.map (e) -> "#{util.string.lpad '#' + lnum++, 6}
       #{util.string.rpad util.string.repeat(' ', e.level) + e.type, 16}
       #{util.string.rpad e.state, 8}
       #{util.string.lpad e.nesting, 2}
