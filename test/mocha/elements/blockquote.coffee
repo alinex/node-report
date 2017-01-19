@@ -16,7 +16,7 @@ describe "blockquote", ->
 #      But we don't think so.
 #    """, null, null, cb
 
-  describe.only "examples", ->
+  describe "examples", ->
 
     it "should make two blockquotes", (cb) ->
       test.markdown 'blockquote/multiple', """
@@ -37,32 +37,151 @@ describe "blockquote", ->
     it "should create paragraph", (cb) ->
       # create report
       report = new Report()
-      report.p 'foo'
+      report.blockquote 'foo'
       # check it
       test.report null, report, [
         {type: 'document', nesting: 1}
+        {type: 'blockquote', nesting: 1}
         {type: 'paragraph', nesting: 1}
         {type: 'text', data: {text: 'foo'}}
         {type: 'paragraph', nesting: -1}
+        {type: 'blockquote', nesting: -1}
         {type: 'document', nesting: -1}
       ], [
-        {format: 'md', re: /foo/}
+        {format: 'md', re: /> foo/}
         {format: 'text', re: /foo/}
         {format: 'html', text: "<p>foo</p>\n"}
         {format: 'man', text: "foo"}
       ], cb
 
-  describe "markdown", ->
-
-    # http://spec.commonmark.org/0.27/#example-189s
-    it "should work with single line paragraphs", (cb) ->
-      test.markdown null, 'aaa\n\nbbb', [
+    it "should create in multiple steps", (cb) ->
+      # create report
+      report = new Report()
+      report.q true
+      report.p true
+      report.text 'foo'
+      report.p false
+      report.q false
+      # check it
+      test.report null, report, [
         {type: 'document', nesting: 1}
+        {type: 'blockquote', nesting: 1}
         {type: 'paragraph', nesting: 1}
-        {type: 'text', data: {text: 'aaa'}}
+        {type: 'text', data: {text: 'foo'}}
         {type: 'paragraph', nesting: -1}
+        {type: 'blockquote', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    it "should work with blockquotes in blockquotes", (cb) ->
+      # create report
+      report = new Report()
+      report.q true
+      report.p true
+      report.text 'foo'
+      report.p false
+      report.q true
+      report.p true
+      report.text 'bar'
+      report.p false
+      report.q false
+      report.q false
+      # check it
+      test.report null, report, [
+        {type: 'document', nesting: 1}
+        {type: 'blockquote', nesting: 1}
         {type: 'paragraph', nesting: 1}
-        {type: 'text', data: {text: 'bbb'}}
+        {type: 'text', data: {text: 'foo'}}
         {type: 'paragraph', nesting: -1}
+        {type: 'blockquote', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', data: {text: 'bar'}}
+        {type: 'paragraph', nesting: -1}
+        {type: 'blockquote', nesting: -1}
+        {type: 'blockquote', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+  describe.only "markdown", ->
+
+    # http://spec.commonmark.org/0.27/#example-189
+    it "should work with simple block", (cb) ->
+      test.markdown null, '> # Foo\n> bar\n> baz', [
+        {type: 'document', nesting: 1}
+        {type: 'blockquote', nesting: 1}
+        {type: 'heading', nesting: 1}
+        {type: 'text', data: {text: 'Foo'}}
+        {type: 'heading', nesting: -1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', data: {text: 'bar baz'}}
+        {type: 'paragraph', nesting: -1}
+        {type: 'blockquote', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-190
+    it "should work with omitted space after >", (cb) ->
+      test.markdown null, '># Foo\n>bar\n> baz', [
+        {type: 'document', nesting: 1}
+        {type: 'blockquote', nesting: 1}
+        {type: 'heading', nesting: 1}
+        {type: 'text', data: {text: 'Foo'}}
+        {type: 'heading', nesting: -1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', data: {text: 'bar baz'}}
+        {type: 'paragraph', nesting: -1}
+        {type: 'blockquote', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-191
+    it "should indention of up to 3 spaces", (cb) ->
+      test.markdown null, '   > # Foo\n   > bar\n > baz', [
+        {type: 'document', nesting: 1}
+        {type: 'blockquote', nesting: 1}
+        {type: 'heading', nesting: 1}
+        {type: 'text', data: {text: 'Foo'}}
+        {type: 'heading', nesting: -1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', data: {text: 'bar baz'}}
+        {type: 'paragraph', nesting: -1}
+        {type: 'blockquote', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-192
+    it "should fail with 4 spaces indention", (cb) ->
+      test.markdown null, '    > # Foo\n    > bar\n    > baz', [
+        {type: 'document', nesting: 1}
+        {type: 'preformatted', nesting: 1}
+        {type: 'text', data: {text: '> # Foo\n> bar\n> baz'}}
+        {type: 'preformatted', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-193
+    it "should allow lazy continuation", (cb) ->
+      test.markdown null, '> # Foo\n> bar\nbaz', [
+        {type: 'document', nesting: 1}
+        {type: 'blockquote', nesting: 1}
+        {type: 'heading', nesting: 1}
+        {type: 'text', data: {text: 'Foo'}}
+        {type: 'heading', nesting: -1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', data: {text: 'bar baz'}}
+        {type: 'paragraph', nesting: -1}
+        {type: 'blockquote', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-194
+    it "should allow lazy continuation within", (cb) ->
+      test.markdown null, '> bar\nbaz\n> foo', [
+        {type: 'document', nesting: 1}
+        {type: 'blockquote', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', data: {text: 'bar baz foo'}}
+        {type: 'paragraph', nesting: -1}
+        {type: 'blockquote', nesting: -1}
         {type: 'document', nesting: -1}
       ], null, cb

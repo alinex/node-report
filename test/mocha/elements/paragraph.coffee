@@ -27,7 +27,7 @@ describe "paragraph", ->
     it "should create paragraph", (cb) ->
       # create report
       report = new Report()
-      report.p 'foo'
+      report.paragraph 'foo'
       # check it
       test.report null, report, [
         {type: 'document', nesting: 1}
