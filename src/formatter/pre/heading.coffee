@@ -12,7 +12,7 @@ module.exports =
 
   # Add title to document element from first heading
   title:
-    format: ['html', 'latex']
+    format: ['html', 'latex', 'roff']
     type: 'heading'
     nesting: 1
     fn: (num, token) ->

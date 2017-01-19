@@ -83,7 +83,7 @@ describe "paragraph", ->
         {format: 'md', re: /foo\n\nbar/}
         {format: 'text', re: /foo\n\nbar/}
         {format: 'html', text: "<p>foo</p>\n<p>bar</p>\n"}
-        {format: 'man', text: "foo\n\nbar"}
+        {format: 'man', text: ".P\nfoo\n.P\nbar"}
       ], cb
 
   describe "markdown", ->

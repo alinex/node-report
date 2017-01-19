@@ -21,6 +21,8 @@ module.exports =
     fn: (m) ->
       # check for concatenating
       last = @get()
+      return if m[1][0] isnt '\n' and last.type is 'paragraph' and
+        last.content and not last.closed # don't break paragraph blocks
       if last?.type is 'preformatted' and last.content and not last.closed
         # add text
         last.content += "\n#{m[2]}"

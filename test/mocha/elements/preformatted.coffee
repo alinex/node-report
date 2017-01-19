@@ -41,7 +41,7 @@ describe "preformatted", ->
         {format: 'html', text: "<pre><code>foo\n   bar</code></pre>\n"}
       ], cb
 
-  describe.only "markdown", ->
+  describe "markdown", ->
 
     # http://spec.commonmark.org/0.27/#example-76
     it "should work with simple block", (cb) ->
@@ -113,43 +113,85 @@ describe "preformatted", ->
         {type: 'document', nesting: -1}
       ], null, cb
 
-    # http://spec.commonmark.org/0.27/#example-184
-    it "should work with multiple leading spaces after the first line", (cb) ->
-      test.markdown null, 'aaa\n             bbb\n                                       ccc', [
+    # http://spec.commonmark.org/0.27/#example-81
+    it "should keep spaces beyond the indention", (cb) ->
+      test.markdown null, '    chunk1\n      \n      chunk2', [
+        {type: 'document', nesting: 1}
+        {type: 'preformatted', nesting: 1}
+        {type: 'text', data: {text: 'chunk1\n  \n  chunk2'}}
+        {type: 'preformatted', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-82
+    it "should fail in paragraph", (cb) ->
+      test.markdown null, 'Foo\n    bar', [
         {type: 'document', nesting: 1}
         {type: 'paragraph', nesting: 1}
-        {type: 'text', data: {text: 'aaa\nbbb\nccc'}}
+        {type: 'text', data: {text: 'Foo bar'}}
         {type: 'paragraph', nesting: -1}
         {type: 'document', nesting: -1}
       ], null, cb
 
-    # http://spec.commonmark.org/0.27/#example-185
-    it "should work with first line indented 3 spaces", (cb) ->
-      test.markdown null, '   aaa\nbbb', [
+    # http://spec.commonmark.org/0.27/#example-83
+    it "should end code block if too less indention", (cb) ->
+      test.markdown null, '    foo\nbar', [
         {type: 'document', nesting: 1}
+        {type: 'preformatted', nesting: 1}
+        {type: 'text', data: {text: 'foo'}}
+        {type: 'preformatted', nesting: -1}
         {type: 'paragraph', nesting: 1}
-        {type: 'text', data: {text: 'aaa\nbbb'}}
+        {type: 'text', data: {text: 'bar'}}
         {type: 'paragraph', nesting: -1}
         {type: 'document', nesting: -1}
       ], null, cb
 
-    # http://spec.commonmark.org/0.27/#example-186
-    it "should fail with 4 or more spaces", (cb) ->
-      test.markdown null, '    aaa\nbbb', [
+    # http://spec.commonmark.org/0.27/#example-84
+    it "should work immediately before or after other elements", (cb) ->
+      test.markdown null, '# Heading\n    foo\nHeading\n------\n    foo\n----', [
         {type: 'document', nesting: 1}
-        {type: 'preformatted', data: {text: 'aaa'}}
-        {type: 'paragraph', nesting: 1}
-        {type: 'text', data: {text: 'bbb'}}
-        {type: 'paragraph', nesting: -1}
+        {type: 'heading', nesting: 1}
+        {type: 'text', data: {text: 'Heading'}}
+        {type: 'heading', nesting: -1}
+        {type: 'preformatted', nesting: 1}
+        {type: 'text', data: {text: 'foo'}}
+        {type: 'preformatted', nesting: -1}
+        {type: 'heading', nesting: 1}
+        {type: 'text', data: {text: 'Heading'}}
+        {type: 'heading', nesting: -1}
+        {type: 'preformatted', nesting: 1}
+        {type: 'text', data: {text: 'foo'}}
+        {type: 'preformatted', nesting: -1}
+        {type: 'thematic_break'}
         {type: 'document', nesting: -1}
       ], null, cb
 
-    # http://spec.commonmark.org/0.27/#example-187
-    it "should work with line break if two or more spaces", (cb) ->
-      test.markdown null, 'aaa     \nbbb     ', [
+    # http://spec.commonmark.org/0.27/#example-85
+    it "should work with first line indented more", (cb) ->
+      test.markdown null, '        foo\n    bar', [
         {type: 'document', nesting: 1}
-        {type: 'paragraph', nesting: 1}
-        {type: 'text', data: {text: 'aaa\nbbb'}}
-        {type: 'paragraph', nesting: -1}
+        {type: 'preformatted', nesting: 1}
+        {type: 'text', data: {text: '    foo\nbar'}}
+        {type: 'preformatted', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-86
+    it "should ignore additional blank lines arround", (cb) ->
+      test.markdown null, '    \n    foo\n    ', [
+        {type: 'document', nesting: 1}
+        {type: 'preformatted', nesting: 1}
+        {type: 'text', data: {text: 'foo'}}
+        {type: 'preformatted', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-87
+    it "should include trailing spaces", (cb) ->
+      test.markdown null, '    foo  ', [
+        {type: 'document', nesting: 1}
+        {type: 'preformatted', nesting: 1}
+        {type: 'text', data: {text: 'foo  '}}
+        {type: 'preformatted', nesting: -1}
         {type: 'document', nesting: -1}
       ], null, cb

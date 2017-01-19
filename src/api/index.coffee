@@ -1,7 +1,7 @@
 # commonmark:
 # 13-31 thematic break
 # 32-75 heading
-# 76-80.. preformatted
+# 76-87 preformatted
 # 180-187 paragraph
 # 188 blank
 # 287-291.. text
@@ -34,13 +34,12 @@ __Support for Parsing__
 |:---------- |:---:|:----:|:----:|:----:|
 | Text       |  X  |  X   |      |      |
 | Heading    |  X  |  X   |      |      |
-| Paragraph  |     |  X   |      |      |
-| Preformat  |     |  X   |      |      |
+| Paragraph  |  X  |  X   |      |      |
+| Preformat  |  X  |  X   |      |      |
 | Blockquote |     |  X   |      |      |
 | ThemaBreak |  X  |  X   |      |      |
 | CharStyle  |     |  X   |      |      |
 | List       |     |  X   |      |      |
-| Code       |     |  X   |      |      |
 | Box        |     |  X   |      |      |
 | Style      |     |  X   |      |      |
 | ToC        |     |  X   |      |      |
@@ -65,12 +64,11 @@ Each of the formats support different options you may set by configuration or on
 | Text       |  X  |  X   |  X   |  X   |      |  X    |  X  |
 | Paragraph  |  X  |  X   |  X   |  X   |      |       |     |
 | Heading    |  X  |  X   |  X   |  X   |      |       |     |
-| Preformat  |     |      |      |      |      |       |     |
+| Preformat  |  X  |      |      |  X   |      |       |     |
 | Blockquote |     |      |      |      |      |       |     |
 | ThemaBreak |  X  |  X   |  X   |  X   |      |       |     |
 | CharStyle  |  X  | (X)  |  X   |  X   |      |       |     |
 | List       |     |      |      |      |      |       |     |
-| Code       |     |      |      |      |      |       |     |
 | Box        |     |      |      |      |      |       |     |
 | Style      |     |      |      |      |      |       |     |
 | ToC        |     |      |      |      |      |       |     |

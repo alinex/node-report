@@ -42,7 +42,7 @@ describe "heading", ->
         {format: 'md', re: /foo\n===+/}
         {format: 'text', re: /foo\n═══+/}
         {format: 'html', text: "<h1 id=\"foo\">foo</h1>\n"}
-        {format: 'man', text: ".TH foo"}
+        {format: 'man', text: ".TH \"FOO\""}
       ], cb
 
     it "should create in multiple steps", (cb) ->
@@ -64,7 +64,7 @@ describe "heading", ->
         {format: 'md', re: /foobar\n===+/}
         {format: 'text', re: /foobar\n═══+/}
         {format: 'html', text: "<h1 id=\"foobar\">foobar</h1>\n"}
-        {format: 'man', text: ".TH foobar"}
+        {format: 'man', text: ".TH \"FOOBAR\""}
       ], cb
 
     it "should work with shortcut", (cb) ->
@@ -82,7 +82,7 @@ describe "heading", ->
         {format: 'md', re: /foo\n===+/}
         {format: 'text', re: /foo\n═══+/}
         {format: 'html', text: "<h1 id=\"foo\">foo</h1>\n"}
-        {format: 'man', text: ".TH foo"}
+        {format: 'man', text: ".TH \"FOO\""}
       ], cb
 
     it "should allow level shortcuts", (cb) ->
@@ -173,7 +173,7 @@ describe "heading", ->
         {format: 'md', re: /foo\n===+/}
         {format: 'text', re: /foo\n═══+/}
         {format: 'html', text: "<h1 id=\"foo\">foo</h1>\n"}
-        {format: 'man', text: ".TH foo"}
+        {format: 'man', text: ".TH \"FOO\""}
       ], cb
 
     it "should close heading before opening new one", (cb) ->
@@ -223,7 +223,7 @@ describe "heading", ->
           {format: 'md', re: /foo\n===+/}
           {format: 'text', re: /foo\n═══+/}
           {format: 'html', text: "<h1 id=\"foo\">foo</h1>\n"}
-          {format: 'man', text: ".TH foo"}
+          {format: 'man', text: ".TH \"FOO\""}
         ], cb
       it "should work with level 2", (cb) ->
         test.markdown null, '## foo', [
@@ -638,10 +638,7 @@ describe "heading", ->
         test.markdown null, '    Foo\n    ---\n\n    Foo\n----', [
           {type: 'document', nesting: 1}
           {type: 'preformatted', nesting: 1}
-          {type: 'text', data: {text: 'Foo\n---'}}
-          {type: 'preformatted', nesting: -1}
-          {type: 'preformatted', nesting: 1}
-          {type: 'text', data: {text: 'Foo'}}
+          {type: 'text', data: {text: 'Foo\n---\nFoo'}}
           {type: 'preformatted', nesting: -1}
           {type: 'thematic_break'}
           {type: 'document', nesting: -1}
