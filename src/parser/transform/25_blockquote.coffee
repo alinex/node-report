@@ -51,7 +51,8 @@ module.exports =
       # check for concatenating
       last = @get()
       return false unless last and last.type is 'blockquote'
-      return unless last?.nesting is 0 and last.content and not last.closed
+      return unless last.nesting is 0 and last.content and not last.closed
+      return if last.content.match /\n$/ # empty line break to paragraph
       # add text
       last.content += '\n' if last.content
       last.content += m[2]

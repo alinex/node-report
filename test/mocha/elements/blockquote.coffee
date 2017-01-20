@@ -270,3 +270,184 @@ describe "blockquote", ->
             {type: 'document', nesting: -1}
             ], null, cb
       ], cb
+
+    # http://spec.commonmark.org/0.27/#example-202
+    it "should ignore empty lines at start and end", (cb) ->
+      test.markdown null, '>\n> foo\n>', [
+        {type: 'document', nesting: 1}
+        {type: 'blockquote', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', data: {text: 'foo'}}
+        {type: 'paragraph', nesting: -1}
+        {type: 'blockquote', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-203
+    it "should seperate by blank line", (cb) ->
+      test.markdown null, '> foo\n\n> bar', [
+        {type: 'document', nesting: 1}
+        {type: 'blockquote', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', data: {text: 'foo'}}
+        {type: 'paragraph', nesting: -1}
+        {type: 'blockquote', nesting: -1}
+        {type: 'blockquote', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', data: {text: 'bar'}}
+        {type: 'paragraph', nesting: -1}
+        {type: 'blockquote', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-204
+    it "should allow multiple lines", (cb) ->
+      test.markdown null, '> foo\n> bar', [
+        {type: 'document', nesting: 1}
+        {type: 'blockquote', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', data: {text: 'foo bar'}}
+        {type: 'paragraph', nesting: -1}
+        {type: 'blockquote', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-205
+    it "should allow two paragaphs", (cb) ->
+      test.markdown null, '> foo\n>\n> bar', [
+        {type: 'document', nesting: 1}
+        {type: 'blockquote', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', data: {text: 'foo'}}
+        {type: 'paragraph', nesting: -1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', data: {text: 'bar'}}
+        {type: 'paragraph', nesting: -1}
+        {type: 'blockquote', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-206
+    it "should interrupt paragraph", (cb) ->
+      test.markdown null, 'foo\n> bar', [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', data: {text: 'foo'}}
+        {type: 'paragraph', nesting: -1}
+        {type: 'blockquote', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', data: {text: 'bar'}}
+        {type: 'paragraph', nesting: -1}
+        {type: 'blockquote', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-207
+    it "should divide with thematic break", (cb) ->
+      test.markdown null, '> aaa\n***\n> bbb', [
+        {type: 'document', nesting: 1}
+        {type: 'blockquote', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', data: {text: 'aaa'}}
+        {type: 'paragraph', nesting: -1}
+        {type: 'blockquote', nesting: -1}
+        {type: 'thematic_break'}
+        {type: 'blockquote', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', data: {text: 'bbb'}}
+        {type: 'paragraph', nesting: -1}
+        {type: 'blockquote', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-208
+    # http://spec.commonmark.org/0.27/#example-209
+    # http://spec.commonmark.org/0.27/#example-210
+    it "should have blank line between blockquote and paragraph", (cb) ->
+      async.series [
+        (cb) ->
+          test.markdown null, '> bar\nbaz', [
+            {type: 'document', nesting: 1}
+            {type: 'blockquote', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', data: {text: 'bar baz'}}
+            {type: 'paragraph', nesting: -1}
+            {type: 'blockquote', nesting: -1}
+            {type: 'document', nesting: -1}
+            ], null, cb
+        (cb) ->
+          test.markdown null, '> bar\n\nbaz', [
+            {type: 'document', nesting: 1}
+            {type: 'blockquote', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', data: {text: 'bar'}}
+            {type: 'paragraph', nesting: -1}
+            {type: 'blockquote', nesting: -1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', data: {text: 'baz'}}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+            ], null, cb
+        (cb) ->
+          test.markdown null, '> bar\n>\nbaz', [
+            {type: 'document', nesting: 1}
+            {type: 'blockquote', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', data: {text: 'bar'}}
+            {type: 'paragraph', nesting: -1}
+            {type: 'blockquote', nesting: -1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', data: {text: 'baz'}}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+            ], null, cb
+      ], cb
+
+    # http://spec.commonmark.org/0.27/#example-211
+    it "should allow lazyness in deep level", (cb) ->
+      test.markdown null, '> > > foo\nbar', [
+        {type: 'document', nesting: 1}
+        {type: 'blockquote', nesting: 1}
+        {type: 'blockquote', nesting: 1}
+        {type: 'blockquote', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', data: {text: 'foo bar'}}
+        {type: 'paragraph', nesting: -1}
+        {type: 'blockquote', nesting: -1}
+        {type: 'blockquote', nesting: -1}
+        {type: 'blockquote', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-212
+    it "should allow lazyness in deep level", (cb) ->
+      test.markdown null, '>>> foo\n> bar\n>>baz', [
+        {type: 'document', nesting: 1}
+        {type: 'blockquote', nesting: 1}
+        {type: 'blockquote', nesting: 1}
+        {type: 'blockquote', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', data: {text: 'foo bar baz'}}
+        {type: 'paragraph', nesting: -1}
+        {type: 'blockquote', nesting: -1}
+        {type: 'blockquote', nesting: -1}
+        {type: 'blockquote', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-213
+    it "should allow preformatted with 5 spaces", (cb) ->
+      test.markdown null, '>     code\n\n>    not code', [
+        {type: 'document', nesting: 1}
+        {type: 'blockquote', nesting: 1}
+        {type: 'preformatted', nesting: 1}
+        {type: 'text', data: {text: 'code'}}
+        {type: 'preformatted', nesting: -1}
+        {type: 'blockquote', nesting: -1}
+        {type: 'blockquote', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', data: {text: 'not code'}}
+        {type: 'paragraph', nesting: -1}
+        {type: 'blockquote', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
