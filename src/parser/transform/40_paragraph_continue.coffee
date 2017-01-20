@@ -24,7 +24,8 @@ module.exports =
       return false unless last and last.type is 'paragraph'
       return unless last?.nesting is 0 and last.content and not last.closed
       # add text
-      last.content += "\n#{m[2]}"
+      last.content += '\n' if last.content
+      last.content += m[2]
       @change()
       # done
       m[0].length

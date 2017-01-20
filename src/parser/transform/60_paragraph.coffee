@@ -23,7 +23,8 @@ module.exports =
       last = @get()
       if last?.type is 'paragraph' and last.nesting is 0 and last.content and not last.closed
         # add text
-        last.content += "\n#{m[2]}"
+        last.content += '\n' if last.content
+        last.content += m[2]
         @change()
       else
         # opening

@@ -102,7 +102,7 @@ describe "blockquote", ->
         {type: 'document', nesting: -1}
       ], null, cb
 
-  describe.only "markdown", ->
+  describe "markdown", ->
 
     # http://spec.commonmark.org/0.27/#example-189
     it "should work with simple block", (cb) ->
@@ -185,3 +185,88 @@ describe "blockquote", ->
         {type: 'blockquote', nesting: -1}
         {type: 'document', nesting: -1}
       ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-195
+    # http://spec.commonmark.org/0.27/#example-196
+    # http://spec.commonmark.org/0.27/#example-197
+    it "should not be lazy for other other elements than paragraph", (cb) ->
+      async.series [
+        (cb) ->
+          test.markdown null, '> foo\n---', [
+            {type: 'document', nesting: 1}
+            {type: 'blockquote', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', data: {text: 'foo'}}
+            {type: 'paragraph', nesting: -1}
+            {type: 'blockquote', nesting: -1}
+            {type: 'thematic_break'}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '> - foo\n- bar', [
+            {type: 'document', nesting: 1}
+            {type: 'blockquote', nesting: 1}
+            {type: 'list', nesting: 1}
+            {type: 'item', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', data: {text: 'foo'}}
+            {type: 'paragraph', nesting: -1}
+            {type: 'item', nesting: -1}
+            {type: 'list', nesting: -1}
+            {type: 'blockquote', nesting: -1}
+            {type: 'list', nesting: 1}
+            {type: 'item', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', data: {text: 'bar'}}
+            {type: 'paragraph', nesting: -1}
+            {type: 'item', nesting: -1}
+            {type: 'list', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '>     foo\n    bar', [
+            {type: 'document', nesting: 1}
+            {type: 'blockquote', nesting: 1}
+            {type: 'preformatted', nesting: 1}
+            {type: 'text', data: {text: 'foo'}}
+            {type: 'preformatted', nesting: -1}
+            {type: 'blockquote', nesting: -1}
+            {type: 'preformatted', nesting: 1}
+            {type: 'text', data: {text: 'bar'}}
+            {type: 'preformatted', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+      ], cb
+
+    # http://spec.commonmark.org/0.27/#example-198
+############################# missing because of code block
+
+    # http://spec.commonmark.org/0.27/#example-199
+    it "should allow lazy continuation with indented list", (cb) ->
+      test.markdown null, '> foo\n    - bar', [
+        {type: 'document', nesting: 1}
+        {type: 'blockquote', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', data: {text: 'foo - bar'}}
+        {type: 'paragraph', nesting: -1}
+        {type: 'blockquote', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-200
+    # http://spec.commonmark.org/0.27/#example-201
+    it "should allow empty blockquote", (cb) ->
+      async.series [
+        (cb) ->
+          test.markdown null, '>', [
+            {type: 'document', nesting: 1}
+            {type: 'blockquote', nesting: 0}
+            {type: 'document', nesting: -1}
+            ], null, cb
+        (cb) ->
+          test.markdown null, '>\n>\n>', [
+            {type: 'document', nesting: 1}
+            {type: 'blockquote', nesting: 0}
+            {type: 'document', nesting: -1}
+            ], null, cb
+      ], cb
