@@ -638,7 +638,7 @@ describe "heading", ->
         test.markdown null, '    Foo\n    ---\n\n    Foo\n----', [
           {type: 'document', nesting: 1}
           {type: 'preformatted', nesting: 1}
-          {type: 'text', data: {text: 'Foo\n---\nFoo'}}
+          {type: 'text', data: {text: 'Foo\n---\n\nFoo'}}
           {type: 'preformatted', nesting: -1}
           {type: 'thematic_break'}
           {type: 'document', nesting: -1}

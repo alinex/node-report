@@ -12,9 +12,9 @@ module.exports =
   item:
     state: ['m-block']
     re: ///
-      ^(\n?       # 1: start of line
+      ^((?:\n?    # 1: start of line
         ([\t\ ]*) # 2: indention
-      )           # end of start
+      )+)         # end of start (multiple lines)
       (           # 3: ending heading
         [^\n]*    # content
       )           #
@@ -23,15 +23,24 @@ module.exports =
     fn: (m) ->
       last = @get()
       return false unless last and last.type is 'item'
-      return unless last?.nesting is 0 and last.content and not last.closed
+      return unless last?.nesting is 0 and last.content? and not last.closed
+      # more than one blank line will close item and list
+      if last.content is '' and m[1][0] is '\n'
+        console.log '--------'
+        last.closed = true
+        @autoclose last.parent.level - 1
+        return
       # check for concatenating
       depth = m[2].replace(/\t/g, '    ').length
-      if depth < last.depth
+      strip = if depth >= last.depth then last.depth else 0
+      # no lazy after newline
+      if m[1][0] is '\n' and depth < last.depth
         last.closed = true
         return false
       # add text
-      last.content += '\n' if m[1][0] is '\n'
-      last.content += '\n' + "#{m[2]}#{m[3]}".substr last.depth
+      if m[1][0] is '\n'
+        last.content += m[1].replace /[^\n]/g, ''
+      last.content += '\n' + "#{m[2]}#{m[3]}".substr strip
       @change()
       # done
       m[0].length
@@ -58,8 +67,9 @@ module.exports =
         list.closed = true
         @insert null,
           type: 'list'
-          start: list.start
-          list: list.list
+          data:
+            start: list.data.start
+            list: list.data.list
           nesting: -1
           marker: list.marker
           depth: list.depth

@@ -10,13 +10,14 @@ module.exports =
   text:
     state: ['m-block']
     re: ///
-      ^(\n?       # 1: start of line
+      ^(          # 1: start of line
+        (\n?)     # 2: possible additional newline
         (?:\ {4}|\t)   # indented by 4 spaces or tab
       )           # end of start
-      (           # 2: content
+      (           # 3: content
         [^\n]+    # all till end of line
       )           # end content
-      (\n|$)      # 3: end of line
+      (\n|$)      # 4: end of line
       /// # one line
     fn: (m) ->
       # check for concatenating
@@ -28,15 +29,15 @@ module.exports =
         last.content? and not last.closed and not last.content.match /^(?:\ {4}|\t)/
       if last?.type is 'preformatted' and last.content and not last.closed
         # add text
-        last.content += '\n' if last.content
-        last.content += m[2]
+        last.content += '\n' + m[2] if last.content
+        last.content += m[3]
         @change()
       else
         # opening
         @insert null,
           type: 'preformatted'
           state: '-text'
-          content: m[2]
+          content: m[3]
       # done
       m[0].length
 

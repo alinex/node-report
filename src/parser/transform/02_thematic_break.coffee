@@ -21,6 +21,9 @@ module.exports =
       (?:\n|$)            # end of line
       ///
     fn: (m) ->
+      last = @get()
+      # break lazy in item
+      @autoclose last.parent.level - 1 if last.type is 'item'
       @insert null,
         type: 'thematic_break'
       # done
