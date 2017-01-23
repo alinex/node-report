@@ -27,8 +27,10 @@ module.exports =
       @token = num
       @state = token.state
       @dirname = token.dirname if token.dirname
+      @base = token.level
       @lexer content
       @autoclose token.level
+      delete @base
       # close token
       @insert null,
         util.extend {}, token,

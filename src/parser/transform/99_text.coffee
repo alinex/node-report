@@ -32,7 +32,7 @@ module.exports =
 
   char:
     state: ['m-inline', 'm-text']
-    re: /^[\s\S]/
+    re: /^[\s\S](?:\w|[\ \t])*/
     fn: (m) ->
       last = @get()
       if last.type is 'text'

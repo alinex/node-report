@@ -1,8 +1,6 @@
 # List
 # =================================================
 
-debug = require('debug') 'report:parser:rule'
-
 
 # Transformer rules
 #
@@ -12,6 +10,7 @@ module.exports =
   empty:
     state: ['m-block']
     last: 'item'
+    nesting: 0
     re: ///
       ^(\n?       # 1: start of line
         \ {0,3}   # indented by 1-3 spaces (optional)
@@ -48,6 +47,7 @@ module.exports =
   next:
     state: ['m-block']
     last: 'item'
+    nesting: 0
     re: ///
       ^(\n?       # 1: start of line
         \ {0,3}   # indented by 1-3 spaces (optional)
@@ -66,6 +66,8 @@ module.exports =
       # opening
       marker = m[4] ? m[2]
       depth = m[1].length - if m[5].length < 4 then 0 else m[5].length
+      # stop if item starts sublist
+      return if depth - m[2].length - 1 >= last.depth
       # check for same list type
       unless last.parent.marker is marker
         # close list
@@ -88,6 +90,7 @@ module.exports =
   item:
     state: ['m-block']
     last: 'item'
+    nesting: 0
     re: ///
       ^((?:\n?    # 1: start of line
         ([\t\ ]*) # 2: indention
@@ -121,6 +124,8 @@ module.exports =
 
   list:
     state: ['m-block']
+    last: 'item'
+    nesting: 0
     re: ///
       ^(\n?       # 1: start of line
         ([\t\ ]*) # 2: indention

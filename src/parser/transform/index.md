@@ -22,12 +22,14 @@ are checked against this implementation, too.
 Modules
 -------------------------------------------------
 Each module will export an object containing multiple rules used in different states
-of parsing.
+of parsing. But only the rules matching at the moment will be executed.
 
 The interface of these methods should be:
 
 @name <alias>
-@param {Array<String>} state all the possible states in which this rule is allowed
+@param {Array<String>|String} state all the possible states in which this rule is allowed
+@param {Array<String>|String} last type of last element to match rule
+@param {Integer} nesting of last element to match rule
 @param {RegExp} re to check if this rule should be applied
 @param {Function(Match)} fn to run if the rule matched.
 Here you may call `add()`, change the index position run sub `parse()` and lastly

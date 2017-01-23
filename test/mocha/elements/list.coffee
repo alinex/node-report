@@ -723,3 +723,328 @@ describe "list", ->
         {type: 'list', nesting: -1}
         {type: 'document', nesting: -1}
       ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-252
+    it "should allow remove part of indentation", (cb) ->
+      test.markdown null, '  1.  A paragraph\n    with two lines.', [
+        {type: 'document', nesting: 1}
+        {type: 'list', nesting: 1, data: {list: 'ordered', start: 1}}
+        {type: 'item', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', data: {text: 'A paragraph with two lines.'}}
+        {type: 'paragraph', nesting: -1}
+        {type: 'item', nesting: -1}
+        {type: 'list', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-253
+    # http://spec.commonmark.org/0.27/#example-254
+    it "should allow laziness in nested structures", (cb) ->
+      async.series [
+        (cb) ->
+          test.markdown null, '> 1. > Blockquote\ncontinued here.', [
+            {type: 'document', nesting: 1}
+            {type: 'blockquote', nesting: 1}
+            {type: 'list', nesting: 1, data: {list: 'ordered', start: 1}}
+            {type: 'item', nesting: 1}
+            {type: 'blockquote', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', data: {text: 'Blockquote continued here.'}}
+            {type: 'paragraph', nesting: -1}
+            {type: 'blockquote', nesting: -1}
+            {type: 'item', nesting: -1}
+            {type: 'list', nesting: -1}
+            {type: 'blockquote', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '> 1. > Blockquote\n> continued here.', [
+            {type: 'document', nesting: 1}
+            {type: 'blockquote', nesting: 1}
+            {type: 'list', nesting: 1, data: {list: 'ordered', start: 1}}
+            {type: 'item', nesting: 1}
+            {type: 'blockquote', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', data: {text: 'Blockquote continued here.'}}
+            {type: 'paragraph', nesting: -1}
+            {type: 'blockquote', nesting: -1}
+            {type: 'item', nesting: -1}
+            {type: 'list', nesting: -1}
+            {type: 'blockquote', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+      ], cb
+
+    # http://spec.commonmark.org/0.27/#example-255
+    it "should allow remove part of indentation", (cb) ->
+      test.markdown null, '- foo\n  - bar\n    - baz\n      - boo', [
+        {type: 'document', nesting: 1}
+        {type: 'list', nesting: 1, data: {list: 'bullet'}}
+        {type: 'item', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', data: {text: 'foo'}}
+        {type: 'paragraph', nesting: -1}
+        {type: 'list', nesting: 1, data: {list: 'bullet'}}
+        {type: 'item', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', data: {text: 'bar'}}
+        {type: 'paragraph', nesting: -1}
+        {type: 'list', nesting: 1, data: {list: 'bullet'}}
+        {type: 'item', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', data: {text: 'baz'}}
+        {type: 'paragraph', nesting: -1}
+        {type: 'list', nesting: 1, data: {list: 'bullet'}}
+        {type: 'item', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', data: {text: 'boo'}}
+        {type: 'paragraph', nesting: -1}
+        {type: 'item', nesting: -1}
+        {type: 'list', nesting: -1}
+        {type: 'item', nesting: -1}
+        {type: 'list', nesting: -1}
+        {type: 'item', nesting: -1}
+        {type: 'list', nesting: -1}
+        {type: 'item', nesting: -1}
+        {type: 'list', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-256
+    it "should not make sublists with indention of one", (cb) ->
+      test.markdown null, '- foo\n - bar\n  - baz\n   - boo', [
+        {type: 'document', nesting: 1}
+        {type: 'list', nesting: 1, data: {list: 'bullet'}}
+        {type: 'item', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', data: {text: 'foo'}}
+        {type: 'paragraph', nesting: -1}
+        {type: 'item', nesting: -1}
+        {type: 'item', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', data: {text: 'bar'}}
+        {type: 'paragraph', nesting: -1}
+        {type: 'item', nesting: -1}
+        {type: 'item', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', data: {text: 'baz'}}
+        {type: 'paragraph', nesting: -1}
+        {type: 'item', nesting: -1}
+        {type: 'item', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', data: {text: 'boo'}}
+        {type: 'paragraph', nesting: -1}
+        {type: 'item', nesting: -1}
+        {type: 'list', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-257
+    it "should need more spaces indent if marker is wider", (cb) ->
+      test.markdown null, '10) foo\n    - bar', [
+        {type: 'document', nesting: 1}
+        {type: 'list', nesting: 1, data: {list: 'ordered', start: 10}}
+        {type: 'item', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', data: {text: 'foo'}}
+        {type: 'paragraph', nesting: -1}
+        {type: 'list', nesting: 1, data: {list: 'bullet'}}
+        {type: 'item', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', data: {text: 'bar'}}
+        {type: 'paragraph', nesting: -1}
+        {type: 'item', nesting: -1}
+        {type: 'list', nesting: -1}
+        {type: 'item', nesting: -1}
+        {type: 'list', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-258
+    it "should fail sublist on wider marker", (cb) ->
+      test.markdown null, '10) foo\n   - bar', [
+        {type: 'document', nesting: 1}
+        {type: 'list', nesting: 1, data: {list: 'ordered', start: 10}}
+        {type: 'item', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', data: {text: 'foo'}}
+        {type: 'paragraph', nesting: -1}
+        {type: 'item', nesting: -1}
+        {type: 'list', nesting: -1}
+        {type: 'list', nesting: 1, data: {list: 'bullet'}}
+        {type: 'item', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', data: {text: 'bar'}}
+        {type: 'paragraph', nesting: -1}
+        {type: 'item', nesting: -1}
+        {type: 'list', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-259
+    # http://spec.commonmark.org/0.27/#example-260
+    it "should sublist in first line", (cb) ->
+      async.series [
+        (cb) ->
+          test.markdown null, '- - foo', [
+            {type: 'document', nesting: 1}
+            {type: 'list', nesting: 1, data: {list: 'bullet'}}
+            {type: 'item', nesting: 1}
+            {type: 'list', nesting: 1, data: {list: 'bullet'}}
+            {type: 'item', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', data: {text: 'foo'}}
+            {type: 'paragraph', nesting: -1}
+            {type: 'item', nesting: -1}
+            {type: 'list', nesting: -1}
+            {type: 'item', nesting: -1}
+            {type: 'list', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '1. - 2. foo', [
+            {type: 'document', nesting: 1}
+            {type: 'list', nesting: 1, data: {list: 'ordered', start: 1}}
+            {type: 'item', nesting: 1}
+            {type: 'list', nesting: 1, data: {list: 'bullet'}}
+            {type: 'item', nesting: 1}
+            {type: 'list', nesting: 1, data: {list: 'ordered', start: 2}}
+            {type: 'item', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', data: {text: 'foo'}}
+            {type: 'paragraph', nesting: -1}
+            {type: 'item', nesting: -1}
+            {type: 'list', nesting: -1}
+            {type: 'item', nesting: -1}
+            {type: 'list', nesting: -1}
+            {type: 'item', nesting: -1}
+            {type: 'list', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+      ], cb
+
+    # http://spec.commonmark.org/0.27/#example-261
+    it "should work with containing heading", (cb) ->
+      test.markdown null, '- # Foo\n- Bar\n  ---\n  baz', [
+        {type: 'document', nesting: 1}
+        {type: 'list', nesting: 1, data: {list: 'bullet'}}
+        {type: 'item', nesting: 1}
+        {type: 'heading', nesting: 1}
+        {type: 'text', data: {text: 'Foo'}}
+        {type: 'heading', nesting: -1}
+        {type: 'item', nesting: -1}
+        {type: 'item', nesting: 1}
+        {type: 'heading', nesting: 1}
+        {type: 'text', data: {text: 'Bar'}}
+        {type: 'heading', nesting: -1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', data: {text: 'baz'}}
+        {type: 'paragraph', nesting: -1}
+        {type: 'item', nesting: -1}
+        {type: 'list', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-262
+    # http://spec.commonmark.org/0.27/#example-263
+    it "should start new list on change of marker type", (cb) ->
+      async.series [
+        (cb) ->
+          test.markdown null, '- foo\n- bar\n+ baz', [
+            {type: 'document', nesting: 1}
+            {type: 'list', nesting: 1, data: {list: 'bullet'}}
+            {type: 'item', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', data: {text: 'foo'}}
+            {type: 'paragraph', nesting: -1}
+            {type: 'item', nesting: -1}
+            {type: 'item', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', data: {text: 'bar'}}
+            {type: 'paragraph', nesting: -1}
+            {type: 'item', nesting: -1}
+            {type: 'list', nesting: -1}
+            {type: 'list', nesting: 1, data: {list: 'bullet'}}
+            {type: 'item', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', data: {text: 'baz'}}
+            {type: 'paragraph', nesting: -1}
+            {type: 'item', nesting: -1}
+            {type: 'list', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '1. foo\n2. bar\n3) baz', [
+            {type: 'document', nesting: 1}
+            {type: 'list', nesting: 1, data: {list: 'ordered', start: 1}}
+            {type: 'item', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', data: {text: 'foo'}}
+            {type: 'paragraph', nesting: -1}
+            {type: 'item', nesting: -1}
+            {type: 'item', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', data: {text: 'bar'}}
+            {type: 'paragraph', nesting: -1}
+            {type: 'item', nesting: -1}
+            {type: 'list', nesting: -1}
+            {type: 'list', nesting: 1, data: {list: 'ordered', start: 3}}
+            {type: 'item', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', data: {text: 'baz'}}
+            {type: 'paragraph', nesting: -1}
+            {type: 'item', nesting: -1}
+            {type: 'list', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+      ], cb
+
+    # http://spec.commonmark.org/0.27/#example-264
+    it "should interrupt paragraph", (cb) ->
+      test.markdown null, 'Foo\n- bar\n- baz', [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', data: {text: 'Foo'}}
+        {type: 'paragraph', nesting: -1}
+        {type: 'list', nesting: 1, data: {list: 'bullet'}}
+        {type: 'item', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', data: {text: 'bar'}}
+        {type: 'paragraph', nesting: -1}
+        {type: 'item', nesting: -1}
+        {type: 'item', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', data: {text: 'baz'}}
+        {type: 'paragraph', nesting: -1}
+        {type: 'item', nesting: -1}
+        {type: 'list', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-265
+    it "should interrupt paragraph", (cb) ->
+      test.markdown null, 'The number of windows in my house is\n14.  The number of doors is 6.', [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', data: {text: 'The number of windows in my house is 14. The number of doors is 6.'}}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-266
+    it "should interrupt paragraph", (cb) ->
+      test.markdown null, 'The number of windows in my house is\n1.  The number of doors is 6.', [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', data: {text: 'The number of windows in my house is'}}
+        {type: 'paragraph', nesting: -1}
+        {type: 'list', nesting: 1, data: {list: 'ordered', start: 1}}
+        {type: 'item', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', data: {text: 'The number of doors is 6.'}}
+        {type: 'paragraph', nesting: -1}
+        {type: 'item', nesting: -1}
+        {type: 'list', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb

@@ -16,6 +16,7 @@
 # The parser is influenced by the following status information:
 # - `token` - `Integer` current position in `@tokens` list
 # - `level` - `Integer` current depth in structure
+# - `base` - `Integer` base level depth of current sub lexer
 
 # ### Lexer
 #
@@ -265,9 +266,10 @@ class Parser
       throw new Error "No rules for state #{@state}" unless lexer[@state]
       for rule in lexer[@state]
         continue unless @state in rule.state
-        if rule.last
+        if rule.last or rule.nesting?
           last = @get()
           continue if last and last.type not in rule.last
+          continue if rule.nesting? and rule.nesting isnt last.nesting
         debugRule "check rule #{rule.name}: #{chalk.grey rule.re}" if debugRule
         if m = rule.re.exec chars
           if skip = rule.fn?.call this, m, last
@@ -286,6 +288,7 @@ class Parser
   # @return {Boolean} `true` if state could be reached by autoclose
   autoclose: (goal, errThrow) ->
     if typeof goal is 'number'
+      goal = @base if goal < @base
       t =
         level: 99
         parent: @get()

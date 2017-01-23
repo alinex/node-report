@@ -81,6 +81,9 @@ module.exports =
       last = @get()
       # opening
       marker = m[4] ? m[2]
+      # don't be lazy on other than numbers starting with 1
+      return if last.type is 'paragraph' and listType[marker] is 'ordered' and
+      Number(m[3]) isnt 1 and m[1][0] isnt '\n'
       # calculate depth
       depth = m[1].length - if m[5].length < 4 then 0 else m[5].length
       unless @state.match /-list$/ or last.parent.marker is marker
