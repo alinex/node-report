@@ -39,6 +39,7 @@ module.exports =
     fn: (m) ->
       # check for concatenating
       last = @get()
+      return if last?.type is 'paragraph'
       # opening
       marker = m[4] ? m[2]
       # calculate depth

@@ -287,7 +287,7 @@ describe "thematic break", ->
       ], null, cb
 
     # http://spec.commonmark.org/0.27/#example-30
-    it "should work in favor of list", (cb) ->
+    it "should work in favor of ordered list", (cb) ->
       test.markdown null, '* Foo\n* * *\n* Bar', [
         {type: 'document', nesting: 1}
         {type: 'list', nesting: 1}
@@ -309,7 +309,7 @@ describe "thematic break", ->
       ], null, cb
 
     # http://spec.commonmark.org/0.27/#example-31
-    it "should work in favor of list", (cb) ->
+    it "should work in bullet list", (cb) ->
       test.markdown null, '- Foo\n- * * *', [
         {type: 'document', nesting: 1}
         {type: 'list', nesting: 1}

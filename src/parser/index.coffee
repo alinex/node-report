@@ -92,6 +92,9 @@ class Parser
       debugRule "possible pre optimizations:", util.inspect(Object.keys preLibs
       ).replace /\n\s*/g, ' '
     transLibs = libs 'transform'
+    for _, sub of transLibs
+      for _, rule of sub
+        rule.last = [rule.last] if rule.last and not Array.isArray rule.last
     if debugRule.enabled
       debugRule "possible transformer:", util.inspect(Object.keys transLibs).replace /\n\s*/g, ' '
     postLibs = libs 'post'
@@ -262,9 +265,12 @@ class Parser
       throw new Error "No rules for state #{@state}" unless lexer[@state]
       for rule in lexer[@state]
         continue unless @state in rule.state
+        if rule.last
+          last = @get()
+          continue if last and last.type not in rule.last
         debugRule "check rule #{rule.name}: #{chalk.grey rule.re}" if debugRule
         if m = rule.re.exec chars
-          if skip = rule.fn?.call this, m
+          if skip = rule.fn?.call this, m, last
             chars = chars.substr skip
             done = true
             break

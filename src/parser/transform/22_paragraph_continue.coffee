@@ -9,6 +9,7 @@ module.exports =
 
   paragraph:
     state: ['m-block']
+    last: 'paragraph'
     re: ///
       ^(\n?       # 1: start of line
         [\t\ ]*   # indented by spaces (optional)
@@ -18,11 +19,9 @@ module.exports =
       )           #
       (\n|$)      # 3: end of line
       /// # one line
-    fn: (m) ->
+    fn: (m, last) ->
       # check for concatenating
-      last = @get()
-      return false unless last and last.type is 'paragraph'
-      return unless last?.nesting is 0 and last.content and not last.closed
+      return unless last.nesting is 0 and last.content and not last.closed
       # add text
       last.content += '\n' if last.content
       last.content += m[2]
