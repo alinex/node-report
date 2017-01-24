@@ -12,18 +12,18 @@ module.exports =
     last: 'item'
     nesting: 0
     re: ///
-      ^(\n?       # 1: start of line
-        \ *       # indented by 1-3 spaces (optional)
+      ^(\n?         # 1: start of line
+        \ *         # indented by 1-3 spaces (optional)
         (           # 2: type of list
         [-+*:]      # bullet / definition list
-        |(\d{1,9})([.)]) # ordered list - 3: start - 4: type
-        )         # end of type
-      )           # end of start
-      [\ \t]*     # indention doesn't matter
-      (\n|$)      # 5: end of line
+        |\d{1,9}([.)]) # ordered list - start - 3: type
+        )           # end of type
+      )             # end of start
+      [\ \t]*       # indention doesn't matter
+      (?:\n|$)      # end of line
       /// # one line
     fn: (m, last) ->
-      marker = m[4] ? m[2]
+      marker = m[3] ? m[2]
       depth = m[1].length + 1
       # check for same list type
       unless last.parent.marker is marker
@@ -49,29 +49,25 @@ module.exports =
     last: 'item'
     nesting: 0
     re: ///
-      ^(\n?       # 1: start of line
-        \ *       # indented by 1-3 spaces (optional)
-        (           # 2: type of list
+      ^\n?          # start of line
+      (\ *)         # 1: indented by 1-3 spaces (optional)
+      (             # 2: type of list
         [-+*:]      # bullet / definition list
-        |(\d{1,9})([.)]) # ordered list - 3: start - 4: type
-        )\          # end of type
-        (\ {0,4})   # 5: additional text indent
-      )           # end of start
-      (           # 6: content
-        [^\n]*    # all to end of line (maybe empty)
-      )           # end content
-      (\n|$)      # 6: end of line
+        |\d{1,9}([.)]) # ordered list - start - 3: type
+      )\            # end of type
+      (\ {0,4}      # 4: additional text indent
+        [^\n]*      # all to end of line (maybe empty)
+      )             # end content
+      (?:\n|$)      # end of line
       /// # one line
     fn: (m, last) ->
       # opening
-      marker = m[4] ? m[2]
-      depth = m[1].length - if m[5].length < 4 then 0 else m[5].length
+      marker = m[3] ? m[2]
+      indent = m[1].length
+      depth = indent + m[2].length + 1
       # stop if item starts sublist
-      console.log m
-      console.log 1, depth, m[2].length, last.depth
-      return if depth - m[2].length - 1 >= last.depth
+      return if indent >= last.depth
       # check for same list type
-      console.log 2
       unless last.parent.marker is marker
         # close list
         @insert null,
@@ -86,7 +82,7 @@ module.exports =
       @insert null,
         type: 'item'
         depth: depth
-        content: m[5] + m[6]
+        content: m[4]
       # done
       m[0].length
 
@@ -101,7 +97,7 @@ module.exports =
       (           # 3: ending heading
         [^\n]*    # content
       )           #
-      (\n|$)      # 4: end of line
+      (?:\n|$)    # end of line
       /// # one line
     fn: (m, last) ->
       return unless last.nesting is 0 and last.content? and not last.closed
@@ -130,21 +126,16 @@ module.exports =
     last: 'item'
     nesting: 0
     re: ///
-      ^(\n?       # 1: start of line
-        ([\t\ ]*) # 2: indention
-      )           # end of start
-      (           # 3: ending heading
-        [^\n]*    # content
-      )           #
-      (\n|$)      # 4: end of line
+      ^\n?        # start of line
+      ([\t\ ]*)   # 1: indention
+      [^\n]*      # content
+      (?:\n|$)    # end of line
       /// # one line
-    fn: (m) ->
-      last = @get()
+    fn: (m, last) ->
       list = last.parent
-      return false unless list and list.type is 'list'
       return false if list.closed
       # check for concatenating
-      depth = m[2].replace(/\t/g, '    ').length
+      depth = m[1].replace(/\t/g, '    ').length
       if depth < list.depth
         list.closed = true
         @insert null,

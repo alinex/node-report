@@ -1112,7 +1112,7 @@ describe "list", ->
 
     # http://spec.commonmark.org/0.27/#example-271
     # http://spec.commonmark.org/0.27/#example-272
-    it.only "should keep items on same level if indented too less", (cb) ->
+    it "should keep items on same level if indented too less", (cb) ->
       async.series [
         (cb) ->
           test.markdown null, '- a\n - b\n  - c\n   - d\n    - e\n   - f\n  - g\n - h\n- i', [
