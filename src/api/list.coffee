@@ -109,6 +109,13 @@ Report.prototype.li = (input, title) -> @item input, title
 ###
 Markdown Input/Output
 ----------------------------------------------------
+The markdown format is based on CommonMark Specification:
+[list items](http://spec.commonmark.org/0.27/#atx-headings),
+[lists](http://spec.commonmark.org/0.27/#atx-headings)
+
+I prefer proper structure of information and don't support the decision between
+loose or tight lists like propagated in the specification. I prefer to make such
+layout decisions through the styles.
 
 
 Other Output

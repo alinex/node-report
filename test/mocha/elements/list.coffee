@@ -1189,3 +1189,78 @@ describe "list", ->
             {type: 'document', nesting: -1}
           ], null, cb
       ], cb
+
+    # http://spec.commonmark.org/0.27/#example-273
+    it "should allow blank line between items", (cb) ->
+      test.markdown null, '- a\n- b\n\n- c', [
+        {type: 'document', nesting: 1}
+        {type: 'list', nesting: 1, data: {list: 'bullet'}}
+        {type: 'item', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', data: {text: 'a'}}
+        {type: 'paragraph', nesting: -1}
+        {type: 'item', nesting: -1}
+        {type: 'item', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', data: {text: 'b'}}
+        {type: 'paragraph', nesting: -1}
+        {type: 'item', nesting: -1}
+        {type: 'item', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', data: {text: 'c'}}
+        {type: 'paragraph', nesting: -1}
+        {type: 'item', nesting: -1}
+        {type: 'list', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-274
+    it "should allow blank line after empty item", (cb) ->
+      test.markdown null, '* a\n*\n\n* c', [
+        {type: 'document', nesting: 1}
+        {type: 'list', nesting: 1, data: {list: 'bullet'}}
+        {type: 'item', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', data: {text: 'a'}}
+        {type: 'paragraph', nesting: -1}
+        {type: 'item', nesting: -1}
+        {type: 'item', nesting: 0}
+        {type: 'item', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', data: {text: 'c'}}
+        {type: 'paragraph', nesting: -1}
+        {type: 'item', nesting: -1}
+        {type: 'list', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-275
+    it "should allow item with two paragraphs", (cb) ->
+      test.markdown null, '- a\n- b\n\n  c\n- d', [
+        {type: 'document', nesting: 1}
+        {type: 'list', nesting: 1, data: {list: 'bullet'}}
+        {type: 'item', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', data: {text: 'a'}}
+        {type: 'paragraph', nesting: -1}
+        {type: 'item', nesting: -1}
+        {type: 'item', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', data: {text: 'b'}}
+        {type: 'paragraph', nesting: -1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', data: {text: 'c'}}
+        {type: 'paragraph', nesting: -1}
+        {type: 'item', nesting: -1}
+        {type: 'item', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', data: {text: 'd'}}
+        {type: 'paragraph', nesting: -1}
+        {type: 'item', nesting: -1}
+        {type: 'list', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+############################################
+# example 276.....
+#############################################
