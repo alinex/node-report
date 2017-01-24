@@ -13,7 +13,7 @@ module.exports =
     nesting: 0
     re: ///
       ^(\n?       # 1: start of line
-        \ {0,3}   # indented by 1-3 spaces (optional)
+        \ *       # indented by 1-3 spaces (optional)
         (           # 2: type of list
         [-+*:]      # bullet / definition list
         |(\d{1,9})([.)]) # ordered list - 3: start - 4: type
@@ -50,7 +50,7 @@ module.exports =
     nesting: 0
     re: ///
       ^(\n?       # 1: start of line
-        \ {0,3}   # indented by 1-3 spaces (optional)
+        \ *       # indented by 1-3 spaces (optional)
         (           # 2: type of list
         [-+*:]      # bullet / definition list
         |(\d{1,9})([.)]) # ordered list - 3: start - 4: type
@@ -67,8 +67,11 @@ module.exports =
       marker = m[4] ? m[2]
       depth = m[1].length - if m[5].length < 4 then 0 else m[5].length
       # stop if item starts sublist
+      console.log m
+      console.log 1, depth, m[2].length, last.depth
       return if depth - m[2].length - 1 >= last.depth
       # check for same list type
+      console.log 2
       unless last.parent.marker is marker
         # close list
         @insert null,

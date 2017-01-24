@@ -1048,3 +1048,144 @@ describe "list", ->
         {type: 'list', nesting: -1}
         {type: 'document', nesting: -1}
       ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-267
+    # http://spec.commonmark.org/0.27/#example-268
+    it "should blank lines between items", (cb) ->
+      async.series [
+        (cb) ->
+          test.markdown null, '- foo\n\n- bar\n\n\n- baz', [
+            {type: 'document', nesting: 1}
+            {type: 'list', nesting: 1, data: {list: 'bullet'}}
+            {type: 'item', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', data: {text: 'foo'}}
+            {type: 'paragraph', nesting: -1}
+            {type: 'item', nesting: -1}
+            {type: 'item', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', data: {text: 'bar'}}
+            {type: 'paragraph', nesting: -1}
+            {type: 'item', nesting: -1}
+            {type: 'item', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', data: {text: 'baz'}}
+            {type: 'paragraph', nesting: -1}
+            {type: 'item', nesting: -1}
+            {type: 'list', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '- foo\n  - bar\n    - baz\n\n\n      bim', [
+            {type: 'document', nesting: 1}
+            {type: 'list', nesting: 1, data: {list: 'bullet'}}
+            {type: 'item', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', data: {text: 'foo'}}
+            {type: 'paragraph', nesting: -1}
+            {type: 'list', nesting: 1, data: {list: 'bullet'}}
+            {type: 'item', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', data: {text: 'bar'}}
+            {type: 'paragraph', nesting: -1}
+            {type: 'list', nesting: 1, data: {list: 'bullet'}}
+            {type: 'item', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', data: {text: 'baz'}}
+            {type: 'paragraph', nesting: -1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', data: {text: 'bim'}}
+            {type: 'paragraph', nesting: -1}
+            {type: 'item', nesting: -1}
+            {type: 'list', nesting: -1}
+            {type: 'item', nesting: -1}
+            {type: 'list', nesting: -1}
+            {type: 'item', nesting: -1}
+            {type: 'list', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+      ], cb
+
+#######################################################
+# missing example 269-270 because of html tags
+##################################################################
+
+    # http://spec.commonmark.org/0.27/#example-271
+    # http://spec.commonmark.org/0.27/#example-272
+    it.only "should keep items on same level if indented too less", (cb) ->
+      async.series [
+        (cb) ->
+          test.markdown null, '- a\n - b\n  - c\n   - d\n    - e\n   - f\n  - g\n - h\n- i', [
+            {type: 'document', nesting: 1}
+            {type: 'list', nesting: 1, data: {list: 'bullet'}}
+            {type: 'item', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', data: {text: 'a'}}
+            {type: 'paragraph', nesting: -1}
+            {type: 'item', nesting: -1}
+            {type: 'item', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', data: {text: 'b'}}
+            {type: 'paragraph', nesting: -1}
+            {type: 'item', nesting: -1}
+            {type: 'item', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', data: {text: 'c'}}
+            {type: 'paragraph', nesting: -1}
+            {type: 'item', nesting: -1}
+            {type: 'item', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', data: {text: 'd'}}
+            {type: 'paragraph', nesting: -1}
+            {type: 'item', nesting: -1}
+            {type: 'item', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', data: {text: 'e'}}
+            {type: 'paragraph', nesting: -1}
+            {type: 'item', nesting: -1}
+            {type: 'item', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', data: {text: 'f'}}
+            {type: 'paragraph', nesting: -1}
+            {type: 'item', nesting: -1}
+            {type: 'item', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', data: {text: 'g'}}
+            {type: 'paragraph', nesting: -1}
+            {type: 'item', nesting: -1}
+            {type: 'item', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', data: {text: 'h'}}
+            {type: 'paragraph', nesting: -1}
+            {type: 'item', nesting: -1}
+            {type: 'item', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', data: {text: 'i'}}
+            {type: 'paragraph', nesting: -1}
+            {type: 'item', nesting: -1}
+            {type: 'list', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '1. a\n\n  2. b\n\n    3. c', [
+            {type: 'document', nesting: 1}
+            {type: 'list', nesting: 1, data: {list: 'ordered', start: 1}}
+            {type: 'item', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', data: {text: 'a'}}
+            {type: 'paragraph', nesting: -1}
+            {type: 'item', nesting: -1}
+            {type: 'item', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', data: {text: 'b'}}
+            {type: 'paragraph', nesting: -1}
+            {type: 'item', nesting: -1}
+            {type: 'item', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', data: {text: 'c'}}
+            {type: 'paragraph', nesting: -1}
+            {type: 'item', nesting: -1}
+            {type: 'list', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+      ], cb
