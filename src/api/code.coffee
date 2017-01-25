@@ -48,6 +48,9 @@ Report.prototype.code = (input, language) ->
 ###
 Markdown Input/Output
 ----------------------------------------------------
+The parsing follows the CommonMark specification with the exception of:
+- http://spec.commonmark.org/0.27/#example-106 because the code marker is not on
+  it's own line it is completely interpreted as paragraph
 
 
 Other Output

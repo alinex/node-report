@@ -159,3 +159,118 @@ describe "code", ->
             {type: 'document', nesting: -1}
           ], null, cb
       ], cb
+
+    # http://spec.commonmark.org/0.27/#example-97
+    it "should work with only blank lines", (cb) ->
+      test.markdown null, '```\n\n  \n```', [
+        {type: 'document', nesting: 1}
+        {type: 'code', nesting: 1, data: {language: 'text'}}
+        {type: 'text', data: {text: '\n  '}}
+        {type: 'code', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-98
+    it "should work with empty content", (cb) ->
+      test.markdown null, '```\n```', [
+        {type: 'document', nesting: 1}
+        {type: 'code', nesting: 1, data: {language: 'text'}}
+        {type: 'text', data: {text: ''}}
+        {type: 'code', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-99
+    # http://spec.commonmark.org/0.27/#example-100
+    # http://spec.commonmark.org/0.27/#example-101
+    it "should remove indention of opening marker", (cb) ->
+      async.series [
+        (cb) ->
+          test.markdown null, ' ```\n aaa\naaa\n```', [
+            {type: 'document', nesting: 1}
+            {type: 'code', nesting: 1, data: {language: 'text'}}
+            {type: 'text', data: {text: 'aaa\naaa'}}
+            {type: 'code', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '  ```\naaa\n  aaa\naaa\n  ```', [
+            {type: 'document', nesting: 1}
+            {type: 'code', nesting: 1, data: {language: 'text'}}
+            {type: 'text', data: {text: 'aaa\naaa\naaa'}}
+            {type: 'code', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '   ```\n   aaa\n    aaa\n  aaa\n   ```', [
+            {type: 'document', nesting: 1}
+            {type: 'code', nesting: 1, data: {language: 'text'}}
+            {type: 'text', data: {text: 'aaa\n aaa\naaa'}}
+            {type: 'code', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+      ], cb
+
+    # http://spec.commonmark.org/0.27/#example-102
+    it "should fail on 4 spaces indention", (cb) ->
+      test.markdown null, '    ```\n    aaa\n    ```', [
+        {type: 'document', nesting: 1}
+        {type: 'preformatted', nesting: 1}
+        {type: 'text', data: {text: '```\naaa\n```'}}
+        {type: 'preformatted', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-103
+    # http://spec.commonmark.org/0.27/#example-104
+    it "should allow 1-3 spaces indention on close marker", (cb) ->
+      async.series [
+        (cb) ->
+          test.markdown null, '```\naaa\n  ```', [
+            {type: 'document', nesting: 1}
+            {type: 'code', nesting: 1, data: {language: 'text'}}
+            {type: 'text', data: {text: 'aaa'}}
+            {type: 'code', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '```\naaa\n  ```', [
+            {type: 'document', nesting: 1}
+            {type: 'code', nesting: 1, data: {language: 'text'}}
+            {type: 'text', data: {text: 'aaa'}}
+            {type: 'code', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+      ], cb
+
+      # http://spec.commonmark.org/0.27/#example-105
+      it "should fail if end marker is indented too much", (cb) ->
+        test.markdown null, '```\naaa\n    ```', [
+          {type: 'document', nesting: 1}
+          {type: 'preformatted', nesting: 1}
+          {type: 'text', data: {text: 'aaa\n    ```'}}
+          {type: 'preformatted', nesting: -1}
+          {type: 'document', nesting: -1}
+        ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-106
+    # http://spec.commonmark.org/0.27/#example-107
+    it "should fail for spaces in marker", (cb) ->
+      async.series [
+        (cb) ->
+          test.markdown null, '``` ```\naaa', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1 }
+            {type: 'text', data: {text: '``` ``` aaa'}}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '~~~~~~\naaa\n~~~ ~~', [
+            {type: 'document', nesting: 1}
+            {type: 'code', nesting: 1, data: {language: 'text'}}
+            {type: 'text', data: {text: 'aaa\n~~~ ~~'}}
+            {type: 'code', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+      ], cb

@@ -3,7 +3,7 @@
 # 13-31 thematic break
 # 32-75 heading
 # 76-87 preformatted
-# 88-96.. code
+# 88-107.. code
 
 # 180-187 paragraph
 # 188 blank

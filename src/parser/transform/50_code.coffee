@@ -14,24 +14,30 @@ module.exports =
   text:
     state: ['m-block']
     re: ///
-      ^(\n?       # 1: start of line
-        \ {0,3}   # indented by 1-3 spaces (optional)
-      )           # end of start
+      ^\n?        # start of line
+      (\ {0,3})   # 1: indented by 1-3 spaces (optional)
       ([`~]{3,})  # 2: fence characters
-      (?:\ +
-        (\w+)     # 3: language
-      )?
-      [\ \t]*\n
+      (?:\ +      # info part
+        (\w+)       # 3: language
+      )?          # optional
+      [\ \t]*\n   # ignore whitespace after this
       (           # 4: content
         [\s\S]*?  # all to end of line
       )           # end content
-      (?:
-        \2[^\n]*  # normal ending
+      (?:         # ending
+        \n?       # possible newline after text
+        \ {0,3}   # indention of one to three spaces
+        \2[^\n]*  # marker
         (?:\n|$)  # end of line
-      |$          # end of document
+      |$          # or end of document
       )
       /// # one line
     fn: (m) ->
+      # content with removed indention of marker
+      code = m[4]
+      if m[1]
+        re = new RegExp "(^|\n) {0,#{m[1].length}}", 'g'
+        code = code.replace re, '$1'
       # opening
       @insert null,
         type: 'code'
@@ -42,7 +48,7 @@ module.exports =
       @insert null,
         type: 'text'
         data:
-          text: m[4]
+          text: code
       @insert null,
         type: 'code'
         nesting: -1
@@ -53,13 +59,12 @@ module.exports =
   empty:
     state: ['m-block']
     re: ///
-      ^(\n?       # 1: start of line
-        \ {0,3}   # indented by 1-3 spaces (optional)
-      )           # end of start
-      ([`~]{3,})  # 2: fence characters
-      (?:\ +
-        (\w+)     # 3: language
-      )?
+      ^\n?        # start of line
+      \ {0,3}     # indented by 1-3 spaces (optional)
+      [`~]{3,}    # fence characters
+      (?:\ +      # info part
+        (\w+)       # 1: language
+      )?          # optional
       $           # end of document
       /// # one line
     fn: (m) ->
@@ -69,7 +74,7 @@ module.exports =
         nesting: 1
         state: '-text'
         data:
-          language: Config.get('/report/code/language')[m[3]] ? m[3] ? 'text'
+          language: Config.get('/report/code/language')[m[1]] ? m[1] ? 'text'
       @insert null,
         type: 'text'
         data:
