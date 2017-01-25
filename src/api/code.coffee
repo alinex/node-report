@@ -9,6 +9,7 @@ with highlights for better readability.
 # Node Modules
 # -------------------------------------------------
 Report = require '../index'
+Config = require 'alinex-config'
 
 
 ###
@@ -28,16 +29,18 @@ Report.prototype.code = (input, language) ->
   if typeof input is 'boolean'
     @parser.begin()
     @parser.autoclose '-block', true if input
-    @parser.insert null,
+    tag =
       type: 'code'
       state: '-text'
-      data:
-        language: language
       nesting: if input then 1 else -1
       inline: if input then true else false
+    if input
+      tag.data =
+        language: Config.get('/report/code/language')[language] ? language ? 'text'
+    @parser.insert null, tag
     return this
   # add with text
-  @code true
+  @code true, language
   @text input
   @code false
 

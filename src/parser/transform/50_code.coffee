@@ -1,6 +1,10 @@
 # Text Paragraph
 # =================================================
 
+
+Config = require 'alinex-config'
+
+
 # Transformer rules
 
 #
@@ -30,6 +34,8 @@ module.exports =
         type: 'code'
         nesting: 1
         state: '-text'
+        data:
+          language: Config.get('/report/code/language')[m[3]] ? m[3] ? 'text'
       @insert null,
         type: 'text'
         data:

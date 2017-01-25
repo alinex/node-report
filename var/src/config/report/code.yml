@@ -1,0 +1,7 @@
+# Default settings for Report Formats
+# ============================================
+# This contains the default for different settings.
+
+
+language:
+  js: javascript

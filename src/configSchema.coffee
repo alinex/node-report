@@ -198,6 +198,22 @@ module.exports =
   type: 'object'
   allowedKeys: true
   keys:
+    code:
+      title: "Code Processing"
+      description: "the specification for code highlighting and execution"
+      type: 'object'
+      allowedKeys: true
+      keys:
+        language:
+          title: "Language Alias"
+          description: "the possible alias (short names) for some languages"
+          type: 'object'
+          entries: [
+            title: "Language"
+            description: "the real language name to use"
+            type: 'string'
+            minLength: 1
+          ]
     format:
       title: "Format Options"
       description: "the default options for each format"
