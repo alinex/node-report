@@ -58,7 +58,7 @@ describe "code", ->
         {format: 'html', text: "<pre><code>foo\n   bar</code></pre>\n"}
       ], cb
 
-  describe.only "markdown", ->
+  describe "markdown", ->
 
     # http://spec.commonmark.org/0.27/#example-88
     it "should work with back quotes", (cb) ->

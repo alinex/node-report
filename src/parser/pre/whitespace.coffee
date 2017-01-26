@@ -9,8 +9,8 @@
 #
 # @type {Array<Array>} list of replacements
 CLEANUP = [
-  [/\r\n|\r|\u2424/g, '\n'] # replcae carriage return and unicode newlines
-  [/\u00a0/g, ' ']          # replace other whitechar with space
+  [/\r\n|\r|\u2424/g, '\n'] # replace carriage return and unicode newlines
+#  [/\u00a0/g, ' ']          # replace other whitechar with space
   [/\u0000/g, '\ufffd']     # replace \0 as non visible replacement char
 ]
 
