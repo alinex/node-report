@@ -260,8 +260,11 @@ describe "code", ->
         (cb) ->
           test.markdown null, '``` ```\naaa', [
             {type: 'document', nesting: 1}
+            {type: 'code', nesting: 1, data: {language: 'text'}}
+            {type: 'text', data: {text: ''}}
+            {type: 'code', nesting: -1}
             {type: 'paragraph', nesting: 1 }
-            {type: 'text', data: {text: '``` ``` aaa'}}
+            {type: 'text', data: {text: 'aaa'}}
             {type: 'paragraph', nesting: -1}
             {type: 'document', nesting: -1}
           ], null, cb
@@ -274,3 +277,88 @@ describe "code", ->
             {type: 'document', nesting: -1}
           ], null, cb
       ], cb
+
+    # http://spec.commonmark.org/0.27/#example-108
+    it "should interrupt paragraphs", (cb) ->
+      test.markdown null, 'foo\n```\nbar\n```\nbaz', [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1 }
+        {type: 'text', data: {text: 'foo'}}
+        {type: 'paragraph', nesting: -1}
+        {type: 'code', nesting: 1, data: {language: 'text'}}
+        {type: 'text', data: {text: 'bar'}}
+        {type: 'code', nesting: -1}
+        {type: 'paragraph', nesting: 1 }
+        {type: 'text', data: {text: 'baz'}}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-109
+    it "should allow other blocks directly before or after code blocks", (cb) ->
+      test.markdown null, 'foo\n---\n~~~\nbar\n~~~\n# baz', [
+        {type: 'document', nesting: 1}
+        {type: 'heading', nesting: 1, data: {level: 2}}
+        {type: 'text', data: {text: 'foo'}}
+        {type: 'heading', nesting: -1}
+        {type: 'code', nesting: 1, data: {language: 'text'}}
+        {type: 'text', data: {text: 'bar'}}
+        {type: 'code', nesting: -1}
+        {type: 'heading', nesting: 1, data: {level: 1}}
+        {type: 'text', data: {text: 'baz'}}
+        {type: 'heading', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-110
+    it "should allow language definition", (cb) ->
+      test.markdown null, '```ruby\ndef foo(x)\n  return 3\nend\n```', [
+        {type: 'document', nesting: 1}
+        {type: 'code', nesting: 1, data: {language: 'ruby'}}
+        {type: 'text', data: {text: 'def foo(x)\n  return 3\nend'}}
+        {type: 'code', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-111
+    it "should ignore more info after language", (cb) ->
+      test.markdown null, '~~~~    ruby startline=3 $%@#$\ndef foo(x)\n  return 3\nend\n~~~~~~~', [
+        {type: 'document', nesting: 1}
+        {type: 'code', nesting: 1, data: {language: 'ruby'}}
+        {type: 'text', data: {text: 'def foo(x)\n  return 3\nend'}}
+        {type: 'code', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-112
+    it "should ignore more info after language", (cb) ->
+      test.markdown null, '````;\n````', [
+        {type: 'document', nesting: 1}
+        {type: 'code', nesting: 1, data: {language: ';'}}
+        {type: 'text', data: {text: ''}}
+        {type: 'code', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-113
+    it "should also work with closing marker in same line", (cb) ->
+      test.markdown null, '``` aa ```\nfoo', [
+        {type: 'document', nesting: 1}
+        {type: 'code', nesting: 1, data: {language: 'text'}}
+        {type: 'text', data: {text: 'aa'}}
+        {type: 'code', nesting: -1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', data: {text: 'foo'}}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-114
+    it "should fail if closing marker has info text", (cb) ->
+      test.markdown null, '```\n``` aaa\n```', [
+        {type: 'document', nesting: 1}
+        {type: 'code', nesting: 1, data: {language: 'text'}}
+        {type: 'text', data: {text: '``` aaa'}}
+        {type: 'code', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
