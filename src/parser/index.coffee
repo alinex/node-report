@@ -272,7 +272,7 @@ class Parser
           continue if rule.nesting? and rule.nesting isnt last.nesting
         debugRule "check rule #{rule.name}: #{chalk.grey rule.re}" if debugRule
         if m = rule.re.exec chars
-          if skip = rule.fn?.call this, m, last
+          if skip = rule.fn?.call this, m, last, chars
             chars = chars.substr skip
             done = true
             break

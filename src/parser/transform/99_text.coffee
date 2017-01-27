@@ -14,6 +14,22 @@ Text may also contain some other inline markup.
 # @type {Object<Transformer>} rules to transform text into tokens
 module.exports =
 
+  unbalanced_backquote:
+    state: ['m-inline']
+    re: /^`+/
+    fn: (m) ->
+      last = @get()
+      if last.type is 'text'
+        last.data.text += m[0]
+        @change()
+      else
+        @insert null,
+          type: 'text'
+          data:
+            text: m[0]
+      # done processing
+      m[0].length
+
   escape:
     state: ['m-inline', 'm-text']
     re: /^\\([*_~=`^])/

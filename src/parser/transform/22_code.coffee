@@ -6,7 +6,7 @@ Config = require 'alinex-config'
 
 SPACE_SPLIT = ///
   (?:
-    [^\s"'']+ # anything that's not a space or a double-quote
+    [^\s"']+  # anything that's not a space or a double-quote
   | "         # or opening double-quote
     (?:\\"    # masked quote
     |[^"]     # or other characters but no double quote
@@ -35,7 +35,7 @@ module.exports =
       (\ {0,3})   # 1: indented by 1-3 spaces (optional)
       (([`~]){3,})  # 2: fence characters - 3: single character
       (           # 4: content
-        .+?       # all to end of line
+        [^\n`]+?       # all to end of line
       )           # end content
       (?:         # ending
         \2(\3)*   # end marker

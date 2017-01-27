@@ -50,7 +50,7 @@ describe "char_style", ->
 
   describe "markdown", ->
 
-    describe.only "code span", ->
+    describe "code span", ->
 
       # http://spec.commonmark.org/0.27/#example-312
       it "should work with simple code", (cb) ->
@@ -77,7 +77,7 @@ describe "char_style", ->
         ], null, cb
 
       # http://spec.commonmark.org/0.27/#example-314
-      it "should work with multiple backquotes", (cb) ->
+      it "should work with nested backquotes", (cb) ->
         test.markdown null, '` `` `', [
           {type: 'document', nesting: 1}
           {type: 'paragraph', nesting: 1}
@@ -158,12 +158,79 @@ describe "char_style", ->
           {type: 'fixed', nesting: 1}
           {type: 'text', data: {text: '*'}}
           {type: 'fixed', nesting: -1}
-          {type: 'text', data: {text: 'bar`'}}
           {type: 'paragraph', nesting: -1}
           {type: 'document', nesting: -1}
         ], null, cb
 
-    describe "emphasis", ->
+      # http://spec.commonmark.org/0.27/#example-321
+      it "should break link definition", (cb) ->
+        test.markdown null, '[not a `link](/foo`)', [
+          {type: 'document', nesting: 1}
+          {type: 'paragraph', nesting: 1}
+          {type: 'text', data: {text: '[not a '}}
+          {type: 'fixed', nesting: 1}
+          {type: 'text', data: {text: 'link](/foo'}}
+          {type: 'fixed', nesting: -1}
+          {type: 'text', data: {text: ')'}}
+          {type: 'paragraph', nesting: -1}
+          {type: 'document', nesting: -1}
+        ], null, cb
+
+      # http://spec.commonmark.org/0.27/#example-322
+      it "should break html tags", (cb) ->
+        test.markdown null, '`<a href="`">`', [
+          {type: 'document', nesting: 1}
+          {type: 'paragraph', nesting: 1}
+          {type: 'fixed', nesting: 1}
+          {type: 'text', data: {text: '<a href="'}}
+          {type: 'fixed', nesting: -1}
+          {type: 'text', data: {text: '">`'}}
+          {type: 'paragraph', nesting: -1}
+          {type: 'document', nesting: -1}
+        ], null, cb
+
+#################################################
+# example 323
+
+      # http://spec.commonmark.org/0.27/#example-324
+      it "should break auto link", (cb) ->
+        test.markdown null, '`<http://foo.bar.`baz>`', [
+          {type: 'document', nesting: 1}
+          {type: 'paragraph', nesting: 1}
+          {type: 'fixed', nesting: 1}
+          {type: 'text', data: {text: '<http://foo.bar.'}}
+          {type: 'fixed', nesting: -1}
+          {type: 'text', data: {text: 'baz>`'}}
+          {type: 'paragraph', nesting: -1}
+          {type: 'document', nesting: -1}
+        ], null, cb
+
+#################################################
+# example 325
+
+      # http://spec.commonmark.org/0.27/#example-326
+      # http://spec.commonmark.org/0.27/#example-327
+      it "should ignore if end marker not matched", (cb) ->
+        async.series [
+          (cb) ->
+            test.markdown null, '```foo``', [
+              {type: 'document', nesting: 1}
+              {type: 'paragraph', nesting: 1}
+              {type: 'text', data: {text: '```foo``'}}
+              {type: 'paragraph', nesting: -1}
+              {type: 'document', nesting: -1}
+            ], null, cb
+          (cb) ->
+            test.markdown null, '`foo', [
+              {type: 'document', nesting: 1}
+              {type: 'paragraph', nesting: 1}
+              {type: 'text', data: {text: '`foo'}}
+              {type: 'paragraph', nesting: -1}
+              {type: 'document', nesting: -1}
+            ], null, cb
+        ], cb
+
+    describe.skip "emphasis", ->
 
       # http://spec.commonmark.org/0.27/#example-312
       it "should work with * for emphasis", (cb) ->

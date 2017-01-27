@@ -28,6 +28,8 @@ MARKER =
   '==': 'highlight'
   '`': 'fixed'
 
+INNER_CODE = /(`+).*?\1/g
+
 
 # Transformer rules
 # ----------------------------------------------
@@ -38,10 +40,11 @@ module.exports =
   backquote:
     state: ['m-inline']
     re: ///
-      ^(`+)                       # 1: start MARKER
-      ([\s\S]*?[^`])?             # 2: content
-      \1                          # end MARKER
-      (?=[^`]|$)
+      ^(`+)                # 1: start MARKER
+      (?=[^`])             # not followed by backquote
+      ([\s\S]*?[^`])       # 2: content
+      \1                   # end MARKER
+      (?=[^`]|$)           # not followed by backquote
       ///
     fn: (m) ->
       # opening
@@ -96,7 +99,7 @@ module.exports =
   other:
     state: ['m-inline']
     re: ///
-      ^([*~]{1,2}|[=]{2}|[\^])     # 1: start MARKER
+      ^([*~]{1,2}|[=]{2}|[\^])    # 1: start MARKER
       (                           # 2: content
         [*_~=`^]*\w               # start with marker + word character
         [\s\S]*?                  # content
@@ -104,7 +107,10 @@ module.exports =
       )
       \1                          # end MARKER
       ///
-    fn: (m) ->
+    fn: (m, _, chars) ->
+      # skip if fixed within
+      while check = INNER_CODE.exec chars
+        return if check.index + check[0].length > m[0].length
       # opening
       @insert null,
         type: MARKER[m[1]]

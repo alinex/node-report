@@ -8,19 +8,17 @@
 # 180-187 paragraph
 # 188 blank
 # 189-197 blockquote
-
 # 199-213 blockquote
 # 214-223 list
 
 # 225-238.. list
-
 # 240-268 list
-
 # 271-275 list
-
 # 287-291.. text
 
-# 312-319.. char_style
+# 312-322 char_style
+# 324 char_style
+# 326-327 char_style
 ###
 
 Elements
