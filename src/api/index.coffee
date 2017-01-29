@@ -19,6 +19,8 @@
 # 312-322 char_style
 # 324 char_style
 # 326-327 char_style
+# 328-354 emphasis
+# 355- strong
 ###
 
 Elements
