@@ -48,7 +48,7 @@ module.exports =
 
   char:
     state: ['m-inline', 'm-text']
-    re: /^[\s\S](?:[\u00BF-\u1FFF\u2C00-\uD7FF]|[\ \t])*/
+    re: /^[\s\S][\u00BF-\u1FFF\u2C00-\uD7FFa-zA-Z0-9\ \t]*/
     fn: (m) ->
       last = @get()
       if last.type is 'text'

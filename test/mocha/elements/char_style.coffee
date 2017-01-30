@@ -540,7 +540,7 @@ describe "char_style", ->
           {type: 'document', nesting: -1}
         ], null, cb
 
-    describe.only "strong", ->
+    describe "strong", ->
 
       # http://spec.commonmark.org/0.27/#example-355
       it "should work on simple word", (cb) ->
@@ -661,7 +661,7 @@ describe "char_style", ->
         ], cb
 
       # http://spec.commonmark.org/0.27/#example-366
-      it.only "should work for underscore in underscore", (cb) ->
+      it "should work for underscore in underscore", (cb) ->
         test.markdown null, '__foo, __bar__, baz__', [
           {type: 'document', nesting: 1}
           {type: 'paragraph', nesting: 1}
@@ -671,6 +671,75 @@ describe "char_style", ->
           {type: 'text', data: {text: 'bar'}}
           {type: 'strong', nesting: -1}
           {type: 'text', data: {text: ', baz'}}
+          {type: 'strong', nesting: -1}
+          {type: 'paragraph', nesting: -1}
+          {type: 'document', nesting: -1}
+        ], null, cb
+
+      # http://spec.commonmark.org/0.27/#example-367
+      it "should work with underscores in punctuation", (cb) ->
+        test.markdown null, 'foo-__(bar)__', [
+          {type: 'document', nesting: 1}
+          {type: 'paragraph', nesting: 1}
+          {type: 'text', data: {text: 'foo-'}}
+          {type: 'strong', nesting: 1}
+          {type: 'text', data: {text: '(bar)'}}
+          {type: 'strong', nesting: -1}
+          {type: 'paragraph', nesting: -1}
+          {type: 'document', nesting: -1}
+        ], null, cb
+
+      # http://spec.commonmark.org/0.27/#example-368
+      it "should fail for closing marker after space", (cb) ->
+        test.markdown null, '**foo bar **', [
+          {type: 'document', nesting: 1}
+          {type: 'paragraph', nesting: 1}
+          {type: 'text', data: {text: '**foo bar **'}}
+          {type: 'paragraph', nesting: -1}
+          {type: 'document', nesting: -1}
+        ], null, cb
+
+      # http://spec.commonmark.org/0.27/#example-369
+      it "should fail for mixed marker", (cb) ->
+        test.markdown null, '**(**foo)', [
+          {type: 'document', nesting: 1}
+          {type: 'paragraph', nesting: 1}
+          {type: 'text', data: {text: '**(**foo)'}}
+          {type: 'paragraph', nesting: -1}
+          {type: 'document', nesting: -1}
+        ], null, cb
+
+      # http://spec.commonmark.org/0.27/#example-370
+      it "should work within emphasis", (cb) ->
+        test.markdown null, '*(**foo**)*', [
+          {type: 'document', nesting: 1}
+          {type: 'paragraph', nesting: 1}
+          {type: 'emphasis', nesting: 1}
+          {type: 'text', data: {text: '('}}
+          {type: 'strong', nesting: 1}
+          {type: 'text', data: {text: 'foo'}}
+          {type: 'strong', nesting: -1}
+          {type: 'text', data: {text: ')'}}
+          {type: 'emphasis', nesting: -1}
+          {type: 'paragraph', nesting: -1}
+          {type: 'document', nesting: -1}
+        ], null, cb
+
+      # http://spec.commonmark.org/0.27/#example-371
+      it "should work for mixed emphasis + strong", (cb) ->
+        test.markdown null, '**Gomphocarpus (*Gomphocarpus physocarpus*, syn.\n*Asclepias physocarpa*)**', [
+          {type: 'document', nesting: 1}
+          {type: 'paragraph', nesting: 1}
+          {type: 'strong', nesting: 1}
+          {type: 'text', data: {text: 'Gomphocarpus ('}}
+          {type: 'emphasis', nesting: 1}
+          {type: 'text', data: {text: 'Gomphocarpus physocarpus'}}
+          {type: 'emphasis', nesting: -1}
+          {type: 'text', data: {text: ', syn. '}}
+          {type: 'emphasis', nesting: 1}
+          {type: 'text', data: {text: 'Asclepias physocarpa'}}
+          {type: 'emphasis', nesting: -1}
+          {type: 'text', data: {text: ')'}}
           {type: 'strong', nesting: -1}
           {type: 'paragraph', nesting: -1}
           {type: 'document', nesting: -1}
