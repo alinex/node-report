@@ -527,7 +527,7 @@ describe "char_style", ->
             ], null, cb
         ], cb
 
-      # http://spec.commonmark.org/0.27/#example-351
+      # http://spec.commonmark.org/0.27/#example-354
       it "should work for underscore in punctuation", (cb) ->
         test.markdown null, '_(bar)_.', [
           {type: 'document', nesting: 1}
@@ -542,7 +542,7 @@ describe "char_style", ->
 
     describe.only "strong", ->
 
-      # http://spec.commonmark.org/0.27/#example-352
+      # http://spec.commonmark.org/0.27/#example-355
       it "should work on simple word", (cb) ->
         test.markdown null, '**foo bar**', [
           {type: 'document', nesting: 1}
@@ -554,12 +554,124 @@ describe "char_style", ->
           {type: 'document', nesting: -1}
         ], null, cb
 
-      # http://spec.commonmark.org/0.27/#example-353
+      # http://spec.commonmark.org/0.27/#example-356
       it "should fail for space after start marker", (cb) ->
         test.markdown null, '** foo bar**', [
           {type: 'document', nesting: 1}
           {type: 'paragraph', nesting: 1}
           {type: 'text', data: {text: '** foo bar**'}}
+          {type: 'paragraph', nesting: -1}
+          {type: 'document', nesting: -1}
+        ], null, cb
+
+      # http://spec.commonmark.org/0.27/#example-357
+      it "should fail if only opening preceded by alpha", (cb) ->
+        test.markdown null, 'a**"foo"**', [
+          {type: 'document', nesting: 1}
+          {type: 'paragraph', nesting: 1}
+          {type: 'text', data: {text: 'a**"foo"**'}}
+          {type: 'paragraph', nesting: -1}
+          {type: 'document', nesting: -1}
+        ], null, cb
+
+      # http://spec.commonmark.org/0.27/#example-358
+      it "should should work as intraword", (cb) ->
+        test.markdown null, 'foo**bar**', [
+          {type: 'document', nesting: 1}
+          {type: 'paragraph', nesting: 1}
+          {type: 'text', data: {text: 'foo'}}
+          {type: 'strong', nesting: 1}
+          {type: 'text', data: {text: 'bar'}}
+          {type: 'strong', nesting: -1}
+          {type: 'paragraph', nesting: -1}
+          {type: 'document', nesting: -1}
+        ], null, cb
+
+      # http://spec.commonmark.org/0.27/#example-359
+      it "should should work with underscore", (cb) ->
+        test.markdown null, '__foo bar__', [
+          {type: 'document', nesting: 1}
+          {type: 'paragraph', nesting: 1}
+          {type: 'strong', nesting: 1}
+          {type: 'text', data: {text: 'foo bar'}}
+          {type: 'strong', nesting: -1}
+          {type: 'paragraph', nesting: -1}
+          {type: 'document', nesting: -1}
+        ], null, cb
+
+      # http://spec.commonmark.org/0.27/#example-360
+      it "should fail for underscore followed by space", (cb) ->
+        test.markdown null, '__ foo bar__', [
+          {type: 'document', nesting: 1}
+          {type: 'paragraph', nesting: 1}
+          {type: 'text', data: {text: '__ foo bar__'}}
+          {type: 'paragraph', nesting: -1}
+          {type: 'document', nesting: -1}
+        ], null, cb
+
+      # http://spec.commonmark.org/0.27/#example-361
+      it "should fail for underscore followed by newline", (cb) ->
+        test.markdown null, '__\nfoo bar__', [
+          {type: 'document', nesting: 1}
+          {type: 'paragraph', nesting: 1}
+          {type: 'text', data: {text: '__ foo bar__'}}
+          {type: 'paragraph', nesting: -1}
+          {type: 'document', nesting: -1}
+        ], null, cb
+
+      # http://spec.commonmark.org/0.27/#example-362
+      it "should fail if only opening underline preceded by alpha", (cb) ->
+        test.markdown null, 'a__"foo"__', [
+          {type: 'document', nesting: 1}
+          {type: 'paragraph', nesting: 1}
+          {type: 'text', data: {text: 'a__"foo"__'}}
+          {type: 'paragraph', nesting: -1}
+          {type: 'document', nesting: -1}
+        ], null, cb
+
+      # http://spec.commonmark.org/0.27/#example-363
+      # http://spec.commonmark.org/0.27/#example-364
+      # http://spec.commonmark.org/0.27/#example-365
+      it "should fail for intraword underscores", (cb) ->
+        async.series [
+          (cb) ->
+            test.markdown null, 'foo__bar__', [
+              {type: 'document', nesting: 1}
+              {type: 'paragraph', nesting: 1}
+              {type: 'text', data: {text: 'foo__bar__'}}
+              {type: 'paragraph', nesting: -1}
+              {type: 'document', nesting: -1}
+            ], null, cb
+          (cb) ->
+            test.markdown null, '5__6__78', [
+              {type: 'document', nesting: 1}
+              {type: 'paragraph', nesting: 1}
+              {type: 'text', data: {text: '5__6__78'}}
+              {type: 'paragraph', nesting: -1}
+              {type: 'document', nesting: -1}
+            ], null, cb
+          (cb) ->
+            test.markdown null, 'пристаням__стремятся__', [
+              {type: 'document', nesting: 1}
+              {type: 'paragraph', nesting: 1}
+              {type: 'text', data: {text: 'пристаням__стремятся__'}}
+              {type: 'paragraph', nesting: -1}
+              {type: 'document', nesting: -1}
+            ], null, cb
+        ], cb
+
+      # http://spec.commonmark.org/0.27/#example-366
+      it.only "should work for underscore in underscore", (cb) ->
+        test.markdown null, '__foo, __bar__, baz__', [
+          {type: 'document', nesting: 1}
+          {type: 'paragraph', nesting: 1}
+          {type: 'strong', nesting: 1}
+          {type: 'text', data: {text: 'foo'}}
+          {type: 'strong', nesting: 1}
+          {type: 'text', data: {text: 'bar'}}
+          {type: 'strong', nesting: -1}
+          {type: 'text', data: {text: 'baz'}}
+          {type: 'strong', nesting: -1}
           {type: 'paragraph', nesting: -1}
           {type: 'document', nesting: -1}
         ], null, cb

@@ -69,10 +69,14 @@ module.exports =
     re: ///
       ^(_{1,2})                   # 1: start MARKER
       (                           # 2: content
-        [*_~=`^]*\w               # start with marker + word character
+        [*_~=`^]*                 # inner marker
+        [^\W_]                    # + word character (without underscore)
         [\s\S]*?                  # content
-        \w[*_~=`^]*               # end with word character + marker
-      | [*_~=`^]*\w[*_~=`^]*      # only one word character
+        [^\W_]                    # end with word character (without underscore)
+        [*_~=`^]*                 # + possible inner marker
+      | [*_~=`^]*                 # or inner marker
+        [^\W_]                    # + only one word character
+        [*_~=`^]*                 # + inner marker
       )
       \1                          # 3: end of element
       (?![*_~=`^]*                # not following marker
@@ -85,9 +89,8 @@ module.exports =
         return if check.index + check[0].length > m[0].length
       # not the ones within the text
       last = @get()
-      if last.type not in ['text', 'paragraph'] \
-      or last.data?.text.substr(-1).match /\w|[*_~=`^]/
-        return
+      return if last.type not in ['text', 'paragraph']
+      return if last.data?.text.substr(-1).match /\w|[*_~=`^]/
       # opening
       @insert null,
         type: MARKER[m[1]]
@@ -119,7 +122,9 @@ module.exports =
     fn: (m, _, chars) ->
       last = @get()
       # skip if last text character isnt a punctuation character
-      return if last.type is 'text' and last.data.text.match /[\u00BF-\u1FFF\u2C00-\uD7FF\w]$/
+      if last.type is 'text'
+        return if last.data.text.match /[\u00BF-\u1FFF\u2C00-\uD7FF\w]$/
+        return if last.data.text[-1..] is m[1][0]
       # skip if fixed within
       while check = INNER_CODE.exec chars
         return if check.index + check[0].length > m[0].length
@@ -146,10 +151,14 @@ module.exports =
     re: ///
       ^([*~]{1,2}|[=]{2}|[\^])    # 1: start MARKER
       (                           # 2: content
-        [*_~=`^]*\w               # start with marker + word character
+        [*_~=`^]*                 # inner marker
+        [^\W_]                    # + word character (without underscore)
         [\s\S]*?                  # content
-        \w[*_~=`^]*               # end with word character + marker
-      | [*_~=`^]*\w[*_~=`^]*      # only one word character
+        [^\W_]                    # end with word character (without underscore)
+        [*_~=`^]*                 # + possible inner marker
+      | [*_~=`^]*                 # or inner marker
+        [^\W_]                    # + only one word character
+        [*_~=`^]*                 # + inner marker
       )
       \1                          # end MARKER
       ///
@@ -185,7 +194,9 @@ module.exports =
     fn: (m, _, chars) ->
       last = @get()
       # skip if last text character isnt a punctuation character
-      return if last.type is 'text' and last.data.text.match /[\u00BF-\u1FFF\u2C00-\uD7FF\w]$/
+      if last.type is 'text'
+        return if last.data.text.match /[\u00BF-\u1FFF\u2C00-\uD7FF\w]$/
+        return if last.data.text[-1..] is m[1][0]
       # skip if fixed within
       while check = INNER_CODE.exec chars
         return if check.index + check[0].length > m[0].length
