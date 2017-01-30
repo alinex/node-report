@@ -666,11 +666,11 @@ describe "char_style", ->
           {type: 'document', nesting: 1}
           {type: 'paragraph', nesting: 1}
           {type: 'strong', nesting: 1}
-          {type: 'text', data: {text: 'foo'}}
+          {type: 'text', data: {text: 'foo, '}}
           {type: 'strong', nesting: 1}
           {type: 'text', data: {text: 'bar'}}
           {type: 'strong', nesting: -1}
-          {type: 'text', data: {text: 'baz'}}
+          {type: 'text', data: {text: ', baz'}}
           {type: 'strong', nesting: -1}
           {type: 'paragraph', nesting: -1}
           {type: 'document', nesting: -1}

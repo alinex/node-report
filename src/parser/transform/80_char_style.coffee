@@ -71,14 +71,20 @@ module.exports =
       (                           # 2: content
         [*_~=`^]*                 # inner marker
         [^\W_]                    # + word character (without underscore)
-        [\s\S]*?                  # content
+        (?:
+          (_{1,2})                  # 3: inner marker
+          [\s\S]+?
+          \3
+          |
+          [\s\S]                    # content
+        )*?
         [^\W_]                    # end with word character (without underscore)
         [*_~=`^]*                 # + possible inner marker
       | [*_~=`^]*                 # or inner marker
         [^\W_]                    # + only one word character
         [*_~=`^]*                 # + inner marker
       )
-      \1                          # 3: end of element
+      \1                          # end of element
       (?![*_~=`^]*                # not following marker
         [\u00BF-\u1FFF\u2C00-\uD7FF\w]  # + word character
       )
