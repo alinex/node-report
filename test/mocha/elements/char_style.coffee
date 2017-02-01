@@ -726,7 +726,7 @@ describe "char_style", ->
         ], null, cb
 
       # http://spec.commonmark.org/0.27/#example-371
-      it "should work for mixed emphasis + strong", (cb) ->
+      it "should work for mixed strong + emphasis", (cb) ->
         test.markdown null, '**Gomphocarpus (*Gomphocarpus physocarpus*, syn.\n*Asclepias physocarpa*)**', [
           {type: 'document', nesting: 1}
           {type: 'paragraph', nesting: 1}
@@ -744,3 +744,179 @@ describe "char_style", ->
           {type: 'paragraph', nesting: -1}
           {type: 'document', nesting: -1}
         ], null, cb
+
+      # http://spec.commonmark.org/0.27/#example-372
+      it "should work for mixed strong + emphasis 2", (cb) ->
+        test.markdown null, '**foo "*bar*" foo**', [
+          {type: 'document', nesting: 1}
+          {type: 'paragraph', nesting: 1}
+          {type: 'strong', nesting: 1}
+          {type: 'text', data: {text: 'foo "'}}
+          {type: 'emphasis', nesting: 1}
+          {type: 'text', data: {text: 'bar'}}
+          {type: 'emphasis', nesting: -1}
+          {type: 'text', data: {text: '" foo'}}
+          {type: 'strong', nesting: -1}
+          {type: 'paragraph', nesting: -1}
+          {type: 'document', nesting: -1}
+        ], null, cb
+
+      # http://spec.commonmark.org/0.27/#example-373
+      it "should work for intraword", (cb) ->
+        test.markdown null, '**foo**bar', [
+          {type: 'document', nesting: 1}
+          {type: 'paragraph', nesting: 1}
+          {type: 'strong', nesting: 1}
+          {type: 'text', data: {text: 'foo'}}
+          {type: 'strong', nesting: -1}
+          {type: 'text', data: {text: 'bar'}}
+          {type: 'paragraph', nesting: -1}
+          {type: 'document', nesting: -1}
+        ], null, cb
+
+      # http://spec.commonmark.org/0.27/#example-374
+      it "should fail with space before end marker", (cb) ->
+        test.markdown null, '__foo bar __', [
+          {type: 'document', nesting: 1}
+          {type: 'paragraph', nesting: 1}
+          {type: 'text', data: {text: '__foo bar __'}}
+          {type: 'paragraph', nesting: -1}
+          {type: 'document', nesting: -1}
+        ], null, cb
+
+      # http://spec.commonmark.org/0.27/#example-375
+      it "should fail with underscore followed by word", (cb) ->
+        test.markdown null, '__(__foo)', [
+          {type: 'document', nesting: 1}
+          {type: 'paragraph', nesting: 1}
+          {type: 'text', data: {text: '__(__foo)'}}
+          {type: 'paragraph', nesting: -1}
+          {type: 'document', nesting: -1}
+        ], null, cb
+
+      # http://spec.commonmark.org/0.27/#example-376
+      it "should work with underscore around punctuation", (cb) ->
+        test.markdown null, '_(__foo__)_', [
+          {type: 'document', nesting: 1}
+          {type: 'paragraph', nesting: 1}
+          {type: 'emphasis', nesting: 1}
+          {type: 'text', data: {text: '('}}
+          {type: 'strong', nesting: 1}
+          {type: 'text', data: {text: 'foo'}}
+          {type: 'strong', nesting: -1}
+          {type: 'text', data: {text: ')'}}
+          {type: 'emphasis', nesting: -1}
+          {type: 'paragraph', nesting: -1}
+          {type: 'document', nesting: -1}
+        ], null, cb
+
+      # http://spec.commonmark.org/0.27/#example-377
+      # http://spec.commonmark.org/0.27/#example-378
+      # http://spec.commonmark.org/0.27/#example-379
+      it "should fail with intraword underscore", (cb) ->
+        async.series [
+          (cb) ->
+            test.markdown null, '__foo__bar', [
+              {type: 'document', nesting: 1}
+              {type: 'paragraph', nesting: 1}
+              {type: 'text', data: {text: '__foo__bar'}}
+              {type: 'paragraph', nesting: -1}
+              {type: 'document', nesting: -1}
+            ], null, cb
+          (cb) ->
+            test.markdown null, '__пристаням__стремятся', [
+              {type: 'document', nesting: 1}
+              {type: 'paragraph', nesting: 1}
+              {type: 'text', data: {text: '__пристаням__стремятся'}}
+              {type: 'paragraph', nesting: -1}
+              {type: 'document', nesting: -1}
+            ], null, cb
+          (cb) ->
+            test.markdown null, '__foo__bar__baz__', [
+              {type: 'document', nesting: 1}
+              {type: 'paragraph', nesting: 1}
+              {type: 'strong', nesting: 1}
+              {type: 'text', data: {text: 'foo__bar__baz'}}
+              {type: 'strong', nesting: -1}
+              {type: 'paragraph', nesting: -1}
+              {type: 'document', nesting: -1}
+            ], null, cb
+        ], cb
+
+      # http://spec.commonmark.org/0.27/#example-380
+      it "should work with underscore in punct", (cb) ->
+        test.markdown null, '__(bar)__.', [
+          {type: 'document', nesting: 1}
+          {type: 'paragraph', nesting: 1}
+          {type: 'strong', nesting: 1}
+          {type: 'text', data: {text: '(bar)'}}
+          {type: 'strong', nesting: -1}
+          {type: 'text', data: {text: '.'}}
+          {type: 'paragraph', nesting: -1}
+          {type: 'document', nesting: -1}
+        ], null, cb
+
+
+    describe "mixed", ->
+
+###########################
+# example 381
+############################
+
+      # http://spec.commonmark.org/0.27/#example-382
+      it "should work with newlines", (cb) ->
+        test.markdown null, '*foo\nbar*', [
+          {type: 'document', nesting: 1}
+          {type: 'paragraph', nesting: 1}
+          {type: 'emphasis', nesting: 1}
+          {type: 'text', data: {text: 'foo bar'}}
+          {type: 'emphasis', nesting: -1}
+          {type: 'paragraph', nesting: -1}
+          {type: 'document', nesting: -1}
+        ], null, cb
+
+      # http://spec.commonmark.org/0.27/#example-383
+      it.only "should work nested", (cb) ->
+        async.series [
+          (cb) ->
+            test.markdown null, '_foo __bar__ baz_', [
+              {type: 'document', nesting: 1}
+              {type: 'paragraph', nesting: 1}
+              {type: 'emphasis', nesting: 1}
+              {type: 'text', data: {text: 'foo '}}
+              {type: 'strong', nesting: 1}
+              {type: 'text', data: {text: 'bar'}}
+              {type: 'strong', nesting: -1}
+              {type: 'text', data: {text: ' baz'}}
+              {type: 'emphasis', nesting: -1}
+              {type: 'paragraph', nesting: -1}
+              {type: 'document', nesting: -1}
+            ], null, cb
+          (cb) ->
+            test.markdown null, '_foo _bar_ baz_', [
+              {type: 'document', nesting: 1}
+              {type: 'paragraph', nesting: 1}
+              {type: 'emphasis', nesting: 1}
+              {type: 'text', data: {text: 'foo '}}
+              {type: 'emphasis', nesting: 1}
+              {type: 'text', data: {text: 'bar'}}
+              {type: 'emphasis', nesting: -1}
+              {type: 'text', data: {text: ' baz'}}
+              {type: 'emphasis', nesting: -1}
+              {type: 'paragraph', nesting: -1}
+              {type: 'document', nesting: -1}
+            ], null, cb
+          (cb) ->
+            test.markdown null, '__foo_ bar_', [
+              {type: 'document', nesting: 1}
+              {type: 'paragraph', nesting: 1}
+              {type: 'emphasis', nesting: 1}
+              {type: 'emphasis', nesting: 1}
+              {type: 'text', data: {text: 'foo'}}
+              {type: 'emphasis', nesting: -1}
+              {type: 'text', data: {text: ' bar'}}
+              {type: 'emphasis', nesting: -1}
+              {type: 'paragraph', nesting: -1}
+              {type: 'document', nesting: -1}
+            ], null, cb
+        ], cb

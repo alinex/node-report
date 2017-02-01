@@ -41,16 +41,19 @@ evalWord = (m, _, chars) ->
   last = @get()
   return if last.type not in ['text', 'paragraph']
   # check flanking
-  before = Boolean last.data?.text.substr -1
+  before = Boolean (last.data?.text
+  .match /[^\s*_~=`^][\s*_~=`^]*$/)
   startLeft = Boolean (last.data?.text
   .match /[!"#$%&'()+,./:;<>?@[\\\]{|} \t-][*_~=`^]*$/)
-  startRight = Boolean m[2][0].match rePunct
-  endLeft = Boolean m[2].substr(-1).match rePunct
+  startRight = Boolean (m[2]
+  .match /^[*_~=`^]*[!"#$%&'()+,./:;<>?@[\\\]{|} \t-]/)
+  endLeft = Boolean (m[2]
+  .match /[!"#$%&'()+,./:;<>?@[\\\]{|} \t-][*_~=`^]*$/)
   endRight = Boolean (chars.substr(m[0].length)
   .match /^[*_~=`^]*[!"#$%&'()+,./:;<>?@[\\\]{|} \t-]/)
   after = Boolean chars.substr(m[0].length, 1)
-  console.log chars.substr(m[0].length)
   console.log before, startLeft, startRight, endLeft, endRight, after
+  return if startRight and not (before or startLeft or endLeft)
   return if startRight and before and not startLeft
   return if startRight and endRight and after and not endLeft
   if m[1][0] is '_' and last.data?.text
@@ -77,17 +80,14 @@ module.exports =
       ^(\*\*) # marker
       ( # content
         [\u00BF-\u1FFF\u2C00-\uD7FFa-zA-Z0-9] # word
-        (?: # optional multiple characters
+        (?: # optional nested marker
           \1
           [\s\S]*? # any
           \1
-        |
-          [^*]*
-          [^\s*_~=`^] # no whitespace or marker
-        |
+        | # optional multiple characters
           [\s\S]*? # any
-          [^\s*_~=`^] # no whitespace or marker
         )*?
+        [^\s*_~=`^] # no whitespace or marker
       )
       \1 # end marker
     ///
@@ -98,7 +98,7 @@ module.exports =
     re: ///
       ^(\*\*) # marker
       ( # content
-        [ \t!"#$%&\'()*+,.\/:;<=>?@[\\\]^`{|}~-] # white or punct
+        [\ \t!"#$%&\'()*+,.\/:;<=>?@[\\\]^`{|}~-] # white or punct
         (?: # optional multiple characters
           [\s\S]*? # any
           [!"#$%&\'()*+,.\/:;<=>?@[\\\]^`{|}~-] # punct
@@ -106,7 +106,7 @@ module.exports =
       )
       \1 # end marker
       (?= # following but not included
-        [ \t!"#$%&\'()*+,.\/:;<=>?@[\\\]^`{|}~-] # white or punct
+        [\ \t!"#$%&\'()*+,.\/:;<=>?@[\\\]^`{|}~-] # white or punct
       | $ # end of document
       )
     ///
@@ -118,20 +118,18 @@ module.exports =
       ^(__) # marker
       ( # content
         [\u00BF-\u1FFF\u2C00-\uD7FFa-zA-Z0-9] # word
-        (?: # optional multiple characters
+        (?: # optional nested marker
           \1
           [\s\S]*? # any
           \1
-        |
-          [^_]*
-        |
+        | # optional multiple characters
           [\s\S]*? # any
-          [^\s*_~=`^] # no whitespace or marker
         )*?
+        [^\s*_~=`^] # no whitespace or marker
       )
       \1 # end marker
       (?= # following but not included
-        [ \t!"#$%&\'()*+,.\/:;<=>?@[\\\]^`{|}~-] # white or punct
+        [\ \t!"#$%&\'()*+,.\/:;<=>?@[\\\]^`{|}~-] # white or punct
       | $ # end of document
       )
     ///
@@ -142,7 +140,7 @@ module.exports =
     re: ///
       ^(__) # marker
       ( # content
-        [ \t!"#$%&\'()*+,.\/:;<=>?@[\\\]^`{|}~-] # white or punct
+        [\ \t!"#$%&\'()*+,.\/:;<=>?@[\\\]^`{|}~-] # white or punct
         (?: # optional multiple characters
           [\s\S]*? # any
           [!"#$%&\'()*+,.\/:;<=>?@[\\\]^`{|}~-] # punct
@@ -150,7 +148,7 @@ module.exports =
       )
       \1 # end marker
       (?= # following but not included
-        [ \t!"#$%&\'()*+,.\/:;<=>?@[\\\]^`{|}~-] # white or punct
+        [\ \t!"#$%&\'()*+,.\/:;<=>?@[\\\]^`{|}~-] # white or punct
       | $ # end of document
       )
     ///
@@ -164,16 +162,18 @@ module.exports =
     state: ['m-inline']
     re: ///
       ^(\*) # marker
-      ( # content
+      ( # single character content
         [\u00BF-\u1FFF\u2C00-\uD7FFa-zA-Z0-9] # word
-        (?: # optional multiple characters
+      | # multi character content
+        [\u00BF-\u1FFF\u2C00-\uD7FFa-zA-Z0-9] # word
+        (?: # optional nested marker
           (\*{1,2})
           [\s\S]*? # any
           \3
-        |
+        | # optional multiple characters
           [\s\S]*? # any
-          [^\s*_~=`^] # no whitespace or marker
         )*?
+        [^\s*_~=`^] # no whitespace or marker
       )
       \1 # end marker
     ///
@@ -183,22 +183,25 @@ module.exports =
     state: ['m-inline']
     re: ///
       ^(\*) # marker
-      ( # content
+      ( # content as single character
         [*_~=`^]*
-        [ \t!"#$%&\'()+,.\/:;<>?@[\\\]{|}-] # white or punct
-        (?: # optional multiple characters
+        [!"#$%&\'()+,.\/:;<>?@[\\\]{|}-] # white or punct
+      | # multi character content
+        [*_~=`^]*
+        [\ \t!"#$%&\'()+,.\/:;<>?@[\\\]{|}-] # white or punct
+        (?: # optional nested marker
           (\*{1,2})
           [\s\S]*? # any
           \3
-        |
+        | # optional multiple characters
           [\s\S]*? # any
           [!"#$%&\'()*+,.\/:;<=>?@[\\\]^`{|}~-] # punct
-        )*?
+        )+?
       )
       \1 # end marker
       (?= # following but not included
         [*_~=`^]*
-        [ \t!"#$%&\'()+,.\/:;<>?@[\\\]{|}-] # white or punct
+        [\ \t!"#$%&\'()+,.\/:;<>?@[\\\]{|}-] # white or punct
       | $ # end of document
       )
     ///
@@ -208,7 +211,11 @@ module.exports =
     state: ['m-inline']
     re: ///
       ^(_) # marker
-      ( # content
+      ( # single character content
+        [*_~=`^]* # possible marker
+        [\u00BF-\u1FFF\u2C00-\uD7FFa-zA-Z0-9] # word
+      | # multi character content
+        [*_~=`^]* # possible marker
         [\u00BF-\u1FFF\u2C00-\uD7FFa-zA-Z0-9] # word
         (?: # optional multiple characters
           (_{1,2})
@@ -216,12 +223,12 @@ module.exports =
           \3
         |
           [\s\S]*? # any
-          [^\s*_~=`^] # no whitespace or marker
         )*?
+        [^\s*_~=`^] # no whitespace or marker
       )
       \1 # end marker
       (?= # following but not included
-        [ \t!"#$%&\'()*+,.\/:;<=>?@[\\\]^`{|}~-] # white or punct
+        [\ \t!"#$%&\'()*+,.\/:;<=>?@[\\\]^`{|}~-] # white or punct
       | $ # end of document
       )
     ///
@@ -231,21 +238,26 @@ module.exports =
     state: ['m-inline']
     re: ///
       ^(_) # marker
-      ( # content
+      ( # content as single character
         [*_~=`^]*
-        [ \t!"#$%&\'()+,.\/:;<>?@[\\\]{|}-] # white or punct
+        [!"#$%&\'()+,.\/:;<>?@[\\\]{|}-] # white or punct
+      | # multi character content
+        [*_~=`^]*
+        [\ \t!"#$%&\'()+,.\/:;<>?@[\\\]{|}-] # white or punct
         (?: # optional multiple characters
           (_{1,2})
+          [\s\S]*? # any
+          \S
           [\s\S]*? # any
           \3
         |
           [\s\S]*? # any
           [!"#$%&\'()*+,.\/:;<=>?@[\\\]^`{|}~-] # punct
-        )*?
+        )+?
       )
       \1 # end marker
       (?= # following but not included
-        [ \t!"#$%&\'()*+,.\/:;<=>?@[\\\]^`{|}~-] # white or punct
+        [\ \t!"#$%&\'()*+,.\/:;<=>?@[\\\]^`{|}~-] # white or punct
       | $ # end of document
       )
     ///
