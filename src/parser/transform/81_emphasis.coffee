@@ -82,6 +82,9 @@ module.exports =
           [\s\S]*? # any
           \1
         |
+          [^*]*
+          [^\s*_~=`^] # no whitespace or marker
+        |
           [\s\S]*? # any
           [^\s*_~=`^] # no whitespace or marker
         )*?
