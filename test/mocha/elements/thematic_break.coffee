@@ -232,7 +232,9 @@ describe "thematic break", ->
       test.markdown null, ' *-*', [
         {type: 'document', nesting: 1}
         {type: 'paragraph', nesting: 1}
-        {type: 'text', data: {text: '*-*'}}
+        {type: 'emphasis', nesting: 1}
+        {type: 'text', data: {text: '-'}}
+        {type: 'emphasis', nesting: -1}
         {type: 'paragraph', nesting: -1}
         {type: 'document', nesting: -1}
       ], null, cb

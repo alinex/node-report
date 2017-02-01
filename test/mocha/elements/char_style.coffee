@@ -230,7 +230,7 @@ describe "char_style", ->
             ], null, cb
         ], cb
 
-    describe.only "emphasis", ->
+    describe "emphasis", ->
 
       # http://spec.commonmark.org/0.27/#example-328
       it "should work with * for emphasis", (cb) ->
@@ -540,7 +540,7 @@ describe "char_style", ->
           {type: 'document', nesting: -1}
         ], null, cb
 
-    describe.only "strong", ->
+    describe "strong", ->
 
       # http://spec.commonmark.org/0.27/#example-355
       it "should work on simple word", (cb) ->

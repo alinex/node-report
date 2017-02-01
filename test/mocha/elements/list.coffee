@@ -75,7 +75,7 @@ describe "list", ->
         {type: 'text', data: {text: 'A paragraph with two lines.'}}
         {type: 'paragraph', nesting: -1}
         {type: 'preformatted', nesting: 1}
-        {type: 'text', data: {text: 'indented code'}}
+        {type: 'text', data: {text: 'indented code\n'}}
         {type: 'preformatted', nesting: -1}
         {type: 'blockquote', nesting: 1}
         {type: 'paragraph', nesting: 1}
@@ -95,7 +95,7 @@ describe "list", ->
         {type: 'text', data: {text: 'A paragraph with two lines.'}}
         {type: 'paragraph', nesting: -1}
         {type: 'preformatted', nesting: 1}
-        {type: 'text', data: {text: 'indented code'}}
+        {type: 'text', data: {text: 'indented code\n'}}
         {type: 'preformatted', nesting: -1}
         {type: 'blockquote', nesting: 1}
         {type: 'paragraph', nesting: 1}
@@ -394,7 +394,7 @@ describe "list", ->
           test.markdown null, '    indented code\n\nparagraph\n\n    more code', [
             {type: 'document', nesting: 1}
             {type: 'preformatted', nesting: 1}
-            {type: 'text', data: {text: 'indented code'}}
+            {type: 'text', data: {text: 'indented code\n'}}
             {type: 'preformatted', nesting: -1}
             {type: 'paragraph', nesting: 1}
             {type: 'text', data: {text: 'paragraph'}}
@@ -410,7 +410,7 @@ describe "list", ->
             {type: 'list', nesting: 1, data: {list: 'ordered', start: 1}}
             {type: 'item', nesting: 1}
             {type: 'preformatted', nesting: 1}
-            {type: 'text', data: {text: 'indented code'}}
+            {type: 'text', data: {text: 'indented code\n'}}
             {type: 'preformatted', nesting: -1}
             {type: 'paragraph', nesting: 1}
             {type: 'text', data: {text: 'paragraph'}}
@@ -428,7 +428,7 @@ describe "list", ->
             {type: 'list', nesting: 1, data: {list: 'ordered', start: 1}}
             {type: 'item', nesting: 1}
             {type: 'preformatted', nesting: 1}
-            {type: 'text', data: {text: ' indented code'}}
+            {type: 'text', data: {text: ' indented code\n'}}
             {type: 'preformatted', nesting: -1}
             {type: 'paragraph', nesting: 1}
             {type: 'text', data: {text: 'paragraph'}}
@@ -639,7 +639,7 @@ describe "list", ->
             {type: 'text', data: {text: 'A paragraph with two lines.'}}
             {type: 'paragraph', nesting: -1}
             {type: 'preformatted', nesting: 1}
-            {type: 'text', data: {text: 'indented code'}}
+            {type: 'text', data: {text: 'indented code\n'}}
             {type: 'preformatted', nesting: -1}
             {type: 'blockquote', nesting: 1}
             {type: 'paragraph', nesting: 1}
@@ -659,7 +659,7 @@ describe "list", ->
             {type: 'text', data: {text: 'A paragraph with two lines.'}}
             {type: 'paragraph', nesting: -1}
             {type: 'preformatted', nesting: 1}
-            {type: 'text', data: {text: 'indented code'}}
+            {type: 'text', data: {text: 'indented code\n'}}
             {type: 'preformatted', nesting: -1}
             {type: 'blockquote', nesting: 1}
             {type: 'paragraph', nesting: 1}
@@ -679,7 +679,7 @@ describe "list", ->
             {type: 'text', data: {text: 'A paragraph with two lines.'}}
             {type: 'paragraph', nesting: -1}
             {type: 'preformatted', nesting: 1}
-            {type: 'text', data: {text: 'indented code'}}
+            {type: 'text', data: {text: 'indented code\n'}}
             {type: 'preformatted', nesting: -1}
             {type: 'blockquote', nesting: 1}
             {type: 'paragraph', nesting: 1}
@@ -712,7 +712,7 @@ describe "list", ->
         {type: 'text', data: {text: 'A paragraph with two lines.'}}
         {type: 'paragraph', nesting: -1}
         {type: 'preformatted', nesting: 1}
-        {type: 'text', data: {text: 'indented code'}}
+        {type: 'text', data: {text: 'indented code\n'}}
         {type: 'preformatted', nesting: -1}
         {type: 'blockquote', nesting: 1}
         {type: 'paragraph', nesting: 1}

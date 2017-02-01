@@ -1,21 +1,7 @@
 ###
 Text Format
 =================================================
-As an inline element you may mark some text with specific display like:
-- code
-- bold
-- italic
 ###
-
-# ` typewriter
-# ** bold
-# __ bold
-# * italic
-# _ italic
-# ^ superscript
-# ~ subscript
-# ~~ strikethrough
-# == marked
 
 MARKER =
   '**': 'strong'
@@ -98,7 +84,7 @@ module.exports =
         |
           [\s\S]*? # any
           [^\s*_~=`^] # no whitespace or marker
-        )?
+        )*?
       )
       \1 # end marker
     ///
@@ -134,9 +120,11 @@ module.exports =
           [\s\S]*? # any
           \1
         |
+          [^_]*
+        |
           [\s\S]*? # any
           [^\s*_~=`^] # no whitespace or marker
-        )*
+        )*?
       )
       \1 # end marker
       (?= # following but not included
@@ -176,13 +164,13 @@ module.exports =
       ( # content
         [\u00BF-\u1FFF\u2C00-\uD7FFa-zA-Z0-9] # word
         (?: # optional multiple characters
-          \1\1
+          (\*{1,2})
           [\s\S]*? # any
-          \1\1
+          \3
         |
           [\s\S]*? # any
           [^\s*_~=`^] # no whitespace or marker
-        )*
+        )*?
       )
       \1 # end marker
     ///
@@ -196,9 +184,13 @@ module.exports =
         [*_~=`^]*
         [ \t!"#$%&\'()+,.\/:;<>?@[\\\]{|}-] # white or punct
         (?: # optional multiple characters
+          (\*{1,2})
+          [\s\S]*? # any
+          \3
+        |
           [\s\S]*? # any
           [!"#$%&\'()*+,.\/:;<=>?@[\\\]^`{|}~-] # punct
-        )?
+        )*?
       )
       \1 # end marker
       (?= # following but not included
@@ -222,7 +214,7 @@ module.exports =
         |
           [\s\S]*? # any
           [^\s*_~=`^] # no whitespace or marker
-        )*
+        )*?
       )
       \1 # end marker
       (?= # following but not included
@@ -240,9 +232,13 @@ module.exports =
         [*_~=`^]*
         [ \t!"#$%&\'()+,.\/:;<>?@[\\\]{|}-] # white or punct
         (?: # optional multiple characters
+          (_{1,2})
+          [\s\S]*? # any
+          \3
+        |
           [\s\S]*? # any
           [!"#$%&\'()*+,.\/:;<=>?@[\\\]^`{|}~-] # punct
-        )?
+        )*?
       )
       \1 # end marker
       (?= # following but not included
