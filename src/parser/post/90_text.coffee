@@ -12,7 +12,6 @@ module.exports =
     data:
       text: true
     fn: (num, token) ->
-      return if token.parent?.type in ['preformatted', 'code']
       token.data.text = token.data.text
       .replace /([^\\])\n/g, "$1 " # remove newlines if not escaped
       .replace /([^\\])?\\\n/g, "$1\n" # remove escape characters before newlines

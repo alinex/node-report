@@ -31,9 +31,9 @@ The interface of these methods should be:
 @param {Array<String>|String} last type of last element to match rule
 @param {Integer} nesting of last element to match rule
 @param {RegExp} re to check if this rule should be applied
-@param {Function(Match)} fn to run if the rule matched.
-Here you may call `add()`, change the index position run sub `parse()` and lastly
-return the number of characters which werde done and can be skipped for the
+@param {Function(Match, Token, String)} fn to run if the rule matched.
+Here you may call `insert()` or run sub `lexer()` and lastly
+return the number of characters which were done and can be skipped for the
 next run.
 
 After importing each element rule is defined with:
