@@ -9,13 +9,13 @@ Report Generation - API Usage
 debug = require('debug') 'report'
 chalk = require 'chalk'
 fspath = require 'path'
+markdownIt = null # load on demand
 # include more alinex modules
 util = require 'alinex-util'
 config = require 'alinex-config'
 fs = require 'alinex-fs'
 # modules
-markdownParser = null # load on demand
-#Parser = require './parser/index'
+Parser = require './parser/index'
 Formatter = require './formatter/index'
 # internal helpers
 schema = require './configSchema'
@@ -85,8 +85,6 @@ class Report
   @return {Report} instance itself for command concatenation
   ###
   markdown: (text) ->
-    markdownParser ?= require './src/parser/markdown'
-    markdownParser.tokenize text
     unless markdownIt
       markdownIt = require('markdown-it')
         html: true
