@@ -16,7 +16,10 @@ describe "Base", ->
 
   describe "test", ->
     it "should load", (cb) ->
-      
+      report = new Report()
+      report.markdown 'This __is bold__.'
+      cb()
+
 
   describe.skip "config", ->
 

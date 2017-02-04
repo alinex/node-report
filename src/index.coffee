@@ -15,10 +15,11 @@ config = require 'alinex-config'
 fs = require 'alinex-fs'
 # modules
 markdownParser = null # load on demand
-#Parser = require './parser/index'
-Formatter = require './formatter/index'
+#Formatter = require './formatter/index'
 # internal helpers
 schema = require './configSchema'
+TokenList = require './tokenlist'
+api = null # load on initialization
 
 
 # Report Class
@@ -59,8 +60,8 @@ class Report
       return cb err if err
       config.init (err) ->
         return cb err if err
-        Parser.init()
-        Formatter.init()
+#        Parser.init()
+#        Formatter.init()
         cb()
 
   # Create Report instance
@@ -68,9 +69,10 @@ class Report
   # @param {Object} setup specific start information
   # - `String` - `basedir` to be used for relative includes
   constructor: (setup) ->
-    @parser = new Parser()
-    @parser.basedir = setup.basedir if setup?.basedir
-    @formatter = {}
+    @tokens = new TokenList()
+#    @parser = new Parser()
+#    @parser.basedir = setup.basedir if setup?.basedir
+#    @formatter = {}
 
 
   ###
@@ -85,19 +87,8 @@ class Report
   @return {Report} instance itself for command concatenation
   ###
   markdown: (text) ->
-    markdownParser ?= require './src/parser/markdown'
-    markdownParser.tokenize text
-    unless markdownIt
-      markdownIt = require('markdown-it')
-        html: true
-        linkify: true
-        typographer: true
-    console.log markdownIt
-    tokens = markdownIt.parse text
-    console.log '>>>>', tokens
-#    @parser.parse text
-    this
-
+    markdownParser ?= require './parser/markdown'
+    markdownParser.call this, text
 
   ###
   Formatting / Output
