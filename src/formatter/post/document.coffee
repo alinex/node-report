@@ -13,4 +13,4 @@ module.exports =
     type: 'document'
     nesting: 1
     fn: (num, token) ->
-      token.content = token.content.replace /^\n|\n$/, ''
+      token.collect = token.collect.replace /^\n|\n$/, ''

@@ -13,7 +13,7 @@ module.exports =
     format: ['md', 'text', 'roff']
     nesting: 1
     fn: (num, token) ->
-      token.content = token.content.trim().replace /\n/g, '\n  ' # indent text
+      token.collect = token.collect.trim().replace /\n/g, '\n  ' # indent text
 
   # Add title to document element from first heading
   html:
@@ -21,4 +21,4 @@ module.exports =
     format: 'html'
     nesting: 1
     fn: (num, token) ->
-      token.content = token.content.trim()
+      token.collect = token.collect.trim()

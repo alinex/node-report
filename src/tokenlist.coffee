@@ -1,20 +1,36 @@
-# Tokens
+# Token List
 # =============================================
 # The tokens are the internal structure of the report component.
+# They are collected in a flat list with tree structur information.
 #
-# It is an array of token objects with the following structure:
-# - `type`
-# . `nesting`
-# - `level`
-# - `content` # only on text and inline elements
+# ### Structure
 #
-# Some tokens may contain specific fields.
+# The `data` element contains a simple array holding all the `Tokens` from the
+# report. But to work with it there are different methods within for easy access
+# and manipulation.
 #
-# The TokenList also have different methods to work with the tokens and also keeps
-# a marker as the current position to access the last token before and add new ones:
+# A positional marker is also used to have a current position within the list
+# to work at if no other position is specified in the methods.
 # - `set(Integer)` set a specific position for the marker
 # - `pos` get the marker position in the array
 # - `token` access last token before the marker
+#
+# ### Tokens
+#
+# The elements of the list (contained in the `data` element) have the following
+# structure:
+# - `type` - `String` defines the tokens element type
+# . `nesting` - `Integer` specifies if it is the opening element `1` or closing
+# element `-1` the default will be set to `0` for single elements
+#
+# Further structural information will be set on input automatically like:
+# - `level` - `Integer` the current level of depth in the structure starting with `0`
+# - `parent` - `Token` reference to the parent opening element
+#
+# Some tokens may contain specific fields.
+# - `content` - `String` used in text, text styling elements like `strong`
+# - `heading` - `Integer` level of heading (between 0..6)
+
 
 # Node Modules
 # -----------------------------------------
@@ -22,6 +38,7 @@ debug = require('debug') "report:tokens"
 chalk = require 'chalk'
 # alinex modules
 util = require 'alinex-util'
+
 
 # Class Definition
 # -----------------------------------------
@@ -50,18 +67,19 @@ class TokenList
   # Create new instance.
   #
   # @return {TokenList} to be used in `report.parser`
-  constructor: ->
-    @data = []
+  constructor: (source) ->
+    if source?.data
+      @data = util.clone source.data
+      return
     # initial document
+    @data = []
     @insert [
       type: 'document'
       nesting: 1
     ,
       type: 'document'
       nesting: -1
-    ]
-    # set marker within document
-    @set 1
+    ], null, 1
 
   # Get specified or last token.
   #
@@ -69,7 +87,7 @@ class TokenList
   # @return {Object} at the defined position
   get: (pos) ->
     return @token unless pos? # default to current token
-    pos = @data.length - 1 + pos if pos < 0
+    pos = @data.length + pos if pos < 0
     @data[pos]
 
   # Set the current marker.
@@ -78,7 +96,7 @@ class TokenList
   # @return {TokenList} for command concatenation
   set: (@pos) ->
     @pos ?= @data.length # default after last token
-    @pos = @data.length + @pos if @pos < 0
+    @pos = @data.length + @pos if @pos <= 0
     @token = @data[@pos - 1]
     debug "set position to #{@pos}" if debug
     this
@@ -87,11 +105,14 @@ class TokenList
   #
   # @param {Array<Token>|Token} list to be added to the tokens
   # @param {Integer} [pos] add at this position or at the current marker
+  # @param {Integer} [marker] number of elements to move marker (default to end of
+  # inserted list)
   # @return {TokenList} for command concatenation
-  insert: (list, pos) ->
+  insert: (list, pos, marker) ->
     list = [list] unless Array.isArray list
     pos ?= @pos ? 0
     pos = @data.length + pos if pos < 0
+    marker ?= list.length
     # optimize tokens
     parent = []
     level = 0
@@ -116,7 +137,7 @@ class TokenList
       num = pos
       for e in list
         debug "INSERT #{util.string.lpad '#' + num++ + '/' + @data.length, 6}", chalk.gray @dump e
-    @set pos + list.length
+    @set pos + marker
     this
 
   # Remove tokens from the list.
@@ -129,8 +150,12 @@ class TokenList
       for e in [pos..pos+num]
         debug "REMOVE #{util.string.lpad '#' + e, 3}", chalk.gray @dump e
     @data.splice pos, num
-    if @pos > @data.length
-      @set()
+    # deleted before marker
+    if pos < @pos < pos + num
+      @set pos
+    # deleted around marker
+    else if pos < @pos
+      @set @pos - num
     this
 
   # Dump given token to string.

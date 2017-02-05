@@ -13,10 +13,10 @@ module.exports =
     format: 'md'
     type: 'text'
     fn: (num, token) ->
-      token.out = token.data.text
+      token.out = token.content
       return if token.parent.type is 'preformatted'
       token.out = token.out
-      .replace /^(#+\ )/, "\\$1"    # mask to not be interpreted as heading
+      .replace /^(#{1,6}\ )/, "\\$1"    # mask to not be interpreted as heading
       .replace /\\(?=[^\n])/g, '\\\\'
       .replace /([*_~=`^])(?=\w|[*_~=`^]|$)/g, "\\$1" # mask special markdown
 #      .replace /([!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~])/g, "\\$1" # mask all
@@ -25,7 +25,7 @@ module.exports =
     format: 'html'
     type: 'text'
     fn: (num, token) ->
-      token.out = util.string.htmlEncode token.data.text
+      token.out = util.string.htmlEncode token.content
       return if token.parent.type is 'preformatted'
       token.out = token.out
       .replace /\n/g, '<br />\n'
@@ -35,18 +35,18 @@ module.exports =
     format: 'roff'
     type: 'text'
     fn: (num, token) ->
-      token.out = token.data.text
+      token.out = token.content
       .replace /\n/g, '\n.br\n'
 
   asciidoc:
     format: 'adoc'
     type: 'text'
     fn: (num, token) ->
-      token.out = token.data.text
+      token.out = token.content
       .replace /\n/g, ' +\n'
 
   other:
     format: ['text', 'latex', 'rtf']
     type: 'text'
     fn: (num, token) ->
-      token.out = token.data.text
+      token.out = token.content

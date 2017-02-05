@@ -15,19 +15,19 @@ module.exports =
     fn: (num, token) ->
       # make atx heading for first two levels
       if token.nesting is -1
-        token.out = switch token.data.level
+        token.out = switch token.heading
           when 1 then "\n#{util.string.repeat '=', @setup.width}\n"
           when 2 then "\n#{util.string.repeat '-', @setup.width}\n"
           else
             # mask trailing hashes in last text bloxk
-            if last = @get -1
+            if last = @tokens.get -1
               if last.type is 'text'
-                last.data.text.replace /\#$/, '\\#'
+                last.content.replace /\#$/, '\\#'
             # add newline
             "\n"
       # setext headings for the rest
-      else if token.data.level > 2
-        token.out = "\n#{util.string.repeat '#', token.data.level} "
+      else if token.heading > 2
+        token.out = "\n#{util.string.repeat '#', token.heading} "
 
   text:
     format: 'text'
@@ -35,7 +35,7 @@ module.exports =
     fn: (num, token) ->
       # make atx heading for first two levels
       if token.nesting is -1
-        char = switch token.data.level
+        char = switch token.heading
           when 1
             if @setup.ascii_art then '═' else '#'
           when 2
@@ -63,15 +63,15 @@ module.exports =
       # write tag
       nl = if @setup.compress then '' else '\n'
       token.out = switch token.nesting
-        when 1 then "<h#{token.data.level}#{attrib}>"
-        when -1 then "</h#{token.data.level}>#{nl}"
-        else "<h#{token.data.level}#{attrib} />#{nl}"
+        when 1 then "<h#{token.heading}#{attrib}>"
+        when -1 then "</h#{token.heading}>#{nl}"
+        else "<h#{token.heading}#{attrib} />#{nl}"
 
   roff:
     format: 'roff'
     type: 'heading'
     fn: (num, token) ->
-      token.out = switch token.data.level
+      token.out = switch token.heading
         when 1
           if token.nesting is 1 then '.SH "NAME"\n\\fB' else '\\fR\n'
         when 2

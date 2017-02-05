@@ -20,7 +20,7 @@ module.exports =
         when 1
           "<!DOCTYPE html>#{nl}\
           <html>#{nl}\
-          <head><title>#{token.data?.title}</title>#{@setup.head_end}#{nl}\
+          <head><title>#{token.title}</title>#{@setup.head_end}#{nl}\
           #{@setup.body_begin}#{nl}\
           "
         when -1
@@ -33,7 +33,7 @@ module.exports =
     nesting: 1
     fn: (num, token) ->
       return unless token.data?.title?
-      token.out = ".TH \"#{token.data?.title.toUpperCase()}\" \"\"
+      token.out = ".TH \"#{token.title?.toUpperCase()}\" \"\"
       \"#{moment().format 'MMMM YYYY'}\" \"\" \"\""
 
   text:
@@ -54,7 +54,7 @@ module.exports =
         when 1
           """
           \\documentclass{article}
-          \\title{#{token.data?.title}}
+          \\title{#{token.title}}
           \\begin{document}
           """
         when -1

@@ -13,4 +13,4 @@ module.exports =
     format: ['md', 'text', 'roff', 'adoc']
     nesting: 1
     fn: (num, token) ->
-      token.content = '    ' + token.content.replace /\n/g, '\n    ' # indent text
+      token.collect = '    ' + token.collect.replace /\n/g, '\n    ' # indent text

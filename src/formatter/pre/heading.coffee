@@ -18,14 +18,14 @@ module.exports =
     fn: (num, token) ->
       # get title
       title = ''
-      for n in [++num..@tokens.length - 1]
-        t = @get n
+      for n in [++num..@tokens.data.length - 1]
+        t = @tokens.get n
         break if t.level is token.level
-        title += t.data.text if t.data?.text
+        title += t.content if t.content
       title = title.trim()
       # add link id
       unless token.html?.id
-#        lname = uslug "h#{token.data.level}-#{title}"
+#        lname = uslug "h#{token.heading}-#{title}"
         lname = uslug title
         i = 0
         loop
@@ -34,9 +34,8 @@ module.exports =
           i++
         lname += add
         @linkNames[lname] = token
-        token.html ?= if token.data.html then util.clone token.data.html else {}
+        token.html ?= {}
         token.html.id ?= lname
       # store as document title
-      unless @tokens[0].data?.title
-        @tokens[0].data ?= {}
-        @tokens[0].data.title = title.trim()
+      unless @tokens.data[0].title
+        @tokens.data[0].title = title.trim()

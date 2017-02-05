@@ -2,14 +2,14 @@
 # =================================================
 
 
-# Post rules
+# Transformer rules
 #
 # @type {Object<Transformer>} rules to set output text in token
 module.exports =
 
-  # Add title to document element from first heading
-  title:
-    type: 'heading'
+  markdown:
+    format: ['md', 'text']
+    type: 'blockquote'
     nesting: 1
     fn: (num, token) ->
-      token.content = token.content.replace /\ $/, '' # remove last space
+      token.collect = "\n> #{token.collect.trim().replace /\n/g, '\n> '}\n"

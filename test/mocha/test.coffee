@@ -14,6 +14,7 @@ EXAMPLES_DIR = 'src/examples'
 module.exports =
 
   markdown: (id, input, data, format, cb) ->
+    debug 'IN', util.inspect input, {depth: 2}
     report = new Report()
     if id and process.env.EXAMPLES
       example = __dirname + "/../../#{EXAMPLES_DIR}/#{id}"
@@ -25,9 +26,10 @@ module.exports =
       # check formatting and reparsing
       report.format 'md', (err, result) ->
         return cb err if err
+        debug 'reparse markdown'
         copy = new Report()
         copy.markdown result
-        expect(result.tokens, 'format+parse without change').to.be.deep.equal copy.tokens
+        expect(report.tokens, 'format+parse without change').to.be.deep.equal copy.tokens
         cb()
 
   report: (id, report, data, format, cb) ->

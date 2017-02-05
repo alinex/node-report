@@ -10,10 +10,7 @@ debug = require('debug') 'report:parse:markdown'
 chalk = require 'chalk'
 markdownIt = null # load on demand
 # include more alinex modules
-config = require 'alinex-config'
 util = require 'alinex-util'
-#
-TokenList = require '../tokenlist'
 
 
 # Public

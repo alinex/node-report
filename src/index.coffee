@@ -15,7 +15,7 @@ config = require 'alinex-config'
 fs = require 'alinex-fs'
 # modules
 markdownParser = null # load on demand
-#Formatter = require './formatter/index'
+Formatter = require './formatter/index'
 # internal helpers
 schema = require './configSchema'
 TokenList = require './tokenlist'
@@ -60,19 +60,16 @@ class Report
       return cb err if err
       config.init (err) ->
         return cb err if err
-#        Parser.init()
-#        Formatter.init()
+        Formatter.init()
         cb()
 
   # Create Report instance
   #
   # @param {Object} setup specific start information
   # - `String` - `basedir` to be used for relative includes
-  constructor: (setup) ->
+  constructor: (@setup) ->
     @tokens = new TokenList()
-#    @parser = new Parser()
-#    @parser.basedir = setup.basedir if setup?.basedir
-#    @formatter = {}
+    @formatter = {}
 
 
   ###
@@ -111,8 +108,8 @@ class Report
       return cb new Error "Unknown format '#{setup}' for output." unless opt
       util.extend setup, opt
     # initialize formatter and run it
-    @formatter[setup.format] = new Formatter @parser, setup
-    @formatter[setup.format].process (err) =>
+    @formatter[setup.format] = new Formatter @tokens, setup
+    @formatter[setup.format].format (err) =>
       return cb err if err
       cb null, @formatter[setup.format].output
 

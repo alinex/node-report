@@ -5,12 +5,12 @@ async = require 'async'
 Report = require '../../../src'
 before (cb) -> Report.init cb
 
-describe "markdown heading", ->
+describe.only "markdown heading", ->
 
   describe "atx heading", ->
 
     # http://spec.commonmark.org/0.27/#example-32
-    it.only "should work with level 1", (cb) ->
+    it "should work with level 1", (cb) ->
       test.markdown null, '# foo', [
         {type: 'document', nesting: 1}
         {type: 'heading', heading: 1, nesting: 1}
@@ -19,9 +19,6 @@ describe "markdown heading", ->
         {type: 'document', nesting: -1}
       ], [
         {format: 'md', re: /foo\n===+/}
-        {format: 'text', re: /foo\n═══+/}
-        {format: 'html', text: "<h1 id=\"foo\">foo</h1>\n"}
-        {format: 'man', text: ".TH \"FOO\""}
       ], cb
     it "should work with level 2", (cb) ->
       test.markdown null, '## foo', [
@@ -32,9 +29,6 @@ describe "markdown heading", ->
         {type: 'document', nesting: -1}
       ], [
         {format: 'md', re: /foo\n---+/}
-        {format: 'text', re: /foo\n━━━+/}
-        {format: 'html', text: "<h2 id=\"foo\">foo</h2>\n"}
-        {format: 'man', text: ".SH foo"}
       ], cb
     it "should work with level 3", (cb) ->
       test.markdown null, '### foo', [
@@ -45,9 +39,6 @@ describe "markdown heading", ->
         {type: 'document', nesting: -1}
       ], [
         {format: 'md', re: /### foo/}
-        {format: 'text', re: /foo\n╍╍╍+/}
-        {format: 'html', text: "<h3 id=\"foo\">foo</h3>\n"}
-        {format: 'man', text: ".SS foo"}
       ], cb
     it "should work with level 4", (cb) ->
       test.markdown null, '#### foo', [
@@ -58,9 +49,6 @@ describe "markdown heading", ->
         {type: 'document', nesting: -1}
       ], [
         {format: 'md', re: /#### foo/}
-        {format: 'text', re: /foo\n┅┅┅+/}
-        {format: 'html', text: "<h4 id=\"foo\">foo</h4>\n"}
-        {format: 'man', text: ".SS foo"}
       ], cb
     it "should work with level 5", (cb) ->
       test.markdown null, '##### foo', [
@@ -71,9 +59,6 @@ describe "markdown heading", ->
         {type: 'document', nesting: -1}
       ], [
         {format: 'md', re: /##### foo/}
-        {format: 'text', re: /foo\n───+/}
-        {format: 'html', text: "<h5 id=\"foo\">foo</h5>\n"}
-        {format: 'man', text: ".SS foo"}
       ], cb
     it "should work with level 6", (cb) ->
       test.markdown null, '###### foo', [
@@ -84,9 +69,6 @@ describe "markdown heading", ->
         {type: 'document', nesting: -1}
       ], [
         {format: 'md', re: /###### foo/}
-        {format: 'text', re: /foo\n┄┄┄┄+/}
-        {format: 'html', text: "<h6 id=\"foo\">foo</h6>\n"}
-        {format: 'man', text: ".SS foo"}
       ], cb
 
     # http://spec.commonmark.org/0.27/#example-33
