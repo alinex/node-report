@@ -16,8 +16,8 @@ module.exports =
       token.out = token.content
       return if token.parent.type is 'preformatted'
       token.out = token.out
-      .replace /^(#{1,6}\ )/, "\\$1"    # mask to not be interpreted as heading
       .replace /\\(?=[^\n])/g, '\\\\'
+      .replace /^(#{1,6}\ )/, "\\$1"    # mask to not be interpreted as heading
       .replace /([*_~=`^])(?=\w|[*_~=`^]|$)/g, "\\$1" # mask special markdown
 #      .replace /([!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~])/g, "\\$1" # mask all
 
