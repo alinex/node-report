@@ -7,8 +7,9 @@
 # --------------------------------------------
 md:
   type: md
-  width: 100
   extension: '.md'
+  width: 100
+  keep_soft_breaks: true
 
 text:
   type: text

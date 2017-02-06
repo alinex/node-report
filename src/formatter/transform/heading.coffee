@@ -14,20 +14,22 @@ module.exports =
     type: 'heading'
     fn: (num, token) ->
       # make atx heading for first two levels
-      if token.nesting is -1
-        token.out = switch token.heading
+      token.out = if token.nesting is -1
+        switch token.heading
           when 1 then "\n#{util.string.repeat '=', @setup.width}\n"
           when 2 then "\n#{util.string.repeat '-', @setup.width}\n"
           else
-            # mask trailing hashes in last text bloxk
-            if last = @tokens.get -1
+            # mask trailing hashes in last text block
+            if last = @tokens.get num - 1
               if last.type is 'text'
-                last.content.replace /\#$/, '\\#'
+                last.out = last.out.replace /(\#+)$/, '\\$1'
             # add newline
             "\n"
       # setext headings for the rest
       else if token.heading > 2
-        token.out = "\n#{util.string.repeat '#', token.heading} "
+        "\n#{util.string.repeat '#', token.heading} "
+      else
+        "\n"
 
   text:
     format: 'text'
@@ -57,7 +59,6 @@ module.exports =
       # collect attributes
       attrib = ''
       if token.html?
-        console.log token
         attrib = ' ' + Object.keys(token.html).map (e) -> "#{e}=\"#{token.html[e]}\""
         .join ' '
       # write tag

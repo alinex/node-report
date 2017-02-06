@@ -18,7 +18,7 @@ module.exports =
     fn: (num, token) ->
       # get title
       title = ''
-      for n in [++num..@tokens.data.length - 1]
+      for n in [num+1..@tokens.data.length - 1]
         t = @tokens.get n
         break if t.level is token.level
         title += t.content if t.content

@@ -381,7 +381,9 @@ describe.only "markdown heading", ->
       test.markdown null, 'Foo bar\nbaz\n===', [
         {type: 'document', nesting: 1}
         {type: 'heading', heading: 1, nesting: 1}
-        {type: 'text', content: 'Foo bar baz'}
+        {type: 'text', content: 'Foo bar'}
+        {type: 'softbreak'}
+        {type: 'text', content: 'baz'}
         {type: 'heading', heading: 1, nesting: -1}
         {type: 'document', nesting: -1}
       ], null, cb

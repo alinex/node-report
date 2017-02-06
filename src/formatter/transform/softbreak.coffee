@@ -11,7 +11,7 @@ module.exports =
     format: 'md'
     type: 'softbreak'
     fn: (num, token) ->
-      token.out = "\n"
+      token.out = if @setup.keep_soft_breaks then '\n' else ' '
 
   text:
     format: 'text'

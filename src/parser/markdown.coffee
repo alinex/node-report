@@ -38,12 +38,10 @@ module.exports = (text) ->
 # This will match the name including ..._open or also without it.
 modify =
 
-  heading: (t) ->
-    t.heading = Number t.tag[1]
-
-  em: (t) ->
-    t.type = 'emphasis'
-
+  heading: (t) -> t.heading = Number t.tag[1]
+  hr: (t) -> t.type = 'thematic_break'
+  em: (t) -> t.type = 'emphasis'
+  
   code_block: (t) ->
     list = []
     # add token itself

@@ -40,6 +40,11 @@ md =
       type: 'integer'
       min: 40
       default: 100
+    keep_soft_breaks:
+      title: "Keep Soft Breaks"
+      description: "a flag to define if soft breaks (if existent) should be kept as is"
+      type: 'boolean'
+      default: true
 
 # #3 Text Setup (format/<name>/)
 #

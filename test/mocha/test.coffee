@@ -26,7 +26,7 @@ module.exports =
       # check formatting and reparsing
       report.format 'md', (err, result) ->
         return cb err if err
-        debug 'reparse markdown'
+        debug 'reparse markdown', util.inspect result
         copy = new Report()
         copy.markdown result
         expect(report.tokens.data, 'format+parse without change').to.be.deep.equal copy.tokens.data
