@@ -17,8 +17,10 @@ module.exports =
       return if token.parent.type is 'preformatted'
       token.out = token.out
       .replace /\\(?=[^\n])/g, '\\\\'
-      .replace /^(#{1,6}\ )/, "\\$1"    # mask to not be interpreted as heading
-      .replace /([*_~=`^])(?=\w|[*_~=`^]|$)/g, "\\$1" # mask special markdown
+      # mask special markdown
+      .replace /^(#{1,6}\ )/, "\\$1"
+      .replace /([*_~=`^])(?=\w|[*_~=`^]|$)/g, "\\$1"
+      .replace /^([-*>])/, "\\$1"
 #      .replace /([!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~])/g, "\\$1" # mask all
 
   html:

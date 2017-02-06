@@ -30,6 +30,8 @@
 # Some tokens may contain specific fields.
 # - `content` - `String` used in text, text styling elements like `strong`
 # - `heading` - `Integer` level of heading (between 0..6)
+# - 'list' - `String` the type of list (bullet, ordered)
+# - `start` - `Integer` start number in ordered list
 
 
 # Node Modules
@@ -122,7 +124,7 @@ class TokenList
     for e in list
       if e.nesting < 0
         level--
-        parent.shift
+        parent.shift()
       e.level = level
       e.parent = parent[0] if parent.length
       if e.nesting > 0

@@ -5,7 +5,7 @@ async = require 'async'
 Report = require '../../../src'
 before (cb) -> Report.init cb
 
-describe.only "markdown heading", ->
+describe "markdown heading", ->
 
   describe "atx heading", ->
 
@@ -443,7 +443,9 @@ describe.only "markdown heading", ->
       test.markdown null, 'Foo\n    ---', [
         {type: 'document', nesting: 1}
         {type: 'paragraph', nesting: 1}
-        {type: 'text', content: 'Foo ---'}
+        {type: 'text', content: 'Foo'}
+        {type: 'softbreak'}
+        {type: 'text', content: '---'}
         {type: 'paragraph', nesting: -1}
         {type: 'document', nesting: -1}
       ], null, cb
@@ -453,7 +455,9 @@ describe.only "markdown heading", ->
       test.markdown null, 'Foo\n= =\n\nFoo\n--- -', [
         {type: 'document', nesting: 1}
         {type: 'paragraph', nesting: 1}
-        {type: 'text', content: 'Foo = ='}
+        {type: 'text', content: 'Foo'}
+        {type: 'softbreak'}
+        {type: 'text', content: '= ='}
         {type: 'paragraph', nesting: -1}
         {type: 'paragraph', nesting: 1}
         {type: 'text', content: 'Foo'}
@@ -467,7 +471,7 @@ describe.only "markdown heading", ->
       test.markdown null, 'Foo  \n-----', [
         {type: 'document', nesting: 1}
         {type: 'heading', heading: 2, nesting: 1}
-        {type: 'text', content: 'Foo '}
+        {type: 'text', content: 'Foo'}
         {type: 'heading', heading: 2, nesting: -1}
         {type: 'document', nesting: -1}
       ], [
@@ -531,7 +535,11 @@ describe.only "markdown heading", ->
         {type: 'document', nesting: 1}
         {type: 'blockquote', nesting: 1}
         {type: 'paragraph', nesting: 1}
-        {type: 'text', content: 'foo bar ==='}
+        {type: 'text', content: 'foo'}
+        {type: 'softbreak'}
+        {type: 'text', content: 'bar'}
+        {type: 'softbreak'}
+        {type: 'text', content: '==='}
         {type: 'paragraph', nesting: -1}
         {type: 'blockquote', nesting: -1}
         {type: 'document', nesting: -1}
@@ -557,7 +565,9 @@ describe.only "markdown heading", ->
       test.markdown null, 'Foo\nBar\n---', [
         {type: 'document', nesting: 1}
         {type: 'heading', heading: 2, nesting: 1}
-        {type: 'text', content: 'Foo Bar'}
+        {type: 'text', content: 'Foo'}
+        {type: 'softbreak'}
+        {type: 'text', content: 'Bar'}
         {type: 'heading', heading: 2, nesting: -1}
         {type: 'document', nesting: -1}
       ], null, cb
@@ -668,7 +678,9 @@ describe.only "markdown heading", ->
       test.markdown null, 'Foo\nbar\n\n---\n\nbaz', [
         {type: 'document', nesting: 1}
         {type: 'paragraph', nesting: 1}
-        {type: 'text', content: 'Foo bar'}
+        {type: 'text', content: 'Foo'}
+        {type: 'softbreak'}
+        {type: 'text', content: 'bar'}
         {type: 'paragraph', nesting: -1}
         {type: 'thematic_break'}
         {type: 'paragraph', nesting: 1}
@@ -682,7 +694,9 @@ describe.only "markdown heading", ->
       test.markdown null, 'Foo\nbar\n* * *\nbaz', [
         {type: 'document', nesting: 1}
         {type: 'paragraph', nesting: 1}
-        {type: 'text', content: 'Foo bar'}
+        {type: 'text', content: 'Foo'}
+        {type: 'softbreak'}
+        {type: 'text', content: 'bar'}
         {type: 'paragraph', nesting: -1}
         {type: 'thematic_break'}
         {type: 'paragraph', nesting: 1}
@@ -696,7 +710,13 @@ describe.only "markdown heading", ->
       test.markdown null, 'Foo\nbar\n\\---\nbaz', [
         {type: 'document', nesting: 1}
         {type: 'paragraph', nesting: 1}
-        {type: 'text', content: 'Foo bar --- baz'}
+        {type: 'text', content: 'Foo'}
+        {type: 'softbreak'}
+        {type: 'text', content: 'bar'}
+        {type: 'softbreak'}
+        {type: 'text', content: '---'}
+        {type: 'softbreak'}
+        {type: 'text', content: 'baz'}
         {type: 'paragraph', nesting: -1}
         {type: 'document', nesting: -1}
       ], null, cb

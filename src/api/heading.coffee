@@ -30,8 +30,27 @@ false to close tag if content is added manually.
 ###
 Report.prototype.heading = (level, input) ->
   if typeof input is 'boolean'
-    @parser.begin()
-    @parser.autoclose '-block', true if input
+    if input
+      # open new tag
+    else
+      # step behind close tag
+  else
+    # complete with content
+    @tokens.insert [
+      type: 'heading'
+      heading: level
+      nesting: 1
+    ,
+      type: 'text'
+      content: input
+    ,
+      type: 'heading'
+      heading: level
+      nesting: -1
+    ]
+  return
+
+  if typeof input is 'boolean'
     @parser.insert null,
       type: 'heading'
       data:

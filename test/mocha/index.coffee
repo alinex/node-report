@@ -21,7 +21,7 @@ describe "Base", ->
       cb()
 
 
-  describe.skip "config", ->
+  describe "config", ->
 
     it "should run the selfcheck on the schema", (cb) ->
       @timeout 5000
@@ -41,7 +41,7 @@ describe "Base", ->
           debug 'config:', conf
           cb()
 
-  describe.skip "output", ->
+  describe "output", ->
 
     it "should output result", (cb) ->
       report = new Report()

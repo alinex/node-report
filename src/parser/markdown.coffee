@@ -27,7 +27,7 @@ module.exports = (text) ->
     markdownIt = require('markdown-it')
       html: true
       linkify: true
-      typographer: true
+#      typographer: true
   # parse and convert tokens
   tree = markdownIt.parse text
   @tokens.insert tree2tokens tree
@@ -41,7 +41,11 @@ modify =
   heading: (t) -> t.heading = Number t.tag[1]
   hr: (t) -> t.type = 'thematic_break'
   em: (t) -> t.type = 'emphasis'
-  
+  bullet_list: (t) ->
+    t.type = 'list'
+    t.list = 'bullet'
+  list_item: (t) -> t.type = 'item'
+
   code_block: (t) ->
     list = []
     # add token itself
@@ -52,7 +56,7 @@ modify =
     list.push node2token t
     list.push
       type: 'text'
-      content: content
+      content: util.string.rtrim content
     t.nesting = -1
     list.push node2token t
     # return all tokens
@@ -97,6 +101,6 @@ node2token = (t) ->
     type: t.type
     nesting: t.nesting ? 0
   # copy specific values
-  for e in ['content', 'heading']
+  for e in ['content', 'heading', 'list']
     token[e] = t[e] if t[e]
   token

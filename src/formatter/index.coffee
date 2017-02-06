@@ -22,6 +22,8 @@
 # The tokens may get some type specific information in the pre transformation step
 # like:
 # - `html` - `Object` with <attrib> = <value>
+# - `count` - `Integer` number of elements in `list` element
+# - `num` - `Integer` number of `item` in list (equals to numer in ordered list)
 #
 # The transformator step will also add:
 # - `out` - `String` the text representation of this element

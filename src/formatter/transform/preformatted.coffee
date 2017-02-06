@@ -7,6 +7,13 @@
 # @type {Object<Transformer>} rules to set output text in token
 module.exports =
 
+  md:
+    format: 'md'
+    type: 'preformatted'
+    nesting: -1
+    fn: (num, token) ->
+      token.out = "\n"
+
   html:
     format: 'html'
     type: 'preformatted'

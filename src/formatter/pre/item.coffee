@@ -12,7 +12,6 @@ module.exports =
     type: 'item'
     nesting: 1
     fn: (num, token) ->
-      list = token.parent.data
-      list.count ?= 0
-      token.data ?= {}
-      token.data.num = list.start + list.count++
+      list = token.parent
+      token.parent.count ?= 0
+      token.num = list.start + list.count++

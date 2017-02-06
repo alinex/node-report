@@ -2,6 +2,7 @@
 
 # 13-31 thematic break
 # 32-75 heading
+
 # 76-87 preformatted
 # 88-114 code
 
@@ -49,19 +50,19 @@ __Support for Parsing__
 
 | Element    | API |  MD  | HTML | ADOC |
 |:---------- |:---:|:----:|:----:|:----:|
-| Text       |  X  |  X   |      |      |
-| Heading    |  X  |  X   |      |      |
-| Paragraph  |  X  |  X   |      |      |
-| Preformat  |  X  |  X   |      |      |
-| Blockquote |     |  X   |      |      |
-| ThemaBreak |  X  |  X   |      |      |
-| CharStyle  |     |  X   |      |      |
-| List       |     |  X   |      |      |
-| Box        |     |  X   |      |      |
-| Style      |     |  X   |      |      |
-| ToC        |     |  X   |      |      |
-| HTML       |     |  X   |      |      |
-| Execute    |     |  X   |      |      |
+| Text       |     |      |      |      |
+| Heading    |     |  X   |      |      |
+| Paragraph  |     |      |      |      |
+| Preformat  |     |      |      |      |
+| Blockquote |     |      |      |      |
+| ThemaBreak |     |      |      |      |
+| CharStyle  |     |      |      |      |
+| List       |     |      |      |      |
+| Box        |     |      |      |      |
+| Style      |     |      |      |      |
+| ToC        |     |      |      |      |
+| HTML       |     |      |      |      |
+| Execute    |     |      |      |      |
 
 ^`X` -> supported; `-` -> not possible; `(X)` -> partly supported;
 empty -> not currently done^
