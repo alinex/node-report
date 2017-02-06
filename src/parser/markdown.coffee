@@ -34,6 +34,33 @@ module.exports = (text) ->
   this
 
 
+# Specify changes for the markdown-it tokens to be done before inserting.
+# This will match the name including ..._open or also without it.
+modify =
+
+  heading: (t) ->
+    t.heading = Number t.tag[1]
+
+  em: (t) ->
+    t.type = 'emphasis'
+
+  code_block: (t) ->
+    list = []
+    # add token itself
+    content = t.content
+    delete t.content
+    t.type = 'preformatted'
+    t.nesting = 1
+    list.push node2token t
+    list.push
+      type: 'text'
+      content: content
+    t.nesting = -1
+    list.push node2token t
+    # return all tokens
+    list
+
+
 # Internal Helper
 # -------------------------------------------------
 
@@ -45,16 +72,33 @@ module.exports = (text) ->
 tree2tokens = (tree) ->
   list = []
   for t in tree
-#    console.log '>>>>', util.inspect(t).replace /\s*\n\s*/g, ' '
+    debug 'FOUND', chalk.grey util.inspect(t).replace /\s*\n\s*/g, ' ' if debug
     unless t.type is 'inline'
-      # add token itself
-      token =
-        type: t.type.replace /_(open|close)$/, ''
-        nesting: t.nesting ? 0
-      token.content = t.content if t.content
-      token.heading = Number t.tag[1] if token.type is 'heading'
-      # insert token to list
-      list.push token
+      # modify tokens
+      res = modify[t.type] t if modify[t.type]
+      if Array.isArray(res) and res[0].type
+        # already transformed
+        list = list.concat res
+        continue
+      # default
+      t.type = t.type.replace /_(open|close)$/, ''
+      res = modify[t.type] t if modify[t.type]
+      if Array.isArray(res) and res[0].type
+        # already transformed
+        list = list.concat res
+        continue
+      # run default conversion of single token and add to list
+      list.push node2token t
     # add children
     list = list.concat tree2tokens t.children if t.children
   list
+
+node2token = (t) ->
+  # run default conversion of single token
+  token =
+    type: t.type
+    nesting: t.nesting ? 0
+  # copy specific values
+  for e in ['content', 'heading']
+    token[e] = t[e] if t[e]
+  token

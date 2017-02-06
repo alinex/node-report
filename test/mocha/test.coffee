@@ -29,7 +29,7 @@ module.exports =
         debug 'reparse markdown'
         copy = new Report()
         copy.markdown result
-        expect(report.tokens, 'format+parse without change').to.be.deep.equal copy.tokens
+        expect(report.tokens.data, 'format+parse without change').to.be.deep.equal copy.tokens.data
         cb()
 
   report: (id, report, data, format, cb) ->

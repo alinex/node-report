@@ -185,7 +185,9 @@ describe.only "markdown heading", ->
           test.markdown null, 'foo\n    # bar', [
             {type: 'document', nesting: 1}
             {type: 'paragraph', nesting: 1}
-            {type: 'text', content: 'foo # bar'}
+            {type: 'text', content: 'foo'}
+            {type: 'softbreak'}
+            {type: 'text', content: '# bar'}
             {type: 'paragraph', nesting: -1}
             {type: 'document', nesting: -1}
           ], null, cb

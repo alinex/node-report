@@ -1,4 +1,4 @@
-# Headings
+# Thematic Break
 # =================================================
 
 util = require 'alinex-util'
