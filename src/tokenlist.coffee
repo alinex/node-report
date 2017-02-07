@@ -138,7 +138,7 @@ class TokenList
     if debug
       num = pos
       for e in list
-        debug "INSERT #{util.string.lpad '#' + num++ + '/' + @data.length, 6}", chalk.gray @dump e
+        debug "INSERT #{util.string.lpad '#' + num++ + '/' + (@data.length-1), 6}", chalk.gray @dump e
     @set pos + marker
     this
 

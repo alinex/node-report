@@ -31,6 +31,15 @@ false to close tag if content is added manually.
 Report.prototype.heading = (level, input) ->
   if typeof input is 'boolean'
     if input
+      @tokens.insert [
+        type: 'heading'
+        heading: level
+        nesting: 1
+      ,
+        type: 'heading'
+        heading: level
+        nesting: -1
+      ], null, 1
       # open new tag
     else
       # step behind close tag

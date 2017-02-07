@@ -42,10 +42,10 @@ describe "heading", ->
         {format: 'md', re: /foo\n===+/}
         {format: 'text', re: /foo\n═══+/}
         {format: 'html', text: "<h1 id=\"foo\">foo</h1>\n"}
-        {format: 'man', text: ".TH \"FOO\""}
+        {format: 'man', re: /\.TH "FOO" "" "\w+ \d+" "" ""\n\.SH "NAME"\n\\fBfoo\\fR/}
       ], cb
 
-    it "should create in multiple steps", (cb) ->
+    it.only "should create in multiple steps", (cb) ->
       # create report
       report = new Report()
       report.h1 true
@@ -55,10 +55,10 @@ describe "heading", ->
       # check it
       test.report null, report, [
         {type: 'document', nesting: 1}
-        {type: 'heading', data: {level: 1}, nesting: 1}
-        {type: 'text', data: {text: 'foo'}}
-        {type: 'text', data: {text: 'bar'}}
-        {type: 'heading', data: {level: 1}, nesting: -1}
+        {type: 'heading', heading: 1, nesting: 1}
+        {type: 'text', content: 'foo'}
+        {type: 'text', content: 'bar'}
+        {type: 'heading', heading: 1, nesting: -1}
         {type: 'document', nesting: -1}
       ], [
         {format: 'md', re: /foobar\n===+/}
@@ -74,9 +74,9 @@ describe "heading", ->
       # check it
       test.report null, report, [
         {type: 'document', nesting: 1}
-        {type: 'heading', data: {level: 1}, nesting: 1}
-        {type: 'text', data: {text: 'foo'}}
-        {type: 'heading', data: {level: 1}, nesting: -1}
+        {type: 'heading', heading: 1, nesting: 1}
+        {type: 'text', content: 'foo'}
+        {type: 'heading', heading: 1, nesting: -1}
         {type: 'document', nesting: -1}
       ], [
         {format: 'md', re: /foo\n===+/}
@@ -93,9 +93,9 @@ describe "heading", ->
           # check it
           test.report null, report, [
             {type: 'document', nesting: 1}
-            {type: 'heading', data: {level: 1}, nesting: 1}
-            {type: 'text', data: {text: 'foo'}}
-            {type: 'heading', data: {level: 1}, nesting: -1}
+            {type: 'heading', heading: 1, nesting: 1}
+            {type: 'text', content: 'foo'}
+            {type: 'heading', heading: 1, nesting: -1}
             {type: 'document', nesting: -1}
             ], null, cb
         (cb) ->
@@ -104,9 +104,9 @@ describe "heading", ->
           # check it
           test.report null, report, [
             {type: 'document', nesting: 1}
-            {type: 'heading', data: {level: 2}, nesting: 1}
-            {type: 'text', data: {text: 'foo'}}
-            {type: 'heading', data: {level: 2}, nesting: -1}
+            {type: 'heading', heading: 2, nesting: 1}
+            {type: 'text', content: 'foo'}
+            {type: 'heading', heading: 2, nesting: -1}
             {type: 'document', nesting: -1}
             ], null, cb
         (cb) ->
@@ -115,9 +115,9 @@ describe "heading", ->
           # check it
           test.report null, report, [
             {type: 'document', nesting: 1}
-            {type: 'heading', data: {level: 3}, nesting: 1}
-            {type: 'text', data: {text: 'foo'}}
-            {type: 'heading', data: {level: 3}, nesting: -1}
+            {type: 'heading', heading: 3, nesting: 1}
+            {type: 'text', content: 'foo'}
+            {type: 'heading', heading: 3, nesting: -1}
             {type: 'document', nesting: -1}
             ], null, cb
         (cb) ->
@@ -126,9 +126,9 @@ describe "heading", ->
           # check it
           test.report null, report, [
             {type: 'document', nesting: 1}
-            {type: 'heading', data: {level: 4}, nesting: 1}
-            {type: 'text', data: {text: 'foo'}}
-            {type: 'heading', data: {level: 4}, nesting: -1}
+            {type: 'heading', heading: 4, nesting: 1}
+            {type: 'text', content: 'foo'}
+            {type: 'heading', heading: 4, nesting: -1}
             {type: 'document', nesting: -1}
             ], null, cb
         (cb) ->
@@ -137,9 +137,9 @@ describe "heading", ->
           # check it
           test.report null, report, [
             {type: 'document', nesting: 1}
-            {type: 'heading', data: {level: 5}, nesting: 1}
-            {type: 'text', data: {text: 'foo'}}
-            {type: 'heading', data: {level: 5}, nesting: -1}
+            {type: 'heading', heading: 5, nesting: 1}
+            {type: 'text', content: 'foo'}
+            {type: 'heading', heading: 5, nesting: -1}
             {type: 'document', nesting: -1}
             ], null, cb
         (cb) ->
@@ -148,9 +148,9 @@ describe "heading", ->
           # check it
           test.report null, report, [
             {type: 'document', nesting: 1}
-            {type: 'heading', data: {level: 6}, nesting: 1}
-            {type: 'text', data: {text: 'foo'}}
-            {type: 'heading', data: {level: 6}, nesting: -1}
+            {type: 'heading', heading: 6, nesting: 1}
+            {type: 'text', content: 'foo'}
+            {type: 'heading', heading: 6, nesting: -1}
             {type: 'document', nesting: -1}
             ], null, cb
       ], cb
@@ -165,9 +165,9 @@ describe "heading", ->
         {type: 'document', nesting: 1}
         {type: 'paragraph', nesting: 1}
         {type: 'paragraph', nesting: -1}
-        {type: 'heading', data: {level: 1}, nesting: 1}
-        {type: 'text', data: {text: 'foo'}}
-        {type: 'heading', data: {level: 1}, nesting: -1}
+        {type: 'heading', heading: 1, nesting: 1}
+        {type: 'text', content: 'foo'}
+        {type: 'heading', heading: 1, nesting: -1}
         {type: 'document', nesting: -1}
       ], [
         {format: 'md', re: /foo\n===+/}
@@ -183,11 +183,11 @@ describe "heading", ->
       report.h1 'foo'
       test.report null, report, [
         {type: 'document', nesting: 1}
-        {type: 'heading', data: {level: 1}, nesting: 1}
-        {type: 'heading', data: {level: 1}, nesting: -1}
-        {type: 'heading', data: {level: 1}, nesting: 1}
-        {type: 'text', data: {text: 'foo'}}
-        {type: 'heading', data: {level: 1}, nesting: -1}
+        {type: 'heading', heading: 1, nesting: 1}
+        {type: 'heading', heading: 1, nesting: -1}
+        {type: 'heading', heading: 1, nesting: 1}
+        {type: 'text', content: 'foo'}
+        {type: 'heading', heading: 1, nesting: -1}
         {type: 'document', nesting: -1}
       ], null, cb
 
@@ -199,7 +199,7 @@ describe "heading", ->
       test.report null, report, [
         {type: 'document', nesting: 1}
         {type: 'paragraph', nesting: 1}
-        {type: 'text', data: {text: '# foo'}}
+        {type: 'text', content: '# foo'}
         {type: 'paragraph', nesting: -1}
         {type: 'document', nesting: -1}
       ], [

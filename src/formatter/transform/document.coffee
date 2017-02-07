@@ -32,9 +32,9 @@ module.exports =
     type: 'document'
     nesting: 1
     fn: (num, token) ->
-      return unless token.data?.title?
+      return unless token.title?
       token.out = ".TH \"#{token.title?.toUpperCase()}\" \"\"
-      \"#{moment().format 'MMMM YYYY'}\" \"\" \"\""
+      \"#{moment().format 'MMMM YYYY'}\" \"\" \"\"\n"
 
   text:
     format: 'text'

@@ -12,7 +12,7 @@ module.exports =
     type: 'list'
     fn: (num, token) ->
       nl = if @setup.compress then '' else '\n'
-      token.out = switch token.data.list
+      token.out = switch token.list
         when 'bullet'
           switch token.nesting
             when 1 then "<ul>#{nl}"
@@ -33,7 +33,7 @@ module.exports =
     format: 'roff'
     type: 'list'
     fn: (num, token) ->
-      token.out = switch token.data.list
+      token.out = switch token.list
         when 'bullet', 'ordered'
           switch token.nesting
             when 1 then '.RS 0\n'
