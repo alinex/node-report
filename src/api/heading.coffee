@@ -43,6 +43,11 @@ Report.prototype.heading = (level, input) ->
       # open new tag
     else
       # step behind close tag
+      last = @tokens.get @pos - 1
+      for pos in [@tokens.pos..@tokens.length-1]
+        t = @tokens.get pos
+        break if t.type is 'heading' and t.level is last.level and t.nesting is -1
+      @tokens.set pos + 1
   else
     # complete with content
     @tokens.insert [
@@ -57,21 +62,6 @@ Report.prototype.heading = (level, input) ->
       heading: level
       nesting: -1
     ]
-  return
-
-  if typeof input is 'boolean'
-    @parser.insert null,
-      type: 'heading'
-      data:
-        level: level
-      state: '-inline'
-      nesting: if input then 1 else -1
-      inline: if input then true else false
-    return this
-  # add with text
-  @heading level, true
-  @text input
-  @heading level, false
 
 ###
 Add heading to the report (shortcut).

@@ -119,7 +119,8 @@ class TokenList
     parent = []
     level = 0
     if pos > 0
-      parent.unshift @get pos - 1
+      last = @get pos - 1
+      parent.unshift if last.nesting > 0 then last else last.parent
       level = parent[0].level + 1
     for e in list
       if e.nesting < 0

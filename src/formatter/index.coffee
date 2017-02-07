@@ -129,7 +129,7 @@ class Formatter
   #
   format: (cb) ->
     debug "create output as #{@setup.format}" if debug
-    debugData "setup:", @setup if debugData
+    debugData "setup:", util.inspect(@setup).replace /\s*\n\s*/g, ' ' if debugData
     # run pre formatter
     pos = -1
     while ++pos < @tokens.data.length
