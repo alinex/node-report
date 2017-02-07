@@ -93,9 +93,10 @@ class TokenList
     @data[pos]
 
   in: (type) ->
+    type = [type] unless Array.isArray type
     t = @token
     loop
-      return t if t.type is type
+      return t if t.type in type
       return false unless t.parent
       t = t.parent
 

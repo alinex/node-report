@@ -11,6 +11,16 @@ the section. Mostly this is displayed as a horizontal line.
 Report = require '../index'
 
 
+# Helper
+# -------------------------------------------------
+
+# Correct and check position of marker in TokenList.
+#
+# @throw {Error} if current position is impossible
+position = ->
+  for autoclose in ['paragraph', 'heading']
+    @tokens.setAfterClosing autoclose if @tokens.in autoclose
+
 ###
 Builder API
 ----------------------------------------------------
@@ -22,8 +32,8 @@ Add thematic break as horizontal rule.
 @return {Report} instance itself for command concatenation
 ###
 Report.prototype.thematic_break = ->
-  @parser.begin()
-  @parser.insert null,
+  position.call this
+  @tokens.insert
     type: 'thematic_break'
   this
 

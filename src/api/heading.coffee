@@ -15,18 +15,21 @@ To visualize the report structure you may use the {@link toc.coffee} element.
 Report = require '../index'
 
 
-###
-Builder API
-----------------------------------------------------
-###
+# Helper
+# -------------------------------------------------
 
 # Correct and check position of marker in TokenList.
 #
 # @throw {Error} if current position is impossible
 position = ->
-  for autoclose in ['paragraph', 'heading']
+  for autoclose in ['paragraph', 'heading', 'preformatted']
     @tokens.setAfterClosing autoclose if @tokens.in autoclose
 
+
+###
+Builder API
+----------------------------------------------------
+###
 
 ###
 Add heading to the report.
@@ -67,6 +70,7 @@ Report.prototype.heading = (level, input) ->
       heading: level
       nesting: -1
     ]
+  this
 
 ###
 Add heading to the report (shortcut).

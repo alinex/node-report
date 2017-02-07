@@ -9,11 +9,20 @@ Paragraph
 Report = require '../index'
 
 
+# Helper
+# -------------------------------------------------
+
+# Correct and check position of marker in TokenList.
+#
+# @throw {Error} if current position is impossible
+position = ->
+  for autoclose in ['paragraph', 'heading', 'preformatted']
+    @tokens.setAfterClosing autoclose if @tokens.in autoclose
+
 ###
 Builder API
 ----------------------------------------------------
 ###
-
 
 ###
 Add a text paragraph.
@@ -25,6 +34,7 @@ false to close tag if content is added manually.
 Report.prototype.paragraph = (input) ->
   if typeof input is 'boolean'
     if input
+      position.call this
       # open new tag
       @tokens.insert [
         type: 'paragraph'
@@ -36,6 +46,7 @@ Report.prototype.paragraph = (input) ->
     else
       @tokens.setAfterClosing 'paragraph'
   else
+    position.call this
     # complete with content
     @tokens.insert [
       type: 'paragraph'

@@ -11,11 +11,20 @@ the element with value `true` before adding one or multiple text elements.
 Report = require '../index'
 
 
+# Helper
+# -------------------------------------------------
+
+# Correct and check position of marker in TokenList.
+#
+# @throw {Error} if current position is impossible
+position = ->
+  unless @tokens.in ['paragraph', 'heading', 'preformatted']
+    throw Error "Could only use `text()` in inline area"
+
 ###
 Builder API
 ----------------------------------------------------
 ###
-
 
 ###
 Add plain text to currently opened element.
@@ -25,8 +34,7 @@ Add plain text to currently opened element.
 ###
 Report.prototype.text = (text) ->
   return unless text
-#  last = @tokens.get @tokens.pos - 1
-#  throw Error "Could only use `text()` in inline area" unless last?.inline
+  position.call this
   @tokens.insert
     type: 'text'
     content: text
