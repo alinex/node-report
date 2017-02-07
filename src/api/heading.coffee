@@ -20,6 +20,14 @@ Builder API
 ----------------------------------------------------
 ###
 
+# Correct and check position of marker in TokenList.
+#
+# @throw {Error} if current position is impossible
+position = ->
+  for autoclose in ['paragraph', 'heading']
+    @tokens.setAfterClosing autoclose if @tokens.in autoclose
+
+
 ###
 Add heading to the report.
 
@@ -31,6 +39,8 @@ false to close tag if content is added manually.
 Report.prototype.heading = (level, input) ->
   if typeof input is 'boolean'
     if input
+      position.call this
+      # open new tag
       @tokens.insert [
         type: 'heading'
         heading: level
@@ -40,15 +50,10 @@ Report.prototype.heading = (level, input) ->
         heading: level
         nesting: -1
       ], null, 1
-      # open new tag
     else
-      # step behind close tag
-      last = @tokens.get @pos - 1
-      for pos in [@tokens.pos..@tokens.length-1]
-        t = @tokens.get pos
-        break if t.type is 'heading' and t.level is last.level and t.nesting is -1
-      @tokens.set pos + 1
+      @tokens.setAfterClosing 'heading'
   else
+    position.call this
     # complete with content
     @tokens.insert [
       type: 'heading'

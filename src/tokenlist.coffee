@@ -92,6 +92,13 @@ class TokenList
     pos = @data.length + pos if pos < 0
     @data[pos]
 
+  in: (type) ->
+    t = @token
+    loop
+      return t if t.type is type
+      return false unless t.parent
+      t = t.parent
+
   # Set the current marker.
   #
   # @param {Integer} pos set marker for current position
@@ -102,6 +109,13 @@ class TokenList
     @token = @data[@pos - 1]
     debug "set position to #{@pos}" if debug
     this
+
+  setAfterClosing: (type) ->
+    # step behind close tag
+    for pos in [@pos..@data.length-1]
+      t = @get pos
+      break if t.type is type and t.level is @token.level and t.nesting is -1
+    @set pos + 1
 
   # Insert one or multiple tokens.
   #

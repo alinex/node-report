@@ -25,7 +25,7 @@ Add plain text to currently opened element.
 ###
 Report.prototype.text = (text) ->
   return unless text
-  last = @tokens.get @tokens.pos - 1
+#  last = @tokens.get @tokens.pos - 1
 #  throw Error "Could only use `text()` in inline area" unless last?.inline
   @tokens.insert
     type: 'text'

@@ -25,7 +25,7 @@ describe "heading", ->
       ], cb
 
 
-  describe.only "api", ->
+  describe "api", ->
 
     it "should create with given text", (cb) ->
       # create report
@@ -45,7 +45,7 @@ describe "heading", ->
         {format: 'man', re: /\.TH "FOO" "" "\w+ \d+" "" ""\n\.SH "NAME"\n\\fBfoo\\fR/}
       ], cb
 
-    it.only "should create in multiple steps", (cb) ->
+    it "should create in multiple steps", (cb) ->
       # create report
       report = new Report()
       report.h1 true

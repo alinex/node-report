@@ -24,18 +24,29 @@ false to close tag if content is added manually.
 ###
 Report.prototype.paragraph = (input) ->
   if typeof input is 'boolean'
-    @parser.begin()
-    @parser.autoclose '-block', true if input
-    @parser.insert null,
+    if input
+      # open new tag
+      @tokens.insert [
+        type: 'paragraph'
+        nesting: 1
+      ,
+        type: 'paragraph'
+        nesting: -1
+      ], null, 1
+    else
+      @tokens.setAfterClosing 'paragraph'
+  else
+    # complete with content
+    @tokens.insert [
       type: 'paragraph'
-      nesting: if input then 1 else -1
-      state: '-inline'
-      inline: if input then true else false
-    return this
-  # add with text
-  @paragraph true
-  @text input
-  @paragraph false
+      nesting: 1
+    ,
+      type: 'text'
+      content: input
+    ,
+      type: 'paragraph'
+      nesting: -1
+    ]
 
 ###
 Add a text paragraph (shortcut).
