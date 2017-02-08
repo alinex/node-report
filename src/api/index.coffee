@@ -44,7 +44,7 @@ but you may also use one of the others.
 
 But only markdown can at the moment be used to store and reread data without loss
 of information. The concrete implementation is based on the standards but contains
-some significant changes, too.
+some significant changes, too.C
 
 __Support for Parsing__
 

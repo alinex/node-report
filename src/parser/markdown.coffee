@@ -44,6 +44,9 @@ modify =
   bullet_list: (t) ->
     t.type = 'list'
     t.list = 'bullet'
+  ordered_list: (t) ->
+    t.type = 'list'
+    t.list = 'ordered'
   list_item: (t) -> t.type = 'item'
 
   code_block: (t) ->
@@ -56,7 +59,7 @@ modify =
     list.push node2token t
     list.push
       type: 'text'
-      content: util.string.rtrim content
+      content: util.string.rtrim content, '\n'
     t.nesting = -1
     list.push node2token t
     # return all tokens
@@ -76,6 +79,7 @@ tree2tokens = (tree) ->
   for t in tree
     debug 'FOUND', chalk.grey util.inspect(t).replace /\s*\n\s*/g, ' ' if debug
     unless t.type is 'inline'
+      res = null
       # modify tokens
       res = modify[t.type] t if modify[t.type]
       if Array.isArray(res) and res[0].type

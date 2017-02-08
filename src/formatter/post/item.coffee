@@ -2,6 +2,14 @@
 # =================================================
 
 
+# Node Modules
+# ----------------------------------------------------
+util = require 'alinex-util'
+
+
+# Implementation
+# ----------------------------------------------------
+
 # Post rules
 #
 # @type {Object<Transformer>} rules to set output text in token
@@ -13,7 +21,8 @@ module.exports =
     format: ['md', 'text', 'roff']
     nesting: 1
     fn: (num, token) ->
-      token.collect = token.collect.trim().replace /\n/g, '\n  ' # indent text
+      indent = util.string.repeat ' ', token.out.length
+      token.collect = token.collect.trim().replace /\n/g, "\n#{indent}" # indent text
 
   # Add title to document element from first heading
   html:
