@@ -51,11 +51,11 @@ __Support for Parsing__
 | Element    | API |  MD  | HTML | ADOC |
 |:---------- |:---:|:----:|:----:|:----:|
 | Text       |     |      |      |      |
-| Heading    |     |  X   |      |      |
+| Heading    |  X  |  X   |      |      |
 | Paragraph  |     |      |      |      |
 | Preformat  |     |      |      |      |
 | Blockquote |     |      |      |      |
-| ThemaBreak |     |      |      |      |
+| ThemaBreak |  X  |  X   |      |      |
 | CharStyle  |     |      |      |      |
 | List       |     |      |      |      |
 | Box        |     |      |      |      |

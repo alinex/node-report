@@ -5,7 +5,7 @@ async = require 'async'
 Report = require '../../../src'
 before (cb) -> Report.init cb
 
-describe.only "markdown thematic break", ->
+describe "markdown thematic break", ->
 
   # http://spec.commonmark.org/0.27/#example-13
   it "should work with three characters", (cb) ->
@@ -38,7 +38,7 @@ describe.only "markdown thematic break", ->
         test.markdown null, '+++', [
           {type: 'document', nesting: 1}
           {type: 'paragraph', nesting: 1}
-          {type: 'text', data: {text: '+++'}}
+          {type: 'text', content: '+++'}
           {type: 'paragraph', nesting: -1}
           {type: 'document', nesting: -1}
         ], null, cb
@@ -46,7 +46,7 @@ describe.only "markdown thematic break", ->
         test.markdown null, '===', [
           {type: 'document', nesting: 1}
           {type: 'paragraph', nesting: 1}
-          {type: 'text', data: {text: '==='}}
+          {type: 'text', content: '==='}
           {type: 'paragraph', nesting: -1}
           {type: 'document', nesting: -1}
         ], null, cb
@@ -59,7 +59,7 @@ describe.only "markdown thematic break", ->
         test.markdown null, '--', [
           {type: 'document', nesting: 1}
           {type: 'paragraph', nesting: 1}
-          {type: 'text', data: {text: '--'}}
+          {type: 'text', content: '--'}
           {type: 'paragraph', nesting: -1}
           {type: 'document', nesting: -1}
         ], null, cb
@@ -67,7 +67,7 @@ describe.only "markdown thematic break", ->
         test.markdown null, '**', [
           {type: 'document', nesting: 1}
           {type: 'paragraph', nesting: 1}
-          {type: 'text', data: {text: '**'}}
+          {type: 'text', content: '**'}
           {type: 'paragraph', nesting: -1}
           {type: 'document', nesting: -1}
         ], null, cb
@@ -75,7 +75,7 @@ describe.only "markdown thematic break", ->
         test.markdown null, '__', [
           {type: 'document', nesting: 1}
           {type: 'paragraph', nesting: 1}
-          {type: 'text', data: {text: '__'}}
+          {type: 'text', content: '__'}
           {type: 'paragraph', nesting: -1}
           {type: 'document', nesting: -1}
         ], null, cb
@@ -113,7 +113,7 @@ describe.only "markdown thematic break", ->
         test.markdown null, '    ****', [
           {type: 'document', nesting: 1}
           {type: 'preformatted', nesting: 1}
-          {type: 'text', data: {text: '****'}}
+          {type: 'text', content: '****'}
           {type: 'preformatted', nesting: -1}
           {type: 'document', nesting: -1}
         ], null, cb
@@ -121,7 +121,9 @@ describe.only "markdown thematic break", ->
         test.markdown null, 'Foo\n    ***', [
           {type: 'document', nesting: 1}
           {type: 'paragraph', nesting: 1}
-          {type: 'text', data: {text: 'Foo ***'}}
+          {type: 'text', content: 'Foo'}
+          {type: 'softbreak'}
+          {type: 'text', content: '***'}
           {type: 'paragraph', nesting: -1}
           {type: 'document', nesting: -1}
         ], null, cb
@@ -175,7 +177,7 @@ describe.only "markdown thematic break", ->
         test.markdown null, '_ _ _ _ a', [
           {type: 'document', nesting: 1}
           {type: 'paragraph', nesting: 1}
-          {type: 'text', data: {text: '_ _ _ _ a'}}
+          {type: 'text', content: '_ _ _ _ a'}
           {type: 'paragraph', nesting: -1}
           {type: 'document', nesting: -1}
         ], null, cb
@@ -183,7 +185,7 @@ describe.only "markdown thematic break", ->
         test.markdown null, 'a------', [
           {type: 'document', nesting: 1}
           {type: 'paragraph', nesting: 1}
-          {type: 'text', data: {text: 'a------'}}
+          {type: 'text', content: 'a------'}
           {type: 'paragraph', nesting: -1}
           {type: 'document', nesting: -1}
         ], null, cb
@@ -191,7 +193,7 @@ describe.only "markdown thematic break", ->
         test.markdown null, '---a---', [
           {type: 'document', nesting: 1}
           {type: 'paragraph', nesting: 1}
-          {type: 'text', data: {text: '---a---'}}
+          {type: 'text', content: '---a---'}
           {type: 'paragraph', nesting: -1}
           {type: 'document', nesting: -1}
         ], null, cb
@@ -203,7 +205,7 @@ describe.only "markdown thematic break", ->
       {type: 'document', nesting: 1}
       {type: 'paragraph', nesting: 1}
       {type: 'emphasis', nesting: 1}
-      {type: 'text', data: {text: '-'}}
+      {type: 'text', content: '-'}
       {type: 'emphasis', nesting: -1}
       {type: 'paragraph', nesting: -1}
       {type: 'document', nesting: -1}
@@ -216,7 +218,7 @@ describe.only "markdown thematic break", ->
       {type: 'list', nesting: 1}
       {type: 'item', nesting: 1}
       {type: 'paragraph', nesting: 1}
-      {type: 'text', data: {text: 'foo'}}
+      {type: 'text', content: 'foo'}
       {type: 'paragraph', nesting: -1}
       {type: 'item', nesting: -1}
       {type: 'list', nesting: -1}
@@ -224,7 +226,7 @@ describe.only "markdown thematic break", ->
       {type: 'list', nesting: 1}
       {type: 'item', nesting: 1}
       {type: 'paragraph', nesting: 1}
-      {type: 'text', data: {text: 'bar'}}
+      {type: 'text', content: 'bar'}
       {type: 'paragraph', nesting: -1}
       {type: 'item', nesting: -1}
       {type: 'list', nesting: -1}
@@ -236,11 +238,11 @@ describe.only "markdown thematic break", ->
     test.markdown null, 'foo\n***\nbar', [
       {type: 'document', nesting: 1}
       {type: 'paragraph', nesting: 1}
-      {type: 'text', data: {text: 'foo'}}
+      {type: 'text', content: 'foo'}
       {type: 'paragraph', nesting: -1}
       {type: 'thematic_break'}
       {type: 'paragraph', nesting: 1}
-      {type: 'text', data: {text: 'bar'}}
+      {type: 'text', content: 'bar'}
       {type: 'paragraph', nesting: -1}
       {type: 'document', nesting: -1}
     ], null, cb
@@ -249,11 +251,11 @@ describe.only "markdown thematic break", ->
   it "should fail if line may interpreted as setext", (cb) ->
     test.markdown null, 'Foo\n---\nbar', [
       {type: 'document', nesting: 1}
-      {type: 'heading', data: {level: 2}, nesting: 1}
-      {type: 'text', data: {text: 'Foo'}}
-      {type: 'heading', data: {level: 2}, nesting: -1}
+      {type: 'heading', heading: 2, nesting: 1}
+      {type: 'text', content: 'Foo'}
+      {type: 'heading', heading: 2, nesting: -1}
       {type: 'paragraph', nesting: 1}
-      {type: 'text', data: {text: 'bar'}}
+      {type: 'text', content: 'bar'}
       {type: 'paragraph', nesting: -1}
       {type: 'document', nesting: -1}
     ], null, cb
@@ -265,7 +267,7 @@ describe.only "markdown thematic break", ->
       {type: 'list', nesting: 1}
       {type: 'item', nesting: 1}
       {type: 'paragraph', nesting: 1}
-      {type: 'text', data: {text: 'Foo'}}
+      {type: 'text', content: 'Foo'}
       {type: 'paragraph', nesting: -1}
       {type: 'item', nesting: -1}
       {type: 'list', nesting: -1}
@@ -273,7 +275,7 @@ describe.only "markdown thematic break", ->
       {type: 'list', nesting: 1}
       {type: 'item', nesting: 1}
       {type: 'paragraph', nesting: 1}
-      {type: 'text', data: {text: 'Bar'}}
+      {type: 'text', content: 'Bar'}
       {type: 'paragraph', nesting: -1}
       {type: 'item', nesting: -1}
       {type: 'list', nesting: -1}
@@ -287,7 +289,7 @@ describe.only "markdown thematic break", ->
       {type: 'list', nesting: 1}
       {type: 'item', nesting: 1}
       {type: 'paragraph', nesting: 1}
-      {type: 'text', data: {text: 'Foo'}}
+      {type: 'text', content: 'Foo'}
       {type: 'paragraph', nesting: -1}
       {type: 'item', nesting: -1}
       {type: 'item', nesting: 1}

@@ -1,9 +1,0 @@
-[ 
-{ type: 'document', nesting: 1, state: 'm-block', level: 0 }, 
-{ type: 'paragraph', state: 'm-inline', nesting: 1, level: 1, closed: true }, 
-{ type: 'text', data: { text: 'This is an example of two paragraphs in markdown style there the separation\nbetween them is done with an empty line.' }, nesting: 0, level: 2, state: 'm-inline' }, 
-{ type: 'paragraph', state: 'm-inline', nesting: -1, level: 1, closed: true }, 
-{ type: 'paragraph', state: 'm-inline', nesting: 1, level: 1 }, 
-{ type: 'text', data: { text: 'This follows the common definition of markdown.' }, nesting: 0, level: 2, state: 'm-inline' }, 
-{ type: 'paragraph', state: 'm-inline', nesting: -1, level: 1 }, 
-{ type: 'document', nesting: -1, level: 0, state: 'm-inline' } ]
