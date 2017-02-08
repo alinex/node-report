@@ -5,7 +5,7 @@ async = require 'async'
 Report = require '../../../src'
 before (cb) -> Report.init cb
 
-describe.only "markdown preformatted", ->
+describe "markdown preformatted", ->
 
   # http://spec.commonmark.org/0.27/#example-76
   it "should work with simple block", (cb) ->
