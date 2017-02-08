@@ -14,7 +14,7 @@ module.exports =
     type: 'text'
     fn: (num, token) ->
       token.out = token.content
-      return if token.parent.type is 'preformatted'
+      return if token.parent.type in ['preformatted', 'code', 'fixed']
       token.out = token.out
       .replace /\\(?=[^\n])/g, '\\\\'
       # mask special markdown

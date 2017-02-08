@@ -34,7 +34,7 @@ Add a text paragraph.
 false to close tag if content is added manually.
 @return {Report} instance itself for command concatenation
 ###
-Report.prototype.preformatted = (level, input) ->
+Report.prototype.preformatted = (input) ->
   if typeof input is 'boolean'
     if input
       position.call this

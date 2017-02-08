@@ -49,6 +49,22 @@ modify =
     t.list = 'ordered'
   list_item: (t) -> t.type = 'item'
 
+  code_inline: (t) ->
+    list = []
+    # add token itself
+    content = t.content
+    delete t.content
+    t.type = 'fixed'
+    t.nesting = 1
+    list.push node2token t
+    list.push
+      type: 'text'
+      content: content
+    t.nesting = -1
+    list.push node2token t
+    # return all tokens
+    list
+
   code_block: (t) ->
     list = []
     # add token itself
@@ -56,6 +72,24 @@ modify =
     delete t.content
     t.type = 'preformatted'
     t.nesting = 1
+    list.push node2token t
+    list.push
+      type: 'text'
+      content: util.string.rtrim content, '\n'
+    t.nesting = -1
+    list.push node2token t
+    # return all tokens
+    list
+
+  fence: (t) ->
+    list = []
+    # add token itself
+    info = t.info.trim().split /\s+/ if t.info
+    content = t.content
+    delete t.content
+    t.type = 'code'
+    t.nesting = 1
+    t.language = info?[0] ? 'text'
     list.push node2token t
     list.push
       type: 'text'
@@ -105,6 +139,6 @@ node2token = (t) ->
     type: t.type
     nesting: t.nesting ? 0
   # copy specific values
-  for e in ['content', 'heading', 'list']
+  for e in ['content', 'heading', 'list', 'language']
     token[e] = t[e] if t[e]
   token

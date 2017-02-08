@@ -7,25 +7,18 @@
 # @type {Object<Transformer>} rules to set output text in token
 module.exports =
 
-  md:
-    format: 'md'
-    type: 'preformatted'
-    fn: (num, token) ->
-      token.out = "\n"
-
   html:
     format: 'html'
-    type: 'preformatted'
+    type: 'fixed'
     fn: (num, token) ->
-      nl = if @setup.compress then '' else '\n'
       token.out = switch token.nesting
-        when 1 then "<pre><code>"
-        when -1 then "</code></pre>#{nl}"
-        else "<pre><code></code></pre>#{nl}"
+        when 1 then "<code>"
+        when -1 then "</code>"
+        else "<code></code>"
 
   roff:
     format: 'roff'
-    type: 'preformatted'
+    type: 'fixed'
     fn: (num, token) ->
       token.out = switch token.nesting
         when 1 then ".P\n.RS 2\n.nf\n"

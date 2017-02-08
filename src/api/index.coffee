@@ -2,7 +2,6 @@
 
 # 13-31 thematic break
 # 32-75 heading
-
 # 76-87 preformatted
 # 88-114 code
 
@@ -53,9 +52,11 @@ __Support for Parsing__
 | Text       |     |      |      |      |
 | Heading    |  X  |  X   |      |      |
 | Paragraph  |     |      |      |      |
-| Preformat  |     |      |      |      |
+| Preformat  |  X  |  X   |      |      |
+| Code       |  X  |  X   |      |      |
 | Blockquote |     |      |      |      |
 | ThemaBreak |  X  |  X   |      |      |
+| Fixed      |     |      |      |      |
 | CharStyle  |     |      |      |      |
 | List       |     |      |      |      |
 | Box        |     |      |      |      |
