@@ -10,6 +10,17 @@ Is used for content which is quoted from other sources.
 Report = require '../index'
 
 
+# Helper
+# -------------------------------------------------
+
+# Correct and check position of marker in TokenList.
+#
+# @throw {Error} if current position is impossible
+position = ->
+  for autoclose in ['paragraph', 'heading', 'preformatted', 'code']
+    @tokens.setAfterClosing autoclose if @tokens.in autoclose
+
+
 ###
 Builder API
 ----------------------------------------------------
@@ -27,20 +38,38 @@ false to close tag if content is added manually.
 ###
 Report.prototype.blockquote = (input) ->
   if typeof input is 'boolean'
-    @parser.begin()
-    @parser.autoclose '-block', true if input
-    @parser.insert null,
+    if input
+      position.call this
+      # open new tag
+      @tokens.insert [
+        type: 'blockquote'
+        nesting: 1
+      ,
+        type: 'blockquote'
+        nesting: -1
+      ], null, 1
+    else
+      @tokens.setAfterClosing 'blockquote'
+  else
+    position.call this
+    # complete with content
+    @tokens.insert [
       type: 'blockquote'
-      state: '-block'
-      nesting: if input then 1 else -1
-      inline: if input then true else false
-    return this
-  # add with text
-  @blockquote true
-  @paragraph true
-  @text input
-  @paragraph false
-  @blockquote false
+      nesting: 1
+    ,
+      type: 'paragraph'
+      nesting: 1
+    ,
+      type: 'text'
+      content: input
+    ,
+      type: 'paragraph'
+      nesting: -1
+    ,
+      type: 'blockquote'
+      nesting: -1
+    ]
+  this
 
 ###
 Add a blockquote element (shortcut).

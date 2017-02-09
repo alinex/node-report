@@ -4,11 +4,11 @@
 # 32-75 heading
 # 76-87 preformatted
 # 88-114 code
+
 # 180-187 paragraph
 # 188 blank
+# 189-213 blockquote
 
-# 189-197 blockquote
-# 199-213 blockquote
 # 214-223 list
 
 # 225-238.. list
@@ -54,7 +54,7 @@ __Support for Parsing__
 | Paragraph  |  X  |  X   |      |      |
 | Preformat  |  X  |  X   |      |      |
 | Code       |  X  |  X   |      |      |
-| Blockquote |     |      |      |      |
+| Blockquote |  X  |  X   |      |      |
 | ThemaBreak |  X  |  X   |      |      |
 | Fixed      |     |      |      |      |
 | CharStyle  |     |      |      |      |

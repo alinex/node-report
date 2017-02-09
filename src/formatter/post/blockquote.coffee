@@ -12,4 +12,4 @@ module.exports =
     type: 'blockquote'
     nesting: 1
     fn: (num, token) ->
-      token.collect = "\n> #{token.collect.trim().replace /\n/g, '\n> '}\n"
+      token.collect = "\n> #{token.collect.replace /\n/g, '\n> '}\n"
