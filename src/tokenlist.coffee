@@ -115,7 +115,7 @@ class TokenList
     # step behind close tag
     for pos in [@pos..@data.length-1]
       t = @get pos
-      break if t.type is type and t.level is @token.level and t.nesting is -1
+      break if t.type is type and t.level <= @token.level and t.nesting is -1
     @set pos + 1
 
   # Insert one or multiple tokens.
