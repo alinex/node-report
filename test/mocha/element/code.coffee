@@ -5,7 +5,7 @@ async = require 'async'
 Report = require '../../../src'
 before (cb) -> Report.init cb
 
-describe.only "code", ->
+describe "code", ->
 
   describe "examples", ->
 
@@ -35,7 +35,28 @@ describe.only "code", ->
         {type: 'code', nesting: -1}
         {type: 'document', nesting: -1}
       ], [
-        {format: 'md', re: / {4}foo\n {7}bar/}
+        {format: 'md', text: '``` javascript\ntext = \'foo\';\n```\n'}
         {format: 'text', re: /foo/}
-        {format: 'html', text: "<pre><code>foo\n   bar</code></pre>\n"}
+        {format: 'html', text: "<pre><code>text = &#39;foo&#39;;</code></pre>\n"}
+        {format: 'man', text: '.P\n.RS 2\n.nf\ntext = \'foo\';\n.fi\n.RE'}
+      ], cb
+
+    it "should create in multiple steps", (cb) ->
+      # create report
+      report = new Report()
+      report.code true, 'js'
+      report.text 'text = \'foo\';'
+      report.code false
+      # check it
+      test.report null, report, [
+        {type: 'document', nesting: 1}
+        {type: 'code', nesting: 1, language: 'javascript'}
+        {type: 'text', content: 'text = \'foo\';'}
+        {type: 'code', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], [
+        {format: 'md', text: '``` javascript\ntext = \'foo\';\n```\n'}
+        {format: 'text', re: /foo/}
+        {format: 'html', text: "<pre><code>text = &#39;foo&#39;;</code></pre>\n"}
+        {format: 'man', text: '.P\n.RS 2\n.nf\ntext = \'foo\';\n.fi\n.RE'}
       ], cb

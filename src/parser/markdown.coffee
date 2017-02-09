@@ -11,6 +11,7 @@ chalk = require 'chalk'
 markdownIt = null # load on demand
 # include more alinex modules
 util = require 'alinex-util'
+Config = require 'alinex-config'
 
 
 # Public
@@ -90,6 +91,7 @@ modify =
     t.type = 'code'
     t.nesting = 1
     t.language = info?[0] ? 'text'
+    t.language = l if l = Config.get('/report/code/language')[t.language]
     list.push node2token t
     list.push
       type: 'text'

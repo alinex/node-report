@@ -23,4 +23,4 @@ module.exports =
     fn: (num, token) ->
       token.out = switch token.nesting
         when 1 then ".P\n.RS 2\n.nf\n"
-        when -1 then ".fi\n.RE\n"
+        when -1 then "\n.fi\n.RE\n"

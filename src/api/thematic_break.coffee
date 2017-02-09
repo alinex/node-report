@@ -18,7 +18,7 @@ Report = require '../index'
 #
 # @throw {Error} if current position is impossible
 position = ->
-  for autoclose in ['paragraph', 'heading']
+  for autoclose in ['paragraph', 'heading', 'preformatted', 'code']
     @tokens.setAfterClosing autoclose if @tokens.in autoclose
 
 ###

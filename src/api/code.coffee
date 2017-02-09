@@ -12,6 +12,17 @@ Report = require '../index'
 Config = require 'alinex-config'
 
 
+# Helper
+# -------------------------------------------------
+
+# Correct and check position of marker in TokenList.
+#
+# @throw {Error} if current position is impossible
+position = ->
+  for autoclose in ['paragraph', 'heading', 'preformatted', 'code']
+    @tokens.setAfterClosing autoclose if @tokens.in autoclose
+
+
 ###
 Builder API
 ----------------------------------------------------
@@ -27,22 +38,34 @@ false to close tag if content is added manually.
 ###
 Report.prototype.code = (input, language) ->
   if typeof input is 'boolean'
-    @parser.begin()
-    @parser.autoclose '-block', true if input
-    tag =
-      type: 'code'
-      state: '-text'
-      nesting: if input then 1 else -1
-      inline: if input then true else false
     if input
-      tag.data =
+      position.call this
+      # open new tag
+      @tokens.insert [
+        type: 'code'
+        nesting: 1
         language: Config.get('/report/code/language')[language] ? language ? 'text'
-    @parser.insert null, tag
-    return this
-  # add with text
-  @code true, language
-  @text input
-  @code false
+      ,
+        type: 'code'
+        nesting: -1
+      ], null, 1
+    else
+      @tokens.setAfterClosing 'code'
+  else
+    position.call this
+    # complete with content
+    @tokens.insert [
+      type: 'code'
+      nesting: 1
+      language: Config.get('/report/code/language')[language] ? language ? 'text'
+    ,
+      type: 'text'
+      content: input
+    ,
+      type: 'code'
+      nesting: -1
+    ]
+  this
 
 
 ###

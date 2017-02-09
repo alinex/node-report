@@ -39,6 +39,7 @@ describe "preformatted", ->
         {format: 'md', re: / {4}foo\n {7}bar/}
         {format: 'text', re: /foo/}
         {format: 'html', text: "<pre><code>foo\n   bar</code></pre>\n"}
+        {format: 'man', text: '.P\n.RS 2\n.nf\nfoo\n   bar\n.fi\n.RE'}
       ], cb
 
     it "should create preformatted text section (shorthand version)", (cb) ->
@@ -56,4 +57,25 @@ describe "preformatted", ->
         {format: 'md', re: / {4}foo\n {7}bar/}
         {format: 'text', re: /foo/}
         {format: 'html', text: "<pre><code>foo\n   bar</code></pre>\n"}
+        {format: 'man', text: '.P\n.RS 2\n.nf\nfoo\n   bar\n.fi\n.RE'}
+      ], cb
+
+    it "should create in multiple steps", (cb) ->
+      # create report
+      report = new Report()
+      report.pre true
+      report.text 'foo\n   bar'
+      report.pre false
+      # check it
+      test.report null, report, [
+        {type: 'document', nesting: 1}
+        {type: 'preformatted', nesting: 1}
+        {type: 'text', content: 'foo\n   bar'}
+        {type: 'preformatted', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], [
+        {format: 'md', re: / {4}foo\n {7}bar/}
+        {format: 'text', re: /foo/}
+        {format: 'html', text: "<pre><code>foo\n   bar</code></pre>\n"}
+        {format: 'man', text: '.P\n.RS 2\n.nf\nfoo\n   bar\n.fi\n.RE'}
       ], cb

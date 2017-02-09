@@ -38,7 +38,7 @@ module.exports =
     type: 'text'
     fn: (num, token) ->
       token.out = token.content
-      .replace /\n/g, '\n.br\n'
+#      .replace /\n/g, '\n.br\n'
 
   asciidoc:
     format: 'adoc'
