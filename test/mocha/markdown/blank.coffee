@@ -13,10 +13,10 @@ describe "blank", ->
       test.markdown null, "\n  \naaa\n  \n# bbb\n  \n", [
         {type: 'document', nesting: 1}
         {type: 'paragraph'}
-        {type: 'text', data: {text: 'aaa'}}
+        {type: 'text', content: 'aaa'}
         {type: 'paragraph'}
         {type: 'heading'}
-        {type: 'text', data: {text: 'bbb'}}
+        {type: 'text', content: 'bbb'}
         {type: 'heading'}
         {type: 'document', nesting: -1}
       ], null, cb

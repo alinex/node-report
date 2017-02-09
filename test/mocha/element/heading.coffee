@@ -223,3 +223,21 @@ describe "heading", ->
         {type: 'heading', heading: 2, nesting: -1}
         {type: 'document', nesting: -1}
       ], null, cb
+
+    it "should automatically close paragraph", (cb) ->
+      # create report
+      report = new Report()
+      report.p true
+      report.text 'foo'
+      report.h2 'bar'
+      # check it
+      test.report null, report, [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: 'foo'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'heading', heading: 2, nesting: 1}
+        {type: 'text', content: 'bar'}
+        {type: 'heading', heading: 2, nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb

@@ -4,9 +4,9 @@
 # 32-75 heading
 # 76-87 preformatted
 # 88-114 code
-
 # 180-187 paragraph
 # 188 blank
+
 # 189-197 blockquote
 # 199-213 blockquote
 # 214-223 list
@@ -51,7 +51,7 @@ __Support for Parsing__
 |:---------- |:---:|:----:|:----:|:----:|
 | Text       |     |      |      |      |
 | Heading    |  X  |  X   |      |      |
-| Paragraph  |     |      |      |      |
+| Paragraph  |  X  |  X   |      |      |
 | Preformat  |  X  |  X   |      |      |
 | Code       |  X  |  X   |      |      |
 | Blockquote |     |      |      |      |

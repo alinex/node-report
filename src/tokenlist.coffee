@@ -96,7 +96,7 @@ class TokenList
     type = [type] unless Array.isArray type
     t = @token
     loop
-      return t if t.type in type
+      return t if t.type in type and t.nesting is 1
       return false unless t.parent
       t = t.parent
 
@@ -113,8 +113,10 @@ class TokenList
 
   setAfterClosing: (type) ->
     # step behind close tag
+    console.log type
     for pos in [@pos..@data.length-1]
       t = @get pos
+      console.log pos, t
       break if t.type is type and t.level <= @token.level and t.nesting is -1
     @set pos + 1
 
