@@ -9,12 +9,12 @@
 # 180-187 paragraph
 # 188 blank
 # 189-213 blockquote
-
-# 214-223 list
-
-# 225-238.. list
-# 240-268 list
+# 214-268 list
+# ------> with html
 # 271-275 list
+# ------> link ref
+# 277-  list
+
 # 287-291.. text
 
 # 312-322 char_style

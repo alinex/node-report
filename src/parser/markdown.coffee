@@ -35,6 +35,9 @@ module.exports = (text) ->
   this
 
 
+# Internal Helper
+# -------------------------------------------------
+
 # Specify changes for the markdown-it tokens to be done before inserting.
 # This will match the name including ..._open or also without it.
 modify =
@@ -48,6 +51,10 @@ modify =
   ordered_list: (t) ->
     t.type = 'list'
     t.list = 'ordered'
+    t.start = 1
+    if t.attrs
+      for a in t.attrs
+        t.start = a[1] if a[0] is 'start'
   list_item: (t) -> t.type = 'item'
 
   code_inline: (t) ->
@@ -101,9 +108,12 @@ modify =
     # return all tokens
     list
 
-
-# Internal Helper
-# -------------------------------------------------
+# Specify elements to copy from markdown token to report token.
+copyAttributes =
+  text: ['content']
+  heading: ['heading']
+  list: ['list', 'start']
+  code: ['language']
 
 # Convert markdown-it structure to report tokens.
 #
@@ -135,12 +145,14 @@ tree2tokens = (tree) ->
     list = list.concat tree2tokens t.children if t.children
   list
 
+
 node2token = (t) ->
   # run default conversion of single token
   token =
     type: t.type
     nesting: t.nesting ? 0
   # copy specific values
-  for e in ['content', 'heading', 'list', 'language']
-    token[e] = t[e] if t[e]
+  if list = copyAttributes[t.type]
+    for e in list
+      token[e] = t[e] if t[e]?
   token

@@ -2,6 +2,11 @@
 # =================================================
 
 
+# Node Modules
+# --------------------------------------------------
+util = require 'alinex-util'
+
+
 # Transformer rules
 #
 # @type {Object<Transformer>} rules to set output text in token
@@ -52,10 +57,12 @@ module.exports =
       list = token.parent
       token.out = switch list.list
         when 'bullet'
+          marker = list.marker ? '-'
           switch token.nesting
-            when 1 then '- '
+            when 1 then "   #{marker} "
             when -1 then '\n'
         when 'ordered'
+          marker = list.marker ? '.'
           switch token.nesting
-            when 1 then "#{token.num}. "
+            when 1 then "#{util.string.lpad token.num, 3}#{marker} "
             when -1 then '\n'

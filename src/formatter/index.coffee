@@ -27,6 +27,7 @@
 #
 # The transformator step will also add:
 # - `out` - `String` the text representation of this element
+# - `marker` - `String` to use if not default in list
 #
 # And later in the collector and post parsing all parent elements will get the
 # following element:

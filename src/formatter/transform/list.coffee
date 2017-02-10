@@ -38,3 +38,16 @@ module.exports =
           switch token.nesting
             when 1 then '.RS 0\n'
             when -1 then '\n\n.RE\n'
+
+  md:
+    format: 'md'
+    type: 'list'
+    fn: (num, token) ->
+      pos = num - 1
+      prev = @tokens.get pos
+      if prev.type is 'list' and prev.nesting is -1
+        while pos--
+          prev = @tokens.get pos
+          break if prev.type is 'list' and prev.level is token.level
+        unless prev.marker
+          token.marker = if token.list is 'bullet' then '+' else ')'
