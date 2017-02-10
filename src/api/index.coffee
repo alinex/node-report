@@ -1,5 +1,5 @@
 # commonmark:
-
+# 1-12 text
 # 13-31 thematic break
 # 32-75 heading
 # 76-87 preformatted
@@ -49,7 +49,7 @@ __Support for Parsing__
 
 | Element    | API |  MD  | HTML | ADOC |
 |:---------- |:---:|:----:|:----:|:----:|
-| Text       |     |      |      |      |
+| Text       |  X  |  X   |      |      |
 | Heading    |  X  |  X   |      |      |
 | Paragraph  |  X  |  X   |      |      |
 | Preformat  |  X  |  X   |      |      |

@@ -22,7 +22,9 @@ module.exports =
     nesting: 1
     fn: (num, token) ->
       indent = util.string.repeat ' ', token.out.length
-      token.collect = token.collect.trim().replace /\n/g, "\n#{indent}" # indent text
+      token.collect = token.collect
+      .replace /^\n/, ''  # remove first newline
+      .replace /\n/g, "\n#{indent}" # indent text
 
   # Add title to document element from first heading
   html:
