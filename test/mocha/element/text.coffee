@@ -1,3 +1,5 @@
+chai = require 'chai'
+expect = chai.expect
 ### eslint-env node, mocha ###
 test = require '../test'
 async = require 'async'
@@ -9,20 +11,53 @@ describe "text", ->
 
   describe "examples", ->
 
-    it "should make two paragraphs", (cb) ->
-      test.markdown 'paragraph/multiple', """
-        This is an example of two paragraphs in markdown style there the separation
-        between them is done with an empty line.
-
-        This follows the common definition of markdown.
+    it "should make examples", (cb) ->
+      test.markdown 'text/simple', """
+        This is a short text.
+        With each sentence in a separate line.\\
+        And a hard break before this.
       """, null, [
         {format: 'md'}
         {format: 'text'}
         {format: 'html'}
         {format: 'man'}
+        {format: 'adoc'}
       ], cb
 
   describe "api", ->
+
+    it "should create in paragraph", (cb) ->
+      # create report
+      report = new Report()
+      report.paragraph true
+      report.text 'Simple Text.'
+      # check it
+      test.report null, report, [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', data: {text: 'Simple Text.'}}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    it "should fail if not in inline element", (cb) ->
+      # create report
+      report = new Report()
+      expect(-> report.text 'Simple Text.').to.throw Error
+      cb()
+
+    it "should do nothing without content", (cb) ->
+      # create report
+      report = new Report()
+      report.paragraph true
+      report.text()
+      # check it
+      test.report null, report, [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
 
     it "should create text with tabs in preformatted section", (cb) ->
       # create report

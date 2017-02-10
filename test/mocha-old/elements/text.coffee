@@ -7,60 +7,9 @@ async = require 'async'
 Report = require '../../../src'
 before (cb) -> Report.init cb
 
-describe "text", ->
+describe "markdown text", ->
 
-  describe "examples", ->
-
-    it "should make examples", (cb) ->
-      test.markdown 'text/simple', """
-        This is a short text.
-        With each sentence in a separate line.\\
-        And a hard break before this.
-      """, null, [
-        {format: 'md'}
-        {format: 'text'}
-        {format: 'html'}
-        {format: 'man'}
-        {format: 'adoc'}
-      ], cb
-
-  describe "api", ->
-
-    it "should create in paragraph", (cb) ->
-      # create report
-      report = new Report()
-      report.paragraph true
-      report.text 'Simple Text.'
-      # check it
-      test.report null, report, [
-        {type: 'document', nesting: 1}
-        {type: 'paragraph', nesting: 1}
-        {type: 'text', data: {text: 'Simple Text.'}}
-        {type: 'paragraph', nesting: -1}
-        {type: 'document', nesting: -1}
-      ], null, cb
-
-    it "should fail if not in inline element", (cb) ->
-      # create report
-      report = new Report()
-      expect(-> report.text 'Simple Text.').to.throw Error
-      cb()
-
-    it "should do nothing without content", (cb) ->
-      # create report
-      report = new Report()
-      report.paragraph true
-      report.text()
-      # check it
-      test.report null, report, [
-        {type: 'document', nesting: 1}
-        {type: 'paragraph', nesting: 1}
-        {type: 'paragraph', nesting: -1}
-        {type: 'document', nesting: -1}
-      ], null, cb
-
-
-  describe "markdown", ->
+  describe "special character", ->
 
     # http://spec.commonmark.org/0.27/#example-287
     it "should remove backslash before ASCII punctuation", (cb) ->
