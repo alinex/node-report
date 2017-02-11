@@ -60,9 +60,9 @@ module.exports =
           marker = list.marker ? '-'
           switch token.nesting
             when 1 then "   #{marker} "
-            when -1 then '\n'
+#            when -1 then '\n'
         when 'ordered'
           marker = list.marker ? '.'
           switch token.nesting
             when 1 then "#{util.string.lpad token.num, 3}#{marker} "
-            when -1 then '\n'
+#            when -1 then '\n'

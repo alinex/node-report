@@ -29,6 +29,7 @@
 #
 # Some tokens may contain specific fields.
 # - `content` - `String` used in text, text styling elements like `strong`
+# - `hidden` - `Boolean` set to true to ignore element in rendering (for tight lists) 
 # - `heading` - `Integer` level of heading (between 0..6)
 # - 'list' - `String` the type of list (bullet, ordered)
 # - `start` - `Integer` start number in ordered list
@@ -57,7 +58,7 @@ class TokenList
       when 1 then '> '
       when -1 then '< '
       else '  '
-    util.string.rpad(util.string.repeat('  ', token.level) + indent + token.type, 16) +
+    util.string.rpad(util.string.repeat('  ', token.level) + indent + token.type, 20) +
     Object.keys(token).filter (e) -> e not in ['type', 'nesting', 'level', 'parent']
     .map (e) ->
       if typeof token[e] is 'number'

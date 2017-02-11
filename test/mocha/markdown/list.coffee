@@ -1242,7 +1242,7 @@ describe "markdown list", ->
 # example 276.....
 #############################################
 
-  describe.only 'tight', ->
+  describe.skip 'tight', ->
 
     # http://spec.commonmark.org/0.27/#example-277
     it "should work with blank lines in code block", (cb) ->
@@ -1291,6 +1291,109 @@ describe "markdown list", ->
         {type: 'item', nesting: 1}
         {type: 'paragraph', nesting: 1}
         {type: 'text', content: 'd'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'item', nesting: -1}
+        {type: 'list', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-279
+    it "should work with blank line in blockquote", (cb) ->
+      test.markdown null, '* a\n  > b\n  >\n* c', [
+        {type: 'document', nesting: 1}
+        {type: 'list', nesting: 1, list: 'bullet'}
+        {type: 'item', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: 'a'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'blockquote', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: 'b'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'blockquote', nesting: -1}
+        {type: 'item', nesting: -1}
+        {type: 'item', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: 'c'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'item', nesting: -1}
+        {type: 'list', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-280
+    it "should work with continuing blocks not separated by blanks", (cb) ->
+      test.markdown null, '- a\n  > b\n  ```\n  c\n  ```\n- d', [
+        {type: 'document', nesting: 1}
+        {type: 'list', nesting: 1, list: 'bullet'}
+        {type: 'item', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: 'a'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'blockquote', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: 'b'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'blockquote', nesting: -1}
+        {type: 'code', nesting: 1}
+        {type: 'text', content: 'c'}
+        {type: 'code', nesting: -1}
+        {type: 'item', nesting: -1}
+        {type: 'item', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: 'd'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'item', nesting: -1}
+        {type: 'list', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-281
+    it "should work with single paragraph", (cb) ->
+      test.markdown null, '- a', [
+        {type: 'document', nesting: 1}
+        {type: 'list', nesting: 1, list: 'bullet'}
+        {type: 'item', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: 'a'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'item', nesting: -1}
+        {type: 'list', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-282
+    it "should work with single paragraph and sub list", (cb) ->
+      test.markdown null, '- a\n  - b', [
+        {type: 'document', nesting: 1}
+        {type: 'list', nesting: 1, list: 'bullet'}
+        {type: 'item', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: 'a'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'list', nesting: 1, list: 'bullet'}
+        {type: 'item', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: 'b'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'item', nesting: -1}
+        {type: 'list', nesting: -1}
+        {type: 'item', nesting: -1}
+        {type: 'list', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-282
+    it "should fail with blank line between blocks", (cb) ->
+      test.markdown null, '1. ```\n   foo\n   ```\n   bar', [
+        {type: 'document', nesting: 1}
+        {type: 'list', nesting: 1, list: 'ordered'}
+        {type: 'item', nesting: 1}
+        {type: 'code', nesting: 1}
+        {type: 'text', content: 'foo'}
+        {type: 'code', nesting: -1}
+        {type: 'paragraph', nesting: 1, hidden: true}
+        {type: 'text', content: 'bar'}
         {type: 'paragraph', nesting: -1}
         {type: 'item', nesting: -1}
         {type: 'list', nesting: -1}

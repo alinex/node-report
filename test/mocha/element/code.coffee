@@ -35,7 +35,7 @@ describe "code", ->
         {type: 'code', nesting: -1}
         {type: 'document', nesting: -1}
       ], [
-        {format: 'md', text: '``` javascript\ntext = \'foo\';\n```\n'}
+        {format: 'md', text: '``` javascript\ntext = \'foo\';\n```'}
         {format: 'text', re: /foo/}
         {format: 'html', text: "<pre><code>text = &#39;foo&#39;;</code></pre>\n"}
         {format: 'man', text: '.P\n.RS 2\n.nf\ntext = \'foo\';\n.fi\n.RE'}
@@ -55,7 +55,7 @@ describe "code", ->
         {type: 'code', nesting: -1}
         {type: 'document', nesting: -1}
       ], [
-        {format: 'md', text: '``` javascript\ntext = \'foo\';\n```\n'}
+        {format: 'md', text: '``` javascript\ntext = \'foo\';\n```'}
         {format: 'text', re: /foo/}
         {format: 'html', text: "<pre><code>text = &#39;foo&#39;;</code></pre>\n"}
         {format: 'man', text: '.P\n.RS 2\n.nf\ntext = \'foo\';\n.fi\n.RE'}

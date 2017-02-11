@@ -25,7 +25,8 @@ module.exports =
       token.collect = token.collect
       .replace /^\n/, ''  # remove first newline
       .replace /\n/g, "\n#{indent}" # indent text
-
+      .replace /\ +$/, '' # but remove indent of last return
+      token.collect = '\n' unless token.collect?.length
   # Add title to document element from first heading
   html:
     type: 'item'

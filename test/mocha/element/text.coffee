@@ -35,7 +35,7 @@ describe "text", ->
       test.report null, report, [
         {type: 'document', nesting: 1}
         {type: 'paragraph', nesting: 1}
-        {type: 'text', data: {text: 'Simple Text.'}}
+        {type: 'text', content: 'Simple Text.'}
         {type: 'paragraph', nesting: -1}
         {type: 'document', nesting: -1}
       ], null, cb

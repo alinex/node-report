@@ -152,6 +152,7 @@ node2token = (t) ->
     type: t.type
     nesting: t.nesting ? 0
   # copy specific values
+  token['hidden'] = true if t.hidden
   if list = copyAttributes[t.type]
     for e in list
       token[e] = t[e] if t[e]?
