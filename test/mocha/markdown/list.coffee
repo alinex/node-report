@@ -1383,18 +1383,85 @@ describe "markdown list", ->
         {type: 'document', nesting: -1}
       ], null, cb
 
-    # http://spec.commonmark.org/0.27/#example-282
+    # http://spec.commonmark.org/0.27/#example-283
     it "should fail with blank line between blocks", (cb) ->
-      test.markdown null, '1. ```\n   foo\n   ```\n   bar', [
+      test.markdown null, '1. ```\n   foo\n   ```\n\n   bar', [
         {type: 'document', nesting: 1}
         {type: 'list', nesting: 1, list: 'ordered'}
         {type: 'item', nesting: 1}
         {type: 'code', nesting: 1}
         {type: 'text', content: 'foo'}
         {type: 'code', nesting: -1}
-        {type: 'paragraph', nesting: 1, hidden: true}
+        {type: 'paragraph', nesting: 1}
         {type: 'text', content: 'bar'}
         {type: 'paragraph', nesting: -1}
+        {type: 'item', nesting: -1}
+        {type: 'list', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-284
+    it "should work with outer list loose and inner tight", (cb) ->
+      test.markdown null, '* foo\n  * bar\n\n  baz', [
+        {type: 'document', nesting: 1}
+        {type: 'list', nesting: 1, list: 'bullet'}
+        {type: 'item', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: 'foo'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'list', nesting: 1, list: 'bullet'}
+        {type: 'item', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: 'bar'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'item', nesting: -1}
+        {type: 'list', nesting: -1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: 'baz'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'item', nesting: -1}
+        {type: 'list', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-285
+    it "should work with outer list loose and inner tight", (cb) ->
+      test.markdown null, '- a\n  - b\n  - c\n\n- d\n  - e\n  - f', [
+        {type: 'document', nesting: 1}
+        {type: 'list', nesting: 1, list: 'bullet'}
+        {type: 'item', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: 'a'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'list', nesting: 1, list: 'bullet'}
+        {type: 'item', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: 'b'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'item', nesting: -1}
+        {type: 'item', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: 'c'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'item', nesting: -1}
+        {type: 'list', nesting: -1}
+        {type: 'item', nesting: -1}
+        {type: 'item', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: 'd'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'list', nesting: 1, list: 'bullet'}
+        {type: 'item', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: 'e'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'item', nesting: -1}
+        {type: 'item', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: 'f'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'item', nesting: -1}
+        {type: 'list', nesting: -1}
         {type: 'item', nesting: -1}
         {type: 'list', nesting: -1}
         {type: 'document', nesting: -1}

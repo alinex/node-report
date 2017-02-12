@@ -10,6 +10,17 @@ Is used for different type of lists.
 Report = require '../index'
 
 
+# Helper
+# -------------------------------------------------
+
+# Correct and check position of marker in TokenList.
+#
+# @throw {Error} if current position is impossible
+position = ->
+  for autoclose in ['paragraph', 'heading', 'preformatted', 'code']
+    @tokens.setAfterClosing autoclose if @tokens.in autoclose
+
+
 ###
 Builder API
 ----------------------------------------------------
@@ -28,21 +39,54 @@ false to close tag if content is added manually.
 ###
 Report.prototype.list = (input, type = 'bullet', start = 1) ->
   if typeof input is 'boolean'
-    @parser.begin()
-    @parser.autoclose '-block', true if input
-    @parser.insert null,
-      type: 'list'
-      state: '-block'
-      nesting: if input then 1 else -1
-      inline: if input then true else false
-      data:
+    if input
+      position.call this
+      # open new tag
+      @tokens.insert [
+        type: 'list'
         list: type
         start: start
-    return this
-  # add with text
-  @list true, type, start
-  @item e for e in input
-  @list false
+        nesting: 1
+      ,
+        type: 'list'
+        list: type
+        nesting: -1
+      ], null, 1
+    else
+      @tokens.setAfterClosing 'list'
+  else
+    position.call this
+    # complete with content
+    list = [
+      type: 'list'
+      list: type
+      start: start
+      nesting: 1
+    ]
+    for e in input
+      list.push
+        type: 'item'
+        nesting: 1
+      list.push
+        type: 'paragraph'
+        hidden: true
+        nesting: 1
+      list.push
+        type: 'text'
+        content: e
+      list.push
+        type: 'paragraph'
+        nesting: -1
+      list.push
+        type: 'item'
+        nesting: -1
+    list.push
+      type: 'list'
+      list: type
+      nesting: -1
+    @tokens.insert list
+  this
+
 
 ###
 Add item to list.

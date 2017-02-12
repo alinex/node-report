@@ -13,8 +13,9 @@
 # ------> with html
 # 271-275 list
 # ------> link ref
-# 277-  list
+# 277-285 list
 
+# 286 fixed
 # 287-291.. text
 
 # 312-322 char_style
@@ -57,9 +58,9 @@ __Support for Parsing__
 | Code       |  X  |  X   |      |      |
 | Blockquote |  X  |  X   |      |      |
 | ThemaBreak |  X  |  X   |      |      |
+| List       |  X  |  X   |      |      |
 | Fixed      |     |      |      |      |
 | CharStyle  |     |      |      |      |
-| List       |     |      |      |      |
 | Box        |     |      |      |      |
 | Style      |     |      |      |      |
 | ToC        |     |      |      |      |
@@ -88,7 +89,7 @@ Each of the formats support different options you may set by configuration or on
 | Blockquote |     |      |      |      |      |       |     |
 | ThemaBreak |  X  |  X   |  X   |  X   |      |       |     |
 | CharStyle  |  X  | (X)  |  X   |  X   |      |       |     |
-| List       |     |      |      |      |      |       |     |
+| List       |  X  |  X   |  X   |      |      |       |     |
 | Box        |     |      |      |      |      |       |     |
 | Style      |     |      |      |      |      |       |     |
 | ToC        |     |      |      |      |      |       |     |

@@ -44,23 +44,23 @@ describe "list", ->
         {type: 'list', nesting: 1}
         {type: 'item', nesting: 1}
         {type: 'paragraph', nesting: 1}
-        {type: 'text', data: {text: 'one'}}
+        {type: 'text', content: 'one'}
         {type: 'paragraph', nesting: -1}
         {type: 'item', nesting: -1}
         {type: 'item', nesting: 1}
         {type: 'paragraph', nesting: 1}
-        {type: 'text', data: {text: 'two'}}
+        {type: 'text', content: 'two'}
         {type: 'paragraph', nesting: -1}
         {type: 'item', nesting: -1}
         {type: 'item', nesting: 1}
         {type: 'paragraph', nesting: 1}
-        {type: 'text', data: {text: 'three'}}
+        {type: 'text', content: 'three'}
         {type: 'paragraph', nesting: -1}
         {type: 'item', nesting: -1}
         {type: 'list', nesting: -1}
         {type: 'document', nesting: -1}
       ], [
-        {format: 'md', re: /- one\n- two\n- three/}
-        {format: 'text', re: /- one\n- two\n- three/}
+        {format: 'md', re: /   - one\n   - two\n   - three/}
+        {format: 'text', re: /   - one\n   - two\n   - three/}
         {format: 'html', text: "<ul>\n<li><p>one</p></li>\n<li><p>two</p></li>\n<li><p>three</p></li>\n</ul>\n"}
       ], cb
