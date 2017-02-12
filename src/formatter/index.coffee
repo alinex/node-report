@@ -167,16 +167,11 @@ class Formatter
     # collect output
     for pos in [@tokens.data.length-1..0]
       token = @tokens.get pos
+#      console.log '#######################################', pos, token.type, token.nesting
+#      console.log @tokens.data
       continue if token.nesting isnt 1 # only work on opening elements
       # collect content
-      token.collect = ''
-      n = pos
-      loop
-        t = @tokens.get ++n
-        break if t.level is token.level # reached end of sub elements
-        if t.level is token.level + 1 # only one level deeper
-          token.collect += t.out if t.out
-          token.collect += t.collect if t.collect
+      @tokens.collect pos, token
       # call post routine
       for rule in postLibs[@setup.type]
         continue if rule.type and token.type isnt rule.type

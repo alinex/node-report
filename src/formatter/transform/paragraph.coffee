@@ -29,7 +29,6 @@ module.exports =
     format: ['md', 'text', 'adoc']
     type: 'paragraph'
     fn: (num, token) ->
-      return if token.nesting is 1 and token.hidden
+      if token.nesting is 1
+        return if token.hidden
       token.out = '\n'
-      if token.parent.type is 'item' and token.nesting is -1 and not token.hidden
-        token.out += '\n'

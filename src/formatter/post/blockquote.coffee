@@ -10,6 +10,10 @@ module.exports =
   markdown:
     format: ['md', 'text']
     type: 'blockquote'
-    nesting: 1
     fn: (num, token) ->
-      token.collect = "\n> #{token.collect.replace /\n/g, '\n> '}\n"
+      prev = @tokens.get num - 1
+      token.collect = token.collect
+      .replace /^\n|\n$/g, ''
+      .replace /\n/g, '\n> '
+      token.collect = "> #{token.collect}\n"
+      token.collect = "\n#{token.collect}" unless prev.hidden

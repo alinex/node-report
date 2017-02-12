@@ -9,11 +9,11 @@
 # report. But to work with it there are different methods within for easy access
 # and manipulation.
 #
-# A positional marker is also used to have a current position within the list
+# A positional cursor is also used to have a current position within the list
 # to work at if no other position is specified in the methods.
-# - `set(Integer)` set a specific position for the marker
-# - `pos` get the marker position in the array
-# - `token` access last token before the marker
+# - `set(Integer)` set a specific position for the cursor
+# - `pos` get the cursor position in the array
+# - `token` access last token before the cursor
 #
 # ### Tokens
 #
@@ -29,7 +29,7 @@
 #
 # Some tokens may contain specific fields.
 # - `content` - `String` used in text, text styling elements like `strong`
-# - `hidden` - `Boolean` set to true to ignore element in rendering (for tight lists) 
+# - `hidden` - `Boolean` set to true to ignore element in rendering (for tight lists)
 # - `heading` - `Integer` level of heading (between 0..6)
 # - 'list' - `String` the type of list (bullet, ordered)
 # - `start` - `Integer` start number in ordered list
@@ -93,17 +93,71 @@ class TokenList
     pos = @data.length + pos if pos < 0
     @data[pos]
 
-  in: (type) ->
+  # Check if current token is within one of the defined types.
+  #
+  # @param {String|Array<String>} type the list of types to check
+  # @param {Token} [token] check from this or from the current cursor
+  # @return {Boolean} `true` if within one of the given elements
+  in: (type, token) ->
     type = [type] unless Array.isArray type
-    t = @token
+    t = token ? @token
     loop
       return t if t.type in type and t.nesting is 1
       return false unless t.parent
       t = t.parent
 
-  # Set the current marker.
+  # Check if current token directly contains one or more of the defined types.
   #
-  # @param {Integer} pos set marker for current position
+  # @param {String|Array<String>} type the list of types to check
+  # @param {Integer} [pos] cursor for current position
+  # @param {Token} [token] check from this or from the current cursor
+  # @return {Object<Integer=Token>} the list of found elements
+  contains: (type, pos, token) ->
+    type = [type] unless Array.isArray type
+    pos ?= @pos
+    token ?= @token
+    num = pos
+    found = {}
+    loop
+      t = @get ++num
+      continue if t.level > token.level + 1 # to deep
+      break if t.level is token.level
+      found[num] = t if t.type in type and t.nesting >= 0
+    found
+
+  # Find start of given end Token.
+  #
+  # @param {Integer} [pos] cursor for current position
+  # @param {Token} [token] check from this or from the current cursor
+  # @return {Integer, Token} the found start position and Token
+  findStart: (pos, token) ->
+    return null if token.nesting isnt -1
+    pos ?= @pos
+    token ?= @token
+    num = pos
+    loop
+      t = @get --num
+      continue if t.level > token.level
+      return [num, t] if t.level is token.level
+
+  # Find end of given start Token.
+  #
+  # @param {Integer} [pos] cursor for current position
+  # @param {Token} [token] check from this or from the current cursor
+  # @return {Integer, Token} the found end position and Token
+  findEnd: (pos, token) ->
+    return null if token.nesting isnt 1
+    pos ?= @pos
+    token ?= @token
+    num = pos
+    loop
+      t = @get ++num
+      continue if t.level > token.level
+      return [num, t] if t.level is token.level
+
+      #
+  # Set the current cursor.
+  # @param {Integer} pos set cursor for current position
   # @return {TokenList} for command concatenation
   set: (@pos) ->
     @pos ?= @data.length # default after last token
@@ -112,27 +166,29 @@ class TokenList
     debug "set position to #{@pos}" if debug
     this
 
+  # Set the current cursor after closing tag.
+  #
+  # @param {Integer} pos set cursor for current position
+  # @return {TokenList} for command concatenation
   setAfterClosing: (type) ->
     # step behind close tag
-    console.log type
     for pos in [@pos..@data.length-1]
       t = @get pos
-      console.log pos, t
       break if t.type is type and t.level <= @token.level and t.nesting is -1
     @set pos + 1
 
   # Insert one or multiple tokens.
   #
   # @param {Array<Token>|Token} list to be added to the tokens
-  # @param {Integer} [pos] add at this position or at the current marker
-  # @param {Integer} [marker] number of elements to move marker (default to end of
+  # @param {Integer} [pos] add at this position or at the cursor
+  # @param {Integer} [cursor] number of elements to move cursor (default to end of
   # inserted list)
   # @return {TokenList} for command concatenation
-  insert: (list, pos, marker) ->
+  insert: (list, pos, cursor) ->
     list = [list] unless Array.isArray list
     pos ?= @pos ? 0
     pos = @data.length + pos if pos < 0
-    marker ?= list.length
+    cursor ?= list.length
     # optimize tokens
     parent = []
     level = 0
@@ -158,7 +214,7 @@ class TokenList
       num = pos
       for e in list
         debug "INSERT #{util.string.lpad '#' + num++ + '/' + (@data.length-1), 6}", chalk.gray @dump e
-    @set pos + marker
+    @set pos + cursor
     this
 
   # Remove tokens from the list.
@@ -171,10 +227,10 @@ class TokenList
       for e in [pos..pos+num]
         debug "REMOVE #{util.string.lpad '#' + e, 3}", chalk.gray @dump e
     @data.splice pos, num
-    # deleted before marker
+    # deleted before cursor
     if pos < @pos < pos + num
       @set pos
-    # deleted around marker
+    # deleted around cursor
     else if pos < @pos
       @set @pos - num
     this
@@ -187,6 +243,20 @@ class TokenList
     token = @data[token] if typeof token is 'number'
     TokenList.dump token
 
+  # Collect content of token and subtokens into string.
+  #
+  # @param {Token|Integer} token to dump
+  # @return {String} representation of token
+  collect: (pos, token) ->
+    # collect content
+    token.collect = ''
+    n = pos
+    loop
+      t = @get ++n
+      break if t.level is token.level # reached end of sub elements
+      if t.level is token.level + 1 # only one level deeper
+        token.collect += t.out if t.out
+        token.collect += t.collect if t.collect
 
 
 # Exports

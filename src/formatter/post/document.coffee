@@ -11,6 +11,5 @@ module.exports =
   title:
     format: ['md', 'text', 'roff', 'adoc']
     type: 'document'
-    nesting: 1
     fn: (num, token) ->
       token.collect = token.collect.replace /^\n|\n$/, ''

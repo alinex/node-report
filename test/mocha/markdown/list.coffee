@@ -1242,7 +1242,7 @@ describe "markdown list", ->
 # example 276.....
 #############################################
 
-  describe.skip 'tight', ->
+  describe 'tight', ->
 
     # http://spec.commonmark.org/0.27/#example-277
     it "should work with blank lines in code block", (cb) ->
@@ -1322,7 +1322,7 @@ describe "markdown list", ->
       ], null, cb
 
     # http://spec.commonmark.org/0.27/#example-280
-    it "should work with continuing blocks not separated by blanks", (cb) ->
+    it.skip "should work with continuing blocks not separated by blanks", (cb) ->
       test.markdown null, '- a\n  > b\n  ```\n  c\n  ```\n- d', [
         {type: 'document', nesting: 1}
         {type: 'list', nesting: 1, list: 'bullet'}
