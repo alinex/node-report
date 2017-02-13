@@ -17,4 +17,7 @@ module.exports =
         marker += '`'
       token.out = marker
       token.collect = ' ' unless token.collect
+      token.collect = token.collect
+      .replace /^`/, ' `'
+      .replace /`$/, '` '
       token.collect = token.collect + marker

@@ -57,61 +57,52 @@ Report.prototype.list = (input, type = 'bullet', start = 1) ->
   else
     position.call this
     # complete with content
-    list = [
+    @tokens.insert
       type: 'list'
       list: type
       start: start
       nesting: 1
-    ]
-    for e in input
-      list.push
-        type: 'item'
-        nesting: 1
-      list.push
-        type: 'paragraph'
-        hidden: true
-        nesting: 1
-      list.push
-        type: 'text'
-        content: e
-      list.push
-        type: 'paragraph'
-        nesting: -1
-      list.push
-        type: 'item'
-        nesting: -1
-    list.push
+    loose = input.filter((e) -> e.match /\n/).length
+    @item e, not loose for e in input
+    @tokens.insert
       type: 'list'
       list: type
       nesting: -1
-    @tokens.insert list
   this
-
 
 ###
 Add item to list.
 
 @param {String|Boolean} input with content of paragraph or true to open tag and
 false to close tag if content is added manually.
+@param {Boolean} tught set to `true to set hidden flag on paragraph used for tight lists`
 @return {Report} instance itself for command concatenation
 ###
-Report.prototype.item = (input, title) ->
+Report.prototype.item = (input, tight) ->
   if typeof input is 'boolean'
-    @parser.begin()
-    @parser.autoclose '-block', true if input
-    @parser.insert null,
+    if input
+      position.call this
+      # open new tag
+      @tokens.insert [
+        type: 'item'
+        nesting: 1
+      ,
+        type: 'item'
+        nesting: -1
+      ], null, 1
+    else
+      @tokens.setAfterClosing 'item'
+  else
+    position.call this
+    # complete with content
+    @tokens.insert
       type: 'item'
-      state: '-block'
-      nesting: if input then 1 else -1
-      inline: if input then true else false
-      title: title
-    return this
-  # add with text
-  @item true, title
-  @paragraph true
-  @text input
-  @paragraph false
-  @item false
+      nesting: 1
+    @paragraph input, tight
+    @tokens.insert
+      type: 'item'
+      nesting: -1
+  this
 
 ###
 Add a bullet list (shortcut).

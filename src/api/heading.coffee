@@ -58,18 +58,15 @@ Report.prototype.heading = (level, input) ->
   else
     position.call this
     # complete with content
-    @tokens.insert [
+    @tokens.insert
       type: 'heading'
       heading: level
       nesting: 1
-    ,
-      type: 'text'
-      content: input
-    ,
+    @text input
+    @tokens.insert
       type: 'heading'
       heading: level
       nesting: -1
-    ]
   this
 
 ###

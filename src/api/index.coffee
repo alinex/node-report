@@ -19,8 +19,8 @@
 # ------> emphasis
 # 291     text
 # ------>
+# 312-322 fixed
 
-# 312-322 char_style
 # 324 char_style
 # 326-327 char_style
 # 328-354 emphasis

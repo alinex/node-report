@@ -52,16 +52,13 @@ Report.prototype.preformatted = (input) ->
   else
     position.call this
     # complete with content
-    @tokens.insert [
+    @tokens.insert
       type: 'preformatted'
       nesting: 1
-    ,
-      type: 'text'
-      content: input
-    ,
+    @text input
+    @tokens.insert
       type: 'preformatted'
       nesting: -1
-    ]
   this
 
 ###

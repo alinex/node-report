@@ -53,22 +53,13 @@ Report.prototype.blockquote = (input) ->
   else
     position.call this
     # complete with content
-    @tokens.insert [
+    @tokens.insert
       type: 'blockquote'
       nesting: 1
-    ,
-      type: 'paragraph'
-      nesting: 1
-    ,
-      type: 'text'
-      content: input
-    ,
-      type: 'paragraph'
-      nesting: -1
-    ,
+    @paragraph input
+    @tokens.insert
       type: 'blockquote'
       nesting: -1
-    ]
   this
 
 ###

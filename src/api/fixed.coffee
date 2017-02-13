@@ -1,5 +1,5 @@
 ###
-Paragraph
+Fixed Code Style
 =================================================
 ###
 
@@ -9,66 +9,60 @@ Paragraph
 Report = require '../index'
 
 
-# Helper
-# -------------------------------------------------
-
-# Correct and check position of marker in TokenList.
-#
-# @throw {Error} if current position is impossible
-position = ->
-  for autoclose in ['paragraph', 'heading', 'preformatted', 'code']
-    @tokens.setAfterClosing autoclose if @tokens.in autoclose
-
 ###
 Builder API
 ----------------------------------------------------
 ###
 
-###
-Add a text paragraph.
 
-@param {String|Boolean} input with content of paragraph or true to open tag and
-false to close tag if content is added manually.#
-@param {Boolean} hidden set to `true to set hidden flag used for tight lists`
+# Correct and check position of marker in TokenList.
+#
+# @throw {Error} if current position is impossible
+position = ->
+  unless @tokens.in ['paragraph']
+    throw Error "Could only use `text()` in inline area"
+
+###
+Add inline text formated as typewriter.
+
+@param {String|Boolean} input with content of text or true to open tag and
+false to close tag if content is added manually.
 @return {Report} instance itself for command concatenation
 ###
-Report.prototype.paragraph = (input, hidden) ->
+Report.prototype.fixed = (input) ->
   if typeof input is 'boolean'
     if input
       position.call this
       # open new tag
       @tokens.insert [
-        type: 'paragraph'
+        type: 'fixed'
         nesting: 1
       ,
-        type: 'paragraph'
+        type: 'fixed'
         nesting: -1
       ], null, 1
     else
-      @tokens.setAfterClosing 'paragraph'
+      @tokens.setAfterClosing 'fixed'
   else
     position.call this
     # complete with content
     @tokens.insert
-      type: 'paragraph'
+      type: 'fixed'
       nesting: 1
-      hidden: hidden
     @text input
     @tokens.insert
-      type: 'paragraph'
+      type: 'fixed'
       nesting: -1
-      hidden: hidden
   this
 
 ###
-Add a text paragraph (shortcut).
+Add inline text formated as typewriter.
 
-@param {String|Boolean} input with content of paragraph or true to open tag and
+@param {String|Boolean} input with content of text or true to open tag and
 false to close tag if content is added manually.
 @return {Report} instance itself for command concatenation
 ###
-Report.prototype.p = (input) -> @paragraph input
-
+Report.prototype.tt = (input) -> @fixed input
 
 ###
 Markdown Input/Output

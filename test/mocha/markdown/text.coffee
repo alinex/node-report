@@ -176,7 +176,7 @@ describe "markdown text", ->
         {type: 'document', nesting: -1}
       ], null, cb
 
-  describe.only "escapes", ->
+  describe "escapes", ->
 
     # http://spec.commonmark.org/0.27/#example-287
     it "should remove backslash before ASCII punctuation", (cb) ->

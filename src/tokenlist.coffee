@@ -106,6 +106,18 @@ class TokenList
       return false unless t.parent
       t = t.parent
 
+  # Get list of all parent tokens, highest last.
+  #
+  # @param {Token} [token] check from this or from the current cursor
+  # @return {Boolean} `true` if within one of the given elements
+  parents: (token) ->
+    t = token ? @token
+    parents = []
+    loop
+      break unless t = t.parent
+      parents.push t
+    parents
+
   # Check if current token directly contains one or more of the defined types.
   #
   # @param {String|Array<String>} type the list of types to check
@@ -155,8 +167,8 @@ class TokenList
       continue if t.level > token.level
       return [num, t] if t.level is token.level
 
-      #
   # Set the current cursor.
+  #
   # @param {Integer} pos set cursor for current position
   # @return {TokenList} for command concatenation
   set: (@pos) ->
@@ -194,8 +206,10 @@ class TokenList
     level = 0
     if pos > 0
       last = @get pos - 1
-      parent.unshift if last.nesting > 0 then last else last.parent
-      level = parent[0].level + 1
+      p = if last.nesting > 0 then last else last.parent
+      parent = @parents p
+      parent.unshift p
+      level = p.level + 1
     for e in list
       if e.nesting < 0
         level--

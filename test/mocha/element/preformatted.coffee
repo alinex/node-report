@@ -32,11 +32,13 @@ describe "preformatted", ->
       test.report null, report, [
         {type: 'document', nesting: 1}
         {type: 'preformatted', nesting: 1}
-        {type: 'text', content: 'foo\n   bar'}
+        {type: 'text', content: 'foo'}
+        {type: 'hardbreak'}
+        {type: 'text', content: '   bar'}
         {type: 'preformatted', nesting: -1}
         {type: 'document', nesting: -1}
       ], [
-        {format: 'md', re: / {4}foo\n {7}bar/}
+        {format: 'md', re: / {4}foo\\\n {7}bar/}
         {format: 'text', re: /foo/}
         {format: 'html', text: "<pre><code>foo\n   bar</code></pre>\n"}
         {format: 'man', text: '.P\n.RS 2\n.nf\nfoo\n   bar\n.fi\n.RE'}
@@ -50,11 +52,13 @@ describe "preformatted", ->
       test.report null, report, [
         {type: 'document', nesting: 1}
         {type: 'preformatted', nesting: 1}
-        {type: 'text', content: 'foo\n   bar'}
+        {type: 'text', content: 'foo'}
+        {type: 'hardbreak'}
+        {type: 'text', content: '   bar'}
         {type: 'preformatted', nesting: -1}
         {type: 'document', nesting: -1}
       ], [
-        {format: 'md', re: / {4}foo\n {7}bar/}
+        {format: 'md', re: / {4}foo\\\n {7}bar/}
         {format: 'text', re: /foo/}
         {format: 'html', text: "<pre><code>foo\n   bar</code></pre>\n"}
         {format: 'man', text: '.P\n.RS 2\n.nf\nfoo\n   bar\n.fi\n.RE'}
@@ -70,11 +74,13 @@ describe "preformatted", ->
       test.report null, report, [
         {type: 'document', nesting: 1}
         {type: 'preformatted', nesting: 1}
-        {type: 'text', content: 'foo\n   bar'}
+        {type: 'text', content: 'foo'}
+        {type: 'hardbreak'}
+        {type: 'text', content: '   bar'}
         {type: 'preformatted', nesting: -1}
         {type: 'document', nesting: -1}
       ], [
-        {format: 'md', re: / {4}foo\n {7}bar/}
+        {format: 'md', re: / {4}foo\\\n {7}bar/}
         {format: 'text', re: /foo/}
         {format: 'html', text: "<pre><code>foo\n   bar</code></pre>\n"}
         {format: 'man', text: '.P\n.RS 2\n.nf\nfoo\n   bar\n.fi\n.RE'}

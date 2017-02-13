@@ -1,10 +1,15 @@
 ###
-Text
+Text Line
 =================================================
 Text may be added in block and inline elements like {@link paragraph.coffee},
 {@link heading.coffee} or {@link char_style.coffee}. To use it you have to open
 the element with value `true` before adding one or multiple text elements.
+
+To add multiple lines you may add multiple `text` tokens separated by `hardbreak`
+or `softbreak` tokens. While the hard break will always stay the soft break may be
+automatically removed based on the output format.
 ###
+
 
 # Node Modules
 # -------------------------------------------------
@@ -35,9 +40,42 @@ Add plain text to currently opened element.
 Report.prototype.text = (text) ->
   return unless text
   position.call this
-  @tokens.insert
-    type: 'text'
-    content: text
+  text = text.split /\n/
+  list = []
+  for line in text
+    list.push
+      type: 'text'
+      content: line
+    list.push {type: 'hardbreak'}
+  list.pop()
+  @tokens.insert list
+  this
+
+###
+Add a hard break between lines,
+
+@return {Report} instance itself for command concatenation
+###
+Report.prototype.hardbreak = ->
+  position.call this
+  @tokens.insert {type: 'hardbreak'}
+  this
+
+###
+Add a hard break between lines,
+
+@return {Report} instance itself for command concatenation
+###
+Report.prototype.break = -> @hardbreak()
+
+###
+Add a soft break between lines,
+
+@return {Report} instance itself for command concatenation
+###
+Report.prototype.softbreak = ->
+  position.call this
+  @tokens.insert {type: 'softbreak'}
   this
 
 
