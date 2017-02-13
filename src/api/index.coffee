@@ -14,9 +14,11 @@
 # 271-275 list
 # ------> link ref
 # 277-285 list
-
-# 286 fixed
-# 287-291.. text
+# 286     fixed
+# 287-289 text
+# ------> emphasis
+# 291     text
+# ------>
 
 # 312-322 char_style
 # 324 char_style
