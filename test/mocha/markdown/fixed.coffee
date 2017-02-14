@@ -157,8 +157,18 @@ describe "markdown fixed", ->
       {type: 'document', nesting: -1}
     ], null, cb
 
-#################################################
-# example 323
+#  # http://spec.commonmark.org/0.27/#example-323
+#  it.only "should fail in html tags", (cb) ->
+#    test.markdown null, '<a href="`">`', [
+#      {type: 'document', nesting: 1}
+#      {type: 'paragraph', nesting: 1}
+#      {type: 'fixed', nesting: 1}
+#      {type: 'text', content: '<a href="'}
+#      {type: 'fixed', nesting: -1}
+#      {type: 'text', content: '">`'}
+#      {type: 'paragraph', nesting: -1}
+#      {type: 'document', nesting: -1}
+#    ], null, cb
 
   # http://spec.commonmark.org/0.27/#example-324
   it "should break auto link", (cb) ->

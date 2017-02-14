@@ -20,12 +20,14 @@
 # 291     text
 # ------>
 # 312-322 fixed
+# ------>
+# 324     fixed
+# ------>
+# 326-327 fixed
+# 328-380 emphasis
+# ------> links
+# 382-388 emphasis
 
-# 324 char_style
-# 326-327 char_style
-# 328-354 emphasis
-# 355-380 strong
-# 382- mixed
 ###
 
 Elements
