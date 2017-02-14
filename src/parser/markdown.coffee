@@ -42,6 +42,7 @@ module.exports = (text) ->
 # This will match the name including ..._open or also without it.
 modify =
 
+  text: (t) -> if t.content then t else []
   heading: (t) -> t.heading = Number t.tag[1]
   hr: (t) -> t.type = 'thematic_break'
   em: (t) -> t.type = 'emphasis'
@@ -128,6 +129,7 @@ tree2tokens = (tree) ->
       res = null
       # modify tokens
       res = modify[t.type] t if modify[t.type]
+      continue if res?.length is 0
       if Array.isArray(res) and res[0].type
         # already transformed
         list = list.concat res
@@ -135,6 +137,7 @@ tree2tokens = (tree) ->
       # default
       t.type = t.type.replace /_(open|close)$/, ''
       res = modify[t.type] t if modify[t.type]
+      continue if res?.length is 0
       if Array.isArray(res) and res[0].type
         # already transformed
         list = list.concat res

@@ -26,7 +26,13 @@
 # 326-327 fixed
 # 328-380 emphasis
 # ------> links
-# 382-388 emphasis
+# 382-392 emphasis
+# ------> links
+# 304-305 emphasis
+# ------> links
+# 307-406 emphasis
+# ------> links
+# 408-433 emphasis
 
 ###
 
