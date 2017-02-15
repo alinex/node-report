@@ -32,7 +32,8 @@
 # ------> links
 # 307-406 emphasis
 # ------> links
-# 408-433 emphasis
+# 408-446 emphasis
+# ------> links, html...
 
 ###
 
@@ -69,8 +70,8 @@ __Support for Parsing__
 | Blockquote |  X  |  X   |      |      |
 | ThemaBreak |  X  |  X   |      |      |
 | List       |  X  |  X   |      |      |
-| Fixed      |     |      |      |      |
-| CharStyle  |     |      |      |      |
+| Fixed      |  X  |  X   |      |      |
+| Emphasis   |  X  |  X   |      |      |
 | Box        |     |      |      |      |
 | Style      |     |      |      |      |
 | ToC        |     |      |      |      |

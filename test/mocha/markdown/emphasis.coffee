@@ -393,7 +393,9 @@ describe "markdown emphasis", ->
       test.markdown null, '__\nfoo bar__', [
         {type: 'document', nesting: 1}
         {type: 'paragraph', nesting: 1}
-        {type: 'text', content: '__ foo bar__'}
+        {type: 'text', content: '__'}
+        {type: 'softbreak'}
+        {type: 'text', content: 'foo bar__'}
         {type: 'paragraph', nesting: -1}
         {type: 'document', nesting: -1}
       ], null, cb
@@ -514,7 +516,8 @@ describe "markdown emphasis", ->
         {type: 'emphasis', nesting: 1}
         {type: 'text', content: 'Gomphocarpus physocarpus'}
         {type: 'emphasis', nesting: -1}
-        {type: 'text', content: ', syn. '}
+        {type: 'text', content: ', syn.'}
+        {type: 'softbreak'}
         {type: 'emphasis', nesting: 1}
         {type: 'text', content: 'Asclepias physocarpa'}
         {type: 'emphasis', nesting: -1}
@@ -636,7 +639,7 @@ describe "markdown emphasis", ->
       ], null, cb
 
 
-  describe.only "mixed", ->
+  describe "mixed", ->
 
   ###########################
   # example 381
@@ -1292,7 +1295,6 @@ describe "markdown emphasis", ->
     # http://spec.commonmark.org/0.27/#example-431
     # http://spec.commonmark.org/0.27/#example-432
     # http://spec.commonmark.org/0.27/#example-433
-    # http://spec.commonmark.org/0.27/#example-434
     it "should work with unevenly delimiter", (cb) ->
       async.series [
         (cb) ->
@@ -1347,6 +1349,186 @@ describe "markdown emphasis", ->
             {type: 'text', content: 'foo'}
             {type: 'emphasis', nesting: -1}
             {type: 'text', content: '___'}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+      ], cb
+
+    # http://spec.commonmark.org/0.27/#example-434
+    # http://spec.commonmark.org/0.27/#example-435
+    # http://spec.commonmark.org/0.27/#example-436
+    # http://spec.commonmark.org/0.27/#example-437
+    it "should work with different delimiters", (cb) ->
+      async.series [
+        (cb) ->
+          test.markdown null, '**foo**', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'strong', nesting: 1}
+            {type: 'text', content: 'foo'}
+            {type: 'strong', nesting: -1}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '*_foo_*', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'emphasis', nesting: 1}
+            {type: 'emphasis', nesting: 1}
+            {type: 'text', content: 'foo'}
+            {type: 'emphasis', nesting: -1}
+            {type: 'emphasis', nesting: -1}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '__foo__', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'strong', nesting: 1}
+            {type: 'text', content: 'foo'}
+            {type: 'strong', nesting: -1}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '_*foo*_', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'emphasis', nesting: 1}
+            {type: 'emphasis', nesting: 1}
+            {type: 'text', content: 'foo'}
+            {type: 'emphasis', nesting: -1}
+            {type: 'emphasis', nesting: -1}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+      ], cb
+
+    # http://spec.commonmark.org/0.27/#example-438
+    # http://spec.commonmark.org/0.27/#example-439
+    # http://spec.commonmark.org/0.27/#example-440
+    # http://spec.commonmark.org/0.27/#example-441
+    # http://spec.commonmark.org/0.27/#example-442
+    it "should work with strong in strong delimiter", (cb) ->
+      async.series [
+        (cb) ->
+          test.markdown null, '****foo****', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'strong', nesting: 1}
+            {type: 'strong', nesting: 1}
+            {type: 'text', content: 'foo'}
+            {type: 'strong', nesting: -1}
+            {type: 'strong', nesting: -1}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '____foo____', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'strong', nesting: 1}
+            {type: 'strong', nesting: 1}
+            {type: 'text', content: 'foo'}
+            {type: 'strong', nesting: -1}
+            {type: 'strong', nesting: -1}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '******foo******', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'strong', nesting: 1}
+            {type: 'strong', nesting: 1}
+            {type: 'strong', nesting: 1}
+            {type: 'text', content: 'foo'}
+            {type: 'strong', nesting: -1}
+            {type: 'strong', nesting: -1}
+            {type: 'strong', nesting: -1}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '***foo***', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'strong', nesting: 1}
+            {type: 'emphasis', nesting: 1}
+            {type: 'text', content: 'foo'}
+            {type: 'emphasis', nesting: -1}
+            {type: 'strong', nesting: -1}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '_____foo_____', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'strong', nesting: 1}
+            {type: 'strong', nesting: 1}
+            {type: 'emphasis', nesting: 1}
+            {type: 'text', content: 'foo'}
+            {type: 'emphasis', nesting: -1}
+            {type: 'strong', nesting: -1}
+            {type: 'strong', nesting: -1}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+      ], cb
+
+    # http://spec.commonmark.org/0.27/#example-443
+    # http://spec.commonmark.org/0.27/#example-444
+    # http://spec.commonmark.org/0.27/#example-445
+    # http://spec.commonmark.org/0.27/#example-446
+    it "should fail interlaced", (cb) ->
+      async.series [
+        (cb) ->
+          test.markdown null, '*foo _bar* baz_', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'emphasis', nesting: 1}
+            {type: 'text', content: 'foo _bar'}
+            {type: 'emphasis', nesting: -1}
+            {type: 'text', content: ' baz_'}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '*foo __bar *baz bim__ bam*', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'emphasis', nesting: 1}
+            {type: 'text', content: 'foo '}
+            {type: 'strong', nesting: 1}
+            {type: 'text', content: 'bar *baz bim'}
+            {type: 'strong', nesting: -1}
+            {type: 'text', content: ' bam'}
+            {type: 'emphasis', nesting: -1}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '**foo **bar baz**', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', content: '**foo '}
+            {type: 'strong', nesting: 1}
+            {type: 'text', content: 'bar baz'}
+            {type: 'strong', nesting: -1}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '*foo *bar baz*', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', content: '*foo '}
+            {type: 'emphasis', nesting: 1}
+            {type: 'text', content: 'bar baz'}
+            {type: 'emphasis', nesting: -1}
             {type: 'paragraph', nesting: -1}
             {type: 'document', nesting: -1}
           ], null, cb

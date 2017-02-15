@@ -38,27 +38,29 @@ module.exports =
   strong_md:
     format: 'md'
     type: 'strong'
-    fn: (num, token) -> token.out = '**'
-
-  strong_html:
-    format: 'html'
-    type: 'strong'
     fn: (num, token) ->
-      token.out = if token.nesting is 1 then '<strong>' else '</strong>'
-
-  strong_roff:
-    format: 'roff'
-    type: 'strong'
-    fn: (num, token) ->
-      token.out = if token.nesting is 1 then '\\fB' else '\\fR'
+      # set marker to use primarily as * but use _ if it may be compromising
+      if token.nesting is 1
+        last = @tokens.get num - 1
+        [numEnd] = @tokens.findEnd num, token
+        next = @tokens.get numEnd + 1
+        token.marker = if last.nesting is 1 and last.type in ['emphasis', 'strong'] and \
+          next.type in ['emphasis', 'strong'] and last.marker is '*' then '_' else '*'
+      else
+        [_, start] = @tokens.findStart num, token
+        token.marker = start.marker
 
   emphasis_md:
     format: 'md'
     type: 'emphasis'
-    fn: (num, token) -> token.out = '*'
-
-  emphasis_html:
-    format: 'html'
-    type: 'emphasis'
     fn: (num, token) ->
-      token.out = if token.nesting is 1 then '<em>' else '</em>'
+      # set marker to use primarily as * but use _ if it may be compromising
+      if token.nesting is 1
+        last = @tokens.get num - 1
+        [numEnd] = @tokens.findEnd num, token
+        next = @tokens.get numEnd + 1
+        token.marker = if last.nesting is 1 and last.type in ['emphasis', 'strong'] and \
+          next.type in ['emphasis', 'strong'] and last.marker is '*' then '_' else '*'
+      else
+        [_, start] = @tokens.findStart num, token
+        token.marker = start.marker
