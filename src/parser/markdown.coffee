@@ -30,7 +30,7 @@ module.exports = (text) ->
       linkify: true
 #      typographer: true
   # parse and convert tokens
-  tree = markdownIt.parse text
+  tree = markdownIt.parse text, {} # empty env
   @tokens.insert tree2tokens tree
   this
 
@@ -56,7 +56,15 @@ modify =
     if t.attrs
       for a in t.attrs
         t.start = a[1] if a[0] is 'start'
+    null
   list_item: (t) -> t.type = 'item'
+  link: (t) ->
+    t.type = 'link'
+    if t.attrs
+      for a in t.attrs
+        t.href = a[1] if a[0] is 'href'
+        t.title = a[1] if a[0] is 'title'
+    null
 
   code_inline: (t) ->
     list = []
@@ -115,6 +123,7 @@ copyAttributes =
   heading: ['heading']
   list: ['list', 'start']
   code: ['language']
+  link: ['href', 'title']
 
 # Convert markdown-it structure to report tokens.
 #

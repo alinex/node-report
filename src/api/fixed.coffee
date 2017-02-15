@@ -44,6 +44,7 @@ Report.prototype.fixed = (input) ->
     else
       @tokens.setAfterClosing 'fixed'
   else
+    return unless input
     position.call this
     # complete with content
     @tokens.insert
