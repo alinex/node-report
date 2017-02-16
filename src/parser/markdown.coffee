@@ -65,6 +65,26 @@ modify =
         t.href = a[1] if a[0] is 'href'
         t.title = a[1] if a[0] is 'title'
     null
+  image: (t) ->
+    t.type = 'image'
+    t.nesting = 1
+    if t.attrs
+      for a in t.attrs
+        t.src = a[1] if a[0] is 'src'
+        t.title = a[1] if a[0] is 'title'
+    null
+  xxximage: (t) ->
+    list = []
+    t.type = 'image'
+    if t.attrs
+      for a in t.attrs
+        t.src = a[1] if a[0] is 'src'
+        t.title = a[1] if a[0] is 'title'
+    t.nesting = 1
+    list.push node2token t
+    t.nesting = -1
+    list.push node2token t
+    list
 
   code_inline: (t) ->
     list = []
@@ -124,6 +144,7 @@ copyAttributes =
   list: ['list', 'start']
   code: ['language']
   link: ['href', 'title']
+  image: ['src', 'title']
 
 # Convert markdown-it structure to report tokens.
 #
@@ -154,7 +175,12 @@ tree2tokens = (tree) ->
       # run default conversion of single token and add to list
       list.push node2token t
     # add children
-    list = list.concat tree2tokens t.children if t.children
+    if t.children
+      list = list.concat tree2tokens t.children
+      # autoclose some tags
+      if t.type is 'image'
+        t.nesting = -1
+        list.push node2token t
   list
 
 

@@ -25,7 +25,7 @@ module.exports =
       .replace /^(\s{0,3})>/, "$1\\>" # prevent blockquote
       .replace /<([^>]*)>/g, "\\<$1>" # prevent html
       .replace /^(\s{0,3})([=-]|[-~]{3})/, "$1\\$2" # prevent setext heading and thematic break
-      .replace /([[])/g, "\\$1" # prevent automatic link
+#      .replace /([[])/g, "\\$1" # prevent automatic link
 
   html:
     format: 'html'

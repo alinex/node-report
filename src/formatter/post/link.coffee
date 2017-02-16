@@ -14,6 +14,7 @@ module.exports =
       uri = if token.href.match /[()]/g then "<#{token.href}>" else token.href
 #      uri = token.href.replace /([()])/g, '\\$1'
       token.out = '['
-      token.collect += "](#{uri}"
-      token.collect += " \"#{token.title}\"" if token.title
+      token.collect = token.collect.replace(/([\[\]])/g, '\\$1') + "](#{uri}"
+      if token.title
+        token.collect += " \"#{token.title.replace /(")/g, '\\$1'}\""
       token.collect += ')'
