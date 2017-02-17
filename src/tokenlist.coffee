@@ -33,6 +33,9 @@
 # - `heading` - `Integer` level of heading (between 0..6)
 # - 'list' - `String` the type of list (bullet, ordered)
 # - `start` - `Integer` start number in ordered list
+# - `href` - `String` the target uri for a link element
+# - `src` - `String` the source uri for the image element
+# - `title` - `String` an additional title for image or link elements
 
 
 # Node Modules

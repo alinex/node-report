@@ -395,7 +395,7 @@ describe.only "markdown link", ->
 
   # http://spec.commonmark.org/0.27/#example-485
   # http://spec.commonmark.org/0.27/#example-486
-  it.only "should allow markdown in link text", (cb) ->
+  it "should allow markdown in link text", (cb) ->
     async.series [
       (cb) ->
         test.markdown null, '[link *foo **bar** `#`*](/uri)', [

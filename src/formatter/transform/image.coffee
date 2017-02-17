@@ -1,4 +1,4 @@
-# Link
+# Image
 # =================================================
 
 
@@ -9,26 +9,23 @@ module.exports =
 
   html:
     format: 'html'
-    type: 'link'
+    type: 'image'
     fn: (num, token) ->
-      nl = if @setup.compress then '' else '\n'
       switch token.nesting
         when 1
-          token.out = "<a href=\"#{token.href}\""
+          token.out = "<img src=\"#{token.src}\""
           token.out += " title=\"#{token.title}\"" if token.title
-          token.out += ">"
-        when -1
-          token.out = "</a>#{nl}"
+          token.out += " />"
 
   other:
     format: ['md', 'text']
-    type: 'link'
+    type: 'image'
     fn: (num, token) ->
       if token.nesting is 1
-        token.out = '['
+        token.out = '!['
       else
         [_, start] = @tokens.findStart num, token
-        uri = if start.href.match /[()]/g then "<#{start.href}>" else start.href
+        uri = if start.src.match /[()]/g then "<#{start.src}>" else start.src
         token.out = "](#{uri}"
         token.out += " \"#{start.title.replace /(")/g, '\\$1'}\"" if start.title
         token.out += ')'

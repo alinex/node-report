@@ -73,19 +73,7 @@ modify =
         t.src = a[1] if a[0] is 'src'
         t.title = a[1] if a[0] is 'title'
     null
-  xxximage: (t) ->
-    list = []
-    t.type = 'image'
-    if t.attrs
-      for a in t.attrs
-        t.src = a[1] if a[0] is 'src'
-        t.title = a[1] if a[0] is 'title'
-    t.nesting = 1
-    list.push node2token t
-    t.nesting = -1
-    list.push node2token t
-    list
-
+  
   code_inline: (t) ->
     list = []
     # add token itself

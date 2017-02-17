@@ -1,4 +1,4 @@
-# Link
+# Image
 # =================================================
 
 
@@ -9,7 +9,7 @@ module.exports =
 
   other:
     format: ['md', 'text']
-    type: 'link'
+    type: 'image'
     fn: (num, token) ->
       # recollect with substitutions in all but image or link elements
       token.collect = ''
