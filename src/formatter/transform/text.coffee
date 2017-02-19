@@ -16,7 +16,7 @@ module.exports =
       token.out = token.content
       return if token.parent.type in ['preformatted', 'code', 'fixed']
       token.out = token.out
-      .replace /\\(?=[^\n])/g, '\\\\'
+      .replace /\\(?=[^\n]|$)/g, '\\\\'
       # mask special markdown (but as few as possible to make it more readable)
       .replace /^(#{1,6}\ )/g, "\\$1" # prevent atx heading
       .replace /([_*~=`^])(?=\w|[*_~=`^]|$)/g, "\\$1" # prevent inline formatting
@@ -25,7 +25,7 @@ module.exports =
       .replace /^(\s{0,3})>/, "$1\\>" # prevent blockquote
       .replace /<([^>]*)>/g, "\\<$1>" # prevent html
       .replace /^(\s{0,3})([=-]|[-~]{3})/, "$1\\$2" # prevent setext heading and thematic break
-#      .replace /([[])/g, "\\$1" # prevent automatic link
+      .replace /([\[\]])/g, "\\$1" # prevent automatic link
 
   html:
     format: 'html'

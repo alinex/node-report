@@ -187,7 +187,7 @@ describe "markdown text", ->
         {type: 'paragraph', nesting: -1}
         {type: 'document', nesting: -1}
       ], [
-        {format: 'md', text: '!"#$%&\'()*+,-./:;\\<=>?@\\[\\\\]\\^\\_`{|}\\~\n'}
+        {format: 'md', text: '!"#$%&\'()*+,-./:;\\<=>?@\\[\\\\\\]\\^\\_`{|}\\~\n'}
         {format: 'text', text: '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~'}
         {format: 'html', text: '!&quot;#$%&amp;&#39;()*+,-./:;&lt;=&gt;?@[\\]^_`{|}~'}
       ], cb
