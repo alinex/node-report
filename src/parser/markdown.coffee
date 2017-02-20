@@ -43,12 +43,17 @@ module.exports = (text) ->
 modify =
 
   text: (t) -> if t.content then t else []
+
   heading: (t) -> t.heading = Number t.tag[1]
+
   hr: (t) -> t.type = 'thematic_break'
+
   em: (t) -> t.type = 'emphasis'
+
   bullet_list: (t) ->
     t.type = 'list'
     t.list = 'bullet'
+
   ordered_list: (t) ->
     t.type = 'list'
     t.list = 'ordered'
@@ -57,7 +62,9 @@ modify =
       for a in t.attrs
         t.start = a[1] if a[0] is 'start'
     null
+
   list_item: (t) -> t.type = 'item'
+
   link: (t) ->
     t.type = 'link'
     if t.attrs
@@ -65,6 +72,7 @@ modify =
         t.href = a[1] if a[0] is 'href'
         t.title = a[1] if a[0] is 'title'
     null
+
   image: (t) ->
     t.type = 'image'
     t.nesting = 1
@@ -73,7 +81,7 @@ modify =
         t.src = a[1] if a[0] is 'src'
         t.title = a[1] if a[0] is 'title'
     null
-  
+
   code_inline: (t) ->
     list = []
     # add token itself
@@ -125,6 +133,17 @@ modify =
     # return all tokens
     list
 
+  html_block: (t) ->
+    t.type = 'raw'
+    t.format = 'html'
+    t.block = true
+    t.content = t.content.replace /\n$/, ''
+
+  html_inline: (t) ->
+    t.type = 'raw'
+    t.format = 'html'
+    t.content = t.content.replace /\n$/, ''
+
 # Specify elements to copy from markdown token to report token.
 copyAttributes =
   text: ['content']
@@ -133,6 +152,7 @@ copyAttributes =
   code: ['language']
   link: ['href', 'title']
   image: ['src', 'title']
+  raw: ['format', 'block', 'content']
 
 # Convert markdown-it structure to report tokens.
 #
