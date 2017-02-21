@@ -1082,9 +1082,65 @@ describe "markdown list", ->
           ], null, cb
       ], cb
 
-#######################################################
-# missing example 269-270 because of html tags
-##################################################################
+    # http://spec.commonmark.org/0.27/#example-269
+    # http://spec.commonmark.org/0.27/#example-270
+    it "should separate lists using html", (cb) ->
+      async.series [
+        (cb) ->
+          test.markdown null, '- foo\n- bar\n\n<!-- -->\n\n- baz\n- bim', [
+            {type: 'document', nesting: 1}
+            {type: 'list', nesting: 1, list: 'bullet'}
+            {type: 'item', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', content: 'foo'}
+            {type: 'paragraph', nesting: -1}
+            {type: 'item', nesting: -1}
+            {type: 'item', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', content: 'bar'}
+            {type: 'paragraph', nesting: -1}
+            {type: 'item', nesting: -1}
+            {type: 'list', nesting: -1}
+            {type: 'raw'}
+            {type: 'list', nesting: 1}
+            {type: 'item', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', content: 'baz'}
+            {type: 'paragraph', nesting: -1}
+            {type: 'item', nesting: -1}
+            {type: 'item', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', content: 'bim'}
+            {type: 'paragraph', nesting: -1}
+            {type: 'item', nesting: -1}
+            {type: 'list', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '-   foo\n\n    notcode\n\n-   foo\n\n<!-- -->\n\n    code', [
+            {type: 'document', nesting: 1}
+            {type: 'list', nesting: 1, list: 'bullet'}
+            {type: 'item', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', content: 'foo'}
+            {type: 'paragraph', nesting: -1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', content: 'notcode'}
+            {type: 'paragraph', nesting: -1}
+            {type: 'item', nesting: -1}
+            {type: 'item', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', content: 'foo'}
+            {type: 'paragraph', nesting: -1}
+            {type: 'item', nesting: -1}
+            {type: 'list', nesting: -1}
+            {type: 'raw'}
+            {type: 'preformatted', nesting: 1}
+            {type: 'text', content: 'code'}
+            {type: 'preformatted', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+      ], cb
 
     # http://spec.commonmark.org/0.27/#example-271
     # http://spec.commonmark.org/0.27/#example-272
@@ -1212,35 +1268,57 @@ describe "markdown list", ->
       ], null, cb
 
     # http://spec.commonmark.org/0.27/#example-275
+    # http://spec.commonmark.org/0.27/#example-276
     it "should allow item with two paragraphs", (cb) ->
-      test.markdown null, '- a\n- b\n\n  c\n- d', [
-        {type: 'document', nesting: 1}
-        {type: 'list', nesting: 1, list: 'bullet'}
-        {type: 'item', nesting: 1}
-        {type: 'paragraph', nesting: 1}
-        {type: 'text', content: 'a'}
-        {type: 'paragraph', nesting: -1}
-        {type: 'item', nesting: -1}
-        {type: 'item', nesting: 1}
-        {type: 'paragraph', nesting: 1}
-        {type: 'text', content: 'b'}
-        {type: 'paragraph', nesting: -1}
-        {type: 'paragraph', nesting: 1}
-        {type: 'text', content: 'c'}
-        {type: 'paragraph', nesting: -1}
-        {type: 'item', nesting: -1}
-        {type: 'item', nesting: 1}
-        {type: 'paragraph', nesting: 1}
-        {type: 'text', content: 'd'}
-        {type: 'paragraph', nesting: -1}
-        {type: 'item', nesting: -1}
-        {type: 'list', nesting: -1}
-        {type: 'document', nesting: -1}
-      ], null, cb
-
-############################################
-# example 276.....
-#############################################
+      async.series [
+        (cb) ->
+          test.markdown null, '- a\n- b\n\n  c\n- d', [
+            {type: 'document', nesting: 1}
+            {type: 'list', nesting: 1, list: 'bullet'}
+            {type: 'item', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', content: 'a'}
+            {type: 'paragraph', nesting: -1}
+            {type: 'item', nesting: -1}
+            {type: 'item', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', content: 'b'}
+            {type: 'paragraph', nesting: -1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', content: 'c'}
+            {type: 'paragraph', nesting: -1}
+            {type: 'item', nesting: -1}
+            {type: 'item', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', content: 'd'}
+            {type: 'paragraph', nesting: -1}
+            {type: 'item', nesting: -1}
+            {type: 'list', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '- a\n- b\n\n  [ref]: /url\n- d', [
+            {type: 'document', nesting: 1}
+            {type: 'list', nesting: 1, list: 'bullet'}
+            {type: 'item', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', content: 'a'}
+            {type: 'paragraph', nesting: -1}
+            {type: 'item', nesting: -1}
+            {type: 'item', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', content: 'b'}
+            {type: 'paragraph', nesting: -1}
+            {type: 'item', nesting: -1}
+            {type: 'item', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', content: 'd'}
+            {type: 'paragraph', nesting: -1}
+            {type: 'item', nesting: -1}
+            {type: 'list', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+      ], cb
 
   describe 'tight', ->
 
@@ -1324,6 +1402,7 @@ describe "markdown list", ->
     # http://spec.commonmark.org/0.27/#example-280
     it.skip "should work with continuing blocks not separated by blanks", (cb) ->
       test.markdown null, '- a\n  > b\n  ```\n  c\n  ```\n- d', [
+#      test.markdown null, '   - a\n     > b\n     ```\n     c\n     ```\n   - d', [
         {type: 'document', nesting: 1}
         {type: 'list', nesting: 1, list: 'bullet'}
         {type: 'item', nesting: 1}

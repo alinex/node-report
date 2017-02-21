@@ -7,6 +7,302 @@ before (cb) -> Report.init cb
 
 describe "markdown link", ->
 
+  describe "reference definition", ->
+
+    # http://spec.commonmark.org/0.27/#example-157
+    # http://spec.commonmark.org/0.27/#example-158
+    # http://spec.commonmark.org/0.27/#example-159
+    # http://spec.commonmark.org/0.27/#example-160
+    it "should allow simple use", (cb) ->
+      async.series [
+        (cb) ->
+          test.markdown null, '[foo]: /url "title"\n\n[foo]', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'link', nesting: 1, href: '/url', title: 'title'}
+            {type: 'text', content: 'foo'}
+            {type: 'link', nesting: -1}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '   [foo]: \n      /url  \n           \'the title\'  \n\n[foo]', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'link', nesting: 1, href: '/url', title: 'the title'}
+            {type: 'text', content: 'foo'}
+            {type: 'link', nesting: -1}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '[Foo*bar\\]]:my_(url) \'title (with parens)\'\n\n[Foo*bar\\]]', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'link', nesting: 1, href: 'my_(url)', title: 'title (with parens)'}
+            {type: 'text', content: 'Foo*bar]'}
+            {type: 'link', nesting: -1}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '[Foo bar]:\n<my%20url>\n\'title\'\n\n[Foo bar]', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'link', nesting: 1, href: 'my%20url', title: 'title'}
+            {type: 'text', content: 'Foo bar'}
+            {type: 'link', nesting: -1}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+      ], cb
+
+    # http://spec.commonmark.org/0.27/#example-161
+    it "should allow title over multiple lines", (cb) ->
+      test.markdown null, '[foo]: /url \'\ntitle\nline1\nline2\n\'\n\n[foo]', [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'link', nesting: 1, href: '/url', title: '\ntitle\nline1\nline2\n'}
+        {type: 'text', content: 'foo'}
+        {type: 'link', nesting: -1}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-162
+    it "should fail for blank line in title", (cb) ->
+      test.markdown null, '[foo]: /url \'title\n\nwith blank line\'\n\n[foo]', [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: '[foo]: /url \'title'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: 'with blank line\''}
+        {type: 'paragraph', nesting: -1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: '[foo]'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-163
+    it "should allow without title", (cb) ->
+      test.markdown null, '[foo]:\n/url\n\n[foo]', [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'link', nesting: 1, href: '/url'}
+        {type: 'text', content: 'foo'}
+        {type: 'link', nesting: -1}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-164
+    it "should fail without link destination", (cb) ->
+      test.markdown null, '[foo]:\n\n[foo]', [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: '[foo]:'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: '[foo]'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-165
+    it "should allow escapes in title and destination", (cb) ->
+      test.markdown null, '[foo]: /url\\bar\\*baz "foo\\"bar\\baz"\n\n[foo]', [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'link', nesting: 1, href: '/url%5Cbar*baz', title: 'foo"bar\\baz'}
+        {type: 'text', content: 'foo'}
+        {type: 'link', nesting: -1}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-166
+    it "should allow link before definition", (cb) ->
+      test.markdown null, '[foo]\n\n[foo]: url', [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'link', nesting: 1, href: 'url'}
+        {type: 'text', content: 'foo'}
+        {type: 'link', nesting: -1}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-167
+    it "should use first definition", (cb) ->
+      test.markdown null, '[foo]\n\n[foo]: first\n[foo]: second', [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'link', nesting: 1, href: 'first'}
+        {type: 'text', content: 'foo'}
+        {type: 'link', nesting: -1}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-168
+    # http://spec.commonmark.org/0.27/#example-169
+    it "should allow case insensitive matching", (cb) ->
+      async.series [
+        (cb) ->
+          test.markdown null, '[FOO]: /url\n\n[Foo]', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'link', nesting: 1, href: '/url'}
+            {type: 'text', content: 'Foo'}
+            {type: 'link', nesting: -1}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '[ΑΓΩ]: /φου\n\n[αγω]', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'link', nesting: 1, href: '/%CF%86%CE%BF%CF%85'}
+            {type: 'text', content: 'αγω'}
+            {type: 'link', nesting: -1}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+      ], cb
+
+    # http://spec.commonmark.org/0.27/#example-170
+    it "should do nothing for only definition", (cb) ->
+      test.markdown null, '[foo]: /url', [
+        {type: 'document', nesting: 1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-171
+    it "should ignore definition if not used", (cb) ->
+      test.markdown null, '[\nfoo\n]: /url\nbar', [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: 'bar'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-172
+    it "should fail for non whitespace after title", (cb) ->
+      test.markdown null, '[foo]: /url "title" ok', [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: '[foo]: /url "title" ok'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-173
+    it "should fail with title starting in next line", (cb) ->
+      test.markdown null, '[foo]: /url\n"title" ok', [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: '"title" ok'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-174
+    it "should fail if indented 4 or more spaces", (cb) ->
+      test.markdown null, '    [foo]: /url "title"\n\n[foo]', [
+        {type: 'document', nesting: 1}
+        {type: 'preformatted', nesting: 1}
+        {type: 'text', content: '[foo]: /url "title"'}
+        {type: 'preformatted', nesting: -1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: '[foo]'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-175
+    it "should fail within code", (cb) ->
+      test.markdown null, '```\n[foo]: /url\n```\n\n[foo]', [
+        {type: 'document', nesting: 1}
+        {type: 'code', nesting: 1}
+        {type: 'text', content: '[foo]: /url'}
+        {type: 'code', nesting: -1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: '[foo]'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-176
+    it "should not interrupt a paragraph", (cb) ->
+      test.markdown null, 'Foo\n[bar]: /baz\n\n[bar]', [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: 'Foo'}
+        {type: 'softbreak'}
+        {type: 'text', content: '[bar]: /baz'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: '[bar]'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-177
+    it "should allow directly after block elements", (cb) ->
+      test.markdown null, '# [Foo]\n[foo]: /url\n> bar', [
+        {type: 'document', nesting: 1}
+        {type: 'heading', nesting: 1}
+        {type: 'link', nesting: 1, href: '/url'}
+        {type: 'text', content: 'Foo'}
+        {type: 'link', nesting: -1}
+        {type: 'heading', nesting: -1}
+        {type: 'blockquote', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: 'bar'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'blockquote', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-178
+    it "should allow multiple definitions after each other", (cb) ->
+      test.markdown null, '[foo]: /foo-url "foo"\n[bar]: /bar-url\n  "bar"\n[baz]: /baz-url\n\n[foo],\n[bar],\n[baz]', [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'link', nesting: 1, href: '/foo-url', title: 'foo'}
+        {type: 'text', content: 'foo'}
+        {type: 'link', nesting: -1}
+        {type: 'text', content: ','}
+        {type: 'softbreak'}
+        {type: 'link', nesting: 1, href: '/bar-url', title: 'bar'}
+        {type: 'text', content: 'bar'}
+        {type: 'link', nesting: -1}
+        {type: 'text', content: ','}
+        {type: 'softbreak'}
+        {type: 'link', nesting: 1, href: '/baz-url'}
+        {type: 'text', content: 'baz'}
+        {type: 'link', nesting: -1}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-179
+    it "should allow inside blocks", (cb) ->
+      test.markdown null, '[foo]\n\n> [foo]: /url', [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'link', nesting: 1, href: '/url'}
+        {type: 'text', content: 'foo'}
+        {type: 'link', nesting: -1}
+        {type: 'paragraph', nesting: -1}
+        {type: 'blockquote', nesting: 1}
+        {type: 'blockquote', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
   describe "direct", ->
 
     # http://spec.commonmark.org/0.27/#example-456
