@@ -18,6 +18,7 @@ module.exports =
       token.out = token.out
       .replace /\\(?=[^\n]|$)/g, '\\\\'
       # mask special markdown (but as few as possible to make it more readable)
+      .replace /\ /g, '&nbsp;' # non breaking space
       .replace /^(#{1,6}\ )/g, "\\$1" # prevent atx heading
       .replace /([_*~=`^])(?=\w|[*_~=`^]|$)/g, "\\$1" # prevent inline formatting
       .replace /^(\s{0,3}\d+)([.)] )/, "$1\\$2" # prevent ordered lists

@@ -9,11 +9,7 @@
 # 180-187 paragraph
 # 188 blank
 # 189-213 blockquote
-# 214-268 list
-# ------> with html
-# 271-275 list
-# ------> link ref
-# 277-285 list
+# 214-285 list
 # 286     fixed
 # 287-289 text
 # ------> emphasis
@@ -43,7 +39,7 @@
 # 506-
 # ------> autolink
 # 508-540 links
-# 541-562 images
+# 541-562 image
 ###
 
 Elements

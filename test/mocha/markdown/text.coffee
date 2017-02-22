@@ -235,18 +235,18 @@ describe "markdown text", ->
         {type: 'document', nesting: -1}
       ], null, cb
 
-#    # http://spec.commonmark.org/0.27/#example-290
-#    it "should interpret element if backslash is escaped itself", (cb) ->
-#      test.markdown null, '\\\\*emphasis*', [
-#        {type: 'document', nesting: 1}
-#        {type: 'paragraph', nesting: 1}
-#        {type: 'text', content: '\\'}
-#        {type: 'emphasis', nesting: 1}
-#        {type: 'text', content: 'emphasis'}
-#        {type: 'emphasis', nesting: -1}
-#        {type: 'paragraph', nesting: -1}
-#        {type: 'document', nesting: -1}
-#      ], null, cb
+    # http://spec.commonmark.org/0.27/#example-290
+    it "should interpret element if backslash is escaped itself", (cb) ->
+      test.markdown null, '\\\\*emphasis*', [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: '\\'}
+        {type: 'emphasis', nesting: 1}
+        {type: 'text', content: 'emphasis'}
+        {type: 'emphasis', nesting: -1}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
 
     # http://spec.commonmark.org/0.27/#example-291
     it "should interpret hard line break", (cb) ->
@@ -260,15 +260,104 @@ describe "markdown text", ->
         {type: 'document', nesting: -1}
       ], null, cb
 
-#    # http://spec.commonmark.org/0.27/#example-292-296
-#    it "should keep backslash escapes in preformatted or typewriter style", (cb) ->
-#      test.markdown null, '`` \[\` ``', [
-#        {type: 'document', nesting: 1}
-#        {type: 'paragraph', nesting: 1}
-#        {type: 'typewriter', nesting: 1}
-#        {type: 'text', content: '\[\`'}
-#        {type: 'typewriter', nesting: -1}
-#        {type: 'paragraph', nesting: -1}
-#        {type: 'document', nesting: -1}
-#      ], null, cb
-####################################### more to come
+    # http://spec.commonmark.org/0.27/#example-292
+    # http://spec.commonmark.org/0.27/#example-293
+    # http://spec.commonmark.org/0.27/#example-294
+    # http://spec.commonmark.org/0.27/#example-295
+    # http://spec.commonmark.org/0.27/#example-296
+    it "should keep backslash escapes in preformatted or typewriter style", (cb) ->
+      async.series [
+        (cb) ->
+          test.markdown null, '`` \\[\\` ``', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'fixed', nesting: 1}
+            {type: 'text', content: '\\[\\`'}
+            {type: 'fixed', nesting: -1}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '    \\[\\]', [
+            {type: 'document', nesting: 1}
+            {type: 'preformatted', nesting: 1}
+            {type: 'text', content: '\\[\\]'}
+            {type: 'preformatted', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '~~~\n\\[\\]\n~~~', [
+            {type: 'document', nesting: 1}
+            {type: 'code', nesting: 1}
+            {type: 'text', content: '\\[\\]'}
+            {type: 'code', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '<http://example.com?find=\\*>', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'link', nesting: 1, href: 'http://example.com?find=%5C*'}
+            {type: 'text', content: 'http://example.com?find=\\*'}
+            {type: 'link', nesting: -1}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '<a href="/bar\\/)">', [
+            {type: 'document', nesting: 1}
+            {type: 'raw', nesting: 0, format: 'html', block: true, content: '<a href="/bar\\/)">'}
+            {type: 'document', nesting: -1}
+          ], null, cb
+      ], cb
+
+    # http://spec.commonmark.org/0.27/#example-297
+    # http://spec.commonmark.org/0.27/#example-298
+    # http://spec.commonmark.org/0.27/#example-299
+    it "should work in other elements", (cb) ->
+      async.series [
+        (cb) ->
+          test.markdown null, '[foo](/bar\\* "ti\\*tle")', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'link', nesting: 1, href: '/bar*', title: 'ti*tle'}
+            {type: 'text', content: 'foo'}
+            {type: 'link', nesting: -1}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '[foo]\n\n[foo]: /bar\\* "ti\\*tle"', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'link', nesting: 1, href: '/bar*', title: 'ti*tle'}
+            {type: 'text', content: 'foo'}
+            {type: 'link', nesting: -1}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '``` foo\\+bar\nfoo\n```', [
+            {type: 'document', nesting: 1}
+            {type: 'code', nesting: 1, language: 'foo\\+bar'}
+            {type: 'text', content: 'foo'}
+            {type: 'code', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+      ], cb
+
+  describe.only "entities", ->
+
+    # http://spec.commonmark.org/0.27/#example-300
+    it "should interpret them", (cb) ->
+      test.markdown null, '&nbsp; &amp; &copy; &AElig; &Dcaron;\n&frac34; &HilbertSpace; &DifferentialD;\n&ClockwiseContourIntegral; &ngE;', [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: '  & © Æ Ď'}
+        {type: 'softbreak'}
+        {type: 'text', content: '¾ ℋ ⅆ'}
+        {type: 'softbreak'}
+        {type: 'text', content: '∲ ≧̸'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
