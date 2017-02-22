@@ -11,34 +11,10 @@
 # 189-213 blockquote
 # 214-285 list
 # 286     fixed
-# 287-289 text
-# ------> emphasis
-# 291     text
-# ------>
-# 312-322 fixed
-# ------>
-# 324     fixed
-# ------>
-# 326-327 fixed
-# 328-380 emphasis
-# ------> links
-# 382-392 emphasis
-# ------> links
-# 304-305 emphasis
-# ------> links
-# 307-406 emphasis
-# ------> links
-# 408-446 emphasis
-# ------> links, html...
-# 456-462 links
-# ------> html
-# 464-492 links
-# ------> html
-# 496-504 links
-# ------> html
-# 506-
-# ------> autolink
-# 508-540 links
+# 287-311 text
+# 312-327 fixed
+# 328-455 emphasis
+# 456-540 links
 # 541-562 image
 ###
 

@@ -641,9 +641,20 @@ describe "markdown emphasis", ->
 
   describe "mixed", ->
 
-  ###########################
-  # example 381
-  ############################
+    # http://spec.commonmark.org/0.27/#example-381
+    it "should work with newlines", (cb) ->
+      test.markdown null, '*foo [bar](/url)*', [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'emphasis', nesting: 1}
+        {type: 'text', content: 'foo '}
+        {type: 'link', nesting: 1, href: '/url'}
+        {type: 'text', content: 'bar'}
+        {type: 'link', nesting: -1}
+        {type: 'emphasis', nesting: -1}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
 
     # http://spec.commonmark.org/0.27/#example-382
     it "should work with newlines", (cb) ->
@@ -819,19 +830,21 @@ describe "markdown emphasis", ->
             {type: 'paragraph', nesting: -1}
             {type: 'document', nesting: -1}
           ], null, cb
-#        (cb) ->
-#          test.markdown null, '*foo [*bar*](/url)*', [
-#            {type: 'document', nesting: 1}
-#            {type: 'paragraph', nesting: 1}
-#            {type: 'emphasis', nesting: 1}
-#            {type: 'text', content: 'foo '}
-#            {type: 'strong', nesting: 1}
-#            {type: 'text', content: 'bar'}
-#            {type: 'strong', nesting: -1}
-#            {type: 'emphasis', nesting: -1}
-#            {type: 'paragraph', nesting: -1}
-#            {type: 'document', nesting: -1}
-#          ], null, cb
+        (cb) ->
+          test.markdown null, '*foo [*bar*](/url)*', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'emphasis', nesting: 1}
+            {type: 'text', content: 'foo '}
+            {type: 'link', nesting: 1, href: '/url'}
+            {type: 'emphasis', nesting: 1}
+            {type: 'text', content: 'bar'}
+            {type: 'emphasis', nesting: -1}
+            {type: 'link', nesting: -1}
+            {type: 'emphasis', nesting: -1}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
       ], cb
 
     # http://spec.commonmark.org/0.27/#example-394
@@ -860,14 +873,19 @@ describe "markdown emphasis", ->
     # http://spec.commonmark.org/0.27/#example-397
     it "should allow all inline in strong", (cb) ->
       async.series [
-#        (cb) ->
-#          test.markdown null, '**foo [bar](/url)**', [
-#            {type: 'document', nesting: 1}
-#            {type: 'paragraph', nesting: 1}
-#            {type: 'text', content: '** is not an empty emphasis'}
-#            {type: 'paragraph', nesting: -1}
-#            {type: 'document', nesting: -1}
-#          ], null, cb
+        (cb) ->
+          test.markdown null, '**foo [bar](/url)**', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'strong', nesting: 1}
+            {type: 'text', content: 'foo '}
+            {type: 'link', nesting: 1, href: '/url'}
+            {type: 'text', content: 'bar'}
+            {type: 'link', nesting: -1}
+            {type: 'strong', nesting: -1}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
         (cb) ->
           test.markdown null, '**foo\nbar**', [
             {type: 'document', nesting: 1}
@@ -1025,19 +1043,21 @@ describe "markdown emphasis", ->
             {type: 'paragraph', nesting: -1}
             {type: 'document', nesting: -1}
           ], null, cb
-#        (cb) ->
-#          test.markdown null, '**foo [*bar*](/url)**', [
-#            {type: 'document', nesting: 1}
-#            {type: 'paragraph', nesting: 1}
-#            {type: 'emphasis', nesting: 1}
-#            {type: 'text', content: 'foo '}
-#            {type: 'strong', nesting: 1}
-#            {type: 'text', content: 'bar'}
-#            {type: 'strong', nesting: -1}
-#            {type: 'emphasis', nesting: -1}
-#            {type: 'paragraph', nesting: -1}
-#            {type: 'document', nesting: -1}
-#          ], null, cb
+        (cb) ->
+          test.markdown null, '**foo [*bar*](/url)**', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'strong', nesting: 1}
+            {type: 'text', content: 'foo '}
+            {type: 'link', nesting: 1, href: '/url'}
+            {type: 'emphasis', nesting: 1}
+            {type: 'text', content: 'bar'}
+            {type: 'emphasis', nesting: -1}
+            {type: 'link', nesting: -1}
+            {type: 'strong', nesting: -1}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
       ], cb
 
     # http://spec.commonmark.org/0.27/#example-408
@@ -1529,6 +1549,116 @@ describe "markdown emphasis", ->
             {type: 'emphasis', nesting: 1}
             {type: 'text', content: 'bar baz'}
             {type: 'emphasis', nesting: -1}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+      ], cb
+
+    # http://spec.commonmark.org/0.27/#example-447
+    # http://spec.commonmark.org/0.27/#example-448
+    # http://spec.commonmark.org/0.27/#example-449
+    # http://spec.commonmark.org/0.27/#example-450
+    # http://spec.commonmark.org/0.27/#example-451
+    # http://spec.commonmark.org/0.27/#example-452
+    # http://spec.commonmark.org/0.27/#example-453
+    # http://spec.commonmark.org/0.27/#example-454
+    # http://spec.commonmark.org/0.27/#example-455
+    it "should work for rule 17", (cb) ->
+      async.series [
+        (cb) ->
+          test.markdown null, '*[bar*](/url)', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', content: '*'}
+            {type: 'link', nesting: 1, href: '/url'}
+            {type: 'text', content: 'bar*'}
+            {type: 'link', nesting: -1}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '_foo [bar_](/url)', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', content: '_foo '}
+            {type: 'link', nesting: 1, href: '/url'}
+            {type: 'text', content: 'bar_'}
+            {type: 'link', nesting: -1}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '*<img src="foo" title="*"/>', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', content: '*'}
+            {type: 'raw', format: 'html', content: '<img src="foo" title="*"/>'}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '**<a href="**">', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', content: '**'}
+            {type: 'raw', format: 'html', content: '<a href="**">'}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '__<a href="__">', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', content: '__'}
+            {type: 'raw', format: 'html', content: '<a href="__">'}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '*a `*`*', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'emphasis', nesting: 1}
+            {type: 'text', content: 'a '}
+            {type: 'fixed', nesting: 1}
+            {type: 'text', content: '*'}
+            {type: 'fixed', nesting: -1}
+            {type: 'emphasis', nesting: -1}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '_a `_`_', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'emphasis', nesting: 1}
+            {type: 'text', content: 'a '}
+            {type: 'fixed', nesting: 1}
+            {type: 'text', content: '_'}
+            {type: 'fixed', nesting: -1}
+            {type: 'emphasis', nesting: -1}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '**a<http://foo.bar/?q=**>', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', content: '**a'}
+            {type: 'link', nesting: 1, href: 'http://foo.bar/?q=**'}
+            {type: 'text', content: 'http://foo.bar/?q=**'}
+            {type: 'link', nesting: -1}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '__a<http://foo.bar/?q=__>', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', content: '__a'}
+            {type: 'link', nesting: 1, href: 'http://foo.bar/?q=__'}
+            {type: 'text', content: 'http://foo.bar/?q=__'}
+            {type: 'link', nesting: -1}
             {type: 'paragraph', nesting: -1}
             {type: 'document', nesting: -1}
           ], null, cb

@@ -387,16 +387,16 @@ describe "markdown link", ->
             {type: 'paragraph', nesting: -1}
             {type: 'document', nesting: -1}
           ], null, cb
-  #      (cb) ->
-  #        test.markdown null, '[link](<foo\nbar>)', [
-  #          {type: 'document', nesting: 1}
-  #          {type: 'paragraph', nesting: 1}
-  #          {type: 'text', content: '[link](<foo'}
-  #          {type: 'softbreak'}
-  #          {type: 'text', content: 'bar>)'}
-  #          {type: 'paragraph', nesting: -1}
-  #          {type: 'document', nesting: -1}
-  #        ], null, cb
+        (cb) ->
+          test.markdown null, '[link](<foo\nbar>)', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', content: '[link]('}
+            {type: 'raw', format: 'html', content: '<foo\nbar>'}
+            {type: 'text', content: ')'}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
       ], cb
 
     # http://spec.commonmark.org/0.27/#example-464
@@ -818,9 +818,43 @@ describe "markdown link", ->
         {type: 'document', nesting: -1}
       ], null, cb
 
-###########################################################################
-# Missing because of html 493-495
-###########################################################################
+    # http://spec.commonmark.org/0.27/#example-493
+    # http://spec.commonmark.org/0.27/#example-494
+    # http://spec.commonmark.org/0.27/#example-495
+    it "should have precedence for html", (cb) ->
+      async.series [
+        (cb) ->
+          test.markdown null, '[foo <bar attr="](baz)">', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', content: '[foo '}
+            {type: 'raw', format: 'html', content: '<bar attr="](baz)">'}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '[foo`](/uri)`', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', content: '[foo'}
+            {type: 'fixed', nesting: 1}
+            {type: 'text', content: '](/uri)'}
+            {type: 'fixed', nesting: -1}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '[foo<http://example.com/?search=](uri)>', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', content: '[foo'}
+            {type: 'link', nesting: 1, href: 'http://example.com/?search=%5D(uri)'}
+            {type: 'text', content: 'http://example.com/?search=](uri)'}
+            {type: 'link', nesting: -1}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+      ], cb
 
   describe "reference", ->
 
@@ -971,9 +1005,15 @@ describe "markdown link", ->
     # http://spec.commonmark.org/0.27/#example-507
     it "should not have precedence over html, fixed, autolinks", (cb) ->
       async.series [
-############################
-# html 505
-############################
+        (cb) ->
+          test.markdown null, '[foo <bar attr="][ref]">\n\n[ref]: /uri', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', content: '[foo '}
+            {type: 'raw', format: 'html', content: '<bar attr="][ref]">'}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
         (cb) ->
           test.markdown null, '[foo`][ref]`\n\n[ref]: /uri', [
             {type: 'document', nesting: 1}
@@ -985,9 +1025,17 @@ describe "markdown link", ->
             {type: 'paragraph', nesting: -1}
             {type: 'document', nesting: -1}
           ], null, cb
-############################
-# html 507
-############################
+        (cb) ->
+          test.markdown null, '[foo<http://example.com/?search=][ref]>\n\n[ref]: /uri', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', content: '[foo'}
+            {type: 'link', nesting: 1, href: 'http://example.com/?search=%5D%5Bref%5D'}
+            {type: 'text', content: 'http://example.com/?search=][ref]'}
+            {type: 'link', nesting: -1}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
       ], cb
 
     # http://spec.commonmark.org/0.27/#example-508

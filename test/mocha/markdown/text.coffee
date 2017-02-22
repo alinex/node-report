@@ -346,7 +346,7 @@ describe "markdown text", ->
           ], null, cb
       ], cb
 
-  describe.only "entities", ->
+  describe "entities", ->
 
     # http://spec.commonmark.org/0.27/#example-300
     it "should interpret them", (cb) ->
@@ -361,3 +361,121 @@ describe "markdown text", ->
         {type: 'paragraph', nesting: -1}
         {type: 'document', nesting: -1}
       ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-301
+    it "should allow numeric", (cb) ->
+      test.markdown null, '&#35; &#1234; &#992; &#98765432; &#0;', [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: '# Ӓ Ϡ � �'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-302
+    it "should allow hexadecimal", (cb) ->
+      test.markdown null, '&#X22; &#XD06; &#xcab;', [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: '" ആ ಫ'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-303
+    it "should fail for non entities", (cb) ->
+      test.markdown null, '&nbsp &x; &#; &#x;\n&ThisIsNotDefined; &hi?;', [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: '&nbsp &x; &#; &#x;'}
+        {type: 'softbreak'}
+        {type: 'text', content: '&ThisIsNotDefined; &hi?;'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-304
+    it "should fail for entities with missing ;", (cb) ->
+      test.markdown null, '&copy', [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: '&copy'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-305
+    it "should fail for not html5 entities", (cb) ->
+      test.markdown null, '&MadeUpEntity;', [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: '&MadeUpEntity;'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-306
+    # http://spec.commonmark.org/0.27/#example-307
+    # http://spec.commonmark.org/0.27/#example-308
+    # http://spec.commonmark.org/0.27/#example-309
+    it "should work in different elements", (cb) ->
+      async.series [
+        (cb) ->
+          test.markdown null, '<a href="&ouml;&ouml;.html">', [
+            {type: 'document', nesting: 1}
+            {type: 'raw', format: 'html', block: true, content: '<a href="&ouml;&ouml;.html">'}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '[foo](/f&ouml;&ouml; "f&ouml;&ouml;")', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'link', nesting: 1, href: '/f%C3%B6%C3%B6', title: 'föö'}
+            {type: 'text', content: 'foo'}
+            {type: 'link', nesting: -1}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '[foo]\n\n[foo]: /f&ouml;&ouml; "f&ouml;&ouml;"', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'link', nesting: 1, href: '/f%C3%B6%C3%B6', title: 'föö'}
+            {type: 'text', content: 'foo'}
+            {type: 'link', nesting: -1}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '``` f&ouml;&ouml;\nfoo\n```', [
+            {type: 'document', nesting: 1}
+            {type: 'code', nesting: 1, language: 'f&ouml;&ouml;'}
+            {type: 'text', content: 'foo'}
+            {type: 'code', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+      ], cb
+
+    # http://spec.commonmark.org/0.27/#example-310
+    # http://spec.commonmark.org/0.27/#example-311
+    it "should fail in code or preformatted", (cb) ->
+      async.series [
+        (cb) ->
+          test.markdown null, '`f&ouml;&ouml;`', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'fixed', nesting: 1}
+            {type: 'text', content: 'f&ouml;&ouml;'}
+            {type: 'fixed', nesting: -1}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '    f&ouml;f&ouml;', [
+            {type: 'document', nesting: 1}
+            {type: 'preformatted', nesting: 1}
+            {type: 'text', content: 'f&ouml;f&ouml;'}
+            {type: 'preformatted', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+      ], cb

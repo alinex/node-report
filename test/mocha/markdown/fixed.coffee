@@ -157,18 +157,16 @@ describe "markdown fixed", ->
       {type: 'document', nesting: -1}
     ], null, cb
 
-#  # http://spec.commonmark.org/0.27/#example-323
-#  it.only "should fail in html tags", (cb) ->
-#    test.markdown null, '<a href="`">`', [
-#      {type: 'document', nesting: 1}
-#      {type: 'paragraph', nesting: 1}
-#      {type: 'fixed', nesting: 1}
-#      {type: 'text', content: '<a href="'}
-#      {type: 'fixed', nesting: -1}
-#      {type: 'text', content: '">`'}
-#      {type: 'paragraph', nesting: -1}
-#      {type: 'document', nesting: -1}
-#    ], null, cb
+  # http://spec.commonmark.org/0.27/#example-323
+  it "should fail in html tags", (cb) ->
+    test.markdown null, '<a href="`">`', [
+      {type: 'document', nesting: 1}
+      {type: 'paragraph', nesting: 1}
+      {type: 'raw', format: 'html', content: '<a href="`">'}
+      {type: 'text', content: '`'}
+      {type: 'paragraph', nesting: -1}
+      {type: 'document', nesting: -1}
+    ], null, cb
 
   # http://spec.commonmark.org/0.27/#example-324
   it "should break auto link", (cb) ->
@@ -183,8 +181,18 @@ describe "markdown fixed", ->
       {type: 'document', nesting: -1}
     ], null, cb
 
-#################################################
-# example 325
+  # http://spec.commonmark.org/0.27/#example-325
+  it "should not break auto link if started within", (cb) ->
+    test.markdown null, '<http://foo.bar.`baz>`', [
+      {type: 'document', nesting: 1}
+      {type: 'paragraph', nesting: 1}
+      {type: 'link', nesting: 1, href: 'http://foo.bar.%60baz'}
+      {type: 'text', content: 'http://foo.bar.`baz'}
+      {type: 'link', nesting: -1}
+      {type: 'text', content: '`'}
+      {type: 'paragraph', nesting: -1}
+      {type: 'document', nesting: -1}
+    ], null, cb
 
   # http://spec.commonmark.org/0.27/#example-326
   # http://spec.commonmark.org/0.27/#example-327
