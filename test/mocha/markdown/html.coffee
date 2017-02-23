@@ -461,3 +461,232 @@ describe "markdown raw html", ->
         {type: 'raw', content: '</table>', format: 'html'}
         {type: 'document', nesting: -1}
       ], null, cb
+
+  describe "inline", ->
+
+    # http://spec.commonmark.org/0.27/#example-582
+    it "should allow open tags", (cb) ->
+      test.markdown null, '<a><bab><c2c>', [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'raw', content: '<a>', format: 'html'}
+        {type: 'raw', content: '<bab>', format: 'html'}
+        {type: 'raw', content: '<c2c>', format: 'html'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-583
+    it "should allow empty tags", (cb) ->
+      test.markdown null, '<a/><b2/>', [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'raw', content: '<a/>', format: 'html'}
+        {type: 'raw', content: '<b2/>', format: 'html'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-584
+    it "should allow whitespace", (cb) ->
+      test.markdown null, '<a  /><b2\ndata="foo" >', [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'raw', content: '<a  />', format: 'html'}
+        {type: 'raw', content: '<b2\ndata="foo" >', format: 'html'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-585
+    it "should allow tags with attributes", (cb) ->
+      test.markdown null, '<a foo="bar" bam = \'baz <em>"</em>\'\n_boolean zoop:33=zoop:33 />', [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'raw', content: '<a foo="bar" bam = \'baz <em>"</em>\'\n_boolean zoop:33=zoop:33 />', format: 'html'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-586
+    it "should allow custom tag names", (cb) ->
+      test.markdown null, 'Foo <responsive-image src="foo.jpg" />', [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: 'Foo '}
+        {type: 'raw', content: '<responsive-image src="foo.jpg" />', format: 'html'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-587
+    it "should fail for illegal tag names", (cb) ->
+      test.markdown null, '<33> <__>', [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: '<33> <__>'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-588
+    it "should fail for illegal attribute names", (cb) ->
+      test.markdown null, '<a h*#ref="hi">', [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: '<a h*#ref="hi">'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-589
+    it "should fail for illegal attribute values", (cb) ->
+      test.markdown null, '<a href="hi\'> <a href=hi\'>', [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: '<a href="hi\'> <a href=hi\'>'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-590
+    it "should fail for illegal whitespace", (cb) ->
+      test.markdown null, '< a><\nfoo><bar/ >', [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: '< a><'}
+        {type: 'softbreak'}
+        {type: 'text', content: 'foo><bar/ >'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-591
+    it "should fail for missing whitespace", (cb) ->
+      test.markdown null, '<a href=\'bar\'title=title>', [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: '<a href=\'bar\'title=title>'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-592
+    it "should allow closing tags", (cb) ->
+      test.markdown null, '</a></foo >', [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'raw', content: '</a>', format: 'html'}
+        {type: 'raw', content: '</foo >', format: 'html'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-593
+    it "should fail for illegal attribute in close tag", (cb) ->
+      test.markdown null, '</a href="foo">', [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: '</a href="foo">'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-594
+    it "should work for comment", (cb) ->
+      test.markdown null, 'foo <!-- this is a\ncomment - with hyphen -->', [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: 'foo '}
+        {type: 'raw', content: '<!-- this is a\ncomment - with hyphen -->', format: 'html'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-595
+    it "should fail for comment with double hyphen", (cb) ->
+      test.markdown null, 'foo <!-- not a comment -- two hyphens -->', [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: 'foo <!-- not a comment -- two hyphens -->'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-596
+    it "should fail for comment with double hyphen", (cb) ->
+      test.markdown null, 'foo <!--> foo -->\n\nfoo <!-- foo--->', [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: 'foo <!--> foo -->'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: 'foo <!-- foo--->'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-597
+    it "should work for processing instructions", (cb) ->
+      test.markdown null, 'foo <?php echo $a; ?>', [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: 'foo '}
+        {type: 'raw', content: '<?php echo $a; ?>', format: 'html'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-598
+    it "should work for declarations", (cb) ->
+      test.markdown null, 'foo <!ELEMENT br EMPTY>', [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: 'foo '}
+        {type: 'raw', content: '<!ELEMENT br EMPTY>', format: 'html'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-599
+    it "should work for CDATA", (cb) ->
+      test.markdown null, 'foo <![CDATA[>&<]]>', [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: 'foo '}
+        {type: 'raw', content: '<![CDATA[>&<]]>', format: 'html'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-600
+    it "should preserve entities", (cb) ->
+      test.markdown null, 'foo <a href="&ouml;">', [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: 'foo '}
+        {type: 'raw', content: '<a href="&ouml;">', format: 'html'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-601
+    it "should not interpret escapes", (cb) ->
+      test.markdown null, 'foo <a href="\*">', [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: 'foo '}
+        {type: 'raw', content: '<a href="\*">', format: 'html'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-602
+    it "should not interpret escapes 2", (cb) ->
+      test.markdown null, 'foo <a href="\"">', [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: 'foo <a href="\"">'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb

@@ -1481,7 +1481,57 @@ describe "markdown link", ->
     # http://spec.commonmark.org/0.27/#example-563
     # http://spec.commonmark.org/0.27/#example-564
     # http://spec.commonmark.org/0.27/#example-565
-    it "should work only for defined shortcuts", (cb) ->
+    it "should work", (cb) ->
+      async.series [
+        (cb) ->
+          test.markdown null, '<http://foo.bar.baz>', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'link', nesting: 1, href: 'http://foo.bar.baz'}
+            {type: 'text', content: 'http://foo.bar.baz'}
+            {type: 'link', nesting: -1}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '<http://foo.bar.baz/test?q=hello&id=22&boolean>', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'link', nesting: 1, href: 'http://foo.bar.baz/test?q=hello&id=22&boolean'}
+            {type: 'text', content: 'http://foo.bar.baz/test?q=hello&id=22&boolean'}
+            {type: 'link', nesting: -1}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '<irc://foo.bar:2233/baz>', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'link', nesting: 1, href: 'irc://foo.bar:2233/baz'}
+            {type: 'text', content: 'irc://foo.bar:2233/baz'}
+            {type: 'link', nesting: -1}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+      ], cb
+
+    # http://spec.commonmark.org/0.27/#example-566
+    it "should work with uppercase", (cb) ->
+      test.markdown null, '<MAILTO:FOO@BAR.BAZ>', [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'link', nesting: 1, href: 'MAILTO:FOO@BAR.BAZ'}
+        {type: 'text', content: 'MAILTO:FOO@BAR.BAZ'}
+        {type: 'link', nesting: -1}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-567
+    # http://spec.commonmark.org/0.27/#example-568
+    # http://spec.commonmark.org/0.27/#example-569
+    # http://spec.commonmark.org/0.27/#example-570
+    it "should work for invalid urls", (cb) ->
       async.series [
         (cb) ->
           test.markdown null, '<a+b+c:d>', [
@@ -1519,6 +1569,143 @@ describe "markdown link", ->
             {type: 'paragraph', nesting: 1}
             {type: 'link', nesting: 1, href: 'localhost:5001/foo'}
             {type: 'text', content: 'localhost:5001/foo'}
+            {type: 'link', nesting: -1}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+      ], cb
+
+    # http://spec.commonmark.org/0.27/#example-571
+    # changed behavior because of linkify
+    it "should fail if spaces are included", (cb) ->
+      test.markdown null, '<http://foo.bar/baz bim>', [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: '<'}
+        {type: 'link', nesting: 1, href: 'http://foo.bar/baz'}
+        {type: 'text', content: 'http://foo.bar/baz'}
+        {type: 'link', nesting: -1}
+        {type: 'text', content: ' bim>'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-572
+    it "should not interpret backslash escapes", (cb) ->
+      test.markdown null, '<http://example.com/\\[\\>', [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'link', nesting: 1, href: 'http://example.com/%5C%5B%5C'}
+        {type: 'text', content: 'http://example.com/\\[\\'}
+        {type: 'link', nesting: -1}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-573
+    # http://spec.commonmark.org/0.27/#example-574
+    it "should allow email", (cb) ->
+      async.series [
+        (cb) ->
+          test.markdown null, '<foo@bar.example.com>', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'link', nesting: 1, href: 'mailto:foo@bar.example.com'}
+            {type: 'text', content: 'foo@bar.example.com'}
+            {type: 'link', nesting: -1}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '<foo+special@Bar.baz-bar0.com>', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'link', nesting: 1, href: 'mailto:foo+special@Bar.baz-bar0.com'}
+            {type: 'text', content: 'foo+special@Bar.baz-bar0.com'}
+            {type: 'link', nesting: -1}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+      ], cb
+
+    # http://spec.commonmark.org/0.27/#example-575
+    # because of linkify it will work
+    it "should not interpret backslash escapes in email directly", (cb) ->
+      test.markdown null, '<foo\\+@bar.example.com>', [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: '<'}
+        {type: 'link', nesting: 1, href: 'mailto:foo+@bar.example.com'}
+        {type: 'text', content: 'foo+@bar.example.com'}
+        {type: 'link', nesting: -1}
+        {type: 'text', content: '>'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-576
+    # http://spec.commonmark.org/0.27/#example-577
+    # but works with linkify
+    # http://spec.commonmark.org/0.27/#example-578
+    # http://spec.commonmark.org/0.27/#example-579
+    # http://spec.commonmark.org/0.27/#example-580
+    # but works with linkify
+    # http://spec.commonmark.org/0.27/#example-581
+    # but works with linkify
+    it "should not work as autolink, partially with linkify", (cb) ->
+      async.series [
+        (cb) ->
+          test.markdown null, '<>', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', content: '<>'}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '< http://foo.bar >', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', content: '< '}
+            {type: 'link', nesting: 1, href: 'http://foo.bar'}
+            {type: 'text', content: 'http://foo.bar'}
+            {type: 'link', nesting: -1}
+            {type: 'text', content: ' >'}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '<m:abc>', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', content: '<m:abc>'}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '<foo.bar.baz>', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', content: '<foo.bar.baz>'}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, 'http://example.com', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'link', nesting: 1, href: 'http://example.com'}
+            {type: 'text', content: 'http://example.com'}
+            {type: 'link', nesting: -1}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, 'foo@bar.example.com', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'link', nesting: 1, href: 'mailto:foo@bar.example.com'}
+            {type: 'text', content: 'foo@bar.example.com'}
             {type: 'link', nesting: -1}
             {type: 'paragraph', nesting: -1}
             {type: 'document', nesting: -1}
