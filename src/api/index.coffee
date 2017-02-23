@@ -18,6 +18,7 @@
 # 541-562 image
 # 563-581 links
 # 582-602 html
+# 603-619 text
 ###
 
 Elements

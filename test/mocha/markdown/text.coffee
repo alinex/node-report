@@ -479,3 +479,211 @@ describe "markdown text", ->
             {type: 'document', nesting: -1}
           ], null, cb
       ], cb
+
+  describe "hard breaks", ->
+
+    # http://spec.commonmark.org/0.27/#example-603
+    it "should work if preceded by two  spaces", (cb) ->
+      test.markdown null, 'foo  \nbaz', [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: 'foo'}
+        {type: 'hardbreak'}
+        {type: 'text', content: 'baz'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-604
+    it "should work if line ends with backslash", (cb) ->
+      test.markdown null, 'foo\\\nbaz', [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: 'foo'}
+        {type: 'hardbreak'}
+        {type: 'text', content: 'baz'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-605
+    it "should work if preceded by more than two spaces", (cb) ->
+      test.markdown null, 'foo       \nbaz', [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: 'foo'}
+        {type: 'hardbreak'}
+        {type: 'text', content: 'baz'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-606
+    # http://spec.commonmark.org/0.27/#example-607
+    it "should ignore leading spaces in next line", (cb) ->
+      async.series [
+        (cb) ->
+          test.markdown null, 'foo  \n     baz', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', content: 'foo'}
+            {type: 'hardbreak'}
+            {type: 'text', content: 'baz'}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, 'foo\\\n     baz', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', content: 'foo'}
+            {type: 'hardbreak'}
+            {type: 'text', content: 'baz'}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+      ], cb
+
+    # http://spec.commonmark.org/0.27/#example-608
+    # http://spec.commonmark.org/0.27/#example-609
+    it "should allow within emphasis", (cb) ->
+      async.series [
+        (cb) ->
+          test.markdown null, '*foo  \nbaz*', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'emphasis', nesting: 1}
+            {type: 'text', content: 'foo'}
+            {type: 'hardbreak'}
+            {type: 'text', content: 'baz'}
+            {type: 'emphasis', nesting: -1}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '*foo\\\nbaz*', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'emphasis', nesting: 1}
+            {type: 'text', content: 'foo'}
+            {type: 'hardbreak'}
+            {type: 'text', content: 'baz'}
+            {type: 'emphasis', nesting: -1}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+      ], cb
+
+    # http://spec.commonmark.org/0.27/#example-610
+    # http://spec.commonmark.org/0.27/#example-611
+    it "should fail within fixed code", (cb) ->
+      async.series [
+        (cb) ->
+          test.markdown null, '`foo  \nbaz`', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'fixed', nesting: 1}
+            {type: 'text', content: 'foo baz'}
+            {type: 'fixed', nesting: -1}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '`foo\\\nbaz`', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'fixed', nesting: 1}
+            {type: 'text', content: 'foo\\ baz'}
+            {type: 'fixed', nesting: -1}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+      ], cb
+
+    # http://spec.commonmark.org/0.27/#example-612
+    # http://spec.commonmark.org/0.27/#example-613
+    it "should fail within html", (cb) ->
+      async.series [
+        (cb) ->
+          test.markdown null, '<a href="foo  \nbar">', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'raw', format: 'html', content: '<a href="foo  \nbar">'}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '<a href="foo\\\nbar">', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'raw', format: 'html', content: '<a href="foo\\\nbar">'}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+      ], cb
+
+    # http://spec.commonmark.org/0.27/#example-614
+    # http://spec.commonmark.org/0.27/#example-615
+    # http://spec.commonmark.org/0.27/#example-616
+    # http://spec.commonmark.org/0.27/#example-617
+    it "should be impossible at end of block or document", (cb) ->
+      async.series [
+        (cb) ->
+          test.markdown null, 'foo\\', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', content: 'foo\\'}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, 'foo  ', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'text', content: 'foo'}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '### foo\\', [
+            {type: 'document', nesting: 1}
+            {type: 'heading', nesting: 1}
+            {type: 'text', content: 'foo\\'}
+            {type: 'heading', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '### foo  ', [
+            {type: 'document', nesting: 1}
+            {type: 'heading', nesting: 1}
+            {type: 'text', content: 'foo'}
+            {type: 'heading', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+      ], cb
+
+  describe "soft breaks", ->
+
+    # http://spec.commonmark.org/0.27/#example-618
+    it "should work on newlines", (cb) ->
+      test.markdown null, 'foo\nbaz', [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: 'foo'}
+        {type: 'softbreak'}
+        {type: 'text', content: 'baz'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-619
+    it "should remove preceding whitespace on next line", (cb) ->
+      test.markdown null, 'foo\n baz', [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: 'foo'}
+        {type: 'softbreak'}
+        {type: 'text', content: 'baz'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
