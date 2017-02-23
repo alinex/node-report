@@ -1,26 +1,4 @@
-# commonmark:
-# 1-12 text
-# 13-31 thematic break
-# 32-75 heading
-# 76-87 preformatted
-# 88-114 code
-# 115-156 html
-# 157-179 link
-# 180-187 paragraph
-# 188 blank
-# 189-213 blockquote
-# 214-285 list
-# 286     fixed
-# 287-311 text
-# 312-327 fixed
-# 328-455 emphasis
-# 456-540 links
-# 541-562 image
-# 563-581 links
-# 582-602 html
-# 603-619 text
 ###
-
 Elements
 =====================================================
 

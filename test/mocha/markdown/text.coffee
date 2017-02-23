@@ -687,3 +687,35 @@ describe "markdown text", ->
         {type: 'paragraph', nesting: -1}
         {type: 'document', nesting: -1}
       ], null, cb
+
+  describe "literal", ->
+
+    # http://spec.commonmark.org/0.27/#example-620
+    it "should work with special chars", (cb) ->
+      test.markdown null, 'hello $.;\'there', [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: 'hello $.;\'there'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-621
+    it "should work with non latin", (cb) ->
+      test.markdown null, 'Foo χρῆν', [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: 'Foo χρῆν'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    # http://spec.commonmark.org/0.27/#example-622
+    it "should preserve internal spaces", (cb) ->
+      test.markdown null, 'Multiple     spaces', [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: 'Multiple     spaces'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
