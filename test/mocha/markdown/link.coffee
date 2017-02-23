@@ -1475,3 +1475,52 @@ describe "markdown link", ->
             {type: 'document', nesting: -1}
           ], null, cb
       ], cb
+
+  describe "autolinks", ->
+
+    # http://spec.commonmark.org/0.27/#example-563
+    # http://spec.commonmark.org/0.27/#example-564
+    # http://spec.commonmark.org/0.27/#example-565
+    it "should work only for defined shortcuts", (cb) ->
+      async.series [
+        (cb) ->
+          test.markdown null, '<a+b+c:d>', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'link', nesting: 1, href: 'a+b+c:d'}
+            {type: 'text', content: 'a+b+c:d'}
+            {type: 'link', nesting: -1}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '<made-up-scheme://foo,bar>', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'link', nesting: 1, href: 'made-up-scheme://foo,bar'}
+            {type: 'text', content: 'made-up-scheme://foo,bar'}
+            {type: 'link', nesting: -1}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '<http://../>', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'link', nesting: 1, href: 'http://../'}
+            {type: 'text', content: 'http://../'}
+            {type: 'link', nesting: -1}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+        (cb) ->
+          test.markdown null, '<localhost:5001/foo>', [
+            {type: 'document', nesting: 1}
+            {type: 'paragraph', nesting: 1}
+            {type: 'link', nesting: 1, href: 'localhost:5001/foo'}
+            {type: 'text', content: 'localhost:5001/foo'}
+            {type: 'link', nesting: -1}
+            {type: 'paragraph', nesting: -1}
+            {type: 'document', nesting: -1}
+          ], null, cb
+      ], cb
