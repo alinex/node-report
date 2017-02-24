@@ -10,9 +10,11 @@
 
 # Page Data
 # --------------------------------------------------
-# Some processing information of the formatter are needed:
-#
-#     @linkNames = <name> = <token> # used to prevent duplicate id
+# Some processing information of the formatter are needed. This is stored in the
+# top opening `document` element:
+# - heading = <name>: <token> # used to prevent duplicate ids in heading anchors
+# - linkNames = <name>: [<href>, <title>] # used as reference list at the end of document
+# - links = <href+title>: <name> # used to prevent duplicate definitions
 #
 # This will collect IDs for direct links or class attributes.
 

@@ -10,11 +10,31 @@ in the different input and output formats.
 Not all of them are currently fully supported, but see below.
 
 
-Input Data
+Builder API
+------------------------------------------------------
+This follows a common schema with most methods are available with its full name
+and a short name. Block elements can be called completely with all data or with a
+boolean value to open and close it separately.
+
+As far as possible the API won't throw errors but interpret all calls like you maybe
+wanted them using auto closing tags.
+###
+
+fs = require 'fs'
+
+list = fs.readdirSync __dirname
+.filter (e) -> not e.match /^index\./
+
+require "./#{file}" for file in list
+
+
+###
+Input Formats
 ------------------------------------------------------
 Beside using the programmable API some other file formats may be used. They will
 be parsed, but not every format can handle all elements. The main format is markdown
-but you may also use one of the others.
+but you may also use one of the others. You also may mix the parsing formats and
+place them into API calls.
 
 But only markdown can at the moment be used to store and reread data without loss
 of information. The concrete implementation is based on the standards but contains
@@ -30,18 +50,28 @@ __Support for Parsing__
 | Preformat  |  X  |  X   |      |      |
 | Code       |  X  |  X   |      |      |
 | Blockquote |  X  |  X   |      |      |
-| ThemaBreak |  X  |  X   |      |      |
+| ThemeBreak |  X  |  X   |      |      |
 | List       |  X  |  X   |      |      |
 | Fixed      |  X  |  X   |      |      |
 | Emphasis   |  X  |  X   |      |      |
+| HTML       |     |  X   |      |      |
 | Box        |     |      |      |      |
 | Style      |     |      |      |      |
 | ToC        |     |      |      |      |
-| HTML       |     |      |      |      |
 | Execute    |     |      |      |      |
 
 ^`X` -> supported; `-` -> not possible; `(X)` -> partly supported;
 empty -> not currently done^
+
+#3 Markdown Parser
+
+The markdown parser is basically build on top of the
+[CommonMark Specification](http://spec.commonmark.org/0.27/). It runs all tests
+defined there to ensure is is fully compatible. But through the already included
+plugins you may have some slightly better output. If you don't want this, you may
+switch them off through configuration.
+
+See the elements itself of how much it is extended or optimized to this standard.
 
 
 Output Formats
@@ -59,47 +89,28 @@ Each of the formats support different options you may set by configuration or on
 | Paragraph  |  X  |  X   |  X   |  X   |      |       |     |
 | Heading    |  X  |  X   |  X   |  X   |      |       |     |
 | Preformat  |  X  |      |      |  X   |      |       |     |
-| Blockquote |     |      |      |      |      |       |     |
+| Blockquote |  X  |      |      |      |      |       |     |
 | ThemaBreak |  X  |  X   |  X   |  X   |      |       |     |
 | CharStyle  |  X  | (X)  |  X   |  X   |      |       |     |
 | List       |  X  |  X   |  X   |      |      |       |     |
+| HTML       |  X  |      |      |      |      |       |     |
 | Box        |     |      |      |      |      |       |     |
 | Style      |     |      |      |      |      |       |     |
 | ToC        |     |      |      |      |      |       |     |
-| HTML       |     |      |      |      |      |       |     |
 | Execute    |     |      |      |      |      |       |     |
 
 ^`X` -> supported; `-` -> not possible; `(X)` -> partly supported;
 empty -> not currently done^
 
+#3 Markdown Output
 
-Builder API
-------------------------------------------------------
-This follows a common schema with most methods are available with its full name
-and a short name. Block elements can be called completely with all data or with a
-boolean value to open and close it separately.
+This is the only format, which won't lose any information of the internal structure.
 
-As far as possible the API won't throw errors but interpret all calls like you maybe
-wanted them by auto closing tags.
-###
+The output is based on the parser standards but may be optimized using the configuration
+settings. But if you combine this with the parser you will often not get the exact same
+output which was parsed earlier. But you will get an optimized version which contains
+the exact same information.
 
-fs = require 'fs'
-
-list = fs.readdirSync __dirname
-.filter (e) -> not e.match /^index\./
-
-require "./#{file}" for file in list
-
-
-###
-Markdown Parser
-------------------------------------------------------
-The markdown parser is basically build on top of the
-[CommonMark Specification](http://spec.commonmark.org/0.27/).
-
-Generally all elements defined in this standard are build as described.
-Only small changes may occur like the elements won't keep newlines as so but will
-replace them with spaces if not in predefined blocks.
-
-See the elements itself of how much it is extended or optimized to this standard.
+If `use_references` is switched on in the configuration it will use references in
+the text and place the links itself at the end of the document.
 ###

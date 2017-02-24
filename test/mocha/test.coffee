@@ -3,6 +3,7 @@ expect = chai.expect
 ### eslint-env node, mocha ###
 
 debug = require('debug') 'test'
+chalk = require 'chalk'
 async = require 'async'
 fspath = require 'path'
 util = require 'alinex-util'
@@ -14,7 +15,7 @@ EXAMPLES_DIR = 'src/examples'
 module.exports =
 
   markdown: (id, input, data, format, cb) ->
-    debug 'IN', util.inspect input, {depth: 2}
+    debug 'IN', chalk.bold.yellow util.inspect input, {depth: 2}
     report = new Report()
     if id and process.env.EXAMPLES
       example = __dirname + "/../../#{EXAMPLES_DIR}/#{id}"
@@ -26,7 +27,7 @@ module.exports =
       # check formatting and reparsing
       report.format 'md', (err, result) ->
         return cb err if err
-        debug 'reparse markdown', util.inspect result
+        debug 'reparse markdown', chalk.yellow util.inspect result
         copy = new Report()
         copy.markdown result
         expect(copy.tokens.data, 'format+parse without change').to.be.deep.equal report.tokens.data

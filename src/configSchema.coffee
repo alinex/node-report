@@ -45,6 +45,11 @@ md =
       description: "a flag to define if soft breaks (if existent) should be kept as is"
       type: 'boolean'
       default: true
+    use_references:
+      title: "Use References"
+      description: "a flag to use references at the end of document for links"
+      type: 'boolean'
+      default: true
 
 # #3 Text Setup (format/<name>/)
 #

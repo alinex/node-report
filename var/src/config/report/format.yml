@@ -10,6 +10,7 @@ md:
   extension: '.md'
   width: 100
   keep_soft_breaks: true
+  use_references: true
 
 text:
   type: text

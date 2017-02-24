@@ -70,3 +70,19 @@ module.exports =
           "{\\rtf1"
         when -1
           "}"
+
+  textFooter:
+    format: ['md', 'text']
+    type: 'document'
+    nesting: -1
+    fn: (num, token) ->
+      doc = @tokens.data[0]
+      return unless doc.linkNames
+      list = Object.keys doc.linkNames
+      list.sort()
+      # write output
+      token.out = ''
+      for n in list
+        link = doc.linkNames[n]
+        token.out += "\n[#{n}]: <#{link[0]}>"
+        token.out += " \"#{link[1].replace /(")/g, '\\$1'}\"" if link[1]

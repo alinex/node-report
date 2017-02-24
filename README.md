@@ -42,11 +42,11 @@ you may access the markdown text or get it converted to HTML and other formats.
 The key features are:
 
 - easy writing using API, markdown or AsciiDoc
-- feature rich markdown implementation based on commonmark
+- feature rich markdown implementation
 - export as text, console, HTML (also optimized for email), PDF, PNG and more
 - convert text to visual representation like qr, chart or UML
 - optimized interactive elements in HTML output
-- configurable/theme able output
+- configurable/themeable output
 
 See example output within the different element descriptions below.
 
@@ -56,8 +56,9 @@ included plugins. This means you won't need to search for individual plugins whi
 often works only partly as good as the core but have all ready to use.
 
 Internally the report module will create a common element structure out of all given
-input formats. This may be transformed into a lot of output formats and all steps are
-based on rules which may be easily extended and maintained.
+input formats using some of the existing parsers. This may be transformed into a lot
+of output formats and all steps are based on rules which may be easily extended
+and maintained.
 
 The [Documentation of this module](https://alinex.github.io/node-report) itself
 uses the `alinex-report` module to generate the html pages.
