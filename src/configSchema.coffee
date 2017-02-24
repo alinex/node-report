@@ -13,7 +13,34 @@ extension =
 
 
 ###
-Formats
+Parser Options
+---------------------------------------------------
+Some of the parsers may be configured to follow specific rules or not.
+###
+
+# #3 Markdown Parser (parser/md/)
+#
+# {@schema #keys/parser/keys/md}
+mdParser =
+  title: "Markdown Parser"
+  description: "the definition of markdown parsing options"
+  type: 'object'
+  allowedKeys: true
+  keys:
+    html:
+      title: "Enable HTML"
+      description: "a flag to allow interpretation of html tags in source"
+      type: 'boolean'
+      default: true
+    linkify:
+      title: "Auto URL Detection"
+      description: "a flag to automatically convert URL like text"
+      type: 'boolean'
+      default: true
+
+
+###
+Output Formats
 ---------------------------------------------------
 Multiple settings for various formats may be defined but they all go back to one
 of the basic format types:
@@ -105,7 +132,12 @@ html =
     extension: extension
     compress:
       title: "Compress"
-      description: "a flag to output in compressed form without unneccessary newlines..."
+      description: "a flag to output in compressed form without unnecessary newlines..."
+      type: 'boolean'
+      optional: true
+    keep_breaks:
+      title: "Keep Breaks"
+      description: "a flag to also keep soft breaks like done for hard breaks"
       type: 'boolean'
       optional: true
     head_end:
@@ -224,6 +256,13 @@ module.exports =
             type: 'string'
             minLength: 1
           ]
+    parser:
+      title: "Parser Options"
+      description: "the default options for each format"
+      type: 'object'
+      allowedKeys: true
+      keys:
+        md: mdParser
     format:
       title: "Format Options"
       description: "the default options for each format"

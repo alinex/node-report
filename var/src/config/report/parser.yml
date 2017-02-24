@@ -1,0 +1,10 @@
+# Default settings for Report Formats
+# ============================================
+# This contains the default for different settings.
+
+
+# Markdown Format
+# --------------------------------------------
+md:
+  html: true
+  linkify: true

@@ -113,4 +113,11 @@ the exact same information.
 
 If `use_references` is switched on in the configuration it will use references in
 the text and place the links itself at the end of the document.
+
+#3 HTML Output
+
+Like in all other formats you may specify the output by configuration.
+
+The generated tags will be xhtml compliant and properly nested. But included raw
+code may not follow these guidelines.
 ###

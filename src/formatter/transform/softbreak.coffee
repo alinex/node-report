@@ -23,7 +23,10 @@ module.exports =
     format: 'html'
     type: 'softbreak'
     fn: (num, token) ->
-      token.out = "\n"
+      token.out = if @setup.keep_breaks and not @tokens.in ['preformatted', 'code', 'fixed'], token
+        '<br />'
+      else
+        '\n'
 
   roff:
     format: 'roff'

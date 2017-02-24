@@ -23,7 +23,10 @@ module.exports =
     format: 'html'
     type: 'hardbreak'
     fn: (num, token) ->
-      token.out = "\n"
+      token.out = if @tokens.in ['preformatted', 'code', 'fixed'], token
+        '\n'
+      else
+        '<br />'
 
   roff:
     format: 'roff'

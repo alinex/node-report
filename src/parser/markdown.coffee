@@ -25,9 +25,10 @@ module.exports = (text) ->
   debug "parse and add: #{chalk.bold.yellow util.inspect text}"
   # init markdown-it
   unless markdownIt
+    config = Config.get '/report/parser/md'
     markdownIt = require('markdown-it')
-      html: true
-      linkify: true
+      html: config.html
+      linkify: config.linkify
 #      typographer: true
   # parse and convert tokens
   tree = markdownIt.parse text, {} # empty env
@@ -42,7 +43,7 @@ module.exports = (text) ->
 # This will match the name including ..._open or also without it.
 modify =
 
-  text: (t) -> if t.content then t else []
+  text: (t) -> if t.content then t else [] 
 
   heading: (t) -> t.heading = Number t.tag[1]
 
