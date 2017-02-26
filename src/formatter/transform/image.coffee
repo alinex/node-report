@@ -25,7 +25,10 @@ module.exports =
         token.out = '!['
       else
         [_, start] = @tokens.findStart num, token
-        uri = if start.src.match /[()]/g then "<#{start.src}>" else start.src
-        token.out = "](#{uri}"
-        token.out += " \"#{start.title.replace /(")/g, '\\$1'}\"" if start.title
-        token.out += ')'
+        if start.reference
+          token.out = "][#{start.reference}]"
+        else
+          uri = if start.src.match /[()]/g then "<#{start.src}>" else start.src
+          token.out = "](#{uri}"
+          token.out += " \"#{start.title.replace /(")/g, '\\$1'}\"" if start.title
+          token.out += ')'

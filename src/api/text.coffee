@@ -8,6 +8,8 @@ the element with value `true` before adding one or multiple text elements.
 To add multiple lines you may add multiple `text` tokens separated by `hardbreak`
 or `softbreak` tokens. While the hard break will always stay the soft break may be
 automatically removed based on the output format.
+
+The interpretation may be different based on the containing element.
 ###
 
 
@@ -82,9 +84,22 @@ Report.prototype.softbreak = ->
 ###
 Markdown Input/Output
 ----------------------------------------------------
+
+#3 Escaping
+
 While parsing backslashes used to escape special meaning will be removed in the
 element and re-added on output. But only the really necessary escapes are done in
 the output to keep it more readable.
+
+#3 Tabs
+
+Tabs in lines are not expanded to spaces. However, in contexts where whitespace
+helps to define block structure, tabs behave as if they were replaced by spaces
+with a tab stop of **4 characters**.
+
+#3 Breaks
+
+
 
 The parsing is done after the CommonMark standard:
 - [backslash escapes](http://spec.commonmark.org/0.27/#backslash-escapes)

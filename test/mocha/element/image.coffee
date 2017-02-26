@@ -7,13 +7,12 @@ async = require 'async'
 Report = require '../../../src'
 before (cb) -> Report.init cb
 
-describe "fixed", ->
+describe "image", ->
 
   describe "examples", ->
 
     it "should make examples", (cb) ->
-      test.markdown 'fixed/simple', "To shut a debian system down enter
-      `shutdown -h now` in a console as `root`.", null, [
+      test.markdown 'image/simple', "An ![alinex](http://alinex.github.io/images/Alinex-200.png) project.", null, [
         {format: 'md'}
         {format: 'text'}
         {format: 'html'}
@@ -23,72 +22,81 @@ describe "fixed", ->
 
   describe "api", ->
 
-    it "should create in paragraph", (cb) ->
+    it "should create image in paragraph", (cb) ->
       # create report
       report = new Report()
       report.paragraph true
-      report.fixed 'code'
+      report.image 'foo', '/url', 'title'
       # check it
       test.report null, report, [
         {type: 'document', nesting: 1}
         {type: 'paragraph', nesting: 1}
-        {type: 'fixed', nesting: 1}
-        {type: 'text', content: 'code'}
-        {type: 'fixed', nesting: -1}
+        {type: 'image', nesting: 1, src: '/url', title: 'title'}
+        {type: 'text', content: 'foo'}
+        {type: 'image', nesting: -1}
         {type: 'paragraph', nesting: -1}
         {type: 'document', nesting: -1}
       ], null, cb
 
-    it "should create in multiple steps", (cb) ->
+    it "should create image in multiple steps", (cb) ->
       # create report
       report = new Report()
       report.paragraph true
-      report.fixed true
-      report.text 'code'
-      report.fixed false
+      report.image true, '/url', 'title'
+      report.text 'foo'
+      report.image false
       report.paragraph false
       # check it
       test.report null, report, [
         {type: 'document', nesting: 1}
         {type: 'paragraph', nesting: 1}
-        {type: 'fixed', nesting: 1}
-        {type: 'text', content: 'code'}
-        {type: 'fixed', nesting: -1}
+        {type: 'image', nesting: 1, src: '/url', title: 'title'}
+        {type: 'text', content: 'foo'}
+        {type: 'image', nesting: -1}
         {type: 'paragraph', nesting: -1}
         {type: 'document', nesting: -1}
       ], null, cb
 
-    it "should create in paragraph (shorthand call)", (cb) ->
+    it "should create image in paragraph (shorthand call)", (cb) ->
       # create report
       report = new Report()
       report.paragraph true
-      report.tt 'code'
+      report.img 'foo', '/url', 'title'
       # check it
       test.report null, report, [
         {type: 'document', nesting: 1}
         {type: 'paragraph', nesting: 1}
-        {type: 'fixed', nesting: 1}
-        {type: 'text', content: 'code'}
-        {type: 'fixed', nesting: -1}
+        {type: 'image', nesting: 1, src: '/url', title: 'title'}
+        {type: 'text', content: 'foo'}
+        {type: 'image', nesting: -1}
         {type: 'paragraph', nesting: -1}
         {type: 'document', nesting: -1}
       ], null, cb
 
-    it "should fail if not in inline element", (cb) ->
+    it "should create image in paragraph (with only source)", (cb) ->
       # create report
       report = new Report()
-      expect(-> report.fixed 'code').to.throw Error
+      report.paragraph true
+      report.image '/url'
+      # check it
+      test.report null, report, [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'image', nesting: 1, src: '/url'}
+        {type: 'text', content: '/url'}
+        {type: 'image', nesting: -1}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    it "should fail image if not in inline element", (cb) ->
+      # create report
+      report = new Report()
+      expect(-> report.img '/url').to.throw Error
       cb()
 
-    it "should do nothing without content", (cb) ->
+    it "should fail without content", (cb) ->
       # create report
       report = new Report()
-      report.paragraph true
-      report.fixed()
-      # check it
-      test.report null, report, [
-        {type: 'document', nesting: 1}
-        {type: 'paragraph', nesting: 1}
-        {type: 'paragraph', nesting: -1}
-        {type: 'document', nesting: -1}
-      ], null, cb
+      expect(-> report.a true).to.throw Error
+      cb()

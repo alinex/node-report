@@ -139,17 +139,17 @@ Markdown Input/Output
 ----------------------------------------------------
 The markdown format is based on CommonMark Specification:
 [ATX Headings](http://spec.commonmark.org/0.27/#atx-headings),
-[Setext Headings](http://spec.commonmark.org/0.27/#setext-headings)
-
-Exceptions to the standard:
-- Escaped Underline of an setext heading is also not interpreted as thematic break
-  which makes it more consistent and the behavior in
-  [example 75](http://spec.commonmark.org/0.27/#example-75)
-  is never really needed.
+[Setext Headings](http://spec.commonmark.org/0.27/#setext-headings).
+So you may use one to six `#` characters at the start of line followed by one to three
+spaces to issue a heading of level 1 to 6. The setext headings work as a line
+which is followed by a line of at least three `=` or `-` characters to specify
+a heading level 1 or 2.
 
 In the output Setext headings are used for headings level 1 and 2 but for all others
 the ATX headings will be used.
 
+> If used for code documentation within the `alinex-codedoc` package you may also use
+> the alternate syntax of hash followed by a number but this is not supported here
 
 Other Output
 ----------------------------------------------------

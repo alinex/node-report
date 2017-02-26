@@ -63,16 +63,6 @@ __Support for Parsing__
 ^`X` -> supported; `-` -> not possible; `(X)` -> partly supported;
 empty -> not currently done^
 
-#3 Markdown Parser
-
-The markdown parser is basically build on top of the
-[CommonMark Specification](http://spec.commonmark.org/0.27/). It runs all tests
-defined there to ensure is is fully compatible. But through the already included
-plugins you may have some slightly better output. If you don't want this, you may
-switch them off through configuration.
-
-See the elements itself of how much it is extended or optimized to this standard.
-
 
 Output Formats
 ------------------------------------------------------
@@ -102,20 +92,49 @@ Each of the formats support different options you may set by configuration or on
 ^`X` -> supported; `-` -> not possible; `(X)` -> partly supported;
 empty -> not currently done^
 
-#3 Markdown Output
 
-This is the only format, which won't lose any information of the internal structure.
+Markdown
+------------------------------------------------------
+The **markdown** format is the base format of the report package and the most
+powerful of all. It allows complete output without loss of information.
+
+Markdown is a plain text format for writing structured documents, based on conventions
+used for indicating formatting in email and usenet posts. It was developed in 2004
+by John Gruber and adapted in a lot of projects and languages. Some of them extended
+the original syntax with conventions for more elements. It is also used in different
+web applications like GitHub, StackOverflow, Trello and more.
+In contrast to other formats like AsciDoc it is more readable and easier to write.
+
+The markdown parser is basically build to support the following specifications:
+- [Daring Fireball](https://daringfireball.net/projects/markdown/)
+- [CommonMark Specification](http://spec.commonmark.org/0.27/)
+- [GitHub Flavored Markdown](https://help.github.com/categories/writing-on-github/)
+
+See the elements itself of how much it is extended or optimized to this standards.
+Also there are some more elements added like:
+- ???????
 
 The output is based on the parser standards but may be optimized using the configuration
 settings. But if you combine this with the parser you will often not get the exact same
 output which was parsed earlier. But you will get an optimized version which contains
 the exact same information.
 
-If `use_references` is switched on in the configuration it will use references in
-the text and place the links itself at the end of the document.
+All elements are divided blocklevel or inline elements and may or not may contain
+further markdown. Read more about this in each element.
 
-#3 HTML Output
 
+
+This is extended to also support GFM styles like:
+- [Strikethrough](https://help.github.com/articles/basic-writing-and-formatting-syntax/#styling-text)
+- [Tables](https://help.github.com/articles/organizing-information-with-tables/)
+- [Linkify](https://help.github.com/articles/autolinked-references-and-urls/)
+- [TaskLists](https://help.github.com/articles/basic-writing-and-formatting-syntax/#task-lists)
+- mentioning
+- emoji
+
+
+HTML Output
+---------------------------------------------
 Like in all other formats you may specify the output by configuration.
 
 The generated tags will be xhtml compliant and properly nested. But included raw

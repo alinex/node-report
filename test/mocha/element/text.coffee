@@ -76,3 +76,25 @@ describe "text", ->
         {format: 'html', text: "<pre><code>foo\tbar</code></pre>\n"}
         {format: 'man', text: '.P\n.RS 2\n.nf\nfoo\tbar\n.fi\n.RE'}
       ], cb
+
+    it "should work with soft and hard breaks", (cb) ->
+      # create report
+      report = new Report()
+      report.paragraph true
+      .text 'Simple Text.'
+      .hardbreak()
+      .text 'And now another line.'
+      .softbreak()
+      .text 'With two sentences.'
+      # check it
+      test.report null, report, [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: 'Simple Text.'}
+        {type: 'hardbreak'}
+        {type: 'text', content: 'And now another line.'}
+        {type: 'softbreak'}
+        {type: 'text', content: 'With two sentences.'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb

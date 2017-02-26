@@ -7,13 +7,12 @@ async = require 'async'
 Report = require '../../../src'
 before (cb) -> Report.init cb
 
-describe "fixed", ->
+describe "raw", ->
 
   describe "examples", ->
 
     it "should make examples", (cb) ->
-      test.markdown 'fixed/simple', "To shut a debian system down enter
-      `shutdown -h now` in a console as `root`.", null, [
+      test.markdown 'raw/html', '<div class="important">\n\nSome <a class="red">inline</a>', null, [
         {format: 'md'}
         {format: 'text'}
         {format: 'html'}
@@ -23,68 +22,47 @@ describe "fixed", ->
 
   describe "api", ->
 
+    it "should create as block", (cb) ->
+      # create report
+      report = new Report()
+      report.raw '<div id="intro">foo</div>', 'html'
+      # check it
+      test.report null, report, [
+        {type: 'document', nesting: 1}
+        {type: 'raw', format: 'html', content: '<div id="intro">foo</div>'}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    it "should autodetect html format", (cb) ->
+      # create report
+      report = new Report()
+      report.raw '<div id="intro">foo</div>'
+      # check it
+      test.report null, report, [
+        {type: 'document', nesting: 1}
+        {type: 'raw', format: 'html', content: '<div id="intro">foo</div>'}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
     it "should create in paragraph", (cb) ->
       # create report
       report = new Report()
       report.paragraph true
-      report.fixed 'code'
+      report.raw '<div id="intro">foo</div>', 'html'
       # check it
       test.report null, report, [
         {type: 'document', nesting: 1}
         {type: 'paragraph', nesting: 1}
-        {type: 'fixed', nesting: 1}
-        {type: 'text', content: 'code'}
-        {type: 'fixed', nesting: -1}
+        {type: 'raw', format: 'html', content: '<div id="intro">foo</div>'}
         {type: 'paragraph', nesting: -1}
         {type: 'document', nesting: -1}
       ], null, cb
-
-    it "should create in multiple steps", (cb) ->
-      # create report
-      report = new Report()
-      report.paragraph true
-      report.fixed true
-      report.text 'code'
-      report.fixed false
-      report.paragraph false
-      # check it
-      test.report null, report, [
-        {type: 'document', nesting: 1}
-        {type: 'paragraph', nesting: 1}
-        {type: 'fixed', nesting: 1}
-        {type: 'text', content: 'code'}
-        {type: 'fixed', nesting: -1}
-        {type: 'paragraph', nesting: -1}
-        {type: 'document', nesting: -1}
-      ], null, cb
-
-    it "should create in paragraph (shorthand call)", (cb) ->
-      # create report
-      report = new Report()
-      report.paragraph true
-      report.tt 'code'
-      # check it
-      test.report null, report, [
-        {type: 'document', nesting: 1}
-        {type: 'paragraph', nesting: 1}
-        {type: 'fixed', nesting: 1}
-        {type: 'text', content: 'code'}
-        {type: 'fixed', nesting: -1}
-        {type: 'paragraph', nesting: -1}
-        {type: 'document', nesting: -1}
-      ], null, cb
-
-    it "should fail if not in inline element", (cb) ->
-      # create report
-      report = new Report()
-      expect(-> report.fixed 'code').to.throw Error
-      cb()
 
     it "should do nothing without content", (cb) ->
       # create report
       report = new Report()
       report.paragraph true
-      report.fixed()
+      report.raw()
       # check it
       test.report null, report, [
         {type: 'document', nesting: 1}

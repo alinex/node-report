@@ -3,6 +3,7 @@
 
 
 moment = require 'moment'
+util = require 'alinex-util'
 
 
 # Transformer rules
@@ -82,7 +83,10 @@ module.exports =
       list.sort()
       # write output
       token.out = ''
+      maxlen = 0
+      for n in list
+        maxlen = n.length if n.length > maxlen
       for n in list
         link = doc.linkNames[n]
-        token.out += "\n[#{n}]: <#{link[0]}>"
+        token.out += "\n" + util.string.rpad("[#{n}]:", maxlen + 3) + " <#{link[0]}>"
         token.out += " \"#{link[1].replace /(")/g, '\\$1'}\"" if link[1]

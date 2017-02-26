@@ -12,7 +12,7 @@ describe "emphasis", ->
   describe "examples", ->
 
     it "should make examples", (cb) ->
-      test.markdown 'text/simple', "That's **all** to say. _(Alex)_", null, [
+      test.markdown 'emphasis/simple', "That's **all** to say. _(Alex)_", null, [
         {format: 'md'}
         {format: 'text'}
         {format: 'html'}
