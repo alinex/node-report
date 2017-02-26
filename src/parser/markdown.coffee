@@ -43,7 +43,7 @@ module.exports = (text) ->
 # This will match the name including ..._open or also without it.
 modify =
 
-  text: (t) -> if t.content then t else [] 
+  text: (t) -> if t.content then t else []
 
   heading: (t) -> t.heading = Number t.tag[1]
 
@@ -51,6 +51,8 @@ modify =
 
   em: (t) -> t.type = 'emphasis'
 
+  s: (t) -> t.type = 'strikethrough'
+  
   bullet_list: (t) ->
     t.type = 'list'
     t.list = 'bullet'

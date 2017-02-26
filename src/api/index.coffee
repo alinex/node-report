@@ -112,24 +112,21 @@ The markdown parser is basically build to support the following specifications:
 
 See the elements itself of how much it is extended or optimized to this standards.
 Also there are some more elements added like:
-- ???????
+- [linkify](https://github.com/markdown-it/linkify-it)
 
 The output is based on the parser standards but may be optimized using the configuration
 settings. But if you combine this with the parser you will often not get the exact same
 output which was parsed earlier. But you will get an optimized version which contains
 the exact same information.
 
-All elements are divided blocklevel or inline elements and may or not may contain
+All elements are divided into block level or inline elements and may or not may contain
 further markdown. Read more about this in each element.
 
-
-
 This is extended to also support GFM styles like:
-- [Strikethrough](https://help.github.com/articles/basic-writing-and-formatting-syntax/#styling-text)
+- [Strikethrough]()
 - [Tables](https://help.github.com/articles/organizing-information-with-tables/)
-- [Linkify](https://help.github.com/articles/autolinked-references-and-urls/)
 - [TaskLists](https://help.github.com/articles/basic-writing-and-formatting-syntax/#task-lists)
-- mentioning
+- mentioning (maybe using linkify)
 - emoji
 
 
