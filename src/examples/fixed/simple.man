@@ -1,0 +1,12 @@
+.P
+To shut a debian system down enter .P
+.RS 2
+.nf
+shutdown -h now.fi
+.RE
+ in a console as .P
+.RS 2
+.nf
+root.fi
+.RE
+.

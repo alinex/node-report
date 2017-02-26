@@ -1,0 +1,9 @@
+.P
+Preformatted Text:
+.P
+.RS 2
+.nf
+This line is preformatted!
+     ^^^^
+.fi
+.RE

@@ -1,0 +1,6 @@
+.P
+.RS 2
+.nf
+text = 'foo';
+.fi
+.RE

@@ -1,0 +1,8 @@
+.TH "HEADING 1" "" "February 2017" "" ""
+.SH "NAME"
+\fBheading 1\fR
+.SH heading 2
+.SS heading 3
+.SS heading 4
+.SS heading 5
+.SS heading 6

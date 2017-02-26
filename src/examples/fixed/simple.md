@@ -1,0 +1,1 @@
+To shut a debian system down enter `shutdown -h now` in a console as `root`.

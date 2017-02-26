@@ -17,12 +17,14 @@ text:
   extension: .txt
   width: 100
   ascii_art: true
+  ansi_escape: false
 
 console:
   type: text
   extension: .console
   width: 100
   ascii_art: true
+  ansi_escape: true
 
 html:
   type: html

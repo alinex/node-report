@@ -64,6 +64,8 @@ Report.prototype.table = (input, hidden) ->
 ###
 Markdown Input/Output
 ----------------------------------------------------
+[Tables](https://help.github.com/articles/organizing-information-with-tables/)
+
 
 
 Other Output

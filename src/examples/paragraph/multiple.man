@@ -1,0 +1,5 @@
+.P
+This is an example of two paragraphs in markdown style there the separation
+between them is done with an empty line.
+.P
+This follows the common definition of markdown.

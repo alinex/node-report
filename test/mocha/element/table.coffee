@@ -5,7 +5,7 @@ async = require 'async'
 Report = require '../../../src'
 before (cb) -> Report.init cb
 
-describe "table", ->
+describe.skip "table", ->
 
   describe "examples", ->
 

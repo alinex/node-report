@@ -5,7 +5,7 @@ async = require 'async'
 Report = require '../../../src'
 before (cb) -> Report.init cb
 
-describe.only "markdown table", ->
+describe "markdown table", ->
 
   it "should create simple table", (cb) ->
     test.markdown null, """

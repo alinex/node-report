@@ -9,7 +9,7 @@ describe "blockquote", ->
 
   describe "examples", ->
 
-    it "should make two blockquotes", (cb) ->
+    it.only "should make two blockquotes", (cb) ->
       test.markdown 'blockquote/multiple', """
         > Manfred said:
         >
@@ -19,6 +19,7 @@ describe "blockquote", ->
       """, null, [
         {format: 'md'}
         {format: 'text'}
+        {format: 'console'}
         {format: 'html'}
         {format: 'man'}
       ], cb

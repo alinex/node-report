@@ -104,6 +104,11 @@ text =
       description: "a flag to use ASCII art characters for formatting"
       type: 'boolean'
       optional: true
+    ansi_escape:
+      title: "Use ANSI Escapes"
+      description: "a flag to enable ANSI escape sequences to enable colors and simple text styles"
+      type: 'boolean'
+      optional: true
     begin:
       title: "Document Header"
       description: "the text used as document header"
