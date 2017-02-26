@@ -52,7 +52,7 @@ modify =
   em: (t) -> t.type = 'emphasis'
 
   s: (t) -> t.type = 'strikethrough'
-  
+
   bullet_list: (t) ->
     t.type = 'list'
     t.list = 'bullet'
@@ -147,6 +147,17 @@ modify =
     t.format = 'html'
     t.content = t.content.replace /\n$/, ''
 
+  th_open: (t) ->
+    t.type = 'th'
+    t.nesting = 1
+    t.align = 'left'
+    if t.attrs
+      for a in t.attrs
+        continue unless a[0] is 'style'
+        continue unless align = a[1].match /text-align:(\w+)/
+        t.align = align[1]
+    null
+
 # Specify elements to copy from markdown token to report token.
 copyAttributes =
   text: ['content']
@@ -156,6 +167,7 @@ copyAttributes =
   link: ['href', 'title']
   image: ['src', 'title']
   raw: ['format', 'block', 'content']
+  th: ['align']
 
 # Convert markdown-it structure to report tokens.
 #

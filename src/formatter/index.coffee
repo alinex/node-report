@@ -26,6 +26,7 @@
 # - `html` - `Object` with <attrib> = <value>
 # - `count` - `Integer` number of elements in `list` element
 # - `num` - `Integer` number of `item` in list (equals to numer in ordered list)
+# - `col` - `Integer` column number in table
 #
 # The transformator step will also add:
 # - `out` - `String` the text representation of this element
