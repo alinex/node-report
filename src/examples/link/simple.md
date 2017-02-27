@@ -1,3 +1,3 @@
-Let's [google][wwwgooglecom] for everything you don't know.
+Let's [google][googlecom] for everything you don't know.
 
-[wwwgooglecom]: <http://www.google.com>
+[googlecom]: <http://www.google.com>

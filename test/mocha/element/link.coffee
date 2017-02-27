@@ -15,9 +15,9 @@ describe "link", ->
       test.markdown 'link/simple', "Let's [google](http://www.google.com) for everything you don't know.", null, [
         {format: 'md'}
         {format: 'text'}
+        {format: 'console'}
         {format: 'html'}
         {format: 'man'}
-        {format: 'adoc'}
       ], cb
 
   describe "api", ->

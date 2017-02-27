@@ -1,0 +1,42 @@
+.P
+Capital Cities:
+.RS 0
+.IP 1. 3
+.P
+         Europe
+         .RS 0
+         .IP 1. 3
+         .P
+                  London
+
+         .IP 2. 3
+         .P
+                  Berlin
+
+         .IP 3. 3
+         .P
+                  Paris
+
+
+
+         .RE
+
+.IP 2. 3
+.P
+         Africa
+         .RS 0
+         .IP 1. 3
+         .P
+                  Kairo
+
+         .IP 2. 3
+         .P
+                  Tunis
+
+
+
+         .RE
+
+
+
+.RE

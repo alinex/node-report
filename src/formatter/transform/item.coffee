@@ -50,8 +50,8 @@ module.exports =
             when 1 then ".IP #{token.num}. 3\n"
             when -1 then '\n'
 
-  other:
-    format: ['md', 'text', 'adoc']
+  md:
+    format: ['md']
     type: 'item'
     fn: (num, token) ->
       list = token.parent
@@ -60,9 +60,35 @@ module.exports =
           marker = list.marker ? '-'
           switch token.nesting
             when 1 then "   #{marker} "
-#            when -1 then '\n'
         when 'ordered'
           marker = list.marker ? '.'
           switch token.nesting
             when 1 then "#{util.string.lpad token.num, 3}#{marker} "
-#            when -1 then '\n'
+
+  other:
+    format: ['text']
+    type: 'item'
+    fn: (num, token) ->
+      list = token.parent
+      token.out = switch list.list
+        when 'bullet'
+          # color dependent of depth
+          depth = 0
+          p = token
+          while p = p.parent
+            depth++ if p.type is 'list'
+          marker = if @setup.ascii_art
+            switch depth
+              when 1 then '⭘'
+              when 2 then '‣'
+              when 3 then '•'
+              else '·'
+          else
+            list.marker ? '.'
+          # make bullet
+          switch token.nesting
+            when 1 then "   #{marker} "
+        when 'ordered'
+          marker = list.marker ? '.'
+          switch token.nesting
+            when 1 then "#{util.string.lpad token.num, 3}#{marker} "

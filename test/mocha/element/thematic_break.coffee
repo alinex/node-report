@@ -13,6 +13,7 @@ describe "thematic break", ->
       test.markdown 'thematic_break/line', '---', null, [
         {format: 'md'}
         {format: 'text'}
+        {format: 'console'}
         {format: 'html'}
         {format: 'man'}
       ], cb

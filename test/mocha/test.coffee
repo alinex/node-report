@@ -37,7 +37,7 @@ module.exports =
     if id and process.env.EXAMPLES
       example = __dirname + "/../../#{EXAMPLES_DIR}/#{id}"
       fs.mkdirsSync fspath.dirname example
-    fs.writeFileSync "#{example}.tokens.js", report.tokens if example
+    fs.writeFileSync "#{example}.tokens.js", util.inspect report.tokens if example
     if data
       expect(report.tokens.data.length, 'num tokens').to.equal data.length
       for token, num in data

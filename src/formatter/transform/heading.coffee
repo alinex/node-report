@@ -1,6 +1,7 @@
 # Headings
 # =================================================
 
+chalk = require 'chalk'
 util = require 'alinex-util'
 
 
@@ -35,8 +36,13 @@ module.exports =
     format: 'text'
     type: 'heading'
     fn: (num, token) ->
+      chalk = new chalk.constructor {enabled: @setup.ansi_escape ? false}
+      color = if token.heading > 2 then chalk.white else chalk.yellow
+      marker = color.bold('?').split /\?/
       # make atx heading for first two levels
-      if token.nesting is -1
+      if token.nesting is 1
+        token.out = marker[0]
+      else
         char = switch token.heading
           when 1
             if @setup.ascii_art then '═' else '#'
@@ -50,7 +56,7 @@ module.exports =
             if @setup.ascii_art then '─' else '-'
           when 6
             if @setup.ascii_art then '┄' else '-'
-        token.out = "\n#{util.string.repeat char, @setup.width}\n"
+        token.out = marker[1] + color "\n#{util.string.repeat char, @setup.width}\n"
 
   html:
     format: 'html'

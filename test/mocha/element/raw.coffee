@@ -12,12 +12,12 @@ describe "raw", ->
   describe "examples", ->
 
     it "should make examples", (cb) ->
-      test.markdown 'raw/html', '<div class="important">\n\nSome <a class="red">inline</a>', null, [
+      test.markdown 'raw/html', '<div class="important">\n\nSome <a class="red">inline</a> html.', null, [
         {format: 'md'}
         {format: 'text'}
+        {format: 'console'}
         {format: 'html'}
         {format: 'man'}
-        {format: 'adoc'}
       ], cb
 
   describe "api", ->

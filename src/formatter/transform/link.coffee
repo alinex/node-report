@@ -1,6 +1,8 @@
 # Link
 # =================================================
 
+chalk = require 'chalk'
+
 
 # Transformer rules
 #
@@ -20,8 +22,8 @@ module.exports =
         when -1
           token.out = "</a>#{nl}"
 
-  other:
-    format: ['md', 'text']
+  md:
+    format: ['md']
     type: 'link'
     fn: (num, token) ->
       if token.nesting is 1
@@ -35,3 +37,16 @@ module.exports =
           token.out = "](#{uri}"
           token.out += " \"#{start.title.replace /(")/g, '\\$1'}\"" if start.title
           token.out += ')'
+
+  other:
+    format: ['text']
+    type: 'link'
+    fn: (num, token) ->
+      return unless token.nesting is -1
+      [_, start] = @tokens.findStart num, token
+      uri = if start.href.match /[()]/g then "<#{start.href}>" else start.href
+      token.out = if @setup.ansi_escape
+        chalk = new chalk.constructor {enabled: true}
+        ' ' + chalk.underline.gray uri
+      else
+        " (#{uri})"

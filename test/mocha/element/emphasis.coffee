@@ -15,9 +15,9 @@ describe "emphasis", ->
       test.markdown 'emphasis/simple', "That's **all** to say. _(Alex)_", null, [
         {format: 'md'}
         {format: 'text'}
+        {format: 'console'}
         {format: 'html'}
         {format: 'man'}
-        {format: 'adoc'}
       ], cb
 
   describe "api", ->

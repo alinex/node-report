@@ -28,6 +28,7 @@ module.exports =
         .replace /^(\/|\w+:\/+|mailto:)/i, ''
         .replace /%[a-f0-9]{2}/g, ''
         .replace /[@\/].*|:\d+/g, ''
+        .replace /^www\./, ''
       )
       name = 'link' unless name.length
       if name in Object.keys doc.linkNames

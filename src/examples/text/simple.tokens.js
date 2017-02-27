@@ -1,1 +1,29 @@
-[object Object]
+TokenList {
+  data: 
+   [ { type: 'document', nesting: 1, level: 0 },
+     { type: 'paragraph', nesting: 1, level: 1, parent: [Object] },
+     { type: 'text',
+       nesting: 0,
+       content: 'This is a short text.',
+       level: 2,
+       parent: [Object] },
+     { type: 'softbreak', nesting: 0, level: 2, parent: [Object] },
+     { type: 'text',
+       nesting: 0,
+       content: 'With each sentence in a separate line.',
+       level: 2,
+       parent: [Object] },
+     { type: 'hardbreak', nesting: 0, level: 2, parent: [Object] },
+     { type: 'text',
+       nesting: 0,
+       content: 'And a hard break before this.',
+       level: 2,
+       parent: [Object] },
+     { type: 'paragraph', nesting: -1, level: 1, parent: [Object] },
+     { type: 'document', nesting: -1, level: 0 } ],
+  pos: 8,
+  token: 
+   { type: 'paragraph',
+     nesting: -1,
+     level: 1,
+     parent: { type: 'document', nesting: 1, level: 0 } } }

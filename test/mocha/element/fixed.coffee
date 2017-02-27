@@ -16,9 +16,9 @@ describe "fixed", ->
       `shutdown -h now` in a console as `root`.", null, [
         {format: 'md'}
         {format: 'text'}
+        {format: 'console'}
         {format: 'html'}
         {format: 'man'}
-        {format: 'adoc'}
       ], cb
 
   describe "api", ->

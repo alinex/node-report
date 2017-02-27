@@ -15,9 +15,9 @@ describe "strikethrough", ->
       test.markdown 'strikethrough/simple', "That's a ~~big~~ success.", null, [
         {format: 'md'}
         {format: 'text'}
+        {format: 'console'}
         {format: 'html'}
         {format: 'man'}
-        {format: 'adoc'}
       ], cb
 
   describe "api", ->

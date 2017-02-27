@@ -18,6 +18,7 @@ describe "preformatted", ->
       """, null, [
         {format: 'md'}
         {format: 'text'}
+        {format: 'console'}
         {format: 'html'}
         {format: 'man'}
       ], cb

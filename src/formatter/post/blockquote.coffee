@@ -27,12 +27,18 @@ module.exports =
     type: 'blockquote'
     fn: (num, token) ->
       chalk = new chalk.constructor {enabled: @setup.ansi_escape ? false}
-# count number of blockquotes in parents
-# color yellow, white, gray
-#      color = 1
-#      for t in @tokens.parents
-#      color++ if @tokens.parents
-      marker = chalk.bold if @setup.ascii_art then '│' else '>'
+      # color dependent of depth
+      depth = 1
+      p = token
+      while p = p.parent
+        depth++ if p.type is 'blockquote'
+      color = switch depth
+        when 1 then chalk.bold.yellow
+        when 2 then chalk.bold.white#
+        when 3 then chalk.bold.gray
+        else chalk.grey
+      # add tokens
+      marker = color if @setup.ascii_art then '│' else '>'
       prev = @tokens.get num - 1
       token.collect = token.collect
       .replace /^\n|\n$/g, ''

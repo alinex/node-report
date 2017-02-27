@@ -1,6 +1,7 @@
 # Thematic Break
 # =================================================
 
+chalk = require 'chalk'
 util = require 'alinex-util'
 
 
@@ -19,7 +20,8 @@ module.exports =
     format: 'text'
     type: 'thematic_break'
     fn: (num, token) ->
-      token.out = "#{util.string.repeat '─', @setup.width}\n"
+      chalk = new chalk.constructor {enabled: @setup.ansi_escape ? false}
+      token.out = "#{chalk.gray util.string.repeat '─', @setup.width}\n"
 
   html:
     format: 'html'

@@ -28,6 +28,25 @@ describe "list", ->
       """, null, [
         {format: 'md'}
         {format: 'text'}
+        {format: 'console'}
+        {format: 'html'}
+        {format: 'man'}
+      ], cb
+
+    it "should make ordered list", (cb) ->
+      test.markdown 'list/ordered', """
+        Capital Cities:
+        1. Europe
+           1. London
+           2. Berlin
+           3. Paris
+        2. Africa
+           1. Kairo
+           2. Tunis
+      """, null, [
+        {format: 'md'}
+        {format: 'text'}
+        {format: 'console'}
         {format: 'html'}
         {format: 'man'}
       ], cb
@@ -61,6 +80,6 @@ describe "list", ->
         {type: 'document', nesting: -1}
       ], [
         {format: 'md', re: /   - one\n   - two\n   - three/}
-        {format: 'text', re: /   - one\n   - two\n   - three/}
+        {format: 'text', re: /   ⭘ one\n   ⭘ two\n   ⭘ three/}
         {format: 'html', text: "<ul>\n<li><p>one</p></li>\n<li><p>two</p></li>\n<li><p>three</p></li>\n</ul>\n"}
       ], cb
