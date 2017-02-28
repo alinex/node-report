@@ -7,6 +7,7 @@ Table
 # Node Modules
 # -------------------------------------------------
 Report = require '../index'
+Table = require 'alinex-table'
 
 
 # Helper
@@ -32,6 +33,16 @@ false to close tag if content is added manually.#
 @param {Boolean} hidden set to `true to set hidden flag used for tight lists`
 @return {Report} instance itself for command concatenation
 ###
+# Convert object to markdown table.
+#
+# @param {Array<Array>|Object} obj table data as {@link alinex-table} object or array
+# @param {Array} [col] the column title names
+# @param {String|Array} [sort] set specific sort for the table data
+# @param {Boolean} [mask] set to `true` if the values should be masked to not
+# interpret them as markdown
+#table = (obj, col, sort, mask) ->
+#  # table instance
+#  if obj instanceof Table
 Report.prototype.table = (input, hidden) ->
   if typeof input is 'boolean'
     if input

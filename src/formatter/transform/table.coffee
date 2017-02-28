@@ -1,8 +1,6 @@
 # Headings
 # =================================================
 
-util = require 'alinex-util'
-
 
 # Transformer rules
 #
@@ -55,7 +53,8 @@ module.exports =
     fn: (num, token) ->
       nl = if @setup.compress then '' else '\n'
       token.out = switch token.nesting
-        when 1 then "<th>"
+        when 1
+          "<th style=\"text-align:#{token.align}\">"
         when -1 then "</th>#{nl}"
         else "<th />#{nl}"
 
@@ -65,7 +64,8 @@ module.exports =
     fn: (num, token) ->
       nl = if @setup.compress then '' else '\n'
       token.out = switch token.nesting
-        when 1 then "<td>"
+        when 1
+          "<td style=\"text-align:#{token.parent.parent.parent.align[token.col]}\">"
         when -1 then "</td>#{nl}"
         else "<td />#{nl}"
 
@@ -93,7 +93,7 @@ module.exports =
         when -1 then ' '
 
   md_thead:
-    format: ['md', 'text']
+    format: 'md'
     type: 'thead'
     nesting: -1
     fn: (num, token) ->
@@ -104,4 +104,31 @@ module.exports =
           when 'center' then '|:-:'
           when 'right' then '| -:'
           else '| - '
+      token.out += '|\n'
+
+  text_thead:
+    format: ['text']
+    type: 'thead'
+    fn: (num, token) ->
+      token.out = ''
+      for i in [1..token.parent.col]
+        token.out += switch token.parent.align[i]
+          when 'left' then '|---'
+          when 'center' then '|---'
+          when 'right' then '|---'
+          else '|---'
+      token.out += '|\n'
+
+  text_tbody:
+    format: ['text']
+    type: 'tbody'
+    nesting: -1
+    fn: (num, token) ->
+      token.out = ''
+      for i in [1..token.parent.col]
+        token.out += switch token.parent.align[i]
+          when 'left' then '|---'
+          when 'center' then '|---'
+          when 'right' then '|---'
+          else '|---'
       token.out += '|\n'

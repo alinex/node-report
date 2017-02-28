@@ -9,7 +9,7 @@ module.exports =
 
   # add column number to cells and align
   row:
-    format: ['md', 'text']
+    format: ['md', 'text', 'html']
     type: 'tr'
     nesting: 1
     fn: (num, token) ->

@@ -5,16 +5,16 @@ async = require 'async'
 Report = require '../../../src'
 before (cb) -> Report.init cb
 
-describe.skip "table", ->
+describe "table", ->
 
-  describe "examples", ->
+  describe.only "examples", ->
 
     it "should make two tables", (cb) ->
-      test.markdown 'table/multiple', """
-        This is an example of two tables in markdown style there the separation
-        between them is done with an empty line.
-
-        This follows the common definition of markdown.
+      test.markdown 'table/align', """
+      | Left-aligned | Center-aligned | Right-aligned |
+      | :---         |     :---:      |          ---: |
+      | 1            | one            | eins          |
+      | 2            | two            | zwei          |
       """, null, [
         {format: 'md'}
         {format: 'text'}
