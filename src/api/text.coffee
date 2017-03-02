@@ -25,7 +25,7 @@ Report = require '../index'
 #
 # @throw {Error} if current position is impossible
 position = ->
-  unless @tokens.in ['paragraph', 'heading', 'preformatted', 'code']
+  unless @tokens.in ['paragraph', 'heading', 'preformatted', 'code', 'th', 'td']
     throw Error "Could only use `text()` in inline area"
 
 ###
