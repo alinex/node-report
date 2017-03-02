@@ -150,7 +150,6 @@ Report.prototype.table = (data, col, sort, markdown) ->
         res = a[name].localeCompare b[name]
         res = res * -1 if order is 'desc'
         return res if res
-      0
   # add table tokens
   position.call this
   @tokens.insert [
@@ -168,7 +167,10 @@ Report.prototype.table = (data, col, sort, markdown) ->
     type: 'tbody'
     nesting: 1
   ]
-  @row row, markdown for row in data
+  # add all rows
+  for row in data
+    rdata = Object.keys(col).map (e) -> row[e]
+    @row rdata, markdown
   @tokens.insert [
     type: 'tbody'
     nesting: -1

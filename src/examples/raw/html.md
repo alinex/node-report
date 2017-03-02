@@ -1,3 +1,3 @@
 <div class="important">
 
-Some <a class="red">inline</a>
+Some <a class="red">inline</a> html.

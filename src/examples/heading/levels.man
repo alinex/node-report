@@ -1,4 +1,4 @@
-.TH "HEADING 1" "" "February 2017" "" ""
+.TH "HEADING 1" "" "March 2017" "" ""
 .SH "NAME"
 \fBheading 1\fR
 .SH heading 2

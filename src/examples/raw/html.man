@@ -1,2 +1,2 @@
 .P
-Some inline
+Some inline html.
