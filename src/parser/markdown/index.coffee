@@ -9,6 +9,7 @@
 debug = require('debug') 'report:parse:markdown'
 chalk = require 'chalk'
 markdownIt = null # load on demand
+tasksPlugin = null # load on demand
 # include more alinex modules
 util = require 'alinex-util'
 Config = require 'alinex-config'
@@ -29,6 +30,7 @@ module.exports = (text) ->
     markdownIt = require('markdown-it')
       html: config.html
       linkify: config.linkify
+    .use tasksPlugin ?= require './tasks'
 #      typographer: true
   # parse and convert tokens
   tree = markdownIt.parse text, {} # empty env
@@ -66,7 +68,11 @@ modify =
         t.start = a[1] if a[0] is 'start'
     null
 
-  list_item: (t) -> t.type = 'item'
+  list_item: (t) ->
+    t.type = 'item'
+    if t.attrs
+      for a in t.attrs
+        t.task = a[1] if a[0] is 'task'
 
   link: (t) ->
     t.type = 'link'
@@ -163,6 +169,7 @@ copyAttributes =
   text: ['content']
   heading: ['heading']
   list: ['list', 'start']
+  item: ['task']
   code: ['language']
   link: ['href', 'title']
   image: ['src', 'title']
