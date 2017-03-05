@@ -3,10 +3,35 @@
 
 
 moment = require 'moment'
+fs = require 'fs'
+deasync = require 'deasync'
 util = require 'alinex-util'
+Config = require 'alinex-config'
+
+
+# Helper
+# ------------------------------------------------
+
+# @param {Object} setup of the html format
+# @return {String} to be included in head section
+htmlStyle = deasync (setup, cb) ->
+  nl = if setup.compress then '' else '\n'
+  Config.typeSearch 'template', (err, map) ->
+    return cb err if err
+    include = ''
+    for style in setup.style
+      # external reference
+      unless map[style]
+        include += "<link rel=\"stylesheet\" href=\"#{style}\" />#{nl}"
+        continue
+      # include internal style
+      content = fs.readFileSync map["report/default.css"], 'utf8'
+      include += "<style type=\"text/css\">#{content}</style>#{nl}"
+    cb null, include
 
 
 # Transformer rules
+# ------------------------------------------------
 #
 # @type {Object<Transformer>} rules to set output text in token
 module.exports =
@@ -19,9 +44,10 @@ module.exports =
       # write output
       token.out = switch token.nesting
         when 1
-          "<!DOCTYPE html>#{nl}\
-          <html>#{nl}\
-          <head><title>#{token.title}</title>#{@setup.head_end}#{nl}\
+          header = @setup.head_begin + nl
+          header += "<title>#{token.title}</title>#{nl}"
+          header += htmlStyle @setup
+          header += "#{@setup.head_end}#{nl}\
           #{@setup.body_begin}#{nl}\
           "
         when -1

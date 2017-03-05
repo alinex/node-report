@@ -30,9 +30,15 @@ html:
   type: html
   extension: .html
   compress: false
-  head_end: <meta name="generator" content="alinex-report" /></html>
+  head_begin: <!DOCTYPE html><html><head>
+  head_end: |+
+    <meta name="generator" content="alinex-report" />
+    <meta charset="UTF-8" />
+    </head>
   body_begin: <body><div id="page">
   body_end: </div></body>
+  style:
+    - report/default.css
 
 man:
   type: roff

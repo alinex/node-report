@@ -145,6 +145,11 @@ html =
       description: "a flag to also keep soft breaks like done for hard breaks"
       type: 'boolean'
       optional: true
+    head_begin:
+      title: "Start Head Section"
+      description: "the html code used to start the head part"
+      type: 'string'
+      default: '<!DOCTYPE html>\n<html>\n<head>'
     head_end:
       title: "Ending Head Section"
       description: "the html code used to end the head part"
@@ -160,6 +165,12 @@ html =
       description: "the html code used to end the body part"
       type: 'string'
       default: '</body>'
+    style:
+      title: "Style Sheet"
+      description: "the references to the stylesheets to load"
+      type: 'array'
+      toArray: true
+      default: ['report/default.css']
 
 # #3 ROFF Setup (format/<name>/)
 #
