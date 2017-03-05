@@ -192,7 +192,7 @@ class Formatter
     return cb() unless @setup.convert
     # run conversion
     debug "convert to #{@setup.convert.type}..."
-    convLibs[@setup.format][@setup.convert.type].call this, @output, (err, result) =>
+    convLibs[@setup.type][@setup.convert.type].call this, @output, (err, result) =>
       @output = result
       cb()
 

@@ -8,9 +8,20 @@ async = require 'async'
 fspath = require 'path'
 util = require 'alinex-util'
 fs = require 'alinex-fs'
+Config = require 'alinex-config'
+
 Report = require '../../src'
 
 EXAMPLES_DIR = 'src/examples'
+ALL_FORMATS = [
+  {format: 'md'}
+  {format: 'text'}
+  {format: 'console'}
+  {format: 'html'}
+  {format: 'html2png'}
+#  {format: 'html2jpg'}
+  {format: 'man'}
+]
 
 module.exports =
 
@@ -44,11 +55,16 @@ module.exports =
         for k, v of token
           expect(report.tokens.data[num][k], "data[#{num}].#{k}").to.deep.equal v
     return cb null, report unless format
+    format = ALL_FORMATS if format is true
     async.eachSeries format, (test, cb) ->
       report.format test.format, (err, result) ->
         return cb err if err
         debug 'OUT', test.format, util.inspect result, {depth: 2}
-        fs.writeFileSync "#{example}.#{test.format}", result if example
+        config = Config.get "/report/format/#{test.format}"
+        ext = config.extension ? ".#{test.format}"
+        if example
+          fs.writeFileSync "#{example}#{ext}", result,
+            encoding: if config.convert then 'binary' else 'utf8'
         expect(err, 'format exception').to.not.exist
         if test.re
           expect(result, "#{test.format} output").to.match test.re

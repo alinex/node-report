@@ -171,6 +171,28 @@ html =
       type: 'array'
       toArray: true
       default: ['report/default.css']
+    convert:
+      title: "Conversion"
+      description: "a possible conversion to run on the resulting format"
+      type: 'object'
+      keys:
+        type:
+          title: "Conversion Type"
+          description: "the type to convert output into"
+          type: 'string'
+          values: ['png', 'jpg']
+        width:
+          title: "Screen Width"
+          description: "the screen size to use for shot in pixel"
+          type: 'integer'
+        height:
+          title: "Screen Height"
+          description: "the screen size to use for shot in pixel"
+          type: 'integer'
+        capture:
+          title: "Conversion Type"
+          description: "the type to convert output into"
+          type: 'string'
 
 # #3 ROFF Setup (format/<name>/)
 #

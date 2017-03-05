@@ -7,7 +7,8 @@ before (cb) -> Report.init cb
 
 describe "blockquote", ->
 
-  describe "examples", ->
+  describe.only "examples", ->
+    @timeout 10000
 
     it "should make two blockquotes", (cb) ->
       test.markdown 'blockquote/multiple', """
@@ -16,13 +17,7 @@ describe "blockquote", ->
         > > Everything will work next week.
         >
         But we don't think so.
-      """, null, [
-        {format: 'md'}
-        {format: 'text'}
-        {format: 'console'}
-        {format: 'html'}
-        {format: 'man'}
-      ], cb
+      """, null, true, cb
 
   describe "api", ->
 

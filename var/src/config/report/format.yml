@@ -40,6 +40,15 @@ html:
   style:
     - report/default.css
 
+html2png:
+  type: html
+  extension: .html.png
+  convert:
+    type: png
+    width: 800
+    height: 600
+    capture: '#page'
+
 man:
   type: roff
   extension: .man
