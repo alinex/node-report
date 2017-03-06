@@ -183,11 +183,11 @@ html =
           values: ['png', 'jpg']
         width:
           title: "Screen Width"
-          description: "the screen size to use for shot in pixel"
+          description: "the screen size equals to the shot size in pixel"
           type: 'integer'
         height:
           title: "Screen Height"
-          description: "the screen size to use for shot in pixel"
+          description: "the screen size also used as minimal shot height in pixel"
           type: 'integer'
         capture:
           title: "Conversion Type"

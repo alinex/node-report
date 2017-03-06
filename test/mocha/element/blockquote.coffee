@@ -11,12 +11,25 @@ describe "blockquote", ->
     @timeout 10000
 
     it "should make two blockquotes", (cb) ->
-      test.markdown 'blockquote/multiple', """
+      test.markdown 'blockquote/simple', """
         > Manfred said:
         >
         > > Everything will work next week.
         >
         But we don't think so.
+      """, null, true, cb
+
+    it "should make deep blockquotes", (cb) ->
+      test.markdown 'blockquote/multiple', """
+        Normal Text
+        > Level 1
+        > > Level 2
+        > > > Level 3
+        > > > > Level 4
+        > > > > > Level 5
+        > > > > > > Level 6
+        > > > > > > > Level 7
+        > > > > > > > > Level 8
       """, null, true, cb
 
   describe "api", ->

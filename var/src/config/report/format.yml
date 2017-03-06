@@ -45,8 +45,17 @@ html2png:
   extension: .html.png
   convert:
     type: png
-    width: 800
-    height: 600
+    width: 600
+    height: 100
+    capture: '#page'
+
+html2jpg:
+  type: html
+  extension: .html.jpg
+  convert:
+    type: jpg
+    width: 600
+    height: 100
     capture: '#page'
 
 man:

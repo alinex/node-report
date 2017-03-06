@@ -9,9 +9,9 @@ screenshot = (content, type, setup, cb) ->
   webshot content,
     siteType: 'html'
     streamType: type
-    windowSize:
-      width: setup.width ? 800
-      height: setup.height ? 600
+    screenSize:
+      width: setup.width ? 600
+      height: setup.height ? 100
     captureSelector: setup.capture ? '#page'
     renderDelay: 1000
   , (err, stream) ->

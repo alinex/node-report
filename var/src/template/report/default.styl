@@ -118,11 +118,17 @@ blockquote
     margin-bottom: 5px;
   blockquote
     margin-right: -16px
-    border-left-color: $color-orange
+    border-left-color: darken($color-orange, 20%)
     blockquote
-      border-left-color: $color-blue
+      border-left-color: lighten($color-blue, 20%)
       blockquote
         border-left-color: $color-orange
+        blockquote
+          border-left-color: lighten($color-blue, 40%)
+          blockquote
+            border-left-color: lighten($color-orange, 20%)
+            blockquote
+              border-left-color: lighten($color-blue, 60%)
   ul li p
     margin-bottom: 0;
 
