@@ -2,6 +2,9 @@
 # =================================================
 
 
+Config = require 'alinex-config'
+
+
 # Transformer rules
 #
 # @type {Object<Transformer>} rules to set output text in token
@@ -13,7 +16,9 @@ module.exports =
     fn: (num, token) ->
       nl = if @setup.compress then '' else '\n'
       token.out = switch token.nesting
-        when 1 then "<pre><code>"
+        when 1 then "<pre class=\"lamguage #{token.language}\">\
+        <header>#{Config.get('/report/code/title')[token.language] ? token.language}</header>\
+        <code>"
         when -1 then "</code></pre>#{nl}"
         else "<pre><code></code></pre>#{nl}"
 

@@ -7,8 +7,8 @@ before (cb) -> Report.init cb
 
 describe "blockquote", ->
 
-  describe.only "examples", ->
-    @timeout 10000
+  describe "examples", ->
+    @timeout 30000
 
     it "should make two blockquotes", (cb) ->
       test.markdown 'blockquote/simple', """

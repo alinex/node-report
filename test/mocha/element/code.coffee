@@ -7,20 +7,19 @@ before (cb) -> Report.init cb
 
 describe "code", ->
 
-  describe "examples", ->
+  describe.only "examples", ->
+    @timeout 30000
 
     it "should make code example", (cb) ->
-      test.markdown 'code/data', """
+      test.markdown 'code/javascript', """
         ``` javascript
         text = 'foo';
+        // output text if set
+        if (text.length > 0) {
+          console.log(text);
+        }
         ```
-      """, null, [
-        {format: 'md'}
-        {format: 'text'}
-        {format: 'console'}
-        {format: 'html'}
-        {format: 'man'}
-      ], cb
+      """, null, true, cb
 
   describe "api", ->
 

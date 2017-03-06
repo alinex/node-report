@@ -32,6 +32,8 @@ module.exports =
     format: 'html'
     type: 'text'
     fn: (num, token) ->
+      token.out = token.content
+      return if token.parent.type is 'code'
       token.out = util.string.htmlEncode token.content
       return if token.parent.type is 'preformatted'
       token.out = token.out

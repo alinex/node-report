@@ -284,13 +284,23 @@ module.exports =
       type: 'object'
       allowedKeys: true
       keys:
-        language:
+        alias:
           title: "Language Alias"
           description: "the possible alias (short names) for some languages"
           type: 'object'
           entries: [
             title: "Language"
             description: "the real language name to use"
+            type: 'string'
+            minLength: 1
+          ]
+        title:
+          title: "Language Title"
+          description: "the title to be used in header"
+          type: 'object'
+          entries: [
+            title: "Title"
+            description: "the title to use"
             type: 'string'
             minLength: 1
           ]

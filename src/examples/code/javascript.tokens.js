@@ -1,0 +1,25 @@
+TokenList {
+  data: 
+   [ { type: 'document', nesting: 1, level: 0 },
+     { type: 'code',
+       nesting: 1,
+       language: 'javascript',
+       level: 1,
+       parent: [Object] },
+     { type: 'text',
+       content: 'text = \'foo\';\n// output text if set\nif (text.length > 0) {\n  console.log(text);\n}',
+       level: 2,
+       parent: [Object] },
+     { type: 'code',
+       nesting: -1,
+       language: 'javascript',
+       level: 1,
+       parent: [Object] },
+     { type: 'document', nesting: -1, level: 0 } ],
+  pos: 4,
+  token: 
+   { type: 'code',
+     nesting: -1,
+     language: 'javascript',
+     level: 1,
+     parent: { type: 'document', nesting: 1, level: 0 } } }

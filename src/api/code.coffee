@@ -44,7 +44,7 @@ Report.prototype.code = (input, language) ->
       @tokens.insert [
         type: 'code'
         nesting: 1
-        language: Config.get('/report/code/language')[language] ? language ? 'text'
+        language: Config.get('/report/code/alias')[language] ? language ? 'text'
       ,
         type: 'code'
         nesting: -1
@@ -57,7 +57,7 @@ Report.prototype.code = (input, language) ->
     @tokens.insert [
       type: 'code'
       nesting: 1
-      language: Config.get('/report/code/language')[language] ? language ? 'text'
+      language: Config.get('/report/code/alias')[language] ? language ? 'text'
     ,
       type: 'text'
       content: input

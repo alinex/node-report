@@ -38,6 +38,8 @@ html:
   body_begin: <body><div id="page">
   body_end: </div></body>
   style:
+    - https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css
+    - https://cdn.jsdelivr.net/highlight.js/8.5.0/styles/solarized_light.min.css
     - report/default.css
 
 html2png:

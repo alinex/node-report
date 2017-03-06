@@ -132,7 +132,7 @@ modify =
     t.type = 'code'
     t.nesting = 1
     t.language = info?[0] ? 'text'
-    t.language = l if l = Config.get('/report/code/language')[t.language]
+    t.language = l if l = Config.get('/report/code/alias')[t.language]
     list.push node2token t
     list.push
       type: 'text'

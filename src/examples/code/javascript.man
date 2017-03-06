@@ -1,0 +1,10 @@
+.P
+.RS 2
+.nf
+text = 'foo';
+// output text if set
+if (text.length > 0) {
+  console.log(text);
+}
+.fi
+.RE

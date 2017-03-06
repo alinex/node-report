@@ -1,0 +1,7 @@
+``` javascript
+text = 'foo';
+// output text if set
+if (text.length > 0) {
+  console.log(text);
+}
+```
