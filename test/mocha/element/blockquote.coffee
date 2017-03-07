@@ -10,7 +10,7 @@ describe "blockquote", ->
   describe "examples", ->
     @timeout 30000
 
-    it "should make two blockquotes", (cb) ->
+    it.only "should make two blockquotes", (cb) ->
       test.markdown 'blockquote/simple', """
         > Manfred said:
         >

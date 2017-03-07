@@ -34,18 +34,20 @@ module.exports =
   pdf: (content, cb) ->
     webshot ?= require 'webshot'
     webshot content,
-      siteType: 'html'
+#      siteType: 'html'
       paperSize:
-        width: '612px'
-        height: '792px'
+#        width: @setup.convert.width ? '612px'
+#        height: @setup.convert.width ? '792px'
         orientation: 'portrait'
-        border: '1cm'
+        format: 'A4'
+#        border: '1cm'
       captureSelector: @setup.convert.capture ? '#page'
       renderDelay: 100
       settings:
         localToRemoteUrlAccessEnabled: true
         webSecurityEnabled: false
     , (err, stream) ->
+      console.log '--------'
       return cb err if err
       buffer = ''
       stream.on 'data', (data) -> buffer += data.toString 'binary'

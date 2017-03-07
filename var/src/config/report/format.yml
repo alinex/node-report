@@ -63,6 +63,15 @@ html2jpg:
     height: 100
     capture: '#page'
 
+html2pdf:
+  type: html
+  extension: .html.pdf
+  convert:
+    type: pdf
+    width: 612px
+    height: 792px
+    capture: '#page'
+
 man:
   type: roff
   extension: .man

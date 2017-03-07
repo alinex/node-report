@@ -20,6 +20,7 @@ ALL_FORMATS = [
   {format: 'html'}
   {format: 'html2png'}
 #  {format: 'html2jpg'}
+  {format: 'html2pdf'}
   {format: 'man'}
 ]
 

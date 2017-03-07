@@ -180,15 +180,29 @@ html =
           title: "Conversion Type"
           description: "the type to convert output into"
           type: 'string'
-          values: ['png', 'jpg']
+          values: ['png', 'jpg', 'pdf']
         width:
-          title: "Screen Width"
-          description: "the screen size equals to the shot size in pixel"
-          type: 'integer'
+          type: 'or'
+          or: [
+            title: "Screen Width"
+            description: "the screen size equals to the shot size in pixel"
+            type: 'integer'
+          ,
+            title: "Page Width"
+            description: "the page size with unit (px, cm...)"
+            type: 'string'
+          ]
         height:
-          title: "Screen Height"
-          description: "the screen size also used as minimal shot height in pixel"
-          type: 'integer'
+          type: 'or'
+          or: [
+            title: "Screen Height"
+            description: "the screen size also used as minimal shot height in pixel"
+            type: 'integer'
+          ,
+            title: "Page Height"
+            description: "the page size with unit (px, cm...)"
+            type: 'string'
+          ]
         capture:
           title: "Conversion Type"
           description: "the type to convert output into"
