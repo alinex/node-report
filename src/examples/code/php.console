@@ -1,52 +1,52 @@
-require_once 'Zend/Uri/Http.php';
-
-namespace LocationWeb;
-
-interface Factory
-{
-    static function _factory();
-}
-
-abstract class URI extends BaseURI implements Factory
-{
-    abstract function test();
-
-    public static $st1 = 1;
-    const ME = "Yo";
-    var $list = NULL;
-    private $var;
-
-    /**
-     * Returns a URI
-     *
-     * @return URI
-     */
-    static public function _factory($stats = array(), $uri = 'http')
-    {
-        echo __METHOD__;
-        $uri = explode(':', $uri, 0b10);
-        $schemeSpecific = isset($uri[1]) ? $uri[1] : '';
-        $desc = 'Multi
-line description';
-
-        // Security check
-        if (!ctype_alnum($scheme)) {
-            throw new Zend_Uri_Exception('Illegal scheme');
-        }
-
-        $this->var = 0 - self::$st;
-        $this->list = list(Array("1"=> 2, 2=>self::ME, 3 => LocationWebURI::class));
-
-        return [
-            'uri'   => $uri,
-            'value' => null,
-        ];
+    [35m[1mrequire_once[22m[39m [32m'Zend/Uri/Http.php'[39m;
+    
+    [35m[1mnamespace[22m[39m [36mLocation[39m\[36mWeb[39m;
+    
+    [35m[35m[1minterface[22m[35m [36mFactory[35m
+    [39m{
+        [35m[1mstatic[22m[39m [36m[35m[1mfunction[22m[36m [36m_factory[36m[37m[1m()[22m[36m[39m;
     }
-}
-
-echo URI::ME . URI::$st1;
-
-__halt_compiler () ; datahere
-datahere
-datahere */
-datahere
+    
+    [35m[1mabstract[22m[39m [35m[35m[1mclass[22m[35m [36mURI[35m [35m[1mextends[22m[35m [36mBaseURI[35m [35m[1mimplements[22m[35m [36mFactory[35m
+    [39m{
+        [35m[1mabstract[22m[39m [36m[35m[1mfunction[22m[36m [36mtest[36m[37m[1m()[22m[36m[39m;
+    
+        [35m[1mpublic[22m[39m [35m[1mstatic[22m[39m $st1 = [33m1[39m;
+        [35m[1mconst[22m[39m ME = [32m"Yo"[39m;
+        [35m[1mvar[22m[39m $list = [35m[1mNULL[22m[39m;
+        [35m[1mprivate[22m[39m $var;
+    
+        [90m/**
+         * Returns a URI
+         *
+         * [35m@return[90m URI
+         */[39m
+        [35m[1mstatic[22m[39m [35m[1mpublic[22m[39m [36m[35m[1mfunction[22m[36m [36m_factory[36m[37m[1m($stats = array[37m[1m()[1m[37m, $uri = [32m'http'[37m)[22m[36m
+        [39m{
+            [35m[1mecho[22m[39m [35m[1m__METHOD__[22m[39m;
+            $uri = explode([32m':'[39m, $uri, [33m0b10[39m);
+            $schemeSpecific = [35m[1misset[22m[39m($uri[[33m1[39m]) ? $uri[[33m1[39m] : [32m''[39m;
+            $desc = [32m'Multi
+    line description'[39m;
+    
+            [90m// Security check[39m
+            [35m[1mif[22m[39m (!ctype_alnum($scheme)) {
+                [35m[1mthrow[22m[39m [35m[1mnew[22m[39m Zend_Uri_Exception([32m'Illegal scheme'[39m);
+            }
+    
+            [35m[1m$this[22m[39m->var = [33m0[39m - [35m[1mself[22m[39m::$st;
+            [35m[1m$this[22m[39m->list = [35m[1mlist[22m[39m([35m[1mArray[22m[39m([32m"1"[39m=> [33m2[39m, [33m2[39m=>[35m[1mself[22m[39m::ME, [33m3[39m => \Location\Web\URI::class));
+    
+            [35m[1mreturn[22m[39m [
+                [32m'uri'[39m   => $uri,
+                [32m'value'[39m => [35m[1mnull[22m[39m,
+            ];
+        }
+    }
+    
+    [35m[1mecho[22m[39m URI::ME . URI::$st1;
+    
+    [90m[35m[1m__halt_compiler[22m[90m () ; datahere
+    datahere
+    datahere */
+    datahere[39m

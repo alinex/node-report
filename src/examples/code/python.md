@@ -1,15 +1,14 @@
 ``` python
-# The Greeter class
-class Greeter
-  def initialize(name)
-    @name = name.capitalize
-  end
+@requires_authorization
+def somefunc(param1='', param2=0):
+    r'''A docstring'''
+    if param1 > param2: # interesting
+        print 'Gre\'ater'
+    return (param2 - param1 + 1 + 0b10l) or None
 
-  def salute
-    puts "Hello undefined!"
-  end
-end
+class SomeClass:
+    pass
 
-g = Greeter.new("world")
-g.salute
+>>> message = '''interpreter
+... prompt'''
 ```

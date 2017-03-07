@@ -11,7 +11,7 @@
 <body><div id="page">
 <pre class="language php"><header>php</header><code><span class="hljs-keyword">require_once</span> <span class="hljs-string">'Zend/Uri/Http.php'</span>;</code>
 <code></code>
-<code><span class="hljs-keyword">namespace</span> <span class="hljs-title">LocationWeb</span>;</code>
+<code><span class="hljs-keyword">namespace</span> <span class="hljs-title">Location</span>\<span class="hljs-title">Web</span>;</code>
 <code></code>
 <code><span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Factory</span></code>
 <code></span>{</code>
@@ -46,7 +46,7 @@
 <code>        }</code>
 <code></code>
 <code>        <span class="hljs-keyword">$this</span>-&gt;var = <span class="hljs-number">0</span> - <span class="hljs-keyword">self</span>::$st;</code>
-<code>        <span class="hljs-keyword">$this</span>-&gt;list = <span class="hljs-keyword">list</span>(<span class="hljs-keyword">Array</span>(<span class="hljs-string">"1"</span>=&gt; <span class="hljs-number">2</span>, <span class="hljs-number">2</span>=&gt;<span class="hljs-keyword">self</span>::ME, <span class="hljs-number">3</span> =&gt; LocationWebURI::class));</code>
+<code>        <span class="hljs-keyword">$this</span>-&gt;list = <span class="hljs-keyword">list</span>(<span class="hljs-keyword">Array</span>(<span class="hljs-string">"1"</span>=&gt; <span class="hljs-number">2</span>, <span class="hljs-number">2</span>=&gt;<span class="hljs-keyword">self</span>::ME, <span class="hljs-number">3</span> =&gt; \Location\Web\URI::class));</code>
 <code></code>
 <code>        <span class="hljs-keyword">return</span> [</code>
 <code>            <span class="hljs-string">'uri'</span>   =&gt; $uri,</code>

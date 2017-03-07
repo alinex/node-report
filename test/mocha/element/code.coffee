@@ -16,6 +16,7 @@ describe "code", ->
         #!/bin/bash
 
         ###### CONFIG
+
         ACCEPTED_HOSTS="/root/.hag_accepted.conf"
         BE_VERBOSE=false
 
@@ -61,9 +62,9 @@ describe "code", ->
           for (auto i = 0; i < 0xFFFF; i++)
             cout << "Hello, World!" << endl;
 
-          char c = '\n';
+          char c = '\\n';
           unordered_map <string, vector<string> > m;
-          m["key"] = "\\\\"; // this is an error
+          m["key"] = "\\\\\\\\"; // this is an error
 
           return -2e3 + 12l;
         }
@@ -136,7 +137,7 @@ describe "code", ->
         ``` javascript
         function $initHighlight(block, cls) {
           try {
-            if (cls.search(/\bno\-highlight\b/) != -1)
+            if (cls.search(/\\bno\-highlight\\b/) != -1)
               return process(block, true, 0x0F) +
                      ` class="${cls}"`;
           } catch (e) {
@@ -250,7 +251,7 @@ describe "code", ->
         ``` php
         require_once 'Zend/Uri/Http.php';
 
-        namespace Location\Web;
+        namespace Location\\Web;
 
         interface Factory
         {
@@ -285,7 +286,7 @@ describe "code", ->
                 }
 
                 $this->var = 0 - self::$st;
-                $this->list = list(Array("1"=> 2, 2=>self::ME, 3 => \Location\Web\URI::class));
+                $this->list = list(Array("1"=> 2, 2=>self::ME, 3 => \\Location\\Web\\URI::class));
 
                 return [
                     'uri'   => $uri,
@@ -306,20 +307,19 @@ describe "code", ->
     it "should make example for python", (cb) ->
       test.markdown 'code/python', """
         ``` python
-        # The Greeter class
-        class Greeter
-          def initialize(name)
-            @name = name.capitalize
-          end
+        @requires_authorization
+        def somefunc(param1='', param2=0):
+            r'''A docstring'''
+            if param1 > param2: # interesting
+                print 'Gre\\'ater'
+            return (param2 - param1 + 1 + 0b10l) or None
 
-          def salute
-            puts "Hello #{@name}!"
-          end
-        end
+        class SomeClass:
+            pass
 
-        g = Greeter.new("world")
-        g.salute
-        ```
+        >>> message = '''interpreter
+        ... prompt'''
+      ```
       """, null, true, cb
 
     it "should make example for sql", (cb) ->
@@ -429,7 +429,7 @@ describe "code", ->
         .icon-baz::before {
             display:     inline-block;
             font-family: "Omega", Alpha, sans-serif;
-            content:     "\f085";
+            content:     "\\f085";
             color:       rgba(98, 76 /* or 54 */, 231, .75);
         }
         ```

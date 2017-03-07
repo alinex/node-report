@@ -7,7 +7,7 @@ TokenList {
        level: 1,
        parent: [Object] },
      { type: 'text',
-       content: '#!/bin/bash\n\n###### CONFIG\nACCEPTED_HOSTS="/root/.hag_accepted.conf"\nBE_VERBOSE=false\n\nif [ "$UID" -ne 0 ]\nthen\n echo "Superuser rights required"\n exit 2\nfi\n\ngenApacheConf(){\n echo -e "# Host ${HOME_DIR}$1/$2 :"\n}',
+       content: '#!/bin/bash\n\n###### CONFIG\n# this goes on and on\n\nACCEPTED_HOSTS="/root/.hag_accepted.conf"\nBE_VERBOSE=false\n\nif [ "$UID" -ne 0 ]\nthen\n echo "Superuser rights required"\n exit 2\nfi\n\ngenApacheConf(){\n echo -e "# Host ${HOME_DIR}$1/$2 :"\n}',
        level: 2,
        parent: [Object] },
      { type: 'code',

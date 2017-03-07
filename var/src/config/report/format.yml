@@ -68,9 +68,6 @@ html2pdf:
   extension: .html.pdf
   convert:
     type: pdf
-    width: 612px
-    height: 792px
-    capture: '#page'
 
 man:
   type: roff

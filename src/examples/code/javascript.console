@@ -1,15 +1,15 @@
-function $initHighlight(block, cls) {
-  try {
-    if (cls.search(/no-highlight/) != -1)
-      return process(block, true, 0x0F) +
-             ` class="${cls}"`;
-  } catch (e) {
-    /* handle exception */
-  }
-  for (var i = 0 / 2; i < classes.length; i++) {
-    if (checkCondition(classes[i]) === undefined)
-      console.log('undefined');
-  }
-}
-
-export  $initHighlight;
+    [36m[35m[1mfunction[22m[36m [36m$initHighlight[36m([37m[1mblock, cls[22m[36m) [39m{
+      [35m[1mtry[22m[39m {
+        [35m[1mif[22m[39m (cls.search([32m[1m/\bno-highlight\b/[22m[39m) != [33m-1[39m)
+          [35m[1mreturn[22m[39m process(block, [36m[1mtrue[22m[39m, [33m0x0F[39m) +
+                 [32m` class="[31m[1m${cls}[22m[32m"`[39m;
+      } [35m[1mcatch[22m[39m (e) {
+        [90m/* handle exception */[39m
+      }
+      [35m[1mfor[22m[39m ([35m[1mvar[22m[39m i = [33m0[39m / [33m2[39m; i < classes.length; i++) {
+        [35m[1mif[22m[39m (checkCondition(classes[i]) === [36m[1mundefined[22m[39m)
+          [33m[1mconsole[22m[39m.log([32m'undefined'[39m);
+      }
+    }
+    
+    [35m[1mexport[22m[39m  $initHighlight;

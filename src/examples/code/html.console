@@ -1,13 +1,13 @@
-<!DOCTYPE html>
-<title>Title</title>
-
-<style>body {width: 500px;}</style>
-
-<script type="application/javascript">
-  function $init() {return true;}
-</script>
-
-<body>
-  <p checked class="title" id='title'>Title</p>
-  <!-- here goes the rest of the page -->
-</body>
+    [34m[1m<!DOCTYPE html>[22m[39m
+    [37m<[31m[1mtitle[22m[37m>[39mTitle[37m</[31m[1mtitle[22m[37m>[39m
+    
+    [37m<[31m[1mstyle[22m[37m>[39m[31m[1mbody[22m[39m {[32mwidth[39m: [33m500px[39m;}[37m</[31m[1mstyle[22m[37m>[39m
+    
+    [37m<[31m[1mscript[22m[37m [33mtype[37m=[32m"application/javascript"[37m>[39m
+      [36m[35m[1mfunction[22m[36m [36m$init[36m() [39m{[35m[1mreturn[22m[39m [36m[1mtrue[22m[39m;}
+    [37m</[31m[1mscript[22m[37m>[39m
+    
+    [37m<[31m[1mbody[22m[37m>[39m
+      [37m<[31m[1mp[22m[37m [33mchecked[37m [33mclass[37m=[32m"title"[37m [33mid[37m=[32m'title'[37m>[39mTitle[37m</[31m[1mp[22m[37m>[39m
+      [90m<!-- here goes the rest of the page -->[39m
+    [37m</[31m[1mbody[22m[37m>[39m

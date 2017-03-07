@@ -1,11 +1,11 @@
-; boilerplate
-[package]
-name = "some_name"
-authors = ["Author"]
-description = "This is a description"
-
-[[lib]]
-name = ${NAME}
-default = True
-auto = no
-counter = 1_000
+    [90m; boilerplate[39m
+    <<< section >>>[package]<<<>>>
+    [33mname[39m = [32m"some_name"[39m
+    [33mauthors[39m = [[32m"Author"[39m]
+    [33mdescription[39m = [32m"This is a description"[39m
+    <<< section >>>
+    [[lib]]<<<>>>
+    [33mname[39m = [33m${NAME}[39m
+    [33mdefault[39m = [36m[1mTrue[22m[39m
+    [33mauto[39m = [36m[1mno[22m[39m
+    [33mcounter[39m = [33m1_000[39m

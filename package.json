@@ -41,7 +41,6 @@
     "alinex-table": "^1.2.4",
     "alinex-util": "^2.5.1",
     "async": "^2.1.4",
-    "casper": "^0.1.1",
     "chalk": "^1.1.1",
     "clean-css": "^3.4.23",
     "deasync": "^0.1.9",

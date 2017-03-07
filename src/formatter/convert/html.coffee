@@ -2,6 +2,8 @@
 # =================================================
 
 webshot = null # load on demand
+html2pdf = null # load on demand
+
 
 screenshot = (content, type, setup, cb) ->
   webshot ?= require 'webshot'
@@ -21,7 +23,6 @@ screenshot = (content, type, setup, cb) ->
     buffer = ''
     stream.on 'data', (data) -> buffer += data.toString 'binary'
     stream.on 'end', -> cb null, buffer
-#--ssl-protocol=tlsv1', '--ignore-ssl-errors=true'
 
 # Transformer rules
 #
@@ -32,23 +33,10 @@ module.exports =
   jpg: (content, cb) -> screenshot content, 'jpg', @setup.convert, cb
 
   pdf: (content, cb) ->
-    webshot ?= require 'webshot'
-    webshot content,
-#      siteType: 'html'
-      paperSize:
-#        width: @setup.convert.width ? '612px'
-#        height: @setup.convert.width ? '792px'
-        orientation: 'portrait'
-        format: 'A4'
-#        border: '1cm'
-      captureSelector: @setup.convert.capture ? '#page'
-      renderDelay: 100
-      settings:
-        localToRemoteUrlAccessEnabled: true
-        webSecurityEnabled: false
-    , (err, stream) ->
-      console.log '--------'
-      return cb err if err
-      buffer = ''
-      stream.on 'data', (data) -> buffer += data.toString 'binary'
-      stream.on 'end', -> cb null, buffer
+    html2pdf ?= require 'html-pdf'
+    conv = html2pdf.create "<html><body><h1>Hi</h1></body></html>",
+      type: 'pdf'
+      format: 'Letter'
+      orientation: 'portrait'
+      border: '1cm'
+    conv.toBuffer cb

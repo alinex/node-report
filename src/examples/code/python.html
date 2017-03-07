@@ -9,18 +9,17 @@
 </head>
 
 <body><div id="page">
-<pre class="language python"><header>python</header><code><span class="hljs-comment"># The Greeter class</span></code>
-<code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Greeter</span></code>
-<code>  <span class="hljs-title">def</span> <span class="hljs-title">initialize</span><span class="hljs-params">(name)</span></code>
-<code>    @<span class="hljs-title">name</span> = <span class="hljs-title">name</span>.<span class="hljs-title">capitalize</span></code>
-<code>  <span class="hljs-title">end</span></code>
+<pre class="language python"><header>python</header><code><span class="hljs-meta">@requires_authorization</span></code>
+<code><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">somefunc</span><span class="hljs-params">(param1=<span class="hljs-string">''</span>, param2=<span class="hljs-number">0</span>)</span>:</span></code>
+<code>    <span class="hljs-string">r'''A docstring'''</span></code>
+<code>    <span class="hljs-keyword">if</span> param1 &gt; param2: <span class="hljs-comment"># interesting</span></code>
+<code>        <span class="hljs-keyword">print</span> <span class="hljs-string">'Gre\'ater'</span></code>
+<code>    <span class="hljs-keyword">return</span> (param2 - param1 + <span class="hljs-number">1</span> + <span class="hljs-number">0b10l</span>) <span class="hljs-keyword">or</span> <span class="hljs-keyword">None</span></code>
 <code></code>
-<code>  <span class="hljs-title">def</span> <span class="hljs-title">salute</span></code>
-<code>    <span class="hljs-title">puts</span> "<span class="hljs-title">Hello</span> <span class="hljs-title">undefined</span>!"</code>
-<code>  <span class="hljs-title">end</span></code>
-<code><span class="hljs-title">end</span></code>
+<code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SomeClass</span>:</span></code>
+<code>    <span class="hljs-keyword">pass</span></code>
 <code></code>
-<code><span class="hljs-title">g</span> = <span class="hljs-title">Greeter</span>.<span class="hljs-title">new</span><span class="hljs-params">(<span class="hljs-string">"world"</span>)</span></code>
-<code><span class="hljs-title">g</span>.<span class="hljs-title">salute</span></span></code></pre>
+<code><span class="hljs-meta">&gt;&gt;&gt; </span>message = <span class="hljs-string">'''interpreter</code>
+<code><span class="hljs-meta">... </span>prompt'''</span></code></pre>
 </div></body>
 </html>

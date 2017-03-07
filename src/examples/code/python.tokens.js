@@ -7,7 +7,7 @@ TokenList {
        level: 1,
        parent: [Object] },
      { type: 'text',
-       content: '# The Greeter class\nclass Greeter\n  def initialize(name)\n    @name = name.capitalize\n  end\n\n  def salute\n    puts "Hello undefined!"\n  end\nend\n\ng = Greeter.new("world")\ng.salute',
+       content: '@requires_authorization\ndef somefunc(param1=\'\', param2=0):\n    r\'\'\'A docstring\'\'\'\n    if param1 > param2: # interesting\n        print \'Gre\\\'ater\'\n    return (param2 - param1 + 1 + 0b10l) or None\n\nclass SomeClass:\n    pass\n\n>>> message = \'\'\'interpreter\n... prompt\'\'\'',
        level: 2,
        parent: [Object] },
      { type: 'code',

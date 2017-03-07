@@ -1,12 +1,12 @@
-[
-  {
-    "title": "apples",
-    "count": [12000, 20000],
-    "description": {"text": "...", "sensitive": false}
-  },
-  {
-    "title": "oranges",
-    "count": [17500, null],
-    "description": {"text": "...", "sensitive": false}
-  }
-]
+    [
+      {
+        [33m"title"[39m: [32m"apples"[39m,
+        [33m"count"[39m: [[33m12000[39m, [33m20000[39m],
+        [33m"description"[39m: {[33m"text"[39m: [32m"..."[39m, [33m"sensitive"[39m: [36m[1mfalse[22m[39m}
+      },
+      {
+        [33m"title"[39m: [32m"oranges"[39m,
+        [33m"count"[39m: [[33m17500[39m, [36m[1mnull[22m[39m],
+        [33m"description"[39m: {[33m"text"[39m: [32m"..."[39m, [33m"sensitive"[39m: [36m[1mfalse[22m[39m}
+      }
+    ]

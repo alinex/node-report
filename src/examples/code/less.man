@@ -25,7 +25,7 @@ section > .foo + #bar:hover [href*="less"] {
 .icon-baz::before {
     display:     inline-block;
     font-family: "Omega", Alpha, sans-serif;
-    content:     "085";
+    content:     "\f085";
     color:       rgba(98, 76 /* or 54 */, 231, .75);
 }
 .fi

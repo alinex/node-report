@@ -1,22 +1,22 @@
-# hello world
-
-you can write text [with links](http://example.com) inline or [link references][1].
-
-* one _thing_ has *em*phasis
-* two __things__ are **bold**
-
-[1]: http://example.com
-
----
-
-hello world
-===========
-
-<this_is inline="xml"></this_is>
-
-> markdown is so cool
-
-    so are code segments
-
-1. one thing (yeah!)
-2. two thing `i can write code`, and `more` wipee!
+    <<< section >>># hello world<<<>>>
+    
+    you can write text [[32mwith links[39m]([36m[1mhttp://example.com[22m[39m) inline or [[32mlink references[39m][[36m[1m1[22m[39m].
+    
+    [34m[1m* [22m[39mone [3m_thing_[23m has [3m*em*[23mphasis
+    [34m[1m* [22m[39mtwo [1m__things__[22m are [1m**bold**[22m
+    
+    [[36m[1m1[22m[39m]: [36m[1mhttp://example.com[22m[39m
+    
+    ---
+    
+    <<< section >>>hello world
+    ===========<<<>>>
+    
+    [37m<[31m[1mthis_is[22m[37m [33minline[37m=[32m"xml"[37m>[39m[37m</[31m[1mthis_is[22m[37m>[39m
+    
+    [90m> markdown is so cool[39m
+    
+    [37m[1m    so are code segments[22m[39m
+    
+    [34m[1m1. [22m[39mone thing (yeah!)
+    [34m[1m2. [22m[39mtwo thing [37m[1m`i can write code`[22m[39m, and [37m[1m`more`[22m[39m wipee!

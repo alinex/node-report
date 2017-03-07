@@ -1,16 +1,16 @@
-/**
- * @author John Smith <john.smith@example.com>
-*/
-package l2f.gameserver.model;
-
-public abstract class L2Char extends L2Object {
-  public static final Short ERROR = 0x0001;
-
-  public void moveTo(int x, int y, int z) {
-    _ai = null;
-    log("Should not be called");
-    if (1 > 5) { // wtf!?
-      return;
+    [90m/**
+     * [35m@author[90m John Smith <john.smith@example.com>
+    */[39m
+    [35m[1mpackage[22m[39m l2f.gameserver.model;
+    
+    [35m[1mpublic[22m[39m [35m[1mabstract[22m[39m [35m[35m[1mclass[22m[35m [36mL2Char[35m [35m[1mextends[22m[35m [36mL2Object[35m [39m{
+      [35m[1mpublic[22m[39m [35m[1mstatic[22m[39m [35m[1mfinal[22m[39m Short ERROR = [33m0x0001[39m;
+    
+      [36m[35m[1mpublic[22m[36m [35m[1mvoid[22m[36m [36mmoveTo[36m[37m[1m([35m[1mint[1m[37m x, [35m[1mint[1m[37m y, [35m[1mint[1m[37m z)[22m[36m [39m{
+        _ai = [35m[1mnull[22m[39m;
+        log([32m"Should not be called"[39m);
+        [35m[1mif[22m[39m ([33m1[39m > [33m5[39m) { [90m// wtf!?[39m
+          [35m[1mreturn[22m[39m;
+        }
+      }
     }
-  }
-}

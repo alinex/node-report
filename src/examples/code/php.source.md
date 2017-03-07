@@ -1,7 +1,7 @@
 ``` php
 require_once 'Zend/Uri/Http.php';
 
-namespace LocationWeb;
+namespace Location\Web;
 
 interface Factory
 {
@@ -36,7 +36,7 @@ line description';
         }
 
         $this->var = 0 - self::$st;
-        $this->list = list(Array("1"=> 2, 2=>self::ME, 3 => LocationWebURI::class));
+        $this->list = list(Array("1"=> 2, 2=>self::ME, 3 => \Location\Web\URI::class));
 
         return [
             'uri'   => $uri,
