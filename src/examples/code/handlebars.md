@@ -1,0 +1,8 @@
+``` handlebars
+<div class="entry">
+  {{!-- only show if author exists --}}
+  {{#if author}}
+    <h1>{{firstName}} {{lastName}}</h1>
+  {{/if}}
+</div>
+```

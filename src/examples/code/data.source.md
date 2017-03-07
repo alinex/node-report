@@ -1,3 +1,0 @@
-``` javascript
-text = 'foo';
-```

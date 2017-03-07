@@ -1,0 +1,25 @@
+TokenList {
+  data: 
+   [ { type: 'document', nesting: 1, level: 0 },
+     { type: 'code',
+       nesting: 1,
+       language: 'json',
+       level: 1,
+       parent: [Object] },
+     { type: 'text',
+       content: '[\n  {\n    "title": "apples",\n    "count": [12000, 20000],\n    "description": {"text": "...", "sensitive": false}\n  },\n  {\n    "title": "oranges",\n    "count": [17500, null],\n    "description": {"text": "...", "sensitive": false}\n  }\n]',
+       level: 2,
+       parent: [Object] },
+     { type: 'code',
+       nesting: -1,
+       language: 'json',
+       level: 1,
+       parent: [Object] },
+     { type: 'document', nesting: -1, level: 0 } ],
+  pos: 4,
+  token: 
+   { type: 'code',
+     nesting: -1,
+     language: 'json',
+     level: 1,
+     parent: { type: 'document', nesting: 1, level: 0 } } }

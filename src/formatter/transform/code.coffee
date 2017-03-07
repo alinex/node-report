@@ -16,7 +16,7 @@ module.exports =
     fn: (num, token) ->
       nl = if @setup.compress then '' else '\n'
       token.out = switch token.nesting
-        when 1 then "<pre class=\"lamguage #{token.language}\">\
+        when 1 then "<pre class=\"language #{token.language}\">\
         <header>#{Config.get('/report/code/title')[token.language] ? token.language}</header>\
         <code>"
         when -1 then "</code></pre>#{nl}"

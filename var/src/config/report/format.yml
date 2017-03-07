@@ -41,7 +41,8 @@ html:
   body_end: </div></body>
   style:
     - https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css
-    - https://cdn.jsdelivr.net/highlight.js/8.5.0/styles/solarized_light.min.css
+#    included inline in the moment
+#    - https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/github.min.css
     - report/default.css
 
 html2png:

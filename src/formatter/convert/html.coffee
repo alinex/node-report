@@ -3,7 +3,6 @@
 
 webshot = null # load on demand
 
-
 screenshot = (content, type, setup, cb) ->
   webshot ?= require 'webshot'
   webshot content,
@@ -13,13 +12,16 @@ screenshot = (content, type, setup, cb) ->
       width: setup.width ? 600
       height: setup.height ? 100
     captureSelector: setup.capture ? '#page'
-    renderDelay: 1000
+    renderDelay: 100
+    settings:
+      localToRemoteUrlAccessEnabled: true
+      webSecurityEnabled: false
   , (err, stream) ->
     return cb err if err
     buffer = ''
     stream.on 'data', (data) -> buffer += data.toString 'binary'
     stream.on 'end', -> cb null, buffer
-
+#--ssl-protocol=tlsv1', '--ignore-ssl-errors=true'
 
 # Transformer rules
 #
@@ -28,3 +30,23 @@ module.exports =
 
   png: (content, cb) -> screenshot content, 'png', @setup.convert, cb
   jpg: (content, cb) -> screenshot content, 'jpg', @setup.convert, cb
+
+  pdf: (content, cb) ->
+    webshot ?= require 'webshot'
+    webshot content,
+      siteType: 'html'
+      paperSize:
+        width: '612px'
+        height: '792px'
+        orientation: 'portrait'
+        border: '1cm'
+      captureSelector: @setup.convert.capture ? '#page'
+      renderDelay: 100
+      settings:
+        localToRemoteUrlAccessEnabled: true
+        webSecurityEnabled: false
+    , (err, stream) ->
+      return cb err if err
+      buffer = ''
+      stream.on 'data', (data) -> buffer += data.toString 'binary'
+      stream.on 'end', -> cb null, buffer

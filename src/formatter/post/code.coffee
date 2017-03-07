@@ -34,7 +34,9 @@ module.exports =
     fn: (num, token) ->
       # syntax highlighting
       hljs ?= require 'highlight.js'
-      return unless hljs.getLanguage token.language
+      unless hljs.getLanguage token.language
+        console.error "Could not highlight #{token.language} language!"
+        return
       try
         token.collect = hljs.highlight(token.language, token.collect, true).value
       # brek code on newlines

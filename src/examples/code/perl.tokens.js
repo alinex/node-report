@@ -1,0 +1,25 @@
+TokenList {
+  data: 
+   [ { type: 'document', nesting: 1, level: 0 },
+     { type: 'code',
+       nesting: 1,
+       language: 'perl',
+       level: 1,
+       parent: [Object] },
+     { type: 'text',
+       content: '# loads object\nsub load\n{\n  my $flds = $c->db_load($id,@_) || do {\n    Carp::carp "Can`t load (class: $c, id: $id): \'$!\'"; return undef\n  };\n  my $o = $c->_perl_new();\n  $id12 = $id / 24 / 3600;\n  $o->{\'ID\'} = $id12 + 123;\n  #$o->{\'SHCUT\'} = $flds->{\'SHCUT\'};\n  my $p = $o->props;\n  my $vt;\n  $string =~ m/^sought_text$/;\n  $items = split //, \'abc\';\n  $string //= "bar";\n  for my $key (keys %$p)\n  {\n    if(${$vt.\'::property\'}) {\n      $o->{$key . \'_real\'} = $flds->{$key};\n      tie $o->{$key}, \'CMSBuilder::Property\', $o, $key;\n    }\n  }\n  $o->save if delete $o->{\'_save_after_load\'};\n\n  # GH-117\n  my $g = glob("/usr/bin/*");\n\n  return $o;\n}\n\n__DATA__\n@@ layouts/default.html.ep\n<!DOCTYPE html>\n<html>\n  <head><title><%= title %></title></head>\n  <body><%= content %></body>\n</html>\n__END__\n\n=head1 NAME\nPOD till the end of file',
+       level: 2,
+       parent: [Object] },
+     { type: 'code',
+       nesting: -1,
+       language: 'perl',
+       level: 1,
+       parent: [Object] },
+     { type: 'document', nesting: -1, level: 0 } ],
+  pos: 4,
+  token: 
+   { type: 'code',
+     nesting: -1,
+     language: 'perl',
+     level: 1,
+     parent: { type: 'document', nesting: 1, level: 0 } } }

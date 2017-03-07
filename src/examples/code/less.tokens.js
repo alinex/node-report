@@ -1,0 +1,25 @@
+TokenList {
+  data: 
+   [ { type: 'document', nesting: 1, level: 0 },
+     { type: 'code',
+       nesting: 1,
+       language: 'less',
+       level: 1,
+       parent: [Object] },
+     { type: 'text',
+       content: '@import "fruits";\n\n@rhythm: 1.5em;\n\n@media screen and (min-resolution: 2dppx) {\n    body {font-size: 125%}\n}\n\nsection > .foo + #bar:hover [href*="less"] {\n    margin:     @rhythm 0 0 @rhythm;\n    padding:    calc(5% + 20px);\n    background: #f00ba7 url(http://placehold.alpha-centauri/42.png) no-repeat;\n    background-image: linear-gradient(-135deg, wheat, fuchsia) !important ;\n    background-blend-mode: multiply;\n}\n\n@font-face {\n    font-family: /* ? */ \'Omega\';\n    src: url(\'../fonts/omega-webfont.woff?v=2.0.2\');\n}\n\n.icon-baz::before {\n    display:     inline-block;\n    font-family: "Omega", Alpha, sans-serif;\n    content:     "\f085";\n    color:       rgba(98, 76 /* or 54 */, 231, .75);\n}',
+       level: 2,
+       parent: [Object] },
+     { type: 'code',
+       nesting: -1,
+       language: 'less',
+       level: 1,
+       parent: [Object] },
+     { type: 'document', nesting: -1, level: 0 } ],
+  pos: 4,
+  token: 
+   { type: 'code',
+     nesting: -1,
+     language: 'less',
+     level: 1,
+     parent: { type: 'document', nesting: 1, level: 0 } } }

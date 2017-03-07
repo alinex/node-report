@@ -1,0 +1,15 @@
+``` python
+# The Greeter class
+class Greeter
+  def initialize(name)
+    @name = name.capitalize
+  end
+
+  def salute
+    puts "Hello undefined!"
+  end
+end
+
+g = Greeter.new("world")
+g.salute
+```

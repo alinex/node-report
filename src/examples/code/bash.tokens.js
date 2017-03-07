@@ -1,0 +1,25 @@
+TokenList {
+  data: 
+   [ { type: 'document', nesting: 1, level: 0 },
+     { type: 'code',
+       nesting: 1,
+       language: 'bash',
+       level: 1,
+       parent: [Object] },
+     { type: 'text',
+       content: '#!/bin/bash\n\n###### CONFIG\nACCEPTED_HOSTS="/root/.hag_accepted.conf"\nBE_VERBOSE=false\n\nif [ "$UID" -ne 0 ]\nthen\n echo "Superuser rights required"\n exit 2\nfi\n\ngenApacheConf(){\n echo -e "# Host ${HOME_DIR}$1/$2 :"\n}',
+       level: 2,
+       parent: [Object] },
+     { type: 'code',
+       nesting: -1,
+       language: 'bash',
+       level: 1,
+       parent: [Object] },
+     { type: 'document', nesting: -1, level: 0 } ],
+  pos: 4,
+  token: 
+   { type: 'code',
+     nesting: -1,
+     language: 'bash',
+     level: 1,
+     parent: { type: 'document', nesting: 1, level: 0 } } }

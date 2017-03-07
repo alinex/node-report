@@ -1,0 +1,25 @@
+TokenList {
+  data: 
+   [ { type: 'document', nesting: 1, level: 0 },
+     { type: 'code',
+       nesting: 1,
+       language: 'ini',
+       level: 1,
+       parent: [Object] },
+     { type: 'text',
+       content: '; boilerplate\n[package]\nname = "some_name"\nauthors = ["Author"]\ndescription = "This is a description"\n\n[[lib]]\nname = ${NAME}\ndefault = True\nauto = no\ncounter = 1_000',
+       level: 2,
+       parent: [Object] },
+     { type: 'code',
+       nesting: -1,
+       language: 'ini',
+       level: 1,
+       parent: [Object] },
+     { type: 'document', nesting: -1, level: 0 } ],
+  pos: 4,
+  token: 
+   { type: 'code',
+     nesting: -1,
+     language: 'ini',
+     level: 1,
+     parent: { type: 'document', nesting: 1, level: 0 } } }

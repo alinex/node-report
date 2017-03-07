@@ -1,0 +1,25 @@
+TokenList {
+  data: 
+   [ { type: 'document', nesting: 1, level: 0 },
+     { type: 'code',
+       nesting: 1,
+       language: 'coffee',
+       level: 1,
+       parent: [Object] },
+     { type: 'text',
+       content: 'grade = (student, period=(if b? then 7 else 6)) ->\n  if student.excellentWork\n    "A+"\n  else if student.okayStuff\n    if student.triedHard then "B" else "B-"\n  else\n    "C"\n\nclass Animal extends Being\n  constructor: (@name) ->\n\n  move: (meters) ->\n    alert @name + " moved #{meters}m."',
+       level: 2,
+       parent: [Object] },
+     { type: 'code',
+       nesting: -1,
+       language: 'coffee',
+       level: 1,
+       parent: [Object] },
+     { type: 'document', nesting: -1, level: 0 } ],
+  pos: 4,
+  token: 
+   { type: 'code',
+     nesting: -1,
+     language: 'coffee',
+     level: 1,
+     parent: { type: 'document', nesting: 1, level: 0 } } }

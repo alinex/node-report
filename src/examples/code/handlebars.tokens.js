@@ -1,0 +1,25 @@
+TokenList {
+  data: 
+   [ { type: 'document', nesting: 1, level: 0 },
+     { type: 'code',
+       nesting: 1,
+       language: 'handlebars',
+       level: 1,
+       parent: [Object] },
+     { type: 'text',
+       content: '<div class="entry">\n  {{!-- only show if author exists --}}\n  {{#if author}}\n    <h1>{{firstName}} {{lastName}}</h1>\n  {{/if}}\n</div>',
+       level: 2,
+       parent: [Object] },
+     { type: 'code',
+       nesting: -1,
+       language: 'handlebars',
+       level: 1,
+       parent: [Object] },
+     { type: 'document', nesting: -1, level: 0 } ],
+  pos: 4,
+  token: 
+   { type: 'code',
+     nesting: -1,
+     language: 'handlebars',
+     level: 1,
+     parent: { type: 'document', nesting: 1, level: 0 } } }

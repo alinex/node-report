@@ -1,0 +1,25 @@
+TokenList {
+  data: 
+   [ { type: 'document', nesting: 1, level: 0 },
+     { type: 'code',
+       nesting: 1,
+       language: 'markdown',
+       level: 1,
+       parent: [Object] },
+     { type: 'text',
+       content: '# hello world\n\nyou can write text [with links](http://example.com) inline or [link references][1].\n\n* one _thing_ has *em*phasis\n* two __things__ are **bold**\n\n[1]: http://example.com\n\n---\n\nhello world\n===========\n\n<this_is inline="xml"></this_is>\n\n> markdown is so cool\n\n    so are code segments\n\n1. one thing (yeah!)\n2. two thing `i can write code`, and `more` wipee!',
+       level: 2,
+       parent: [Object] },
+     { type: 'code',
+       nesting: -1,
+       language: 'markdown',
+       level: 1,
+       parent: [Object] },
+     { type: 'document', nesting: -1, level: 0 } ],
+  pos: 4,
+  token: 
+   { type: 'code',
+     nesting: -1,
+     language: 'markdown',
+     level: 1,
+     parent: { type: 'document', nesting: 1, level: 0 } } }
