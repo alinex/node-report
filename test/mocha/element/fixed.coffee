@@ -13,13 +13,7 @@ describe "fixed", ->
 
     it "should make examples", (cb) ->
       test.markdown 'fixed/simple', "To shut a debian system down enter
-      `shutdown -h now` in a console as `root`.", null, [
-        {format: 'md'}
-        {format: 'text'}
-        {format: 'console'}
-        {format: 'html'}
-        {format: 'man'}
-      ], cb
+      `shutdown -h now` in a console as `root`.", null, true, cb
 
   describe "api", ->
 

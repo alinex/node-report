@@ -17,13 +17,7 @@ describe "heading", ->
       #### heading 4
       ##### heading 5
       ###### heading 6
-      """, null, [
-        {format: 'md'}
-        {format: 'text'}
-        {format: 'console'}
-        {format: 'html'}
-        {format: 'man'}
-      ], cb
+      """, null, true, cb
 
 
   describe "api", ->

@@ -12,13 +12,7 @@ describe "emphasis", ->
   describe "examples", ->
 
     it "should make examples", (cb) ->
-      test.markdown 'emphasis/simple', "That's **all** to say. _(Alex)_", null, [
-        {format: 'md'}
-        {format: 'text'}
-        {format: 'console'}
-        {format: 'html'}
-        {format: 'man'}
-      ], cb
+      test.markdown 'emphasis/simple', "That's **all** to say. _(Alex)_", null, true, cb
 
     it "should make examples with combined", (cb) ->
       test.markdown 'emphasis/combined', """
@@ -27,13 +21,7 @@ describe "emphasis", ->
       And both **_here_**
 
       You _can **also**_ put them into each other.
-      """, null, [
-        {format: 'md'}
-        {format: 'text'}
-        {format: 'console'}
-        {format: 'html'}
-        {format: 'man'}
-      ], cb
+      """, null, true, cb
 
   describe "api", ->
 
