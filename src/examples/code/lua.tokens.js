@@ -1,0 +1,25 @@
+TokenList {
+  data: 
+   [ { type: 'document', nesting: 1, level: 0 },
+     { type: 'code',
+       nesting: 1,
+       language: 'lua',
+       level: 1,
+       parent: [Object] },
+     { type: 'text',
+       content: '--[[\nSimple signal/slot implementation\n]]\nlocal signal_mt = {\n    __index = {\n        register = table.insert\n    }\n}\nfunction signal_mt.__index:emit(... --[[ Comment in params ]])\n    for _, slot in ipairs(self) do\n        slot(self, ...)\n    end\nend\nlocal function create_signal()\n    return setmetatable({}, signal_mt)\nend\n\n-- Signal test\nlocal signal = create_signal()\nsignal:register(function(signal, ...)\n    print(...)\nend)\nsignal:emit(\'Answer to Life, the Universe, and Everything:\', 42)\n\n--[==[ [=[ [[\nNested ]]\nmulti-line ]=]\ncomment ]==]\n[==[ Nested\n[=[ multi-line\n[[ string\n]] ]=] ]==]',
+       level: 2,
+       parent: [Object] },
+     { type: 'code',
+       nesting: -1,
+       language: 'lua',
+       level: 1,
+       parent: [Object] },
+     { type: 'document', nesting: -1, level: 0 } ],
+  pos: 4,
+  token: 
+   { type: 'code',
+     nesting: -1,
+     language: 'lua',
+     level: 1,
+     parent: { type: 'document', nesting: 1, level: 0 } } }

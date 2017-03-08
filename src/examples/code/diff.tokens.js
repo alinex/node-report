@@ -1,0 +1,25 @@
+TokenList {
+  data: 
+   [ { type: 'document', nesting: 1, level: 0 },
+     { type: 'code',
+       nesting: 1,
+       language: 'diff',
+       level: 1,
+       parent: [Object] },
+     { type: 'text',
+       content: 'Index: languages/ini.js\n===================================================================\n--- languages/ini.js    (revision 199)\n+++ languages/ini.js    (revision 200)\n@@ -1,8 +1,7 @@\n hljs.LANGUAGES.ini =\n {\n   case_insensitive: true,\n-  defaultMode:\n-  {\n+  defaultMode: {\n     contains: [\'comment\', \'title\', \'setting\'],\n     illegal: \'[^\\\\s]\'\n   },\n\n*** /path/to/original timestamp\n--- /path/to/new      timestamp\n***************\n*** 1,3 ****\n--- 1,9 ----\n+ This is an important\n+ notice! It should\n+ therefore be located at\n+ the beginning of this\n+ document!\n\n! compress the size of the\n! changes.\n\n  It is important to spell',
+       level: 2,
+       parent: [Object] },
+     { type: 'code',
+       nesting: -1,
+       language: 'diff',
+       level: 1,
+       parent: [Object] },
+     { type: 'document', nesting: -1, level: 0 } ],
+  pos: 4,
+  token: 
+   { type: 'code',
+     nesting: -1,
+     language: 'diff',
+     level: 1,
+     parent: { type: 'document', nesting: 1, level: 0 } } }

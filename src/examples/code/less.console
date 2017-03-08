@@ -10,7 +10,7 @@
         [32mmargin[39m:     [33m@rhythm[39m [33m0[39m [33m0[39m [33m@rhythm[39m;
         [32mpadding[39m:    calc([33m5%[39m + [33m20px[39m);
         [32mbackground[39m: [33m#f00ba7[39m url([32mhttp://placehold.alpha-centauri/42.png[39m) no-repeat;
-        [32mbackground-image[39m: linear-gradient(-[33m135deg[39m, wheat, fuchsia) [34m[1m!important[22m[39m ;
+        [32mbackground-image[39m: linear-gradient(-[33m135deg[39m, wheat, fuchsia) [36m!important[39m ;
         [32mbackground-blend-mode[39m: multiply;
     }
     

@@ -1,0 +1,58 @@
+    [90m/**
+     * A person has a name and an age.
+     */[39m
+    [35m[1mcase[22m[39m [35m[35m[1mclass[22m[35m [33m[1mPerson[22m[35m([37m[1mname: [33mString[37m, age: [33mInt[37m[22m[35m)[39m
+    
+    [35m[1mabstract[22m[39m [35m[35m[1mclass[22m[35m [33m[1mVertical[22m[35m [35m[1mextends[22m[35m [33m[1mCaseJeu[22m[35m[39m
+    [35m[1mcase[22m[39m [35m[35m[1mclass[22m[35m [33m[1mHaut[22m[35m([37m[1ma: [33mInt[37m[22m[35m) [35m[1mextends[22m[35m [33m[1mVertical[22m[35m[39m
+    [35m[1mcase[22m[39m [35m[35m[1mclass[22m[35m [33m[1mBas[22m[35m([37m[1mname: [33mString[37m, b: [33mDouble[37m[22m[35m) [35m[1mextends[22m[35m [33m[1mVertical[22m[35m[39m
+    
+    [35m[1msealed[22m[39m [35m[35m[1mtrait[22m[35m [33m[1mIor[22m[35m[+[33mA[35m, +[33mB[35m][39m
+    [35m[1mcase[22m[39m [35m[35m[1mclass[22m[35m [33m[1mLeft[22m[35m[[33mA[35m]([37m[1ma: [33mA[37m[22m[35m) [35m[1mextends[22m[35m [33m[1mIor[22m[35m[[33mA[35m, [33mNothing[35m][39m
+    [35m[1mcase[22m[39m [35m[35m[1mclass[22m[35m [33m[1mRight[22m[35m[[33mB[35m]([37m[1mb: [33mB[37m[22m[35m) [35m[1mextends[22m[35m [33m[1mIor[22m[35m[[33mNothing[35m, [33mB[35m][39m
+    [35m[1mcase[22m[39m [35m[35m[1mclass[22m[35m [33m[1mBoth[22m[35m[[33mA[35m, [33mB[35m]([37m[1ma: [33mA[37m, b: [33mB[37m[22m[35m) [35m[1mextends[22m[35m [33m[1mIor[22m[35m[[33mA[35m, [33mB[35m][39m
+    
+    [35m[35m[1mtrait[22m[35m [33m[1mFunctor[22m[35m[[33mF[35m[_]] [39m{
+      [36m[35m[1mdef[22m[36m [33m[1mmap[22m[36m[39m[[33mA[39m, [33mB[39m](fa: [33mF[39m[[33mA[39m], f: [33mA[39m => [33mB[39m): [33mF[39m[[33mB[39m]
+    }
+    
+    [90m// beware Int.MinValue[39m
+    [36m[35m[1mdef[22m[36m [33m[1mabsoluteValue[22m[36m[39m(n: [33mInt[39m): [33mInt[39m =
+      [35m[1mif[22m[39m (n < [33m0[39m) -n [35m[1melse[22m[39m n
+    
+    [36m[35m[1mdef[22m[36m [33m[1minterp[22m[36m[39m(n: [33mInt[39m): [33mString[39m =
+      [32ms"there are [31m[1m$n[22m[32m [31m[1m${color}[22m[32m balloons.\n"[39m
+    
+    [35m[35m[1mtype[22m[35m [33m[1mξ[22m[35m[[33mA[35m] [39m= ([33mA[39m, [33mA[39m)
+    
+    [35m[35m[1mtrait[22m[35m [33m[1mHist[22m[35m [39m{ lhs =>
+      [36m[35m[1mdef[22m[36m [33m[1m⊕[22m[36m[39m(rhs: [33mHist[39m): [33mHist[39m
+    }
+    
+    [36m[35m[1mdef[22m[36m [33m[1mgsum[22m[36m[39m[[33mA[39m: [33mRing[39m](as: [33mSeq[39m[[33mA[39m]): [33mA[39m =
+      as.foldLeft([33mRing[39m[[33mA[39m].zero)(_ + _)
+    
+    [35m[1mval[22m[39m actions: [33mList[39m[[33mSymbol[39m] =
+      [36m[1m'init[22m[39m :: [36m[1m'read[22m[39m :: [36m[1m'write[22m[39m :: [36m[1m'close[22m[39m :: [33mNil[39m
+    
+    [35m[35m[1mtrait[22m[35m [33m[1mCake[22m[35m [39m{
+      [35m[35m[1mtype[22m[35m [33m[1mT[22m[35m[39m;
+      [35m[35m[1mtype[22m[35m [33m[1mQ[22m[35m[39m
+      [35m[1mval[22m[39m things: [33mSeq[39m[[33mT[39m]
+    
+      [35m[1mabstract[22m[39m [35m[35m[1mclass[22m[35m [33m[1mSpindler[22m[35m[39m
+    
+      [36m[35m[1mdef[22m[36m [33m[1mspindle[22m[36m[39m(s: [33mSpindler[39m, ts: [33mSeq[39m[[33mT[39m], reversed: [33mBoolean[39m = [36m[1mfalse[22m[39m): [33mSeq[39m[[33mQ[39m]
+    }
+    
+    [35m[1mval[22m[39m colors = [33mMap[39m(
+      [32m"red"[39m       -> [33m0xFF0000[39m,
+      [32m"turquoise"[39m -> [33m0x00FFFF[39m,
+      [32m"black"[39m     -> [33m0x000000[39m,
+      [32m"orange"[39m    -> [33m0xFF8040[39m,
+      [32m"brown"[39m     -> [33m0x804000[39m)
+    
+    [35m[1mlazy[22m[39m [35m[1mval[22m[39m ns = [35m[1mfor[22m[39m {
+      x <- [33m0[39m until [33m100[39m
+      y <- [33m0[39m until [33m100[39m
+    } [35m[1myield[22m[39m (x + y) * [33m33.33[39m

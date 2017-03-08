@@ -1,15 +1,15 @@
     [35m[1mrequire_once[22m[39m [32m'Zend/Uri/Http.php'[39m;
     
-    [35m[1mnamespace[22m[39m [36mLocation[39m\[36mWeb[39m;
+    [35m[1mnamespace[22m[39m [33m[1mLocation[22m[39m\[33m[1mWeb[22m[39m;
     
-    [35m[35m[1minterface[22m[35m [36mFactory[35m
+    [35m[35m[1minterface[22m[35m [33m[1mFactory[22m[35m
     [39m{
-        [35m[1mstatic[22m[39m [36m[35m[1mfunction[22m[36m [36m_factory[36m[37m[1m()[22m[36m[39m;
+        [35m[1mstatic[22m[39m [36m[35m[1mfunction[22m[36m [33m[1m_factory[22m[36m[37m[1m()[22m[36m[39m;
     }
     
-    [35m[1mabstract[22m[39m [35m[35m[1mclass[22m[35m [36mURI[35m [35m[1mextends[22m[35m [36mBaseURI[35m [35m[1mimplements[22m[35m [36mFactory[35m
+    [35m[1mabstract[22m[39m [35m[35m[1mclass[22m[35m [33m[1mURI[22m[35m [35m[1mextends[22m[35m [33m[1mBaseURI[22m[35m [35m[1mimplements[22m[35m [33m[1mFactory[22m[35m
     [39m{
-        [35m[1mabstract[22m[39m [36m[35m[1mfunction[22m[36m [36mtest[36m[37m[1m()[22m[36m[39m;
+        [35m[1mabstract[22m[39m [36m[35m[1mfunction[22m[36m [33m[1mtest[22m[36m[37m[1m()[22m[36m[39m;
     
         [35m[1mpublic[22m[39m [35m[1mstatic[22m[39m $st1 = [33m1[39m;
         [35m[1mconst[22m[39m ME = [32m"Yo"[39m;
@@ -21,7 +21,7 @@
          *
          * [35m@return[90m URI
          */[39m
-        [35m[1mstatic[22m[39m [35m[1mpublic[22m[39m [36m[35m[1mfunction[22m[36m [36m_factory[36m[37m[1m($stats = array[37m[1m()[1m[37m, $uri = [32m'http'[37m)[22m[36m
+        [35m[1mstatic[22m[39m [35m[1mpublic[22m[39m [36m[35m[1mfunction[22m[36m [33m[1m_factory[22m[36m[37m[1m($stats = array[37m[1m()[1m[37m, $uri = [32m'http'[37m)[22m[36m
         [39m{
             [35m[1mecho[22m[39m [35m[1m__METHOD__[22m[39m;
             $uri = explode([32m':'[39m, $uri, [33m0b10[39m);

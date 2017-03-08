@@ -1,0 +1,22 @@
+    [36m#!/usr/bin/env csi[39m
+    
+    ([31m[1mdefun[22m[39m prompt-for-cd ()
+       [32m"Prompts
+        for CD"[39m
+       ([31m[1mprompt-read[22m[39m [32m"Title"[39m [33m1.53[39m [33m1[39m [33m2/4[39m [33m1.7[39m [33m1.7e0[39m [33m2.9E-4[39m [33m+42[39m [33m-7[39m [33m#b001[39m [33m#b001/100[39m [33m#o777[39m [33m#O777[39m [33m#xabc55[39m [33m#c(0 -5.6)[39m)
+       ([31m[1mprompt-read[22m[39m [32m"Artist"[39m [36m[1m&rest[22m[39m)
+       ([31m[1mor[22m[39m ([31m[1mparse-integer[22m[39m ([31m[1mprompt-read[22m[39m [32m"Rating"[39m) [36m[1m:junk-allowed[22m[39m [36m[1mt[22m[39m) [33m0[39m)
+      ([31m[1mif[22m[39m x ([31m[1mformat[22m[39m [36m[1mt[22m[39m [32m"yes"[39m) ([31m[1mformat[22m[39m [36m[1mt[22m[39m [32m"no"[39m [36m[1mnil[22m[39m) [90m;and here comment[39m
+      )
+      [90m;; second line comment[39m
+      '(+ [33m1[39m [33m2[39m)
+      ([31m[1mdefvar[22m[39m *lines*)                [90m; list of all lines[39m
+      ([31m[1mposition-if-not[22m[39m #'sys::whitespacep line [36m[1m:start[22m[39m beg))
+      ([31m[1mquote[22m[39m (privet [33m1[39m [33m2[39m [33m3[39m))
+      '(hello world)
+      ([31m[1m*[22m[39m [33m5[39m [33m7[39m)
+      ([33m1[39m [33m2[39m [33m34[39m [33m5[39m)
+      ([36m[1m:use[22m[39m [32m"aaaa"[39m)
+      ([31m[1mlet[22m[39m (([31m[1mx[22m[39m [33m10[39m) ([31m[1my[22m[39m [33m20[39m))
+        ([31m[1mprint[22m[39m ([31m[1m+[22m[39m x y))
+      )

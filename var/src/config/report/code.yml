@@ -3,7 +3,17 @@
 
 
 alias:
+  adoc: asciidoc
+  c++: cpp
+  coffee: coffeescript
+  htm: html
   js: javascript
+  latex: tex
+  make: makefile
+  md: markdown
+  sh: bash
+  shell: bash
+  yml: yaml
 
 title:
   javascript: 'JavaScript'

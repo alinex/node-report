@@ -1,7 +1,6 @@
-    [34m[1m#!/bin/bash
-    [22m[39m
+    [36m#!/bin/bash
+    [39m
     [90m###### CONFIG[39m
-    [90m# this goes on and on[39m
     
     ACCEPTED_HOSTS=[32m"/root/.hag_accepted.conf"[39m
     BE_VERBOSE=[36m[1mfalse[22m[39m
@@ -12,6 +11,6 @@
      [33m[1mexit[22m[39m 2
     [35m[1mfi[22m[39m
     
-    [36m[36mgenApacheConf[36m[39m(){
+    [36m[33m[1mgenApacheConf[22m[36m[39m(){
      [33m[1mecho[22m[39m [37m[1m-e[22m[39m [32m"# Host [33m${HOME_DIR}[32m[33m$1[32m/[33m$2[32m :"[39m
     }

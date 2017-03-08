@@ -1,0 +1,32 @@
+    [90m--[[
+    Simple signal/slot implementation
+    ]][39m
+    [35m[1mlocal[22m[39m signal_mt = {
+        __index = {
+            register = [33m[1mtable[22m[39m.insert
+        }
+    }
+    [36m[35m[1mfunction[22m[36m [33m[1msignal_mt.__index:emit[22m[36m[37m[1m(... [90m--[[ Comment in params ]][37m)[22m[36m[39m
+        [35m[1mfor[22m[39m _, slot [35m[1min[22m[39m [33m[1mipairs[22m[39m(self) [35m[1mdo[22m[39m
+            slot(self, ...)
+        [35m[1mend[22m[39m
+    [35m[1mend[22m[39m
+    [35m[1mlocal[22m[39m [36m[35m[1mfunction[22m[36m [33m[1mcreate_signal[22m[36m[37m[1m()[22m[36m[39m
+        [35m[1mreturn[22m[39m [33m[1msetmetatable[22m[39m({}, signal_mt)
+    [35m[1mend[22m[39m
+    
+    [90m-- Signal test[39m
+    [35m[1mlocal[22m[39m signal = create_signal()
+    signal:register([36m[35m[1mfunction[22m[36m[37m[1m(signal, ...)[22m[36m[39m
+        [33m[1mprint[22m[39m(...)
+    [35m[1mend[22m[39m)
+    signal:emit([32m'Answer to Life, the Universe, and Everything:'[39m, [33m42[39m)
+    
+    [90m--[==[ [=[ [[
+    Nested ]]
+    multi-line ]=]
+    comment ]==][39m
+    [32m[==[ Nested
+    [=[ multi-line
+    [[ string
+    ]] ]=] ]==][39m

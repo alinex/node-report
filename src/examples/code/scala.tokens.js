@@ -1,0 +1,25 @@
+TokenList {
+  data: 
+   [ { type: 'document', nesting: 1, level: 0 },
+     { type: 'code',
+       nesting: 1,
+       language: 'scala',
+       level: 1,
+       parent: [Object] },
+     { type: 'text',
+       content: '/**\n * A person has a name and an age.\n */\ncase class Person(name: String, age: Int)\n\nabstract class Vertical extends CaseJeu\ncase class Haut(a: Int) extends Vertical\ncase class Bas(name: String, b: Double) extends Vertical\n\nsealed trait Ior[+A, +B]\ncase class Left[A](a: A) extends Ior[A, Nothing]\ncase class Right[B](b: B) extends Ior[Nothing, B]\ncase class Both[A, B](a: A, b: B) extends Ior[A, B]\n\ntrait Functor[F[_]] {\n  def map[A, B](fa: F[A], f: A => B): F[B]\n}\n\n// beware Int.MinValue\ndef absoluteValue(n: Int): Int =\n  if (n < 0) -n else n\n\ndef interp(n: Int): String =\n  s"there are $n ${color} balloons.\\n"\n\ntype ξ[A] = (A, A)\n\ntrait Hist { lhs =>\n  def ⊕(rhs: Hist): Hist\n}\n\ndef gsum[A: Ring](as: Seq[A]): A =\n  as.foldLeft(Ring[A].zero)(_ + _)\n\nval actions: List[Symbol] =\n  \'init :: \'read :: \'write :: \'close :: Nil\n\ntrait Cake {\n  type T;\n  type Q\n  val things: Seq[T]\n\n  abstract class Spindler\n\n  def spindle(s: Spindler, ts: Seq[T], reversed: Boolean = false): Seq[Q]\n}\n\nval colors = Map(\n  "red"       -> 0xFF0000,\n  "turquoise" -> 0x00FFFF,\n  "black"     -> 0x000000,\n  "orange"    -> 0xFF8040,\n  "brown"     -> 0x804000)\n\nlazy val ns = for {\n  x <- 0 until 100\n  y <- 0 until 100\n} yield (x + y) * 33.33',
+       level: 2,
+       parent: [Object] },
+     { type: 'code',
+       nesting: -1,
+       language: 'scala',
+       level: 1,
+       parent: [Object] },
+     { type: 'document', nesting: -1, level: 0 } ],
+  pos: 4,
+  token: 
+   { type: 'code',
+     nesting: -1,
+     language: 'scala',
+     level: 1,
+     parent: { type: 'document', nesting: 1, level: 0 } } }

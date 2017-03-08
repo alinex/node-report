@@ -1,0 +1,25 @@
+TokenList {
+  data: 
+   [ { type: 'document', nesting: 1, level: 0 },
+     { type: 'code',
+       nesting: 1,
+       language: 'scheme',
+       level: 1,
+       parent: [Object] },
+     { type: 'text',
+       content: ';; Calculation of Hofstadter\'s male and female sequences as a list of pairs\n\n(define (hofstadter-male-female n)\n(letrec ((female (lambda (n)\n           (if (= n 0)\n           1\n           (- n (male (female (- n 1)))))))\n     (male (lambda (n)\n         (if (= n 0)\n             0\n             (- n (female (male (- n 1))))))))\n  (let loop ((i 0))\n    (if (> i n)\n    \'()\n    (cons (cons (female i)\n            (male i))\n      (loop (+ i 1)))))))\n\n(hofstadter-male-female 8)\n\n(define (find-first func lst)\n(call-with-current-continuation\n (lambda (return-immediately)\n   (for-each (lambda (x)\n       (if (func x)\n           (return-immediately x)))\n         lst)\n   #f)))',
+       level: 2,
+       parent: [Object] },
+     { type: 'code',
+       nesting: -1,
+       language: 'scheme',
+       level: 1,
+       parent: [Object] },
+     { type: 'document', nesting: -1, level: 0 } ],
+  pos: 4,
+  token: 
+   { type: 'code',
+     nesting: -1,
+     language: 'scheme',
+     level: 1,
+     parent: { type: 'document', nesting: 1, level: 0 } } }

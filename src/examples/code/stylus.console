@@ -5,11 +5,11 @@
     [33m$green_dark[39m = darken([33m$green[39m, [33m10[39m)
     
     [90m// mixin/function[39m
-    [36m[36mcontainer[36m[37m[1m()[22m[36m[39m
+    [36m[33m[1mcontainer[22m[36m[37m[1m()[22m[36m[39m
       [32mmax-width[39m [33m980px[39m
     
     [90m// mixin/function with parameters[39m
-    [36m[36mbuttonBG[36m[37m[1m([33m$color[37m = green)[22m[36m[39m
+    [36m[33m[1mbuttonBG[22m[36m[37m[1m([33m$color[37m = green)[22m[36m[39m
       [35m[1mif[22m[39m [33m$color[39m == green
         [32mbackground-color[39m [33m#008000[39m
       [35m[1melse[22m[39m [35m[1mif[22m[39m [33m$color[39m == red

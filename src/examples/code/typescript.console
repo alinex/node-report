@@ -1,0 +1,14 @@
+    [35m[1mclass[22m[39m MyClass {
+      [35m[1mpublic[22m[39m [35m[1mstatic[22m[39m myValue: [33m[1mstring[22m[39m;
+      [35m[1mconstructor[22m[39m([37m[1minit: [33m[1mstring[1m[37m[22m[39m) {
+        [35m[1mthis[22m[39m.myValue = init;
+      }
+    }
+    [35m[1mimport[22m[39m fs = [33m[1mrequire[22m[39m([32m"fs"[39m);
+    [35m[1mmodule[22m[39m MyModule {
+      [35m[1mexport[22m[39m [35m[1minterface[22m[39m MyInterface [35m[1mextends[22m[39m Other {
+        myProperty: [33m[1many[22m[39m;
+      }
+    }
+    [35m[1mdeclare[22m[39m magicNumber [33m[1mnumber[22m[39m;
+    myArray.forEach(() => { }); [90m// fat arrow syntax[39m

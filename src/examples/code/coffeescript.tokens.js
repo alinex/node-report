@@ -3,7 +3,7 @@ TokenList {
    [ { type: 'document', nesting: 1, level: 0 },
      { type: 'code',
        nesting: 1,
-       language: 'coffee',
+       language: 'coffeescript',
        level: 1,
        parent: [Object] },
      { type: 'text',
@@ -12,7 +12,7 @@ TokenList {
        parent: [Object] },
      { type: 'code',
        nesting: -1,
-       language: 'coffee',
+       language: 'coffeescript',
        level: 1,
        parent: [Object] },
      { type: 'document', nesting: -1, level: 0 } ],
@@ -20,6 +20,6 @@ TokenList {
   token: 
    { type: 'code',
      nesting: -1,
-     language: 'coffee',
+     language: 'coffeescript',
      level: 1,
      parent: { type: 'document', nesting: 1, level: 0 } } }

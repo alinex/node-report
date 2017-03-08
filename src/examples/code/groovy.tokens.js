@@ -1,0 +1,25 @@
+TokenList {
+  data: 
+   [ { type: 'document', nesting: 1, level: 0 },
+     { type: 'code',
+       nesting: 1,
+       language: 'groovy',
+       level: 1,
+       parent: [Object] },
+     { type: 'text',
+       content: '#!/usr/bin/env groovy\npackage model\n\nimport groovy.transform.CompileStatic\nimport java.util.List as MyList\n\ntrait Distributable {\n    void distribute(String version) {}\n}\n\n@CompileStatic\nclass Distribution implements Distributable {\n    double number = 1234.234 / 567\n    def otherNumber = 3 / 4\n    boolean archivable = condition ?: true\n    def ternary = a ? b : c\n    String name = "Guillaume"\n    Closure description = null\n    List<DownloadPackage> packages = []\n    String regex = ~/.*foo.*/\n    String multi = \'\'\'\n        multi line string\n    \'\'\' + """\n        now with double quotes and ${gstring}\n    """ + $/\n        even with dollar slashy strings\n    /$\n\n    /**\n     * description method\n     * @param cl the closure\n     */\n    void description(Closure cl) { this.description = cl }\n\n    void version(String name, Closure versionSpec) {\n        def closure = { println "hi" } as Runnable\n\n        MyList ml = [1, 2, [a: 1, b:2,c :3]]\n        for (ch in "name") {}\n\n        // single line comment\n        DownloadPackage pkg = new DownloadPackage(version: name)\n\n        check that: true\n\n        label:\n        def clone = versionSpec.rehydrate(pkg, pkg, pkg)\n        /*\n            now clone() in a multiline comment\n        */\n        clone()\n        packages.add(pkg)\n\n        assert 4 / 2 == 2\n    }\n}',
+       level: 2,
+       parent: [Object] },
+     { type: 'code',
+       nesting: -1,
+       language: 'groovy',
+       level: 1,
+       parent: [Object] },
+     { type: 'document', nesting: -1, level: 0 } ],
+  pos: 4,
+  token: 
+   { type: 'code',
+     nesting: -1,
+     language: 'groovy',
+     level: 1,
+     parent: { type: 'document', nesting: 1, level: 0 } } }

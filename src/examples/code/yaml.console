@@ -1,0 +1,39 @@
+    [36m---[39m
+    [90m# comment[39m
+    [33mstring_1:[39m [32m"Bar"[39m
+    [33mstring_2:[39m [32m'bar'[39m
+    [33mstring_3:[39m bar
+    [33minline_keys_ignored:[39m sompath/name/file.jpg
+    [33mkeywords_in_yaml:[39m
+    [34m[1m  -[22m[39m [36m[1mtrue[22m[39m
+    [34m[1m  -[22m[39m [36m[1mfalse[22m[39m
+    [34m[1m  -[22m[39m [36m[1mTRUE[22m[39m
+    [34m[1m  -[22m[39m [36m[1mFALSE[22m[39m
+    [34m[1m  -[22m[39m [33m21[39m
+    [34m[1m  -[22m[39m [33m21.0[39m
+    [34m[1m  -[22m[39m [33m!!str[39m [33m123[39m
+    [33m"quoted_key":[39m [36m&foobar[39m
+    [33m  bar:[39m foo
+    [33m  foo:[39m
+    [33m  "foo":[39m bar
+    
+    [33mreference:[39m [36m*foobar[39m
+    
+    [33mmultiline_1:[39m [32m|
+      Multiline
+      String
+    [39m[33mmultiline_2:[39m [32m>
+      Multiline
+      String
+    [39m[33mmultiline_3:[39m [32m"
+      Multiline string
+      "[39m
+    
+    [33mansible_variables:[39m [32m"foo [33m{{variable}}[32m"[39m
+    
+    [33marray_nested:[39m
+    [34m[1m-[22m[39m a
+    [33m- b:[39m [33m1[39m
+    [33m  c:[39m [33m2[39m
+    [34m[1m-[22m[39m b
+    [34m[1m-[22m[39m comment

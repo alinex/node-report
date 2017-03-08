@@ -1,0 +1,25 @@
+TokenList {
+  data: 
+   [ { type: 'document', nesting: 1, level: 0 },
+     { type: 'code',
+       nesting: 1,
+       language: 'http',
+       level: 1,
+       parent: [Object] },
+     { type: 'text',
+       content: 'POST /task?id=1 HTTP/1.1\nHost: example.org\nContent-Type: application/json; charset=utf-8\nContent-Length: 137\n\n{\n  "status": "ok",\n  "extended": true,\n  "results": [\n    {"value": 0, "type": "int64"},\n    {"value": 1.0e+3, "type": "decimal"}\n  ]\n}',
+       level: 2,
+       parent: [Object] },
+     { type: 'code',
+       nesting: -1,
+       language: 'http',
+       level: 1,
+       parent: [Object] },
+     { type: 'document', nesting: -1, level: 0 } ],
+  pos: 4,
+  token: 
+   { type: 'code',
+     nesting: -1,
+     language: 'http',
+     level: 1,
+     parent: { type: 'document', nesting: 1, level: 0 } } }

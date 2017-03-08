@@ -1,0 +1,13 @@
+    [90m# The Greeter class[39m
+    [35m[35m[1mclass[22m[35m [33m[1mGreeter[22m[35m[39m
+      [36m[35m[1mdef[22m[36m [33m[1minitialize[22m[36m[37m[1m(name)[22m[36m[39m
+        @name = name.capitalize
+      [35m[1mend[22m[39m
+    
+      [36m[35m[1mdef[22m[36m [33m[1msalute[22m[36m[39m
+        puts [32m"Hello undefined!"[39m
+      [35m[1mend[22m[39m
+    [35m[1mend[22m[39m
+    
+    g = Greeter.new([32m"world"[39m)
+    g.salute

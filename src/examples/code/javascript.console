@@ -1,4 +1,4 @@
-    [36m[35m[1mfunction[22m[36m [36m$initHighlight[36m([37m[1mblock, cls[22m[36m) [39m{
+    [36m[35m[1mfunction[22m[36m [33m[1m$initHighlight[22m[36m([37m[1mblock, cls[22m[36m) [39m{
       [35m[1mtry[22m[39m {
         [35m[1mif[22m[39m (cls.search([32m[1m/\bno-highlight\b/[22m[39m) != [33m-1[39m)
           [35m[1mreturn[22m[39m process(block, [36m[1mtrue[22m[39m, [33m0x0F[39m) +

@@ -1,5 +1,5 @@
     [90m# loads object[39m
-    [36m[35m[1msub[22m[36m [36mload[36m
+    [36m[35m[1msub[22m[36m [33m[1mload[22m[36m
     [39m{
       [35m[1mmy[22m[39m $flds = $c->db_load($id,@_) || [35m[1mdo[22m[39m {
         Carp::carp [32m"Can`t load (class: $c, id: $id): '$!'"[39m; [35m[1mreturn[22m[39m [35m[1mundef[22m[39m
@@ -28,14 +28,14 @@
       [35m[1mreturn[22m[39m $o;
     }
     
-    <span class="mojolicious">[34m[1m__DATA__[22m[39m
+    <span class="mojolicious">[36m__DATA__[39m
     </span>[90m@@ layouts/default.html.ep[39m<span class="mojolicious">
-    [34m[1m<!DOCTYPE html>[22m[39m
+    [36m<!DOCTYPE html>[39m
     [37m<[31m[1mhtml[22m[37m>[39m
       [37m<[31m[1mhead[22m[37m>[39m[37m<[31m[1mtitle[22m[37m>[39m[37m<[31m[1m%=[22m[37m[39m title [37m%>[39m[37m</[31m[1mtitle[22m[37m>[39m[37m</[31m[1mhead[22m[37m>[39m
       [37m<[31m[1mbody[22m[37m>[39m[37m<[31m[1m%=[22m[37m[39m content [37m%>[39m[37m</[31m[1mbody[22m[37m>[39m
     [37m</[31m[1mhtml[22m[37m>[39m
-    [34m[1m__END__[22m[39m</span>
+    [36m__END__[39m</span>
     
     [90m=head1 NAME
     POD till the end of file[39m

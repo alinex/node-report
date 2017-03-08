@@ -12,41 +12,56 @@ util = require 'alinex-util'
 colors =
   comment: chalk.gray
   quote: chalk.gray
+
   subst: chalk.red.bold
   'selector-tag': chalk.red.bold
   'builtin-name': chalk.red.bold
+  section: chalk.red.bold
   subst: chalk.red.bold
   name: chalk.red.bold
+  deletion: chalk.red.bold
+
   class: chalk.magenta
   doctag: chalk.magenta
+  formula: chalk.magenta
   keyword: chalk.magenta.bold
+
   variable: chalk.yellow
   number: chalk.yellow
   attr: chalk.yellow
+  type: chalk.yellow
   'selector-class': chalk.yellow
   'selector-attr': chalk.yellow
   'selector-pseudo': chalk.yellow
   'template-variable': chalk.yellow
   built_in: chalk.yellow.bold
+  title: chalk.yellow.bold
+
   string: chalk.green
   attribute: chalk.green
   regexp: chalk.green.bold
+  addition: chalk.green.bold
+
   meta: chalk.blue.bold
   bullet: chalk.blue.bold
-  title: chalk.cyan
+
   function: chalk.cyan
   literal: chalk.cyan.bold
   link: chalk.cyan.bold
   symbol: chalk.cyan.bold
   'selector-id': chalk.cyan.bold
+  meta: chalk.cyan
+  'meta-keyword': chalk.cyan.bold
+
   code: chalk.white.bold
   _: chalk.white.bold
   params: chalk.white.bold
   'template-tag': chalk.white.bold
-  emphasis: chalk.italic
-  strong: chalk.bold
   xml: chalk.white
   tag: chalk.white
+
+  strong: chalk.bold
+  emphasis: chalk.italic
 
 
 # Exports
@@ -90,11 +105,11 @@ module.exports =
             token.collect = hljs.highlight token.language, token.collect, true
             .value
             .replace /<span class="hljs-([\w-]+)">([^<]*?)<\/span>/g, (_, e, c) ->
-              if colors[e] then colors[e] c else "<<< #{e} >>>#{c}<<<>>>"
+              if colors[e] then colors[e] c else "<<<=== #{e}: #{c}===>>>"
             .replace /<span class="hljs-([\w-]+)">([^<]*?)<\/span>/g, (_, e, c) ->
-              if colors[e] then colors[e] c else "<<< #{e} >>>#{c}<<<>>>"
+              if colors[e] then colors[e] c else "<<<=== #{e}: #{c}===>>>"
             .replace /<span class="hljs-([\w-]+)">([^<]*?)<\/span>/g, (_, e, c) ->
-              if colors[e] then colors[e] c else "<<< #{e} >>>#{c}<<<>>>"
+              if colors[e] then colors[e] c else "<<<=== #{e}: #{c}===>>>"
             .replace /<span class="\w+">([^<]*?)<\/span>/g, '$1'
           token.collect = util.string.htmlDecode token.collect
       # indent

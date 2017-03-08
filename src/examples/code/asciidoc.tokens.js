@@ -1,0 +1,25 @@
+TokenList {
+  data: 
+   [ { type: 'document', nesting: 1, level: 0 },
+     { type: 'code',
+       nesting: 1,
+       language: 'asciidoc',
+       level: 1,
+       parent: [Object] },
+     { type: 'text',
+       content: 'Hello, World!\n============\nAuthor Name, <author@domain.foo>\n\nyou can write text http://example.com[with links], optionally\nusing an explicit link:http://example.com[link prefix].\n\n* single quotes around a phrase place \'emphasis\'\n** alternatively, you can put underlines around a phrase to add _emphasis_\n* astericks around a phrase make the text *bold*\n* pluses around a phrase make it +monospaced+\n* `smart\' quotes using a leading backtick and trailing single quote\n** use two of each for double ``smart\'\' quotes\n\n- escape characters are supported\n- you can escape a quote inside emphasized text like \'here\'s johnny!\'\n\nterm:: definition\n another term:: another definition\n\n// this is just a comment\n\nLet\'s make a break.\n\n\'\'\'\n\n////\nwe\'ll be right with you\n\nafter this brief interruption.\n////\n\n== We\'re back!\n\nWant to see a image::images/tiger.png[Tiger]?\n\n.Nested highlighting\n++++\n<this_is inline="xml"></this_is>\n++++\n\n____\nasciidoc is so powerful.\n____\n\nanother quote:\n\n[quote, Sir Arthur Conan Doyle, The Adventures of Sherlock Holmes]\n____\nWhen you have eliminated all which is impossible, then whatever remains, however improbable, must be the truth.\n____\n\nGetting Literal\n---------------\n\n want to get literal? prefix a line with a space.\n\n....\nI\'ll join that party, too.\n....\n\n. one thing (yeah!)\n. two thing `i can write code`, and `more` wipee!\n\nNOTE: AsciiDoc is quite cool, you should try it.',
+       level: 2,
+       parent: [Object] },
+     { type: 'code',
+       nesting: -1,
+       language: 'asciidoc',
+       level: 1,
+       parent: [Object] },
+     { type: 'document', nesting: -1, level: 0 } ],
+  pos: 4,
+  token: 
+   { type: 'code',
+     nesting: -1,
+     language: 'asciidoc',
+     level: 1,
+     parent: { type: 'document', nesting: 1, level: 0 } } }

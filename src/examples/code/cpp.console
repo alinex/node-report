@@ -1,6 +1,6 @@
-    <span class="hljs-meta">#<<< meta-keyword >>>include<<<>>> <<< meta-string >>><iostream><<<>>></span>
+    <span class="hljs-meta">#[36m[1minclude[22m[39m <<<=== meta-string: <iostream>===>>></span>
     
-    [36m[35m[1mint[22m[36m [36mmain[36m[37m[1m([35m[1mint[1m[37m argc, [35m[1mchar[1m[37m *argv[])[22m[36m [39m{
+    [36m[35m[1mint[22m[36m [33m[1mmain[22m[36m[37m[1m([35m[1mint[1m[37m argc, [35m[1mchar[1m[37m *argv[])[22m[36m [39m{
     
       [90m/* An annoying "Hello World" example */[39m
       [35m[1mfor[22m[39m ([35m[1mauto[22m[39m i = [33m0[39m; i < [33m0xFFFF[39m; i++)

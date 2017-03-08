@@ -1,0 +1,25 @@
+TokenList {
+  data: 
+   [ { type: 'document', nesting: 1, level: 0 },
+     { type: 'code',
+       nesting: 1,
+       language: 'yaml',
+       level: 1,
+       parent: [Object] },
+     { type: 'text',
+       content: '---\n# comment\nstring_1: "Bar"\nstring_2: \'bar\'\nstring_3: bar\ninline_keys_ignored: sompath/name/file.jpg\nkeywords_in_yaml:\n  - true\n  - false\n  - TRUE\n  - FALSE\n  - 21\n  - 21.0\n  - !!str 123\n"quoted_key": &foobar\n  bar: foo\n  foo:\n  "foo": bar\n\nreference: *foobar\n\nmultiline_1: |\n  Multiline\n  String\nmultiline_2: >\n  Multiline\n  String\nmultiline_3: "\n  Multiline string\n  "\n\nansible_variables: "foo {{variable}}"\n\narray_nested:\n- a\n- b: 1\n  c: 2\n- b\n- comment',
+       level: 2,
+       parent: [Object] },
+     { type: 'code',
+       nesting: -1,
+       language: 'yaml',
+       level: 1,
+       parent: [Object] },
+     { type: 'document', nesting: -1, level: 0 } ],
+  pos: 4,
+  token: 
+   { type: 'code',
+     nesting: -1,
+     language: 'yaml',
+     level: 1,
+     parent: { type: 'document', nesting: 1, level: 0 } } }

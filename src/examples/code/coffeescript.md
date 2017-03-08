@@ -1,4 +1,4 @@
-``` coffee
+``` coffeescript
 grade = (student, period=(if b? then 7 else 6)) ->
   if student.excellentWork
     "A+"

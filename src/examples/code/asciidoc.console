@@ -1,0 +1,65 @@
+    [31m[1mHello, World!
+    ============[22m[39m
+    Author Name, <author@domain.foo>
+    
+    you can write text [36m[1mhttp://example.com[22m[39m[[32mwith links[39m], optionally
+    using an explicit link:[36m[1mhttp://example.com[22m[39m[[32mlink prefix[39m].
+    
+    [34m[1m* [22m[39msingle quotes around a phrase place [3m'emphasis'[23m
+    [34m[1m** [22m[39malternatively, you can put underlines around a phrase to add [3m_emphasis_[23m
+    [34m[1m* [22m[39mastericks around a phrase make the text [1m*bold*[22m
+    [34m[1m* [22m[39mpluses around a phrase make it [37m[1m+monospaced+[22m[39m
+    [34m[1m* [22m[39m[32m`smart'[39m quotes using a leading backtick and trailing single quote
+    [34m[1m** [22m[39muse two of each for double [32m``smart''[39m quotes
+    
+    [34m[1m- [22m[39mescape characters are supported
+    [34m[1m- [22m[39myou can escape a quote inside emphasized text like [3m'here'[23ms johnny!'
+    
+    [34m[1mterm:: [22m[39mdefinition
+    [34m[1m another term:: [22m[39manother definition
+    
+    [90m// this is just a comment[39m
+    
+    Let's make a break.
+    
+    '''
+    
+    [90m////
+    we'll be right with you
+    
+    after this brief interruption.
+    ////[39m
+    
+    [31m[1m== We're back![22m[39m
+    
+    Want to see a image::[36m[1mimages/tiger.png[22m[39m[[32mTiger[39m]?
+    
+    [33m[1m.Nested highlighting[22m[39m
+    ++++
+    [37m<[31m[1mthis_is[22m[37m [33minline[37m=[32m"xml"[37m>[39m[37m</[31m[1mthis_is[22m[37m>[39m
+    ++++
+    
+    [90m____
+    asciidoc is so powerful.
+    ____[39m
+    
+    another quote:
+    
+    [36m[quote, Sir Arthur Conan Doyle, The Adventures of Sherlock Holmes][39m
+    [90m____
+    When you have eliminated all which is impossible, then whatever remains, however improbable, must be the truth.
+    ____[39m
+    
+    [31m[1mGetting Literal
+    ---------------[22m[39m
+    
+    [37m[1m want to get literal? prefix a line with a space.[22m[39m
+    
+    [37m[1m....
+    I'll join that party, too.
+    ....[22m[39m
+    
+    [34m[1m. [22m[39mone thing (yeah!)
+    [34m[1m. [22m[39mtwo thing [37m[1m`i can write code`[22m[39m, and [37m[1m`more`[22m[39m wipee!
+    
+    [36m[1mNOTE: [22m[39mAsciiDoc is quite cool, you should try it.

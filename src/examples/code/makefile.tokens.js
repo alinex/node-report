@@ -1,0 +1,25 @@
+TokenList {
+  data: 
+   [ { type: 'document', nesting: 1, level: 0 },
+     { type: 'code',
+       nesting: 1,
+       language: 'makefile',
+       level: 1,
+       parent: [Object] },
+     { type: 'text',
+       content: '# Makefile\n\nBUILDDIR      = _build\nEXTRAS       ?= $(BUILDDIR)/extras\n\n.PHONY: main clean\n\nmain:\n\t@echo "Building main facility..."\n\tbuild_main $(BUILDDIR)\n\nclean:\n\trm -rf $(BUILDDIR)/*',
+       level: 2,
+       parent: [Object] },
+     { type: 'code',
+       nesting: -1,
+       language: 'makefile',
+       level: 1,
+       parent: [Object] },
+     { type: 'document', nesting: -1, level: 0 } ],
+  pos: 4,
+  token: 
+   { type: 'code',
+     nesting: -1,
+     language: 'makefile',
+     level: 1,
+     parent: { type: 'document', nesting: 1, level: 0 } } }

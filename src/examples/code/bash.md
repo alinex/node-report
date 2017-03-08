@@ -2,7 +2,6 @@
 #!/bin/bash
 
 ###### CONFIG
-# this goes on and on
 
 ACCEPTED_HOSTS="/root/.hag_accepted.conf"
 BE_VERBOSE=false

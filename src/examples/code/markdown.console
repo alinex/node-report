@@ -1,4 +1,4 @@
-    <<< section >>># hello world<<<>>>
+    [31m[1m# hello world[22m[39m
     
     you can write text [[32mwith links[39m]([36m[1mhttp://example.com[22m[39m) inline or [[32mlink references[39m][[36m[1m1[22m[39m].
     
@@ -9,8 +9,8 @@
     
     ---
     
-    <<< section >>>hello world
-    ===========<<<>>>
+    [31m[1mhello world
+    ===========[22m[39m
     
     [37m<[31m[1mthis_is[22m[37m [33minline[37m=[32m"xml"[37m>[39m[37m</[31m[1mthis_is[22m[37m>[39m
     

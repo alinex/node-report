@@ -1,10 +1,10 @@
     [90m; boilerplate[39m
-    <<< section >>>[package]<<<>>>
+    [31m[1m[package][22m[39m
     [33mname[39m = [32m"some_name"[39m
     [33mauthors[39m = [[32m"Author"[39m]
     [33mdescription[39m = [32m"This is a description"[39m
-    <<< section >>>
-    [[lib]]<<<>>>
+    [31m[1m
+    [[lib]][22m[39m
     [33mname[39m = [33m${NAME}[39m
     [33mdefault[39m = [36m[1mTrue[22m[39m
     [33mauto[39m = [36m[1mno[22m[39m

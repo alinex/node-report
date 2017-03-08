@@ -1,0 +1,13 @@
+    [35m[1mPOST[22m[39m [32m/task?id=1[39m HTTP/1.1
+    [32mHost[39m: example.org
+    [32mContent-Type[39m: application/json; charset=utf-8
+    [32mContent-Length[39m: 137
+    
+    {
+      [33m"status"[39m: [32m"ok"[39m,
+      [33m"extended"[39m: [36m[1mtrue[22m[39m,
+      [33m"results"[39m: [
+        {[33m"value"[39m: [33m0[39m, [33m"type"[39m: [32m"int64"[39m},
+        {[33m"value"[39m: [33m1.0e+3[39m, [33m"type"[39m: [32m"decimal"[39m}
+      ]
+    }
