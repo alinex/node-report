@@ -964,7 +964,7 @@ describe "code", ->
       ], [
         {format: 'md', text: '``` javascript\ntext = \'foo\';\n```'}
         {format: 'text', re: /foo/}
-        {format: 'html', text: "<pre><code>text = &#39;foo&#39;;</code></pre>\n"}
+        {format: 'html', re: /<pre class=\"language javascript\">.*?<code>text = <span class=\"hljs-string\">\'foo\'<\/span>;<\/code><\/pre>/}
         {format: 'man', text: '.P\n.RS 2\n.nf\ntext = \'foo\';\n.fi\n.RE'}
       ], cb
 
@@ -984,6 +984,6 @@ describe "code", ->
       ], [
         {format: 'md', text: '``` javascript\ntext = \'foo\';\n```'}
         {format: 'text', re: /foo/}
-        {format: 'html', text: "<pre><code>text = &#39;foo&#39;;</code></pre>\n"}
+        {format: 'html', re: /<pre class=\"language javascript\">.*?<code>text = <span class=\"hljs-string\">\'foo\'<\/span>;<\/code><\/pre>/}
         {format: 'man', text: '.P\n.RS 2\n.nf\ntext = \'foo\';\n.fi\n.RE'}
       ], cb

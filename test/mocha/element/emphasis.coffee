@@ -20,6 +20,21 @@ describe "emphasis", ->
         {format: 'man'}
       ], cb
 
+    it "should make examples with combined", (cb) ->
+      test.markdown 'emphasis/combined', """
+      Only italic _here_\\
+      Only strong **here**\\
+      And both **_here_**
+
+      You _can **also**_ put them into each other.
+      """, null, [
+        {format: 'md'}
+        {format: 'text'}
+        {format: 'console'}
+        {format: 'html'}
+        {format: 'man'}
+      ], cb
+
   describe "api", ->
 
     it "should create emphasis in paragraph", (cb) ->

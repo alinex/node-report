@@ -1,0 +1,6 @@
+.P
+Only italic here
+Only strong \fBhere\fR
+And both \fBhere\fR
+.P
+You can \fBalso\fR put them into each other.
