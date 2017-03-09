@@ -18,15 +18,20 @@ module.exports =
     fn: (num, token) ->
       list = token.parent
       nl = if @setup.compress then '' else '\n'
+      attr = if token.task? then ' class="task"' else ''
+      task = if token.task?
+        "<input class=\"task-checkbox\" disabled=\"\"\
+        #{if token.task then ' checked=\"\"' else ''} type=\"checkbox\"> "
+      else ''
       token.out = switch list.list
         when 'bullet'
           switch token.nesting
-            when 1 then "<li>"
+            when 1 then "<li#{attr}>#{task}"
             when -1 then "</li>#{nl}"
             else "<li />#{nl}"
         when 'ordered'
           switch token.nesting
-            when 1 then "<li>"
+            when 1 then "<li#{attr}>#{task}"
             when -1 then "</li>#{nl}"
             else "<li />#{nl}"
         when 'definition'
@@ -34,6 +39,11 @@ module.exports =
             when 1 then "<dt>#{list.title}</dt>#{nl}<dd>"
             when -1 then "</dd>#{nl}"
             else "<dt /><dd />#{nl}"
+# <ul class="contains-task-list">
+# <li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"> one</li>
+# <li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox"> two</li>
+# <li>test</li>
+# </ul>
 
   roff:
     format: 'roff'
@@ -79,9 +89,9 @@ module.exports =
             depth++ if p.type is 'list'
           marker = if @setup.ascii_art
             switch depth
-              when 1 then '⭘'
+              when 1 then '•'
               when 2 then '‣'
-              when 3 then '•'
+              when 3 then '⁃'
               else '·'
           else
             list.marker ? '.'

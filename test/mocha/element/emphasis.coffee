@@ -10,6 +10,7 @@ before (cb) -> Report.init cb
 describe "emphasis", ->
 
   describe "examples", ->
+    @timeout 30000
 
     it "should make examples", (cb) ->
       test.markdown 'emphasis/simple', "That's **all** to say. _(Alex)_", null, true, cb

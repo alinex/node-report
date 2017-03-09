@@ -5,6 +5,7 @@
 # Node Modules
 # ----------------------------------------------------
 util = require 'alinex-util'
+chalk = require 'chalk'
 
 
 # Implementation
@@ -36,7 +37,14 @@ module.exports =
     format: ['md', 'text', 'roff']
     fn: (num, token) ->
       indent = util.string.repeat ' ', token.out.length
-      token.collect = token.collect
+      add = ''
+      if token.task?
+        chalk = new chalk.constructor {enabled: Boolean @setup.ansi_escape}
+        add = chalk.bold if @setup.ascii_art
+          if token.task then '☒ ' else '☐ '
+        else
+          if token.task then '[X] ' else '[ ] '
+      token.collect = add + token.collect
       .replace /^\n/, ''  # remove first newline
       .replace /\n/g, "\n#{indent}" # indent text
       .replace /\ +(\n|$)/g, '$1' # but remove indent of last return

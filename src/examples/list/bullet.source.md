@@ -1,8 +1,6 @@
 Capital Cities:
-- Europe
-  - Berlin
-  - London
-  - Paris
-- Africa
-  - Tunis
-  - Kairo
+- Berlin
+- London
+- Paris
+- Tunis
+- Kairo

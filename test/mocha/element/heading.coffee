@@ -8,6 +8,7 @@ before (cb) -> Report.init cb
 describe "heading", ->
 
   describe "examples", ->
+    @timeout 30000
 
     it "should make examples", (cb) ->
       test.markdown 'heading/levels', """

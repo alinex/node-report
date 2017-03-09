@@ -1,0 +1,24 @@
+.P
+Capital Cities:
+.RS 0
+.IP \(bu 2
+.P
+           Berlin
+           .P
+           Capital city of germany
+
+.IP \(bu 2
+.P
+           London
+           .P
+           Capital city of great britan
+
+.IP \(bu 2
+.P
+           Paris
+           .P
+           Capital city of france
+
+
+
+.RE

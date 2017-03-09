@@ -10,6 +10,7 @@ before (cb) -> Report.init cb
 describe "link", ->
 
   describe "examples", ->
+    @timeout 30000
 
     it "should make examples", (cb) ->
       test.markdown 'link/simple', "Let's [google](http://www.google.com \"search engine\")

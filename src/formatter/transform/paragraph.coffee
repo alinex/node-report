@@ -11,6 +11,7 @@ module.exports =
     format: 'html'
     type: 'paragraph'
     fn: (num, token) ->
+      return if token.hidden
       nl = if @setup.compress then '' else '\n'
       token.out = switch token.nesting
         when 1 then "<p>"

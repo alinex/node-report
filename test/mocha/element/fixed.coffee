@@ -10,6 +10,7 @@ before (cb) -> Report.init cb
 describe "fixed", ->
 
   describe "examples", ->
+    @timeout 30000
 
     it "should make examples", (cb) ->
       test.markdown 'fixed/simple', "To shut a debian system down enter

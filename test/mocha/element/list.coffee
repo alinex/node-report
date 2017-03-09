@@ -14,9 +14,10 @@ describe "list", ->
 #    """, null, null, cb
 
   describe.only "examples", ->
+    @timeout 30000
 
-    it "should make bullet list", (cb) ->
-      test.markdown 'list/bullet', """
+    it "should make tight list", (cb) ->
+      test.markdown 'list/tight', """
         Capital Cities:
         - Europe
           - Berlin
@@ -25,6 +26,32 @@ describe "list", ->
         - Africa
           - Tunis
           - Kairo
+      """, null, true, cb
+
+    it "should make loose list", (cb) ->
+      test.markdown 'list/loose', """
+        Capital Cities:
+        - Berlin
+
+          Capital city of germany
+
+        - London
+
+          Capital city of great britan
+
+        - Paris
+
+          Capital city of france
+      """, null, true, cb
+
+    it "should make bullet list", (cb) ->
+      test.markdown 'list/bullet', """
+        Capital Cities:
+        - Berlin
+        - London
+        - Paris
+        - Tunis
+        - Kairo
       """, null, true, cb
 
     it "should make ordered list", (cb) ->
@@ -37,6 +64,56 @@ describe "list", ->
         2. Africa
            1. Kairo
            2. Tunis
+      """, null, true, cb
+
+    it "should make ordered list (with start number)", (cb) ->
+      test.markdown 'list/ordered-start', """
+        Capital Cities:
+        
+        4. Kairo
+        5. Tunis
+      """, null, true, cb
+
+    it "should make mixed list", (cb) ->
+      test.markdown 'list/mixed', """
+        Capital Cities:
+        1. Europe
+           - London
+           - Berlin
+           - Paris
+        2. Africa
+           - Kairo
+           - Tunis
+      """, null, true, cb
+
+    it "should make bullet task list", (cb) ->
+      test.markdown 'list/bullet-task', """
+        Solar System Exploration, 1950s – 1960s
+        - [ ] Mercury
+        - [x] Venus
+        - [x] Earth (Orbit/Moon)
+        - [x] Mars
+        - [ ] Jupiter
+        - [ ] Saturn
+        - [ ] Uranus
+        - [ ] Neptune
+        - [ ] Comet Haley
+        - anything missing?
+      """, null, true, cb
+
+    it "should make ordered task list", (cb) ->
+      test.markdown 'list/ordered-task', """
+        Solar System Exploration, 1950s – 1960s
+        1.  [ ] Mercury
+        2.  [x] Venus
+        3.  [x] Earth (Orbit/Moon)
+        4.  [x] Mars
+        5.  [ ] Jupiter
+        6.  [ ] Saturn
+        7.  [ ] Uranus
+        8.  [ ] Neptune
+        9.  [ ] Comet Haley
+        10. anything missing?
       """, null, true, cb
 
   describe "api", ->

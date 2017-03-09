@@ -10,6 +10,7 @@ before (cb) -> Report.init cb
 describe "image", ->
 
   describe "examples", ->
+    @timeout 30000
 
     it "should make examples", (cb) ->
       test.markdown 'image/simple', "An ![alinex](http://alinex.github.io/images/Alinex-200.png \"my logo\") project.", null, true, cb

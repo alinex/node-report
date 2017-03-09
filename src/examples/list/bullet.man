@@ -3,39 +3,23 @@ Capital Cities:
 .RS 0
 .IP \(bu 2
 .P
-           Europe
-           .RS 0
-           .IP \(bu 2
-           .P
-                      Berlin
-
-           .IP \(bu 2
-           .P
-                      London
-
-           .IP \(bu 2
-           .P
-                      Paris
-
-
-
-           .RE
+           Berlin
 
 .IP \(bu 2
 .P
-           Africa
-           .RS 0
-           .IP \(bu 2
-           .P
-                      Tunis
+           London
 
-           .IP \(bu 2
-           .P
-                      Kairo
+.IP \(bu 2
+.P
+           Paris
 
+.IP \(bu 2
+.P
+           Tunis
 
-
-           .RE
+.IP \(bu 2
+.P
+           Kairo
 
 
 

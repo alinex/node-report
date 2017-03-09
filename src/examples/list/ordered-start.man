@@ -1,0 +1,14 @@
+.P
+Capital Cities:
+.RS 0
+.IP 4. 3
+.P
+         Kairo
+
+.IP 5. 3
+.P
+         Tunis
+
+
+
+.RE

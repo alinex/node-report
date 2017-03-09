@@ -1,0 +1,46 @@
+.P
+Solar System Exploration, 1950s – 1960s
+.RS 0
+.IP \(bu 2
+[ ] .P
+           Mercury
+
+.IP \(bu 2
+[X] .P
+           Venus
+
+.IP \(bu 2
+[X] .P
+           Earth (Orbit/Moon)
+
+.IP \(bu 2
+[X] .P
+           Mars
+
+.IP \(bu 2
+[ ] .P
+           Jupiter
+
+.IP \(bu 2
+[ ] .P
+           Saturn
+
+.IP \(bu 2
+[ ] .P
+           Uranus
+
+.IP \(bu 2
+[ ] .P
+           Neptune
+
+.IP \(bu 2
+[ ] .P
+           Comet Haley
+
+.IP \(bu 2
+.P
+           anything missing?
+
+
+
+.RE
