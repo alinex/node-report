@@ -13,7 +13,7 @@ describe "list", ->
 #      - test it
 #    """, null, null, cb
 
-  describe "examples", ->
+  describe.only "examples", ->
 
     it "should make bullet list", (cb) ->
       test.markdown 'list/bullet', """
@@ -25,13 +25,7 @@ describe "list", ->
         - Africa
           - Tunis
           - Kairo
-      """, null, [
-        {format: 'md'}
-        {format: 'text'}
-        {format: 'console'}
-        {format: 'html'}
-        {format: 'man'}
-      ], cb
+      """, null, true, cb
 
     it "should make ordered list", (cb) ->
       test.markdown 'list/ordered', """
@@ -43,13 +37,7 @@ describe "list", ->
         2. Africa
            1. Kairo
            2. Tunis
-      """, null, [
-        {format: 'md'}
-        {format: 'text'}
-        {format: 'console'}
-        {format: 'html'}
-        {format: 'man'}
-      ], cb
+      """, null, true, cb
 
   describe "api", ->
 

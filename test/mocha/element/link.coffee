@@ -12,13 +12,8 @@ describe "link", ->
   describe "examples", ->
 
     it "should make examples", (cb) ->
-      test.markdown 'link/simple', "Let's [google](http://www.google.com) for everything you don't know.", null, [
-        {format: 'md'}
-        {format: 'text'}
-        {format: 'console'}
-        {format: 'html'}
-        {format: 'man'}
-      ], cb
+      test.markdown 'link/simple', "Let's [google](http://www.google.com \"search engine\")
+      for everything you don't know.", null, true, cb
 
   describe "api", ->
 

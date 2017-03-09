@@ -10,6 +10,7 @@ TokenList {
      { type: 'link',
        nesting: 1,
        href: 'http://www.google.com',
+       title: 'search engine',
        level: 2,
        parent: [Object] },
      { type: 'text',

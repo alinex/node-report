@@ -12,7 +12,7 @@ describe "image", ->
   describe "examples", ->
 
     it "should make examples", (cb) ->
-      test.markdown 'image/simple', "An ![alinex](http://alinex.github.io/images/Alinex-200.png) project.", null, true, cb
+      test.markdown 'image/simple', "An ![alinex](http://alinex.github.io/images/Alinex-200.png \"my logo\") project.", null, true, cb
 
   describe "api", ->
 

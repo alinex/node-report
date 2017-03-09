@@ -1,1 +1,1 @@
-An ![alinex](http://alinex.github.io/images/Alinex-200.png) project.
+An ![alinex](http://alinex.github.io/images/Alinex-200.png "my logo") project.
