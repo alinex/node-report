@@ -19,7 +19,7 @@ module.exports =
             when -1 then "</ul>#{nl}"
             else "<ul />#{nl}"
         when 'ordered'
-          start = if token.start then " start=\"#{token.start}\"" else ''
+          start = if token.start > 1 then " start=\"#{token.start}\"" else ''
           switch token.nesting
             when 1 then "<ol#{start}>#{nl}"
             when -1 then "</ol>#{nl}"

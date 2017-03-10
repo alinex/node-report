@@ -7,12 +7,6 @@ before (cb) -> Report.init cb
 
 describe "list", ->
 
-#  it "should run first test", (cb) ->
-#    test.markdown 'list/bullet', """
-#      - write code
-#      - test it
-#    """, null, null, cb
-
   describe "examples", ->
     @timeout 30000
 
@@ -125,7 +119,7 @@ describe "list", ->
       # check it
       test.report null, report, [
         {type: 'document', nesting: 1}
-        {type: 'list', nesting: 1}
+        {type: 'list', nesting: 1, list: 'bullet'}
         {type: 'item', nesting: 1}
         {type: 'paragraph', nesting: 1}
         {type: 'text', content: 'one'}
@@ -148,3 +142,67 @@ describe "list", ->
         {format: 'text', re: /   • one\n   • two\n   • three/}
         {format: 'html', text: "<ul>\n<li>one</li>\n<li>two</li>\n<li>three</li>\n</ul>\n"}
       ], cb
+
+    it "should create ordered list", (cb) ->
+      # create report
+      report = new Report()
+      report.list ['one', 'two', 'three'], 'ordered'
+      # check it
+      test.report null, report, [
+        {type: 'document', nesting: 1}
+        {type: 'list', nesting: 1, list: 'ordered'}
+        {type: 'item', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: 'one'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'item', nesting: -1}
+        {type: 'item', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: 'two'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'item', nesting: -1}
+        {type: 'item', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: 'three'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'item', nesting: -1}
+        {type: 'list', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], [
+        {format: 'md', re: /  1. one\n  2. two\n  3. three/}
+        {format: 'text', re: /  1. one\n  2. two\n  3. three/}
+        {format: 'html', text: "<ol>\n<li>one</li>\n<li>two</li>\n<li>three</li>\n</ol>\n"}
+      ], cb
+
+    it "should create ordered list (with start)", (cb) ->
+      # create report
+      report = new Report()
+      report.list ['one', 'two', 'three'], 'ordered', 3
+      # check it
+      test.report null, report, [
+        {type: 'document', nesting: 1}
+        {type: 'list', nesting: 1, list: 'ordered', start: 3}
+        {type: 'item', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: 'one'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'item', nesting: -1}
+        {type: 'item', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: 'two'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'item', nesting: -1}
+        {type: 'item', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: 'three'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'item', nesting: -1}
+        {type: 'list', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], [
+        {format: 'md', re: /  3. one\n  4. two\n  5. three/}
+        {format: 'text', re: /  3. one\n  4. two\n  5. three/}
+        {format: 'html', text: "<ol start=\"3\">\n<li>one</li>\n<li>two</li>\n<li>three</li>\n</ol>\n"}
+      ], cb
+
+# task list
