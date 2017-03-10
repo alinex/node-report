@@ -10,20 +10,14 @@ before (cb) -> Report.init cb
 describe "text", ->
 
   describe "examples", ->
+    @timeout 30000
 
     it "should make examples", (cb) ->
       test.markdown 'text/simple', """
         This is a short text.
         With each sentence in a separate line.\\
         And a hard break before this.
-      """, null, [
-        {format: 'md'}
-        {format: 'text'}
-        {format: 'console'}
-        {format: 'html'}
-        {format: 'man'}
-        {format: 'adoc'}
-      ], cb
+      """, null, true, cb
 
   describe "api", ->
 

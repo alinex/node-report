@@ -8,6 +8,7 @@ before (cb) -> Report.init cb
 describe "paragraph", ->
 
   describe "examples", ->
+    @timeout 30000
 
     it "should make two paragraphs", (cb) ->
       test.markdown 'paragraph/multiple', """
@@ -15,13 +16,7 @@ describe "paragraph", ->
         between them is done with an empty line.
 
         This follows the common definition of markdown.
-      """, null, [
-        {format: 'md'}
-        {format: 'text'}
-        {format: 'console'}
-        {format: 'html'}
-        {format: 'man'}
-      ], cb
+      """, null, true, cb
 
   describe "api", ->
 

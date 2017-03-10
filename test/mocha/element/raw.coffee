@@ -10,15 +10,13 @@ before (cb) -> Report.init cb
 describe "raw", ->
 
   describe "examples", ->
+    @timeout 30000
 
-    it "should make examples", (cb) ->
-      test.markdown 'raw/html', '<div class="important">\n\nSome <a class="red">inline</a> html.', null, [
-        {format: 'md'}
-        {format: 'text'}
-        {format: 'console'}
-        {format: 'html'}
-        {format: 'man'}
-      ], cb
+    it "should make html block examples", (cb) ->
+      test.markdown 'raw/html-block', '<div style="background:orange">\n\nAn html <a class="red">block</a>.', null, true, cb
+
+    it "should make html inline examples", (cb) ->
+      test.markdown 'raw/html-inline', 'Some <a class="red">inline</a> html.', null, true, cb
 
   describe "api", ->
 

@@ -19,8 +19,9 @@ module.exports =
             when -1 then "</ul>#{nl}"
             else "<ul />#{nl}"
         when 'ordered'
+          start = if token.start then " start=\"#{token.start}\"" else ''
           switch token.nesting
-            when 1 then "<ol>#{nl}"
+            when 1 then "<ol#{start}>#{nl}"
             when -1 then "</ol>#{nl}"
             else "<ol />#{nl}"
         when 'definition'
@@ -51,3 +52,5 @@ module.exports =
           break if prev.type is 'list' and prev.level is token.level
         unless prev.marker
           token.marker = if token.list is 'bullet' then '+' else ')'
+      # add needed newline if ordered list start with specific number
+      token.out = '\n' if token.list is 'ordered' and token.start > 1

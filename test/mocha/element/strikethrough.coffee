@@ -10,15 +10,10 @@ before (cb) -> Report.init cb
 describe "strikethrough", ->
 
   describe "examples", ->
+    @timeout 30000
 
     it "should make examples", (cb) ->
-      test.markdown 'strikethrough/simple', "That's a ~~big~~ success.", null, [
-        {format: 'md'}
-        {format: 'text'}
-        {format: 'console'}
-        {format: 'html'}
-        {format: 'man'}
-      ], cb
+      test.markdown 'strikethrough/simple', "That's a ~~big~~ success.", null, true, cb
 
   describe "api", ->
 

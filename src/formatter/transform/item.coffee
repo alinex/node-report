@@ -39,11 +39,6 @@ module.exports =
             when 1 then "<dt>#{list.title}</dt>#{nl}<dd>"
             when -1 then "</dd>#{nl}"
             else "<dt /><dd />#{nl}"
-# <ul class="contains-task-list">
-# <li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"> one</li>
-# <li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox"> two</li>
-# <li>test</li>
-# </ul>
 
   roff:
     format: 'roff'
@@ -63,17 +58,16 @@ module.exports =
   md:
     format: ['md']
     type: 'item'
+    nesting: 1
     fn: (num, token) ->
       list = token.parent
       token.out = switch list.list
         when 'bullet'
           marker = list.marker ? '-'
-          switch token.nesting
-            when 1 then "   #{marker} "
+          "   #{marker} "
         when 'ordered'
           marker = list.marker ? '.'
-          switch token.nesting
-            when 1 then "#{util.string.lpad token.num, 3}#{marker} "
+          "#{util.string.lpad token.num, 3}#{marker} "
 
   other:
     format: ['text']
@@ -98,7 +92,9 @@ module.exports =
           # make bullet
           switch token.nesting
             when 1 then "   #{marker} "
+            else ''
         when 'ordered'
           marker = list.marker ? '.'
           switch token.nesting
             when 1 then "#{util.string.lpad token.num, 3}#{marker} "
+            else ''

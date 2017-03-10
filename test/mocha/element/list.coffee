@@ -13,7 +13,7 @@ describe "list", ->
 #      - test it
 #    """, null, null, cb
 
-  describe.only "examples", ->
+  describe "examples", ->
     @timeout 30000
 
     it "should make tight list", (cb) ->
@@ -69,7 +69,7 @@ describe "list", ->
     it "should make ordered list (with start number)", (cb) ->
       test.markdown 'list/ordered-start', """
         Capital Cities:
-        
+
         4. Kairo
         5. Tunis
       """, null, true, cb
@@ -145,6 +145,6 @@ describe "list", ->
         {type: 'document', nesting: -1}
       ], [
         {format: 'md', re: /   - one\n   - two\n   - three/}
-        {format: 'text', re: /   ⭘ one\n   ⭘ two\n   ⭘ three/}
-        {format: 'html', text: "<ul>\n<li><p>one</p></li>\n<li><p>two</p></li>\n<li><p>three</p></li>\n</ul>\n"}
+        {format: 'text', re: /   • one\n   • two\n   • three/}
+        {format: 'html', text: "<ul>\n<li>one</li>\n<li>two</li>\n<li>three</li>\n</ul>\n"}
       ], cb

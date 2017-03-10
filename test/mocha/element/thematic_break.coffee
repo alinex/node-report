@@ -8,15 +8,16 @@ before (cb) -> Report.init cb
 describe "thematic break", ->
 
   describe "examples", ->
+    @timeout 30000
 
     it "should make examples", (cb) ->
-      test.markdown 'thematic_break/line', '---', null, [
-        {format: 'md'}
-        {format: 'text'}
-        {format: 'console'}
-        {format: 'html'}
-        {format: 'man'}
-      ], cb
+      test.markdown 'thematic_break/line', """
+      The first part.
+
+      ---
+
+      The second part.
+      """, null, true, cb
 
   describe "api", ->
 

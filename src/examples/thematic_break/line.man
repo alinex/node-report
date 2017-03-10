@@ -1,1 +1,5 @@
+.P
+The first part.
 .HR
+.P
+The second part.

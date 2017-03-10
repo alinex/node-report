@@ -8,6 +8,7 @@ before (cb) -> Report.init cb
 describe "preformatted", ->
 
   describe "examples", ->
+    @timeout 30000
 
     it "should make preformatted text", (cb) ->
       test.markdown 'preformatted/data', """
@@ -15,13 +16,7 @@ describe "preformatted", ->
 
             This line is preformatted!
                  ^^^^
-      """, null, [
-        {format: 'md'}
-        {format: 'text'}
-        {format: 'console'}
-        {format: 'html'}
-        {format: 'man'}
-      ], cb
+      """, null, true, cb
 
   describe "api", ->
 

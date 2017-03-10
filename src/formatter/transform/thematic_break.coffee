@@ -14,14 +14,14 @@ module.exports =
     format: 'md'
     type: 'thematic_break'
     fn: (num, token) ->
-      token.out = "#{util.string.repeat '*', @setup.width}\n"
+      token.out = "\n#{util.string.repeat '*', @setup.width}\n"
 
   text:
     format: 'text'
     type: 'thematic_break'
     fn: (num, token) ->
       chalk = new chalk.constructor {enabled: @setup.ansi_escape ? false}
-      token.out = "#{chalk.gray util.string.repeat '─', @setup.width}\n"
+      token.out = "\n#{chalk.gray util.string.repeat '─', @setup.width}\n"
 
   html:
     format: 'html'

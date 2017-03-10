@@ -1,11 +1,25 @@
 TokenList {
   data: 
    [ { type: 'document', nesting: 1, level: 0 },
+     { type: 'paragraph', nesting: 1, level: 1, parent: [Object] },
+     { type: 'text',
+       nesting: 0,
+       content: 'The first part.',
+       level: 2,
+       parent: [Object] },
+     { type: 'paragraph', nesting: -1, level: 1, parent: [Object] },
      { type: 'thematic_break', nesting: 0, level: 1, parent: [Object] },
+     { type: 'paragraph', nesting: 1, level: 1, parent: [Object] },
+     { type: 'text',
+       nesting: 0,
+       content: 'The second part.',
+       level: 2,
+       parent: [Object] },
+     { type: 'paragraph', nesting: -1, level: 1, parent: [Object] },
      { type: 'document', nesting: -1, level: 0 } ],
-  pos: 2,
+  pos: 8,
   token: 
-   { type: 'thematic_break',
-     nesting: 0,
+   { type: 'paragraph',
+     nesting: -1,
      level: 1,
      parent: { type: 'document', nesting: 1, level: 0 } } }

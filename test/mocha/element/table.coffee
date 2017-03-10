@@ -19,13 +19,7 @@ describe "table", ->
       | 3            | three          | drei          |
       | 4            | four           | vier          |
       | 5            | five           | fünf          |
-      """, null, [
-        {format: 'md'}
-        {format: 'text'}
-        {format: 'console'}
-        {format: 'html'}
-        {format: 'man'}
-      ], cb
+      """, null, true, cb
 
   describe "api", ->
 
