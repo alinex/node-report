@@ -317,7 +317,7 @@ describe "markdown raw html", ->
     it "should work with comment", (cb) ->
       test.markdown null, '<!-- Foo\n\nbar\n   baz -->\nokay', [
         {type: 'document', nesting: 1}
-        {type: 'raw', content: '<!-- Foo\n\nbar\n   baz -->', format: 'html', block: true}
+        {type: 'comment', content: 'Foo\n\nbar\n   baz', block: true}
         {type: 'paragraph', nesting: 1}
         {type: 'text', content: 'okay'}
         {type: 'paragraph', nesting: -1}
@@ -361,7 +361,7 @@ describe "markdown raw html", ->
         (cb) ->
           test.markdown null, '  <!-- foo -->\n\n    <!-- foo -->', [
             {type: 'document', nesting: 1}
-            {type: 'raw', content: '  <!-- foo -->', format: 'html', block: true}
+            {type: 'comment', content: 'foo', block: true}
             {type: 'preformatted', nesting: 1}
             {type: 'text', content: '<!-- foo -->'}
             {type: 'preformatted', nesting: -1}
@@ -598,7 +598,7 @@ describe "markdown raw html", ->
         {type: 'document', nesting: 1}
         {type: 'paragraph', nesting: 1}
         {type: 'text', content: 'foo '}
-        {type: 'raw', content: '<!-- this is a\ncomment - with hyphen -->', format: 'html'}
+        {type: 'comment', content: 'this is a\ncomment - with hyphen'}
         {type: 'paragraph', nesting: -1}
         {type: 'document', nesting: -1}
       ], null, cb

@@ -31,14 +31,14 @@ Report.prototype.raw = (text, format) ->
   return unless text
   # auto detect format
   unless format
-    format = switch
-      when text.match /<.*>/ then 'html'
+    format = 'html' if text.match /<.*>/
     throw new Error "Could not autodetect raw format of '#{text}'" unless format
   # insert token
   @tokens.insert
     type: 'raw'
     format: format
     content: text
+    block: Boolean @tokens.token.parent not in ['paragraph']
   this
 
 ###

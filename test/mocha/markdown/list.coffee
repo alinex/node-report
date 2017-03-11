@@ -1101,7 +1101,7 @@ describe "markdown list", ->
             {type: 'paragraph', nesting: -1}
             {type: 'item', nesting: -1}
             {type: 'list', nesting: -1}
-            {type: 'raw'}
+            {type: 'comment'}
             {type: 'list', nesting: 1}
             {type: 'item', nesting: 1}
             {type: 'paragraph', nesting: 1}
@@ -1134,7 +1134,7 @@ describe "markdown list", ->
             {type: 'paragraph', nesting: -1}
             {type: 'item', nesting: -1}
             {type: 'list', nesting: -1}
-            {type: 'raw'}
+            {type: 'comment'}
             {type: 'preformatted', nesting: 1}
             {type: 'text', content: 'code'}
             {type: 'preformatted', nesting: -1}

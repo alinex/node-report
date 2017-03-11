@@ -1,0 +1,3 @@
+Test class
+
+<!-- {.red} -->

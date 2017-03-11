@@ -22,5 +22,5 @@ module.exports =
       if token.format is 'html'
         token.out = token.content
       else
-        token.out = "<!-- raw #{token.format}\n#{token.content}\n-->"
+        token.out = "<!-- @#{token.format}\n#{token.content}\n-->"
       token.out = "\n#{token.out}\n" if token.block

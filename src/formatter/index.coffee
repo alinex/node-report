@@ -141,7 +141,6 @@ class Formatter
       if preLibs[@setup.type]
         for rule in preLibs[@setup.type]
           continue if rule.type and token.type isnt rule.type
-          continue if rule.state and not token.state in rule.state
           continue if rule.nesting and token.nesting isnt rule.nesting
           continue if rule.data and not token.data
           continue if rule.data?.text and not token.data?.text
@@ -158,7 +157,6 @@ class Formatter
       token = @tokens.get pos
       for rule in transLibs[@setup.type]
         continue if rule.type and token.type isnt rule.type
-        continue if rule.state and not token.state in rule.state
         continue if rule.nesting and token.nesting isnt rule.nesting
         continue if rule.data and not token.data
         continue if rule.data?.text and not token.data?.text
@@ -178,7 +176,6 @@ class Formatter
       # call post routine
       for rule in postLibs[@setup.type]
         continue if rule.type and token.type isnt rule.type
-        continue if rule.state and not token.state in rule.state
         debugRule "call post #{rule.name} for token ##{pos}" if debugRule
         rule.fn.call this, pos, token
         if token.collect and debugData.enabled
@@ -213,10 +210,6 @@ class Formatter
   end: ->
     # check if parsing started
     throw new Error "Nothing parsed" unless @tokens.length
-    # check for correct structure
-    if @level
-      unless @autoclose @states[0]
-        throw new Error "Not all elements closed correctly (ending in level #{@level})"
     debug "Done parsing" if debug.enabled
     # return token list
     @tokens

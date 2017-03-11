@@ -34,7 +34,7 @@ module.exports = (text) ->
 #      typographer: true
   # parse and convert tokens
   tree = markdownIt.parse text, {} # empty env
-  @tokens.insert tree2tokens tree
+  @tokens.insert optimize tree2tokens tree
   this
 
 
@@ -225,3 +225,44 @@ node2token = (t) ->
     for e in list
       token[e] = t[e] if t[e]?
   token
+
+# https://www.npmjs.com/package/markdown-it-decorate
+
+# @html xxx
+# -> @html xxx
+# @html {xxx}
+# {xxx}
+# -> style html xxx
+# xxx
+# -> comment xxx
+optimize = (list) ->
+  # optimize list
+  for t in list
+    continue unless t.type is 'raw'
+    continue unless m = t.content.match ///
+      ^\s*                        # nothing before
+      <!-{2,}\s*                  # start comment
+      (?:@(html|text|roff)\s+)?   # 1: format
+      (?:
+        \{(\s*[\s\S]+?)\}\s*      # 2: style
+        |([\s\S]+?)               # 3: content
+      )
+      \s*-{2,}>                   # end comment
+      \s*$                        # nothing after
+    ///
+    [_, format, style, content] = m
+    format ?= 'html' if style
+    # divide into three elements
+    unless format
+      t.type = 'comment'
+      delete t.format
+      t.content = content
+    else if style
+      t.type = 'style'
+      t.format = format
+      t.content = style
+    else
+      t.format = format
+      t.content = content
+  # return list
+  list
