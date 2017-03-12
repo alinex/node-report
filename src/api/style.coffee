@@ -25,9 +25,7 @@ Add raw content to current element position.
 Report.prototype.style = (text, format) ->
   return unless text
   # auto detect format
-  unless format
-    format = 'html' if text.match /<.*>/
-    throw new Error "Could not autodetect style format of '#{text}'" unless format
+  throw new Error "Missing format for style entry" unless format
   # insert token
   @tokens.insert
     type: 'style'

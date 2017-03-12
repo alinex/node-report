@@ -142,8 +142,6 @@ class Formatter
         for rule in preLibs[@setup.type]
           continue if rule.type and token.type isnt rule.type
           continue if rule.nesting and token.nesting isnt rule.nesting
-          continue if rule.data and not token.data
-          continue if rule.data?.text and not token.data?.text
           debugRule "call pre #{rule.name} for token ##{pos}" if debugRule
           if token.out
             ts = chalk.yellow.bold util.inspect(token, {depth: 1})
@@ -158,19 +156,18 @@ class Formatter
       for rule in transLibs[@setup.type]
         continue if rule.type and token.type isnt rule.type
         continue if rule.nesting and token.nesting isnt rule.nesting
-        continue if rule.data and not token.data
-        continue if rule.data?.text and not token.data?.text
         debugRule "call trans #{rule.name} for token ##{pos}" if debugRule
         rule.fn.call this, pos, token
         if token.out and debugData.enabled
           debugData "token ##{pos} out:
           #{chalk.yellow util.inspect util.string.shorten token.out, 60}"
+#    console.log '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', @setup.type
+#    console.log @tokens.dumpall()
     # collect output
     for pos in [@tokens.data.length-1..0]
       token = @tokens.get pos
-#      console.log '#######################################', pos, token.type, token.nesting
-#      console.log @tokens.data
-      continue if token.nesting isnt 1 # only work on opening elements
+      # only work on opening elements or style
+      continue if token.nesting isnt 1
       # collect content
       @tokens.collect pos, token
       # call post routine
@@ -204,16 +201,11 @@ class Formatter
     col = index - part.lastIndexOf('\n') - 1
     "#{line}:#{col}"
 
-  # End the parsing and check the result.
-  #
-  # @return {Array<Token>} list of parsed tokens
-  end: ->
-    # check if parsing started
-    throw new Error "Nothing parsed" unless @tokens.length
-    debug "Done parsing" if debug.enabled
-    # return token list
-    @tokens
-
+  htmlAttribs: (t) ->
+    return '' unless t.html
+    Object.keys(t.html).map (k) ->
+      " #{k}=\"#{if Array.isArray t.html[k] then t.html[k].join ' ' else t.html[k]}\""
+    .join ''
 
 
 # Make class available from the outside

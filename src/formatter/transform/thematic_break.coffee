@@ -28,7 +28,7 @@ module.exports =
     type: 'thematic_break'
     fn: (num, token) ->
       nl = if @setup.compress then '' else '\n'
-      token.out = "<hr />#{nl}"
+      token.out = "<hr#{@htmlAttribs token} />#{nl}"
 
   roff:
     format: 'roff'

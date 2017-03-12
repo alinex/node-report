@@ -2,6 +2,9 @@
 # =================================================
 
 
+util = require 'alinex-util'
+
+
 # Transformer rules
 #
 # @type {Object<Transformer>} rules to set output text in token
@@ -13,9 +16,9 @@ module.exports =
     fn: (num, token) ->
       nl = if @setup.compress then '' else '\n'
       token.out = switch token.nesting
-        when 1 then "<table>#{nl}"
+        when 1 then "<table#{@htmlAttribs token}>#{nl}"
         when -1 then "</table>#{nl}"
-        else "<table />#{nl}"
+        else "<table#{@htmlAttribs token} />#{nl}"
 
   html_thead:
     format: 'html'
@@ -23,9 +26,9 @@ module.exports =
     fn: (num, token) ->
       nl = if @setup.compress then '' else '\n'
       token.out = switch token.nesting
-        when 1 then "<thead>#{nl}"
+        when 1 then "<thead#{@htmlAttribs token}>#{nl}"
         when -1 then "</thead>#{nl}"
-        else "<thead />#{nl}"
+        else "<thead#{@htmlAttribs token} />#{nl}"
 
   html_tbody:
     format: 'html'
@@ -33,9 +36,9 @@ module.exports =
     fn: (num, token) ->
       nl = if @setup.compress then '' else '\n'
       token.out = switch token.nesting
-        when 1 then "<tbody>#{nl}"
+        when 1 then "<tbody#{@htmlAttribs token}>#{nl}"
         when -1 then "</tbody>#{nl}"
-        else "<tbody />#{nl}"
+        else "<tbody#{@htmlAttribs token} />#{nl}"
 
   html_tr:
     format: 'html'
@@ -43,9 +46,9 @@ module.exports =
     fn: (num, token) ->
       nl = if @setup.compress then '' else '\n'
       token.out = switch token.nesting
-        when 1 then "<tr>#{nl}"
+        when 1 then "<tr#{@htmlAttribs token}>#{nl}"
         when -1 then "</tr>#{nl}"
-        else "<tr />#{nl}"
+        else "<tr#{@htmlAttribs token} />#{nl}"
 
   html_th:
     format: 'html'
@@ -54,7 +57,9 @@ module.exports =
       nl = if @setup.compress then '' else '\n'
       token.out = switch token.nesting
         when 1
-          "<th style=\"text-align:#{token.align}\">"
+          util.extend token.html,
+            style: ['text-align:#{token.align};']
+          "<th#{@htmlAttribs token}>"
         when -1 then "</th>#{nl}"
         else "<th />#{nl}"
 
@@ -65,7 +70,9 @@ module.exports =
       nl = if @setup.compress then '' else '\n'
       token.out = switch token.nesting
         when 1
-          "<td style=\"text-align:#{token.parent.parent.parent.align[token.col]}\">"
+          util.extend token.html,
+            style: ['text-align:#{token.parent.parent.parent.align[token.col]};']
+          "<td#{@htmlAttribs token}>"
         when -1 then "</td>#{nl}"
         else "<td />#{nl}"
 

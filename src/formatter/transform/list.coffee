@@ -2,6 +2,9 @@
 # =================================================
 
 
+util = require 'alinex-util'
+
+
 # Transformer rules
 #
 # @type {Object<Transformer>} rules to set output text in token
@@ -15,20 +18,23 @@ module.exports =
       token.out = switch token.list
         when 'bullet'
           switch token.nesting
-            when 1 then "<ul>#{nl}"
+            when 1 then "<ul#{@htmlAttribs token}>#{nl}"
             when -1 then "</ul>#{nl}"
-            else "<ul />#{nl}"
+            else "<ul#{@htmlAttribs token} />#{nl}"
         when 'ordered'
-          start = if token.start > 1 then " start=\"#{token.start}\"" else ''
+          if token.start > 1
+            util.extend token,
+              html:
+                start: token.start
           switch token.nesting
-            when 1 then "<ol#{start}>#{nl}"
+            when 1 then "<ol#{@htmlAttribs token}>#{nl}"
             when -1 then "</ol>#{nl}"
-            else "<ol />#{nl}"
+            else "<ol#{@htmlAttribs token} />#{nl}"
         when 'definition'
           switch token.nesting
-            when 1 then "<dl>#{nl}"
+            when 1 then "<dl#{@htmlAttribs token}>#{nl}"
             when -1 then "</dl>#{nl}"
-            else "<dl />#{nl}"
+            else "<dl#{@htmlAttribs token} />#{nl}"
 
   roff:
     format: 'roff'

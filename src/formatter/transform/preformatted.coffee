@@ -19,9 +19,9 @@ module.exports =
     fn: (num, token) ->
       nl = if @setup.compress then '' else '\n'
       token.out = switch token.nesting
-        when 1 then "<pre><code>"
+        when 1 then "<pre#{@htmlAttribs token}><code>"
         when -1 then "</code></pre>#{nl}"
-        else "<pre><code></code></pre>#{nl}"
+        else "<pre#{@htmlAttribs token}><code></code></pre>#{nl}"
 
   roff:
     format: 'roff'

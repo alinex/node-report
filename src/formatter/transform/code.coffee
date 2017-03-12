@@ -3,6 +3,7 @@
 
 
 Config = require 'alinex-config'
+util = require 'alinex-util'
 
 
 # Transformer rules
@@ -15,10 +16,15 @@ module.exports =
     type: 'code'
     fn: (num, token) ->
       nl = if @setup.compress then '' else '\n'
+      # create output
       token.out = switch token.nesting
-        when 1 then "<pre class=\"language #{token.language}\">\
-        <header>#{Config.get('/report/code/title')[token.language] ? token.language}</header>\
-        <code>"
+        when 1
+          util.extend token,
+            html:
+              class: ['language', token.language]
+          "<pre#{@htmlAttribs token}>\
+          <header>#{Config.get('/report/code/title')[token.language] ? token.language}</header>\
+          <code>"
         when -1 then "</code></pre>#{nl}"
         else "<pre><code></code></pre>#{nl}"
 

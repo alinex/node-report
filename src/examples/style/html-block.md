@@ -1,3 +1,3 @@
-Test class
+Red text
 
-<!-- {.red} -->
+<!-- {.text-red} -->

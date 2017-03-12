@@ -11,7 +11,7 @@ TokenList {
        nesting: 0,
        format: 'html',
        block: false,
-       content: '.red',
+       content: '.text-red',
        level: 2,
        parent: [Object] },
      { type: 'paragraph', nesting: -1, level: 1, parent: [Object] },

@@ -28,7 +28,7 @@ module.exports =
     format: 'html'
     type: 'strong'
     fn: (num, token) ->
-      token.out = if token.nesting is 1 then '<strong>' else '</strong>'
+      token.out = if token.nesting is 1 then "<strong#{@htmlAttribs token}>" else '</strong>'
 
   strong_roff:
     format: 'roff'

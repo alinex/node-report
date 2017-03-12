@@ -18,7 +18,10 @@ module.exports =
     fn: (num, token) ->
       list = token.parent
       nl = if @setup.compress then '' else '\n'
-      attr = if token.task? then ' class="task"' else ''
+      if token.task
+        util.extend token,
+          html:
+            class: ['task']
       task = if token.task?
         "<input class=\"task-checkbox\" disabled=\"\"\
         #{if token.task then ' checked=\"\"' else ''} type=\"checkbox\"> "
@@ -26,12 +29,12 @@ module.exports =
       token.out = switch list.list
         when 'bullet'
           switch token.nesting
-            when 1 then "<li#{attr}>#{task}"
+            when 1 then "<li#{@htmlAttribs token}>#{task}"
             when -1 then "</li>#{nl}"
             else "<li />#{nl}"
         when 'ordered'
           switch token.nesting
-            when 1 then "<li#{attr}>#{task}"
+            when 1 then "<li#{@htmlAttribs token}>#{task}"
             when -1 then "</li>#{nl}"
             else "<li />#{nl}"
         when 'definition'

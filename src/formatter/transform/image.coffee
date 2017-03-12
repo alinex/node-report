@@ -3,6 +3,7 @@
 
 
 chalk = require 'chalk'
+util = require 'alinex-util'
 
 
 # Transformer rules
@@ -16,9 +17,11 @@ module.exports =
     fn: (num, token) ->
       switch token.nesting
         when 1
-          token.out = "<img src=\"#{token.src}\""
-          token.out += " title=\"#{token.title}\"" if token.title
-          token.out += " alt=\""
+          util.extend token,
+            html:
+              src: token.src
+          token.html.title = token.title if token.title
+          token.out = "<img#{@htmlAttribs token} alt=\""
         when -1
           token.out = "\" />"
 

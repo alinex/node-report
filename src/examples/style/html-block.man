@@ -1,2 +1,2 @@
 .P
-Test class
+Red text

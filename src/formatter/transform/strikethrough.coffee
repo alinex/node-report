@@ -15,9 +15,9 @@ module.exports =
     type: 'strikethrough'
     fn: (num, token) ->
       token.out = switch token.nesting
-        when 1 then "<s>"
+        when 1 then "<s#{@htmlAttribs token}>"
         when -1 then "</s>"
-        else "<s></s>"
+        else "<s#{@htmlAttribs token}></s>"
 
   md:
     format: ['md']

@@ -2,6 +2,7 @@
 # =================================================
 
 chalk = require 'chalk'
+util = require 'alinex-util'
 
 
 # Transformer rules
@@ -16,9 +17,11 @@ module.exports =
       nl = if @setup.compress then '' else '\n'
       switch token.nesting
         when 1
-          token.out = "<a href=\"#{token.href}\""
-          token.out += " title=\"#{token.title}\"" if token.title
-          token.out += ">"
+          util.extend token,
+            html:
+              href: token.href
+          token.html.title = token.title if token.title
+          token.out = "<a#{@htmlAttribs token}>"
         when -1
           token.out = "</a>#{nl}"
 

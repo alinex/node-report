@@ -14,7 +14,7 @@ module.exports =
       return if token.hidden
       nl = if @setup.compress then '' else '\n'
       token.out = switch token.nesting
-        when 1 then "<p>"
+        when 1 then "<p#{@htmlAttribs token}>"
         when -1 then "</p>#{nl}"
         else "<p />#{nl}"
 

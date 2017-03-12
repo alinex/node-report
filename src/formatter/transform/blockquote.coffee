@@ -13,7 +13,7 @@ module.exports =
     fn: (num, token) ->
       nl = if @setup.compress then '' else '\n'
       token.out = switch token.nesting
-        when 1 then "<blockquote>"
+        when 1 then "<blockquote#{@htmlAttribs token}>"
         when -1 then "</blockquote>#{nl}"
         else "<blockquote />#{nl}"
 

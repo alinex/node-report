@@ -62,12 +62,12 @@ class TokenList
       when -1 then '< '
       else '  '
     util.string.rpad(util.string.repeat('  ', token.level) + indent + token.type, 20) +
-    Object.keys(token).filter (e) -> e not in ['type', 'nesting', 'level', 'parent']
+    Object.keys(token).filter (e) -> e not in ['type', 'nesting', 'level', 'parent', 'out', 'collect']
     .map (e) ->
       if typeof token[e] is 'number'
         "#{e}=#{token[e]}"
       else
-        "#{e}=\"#{token[e]}\""
+        "#{e}=#{util.inspect token[e]}"
     .join ' '
 
   # Create new instance.
@@ -86,6 +86,13 @@ class TokenList
       type: 'document'
       nesting: -1
     ], null, 1
+
+  # Dump complete token list.
+  #
+  # @return {String} multiline representation
+  dumpall: () ->
+    @data.map (t) -> TokenList.dump t
+    .join '\n'
 
   # Get specified or last token.
   #

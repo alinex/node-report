@@ -24,7 +24,7 @@ module.exports =
     type: 'fixed'
     fn: (num, token) ->
       token.out = switch token.nesting
-        when 1 then "<code>"
+        when 1 then "<code#{@htmlAttribs token}>"
         when -1 then "</code>"
         else "<code></code>"
 

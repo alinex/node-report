@@ -62,15 +62,10 @@ module.exports =
     format: 'html'
     type: 'heading'
     fn: (num, token) ->
-      # collect attributes
-      attrib = ''
-      if token.html?
-        attrib = ' ' + Object.keys(token.html).map (e) -> "#{e}=\"#{token.html[e]}\""
-        .join ' '
       # write tag
       nl = if @setup.compress then '' else '\n'
       token.out = switch token.nesting
-        when 1 then "<h#{token.heading}#{attrib}>"
+        when 1 then "<h#{token.heading}#{@htmlAttribs token}>"
         when -1 then "</h#{token.heading}>#{nl}"
         else "<h#{token.heading}#{attrib} />#{nl}"
 
