@@ -45,7 +45,7 @@ module.exports =
         $
       ///
       if depth
-        depth = if depth is '^' then 0 else Number depth.subst 1
+        depth = if depth is '^' then 1 else Number depth.substr 1
       if target
         target = shortcut[target] ? target
       while attrs.length
@@ -72,7 +72,7 @@ module.exports =
         continue if t.nesting isnt 1 and t.type not in ['thematic_break']
         prev.push t
       if target
-        prev = prev.filter (e) -> e is target
+        prev = prev.filter (e) -> e.type is target
       if target = prev[depth ? 0]
         util.extend target,
           html: html

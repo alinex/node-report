@@ -32,7 +32,7 @@ Report.prototype.raw = (text, format) ->
   # auto detect format
   unless format
     format = 'html' if text.match /<.*>/
-    throw new Error "Could not autodetect raw format of '#{text}'"
+    throw new Error "Could not autodetect raw format of '#{text}'" unless format
   # insert token
   @tokens.insert
     type: 'raw'
