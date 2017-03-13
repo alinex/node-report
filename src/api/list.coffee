@@ -62,8 +62,7 @@ Report.prototype.list = (input, type = 'bullet', start = 1) ->
       list: type
       start: start
       nesting: 1
-    loose = input.filter((e) -> e.match /\n/).length
-    @item e, not loose for e in input
+    @item e for e in input
     @tokens.insert
       type: 'list'
       list: type
@@ -75,10 +74,10 @@ Add item to list.
 
 @param {String|Boolean} input with content of paragraph or true to open tag and
 false to close tag if content is added manually.
-@param {Boolean} tught set to `true to set hidden flag on paragraph used for tight lists`
+@param {Boolean} task set to `true` or `false` to use as task item
 @return {Report} instance itself for command concatenation
 ###
-Report.prototype.item = (input, tight) ->
+Report.prototype.item = (input, task) ->
   if typeof input is 'boolean'
     if input
       position.call this
@@ -86,6 +85,7 @@ Report.prototype.item = (input, tight) ->
       @tokens.insert [
         type: 'item'
         nesting: 1
+        task: task
       ,
         type: 'item'
         nesting: -1
@@ -98,7 +98,8 @@ Report.prototype.item = (input, tight) ->
     @tokens.insert
       type: 'item'
       nesting: 1
-    @paragraph input, tight
+      task: task
+    @paragraph input, not input.match /\n/
     @tokens.insert
       type: 'item'
       nesting: -1
@@ -112,15 +113,6 @@ false to close tag if content is added manually.
 @return {Report} instance itself for command concatenation
 ###
 Report.prototype.ul = (input) -> @list input, 'bullet'
-
-###
-Add a bullet list (shortcut).
-
-@param {Array|Boolean} input with content of paragraph or true to open tag and
-false to close tag if content is added manually.
-@return {Report} instance itself for command concatenation
-###
-Report.prototype.dl = (input) -> @list input, 'definition'
 
 ###
 Add a bullet list (shortcut).

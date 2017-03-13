@@ -16,9 +16,9 @@ module.exports =
     fn: (num, token) ->
       nl = if @setup.compress then '' else '\n'
       token.out = switch token.nesting
-        when 1 then "<table#{@htmlAttribs token}>#{nl}"
-        when -1 then "</table>#{nl}"
-        else "<table#{@htmlAttribs token} />#{nl}"
+        when 1 then "<dl#{@htmlAttribs token}>#{nl}"
+        when -1 then "</dl>#{nl}"
+        else "<dl#{@htmlAttribs token} />#{nl}"
 
   html_dt:
     format: 'html'
@@ -26,9 +26,9 @@ module.exports =
     fn: (num, token) ->
       nl = if @setup.compress then '' else '\n'
       token.out = switch token.nesting
-        when 1 then "<thead#{@htmlAttribs token}>#{nl}"
-        when -1 then "</thead>#{nl}"
-        else "<thead#{@htmlAttribs token} />#{nl}"
+        when 1 then "<dt#{@htmlAttribs token}>"
+        when -1 then "</dt>#{nl}"
+        else "<dt#{@htmlAttribs token} />#{nl}"
 
   html_dd:
     format: 'html'
@@ -36,9 +36,9 @@ module.exports =
     fn: (num, token) ->
       nl = if @setup.compress then '' else '\n'
       token.out = switch token.nesting
-        when 1 then "<tbody#{@htmlAttribs token}>#{nl}"
-        when -1 then "</tbody>#{nl}"
-        else "<tbody#{@htmlAttribs token} />#{nl}"
+        when 1 then "<dd#{@htmlAttribs token}>"
+        when -1 then "</dd>#{nl}"
+        else "<dd#{@htmlAttribs token} />#{nl}"
 
   md:
     format: ['md', 'text']

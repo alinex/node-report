@@ -205,4 +205,72 @@ describe "list", ->
         {format: 'html', text: "<ol start=\"3\">\n<li>one</li>\n<li>two</li>\n<li>three</li>\n</ol>\n"}
       ], cb
 
-# task list
+    it "should create in multiple steps", (cb) ->
+      # create report
+      report = new Report()
+      report.list true, 'bullet'
+      report.item 'one'
+      report.item 'two'
+      report.item 'three'
+      report.list false
+      # check it
+      test.report null, report, [
+        {type: 'document', nesting: 1}
+        {type: 'list', nesting: 1, list: 'bullet'}
+        {type: 'item', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: 'one'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'item', nesting: -1}
+        {type: 'item', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: 'two'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'item', nesting: -1}
+        {type: 'item', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: 'three'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'item', nesting: -1}
+        {type: 'list', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], [
+        {format: 'md', re: /   - one\n   - two\n   - three/}
+        {format: 'text', re: /   • one\n   • two\n   • three/}
+        {format: 'html', text: "<ul>\n<li>one</li>\n<li>two</li>\n<li>three</li>\n</ul>\n"}
+      ], cb
+
+    it "should create task list", (cb) ->
+      # create report
+      report = new Report()
+      report.list true, 'bullet'
+      report.item 'one', true
+      report.item 'two', false
+      report.item 'three'
+      report.list false
+      # check it
+      test.report null, report, [
+        {type: 'document', nesting: 1}
+        {type: 'list', nesting: 1, list: 'bullet'}
+        {type: 'item', nesting: 1, task: true}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: 'one'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'item', nesting: -1}
+        {type: 'item', nesting: 1, task: false}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: 'two'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'item', nesting: -1}
+        {type: 'item', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: 'three'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'item', nesting: -1}
+        {type: 'list', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], [
+        {format: 'md', text: '   - [X] one\n   - [ ] two\n   - three'}
+        {format: 'text', text: '   • ☒ one\n   • ☐ two\n   • three'}
+        {format: 'html', text: '<ul>\n<li class="task"><input class="task-checkbox" disabled="" checked="" type="checkbox"> one</li>\n<li><input class="task-checkbox" disabled="" type="checkbox"> two</li>\n<li>three</li>\n</ul>'}
+      ], cb
