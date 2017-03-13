@@ -30,11 +30,6 @@ module.exports =
             when 1 then "<ol#{@htmlAttribs token}>#{nl}"
             when -1 then "</ol>#{nl}"
             else "<ol#{@htmlAttribs token} />#{nl}"
-        when 'definition'
-          switch token.nesting
-            when 1 then "<dl#{@htmlAttribs token}>#{nl}"
-            when -1 then "</dl>#{nl}"
-            else "<dl#{@htmlAttribs token} />#{nl}"
 
   roff:
     format: 'roff'

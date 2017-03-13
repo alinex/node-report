@@ -9,6 +9,7 @@
 debug = require('debug') 'report:parse:markdown'
 chalk = require 'chalk'
 markdownIt = null # load on demand
+deflistPlugin = null # load on demand
 tasksPlugin = null # load on demand
 # include more alinex modules
 util = require 'alinex-util'
@@ -31,6 +32,7 @@ module.exports = (text) ->
       html: config.html
       linkify: config.linkify
     .use tasksPlugin ?= require './tasks'
+    .use deflistPlugin ?= require 'markdown-it-deflist'
 #      typographer: true
   # parse and convert tokens
   tree = markdownIt.parse text, {} # empty env

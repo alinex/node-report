@@ -37,11 +37,6 @@ module.exports =
             when 1 then "<li#{@htmlAttribs token}>#{task}"
             when -1 then "</li>#{nl}"
             else "<li />#{nl}"
-        when 'definition'
-          switch token.nesting
-            when 1 then "<dt>#{list.title}</dt>#{nl}<dd>"
-            when -1 then "</dd>#{nl}"
-            else "<dt /><dd />#{nl}"
 
   roff:
     format: 'roff'
