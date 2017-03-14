@@ -18,7 +18,7 @@ module.exports =
       token.collect = chalk.bold token.collect
 
   md_dd:
-    format: 'md'
+    format: ['md', 'text']
     type: 'dd'
     fn: (num, token) ->
       token.collect = token.collect
