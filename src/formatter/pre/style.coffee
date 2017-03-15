@@ -37,7 +37,8 @@ module.exports =
       # extract style information
       html = {}
       [_, target, depth, attrs] = token.content.match ///
-        ^(?:
+        ^:?\s*     # kramdown syntax
+        (?:
           (\w+)     # 1: target
           (\^\d*)?  # 2: negative offset
         :\s*)?

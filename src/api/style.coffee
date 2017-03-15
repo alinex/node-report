@@ -39,15 +39,7 @@ Report.prototype.style = (text, format) ->
 Markdown Input/Output
 ----------------------------------------------------
 
-#3 HTML
-
-HTML content may be directly included in markdown if this is enabled in the configuration
-(this is the default). It can be given as block or inline element.
-
-#3 Other Formats
-
-All other formats but also HTML may be added as an HTML comment and will also be outputted
-as such.
+This will support styles also in kramdown syntax:
 
 
 Other Output

@@ -114,3 +114,17 @@ describe "style", ->
         """, null, [
         {format: 'html', text: '<img class="red" src="foo.gif" alt="foo" />'}
       ], cb
+
+    it "should allow kramdown syntax", (cb) ->
+      test.markdown null, """
+        Red text <!-- {:.red} -->
+        """, null, [
+        {format: 'html', text: '<p class="red">Red text </p>'}
+      ], cb
+
+    it "should allow kramdown syntax with space", (cb) ->
+      test.markdown null, """
+        Red text <!-- {: .red} -->
+        """, null, [
+        {format: 'html', text: '<p class="red">Red text </p>'}
+      ], cb
