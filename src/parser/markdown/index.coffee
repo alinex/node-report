@@ -11,7 +11,8 @@ chalk = require 'chalk'
 markdownIt = null # load on demand
 deflistPlugin = null # load on demand
 tasksPlugin = null # load on demand
-containerPlugin = null # load on demand
+#containerPlugin = null # load on demand
+boxPlugin = null
 # include more alinex modules
 util = require 'alinex-util'
 Config = require 'alinex-config'
@@ -29,17 +30,19 @@ module.exports = (text) ->
   # init markdown-it
   unless markdownIt
     config = Config.get '/report/parser/md'
-    containerPlugin ?= require 'markdown-it-container'
+#    containerPlugin ?= require 'markdown-it-container'
     markdownIt = require('markdown-it')
       html: config.html
       linkify: config.linkify
     .use tasksPlugin ?= require './tasks'
     .use deflistPlugin ?= require 'markdown-it-deflist'
-    .use containerPlugin, 'detail'
-    .use containerPlugin, 'info'
-    .use containerPlugin, 'ok'
-    .use containerPlugin, 'warning'
-    .use containerPlugin, 'alert'
+    .use tasksPlugin ?= require './tasks'
+    .use boxPlugin ?= require './box'
+#    .use containerPlugin, 'detail'
+#    .use containerPlugin, 'info'
+#    .use containerPlugin, 'ok'
+#    .use containerPlugin, 'warning'
+#    .use containerPlugin, 'alert'
 #      typographer: true
   # parse and convert tokens
   tree = markdownIt.parse text, {} # empty env

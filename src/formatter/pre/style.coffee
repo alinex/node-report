@@ -29,6 +29,14 @@ shortcut =
 # @type {Object<Transformer>} rules to set output text in token
 module.exports =
 
+  md:
+    format: 'md'
+    type: 'style'
+    fn: (num, token) ->
+      if token.format is 'html'
+        # kramdown to normal syntax
+        token.content = token.content.replace /^:\s*/, ''
+  
   html:
     format: 'html'
     type: 'style'
