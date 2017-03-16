@@ -11,7 +11,6 @@ chalk = require 'chalk'
 markdownIt = null # load on demand
 deflistPlugin = null # load on demand
 tasksPlugin = null # load on demand
-#containerPlugin = null # load on demand
 boxPlugin = null
 # include more alinex modules
 util = require 'alinex-util'
@@ -30,7 +29,6 @@ module.exports = (text) ->
   # init markdown-it
   unless markdownIt
     config = Config.get '/report/parser/md'
-#    containerPlugin ?= require 'markdown-it-container'
     markdownIt = require('markdown-it')
       html: config.html
       linkify: config.linkify
@@ -38,11 +36,6 @@ module.exports = (text) ->
     .use deflistPlugin ?= require 'markdown-it-deflist'
     .use tasksPlugin ?= require './tasks'
     .use boxPlugin ?= require './box'
-#    .use containerPlugin, 'detail'
-#    .use containerPlugin, 'info'
-#    .use containerPlugin, 'ok'
-#    .use containerPlugin, 'warning'
-#    .use containerPlugin, 'alert'
 #      typographer: true
   # parse and convert tokens
   tree = markdownIt.parse text, {} # empty env
@@ -176,6 +169,16 @@ modify =
         t.align = align[1]
     null
 
+  box: (t) ->
+    t.type = 'box'
+    if t.info.length or t.nesting is 1
+      m = t.info.match /(\w+)(?:\s+([\s\S]+))?/
+      t.box = m?[1] ? 'detail'
+      t.title = m?[2] ? util.string.ucFirst t.box
+    if t.attrs
+      for a in t.attrs
+        t.concat = a[1] if a[0] is 'concat'
+
 # Specify elements to copy from markdown token to report token.
 copyAttributes =
   text: ['content']
@@ -187,6 +190,7 @@ copyAttributes =
   image: ['src', 'title']
   raw: ['format', 'block', 'content']
   th: ['align']
+  box: ['concat', 'box', 'title']
 
 # Convert markdown-it structure to report tokens.
 #
