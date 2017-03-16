@@ -5,7 +5,7 @@ async = require 'async'
 Report = require '../../../src'
 before (cb) -> Report.init cb
 
-describe.only "markdown block", ->
+describe "markdown block", ->
 
   describe "single box", ->
 
@@ -16,9 +16,11 @@ describe.only "markdown block", ->
         :::
         """, [
         {type: 'document', nesting: 1}
+        {type: 'container', nesting: 1}
         {type: 'box', nesting: 1, box: 'detail', title: 'Detail'}
         {type: 'paragraph', nesting: 1}, {type: 'text', content: 'foo'}, {type: 'paragraph', nesting: -1}
         {type: 'box', nesting: -1}
+        {type: 'container', nesting: -1}
         {type: 'document', nesting: -1}
       ], null, cb
 
@@ -29,9 +31,11 @@ describe.only "markdown block", ->
         :::
         """, [
         {type: 'document', nesting: 1}
+        {type: 'container', nesting: 1}
         {type: 'box', nesting: 1, box: 'info', title: 'Info'}
         {type: 'paragraph', nesting: 1}, {type: 'text', content: 'foo'}, {type: 'paragraph', nesting: -1}
         {type: 'box', nesting: -1}
+        {type: 'container', nesting: -1}
         {type: 'document', nesting: -1}
       ], null, cb
 
@@ -42,9 +46,11 @@ describe.only "markdown block", ->
         :::
         """, [
         {type: 'document', nesting: 1}
+        {type: 'container', nesting: 1}
         {type: 'box', nesting: 1, box: 'info', title: 'Message'}
         {type: 'paragraph', nesting: 1}, {type: 'text', content: 'foo'}, {type: 'paragraph', nesting: -1}
         {type: 'box', nesting: -1}
+        {type: 'container', nesting: -1}
         {type: 'document', nesting: -1}
       ], null, cb
 
@@ -55,9 +61,11 @@ describe.only "markdown block", ->
         :::
         """, [
         {type: 'document', nesting: 1}
+        {type: 'container', nesting: 1}
         {type: 'box', nesting: 1, box: 'info', title: 'Message'}
         {type: 'paragraph', nesting: 1}, {type: 'text', content: 'foo'}, {type: 'paragraph', nesting: -1}
         {type: 'box', nesting: -1}
+        {type: 'container', nesting: -1}
         {type: 'document', nesting: -1}
       ], null, cb
 
@@ -68,9 +76,11 @@ describe.only "markdown block", ->
         :::
         """, [
         {type: 'document', nesting: 1}
+        {type: 'container', nesting: 1}
         {type: 'box', nesting: 1, box: 'info', title: 'Message'}
         {type: 'paragraph', nesting: 1}, {type: 'text', content: 'foo'}, {type: 'paragraph', nesting: -1}
         {type: 'box', nesting: -1}
+        {type: 'container', nesting: -1}
         {type: 'document', nesting: -1}
       ], null, cb
 
@@ -81,9 +91,11 @@ describe.only "markdown block", ->
         :::
         """, [
         {type: 'document', nesting: 1}
+        {type: 'container', nesting: 1}
         {type: 'box', nesting: 1, box: 'info', title: 'Top Message'}
         {type: 'paragraph', nesting: 1}, {type: 'text', content: 'foo'}, {type: 'paragraph', nesting: -1}
         {type: 'box', nesting: -1}
+        {type: 'container', nesting: -1}
         {type: 'document', nesting: -1}
       ], null, cb
 
@@ -93,11 +105,15 @@ describe.only "markdown block", ->
         foo
         """, [
         {type: 'document', nesting: 1}
+        {type: 'container', nesting: 1}
         {type: 'box', nesting: 1, box: 'detail', title: 'Detail'}
         {type: 'paragraph', nesting: 1}, {type: 'text', content: 'foo'}, {type: 'paragraph', nesting: -1}
         {type: 'box', nesting: -1}
+        {type: 'container', nesting: -1}
         {type: 'document', nesting: -1}
       ], null, cb
+
+  describe "multi box", ->
 
     it "should allow multibox entry", (cb) ->
       test.markdown null, """
@@ -108,11 +124,39 @@ describe.only "markdown block", ->
         :::
         """, [
         {type: 'document', nesting: 1}
-        {type: 'box', nesting: 1, box: 'info', title: 'Info', concat: true}
+        {type: 'container', nesting: 1}
+        {type: 'box', nesting: 1, box: 'info', title: 'Info'}
         {type: 'paragraph', nesting: 1}, {type: 'text', content: 'foo'}, {type: 'paragraph', nesting: -1}
-        {type: 'box', nesting: -1, concat: true}
+        {type: 'box', nesting: -1}
         {type: 'box', nesting: 1, box: 'warning', title: 'Warning'}
         {type: 'paragraph', nesting: 1}, {type: 'text', content: 'bar'}, {type: 'paragraph', nesting: -1}
         {type: 'box', nesting: -1}
+        {type: 'container', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    it "should allow with surrounding text", (cb) ->
+      test.markdown null, """
+        Before
+
+        ::: info
+        foo
+        ::: warning
+        bar
+        :::
+
+        After
+        """, [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}, {type: 'text', content: 'Before'}, {type: 'paragraph', nesting: -1}
+        {type: 'container', nesting: 1}
+        {type: 'box', nesting: 1, box: 'info', title: 'Info'}
+        {type: 'paragraph', nesting: 1}, {type: 'text', content: 'foo'}, {type: 'paragraph', nesting: -1}
+        {type: 'box', nesting: -1}
+        {type: 'box', nesting: 1, box: 'warning', title: 'Warning'}
+        {type: 'paragraph', nesting: 1}, {type: 'text', content: 'bar'}, {type: 'paragraph', nesting: -1}
+        {type: 'box', nesting: -1}
+        {type: 'container', nesting: -1}
+        {type: 'paragraph', nesting: 1}, {type: 'text', content: 'After'}, {type: 'paragraph', nesting: -1}
         {type: 'document', nesting: -1}
       ], null, cb

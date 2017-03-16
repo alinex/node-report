@@ -175,9 +175,6 @@ modify =
       m = t.info.match /(\w+)(?:\s+([\s\S]+))?/
       t.box = m?[1] ? 'detail'
       t.title = m?[2] ? util.string.ucFirst t.box
-    if t.attrs
-      for a in t.attrs
-        t.concat = a[1] if a[0] is 'concat'
 
 # Specify elements to copy from markdown token to report token.
 copyAttributes =
@@ -190,7 +187,7 @@ copyAttributes =
   image: ['src', 'title']
   raw: ['format', 'block', 'content']
   th: ['align']
-  box: ['concat', 'box', 'title']
+  box: ['box', 'title']
 
 # Convert markdown-it structure to report tokens.
 #
