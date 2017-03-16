@@ -81,3 +81,21 @@ describe "paragraph", ->
         {format: 'html', text: "<p>foo</p>\n<p>bar</p>\n"}
         {format: 'man', text: ".P\nfoo\n.P\nbar"}
       ], cb
+
+  describe "format", ->
+
+    it "should create paragraph", (cb) ->
+      # check it
+      test.markdown null, """
+        This is a very long line. It has to be broken into multiple lines for plain text output or to display on console. It should be broken into two lines.
+        """, null, [
+        {format: 'text', re: /\n/}
+      ], cb
+
+    it "should create paragraph within blockquote", (cb) ->
+      # check it
+      test.markdown null, """
+        > > > > This is a very long line. It has to be broken into multiple lines for plain text output or to display on console. It should be broken into two lines.
+        """, null, [
+        {format: 'text', re: /\n/}
+      ], cb

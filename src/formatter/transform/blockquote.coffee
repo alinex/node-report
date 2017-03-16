@@ -22,3 +22,10 @@ module.exports =
     type: 'blockquote'
     fn: (num, token) ->
       token.out = if token.nesting is 1 then '.P\n.RS 2\n.nf\n' else '.fi\n.RE\n'
+
+  text_indent:
+    format: 'text'
+    type: 'blockquote'
+    nesting: 1
+    fn: (num, token) ->
+      token.indent = (token.parent.indent ? 0) + 2

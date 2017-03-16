@@ -24,6 +24,7 @@
 # The tokens may get some type specific information in the pre transformation step
 # like:
 # - `html` - `Object` with <attrib> = <value>
+# - `indent` - `Integer` indention used to calculate width in text form
 # - `count` - `Integer` number of elements in `list` element
 # - `num` - `Integer` number of `item` in list (equals to numer in ordered list)
 # - `col` - `Integer` column number in table
