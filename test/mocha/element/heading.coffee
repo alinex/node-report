@@ -241,3 +241,17 @@ describe "heading", ->
         {type: 'heading', heading: 2, nesting: -1}
         {type: 'document', nesting: -1}
       ], null, cb
+
+  describe "format", ->
+
+    it "should allow same header for html anchor", (cb) ->
+      # create report
+      report = new Report()
+      report.h1 'foo'
+      report.h1 'foo 1'
+      report.h2 'foo'
+      # check it
+      test.report null, report, null,
+      [
+        {format: 'html', text: "<h1 id=\"foo\">foo</h1>\n<h1 id=\"foo-1\">foo 1</h1>\n<h2 id=\"foo-2\">foo</h2>"}
+      ], cb
