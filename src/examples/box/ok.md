@@ -1,3 +1,3 @@
 ::: ok Ok
-foo
+Everything works fine.
 :::

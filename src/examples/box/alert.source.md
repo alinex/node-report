@@ -1,3 +1,3 @@
 ::: alert
-foo
+The process failed at...
 :::

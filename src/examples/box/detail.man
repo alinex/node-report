@@ -1,2 +1,2 @@
 .P
-foo
+Some details here...

@@ -11,7 +11,7 @@ TokenList {
      { type: 'paragraph', nesting: 1, level: 3, parent: [Object] },
      { type: 'text',
        nesting: 0,
-       content: 'foo',
+       content: 'The process failed at...',
        level: 4,
        parent: [Object] },
      { type: 'paragraph', nesting: -1, level: 3, parent: [Object] },

@@ -25,8 +25,8 @@
 # like:
 # - `html` - `Object` with <attrib> = <value>
 # - `indent` - `Integer` indention used to calculate width in text form
-# - `count` - `Integer` number of elements in `list` element
-# - `num` - `Integer` number of `item` in list (equals to numer in ordered list)
+# - `count` - `Integer` number of elements in `list`, `container` element
+# - `num` - `Integer` number of `item`, `box` in list (equals to number in ordered list)
 # - `col` - `Integer` column number in table
 #
 # The transformator step will also add:

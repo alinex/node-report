@@ -1,3 +1,3 @@
 ::: detail Detail
-foo
+Some details here...
 :::

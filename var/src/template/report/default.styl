@@ -17,7 +17,8 @@ $color-background = #ddd
 $color-orange = #f0ad4e
 $color-blue = #337ab7
 // colors for boxes
-$color-info = #99ff99
+$color-info = #7cbde1
+$color-ok = #99ff99
 $color-warning = #fbcd4a
 $color-alert = #ee8866
 // colors for code boxes
@@ -286,12 +287,11 @@ ul.table-of-contents
     transition: all 0.5s
     opacity: 0.5
     font-weight: bold
-    font-size: 80%
   input.tab + label:hover
   input.tab:hover + label
     opacity: 1
   /* hide tab contents */
-  .tab-content
+  .box
     display: none
     position: relative
     clear: both
@@ -310,14 +310,14 @@ ul.table-of-contents
     border-bottom: 1px solid #fff
     opacity: 1
   /* link tab with content */
-  .tab1:checked ~ .tab-content1
-  .tab2:checked ~ .tab-content2
-  .tab3:checked ~ .tab-content3
-  .tab4:checked ~ .tab-content4
-  .tab5:checked ~ .tab-content5
-  .tab6:checked ~ .tab-content6
-  .tab7:checked ~ .tab-content7
-  .tab8:checked ~ .tab-content8
+  .tab1:checked ~ .box1
+  .tab2:checked ~ .box2
+  .tab3:checked ~ .box3
+  .tab4:checked ~ .box4
+  .tab5:checked ~ .box5
+  .tab6:checked ~ .box6
+  .tab7:checked ~ .box7
+  .tab8:checked ~ .box8
     display: block
   /* action */
   .tabs-size + label
@@ -329,9 +329,9 @@ ul.table-of-contents
   .tabs-size-scroll:checked + label
   .tabs-size-max:checked + label
     display: none
-  .tabs-size-min:checked ~ .tab-content
+  .tabs-size-min:checked ~ .box
     height: 0
-  .tabs-size-max:checked ~ .tab-content
+  .tabs-size-max:checked ~ .box
     max-height: none
 @media print
   input.tab + label
@@ -340,7 +340,7 @@ ul.table-of-contents
   .tabs-size-scroll + label
   .tabs-size-max + label
     display: none
-  .tab-content
+  .box
     display: block !important
     max-height: none !important
     height: auto !important
@@ -358,6 +358,12 @@ ul.table-of-contents
   div.info
     background-image: linear-gradient(to bottom, lighten($color-info, 50%) 0%, $color-info 100%)
 
+  input.tab + label.ok
+    background-image: linear-gradient(to bottom, lighten($color-ok, 50%) 0%, $color-ok 100%)
+    border-bottom-color: $color-ok
+  div.ok
+    background-image: linear-gradient(to bottom, lighten($color-ok, 50%) 0%, $color-ok 100%)
+
   input.tab + label.warning
     background-image: linear-gradient(to bottom, lighten($color-warning, 50%) 0%, $color-warning 100%)
     border-bottom-color: $color-warning
@@ -374,7 +380,7 @@ ul.table-of-contents
 * Special box content: code
 */
 .container
-  .tab-content.pre
+  .box.pre
     padding: 0
     pre
     table

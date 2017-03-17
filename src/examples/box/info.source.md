@@ -1,3 +1,3 @@
 ::: info
-foo
+And a little information to help you...
 :::

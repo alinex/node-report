@@ -37,23 +37,15 @@ module.exports =
     fn: (num, token) ->
       token.out = "\n#{token.parent.marker} #{token.box} #{token.title}"
 
-  html:
+  html_container:
     format: 'html'
     type: 'container'
     fn: (num, token) ->
-      util.extend token,
-        html:
-          class: ['container']
-      nl = if @setup.compress then '' else '\n'
-      token.out = switch token.nesting
-        when 1 then "<div#{@htmlAttribs token}>#{nl}"
-        when -1 then "</div>#{nl}"
-
-#<input name="tabs1" class="tab tab1" id="tab1" checked="" type="radio">
-#<label for="tab1" class="detail" title="Switch tab">Details</label>
-#<div class="tab-content tab-content1 detail">
-#<p>Some more details here…</p>
-#</div>
+      for n, t of @tokens.contains 'box', num, token
+        token.out += """
+          <input name="tabs#{token.num}" class="tab tab#{t.num}" id="tab#{token.num}-#{t.num}" checked="" type="radio">
+          <label for="tab#{token.num}-#{t.num}" class="#{t.box}" title="Switch tab">#{t.title}</label>
+          """
 
   text_width:
     format: 'text'
