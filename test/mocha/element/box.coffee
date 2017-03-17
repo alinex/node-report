@@ -5,7 +5,7 @@ async = require 'async'
 Report = require '../../../src'
 before (cb) -> Report.init cb
 
-describe.only "box", ->
+describe "box", ->
 
   describe "examples", ->
     @timeout 30000

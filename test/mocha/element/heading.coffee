@@ -36,7 +36,8 @@ describe "heading", ->
         {type: 'document', nesting: -1}
       ], [
         {format: 'md', re: /foo\n===+/}
-        {format: 'text', re: /foo\n═══+/}
+        {format: 'text', re: /foo\n###+/}
+        {format: 'console', re: /\u001b\[33m\u001b\[1mfoo\u001b\[22m\u001b\[39m\u001b\[33m\n═══+/}
         {format: 'html', text: "<h1 id=\"foo\">foo</h1>\n"}
         {format: 'man', re: /\.TH "FOO" "" "\w+ \d+" "" ""\n\.SH "NAME"\n\\fBfoo\\fR/}
       ], cb
@@ -58,7 +59,8 @@ describe "heading", ->
         {type: 'document', nesting: -1}
       ], [
         {format: 'md', re: /foobar\n===+/}
-        {format: 'text', re: /foobar\n═══+/}
+        {format: 'text', re: /foobar\n###+/}
+        {format: 'console', re: /\u001b\[33m\u001b\[1mfoobar\u001b\[22m\u001b\[39m\u001b\[33m\n═══+/}
         {format: 'html', text: "<h1 id=\"foobar\">foobar</h1>\n"}
         {format: 'man', text: ".TH \"FOOBAR\""}
       ], cb
@@ -76,7 +78,8 @@ describe "heading", ->
         {type: 'document', nesting: -1}
       ], [
         {format: 'md', re: /foo\n===+/}
-        {format: 'text', re: /foo\n═══+/}
+        {format: 'text', re: /foo\n###+/}
+        {format: 'console', re: /\u001b\[33m\u001b\[1mfoo\u001b\[22m\u001b\[39m\u001b\[33m\n═══+/}
         {format: 'html', text: "<h1 id=\"foo\">foo</h1>\n"}
         {format: 'man', text: ".TH \"FOO\""}
       ], cb
@@ -167,7 +170,8 @@ describe "heading", ->
         {type: 'document', nesting: -1}
       ], [
         {format: 'md', re: /foo\n===+/}
-        {format: 'text', re: /foo\n═══+/}
+        {format: 'text', re: /foo\n###+/}
+        {format: 'console', re: /\u001b\[33m\u001b\[1mfoo\u001b\[22m\u001b\[39m\u001b\[33m\n═══+/}
         {format: 'html', text: "<h1 id=\"foo\">foo</h1>\n"}
         {format: 'man', text: ".TH \"FOO\""}
       ], cb

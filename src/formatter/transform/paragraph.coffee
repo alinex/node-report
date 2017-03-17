@@ -27,7 +27,7 @@ module.exports =
         when -1 then '\n'
 
   other:
-    format: ['md', 'text', 'adoc']
+    format: ['md', 'text']
     type: 'paragraph'
     fn: (num, token) ->
       if token.nesting is 1

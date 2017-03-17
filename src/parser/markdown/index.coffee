@@ -257,7 +257,8 @@ optimize = (list) ->
       <!-{2,}\s*                  # start comment
       (?:@(html|text|roff)\s+)?   # 1: format
       (?:
-        \{(\s*[\s\S]+?)\}\s*      # 2: style
+        \{:?\s*                   # kramdown syntax
+        (\s*[\s\S]+?)\}\s*        # 2: style
         |([\s\S]+?)               # 3: content
       )
       \s*-{2,}>                   # end comment

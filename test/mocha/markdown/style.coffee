@@ -33,7 +33,7 @@ describe "style", ->
         {type: 'document', nesting: 1}
         {type: 'paragraph', nesting: 1}
         {type: 'text', content: 'aaa'}
-        {type: 'style', nesting: 0, content: ':.red'}
+        {type: 'style', nesting: 0, content: '.red'}
         {type: 'paragraph', nesting: -1}
         {type: 'document', nesting: -1}
       ], null, cb
@@ -43,7 +43,7 @@ describe "style", ->
         {type: 'document', nesting: 1}
         {type: 'paragraph', nesting: 1}
         {type: 'text', content: 'aaa'}
-        {type: 'style', nesting: 0, content: ': .red'}
+        {type: 'style', nesting: 0, content: '.red'}
         {type: 'paragraph', nesting: -1}
         {type: 'document', nesting: -1}
       ], null, cb

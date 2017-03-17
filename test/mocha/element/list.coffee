@@ -110,6 +110,12 @@ describe "list", ->
         10. anything missing?
       """, null, true, cb
 
+    it "should make tight list", (cb) ->
+      test.markdown 'list/long', """
+        - search the internet sites for a cheap holiday trip to an all inclusive hotel near the beach in the south of spain
+        - have some fun and relax within your two weeks in spain to be back at work afterwords with fresh energy
+      """, null, true, cb
+
   describe "api", ->
 
     it "should create bullet list", (cb) ->
@@ -139,7 +145,8 @@ describe "list", ->
         {type: 'document', nesting: -1}
       ], [
         {format: 'md', re: /   - one\n   - two\n   - three/}
-        {format: 'text', re: /   • one\n   • two\n   • three/}
+        {format: 'text', re: /   - one\n   - two\n   - three/}
+        {format: 'console', re: /   • one\n   • two\n   • three/}
         {format: 'html', text: "<ul>\n<li>one</li>\n<li>two</li>\n<li>three</li>\n</ul>\n"}
       ], cb
 
@@ -236,7 +243,8 @@ describe "list", ->
         {type: 'document', nesting: -1}
       ], [
         {format: 'md', re: /   - one\n   - two\n   - three/}
-        {format: 'text', re: /   • one\n   • two\n   • three/}
+        {format: 'text', re: /   - one\n   - two\n   - three/}
+        {format: 'console', re: /   • one\n   • two\n   • three/}
         {format: 'html', text: "<ul>\n<li>one</li>\n<li>two</li>\n<li>three</li>\n</ul>\n"}
       ], cb
 
@@ -271,6 +279,7 @@ describe "list", ->
         {type: 'document', nesting: -1}
       ], [
         {format: 'md', text: '   - [X] one\n   - [ ] two\n   - three'}
-        {format: 'text', text: '   • ☒ one\n   • ☐ two\n   • three'}
+        {format: 'text', text: '   - [X] one\n   - [ ] two\n   - three'}
+        {format: 'console', text: '   • \u001b[1m☒ \u001b[22mone\n   • \u001b[1m☐ \u001b[22mtwo\n   • three'}
         {format: 'html', text: '<ul>\n<li class="task"><input class="task-checkbox" disabled="" checked="" type="checkbox"> one</li>\n<li><input class="task-checkbox" disabled="" type="checkbox"> two</li>\n<li>three</li>\n</ul>'}
       ], cb

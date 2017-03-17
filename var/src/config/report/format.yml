@@ -15,8 +15,8 @@ md:
 text:
   type: text
   extension: .txt
-  width: 100
-  ascii_art: true
+  width: 60
+  ascii_art: false
   ansi_escape: false
 
 console:

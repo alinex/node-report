@@ -37,4 +37,4 @@ parser = (state) ->
     tokens[i - 2].type is 'list_item_open' and
     tokens[i].content.match /^\[[\ xX]\] /
       attrSet tokens[i - 2], 'task', Boolean tokens[i].content.match /^\[[xX]\] /
-      tokens[i].children[0].content = tokens[i].children[0].content.slice 4
+      tokens[i].children[0].content = tokens[i].children[0].content.replace /^\[[\ xX]\] /, ''

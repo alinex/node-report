@@ -86,7 +86,7 @@ module.exports =
               when 3 then '⁃'
               else '·'
           else
-            list.marker ? '.'
+            list.marker ? '-'
           # make bullet
           switch token.nesting
             when 1 then "   #{marker} "
@@ -96,3 +96,10 @@ module.exports =
           switch token.nesting
             when 1 then "#{util.string.lpad token.num, 3}#{marker} "
             else ''
+
+  text_indent:
+    format: 'text'
+    type: 'item'
+    nesting: 1
+    fn: (num, token) ->
+      token.indent = (token.parent.parent.indent ? 0) + 4
