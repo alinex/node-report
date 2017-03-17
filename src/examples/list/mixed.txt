@@ -1,8 +1,8 @@
 Capital Cities:
   1. Europe
-        ‣ London
-        ‣ Berlin
-        ‣ Paris
+        - London
+        - Berlin
+        - Paris
   2. Africa
-        ‣ Kairo
-        ‣ Tunis
+        - Kairo
+        - Tunis

@@ -1,10 +1,10 @@
 Capital Cities:
-   • Berlin
+   - Berlin
 
      Capital city of germany
-   • London
+   - London
 
      Capital city of great britan
-   • Paris
+   - Paris
 
      Capital city of france

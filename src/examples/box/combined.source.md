@@ -1,0 +1,5 @@
+::: info
+foo
+::: ok
+bar
+:::

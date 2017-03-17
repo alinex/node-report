@@ -70,29 +70,39 @@ module.exports =
     format: 'text'
     type: 'container'
     fn: (num, token) ->
-      top = if @setup.ascii_art then '╔═╗' else '###'
-      top = top[0] + util.string.repeat(top[1], token.width + 2) + top[2]
-      bottom = if @setup.ascii_art then '╚═╝' else '###'
-      bottom = bottom[0] + util.string.repeat(bottom[1], token.width + 2) + bottom[2]
-      token.collect = "\n#{top}\n#{token.collect}\n#{bottom}\n"
-
-  text_box:
-    format: 'text'
-    type: 'box'
-    fn: (num, token) ->
+      # top
       chalk = new chalk.constructor {enabled: @setup.ansi_escape ? false}
-      color = chalk[COLORS[token.box] ? 'white']
+      first = @tokens.get num + 1
+      color = chalk[COLORS[first.box] ? 'white']
+      top = if @setup.ascii_art then '╔═╗' else '###'
+      top = color top[0] + util.string.repeat(top[1], token.width + 2) + top[2]
+      # bottom
+      [lnum] = @tokens.findEnd num, token
+      last = @tokens.get lnum - 1
+      [_, last] = @tokens.findStart lnum - 1, last
+      color = chalk[COLORS[last.box] ? 'white']
+      bottom = if @setup.ascii_art then '╚═╝' else '###'
+      bottom = color bottom[0] + util.string.repeat(bottom[1], token.width + 2) + bottom[2]
+      # work on boxes
       title = if @setup.ascii_art then '╟─╢' else '#-#'
-      title = color title[0] + util.string.repeat(title[1], token.parent.width + 2) + title[2]
       divider = if @setup.ascii_art then '╠═╣' else '#=#'
-      divider = color divider[0] + util.string.repeat(divider[1], token.parent.width + 2) + divider[2]
       content = if @setup.ascii_art then '║ ║' else '# #'
-      collect = token.collect.trim().split /\n/
-      .map (e) -> util.string.rpad e, token.parent.width
-      .join color "#{content[1..2]}\n#{content[0..1]}"
-      token.collect = "#{color content[0]} #{collect} #{color content[2]}"
-      heading = chalk.bold token.title
-      token.out = color(content[0..1]) + util.string.rpad(heading, token.parent.width) + color content[1..2]
-      token.out += '\n' + title + '\n'
-
-# divider on 2... box
+      title = title[0] + util.string.repeat(title[1], token.width + 2) + title[2]
+      divider = divider[0] + util.string.repeat(divider[1], token.width + 2) + divider[2]
+      first = true
+      for n, t of @tokens.contains 'box', num, token
+        color = chalk[COLORS[t.box] ? 'white']
+        collect = t.collect.trim().split /\n/
+        .map (e) -> util.string.rpad e, token.width
+        .join color "#{content[1..2]}\n#{content[0..1]}"
+        t.collect = "#{color content[0]} #{collect} #{color content[2]}" + '\n'
+        heading = chalk.bold util.string.rpad t.title, token.width
+        t.out = color content[0..1] + heading + content[1..2]
+        t.out += '\n' + color(title) + '\n'
+        if first
+          first = false
+        else
+          t.out = color(divider) + '\n' + t.out
+      # recalculate collect
+      @tokens.collect num, token
+      token.collect = "\n#{top}\n#{token.collect}#{bottom}\n"

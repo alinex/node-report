@@ -1,0 +1,3 @@
+::: info Info
+foo
+:::

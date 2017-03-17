@@ -1,0 +1,3 @@
+::: warning Warning
+foo
+:::

@@ -1,11 +1,11 @@
 Solar System Exploration, 1950s – 1960s
-   • ☐ Mercury
-   • ☒ Venus
-   • ☒ Earth (Orbit/Moon)
-   • ☒ Mars
-   • ☐ Jupiter
-   • ☐ Saturn
-   • ☐ Uranus
-   • ☐ Neptune
-   • ☐ Comet Haley
-   • anything missing?
+   - [ ] Mercury
+   - [X] Venus
+   - [X] Earth (Orbit/Moon)
+   - [X] Mars
+   - [ ] Jupiter
+   - [ ] Saturn
+   - [ ] Uranus
+   - [ ] Neptune
+   - [ ] Comet Haley
+   - anything missing?

@@ -22,9 +22,7 @@ module.exports =
           util.extend token,
             html:
               class: ['language', token.language]
-          "<pre#{@htmlAttribs token}>\
-          <header>#{Config.get('/report/code/title')[token.language] ? token.language}</header>\
-          <code>"
+          "<pre#{@htmlAttribs token}><code>"
         when -1 then "</code></pre>#{nl}"
         else "<pre><code></code></pre>#{nl}"
 
