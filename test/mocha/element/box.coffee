@@ -7,7 +7,7 @@ before (cb) -> Report.init cb
 
 describe "box", ->
 
-  describe.only "examples", ->
+  describe "examples", ->
     @timeout 30000
 
     it "should allow detail", (cb) ->
@@ -55,3 +55,76 @@ describe "box", ->
         """, null, true, cb
 
   describe "api", ->
+
+    it "should create simple box", (cb) ->
+      # create report
+      report = new Report()
+      report.box 'foo'
+      # check it
+      test.report null, report, [
+        {type: 'document', nesting: 1}
+        {type: 'container', nesting: 1}
+        {type: 'box', nesting: 1, box: 'detail', title: 'Detail'}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: 'foo'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'box', nesting: -1}
+        {type: 'container', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], [
+        {format: 'md', text: "::: detail Detail\nfoo\n:::"}
+        {format: 'text', text: '#########\n# Detail #\n#--------#\n# foo    #\n##########'}
+        {format: 'console', text: '\u001b[37m╔════════╗\u001b[39m\n\u001b[37m║ \u001b[1mDetail\u001b[22m ║\u001b[39m\n\u001b[37m╟────────╢\u001b[39m\n\u001b[37m║\u001b[39m foo    \u001b[37m║\u001b[39m\n\u001b[37m╚════════╝\u001b[39m\n'}
+        {format: 'html', text: '<div class="container">\n<input name="tabs1" class="tab tab1" id="tab1-1" checked="" type="radio">\n<label for="tab1-1" class="detail" title="Switch tab">Detail</label><div class="box box1 detail">\n<p>foo</p>\n</div>\n</div>'}
+      ], cb
+
+    it "should create info box", (cb) ->
+      # create report
+      report = new Report()
+      report.box 'foo', 'info'
+      # check it
+      test.report null, report, [
+        {type: 'document', nesting: 1}
+        {type: 'container', nesting: 1}
+        {type: 'box', nesting: 1, box: 'info', title: 'Info'}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: 'foo'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'box', nesting: -1}
+        {type: 'container', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    it "should create info box with title", (cb) ->
+      # create report
+      report = new Report()
+      report.box 'foo', 'info', 'Information'
+      # check it
+      test.report null, report, [
+        {type: 'document', nesting: 1}
+        {type: 'container', nesting: 1}
+        {type: 'box', nesting: 1, box: 'info', title: 'Information'}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: 'foo'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'box', nesting: -1}
+        {type: 'container', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
+
+    it "should create info box with title (through container call)", (cb) ->
+      # create report
+      report = new Report()
+      report.container 'foo', 'info', 'Information'
+      # check it
+      test.report null, report, [
+        {type: 'document', nesting: 1}
+        {type: 'container', nesting: 1}
+        {type: 'box', nesting: 1, box: 'info', title: 'Information'}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: 'foo'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'box', nesting: -1}
+        {type: 'container', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb
