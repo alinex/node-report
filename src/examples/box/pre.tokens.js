@@ -1,0 +1,25 @@
+TokenList {
+  data: 
+   [ { type: 'document', nesting: 1, level: 0 },
+     { type: 'container', nesting: 1, level: 1, parent: [Object] },
+     { type: 'box',
+       nesting: 1,
+       box: 'detail',
+       title: 'Detail',
+       level: 2,
+       parent: [Object] },
+     { type: 'preformatted', nesting: 1, level: 3, parent: [Object] },
+     { type: 'text',
+       content: 'Some preformatted\n  text here.\nWhich should work!',
+       level: 4,
+       parent: [Object] },
+     { type: 'preformatted', nesting: -1, level: 3, parent: [Object] },
+     { type: 'box', nesting: -1, level: 2, parent: [Object] },
+     { type: 'container', nesting: -1, level: 1, parent: [Object] },
+     { type: 'document', nesting: -1, level: 0 } ],
+  pos: 8,
+  token: 
+   { type: 'container',
+     nesting: -1,
+     level: 1,
+     parent: { type: 'document', nesting: 1, level: 0 } } }

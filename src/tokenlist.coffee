@@ -112,8 +112,7 @@ class TokenList
     type = [type] unless Array.isArray type
     t = token ? @token
     loop
-      if t.type in type
-        return if t.nesting is 1 then t else true
+      return t if t.type in type and t.nesting is 1
       return false unless t.parent
       t = t.parent
 

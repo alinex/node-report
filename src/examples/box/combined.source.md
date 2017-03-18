@@ -1,5 +1,0 @@
-::: info
-foo
-::: ok
-bar
-:::

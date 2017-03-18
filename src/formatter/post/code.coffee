@@ -87,7 +87,7 @@ module.exports =
           break
         marker1 += '`'
         marker2 += '~'
-      token.out = "#{marker} #{token.language}\n"
+      token.out = "\n#{marker} #{token.language}\n"
       token.collect = "#{token.collect}\n#{marker}\n"
 
   text:

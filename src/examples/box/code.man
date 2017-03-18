@@ -1,0 +1,6 @@
+.P
+.RS 2
+.nf
+var x = Math.round(f);
+.fi
+.RE

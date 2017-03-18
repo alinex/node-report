@@ -1,0 +1,8 @@
+.P
+.RS 2
+.nf
+Some preformatted
+  text here.
+Which should work!
+.fi
+.RE

@@ -50,17 +50,34 @@ module.exports =
           class: ['container']
       nl = if @setup.compress then '' else '\n'
       token.out = switch token.nesting
-        when 1 then "<div#{@htmlAttribs token}>#{nl}"
+        when 1 then "<div#{@htmlAttribs token, ['selected', 'size']}>#{nl}"
         when -1 then "</div>#{nl}"
 
   html_box:
     format: 'html'
     type: 'box'
     fn: (num, token) ->
-      util.extend token,
-        html:
-          class: ['box', "box#{token.num}", token.box]
+      if token.nesting is 1
+        util.extend token,
+          html:
+            class: ['box', "box#{token.num}", token.box]
+        # check for compressed display
+        showCompressed = true
+        n = num
+        tags = ['preformatted', 'code', 'table']
+        loop
+          t = @tokens.get ++n
+          continue if t.level > token.level + 1 # to deep
+          break if t.level is token.level
+          continue unless t.nesting is 1
+          unless t.type in tags
+            showCompressed = false
+            break
+          tags = []
+        console.log 'lllll', showCompressed
+        token.html.class.push 'pre' if showCompressed
+      # output box
       nl = if @setup.compress then '' else '\n'
       token.out = switch token.nesting
-        when 1 then "<div#{@htmlAttribs token}>#{nl}"
+        when 1 then "<div#{@htmlAttribs token, ['selected']}>#{nl}"
         when -1 then "</div>#{nl}"

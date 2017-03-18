@@ -30,6 +30,7 @@ module.exports =
     format: ['md', 'text']
     type: 'table'
     fn: (num, token) ->
+      token.out = '\n'
       # get column width
       width = []
       n = num

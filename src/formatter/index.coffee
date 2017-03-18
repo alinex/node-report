@@ -202,9 +202,14 @@ class Formatter
     col = index - part.lastIndexOf('\n') - 1
     "#{line}:#{col}"
 
-  htmlAttribs: (t) ->
+  # @param {Token} t to extract html attributes from
+  # @param {Array} [exclude] optional list of attributes to exclude
+  # @return {String} in html format
+  htmlAttribs: (t, exclude) ->
     return '' unless t.html
-    Object.keys(t.html).map (k) ->
+    Object.keys(t.html)
+    .filter (k) -> (not exclude) or k not in exclude
+    .map (k) ->
       " #{k}=\"#{if Array.isArray t.html[k] then t.html[k].join ' ' else t.html[k]}\""
     .join ''
 

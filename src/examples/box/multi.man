@@ -1,4 +1,6 @@
 .P
-foo
+Everything works fine.
 .P
-bar
+Some orders have to wait till later...
+.P
+The process failed at...
