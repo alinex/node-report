@@ -11,6 +11,7 @@ chalk = require 'chalk'
 markdownIt = null # load on demand
 deflistPlugin = null # load on demand
 tasksPlugin = null # load on demand
+includePlugin = null # load on demand
 boxPlugin = null
 # include more alinex modules
 util = require 'alinex-util'
@@ -36,6 +37,7 @@ module.exports = (text) ->
     .use deflistPlugin ?= require 'markdown-it-deflist'
     .use tasksPlugin ?= require './tasks'
     .use boxPlugin ?= require './box'
+    .use includePlugin ?= require './include'
 #      typographer: true
   # parse and convert tokens
   tree = markdownIt.parse text, {} # empty env
