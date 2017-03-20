@@ -12,7 +12,11 @@ markdownIt = null # load on demand
 deflistPlugin = null # load on demand
 tasksPlugin = null # load on demand
 includePlugin = null # load on demand
-boxPlugin = null
+boxPlugin = null # load on demand
+markPlugin = null # load on demand
+insPlugin = null # load on demand
+subPlugin = null # load on demand
+supPlugin = null # load on demand
 # include more alinex modules
 util = require 'alinex-util'
 Config = require 'alinex-config'
@@ -38,6 +42,10 @@ module.exports = (text) ->
     .use tasksPlugin ?= require './tasks'
     .use boxPlugin ?= require './box'
     .use includePlugin ?= require './include'
+    .use markPlugin ?= require 'markdown-it-mark'
+    .use insPlugin ?= require 'markdown-it-ins'
+    .use subPlugin ?= require 'markdown-it-sub'
+    .use supPlugin ?= require 'markdown-it-sup'
 #      typographer: true
   # parse and convert tokens
   tree = markdownIt.parse text, {} # empty env
@@ -57,11 +65,12 @@ modify =
   heading: (t) -> t.heading = Number t.tag[1]
 
   hr: (t) -> t.type = 'thematic_break'
-
   em: (t) -> t.type = 'emphasis'
-
   s: (t) -> t.type = 'strikethrough'
-
+  ins: (t) -> t.type = 'insert'
+  sub: (t) -> t.type = 'subscript'
+  sup: (t) -> t.type = 'superscript'
+  
   bullet_list: (t) ->
     t.type = 'list'
     t.list = 'bullet'

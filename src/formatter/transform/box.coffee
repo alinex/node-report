@@ -74,7 +74,6 @@ module.exports =
             showCompressed = false
             break
           tags = []
-        console.log 'lllll', showCompressed
         token.html.class.push 'pre' if showCompressed
       # output box
       nl = if @setup.compress then '' else '\n'
