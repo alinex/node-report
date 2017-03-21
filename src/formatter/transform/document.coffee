@@ -44,7 +44,10 @@ module.exports =
       # write output
       token.out = switch token.nesting
         when 1
-          header = @setup.head_begin + nl
+          headBegin = @setup.head_begin
+          if token.html?.lang
+            headBegin = headBegin.replace /<html>/, "<html lang=\"#{token.html.lang}\">"
+          header = headBegin + nl
           header += "<title>#{token.title}</title>#{nl}"
           header += htmlStyle @setup
           header += "#{@setup.head_end}#{nl}\

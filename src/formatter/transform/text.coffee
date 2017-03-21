@@ -2,6 +2,18 @@
 # =================================================
 
 util = require 'alinex-util'
+typo = require 'typographic-base'
+
+
+TYPO_LANG =
+  en: 'en-us'
+
+
+
+typoOption = (tokens) ->
+  lang = tokens.get(0).html?.lang ? 'en'
+  locale:
+    TYPO_LANG[lang] ? lang
 
 
 # Transformer rules
@@ -34,7 +46,9 @@ module.exports =
     fn: (num, token) ->
       token.out = token.content
       return if token.parent.type is 'code'
-      token.out = util.string.htmlEncode token.content
+      unless token.parent.type is 'preformatted'
+        token.out = typo token.out, typoOption @tokens
+      token.out = util.string.htmlEncode token.out
       return if token.parent.type is 'preformatted'
       token.out = token.out
       .replace /\n/g, '<br />\n'
@@ -58,4 +72,4 @@ module.exports =
     format: ['text', 'latex', 'rtf']
     type: 'text'
     fn: (num, token) ->
-      token.out = token.content
+      token.out = typo token.content, typoOption @tokens

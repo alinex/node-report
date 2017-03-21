@@ -37,11 +37,10 @@ module.exports =
         # kramdown to normal syntax
         token.content = token.content.replace /^:\s*/, ''
 
-  html:
-    format: 'html'
+  other:
+    format: ['html', 'text']
     type: 'style'
     fn: (num, token) ->
-      return unless token.format is 'html'
       # extract style information
       html = {}
       [_, target, depth, attrs] = token.content.match ///

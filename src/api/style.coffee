@@ -22,10 +22,8 @@ Add raw content to current element position.
 @param {String} format in which it should be visible
 @return {Report} instance itself for command concatenation
 ###
-Report.prototype.style = (text, format) ->
+Report.prototype.style = (text, format = 'html') ->
   return unless text
-  # auto detect format
-  throw new Error "Missing format for style entry" unless format
   # insert token
   @tokens.insert
     type: 'style'

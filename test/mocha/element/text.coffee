@@ -7,7 +7,7 @@ async = require 'async'
 Report = require '../../../src'
 before (cb) -> Report.init cb
 
-describe "text", ->
+describe.only "text", ->
 
   describe "examples", ->
     @timeout 30000
@@ -17,6 +17,19 @@ describe "text", ->
         This is a short text.
         With each sentence in a separate line.\\
         And a hard break before this.
+      """, null, true, cb
+
+    it "should make typographic replacements", (cb) ->
+      test.markdown 'text/typographic', """
+        I\'m looking forward.\\
+        foo "foo 'inside' bar" bar
+      """, null, true, cb
+
+    it "should make typographic replacements (german)", (cb) ->
+      test.markdown 'text/typographic-de', """
+        <!-- {document:lang=de} -->
+        I\'m looking forward.\\
+        foo "foo 'inside' bar" bar
       """, null, true, cb
 
   describe "api", ->
@@ -93,3 +106,36 @@ describe "text", ->
         {type: 'paragraph', nesting: -1}
         {type: 'document', nesting: -1}
       ], null, cb
+
+  describe "format", ->
+
+    it "should use typographic apostrophes", (cb) ->
+      # create report
+      report = new Report()
+      report.p 'I\'m looking forward'
+      # check it
+      test.report null, report, null, [
+        {format: 'text', text: 'I’m looking forward\n'}
+        {format: 'html', text: "<p>I’m looking forward</p>\n"}
+      ], cb
+
+    it "should use typographic quotes", (cb) ->
+      # create report
+      report = new Report()
+      report.p 'foo "foo \'inside\' bar" bar'
+      # check it
+      test.report null, report, null, [
+        {format: 'text', text: 'foo “foo ‘inside’ bar” bar\n'}
+        {format: 'html', text: "<p>foo “foo ‘inside’ bar” bar</p>\n"}
+      ], cb
+
+    it "should use typographic quotes (changed locale)", (cb) ->
+      # create report
+      report = new Report()
+      report.style 'document:lang=de'
+      report.p 'foo "foo \'inside\' bar" bar'
+      # check it
+      test.report null, report, null, [
+        {format: 'text', text: 'foo „foo ‚inside‘ bar“ bar\n'}
+        {format: 'html', text: "<p>foo „foo ‚inside‘ bar“ bar</p>\n"}
+      ], cb
