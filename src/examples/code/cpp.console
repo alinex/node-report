@@ -2,13 +2,13 @@
     
     [36m[35m[1mint[22m[36m [33m[1mmain[22m[36m[37m[1m([35m[1mint[1m[37m argc, [35m[1mchar[1m[37m *argv[])[22m[36m [39m{
     
-      [90m/* An annoying "Hello World" example */[39m
-      [35m[1mfor[22m[39m ([35m[1mauto[22m[39m i = [33m0[39m; i < [33m0xFFFF[39m; i++)
-        [33m[1mcout[22m[39m << [32m"Hello, World!"[39m << [33m[1mendl[22m[39m;
+     [90m/* An annoying “Hello World” example */[39m
+     [35m[1mfor[22m[39m ([35m[1mauto[22m[39m i = [33m0[39m; i < [33m0xFFFF[39m; i++)
+     [33m[1mcout[22m[39m << “Hello, World!” << [33m[1mendl[22m[39m;
     
-      [35m[1mchar[22m[39m c = [32m'\n'[39m;
-      [33m[1munordered_map[22m[39m <[33m[1mstring[22m[39m, [33m[1mvector[22m[39m<[33m[1mstring[22m[39m> > m;
-      m[[32m"key"[39m] = [32m"\\\\"[39m; [90m// this is an error[39m
+     [35m[1mchar[22m[39m c = [32m'\n’;
+     unordered_map <string, vector<string> > m;
+     m["key"] = "\\\\"; // this is an error
     
-      [35m[1mreturn[22m[39m [33m-2e3[39m + [33m12l[39m;
-    }
+     return -2e3 + 12l;
+    }[39m

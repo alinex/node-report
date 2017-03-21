@@ -1,8 +1,8 @@
     ; boilerplate
     [package]
-    name = "some_name"
+    name = “some_name”
     authors = ["Author"]
-    description = "This is a description"
+    description = “This is a description”
     
     [[lib]]
     name = ${NAME}

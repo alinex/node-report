@@ -1,12 +1,12 @@
     # Makefile
     
-    BUILDDIR      = _build
-    EXTRAS       ?= $(BUILDDIR)/extras
+    BUILDDIR = _build
+    EXTRAS ?= $(BUILDDIR)/extras
     
     .PHONY: main clean
     
     main:
-    	@echo "Building main facility..."
+    	@echo “Building main facility…”
     	build_main $(BUILDDIR)
     
     clean:

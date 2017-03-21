@@ -7,7 +7,7 @@
     
     [[36m[1m1[22m[39m]: [36m[1mhttp://example.com[22m[39m
     
-    ---
+    —-
     
     [31m[1mhello world
     ===========[22m[39m
@@ -16,7 +16,7 @@
     
     [90m> markdown is so cool[39m
     
-    [37m[1m    so are code segments[22m[39m
+     so are code segments
     
     [34m[1m1. [22m[39mone thing (yeah!)
     [34m[1m2. [22m[39mtwo thing [37m[1m`i can write code`[22m[39m, and [37m[1m`more`[22m[39m wipee!

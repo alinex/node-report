@@ -23,7 +23,7 @@ module.exports =
         t = @tokens.get n
         break if t.level is token.level
         title += t.content if t.content
-      title = title.trim()
+      token.title = title = title.trim()
       # add link id
       @tokens.data[0].heading ?= {}
       unless token.html?.id

@@ -2,6 +2,6 @@
 # Detail                 #
 #------------------------#
 # Some preformatted      #
-#       text here.       #
+#      text here.        #
 #     Which should work! #
 ##########################

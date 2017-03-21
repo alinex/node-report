@@ -1,12 +1,12 @@
     [36m@requires_authorization[39m
-    [36m[35m[1mdef[22m[36m [33m[1msomefunc[22m[36m[37m[1m(param1=[32m''[37m, param2=[33m0[37m)[22m[36m:[39m
-        [32mr'''A docstring'''[39m
-        [35m[1mif[22m[39m param1 > param2: [90m# interesting[39m
-            [35m[1mprint[22m[39m [32m'Gre\'ater'[39m
-        [35m[1mreturn[22m[39m (param2 - param1 + [33m1[39m + [33m0b10l[39m) [35m[1mor[22m[39m [35m[1mNone[22m[39m
+    [36m[35m[1mdef[22m[36m [33m[1msomefunc[22m[36m[37m[1m(param1=’[32m', param2=0):
+     r’'[37m[32m'A docstring’'[37m[32m'
+     if param1 > param2: # interesting
+     print “Gre\’ater”
+     return (param2 - param1 + 1 + 0b10l) or None
     
-    [35m[35m[1mclass[22m[35m [33m[1mSomeClass[22m[35m:[39m
-        [35m[1mpass[22m[39m
+    class SomeClass:
+     pass
     
-    [36m>>> [39mmessage = [32m'''interpreter
-    [36m... [32mprompt'''[39m
+    >>> message = '[37m’[32m'interpreter
+    … prompt’'[37m[32m'[37m[22m[36m[39m

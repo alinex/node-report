@@ -5,32 +5,32 @@
     you can write text http://example.com[with links], optionally
     using an explicit link:http://example.com[link prefix].
     
-    * single quotes around a phrase place 'emphasis'
+    * single quotes around a phrase place “emphasis”
     ** alternatively, you can put underlines around a phrase to add _emphasis_
     * astericks around a phrase make the text *bold*
     * pluses around a phrase make it +monospaced+
     * `smart' quotes using a leading backtick and trailing single quote
-    ** use two of each for double ``smart'' quotes
+    ** use two of each for double ``smart’' quotes
     
     - escape characters are supported
-    - you can escape a quote inside emphasized text like 'here's johnny!'
+    - you can escape a quote inside emphasized text like “here’s johnny!”
     
     term:: definition
      another term:: another definition
     
     // this is just a comment
     
-    Let's make a break.
+    Let’s make a break.
     
-    '''
+    “’”
     
     ////
-    we'll be right with you
+    we’ll be right with you
     
     after this brief interruption.
     ////
     
-    == We're back!
+    == We’re back!
     
     Want to see a image::images/tiger.png[Tiger]?
     
@@ -51,13 +51,13 @@
     ____
     
     Getting Literal
-    ---------------
+    ———————-
     
      want to get literal? prefix a line with a space.
     
-    ....
-    I'll join that party, too.
-    ....
+    ….
+    I’ll join that party, too.
+    ….
     
     . one thing (yeah!)
     . two thing `i can write code`, and `more` wipee!

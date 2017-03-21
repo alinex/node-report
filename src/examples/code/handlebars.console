@@ -1,6 +1,6 @@
     [37m<[31m[1mdiv[22m[37m [33mclass[37m=[32m"entry"[37m>[39m
-      [90m{{!-- only show if author exists --}}[39m
-      [37m[1m{{#[31m[1m[31m[1mif[1m[31m[1m[37m author}}[22m[39m
-        [37m<[31m[1mh1[22m[37m>[39m[33m{{firstName}}[39m [33m{{lastName}}[39m[37m</[31m[1mh1[22m[37m>[39m
-      [37m[1m{{/[31m[1m[31m[1mif[1m[31m[1m[37m}}[22m[39m
+     [90m{{!— only show if author exists —}}[39m
+     [37m[1m{{#[31m[1m[31m[1mif[1m[31m[1m[37m author}}[22m[39m
+     [37m<[31m[1mh1[22m[37m>[39m[33m{{firstName}}[39m [33m{{lastName}}[39m[37m</[31m[1mh1[22m[37m>[39m
+     [37m[1m{{/[31m[1m[31m[1mif[1m[31m[1m[37m}}[22m[39m
     [37m</[31m[1mdiv[22m[37m>[39m

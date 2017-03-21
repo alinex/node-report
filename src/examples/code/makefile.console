@@ -1,12 +1,12 @@
     [90m# Makefile[39m
     
-    BUILDDIR      = _build
-    EXTRAS       ?= [33m$(BUILDDIR)[39m/extras
+    BUILDDIR = _build
+    EXTRAS ?= [33m$(BUILDDIR)[39m/extras
     
     [36m[36m[1m.PHONY[22m[36m: main clean[39m
     
     [31m[1mmain:[22m[39m
-    	@echo [32m"Building main facility..."[39m
+    	@echo “Building main facility…”
     	build_main [33m$(BUILDDIR)[39m
     
     [31m[1mclean:[22m[39m

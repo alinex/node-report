@@ -17,6 +17,7 @@ markPlugin = null # load on demand
 insPlugin = null # load on demand
 subPlugin = null # load on demand
 supPlugin = null # load on demand
+tocPlugin = null # load on demand
 # include more alinex modules
 util = require 'alinex-util'
 Config = require 'alinex-config'
@@ -46,6 +47,7 @@ module.exports = (text) ->
     .use insPlugin ?= require 'markdown-it-ins'
     .use subPlugin ?= require 'markdown-it-sub'
     .use supPlugin ?= require 'markdown-it-sup'
+    .use tocPlugin ?= require './toc'
 #      typographer: true
   # parse and convert tokens
   tree = markdownIt.parse text, {} # empty env
@@ -70,10 +72,13 @@ modify =
   ins: (t) -> t.type = 'insert'
   sub: (t) -> t.type = 'subscript'
   sup: (t) -> t.type = 'superscript'
-  
+
   bullet_list: (t) ->
     t.type = 'list'
     t.list = 'bullet'
+
+  toc: (t) ->
+    t.title = t.content
 
   ordered_list: (t) ->
     t.type = 'list'
@@ -199,6 +204,7 @@ copyAttributes =
   raw: ['format', 'block', 'content']
   th: ['align']
   box: ['box', 'title']
+  toc: ['title']
 
 # Convert markdown-it structure to report tokens.
 #

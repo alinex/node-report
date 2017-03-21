@@ -26,11 +26,13 @@ replace = (src, processed = []) ->
     envelope = ['', '']
     if param
       param = param.split /\ /
-      switch param[0]
+      switch param[0].toLowerCase()
         when 'code'
           envelope = ["#{indent}``` #{path.extname(source)[1..]}\n", "\n#{indent}```"]
         when 'pre'
           indent += '    '
+        when 'toc'
+          return m
     # get the content
     try
       throw new Error "Circular reference in include of #{source}!" if source in processed

@@ -108,3 +108,12 @@ describe "markdown include", ->
         {type: 'preformatted', nesting: -1}
         {type: 'document', nesting: -1}
       ], null, cb
+
+  describe "toc", ->
+
+    it "should add element", (cb) ->
+      test.markdown null, "@[toc](Index)", [
+        {type: 'document', nesting: 1}
+        {type: 'toc', nesting: 0; title: 'Index'}
+        {type: 'document', nesting: -1}
+      ], null, cb

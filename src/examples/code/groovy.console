@@ -5,52 +5,52 @@
     [35m[1mimport[22m[39m java.util.List [35m[1mas[22m[39m MyList
     
     [35m[35m[1mtrait[22m[35m [33m[1mDistributable[22m[35m {[39m
-        [35m[1mvoid[22m[39m distribute(String version) {}
+     [35m[1mvoid[22m[39m distribute(String version) {}
     }
     
     [36m@CompileStatic[39m
     [35m[35m[1mclass[22m[35m [33m[1mDistribution[22m[35m [35m[1mimplements[22m[35m [33m[1mDistributable[22m[35m {[39m
-        [35m[1mdouble[22m[39m number = [33m1234.234[39m / [33m567[39m
-        [35m[1mdef[22m[39m otherNumber = [33m3[39m / [33m4[39m
-        [35m[1mboolean[22m[39m archivable = condition ?: [36m[1mtrue[22m[39m
-        [35m[1mdef[22m[39m ternary = a ? b : c
-        String name = [32m"Guillaume"[39m
-        Closure description = [36m[1mnull[22m[39m
-        List<DownloadPackage> packages = []
-        String regex = [32m[1m~/.*foo.*/[22m[39m
-        String multi = [32m'''
-            multi line string
-        '''[39m + [32m"""
-            now with double quotes and ${gstring}
-        """[39m + [32m$/
-            even with dollar slashy strings
-        /$[39m
+     [35m[1mdouble[22m[39m number = [33m1234.234[39m / [33m567[39m
+     [35m[1mdef[22m[39m otherNumber = [33m3[39m / [33m4[39m
+     [35m[1mboolean[22m[39m archivable = condition ?: [36m[1mtrue[22m[39m
+     [35m[1mdef[22m[39m ternary = a ? b : c
+     String name = “Guillaume”
+     Closure description = [36m[1mnull[22m[39m
+     List<DownloadPackage> packages = []
+     String regex = [32m[1m~/.*foo.*/[22m[39m
+     String multi = “’”
+     multi line string
+     “’” + “[32m"”
+     now with double quotes and ${gstring}
+     “"[39m” + [32m$/
+     even with dollar slashy strings
+     /$[39m
     
-        [90m/**
-         * description method
-         * [35m@param[90m cl the closure
-         */[39m
-        [35m[1mvoid[22m[39m description(Closure cl) { [35m[1mthis[22m[39m.description = cl }
+     [90m/**
+     * description method
+     * [35m@param[90m cl the closure
+     */[39m
+     [35m[1mvoid[22m[39m description(Closure cl) { [35m[1mthis[22m[39m.description = cl }
     
-        [35m[1mvoid[22m[39m version(String name, Closure versionSpec) {
-            [35m[1mdef[22m[39m closure = { println [32m"hi"[39m } [35m[1mas[22m[39m Runnable
+     [35m[1mvoid[22m[39m version(String name, Closure versionSpec) {
+     [35m[1mdef[22m[39m closure = { println “hi” } [35m[1mas[22m[39m Runnable
     
-            MyList ml = [[33m1[39m, [33m2[39m, [[32ma:[39m [33m1[39m, [32mb:[39m[33m2[39m,[32mc :[39m[33m3[39m]]
-            [35m[1mfor[22m[39m (ch [35m[1min[22m[39m [32m"name"[39m) {}
+     MyList ml = [[33m1[39m, [33m2[39m, [[32ma:[39m [33m1[39m, [32mb:[39m[33m2[39m,[32mc :[39m[33m3[39m]]
+     [35m[1mfor[22m[39m (ch [35m[1min[22m[39m [32m"name"[39m) {}
     
-            [90m// single line comment[39m
-            DownloadPackage pkg = [35m[1mnew[22m[39m DownloadPackage([32mversion:[39m name)
+     [90m// single line comment[39m
+     DownloadPackage pkg = [35m[1mnew[22m[39m DownloadPackage([32mversion:[39m name)
     
-            check [32mthat:[39m [36m[1mtrue[22m[39m
+     check [32mthat:[39m [36m[1mtrue[22m[39m
     [36m[1m
-            label:[22m[39m
-            [35m[1mdef[22m[39m clone = versionSpec.rehydrate(pkg, pkg, pkg)
-            [90m/*
-                now clone() in a multiline comment
-            */[39m
-            clone()
-            packages.add(pkg)
+     label:[22m[39m
+     [35m[1mdef[22m[39m clone = versionSpec.rehydrate(pkg, pkg, pkg)
+     [90m/*
+     now clone() in a multiline comment
+     */[39m
+     clone()
+     packages.add(pkg)
     
-            [35m[1massert[22m[39m [33m4[39m / [33m2[39m == [33m2[39m
-        }
+     [35m[1massert[22m[39m [33m4[39m / [33m2[39m == [33m2[39m
+     }
     }

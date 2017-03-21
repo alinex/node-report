@@ -13,8 +13,8 @@
 <code>Simple signal/slot implementation</code>
 <code>]]</span></code>
 <code><span class="hljs-keyword">local</span> signal_mt = {</code>
-<code>    __index = {</code>
-<code>        register = <span class="hljs-built_in">table</span>.insert</code>
+<code>    <span class="hljs-built_in">__index</span> = {</code>
+<code>        register = table.insert</code>
 <code>    }</code>
 <code>}</code>
 <code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">signal_mt.__index:emit</span><span class="hljs-params">(... <span class="hljs-comment">--[[ Comment in params ]]</span>)</span></span></code>

@@ -180,16 +180,16 @@ describe "markdown text", ->
 
     # http://spec.commonmark.org/0.27/#example-287
     it "should remove backslash before ASCII punctuation", (cb) ->
-      test.markdown null, '\\!"\\#\\$\\%\\&\\\'\\(\\)\\*\\+\\,\\-\\.\\/\\:\\;\\<\\=\\>\\?\\@\\[\\\\]\\^\\_\\`\\{\\|\\}\\~', [
+      test.markdown null, '\\!"\\#\\$\\%\\&\\\'\\(\\)\\*\\+\\,\\-\\.\\/\\<\\:\\=\\;\\>\\?\\@\\[\\\\]\\^\\_\\`\\{\\|\\}\\~', [
         {type: 'document', nesting: 1}
         {type: 'paragraph', nesting: 1}
-        {type: 'text', content: '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~'}
+        {type: 'text', content: '!"#$%&\'()*+,-./<:=;>?@[\\]^_`{|}~'}
         {type: 'paragraph', nesting: -1}
         {type: 'document', nesting: -1}
       ], [
-        {format: 'md', text: '!"#$%&\'()*+,-./:;\\<=>?@\\[\\\\\\]\\^\\_`{|}\\~\n'}
-        {format: 'text', text: '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~'}
-        {format: 'html', text: '!&quot;#$%&amp;&#39;()*+,-./:;&lt;=&gt;?@[\\]^_`{|}~'}
+        {format: 'md', text: '!"#$%&\'()*+,-./\\<:=;>?@\\[\\\\\\]\\^\\_`{|}\\~\n'}
+        {format: 'text', text: '!"#$%&’()*+,-./<:=;>?@[\\]^_`{|}'}
+        {format: 'html', text: '!&quot;#$%&amp;’()*+,-./&lt;:=;&gt;?@[\\]^_`{|}~'}
       ], cb
 
     # http://spec.commonmark.org/0.27/#example-288

@@ -1,28 +1,28 @@
-    [90m;; Calculation of Hofstadter's male and female sequences as a list of pairs[39m
+    [90m;; Calculation of Hofstadter’s male and female sequences as a list of pairs[39m
     
     ([31m[1m[31m[1mdefine[1m[31m[22m[39m ([31m[1mhofstadter-male-female[22m[39m n)
     ([31m[1m[31m[1mletrec[1m[31m[22m[39m (([31m[1mfemale[22m[39m ([31m[1m[31m[1mlambda[1m[31m[22m[39m (n)
-               ([31m[1m[31m[1mif[1m[31m[22m[39m ([31m[1m[31m[1m=[1m[31m[22m[39m n [33m0[39m)
-               [33m1[39m
-               ([31m[1m[31m[1m-[1m[31m[22m[39m n ([31m[1mmale[22m[39m ([31m[1mfemale[22m[39m ([31m[1m[31m[1m-[1m[31m[22m[39m n [33m1[39m)))))))
-         ([31m[1mmale[22m[39m ([31m[1m[31m[1mlambda[1m[31m[22m[39m (n)
-             ([31m[1m[31m[1mif[1m[31m[22m[39m ([31m[1m[31m[1m=[1m[31m[22m[39m n [33m0[39m)
-                 [33m0[39m
-                 ([31m[1m[31m[1m-[1m[31m[22m[39m n ([31m[1mfemale[22m[39m ([31m[1mmale[22m[39m ([31m[1m[31m[1m-[1m[31m[22m[39m n [33m1[39m))))))))
-      ([31m[1m[31m[1mlet[1m[31m[22m[39m loop (([31m[1mi[22m[39m [33m0[39m))
-        ([31m[1m[31m[1mif[1m[31m[22m[39m ([31m[1m[31m[1m>[1m[31m[22m[39m i n)
-        '()
-        ([31m[1m[31m[1mcons[1m[31m[22m[39m ([31m[1m[31m[1mcons[1m[31m[22m[39m ([31m[1mfemale[22m[39m i)
-                ([31m[1mmale[22m[39m i))
-          ([31m[1mloop[22m[39m ([31m[1m[31m[1m+[1m[31m[22m[39m i [33m1[39m)))))))
+     ([31m[1m[31m[1mif[1m[31m[22m[39m ([31m[1m[31m[1m=[1m[31m[22m[39m n [33m0[39m)
+     [33m1[39m
+     ([31m[1m[31m[1m-[1m[31m[22m[39m n ([31m[1mmale[22m[39m ([31m[1mfemale[22m[39m ([31m[1m[31m[1m-[1m[31m[22m[39m n [33m1[39m)))))))
+     ([31m[1mmale[22m[39m ([31m[1m[31m[1mlambda[1m[31m[22m[39m (n)
+     ([31m[1m[31m[1mif[1m[31m[22m[39m ([31m[1m[31m[1m=[1m[31m[22m[39m n [33m0[39m)
+     [33m0[39m
+     ([31m[1m[31m[1m-[1m[31m[22m[39m n ([31m[1mfemale[22m[39m ([31m[1mmale[22m[39m ([31m[1m[31m[1m-[1m[31m[22m[39m n [33m1[39m))))))))
+     ([31m[1m[31m[1mlet[1m[31m[22m[39m loop (([31m[1mi[22m[39m [33m0[39m))
+     ([31m[1m[31m[1mif[1m[31m[22m[39m ([31m[1m[31m[1m>[1m[31m[22m[39m i n)
+     '()
+     ([31m[1m[31m[1mcons[1m[31m[22m[39m ([31m[1m[31m[1mcons[1m[31m[22m[39m ([31m[1mfemale[22m[39m i)
+     ([31m[1mmale[22m[39m i))
+     ([31m[1mloop[22m[39m ([31m[1m[31m[1m+[1m[31m[22m[39m i [33m1[39m)))))))
     
     ([31m[1mhofstadter-male-female[22m[39m [33m8[39m)
     
     ([31m[1m[31m[1mdefine[1m[31m[22m[39m ([31m[1mfind-first[22m[39m func lst)
     ([31m[1m[31m[1mcall-with-current-continuation[1m[31m[22m[39m
      ([31m[1m[31m[1mlambda[1m[31m[22m[39m (return-immediately)
-       ([31m[1m[31m[1mfor-each[1m[31m[22m[39m ([31m[1m[31m[1mlambda[1m[31m[22m[39m (x)
-           ([31m[1m[31m[1mif[1m[31m[22m[39m ([31m[1mfunc[22m[39m x)
-               ([31m[1mreturn-immediately[22m[39m x)))
-             lst)
-       [36m[1m#f[22m[39m)))
+     ([31m[1m[31m[1mfor-each[1m[31m[22m[39m ([31m[1m[31m[1mlambda[1m[31m[22m[39m (x)
+     ([31m[1m[31m[1mif[1m[31m[22m[39m ([31m[1mfunc[22m[39m x)
+     ([31m[1mreturn-immediately[22m[39m x)))
+     lst)
+     [36m[1m#f[22m[39m)))

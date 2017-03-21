@@ -1,8 +1,8 @@
     [90m; boilerplate[39m
     [31m[1m[package][22m[39m
-    [33mname[39m = [32m"some_name"[39m
+    [33mname[39m = “some_name”
     [33mauthors[39m = [[32m"Author"[39m]
-    [33mdescription[39m = [32m"This is a description"[39m
+    [33mdescription[39m = “This is a description”
     [31m[1m
     [[lib]][22m[39m
     [33mname[39m = [33m${NAME}[39m
