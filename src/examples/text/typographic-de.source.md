@@ -1,3 +1,13 @@
 <!-- {document:lang=de} -->
 I'm looking forward.\
-foo "foo 'inside' bar" bar
+foo "foo 'inside' bar" bar\
+My sisters' friends' investments\
+(c) 2017 Alexander Schilling\
+2013 Intel (R); 2013 Intel (TM)\
+Tickets cost 20 usd in Australia or 19 EUR in Germany\
+foo...bar\
+foo -- bar and foo — bar\
+Kurt Cobain (1967-1994)\
+1 <- 2 -> 3 <-> 4 <= 5 => 6 <=> 7\
+2 x 3 = 6; 3 - 2 = 1; 3 =< 2; 4 >= 4; 5 +- 1; 10 -+ 1; 2 << 100; 999 >> 5\
+foo  bar; foo.  Bar; foo,  bar

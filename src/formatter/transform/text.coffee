@@ -52,7 +52,7 @@ module.exports =
       return if token.parent.type is 'preformatted'
       token.out = token.out
       .replace /\n/g, '<br />\n'
-      .replace /\u00a0/g, '&nobr;'
+      .replace /\u00a0/g, '&nbsp;'
 
   roff:
     format: 'roff'
