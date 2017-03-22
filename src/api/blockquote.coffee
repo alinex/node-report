@@ -69,6 +69,15 @@ Add a blockquote element (shortcut).
 false to close tag if content is added manually.
 @return {Report} instance itself for command concatenation
 ###
+Report.prototype.quote = (input) -> @blockquote input
+
+###
+Add a blockquote element (shortcut).
+
+@param {String|Boolean} input with content of paragraph or true to open tag and
+false to close tag if content is added manually.
+@return {Report} instance itself for command concatenation
+###
 Report.prototype.q = (input) -> @blockquote input
 
 

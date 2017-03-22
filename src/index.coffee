@@ -14,11 +14,11 @@ util = require 'alinex-util'
 config = require 'alinex-config'
 fs = require 'alinex-fs'
 # modules
-markdownParser = null # load on demand
 Formatter = require './formatter/index'
 # internal helpers
 schema = require './configSchema'
 TokenList = require './tokenlist'
+markdownParser = null # load on demand
 api = null # load on initialization
 
 
@@ -88,6 +88,40 @@ class Report
     markdownParser.call this, text
 
   ###
+  Navigation
+  -------------------------------------------------
+  ###
+
+  top: -> @tokens.set 1
+  bottom: -> @tokens.set 0
+
+  next: (filter) ->
+    return if @tokens.pos is @tokens.data.length
+    pos = @tokens.pos
+    if filter and not tokenFilter @tokens.data[pos], filter
+      while ++pos
+        return if pos is @tokens.data.length
+        break if tokenFilter @tokens.data[pos], filter
+    @tokens.set pos + 1
+
+  prev: (filter) ->
+    return if @tokens.pos is 1
+    pos = @tokens.pos - 2
+    if filter and not tokenFilter @tokens.data[pos], filter
+      while --pos
+        return if pos is -1
+        break if tokenFilter @tokens.data[pos], filter
+    @tokens.set pos + 1
+
+  start: ->
+    [pos, t] = @tokens.findStart()
+    @tokens.set pos + 1
+  end: ->
+    [pos] = @tokens.findEnd()
+    @tokens.set pos + 1
+
+
+  ###
   Formatting / Output
   -------------------------------------------------
   ###
@@ -118,7 +152,7 @@ class Report
   @return {String} complete output document
   ###
   output: (name) ->
-    @formatter[name].output
+    @formatter[name]?.output
 
   ###
   @param {String} name to access (from previous process call)
@@ -126,6 +160,8 @@ class Report
   @param {Function(Error} cb with possible error
   ###
   toFile: (name, file, cb) ->
+    unless @formatter[name]
+      throw new Error "No previous format() called under the name '#{name}'."
     file += @formatter[name].setup.extension unless fspath.extname file
     file = fspath.resolve file
     debug "write #{name} output to file #{file}..."
@@ -133,6 +169,9 @@ class Report
       return cb err if err
       fs.writeFile file, @formatter[name].output, cb
 
+  getTitle: ->
+    d = @tokens.data[0]
+    d.html?.title ? d.title
 
 ###
 Export Report Class
@@ -140,3 +179,9 @@ Export Report Class
 ###
 
 module.exports = Report
+
+
+tokenFilter = (token, filter) ->
+  for k, v of filter
+    return false unless token[k] is v
+  true

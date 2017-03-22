@@ -153,9 +153,9 @@ class TokenList
   # @param {Token} [token] check from this or from the current cursor
   # @return {Integer, Token} the found start position and Token
   findStart: (pos, token) ->
-    return null if token.nesting isnt -1
-    pos ?= @pos
+    pos ?= @pos - 1
     token ?= @token
+    return null if token.nesting isnt -1
     num = pos
     loop
       t = @get --num
@@ -168,9 +168,9 @@ class TokenList
   # @param {Token} [token] check from this or from the current cursor
   # @return {Integer, Token} the found end position and Token
   findEnd: (pos, token) ->
-    return null if token.nesting isnt 1
-    pos ?= @pos
+    pos ?= @pos - 1
     token ?= @token
+    return null if token.nesting isnt 1
     num = pos
     loop
       t = @get ++num
@@ -182,7 +182,6 @@ class TokenList
   # @param {Integer} pos set cursor for current position
   # @return {TokenList} for command concatenation
   set: (@pos) ->
-    @pos ?= @data.length # default after last token
     @pos = @data.length + @pos if @pos <= 0
     @token = @data[@pos - 1]
     debug "set position to #{@pos}" if debug
