@@ -48,7 +48,7 @@ module.exports =
           if token.html?.lang
             headBegin = headBegin.replace /<html>/, "<html lang=\"#{token.html.lang}\">"
           header = headBegin + nl
-          header += "<title>#{token.title}</title>#{nl}"
+          header += "<title>#{token.html?.title ? token.title}</title>#{nl}"
           header += htmlStyle @setup
           header += "#{@setup.head_end}#{nl}\
           #{@setup.body_begin}#{nl}\

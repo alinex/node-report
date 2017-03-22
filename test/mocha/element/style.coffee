@@ -128,3 +128,11 @@ describe "style", ->
         """, null, [
         {format: 'html', text: '<p class="red">Red text </p>'}
       ], cb
+
+    it "should add specific title", (cb) ->
+      test.markdown null, """
+        <!-- {document:title=Test} -->
+        Some information...
+        """, null, [
+        {format: 'html', text: '<title>Test</title>'}
+      ], cb
