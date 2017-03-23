@@ -24,8 +24,9 @@ fs = require 'fs'
 
 list = fs.readdirSync __dirname
 .filter (e) -> not e.match /^index\./
+.filter (e) -> e.match /\.(coffee|js)$/
 
-require "./#{file}" for file in list
+require "#{__dirname}/#{file}" for file in list
 
 
 ###

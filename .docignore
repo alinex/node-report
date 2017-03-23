@@ -13,6 +13,7 @@
 /var/local/
 npm-debug.log
 /test/
+/src/examples/
 /coffeelint.json
 /.travis.yml
 /.*
