@@ -169,10 +169,6 @@ class Report
       return cb err if err
       fs.writeFile file, @formatter[name].output, cb
 
-  getTitle: ->
-    d = @tokens.data[0]
-    d.html?.title ? d.title
-
 ###
 Export Report Class
 ------------------------------------------------------------------

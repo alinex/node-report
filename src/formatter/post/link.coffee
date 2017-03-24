@@ -13,7 +13,7 @@ module.exports =
     fn: (num, token) ->
       # escape previous exclamation mark to prevent image syntax
       prev = @tokens.get num - 1
-      prev.out = prev.out.replace /!$/, '\\!'
+      prev.out = prev.out.replace /!$/, '\\!' if prev.out
       if token.reference
         # shorten reference links if possible
         [_, end] = @tokens.findEnd num, token
