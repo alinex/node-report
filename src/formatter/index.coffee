@@ -214,5 +214,6 @@ class Formatter
     .join ''
 
 
+
 # Make class available from the outside
 module.exports = Formatter

@@ -58,7 +58,7 @@ module.exports =
       token.out = switch token.nesting
         when 1
           util.extend token.html,
-            style: ['text-align:#{token.align};']
+            style: ["text-align:#{token.align};"]
           "<th#{@htmlAttribs token}>"
         when -1 then "</th>#{nl}"
         else "<th />#{nl}"
@@ -71,7 +71,7 @@ module.exports =
       token.out = switch token.nesting
         when 1
           util.extend token.html,
-            style: ['text-align:#{token.parent.parent.parent.align[token.col]};']
+            style: ["text-align:#{token.parent.parent.parent.align[token.col]};"]
           "<td#{@htmlAttribs token}>"
         when -1 then "</td>#{nl}"
         else "<td />#{nl}"

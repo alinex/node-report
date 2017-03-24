@@ -17,7 +17,6 @@ colors =
   'selector-tag': chalk.red.bold
   'builtin-name': chalk.red.bold
   section: chalk.red.bold
-  subst: chalk.red.bold
   name: chalk.red.bold
   deletion: chalk.red.bold
 
@@ -42,7 +41,6 @@ colors =
   regexp: chalk.green.bold
   addition: chalk.green.bold
 
-  meta: chalk.blue.bold
   bullet: chalk.blue.bold
 
   function: chalk.cyan

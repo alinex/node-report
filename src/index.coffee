@@ -142,10 +142,14 @@ class Report
       return cb new Error "Unknown format '#{setup}' for output." unless opt
       util.extend setup, opt
     # initialize formatter and run it
-    @formatter[setup.format] = new Formatter @tokens, setup
-    @formatter[setup.format].format (err) =>
-      return cb err if err
-      cb null, @formatter[setup.format].output
+    formatter = new Formatter @tokens, setup
+    formatter.format (err) =>
+      @formatter[setup.format] = formatter.output
+      cb null, formatter.output
+#    @formatter[setup.format] = new Formatter @tokens, setup
+#    @formatter[setup.format].format (err) =>
+#      return cb err if err
+#      cb null, @formatter[setup.format].output
 
   ###
   @param {String} name to access (from previous process call)

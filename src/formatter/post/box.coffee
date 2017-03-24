@@ -50,17 +50,25 @@ module.exports =
           t.num is 1
         checked = if checked then ' checked=""' else ''
         token.out += """
-          <input name="tabs#{token.num}" class="tab tab#{t.num}" id="tab#{token.num}-#{t.num}"#{checked} type="radio">
-          <label for="tab#{token.num}-#{t.num}" class="#{t.box}" title="Switch tab">#{t.title}</label>
+          <input name="tabs#{token.num}" class="tab tab#{t.num}" \
+          id="tab#{token.num}-#{t.num}"#{checked} type="radio">
+          <label for="tab#{token.num}-#{t.num}" class="#{t.box}" title="Switch tab">\
+          #{t.title}</label>
           """
       return unless s = token.html.size
       token.out += """
-        <input name="tabs-size#{token.num}" class="tabs-size tabs-size-max" id="tabs-size-max#{token.num}"#{if s is 'max' then ' checked=""' else ''} type="radio">
-        <label for="tabs-size-max1" title="Maximize box to show full content"><i class="fa fa-window-maximize" aria-hidden="true"></i></label>
-        <input name="tabs-size#{token.num}" class="tabs-size tabs-size-scroll" id="tabs-size-scroll#{token.num}"#{if s is 'auto' then ' checked=""' else ''} type="radio">
-        <label for="tabs-size-scroll1" title="Show in default view with possible scroll bars"><i class="fa fa-window-restore" aria-hidden="true"></i></label>
-        <input name="tabs-size#{token.num}" class="tabs-size tabs-size-min" id="tabs-size-min#{token.num}"#{if s is 'min' then ' checked=""' else ''} type="radio">
-        <label for="tabs-size-min1" title="Close box content"><i class="fa fa-window-minimize" aria-hidden="true"></i></label>
+        <input name="tabs-size#{token.num}" class="tabs-size tabs-size-max" \
+        id="tabs-size-max#{token.num}"#{if s is 'max' then ' checked=""' else ''} type="radio">
+        <label for="tabs-size-max1" title="Maximize box to show full content">\
+        <i class="fa fa-window-maximize" aria-hidden="true"></i></label>
+        <input name="tabs-size#{token.num}" class="tabs-size tabs-size-scroll" \
+        id="tabs-size-scroll#{token.num}"#{if s is 'auto' then ' checked=""' else ''} type="radio">
+        <label for="tabs-size-scroll1" title="Show in default view with possible scroll bars">\
+        <i class="fa fa-window-restore" aria-hidden="true"></i></label>
+        <input name="tabs-size#{token.num}" class="tabs-size tabs-size-min" \
+        id="tabs-size-min#{token.num}"#{if s is 'min' then ' checked=""' else ''} type="radio">
+        <label for="tabs-size-min1" title="Close box content">\
+        <i class="fa fa-window-minimize" aria-hidden="true"></i></label>
         """
 
   text_width:

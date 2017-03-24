@@ -70,7 +70,8 @@ Report.prototype.del = (input) -> @strikethrough input
 Markdown Input/Output
 ----------------------------------------------------
 The markdown interpretation goes back to the
-[GFM strikethrough](https://help.github.com/articles/basic-writing-and-formatting-syntax/#styling-text)
+[GFM strikethrough
+](https://help.github.com/articles/basic-writing-and-formatting-syntax/#styling-text)
 implementation.
 
 Text which is placed in double `~` characters will be presented as strike through

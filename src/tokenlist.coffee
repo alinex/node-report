@@ -62,7 +62,8 @@ class TokenList
       when -1 then '< '
       else '  '
     util.string.rpad(util.string.repeat('  ', token.level) + indent + token.type, 20) +
-    Object.keys(token).filter (e) -> e not in ['type', 'nesting', 'level', 'parent', 'out', 'collect']
+    Object.keys(token).filter (e) ->
+      e not in ['type', 'nesting', 'level', 'parent', 'out', 'collect']
     .map (e) ->
       if typeof token[e] is 'number'
         "#{e}=#{token[e]}"
@@ -90,7 +91,7 @@ class TokenList
   # Dump complete token list.
   #
   # @return {String} multiline representation
-  dumpall: () ->
+  dumpall: ->
     @data.map (t) -> TokenList.dump t
     .join '\n'
 
@@ -236,7 +237,8 @@ class TokenList
     if debug
       num = pos
       for e in list
-        debug "INSERT #{util.string.lpad '#' + num++ + '/' + (@data.length-1), 6}", chalk.gray @dump e
+        debug "INSERT #{util.string.lpad '#' + num++ + '/' + (@data.length-1), 6}",
+          chalk.gray @dump e
     @set pos + cursor
     this
 
