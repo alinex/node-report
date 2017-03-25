@@ -63,7 +63,7 @@ module.exports =
         debug 'OUT', test.format, if test.format.match /html2/
           "BINARY #{result.length} bytes"
         else if test.format is 'html'
-          util.inspect result.replace(/^[\s\S]+<\/head>\s+/, ''), {depth: 2}
+          util.inspect result.replace /^[\s\S]+<\/head>\s+/, ''
         else
           util.inspect result, {depth: 2}
         config = Config.get "/report/format/#{test.format}"

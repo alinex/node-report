@@ -85,6 +85,21 @@ class Report
     markdownParser ?= require './parser/markdown'
     markdownParser.call this, text
 
+  fromFile: (file, cb) ->
+    switch fspath.extname(file)[1..]
+      when 'md'
+        fs.readFile file, 'utf8', (err, content) =>
+          return cb err if err
+          @markdown content
+          cb()
+      when 'html'
+        fs.readFile file, 'utf8', (err, content) =>
+          return cb err if err
+          @raw content, 'html'
+          cb()
+      else
+        cb new Error "Unknown format of #{file}"
+
   ###
   Navigation
   -------------------------------------------------
