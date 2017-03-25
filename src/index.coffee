@@ -158,7 +158,9 @@ class Report
   ###
   toFile: (name, file, cb) ->
     unless @formatter[name]
-      throw new Error "No previous format() called under the name '#{name}'."
+      return @format name, (err) =>
+        return cb err if err
+        @toFile (name.format ? name), file, cb
     file += @formatter[name].setup.extension unless fspath.extname file
     file = fspath.resolve file
     debug "write #{name} output to file #{file}..."

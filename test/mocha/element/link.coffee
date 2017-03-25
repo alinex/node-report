@@ -96,3 +96,13 @@ describe "link", ->
       report = new Report()
       expect(-> report.a true).to.throw Error
       cb()
+
+    it "should not use fuzzy link because to insecure", (cb) ->
+      test.markdown 'link/simple', "See the {@link Changelog.md} for a list of
+      changes in recent versions.", [
+        {type: 'document', nesting: 1}
+        {type: 'paragraph', nesting: 1}
+        {type: 'text', content: 'See the {@link Changelog.md} for a list of changes in recent versions.'}
+        {type: 'paragraph', nesting: -1}
+        {type: 'document', nesting: -1}
+      ], null, cb

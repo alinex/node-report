@@ -119,3 +119,4 @@ module.exports =
         link = doc.linkNames[n]
         token.out += "\n" + util.string.rpad("[#{n}]:", maxlen + 3) + " <#{link[0]}>"
         token.out += " \"#{link[1].replace /(")/g, '\\$1'}\"" if link[1]
+      #console.log token.out

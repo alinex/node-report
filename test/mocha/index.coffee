@@ -40,20 +40,3 @@ describe "Base", ->
           expect(conf, 'config').to.exist
           debug 'config:', conf
           cb()
-
-  describe "output", ->
-
-    it "should output result", (cb) ->
-      report = new Report()
-      report.markdown 'Hello'
-      report.format 'md', (err, result) ->
-        expect(report.output 'md').to.equal result
-        cb()
-    it "should write to file", (cb) ->
-      report = new Report()
-      report.markdown 'Hello'
-      report.format 'md', (err) ->
-        return cb err if err
-        report.toFile 'md', "#{__dirname}/../data/test-tofile", (err) ->
-          expect(err).to.not.exist
-          cb()

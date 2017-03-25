@@ -1,1 +1,1 @@
-Let's [google](http://www.google.com "search engine") for everything you don't know.
+See the {@link Changelog.md} for a list of changes in recent versions.

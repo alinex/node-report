@@ -37,7 +37,7 @@ module.exports = (text) ->
     config = Config.get '/report/parser/md'
     markdownIt = require('markdown-it')
       html: config.html
-      linkify: config.linkify
+      linkify: true
     .use tasksPlugin ?= require './tasks'
     .use deflistPlugin ?= require 'markdown-it-deflist'
     .use tasksPlugin ?= require './tasks'
@@ -48,7 +48,7 @@ module.exports = (text) ->
     .use subPlugin ?= require 'markdown-it-sub'
     .use supPlugin ?= require 'markdown-it-sup'
     .use tocPlugin ?= require './toc'
-#      typographer: true
+    markdownIt.linkify.set {fuzzyLink: false}
   # parse and convert tokens
   tree = markdownIt.parse text, {} # empty env
   @tokens.insert optimize tree2tokens tree

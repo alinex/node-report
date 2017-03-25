@@ -36,6 +36,7 @@ module.exports =
         loop
           break unless name + ++n in Object.keys doc.linkNames
         name += n
+#      console.log '--------------------', name,  [token.href, token.title]
       doc.linkNames[name] = [token.href, token.title]
-      doc.links["#{token.href} #{token.title}"] = [name]
+      doc.links["#{token.href} #{token.title}"] = name
       token.reference = name

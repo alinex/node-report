@@ -3,7 +3,9 @@ test = require '../test'
 async = require 'async'
 
 Report = require '../../../src'
-before (cb) -> Report.init cb
+before (cb) ->
+  @timeout 20000
+  Report.init cb
 
 describe "blockquote", ->
 

@@ -36,5 +36,5 @@ module.exports =
           break unless name + ++n in Object.keys doc.linkNames
         name += n
       doc.linkNames[name] = [token.src, token.title]
-      doc.links["#{token.src} #{token.title}"] = [name]
+      doc.links["#{token.src} #{token.title}"] = name
       token.reference = name

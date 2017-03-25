@@ -40,13 +40,13 @@ describe "markdown linkify", ->
       {type: 'document', nesting: -1}
     ], null, cb
 
-  it "should allow fuzzy links", (cb) ->
-    test.markdown null, 'google.com', [
-      {type: 'document', nesting: 1}
-      {type: 'paragraph', nesting: 1}
-      {type: 'link', nesting: 1, href: 'http://google.com'}
-      {type: 'text', content: 'google.com'}
-      {type: 'link', nesting: -1}
-      {type: 'paragraph', nesting: -1}
-      {type: 'document', nesting: -1}
-    ], null, cb
+#  it "should allow fuzzy links", (cb) ->
+#    test.markdown null, 'google.com', [
+#      {type: 'document', nesting: 1}
+#      {type: 'paragraph', nesting: 1}
+#      {type: 'link', nesting: 1, href: 'http://google.com'}
+#      {type: 'text', content: 'google.com'}
+#      {type: 'link', nesting: -1}
+#      {type: 'paragraph', nesting: -1}
+#      {type: 'document', nesting: -1}
+#    ], null, cb
