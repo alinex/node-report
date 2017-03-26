@@ -3,8 +3,6 @@
 # This contains the default for different settings.
 
 
-# Markdown Format
-# --------------------------------------------
 md:
   type: md
   extension: '.md'
