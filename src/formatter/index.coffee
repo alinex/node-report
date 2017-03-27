@@ -162,8 +162,6 @@ class Formatter
         if token.out and debugData.enabled
           debugData "token ##{pos} out:
           #{chalk.yellow util.inspect util.string.shorten token.out, 60}"
-#    console.log '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', @setup.type
-#    console.log @tokens.dumpall()
     # collect output
     for pos in [@tokens.data.length-1..0]
       token = @tokens.get pos

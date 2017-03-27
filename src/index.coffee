@@ -172,13 +172,18 @@ class Report
   @param {Function(Error} cb with possible error
   ###
   toFile: (name, file, cb) ->
-    unless @formatter[name]
-      return @format name, (err) =>
-        return cb err if err
-        @toFile (name.format ? name), file, cb
+    debug "write to file #{file}"
+    if @formatter[name]
+      return @writeFile name, file, cb
+    @format name, (err) =>
+      return cb err if err
+      @writeFile (name.format ? name), file, cb
+
+  writeFile: (name, file, cb) ->
     file += @formatter[name].setup.extension unless fspath.extname file
     file = fspath.resolve file
     debug "write #{name} output to file #{file}..."
+    return cb()
     fs.mkdirs fspath.dirname(file), (err) =>
       return cb err if err
       fs.writeFile file, @formatter[name].output, cb
