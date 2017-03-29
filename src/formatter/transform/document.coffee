@@ -25,7 +25,7 @@ htmlStyle = deasync (setup, cb) ->
         include += "<link rel=\"stylesheet\" href=\"#{style}\" />#{nl}"
         continue
       # include internal style
-      content = fs.readFileSync map["report/default.css"], 'utf8'
+      content = fs.readFileSync map[style], 'utf8'
       include += "<style type=\"text/css\">#{content}</style>#{nl}"
     cb null, include
 
