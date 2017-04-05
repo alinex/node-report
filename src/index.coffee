@@ -183,10 +183,10 @@ class Report
     file += @formatter[name].setup.extension unless fspath.extname file
     file = fspath.resolve file
     debug "write #{name} output to file #{file}..."
-    return cb()
     fs.mkdirs fspath.dirname(file), (err) =>
       return cb err if err
-      fs.writeFile file, @formatter[name].output, cb
+      fs.writeFile file, @formatter[name].output, (err) ->
+        cb err # prevent segfault which occures if cb is directly given
 
 ###
 Export Report Class
