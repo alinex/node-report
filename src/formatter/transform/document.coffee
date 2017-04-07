@@ -5,6 +5,7 @@
 moment = require 'moment'
 fs = require 'fs'
 deasync = require 'deasync'
+async = require 'async'
 util = require 'alinex-util'
 Config = require 'alinex-config'
 
@@ -18,16 +19,16 @@ htmlStyle = deasync (setup, cb) ->
   nl = if setup.compress then '' else '\n'
   Config.typeSearch 'template', (err, map) ->
     return cb err if err
-    include = ''
-    for style in setup.style
+    async.map util.array.unique(setup.style), (style, cb) ->
       # external reference
       unless map[style]
-        include += "<link rel=\"stylesheet\" href=\"#{style}\" />#{nl}"
-        continue
+        return cb null, "<link rel=\"stylesheet\" href=\"#{style}\" />#{nl}"
       # include internal style
-      content = fs.readFileSync map[style], 'utf8'
-      include += "<style type=\"text/css\">#{content}</style>#{nl}"
-    cb null, include
+      fs.readFile map[style], 'utf8', (err, content) ->
+        return cb err if err
+        cb null, "<style type=\"text/css\">#{content}</style>#{nl}"
+    , (err, results) ->
+      cb err, results.join ''
 
 
 # Transformer rules
