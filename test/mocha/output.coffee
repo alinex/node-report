@@ -3,7 +3,6 @@ expect = chai.expect
 ### eslint-env node, mocha ###
 
 debug = require('debug') 'test'
-fs = require 'fs'
 
 Report = require '../../src'
 before (cb) ->
@@ -37,11 +36,11 @@ describe "output", ->
         expect(err).to.not.exist
         cb()
 
-  describe.only "real life", ->
+  describe "real life", ->
 
     it "should output README as html", (cb) ->
       report = new Report()
-      report.fromFile "#{__dirname}/../../README.md", (err) ->
+      report.fromFile "#{__dirname}/../../README.md", ->
         report.format 'html', (err, result) ->
           debug result.replace /^[\s\S]+<\/head>\s+/, ''
           expect(report.output 'html').to.equal result

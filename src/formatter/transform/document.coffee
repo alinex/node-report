@@ -10,6 +10,9 @@ util = require 'alinex-util'
 Config = require 'alinex-config'
 
 
+stylesCache = {}
+
+
 # Helper
 # ------------------------------------------------
 
@@ -20,13 +23,16 @@ htmlStyle = deasync (setup, cb) ->
   Config.typeSearch 'template', (err, map) ->
     return cb err if err
     async.map util.array.unique(setup.style), (style, cb) ->
+      return cb null, stylesCache[style] if stylesCache[style]
       # external reference
       unless map[style]
-        return cb null, "<link rel=\"stylesheet\" href=\"#{style}\" />#{nl}"
+        stylesCache[style] = "<link rel=\"stylesheet\" href=\"#{style}\" />#{nl}"
+        return cb null, stylesCache[style]
       # include internal style
       fs.readFile map[style], 'utf8', (err, content) ->
         return cb err if err
-        cb null, "<style type=\"text/css\">#{content}</style>#{nl}"
+        stylesCache[style] = "<style type=\"text/css\">#{content}</style>#{nl}"
+        cb null, stylesCache[style]
     , (err, results) ->
       cb err, results.join ''
 
