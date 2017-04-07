@@ -8,6 +8,7 @@
 /log
 /src
 /test
+/lib/examples
 /var/local
 /var/lib
 /.travis.yml
