@@ -1,39 +1,39 @@
-    [32m—-[39m
-    [90m# comment[39m
-    [33mstring_1:[39m [32m“Bar”[39m
-    [33mstring_2:[39m [32m“bar”[39m
-    [33mstring_3:[39m [32mbar[39m
-    [33minline_keys_ignored:[39m [32msompath/name/file.jpg[39m
-    [33mkeywords_in_yaml:[39m
-    [34m[1m -[22m[39m [36m[1mtrue[22m[39m
-    [34m[1m -[22m[39m [36m[1mfalse[22m[39m
-    [34m[1m -[22m[39m [36m[1mTRUE[22m[39m
-    [34m[1m -[22m[39m [36m[1mFALSE[22m[39m
-    [34m[1m -[22m[39m [33m21[39m
-    [34m[1m -[22m[39m [33m21.0[39m
-    [34m[1m -[22m[39m [33m!!str[39m [33m123[39m
-    [33m"quoted_key":[39m [36m&foobar[39m
-    [33m bar:[39m [32mfoo[39m
-    [33m foo:[39m
-    [33m "foo":[39m [32mbar[39m
+    —-
+    # comment
+    string_1: “Bar”
+    string_2: “bar”
+    string_3: bar
+    inline_keys_ignored: sompath/name/file.jpg
+    keywords_in_yaml:
+     - true
+     - false
+     - TRUE
+     - FALSE
+     - 21
+     - 21.0
+     - !!str 123
+    "quoted_key": &foobar
+     bar: foo
+     foo:
+     "foo": bar
     
-    [33mreference:[39m [36m*foobar[39m
+    reference: *foobar
     
-    [33mmultiline_1:[39m [32m|
+    multiline_1: |
      Multiline
      String
-    [39m[33mmultiline_2:[39m [32m>
+    multiline_2: >
      Multiline
      String
-    [39m[33mmultiline_3:[39m [32m"
+    multiline_3: "
      Multiline string
-     "[39m
+     "
     
-    [33mansible_variables:[39m [32m“foo[39m [32m{{variable}}”[39m
+    ansible_variables: “foo {{variable}}”
     
-    [33marray_nested:[39m
-    [34m[1m-[22m[39m [32ma[39m
-    [33m- b:[39m [33m1[39m
-    [33m c:[39m [33m2[39m
-    [34m[1m-[22m[39m [32mb[39m
-    [34m[1m-[22m[39m [32mcomment[39m
+    array_nested:
+    - a
+    - b: 1
+     c: 2
+    - b
+    - comment

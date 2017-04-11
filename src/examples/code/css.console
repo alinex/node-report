@@ -1,15 +1,15 @@
-    @[35m[1mfont-face[22m[39m {
-     [32mfont-family[39m: Chunkfive; [32msrc[39m: [33m[1murl[22m[39m(’Chunkfive.otf’);
+    @font-face {
+     font-family: Chunkfive; src: url(’Chunkfive.otf’);
     }
     
-    [31m[1mbody[22m[39m, [33m.usertext[39m {
-     [32mcolor[39m: [33m#F0F0F0[39m; [32mbackground[39m: [33m#600[39m;
-     [32mfont-family[39m: Chunkfive, sans;
+    body, .usertext {
+     color: #F0F0F0; background: #600;
+     font-family: Chunkfive, sans;
     }
     
-    @[35m[1mimport[22m[39m url(print.css);
-    @[35m[1mmedia[22m[39m print {
-     [31m[1ma[22m[39m[33m[href^=http][39m[33m::after[39m {
-     [32mcontent[39m: [33m[1mattr[22m[39m(href)
+    @import url(print.css);
+    @media print {
+     a[href^=http]::after {
+     content: attr(href)
      }
     }

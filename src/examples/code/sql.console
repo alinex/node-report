@@ -1,12 +1,12 @@
-    [35m[1mCREATE[22m[39m [35m[1mTABLE[22m[39m “topic” (
-     “[35m[1mid[22m[39m” [33m[1mserial[22m[39m [35m[1mNOT[22m[39m [36m[1mNULL[22m[39m PRIMARY [35m[1mKEY[22m[39m,
-     “forum_id” [33m[1minteger[22m[39m [35m[1mNOT[22m[39m [36m[1mNULL[22m[39m,
-     “subject” [33m[1mvarchar[22m[39m([33m255[39m) [35m[1mNOT[22m[39m [36m[1mNULL[22m[39m
+    CREATE TABLE “topic” (
+     “id” serial NOT NULL PRIMARY KEY,
+     “forum_id” integer NOT NULL,
+     “subject” varchar(255) NOT NULL
     );
-    [35m[1mALTER[22m[39m [35m[1mTABLE[22m[39m “topic”
-    [35m[1mADD[22m[39m [35m[1mCONSTRAINT[22m[39m forum_id FOREIGN [35m[1mKEY[22m[39m ([32m"forum_id"[39m)
-    [35m[1mREFERENCES[22m[39m “forum” ([32m"id"[39m);
+    ALTER TABLE “topic”
+    ADD CONSTRAINT forum_id FOREIGN KEY ("forum_id")
+    REFERENCES “forum” ("id");
     
     — Initials
-    [35m[1minsert[22m[39m [35m[1minto[22m[39m “topic” ([32m"forum_id"[39m, [32m"subject"[39m)
-    [35m[1mvalues[22m[39m ([33m2[39m, [32m'D’'[39martagnian’);
+    insert into “topic” ("forum_id", "subject")
+    values (2, 'D’'artagnian’);

@@ -1,23 +1,23 @@
-    [90m# loads object[39m
-    [36m[35m[1msub[22m[36m [33m[1mload[22m[36m
-    [39m{
-     [35m[1mmy[22m[39m $flds = $c→db_load($id,@_) || [35m[1mdo[22m[39m {
-     Carp::carp [32m"Can`t load (class: $c, id: $id): '$!’"[39m; [35m[1mreturn[22m[39m [35m[1mundef[22m[39m
+    # loads object
+    sub load
+    {
+     my $flds = $c→db_load($id,@_) || do {
+     Carp::carp "Can`t load (class: $c, id: $id): '$!’"; return undef
      };
-     [35m[1mmy[22m[39m $o = $c→_perl_new();
-     $id12 = $id / [33m24[39m / [33m3600[39m;
-     $o→{’ID’} = $id12 + [33m123[39m;
-     [90m#$o→{’SHCUT’} = $flds→{’SHCUT’};[39m
-     [35m[1mmy[22m[39m $p = $o→props;
-     [35m[1mmy[22m[39m $vt;
-     $string =~ [32m[1mm/^sought_text$/[22m[39m;
-     $items = [35m[1msplit[22m[39m [32m[1m//[22m[39m, [32m'abc’;
+     my $o = $c→_perl_new();
+     $id12 = $id / 24 / 3600;
+     $o→{’ID’} = $id12 + 123;
+     #$o→{’SHCUT’} = $flds→{’SHCUT’};
+     my $p = $o→props;
+     my $vt;
+     $string =~ m/^sought_text$/;
+     $items = split //, 'abc’;
      $string //= "bar";
      for my $key (keys %$p)
      {
      if(${$vt.’::property’}) {
-     $o→{$key . '[39m_real’} = $flds→{$key};
-     [35m[1mtie[22m[39m $o→{$key}, [32m'CMSBuilder::Property’, $o, $key;
+     $o→{$key . '_real’} = $flds→{$key};
+     tie $o→{$key}, 'CMSBuilder::Property’, $o, $key;
      }
      }
      $o→save if delete $o→{’_save_after_load’};
@@ -38,4 +38,4 @@
     __END__
     
     =head1 NAME
-    POD till the end of file[39m
+    POD till the end of file

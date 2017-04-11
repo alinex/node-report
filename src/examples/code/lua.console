@@ -1,32 +1,32 @@
-    —[32m[[
+    —[[
     Simple signal/slot implementation
-    ]][39m
-    [35m[1mlocal[22m[39m signal_mt = {
-     [33m[1m__index[22m[39m = {
+    ]]
+    local signal_mt = {
+     __index = {
      register = table.insert
      }
     }
-    [36m[35m[1mfunction[22m[36m [33m[1msignal_mt.__index:emit[22m[36m[37m[1m(… —[[ Comment in params ]])[22m[36m[39m
-     [35m[1mfor[22m[39m _, slot [35m[1min[22m[39m [33m[1mipairs[22m[39m(self) [35m[1mdo[22m[39m
+    function signal_mt.__index:emit(… —[[ Comment in params ]])
+     for _, slot in ipairs(self) do
      slot(self, …)
-     [35m[1mend[22m[39m
-    [35m[1mend[22m[39m
-    [35m[1mlocal[22m[39m [36m[35m[1mfunction[22m[36m [33m[1mcreate_signal[22m[36m[37m[1m()[22m[36m[39m
-     [35m[1mreturn[22m[39m [33m[1msetmetatable[22m[39m({}, signal_mt)
-    [35m[1mend[22m[39m
+     end
+    end
+    local function create_signal()
+     return setmetatable({}, signal_mt)
+    end
     
     — Signal test
-    [35m[1mlocal[22m[39m signal = create_signal()
-    signal:register([36m[35m[1mfunction[22m[36m[37m[1m(signal, …)[22m[36m[39m
-     [33m[1mprint[22m[39m(…)
-    [35m[1mend[22m[39m)
-    signal:emit(’Answer to Life, the Universe, [35m[1mand[22m[39m Everything:’, [33m42[39m)
+    local signal = create_signal()
+    signal:register(function(signal, …)
+     print(…)
+    end)
+    signal:emit(’Answer to Life, the Universe, and Everything:’, 42)
     
-    —[32m[==[ [=[ [[
+    —[==[ [=[ [[
     Nested ]]
     multi-line ]=]
-    comment ]==][39m
-    [32m[==[ Nested
+    comment ]==]
+    [==[ Nested
     [=[ multi-line
     [[ string
-    ]] ]=] ]==][39m
+    ]] ]=] ]==]

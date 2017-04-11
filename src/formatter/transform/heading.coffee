@@ -30,7 +30,7 @@ module.exports =
       else if token.heading > 2
         "\n#{util.string.repeat '#', token.heading} "
       else
-        "\n"
+        "\n\n"
 
   text:
     format: 'text'

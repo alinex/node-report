@@ -1,16 +1,16 @@
-    [36m#!/bin/bash
-    [39m
-    [90m###### CONFIG[39m
+    #!/bin/bash
     
-    ACCEPTED_HOSTS=[32m"/root/.hag_accepted.conf"[39m
-    BE_VERBOSE=[36m[1mfalse[22m[39m
+    ###### CONFIG
     
-    [35m[1mif[22m[39m [ “[33m$UID[39m” [37m[1m-ne[22m[39m 0 ]
-    [35m[1mthen[22m[39m
-     [33m[1mecho[22m[39m “Superuser rights required”
-     [33m[1mexit[22m[39m 2
-    [35m[1mfi[22m[39m
+    ACCEPTED_HOSTS="/root/.hag_accepted.conf"
+    BE_VERBOSE=false
     
-    [36m[33m[1mgenApacheConf[22m[36m[39m(){
-     [33m[1mecho[22m[39m [37m[1m-e[22m[39m “[90m# Host ${HOME_DIR}$1/$2 :”[39m
+    if [ “$UID” -ne 0 ]
+    then
+     echo “Superuser rights required”
+     exit 2
+    fi
+    
+    genApacheConf(){
+     echo -e “# Host ${HOME_DIR}$1/$2 :”
     }

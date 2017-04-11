@@ -1,65 +1,65 @@
-    [31m[1mHello, World!
-    ============[22m[39m
+    Hello, World!
+    ============
     Author Name, <author@domain.foo>
     
-    you can write text [36m[1mhttp://example.com[22m[39m[[32mwith links[39m], optionally
-    using an explicit link:[36m[1mhttp://example.com[22m[39m[[32mlink prefix[39m].
+    you can write text http://example.com[with links], optionally
+    using an explicit link:http://example.com[link prefix].
     
-    [34m[1m* [22m[39msingle quotes around a phrase place “emphasis”
-    [34m[1m** [22m[39malternatively, you can put underlines around a phrase to add [3m_emphasis_[23m
-    [34m[1m* [22m[39mastericks around a phrase make the text [1m*bold*[22m
-    [34m[1m* [22m[39mpluses around a phrase make it [37m[1m+monospaced+[22m[39m
-    [34m[1m* [22m[39m[32m`smart'[39m quotes using a leading backtick and trailing single quote
-    [34m[1m** [22m[39muse two of each for double [32m``smart’'[39m quotes
+    * single quotes around a phrase place “emphasis”
+    ** alternatively, you can put underlines around a phrase to add _emphasis_
+    * astericks around a phrase make the text *bold*
+    * pluses around a phrase make it +monospaced+
+    * `smart' quotes using a leading backtick and trailing single quote
+    ** use two of each for double ``smart’' quotes
     
-    [34m[1m- [22m[39mescape characters are supported
-    [34m[1m- [22m[39myou can escape a quote inside emphasized text like “here’s johnny!”
+    - escape characters are supported
+    - you can escape a quote inside emphasized text like “here’s johnny!”
     
-    [34m[1mterm:: [22m[39mdefinition
-    [34m[1m another term:: [22m[39manother definition
+    term:: definition
+     another term:: another definition
     
-    [90m// this is just a comment[39m
+    // this is just a comment
     
     Let’s make a break.
     
     “’”
     
-    [90m////
+    ////
     we’ll be right with you
     
     after this brief interruption.
-    ////[39m
+    ////
     
-    [31m[1m== We’re back![22m[39m
+    == We’re back!
     
-    Want to see a image::[36m[1mimages/tiger.png[22m[39m[[32mTiger[39m]?
+    Want to see a image::images/tiger.png[Tiger]?
     
-    [33m[1m.Nested highlighting[22m[39m
+    .Nested highlighting
     ++++
-    [37m<[31m[1mthis_is[22m[37m [33minline[37m=[32m"xml"[37m>[39m[37m</[31m[1mthis_is[22m[37m>[39m
+    <this_is inline="xml"></this_is>
     ++++
     
-    [90m____
+    ____
     asciidoc is so powerful.
-    ____[39m
+    ____
     
     another quote:
     
-    [36m[quote, Sir Arthur Conan Doyle, The Adventures of Sherlock Holmes][39m
-    [90m____
+    [quote, Sir Arthur Conan Doyle, The Adventures of Sherlock Holmes]
+    ____
     When you have eliminated all which is impossible, then whatever remains, however improbable, must be the truth.
-    ____[39m
+    ____
     
     Getting Literal
     ———————-
     
-    [37m[1m want to get literal? prefix a line with a space.[22m[39m
+     want to get literal? prefix a line with a space.
     
     ….
     I’ll join that party, too.
     ….
     
-    [34m[1m. [22m[39mone thing (yeah!)
-    [34m[1m. [22m[39mtwo thing [37m[1m`i can write code`[22m[39m, and [37m[1m`more`[22m[39m wipee!
+    . one thing (yeah!)
+    . two thing `i can write code`, and `more` wipee!
     
-    [36m[1mNOTE: [22m[39mAsciiDoc is quite cool, you should try it.
+    NOTE: AsciiDoc is quite cool, you should try it.

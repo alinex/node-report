@@ -1,17 +1,17 @@
-    [37m\[31m[1mdocumentclass[22m[37m[32m{article}[37m[39m
-    [37m\[31m[1musepackage[22m[37m[32m[koi8-r][37m[32m{inputenc}[37m[39m
-    [37m\[31m[1mhoffset[22m[37m=[33m0pt[37m[39m
-    [37m\[31m[1mvoffset[22m[37m=[33m.3em[37m[39m
-    [37m\[31m[1mtolerance[22m[37m=[33m400[37m[39m
-    [37m\[31m[1mnewcommand[22m[37m[32m{\eTiX}[37m[32m{\TeX}[37m[39m
-    [37m\[31m[1mbegin[22m[37m[32m{document}[37m[39m
-    [37m\[31m[1msection*[22m[37m[32m{Highlight.js}[37m[39m
-    [37m\[31m[1mbegin[22m[37m[32m{table}[37m[32m[c|c][37m[39m
-    [35m$[37m\[31m[1mfrac[22m[37m[35m 12[37m\[31m[1m,[22m[37m[35m + [37m\[31m[1m,[22m[37m[35m [37m\[31m[1mfrac[22m[37m[35m 1{x^3}[37m\[31m[1mtext[22m[37m[32m{Hello \! world}[37m[35m$[39m & [37m\[31m[1mtextbf[22m[37m[32m{Goodbye\~ world}[37m[39m [37m\[31m[1m\[22m[37m[39m[37m\[31m[1meTiX[22m[37m[39m [35m$ [37m\[31m[1mpi[22m[37m=[33m400[37m[35m $[39m
-    [37m\[31m[1mend[22m[37m[32m{table}[37m[39m
-    Ch[37m\[31m[1m’[22m[37m[39merie, [37m\[31m[1mc[22m[37m[32m{c}[37m[39ma ne me pla[37m\[31m[1m^[22m[37m[39m[37m\[31m[1mi[22m[37m[39m t pas! [90m% comment \b[39m
-    G[37m\[31m[1m"[22m[37m[39motterd[37m\[31m[1m"[22m[37m[39mammerung~45[37m\[31m[1m%[22m[37m=[33m34[37m[39m.
-    [35m$$
-     [37m\[31m[1mint[22m[37m[35m[37m\[31m[1mlimits[22m[37m[35m_{0}^{[37m\[31m[1mpi[22m[37m[35m}[37m\[31m[1mfrac[22m[37m[32m{4}[37m[32m{x-7}[37m=[33m3[37m[35m
-    $$[39m
-    [37m\[31m[1mend[22m[37m[32m{document}[37m[39m
+    \documentclass{article}
+    \usepackage[koi8-r]{inputenc}
+    \hoffset=0pt
+    \voffset=.3em
+    \tolerance=400
+    \newcommand{\eTiX}{\TeX}
+    \begin{document}
+    \section*{Highlight.js}
+    \begin{table}[c|c]
+    $\frac 12\, + \, \frac 1{x^3}\text{Hello \! world}$ & \textbf{Goodbye\~ world} \\\eTiX $ \pi=400 $
+    \end{table}
+    Ch\’erie, \c{c}a ne me pla\^\i t pas! % comment \b
+    G\"otterd\"ammerung~45\%=34.
+    $$
+     \int\limits_{0}^{\pi}\frac{4}{x-7}=3
+    $$
+    \end{document}

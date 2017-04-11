@@ -1,12 +1,12 @@
     [
      {
-     “title[33m": "[39mapples”,
-     [33m"count"[39m: [[33m12000[39m, [33m20000[39m],
-     “description[33m": {"[39mtext[33m": ”…"[39m, [33m"sensitive"[39m: [36m[1mfalse[22m[39m}
+     “title": "apples”,
+     "count": [12000, 20000],
+     “description": {"text": ”…", "sensitive": false}
      },
      {
-     “title[33m": "[39moranges”,
-     [33m"count"[39m: [[33m17500[39m, [36m[1mnull[22m[39m],
-     “description[33m": {"[39mtext[33m": ”…"[39m, [33m"sensitive"[39m: [36m[1mfalse[22m[39m}
+     “title": "oranges”,
+     "count": [17500, null],
+     “description": {"text": ”…", "sensitive": false}
      }
     ]

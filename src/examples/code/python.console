@@ -1,6 +1,6 @@
-    [36m@requires_authorization[39m
-    [36m[35m[1mdef[22m[36m [33m[1msomefunc[22m[36m[37m[1m(param1=’[32m', param2=0):
-     r’'[37m[32m'A docstring’'[37m[32m'
+    @requires_authorization
+    def somefunc(param1=’', param2=0):
+     r’''A docstring’''
      if param1 > param2: # interesting
      print “Gre\’ater”
      return (param2 - param1 + 1 + 0b10l) or None
@@ -8,5 +8,5 @@
     class SomeClass:
      pass
     
-    >>> message = '[37m’[32m'interpreter
-    … prompt’'[37m[32m'[37m[22m[36m[39m
+    >>> message = '’'interpreter
+    … prompt’''

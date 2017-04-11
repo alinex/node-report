@@ -1,11 +1,11 @@
-    [35m[1musing[22m[39m System;
+    using System;
     
-    [36m#[36m[1mpragma[22m[36m [36m[1mwarning[22m[36m disable 414, 3021[39m
+    #pragma warning disable 414, 3021
     
-    [90m[35m///[90m [35m<summary>[90mMain task[35m</summary>[90m[39m
-    [36m[35m[1masync[22m[36m Task<[35m[1mint[22m[36m, [35m[1mint[22m[36m> [33m[1mAccessTheWebAsync[22m[36m()
-    [39m{
-     Console.WriteLine([32m"Hello, World!"[39m);
-     [35m[1mstring[22m[39m urlContents = [35m[1mawait[22m[39m getStringTask;
-     [35m[1mreturn[22m[39m urlContents.Length;
+    /// <summary>Main task</summary>
+    async Task<int, int> AccessTheWebAsync()
+    {
+     Console.WriteLine("Hello, World!");
+     string urlContents = await getStringTask;
+     return urlContents.Length;
     }

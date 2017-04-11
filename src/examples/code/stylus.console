@@ -1,25 +1,25 @@
     @import “nib”
     
-    [90m// variables[39m
-    [33m$green[39m = [33m#008000[39m
-    [33m$green_dark[39m = darken([33m$green[39m, [33m10[39m)
+    // variables
+    $green = #008000
+    $green_dark = darken($green, 10)
     
-    [90m// mixin/function[39m
-    [36m[33m[1mcontainer[22m[36m[37m[1m()[22m[36m[39m
-     [32mmax-width[39m [33m980px[39m
+    // mixin/function
+    container()
+     max-width 980px
     
-    [90m// mixin/function with parameters[39m
-    [36m[33m[1mbuttonBG[22m[36m[37m[1m([33m$color[37m = green)[22m[36m[39m
-     [35m[1mif[22m[39m [33m$color[39m == green
-     [32mbackground-color[39m [33m#008000[39m
-     [35m[1melse[22m[39m [35m[1mif[22m[39m [33m$color[39m == red
-     [32mbackground-color[39m [33m#B22222[39m
+    // mixin/function with parameters
+    buttonBG($color = green)
+     if $color == green
+     background-color #008000
+     else if $color == red
+     background-color #B22222
     
-    [31m[1mbutton[22m[39m
+    button
      buttonBG(red)
     
-    [36m[1m#content[22m[39m, [33m.content[39m
-     [32mfont[39m Tahoma, Chunkfive, sans-serif
-     [32mbackground[39m url(’hatch.png’)
-     [32mcolor[39m [33m#F0F0F0[39m !important
-     [32mwidth[39m [33m100%[39m
+    #content, .content
+     font Tahoma, Chunkfive, sans-serif
+     background url(’hatch.png’)
+     color #F0F0F0 !important
+     width 100%

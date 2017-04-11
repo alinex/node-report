@@ -1,30 +1,30 @@
-    [90mIndex: languages/ini.js[39m
-    [90m===================================================================[39m
+    Index: languages/ini.js
+    ===================================================================
     —- languages/ini.js (revision 199)
-    [90m+++ languages/ini.js (revision 200)[39m
-    [36m@@ -1,8 +1,7 @@[39m
+    +++ languages/ini.js (revision 200)
+    @@ -1,8 +1,7 @@
      hljs.LANGUAGES.ini =
      {
      case_insensitive: true,
-    [31m[1m- defaultMode:[22m[39m
-    [31m[1m- {[22m[39m
-    [32m[1m+ defaultMode: {[22m[39m
+    - defaultMode:
+    - {
+    + defaultMode: {
      contains: [’comment’, 'title’, 'setting’],
      illegal: “[^\\s]”
      },
     
-    [90m*** /path/to/original timestamp[39m
+    *** /path/to/original timestamp
     —- /path/to/new timestamp
-    [90m***************[39m
-    [36m*** 1,3 ****[39m
+    ***************
+    *** 1,3 ****
     —- 1,9 ——
-    [32m[1m+ This is an important[22m[39m
-    [32m[1m+ notice! It should[22m[39m
-    [32m[1m+ therefore be located at[22m[39m
-    [32m[1m+ the beginning of this[22m[39m
-    [32m[1m+ document![22m[39m
+    + This is an important
+    + notice! It should
+    + therefore be located at
+    + the beginning of this
+    + document!
     
-    [32m[1m! compress the size of the[22m[39m
-    [32m[1m! changes.[22m[39m
+    ! compress the size of the
+    ! changes.
     
      It is important to spell

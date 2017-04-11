@@ -1,13 +1,13 @@
-    [35m[1mPOST[22m[39m [32m/task?id=1[39m HTTP/1.1
-    [32mHost[39m: example.org
-    [32mContent-Type[39m: application/json; charset=utf-8
-    [32mContent-Length[39m: 137
+    POST /task?id=1 HTTP/1.1
+    Host: example.org
+    Content-Type: application/json; charset=utf-8
+    Content-Length: 137
     
     {
-     “status[32m": "[39mok”,
-     [32m"extended"[39m: [36m[1mtrue[22m[39m,
-     [32m"results"[39m: [
-     {[32m"value"[39m: [33m0[39m, [32m"type"[39m: [32m"int64"[39m},
-     {[32m"value"[39m: [33m1.0[39me+3, [32m"type"[39m: [32m"decimal"[39m}
+     “status": "ok”,
+     "extended": true,
+     "results": [
+     {"value": 0, "type": "int64"},
+     {"value": 1.0e+3, "type": "decimal"}
      ]
     }

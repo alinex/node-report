@@ -1,27 +1,27 @@
-    [35m[1m@import[22m[39m [32m"fruits"[39m;
+    @import "fruits";
     
-    [33m@rhythm:[39m [33m1.5em[39m;
+    @rhythm: 1.5em;
     
-    [35m[1m@media[22m[39m screen and ([32mmin-resolution[39m: [33m2dppx[39m) {
-     [31m[1mbody[22m[39m {[32mfont-size[39m: [33m125%[39m}
+    @media screen and (min-resolution: 2dppx) {
+     body {font-size: 125%}
     }
     
-    [31m[1msection[22m[39m > [33m.foo[39m + [36m[1m#bar[22m[39m[33m:hover[39m [33m[href*="less"][39m {
-     [32mmargin[39m: [33m@rhythm[39m [33m0[39m [33m0[39m [33m@rhythm[39m;
-     [32mpadding[39m: calc([33m5%[39m + [33m20px[39m);
-     [32mbackground[39m: [33m#f00ba7[39m url([32mhttp://placehold.alpha-centauri/42.png[39m) no-repeat;
-     [32mbackground-image[39m: linear-gradient(-[33m135deg[39m, wheat, fuchsia) [36m!important[39m ;
-     [32mbackground-blend-mode[39m: multiply;
+    section > .foo + #bar:hover [href*="less"] {
+     margin: @rhythm 0 0 @rhythm;
+     padding: calc(5% + 20px);
+     background: #f00ba7 url(http://placehold.alpha-centauri/42.png) no-repeat;
+     background-image: linear-gradient(-135deg, wheat, fuchsia) !important ;
+     background-blend-mode: multiply;
     }
     
-    [35m[1m@font-face[22m[39m {
-     [32mfont-family[39m: [90m/* ? */[39m 'Omega’;
-     [32msrc[39m: url([32m’../fonts/omega-webfont.woff?v=2.0.2’[39m);
+    @font-face {
+     font-family: /* ? */ 'Omega’;
+     src: url(’../fonts/omega-webfont.woff?v=2.0.2’);
     }
     
-    [33m.icon-baz[39m[33m::before[39m {
-     [32mdisplay[39m: inline-block;
-     [32mfont-family[39m: “Omega”, Alpha, sans-serif;
-     [32mcontent[39m: [32m"\f085"[39m;
-     [32mcolor[39m: rgba([33m98[39m, [33m76[39m [90m/* or 54 */[39m, [33m231[39m, .[33m75[39m);
+    .icon-baz::before {
+     display: inline-block;
+     font-family: “Omega”, Alpha, sans-serif;
+     content: "\f085";
+     color: rgba(98, 76 /* or 54 */, 231, .75);
     }
