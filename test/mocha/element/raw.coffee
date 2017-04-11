@@ -18,6 +18,9 @@ describe "raw", ->
     it "should make html inline examples", (cb) ->
       test.markdown 'raw/html-inline', 'Some <a class="red">inline</a> html.', null, true, cb
 
+    it "should make html form example", (cb) ->
+      test.markdown 'raw/html-form', '<form>\n\nSome <input type="text" /> input.\n\n</form>', null, true, cb
+
   describe "api", ->
 
     it "should create as block", (cb) ->
