@@ -12,7 +12,7 @@ module.exports =
     type: 'raw'
     fn: (num, token) ->
       return unless token.format is 'html'
-      nl = if @setup.compress then '' else '\n'
+      nl = if @setup.compress or not token.block then '' else '\n'
       token.out = "#{nl}#{token.content}#{nl}"
 
   md:
