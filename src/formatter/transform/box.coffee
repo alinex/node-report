@@ -47,7 +47,7 @@ module.exports =
     fn: (num, token) ->
       util.extend token,
         html:
-          class: ['container']
+          class: ['box-container']
       nl = if @setup.compress then '' else '\n'
       token.out = switch token.nesting
         when 1 then "<div#{@htmlAttribs token, ['selected', 'size']}>#{nl}"

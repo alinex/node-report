@@ -20,7 +20,7 @@ supPlugin = null # load on demand
 tocPlugin = null # load on demand
 # include more alinex modules
 util = require 'alinex-util'
-Config = require 'alinex-config'
+config = require 'alinex-config'
 
 
 # Public
@@ -34,9 +34,9 @@ module.exports = (text) ->
   debug "parse and add: #{chalk.bold.yellow util.inspect text}"
   # init markdown-it
   unless markdownIt
-    config = Config.get '/report/parser/md'
+    conf = config.get '/report/parser/md'
     markdownIt = require('markdown-it')
-      html: config.html
+      html: conf.html
       linkify: true
     .use tasksPlugin ?= require './tasks'
     .use deflistPlugin ?= require 'markdown-it-deflist'
@@ -153,7 +153,7 @@ modify =
     t.type = 'code'
     t.nesting = 1
     t.language = info?[0] ? 'text'
-    t.language = l if l = Config.get('/report/code/alias')[t.language]
+    t.language = l if l = config.get('/report/code/alias')[t.language]
     list.push node2token t
     list.push
       type: 'text'
