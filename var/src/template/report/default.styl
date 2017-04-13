@@ -188,9 +188,12 @@ pre
   border-radius: 10px
   border: 1px solid #a4a4a4
   font-size: 85%
+  font-weight: 600
   margin: 20px
   padding: 10px
+  overflow: auto
   code, tt
+    white-space: pre
     background: none
   &.language
     counter-reset: line
@@ -205,6 +208,7 @@ pre
       border-left: 45px solid $color-background
       margin-left: -10px
       padding-left: 5px
+      white-space: pre-wrap
       &:nth-child(2n)
         border-left: 45px solid darken($color-background, 10%)
         background-color: darken(#fafafa, 5%)
