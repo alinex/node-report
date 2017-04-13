@@ -26,8 +26,9 @@ module.exports =
       nl = if @setup.compress then '' else '\n'
       token.out = "<ul class=\"table-of-contents\" aria-hidden=\"true\">#{nl}" +
       "<header>Index<a href=\"#top\" class=\"fa fa-arrow-up toplink\"></a></header>#{nl}"
-      level = 1
+      start = level = @setup.toc.startLevel
       for link, t of @tokens.data[0].heading
+        continue if start > t.heading
         continue unless t.title # ignore empty headings
         while level < t.heading
           token.out += "<ul>#{nl}"
@@ -36,14 +37,6 @@ module.exports =
           token.out += "</ul>#{nl}"
           level--
         token.out += "<li><a href=\"##{link}\">#{t.title}</a></li>#{nl}"
-      while level > 0
+      while level >= start
         token.out += "</ul>#{nl}"
         level--
-
-#
-#<li><a href="#my-text">My text</a></li>
-#<li><a href="#other-opinions">Other opinions</a>
-#<ul>
-#<li><a href="#my-parents">My parents</a></li>
-#<li><a href="#my-friends">My friends</a></li>
-#</ul>

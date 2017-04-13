@@ -171,6 +171,19 @@ html =
       type: 'array'
       toArray: true
       default: ['report/default.css']
+    toc:
+      title: "Table of Contents"
+      description: "the settings for the table of contents"
+      type: 'object'
+      allowedKeys: true
+      keys:
+        startLevel:
+          title: "Start Heading"
+          description: "the starting heading level"
+          type: 'integer'
+          min: 1
+          max: 6
+          default: 1
     convert:
       title: "Conversion"
       description: "a possible conversion to run on the resulting format"

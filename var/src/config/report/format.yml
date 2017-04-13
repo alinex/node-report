@@ -42,6 +42,8 @@ html:
 #    included inline in the moment
 #    - https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/github.min.css
     - report/default.css
+  toc:
+    startLevel: 2
 
 html2png:
   type: html
