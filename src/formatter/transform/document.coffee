@@ -23,16 +23,22 @@ htmlStyle = deasync (setup, cb) ->
   Config.typeSearch 'template', (err, map) ->
     return cb err if err
     async.map util.array.unique(setup.style), (style, cb) ->
-      return cb null, stylesCache[style] if stylesCache[style]
+      url = if typeof style is 'object' then style.url else style
+      return cb null, stylesCache[url] if stylesCache[url]
       # external reference
-      unless map[style]
-        stylesCache[style] = "<link rel=\"stylesheet\" href=\"#{style}\" />#{nl}"
-        return cb null, stylesCache[style]
+      unless map[url]
+        stylesCache[url] = if typeof style is 'object'
+          attr = Object.keys(style).map (k) -> "#{k}=\"#{style[k]}\""
+          .join ' '
+          "<link rel=\"stylesheet\" #{attr} />#{nl}"
+        else
+          "<link rel=\"stylesheet\" href=\"#{url}\" />#{nl}"
+        return cb null, stylesCache[url]
       # include internal style
       fs.readFile map[style], 'utf8', (err, content) ->
         return cb err if err
         stylesCache[style] = "<style type=\"text/css\">#{content}</style>#{nl}"
-        cb null, stylesCache[style]
+        cb null, stylesCache[url]
     , (err, results) ->
       cb err, results.join ''
 
