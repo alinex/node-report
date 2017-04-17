@@ -46,7 +46,7 @@ describe "box", ->
         """, null, true, cb
 
     it "should allow info", (cb) ->
-      test.markdown 'box/multi', """
+      test.markdown 'box/info', """
         ::: info
         foo
         ::: ok
