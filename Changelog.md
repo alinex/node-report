@@ -4,6 +4,267 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 3.0.0 (2017-04-19)
+-------------------------------------------------
+Complete rewrite of API and formatter.
+
+- Revert version number.
+- Fix typographic replacement.
+- Make message about not able to highlighting a debug warning.
+- Fix highlighting of multiline comments in html.
+- Replace typographic currency with own implementation.
+- Fox for missing toc settings.
+- Make typographic setting selectable.
+- Fix example name.
+- Make all code display bold in default style.
+- Allow setting start level for toc through config.
+- Fix display of pre and code.
+- Allow styles to be defined as object.
+- Rename container class to box-container because of name conflict with bootstrap.
+- Fix word break.
+- Merge branch 'master' of https://github.com/alinex/node-report
+- Add raw test.
+- Inline raw html without newlines arround.
+- Enhance spacing before level 1+2 heading in markdown to two lines.
+- Added information for version 3.0.0
+- Remove clean-css.
+- Update some packages.
+- Cache loaded and setup styles.
+- Remove examples from npm package.
+- Optimized and fixed style inclusion to include every one once.
+- Fix segmentation fault in report by explicitly calling the callback.
+- Remove unneccessary line.
+- Fix inclusion of local html styles.
+- Optimize formatter call.
+- Updated inline docs.
+- Add automatic read from file.
+- Disable fuzzy linkify.
+- Fix output format access.
+- Fix lint errors.
+- Fix format error.
+- Update search for api methods.
+- Add navigation methods to api.
+- Update  async@2.1.5, debug@2.6.3, twemoji@2.2.5, highlight.js@9.10.0, markdown-it@8.3.1, moment@2.18.1, clean-css@4.0.9, mermaid@7.0.0, memoizee@0.4.4
+- Allow title setting throughz style.
+- Add support for toc.
+- Completed typograph test and examples.
+- Add typographic replacements and language specification using styles.
+- Add support for mark, insert, sub and sup formatting.
+- Added auto create element for include.
+- Simple includes working.
+- Finished boxes implementation.
+- Added api for boxes.
+- Finish html layout for simple boxes.
+- Allow multibox in console and text output.
+- Add heading anchor check.
+- Smaller fixes to make all tests work again.
+- Add formatter for text boxes.
+- Begin text and html formatter.
+- Implement markdown parsing and formatting of boxes.
+- Start new plugin for box.
+- Support kramdown style syntax.
+- Add api for definition list.
+- Add container markdown parsing.
+- Add output formats for definition list.
+- Implement markdown for definition lists.
+- Fix target depth in html style.
+- Add styles for html decoration.
+- Fixed html markdown test to support new comment elements.
+- Add more list api tests.
+- Completed html, md, text, console outputs for basic elements.
+- Fixed output of task lists.
+- Make test for html list layout.
+- Add more examples.
+- Optimize fixed html output.
+- Add more highlighting examples.
+- Add highlighting to console output.
+- Test pdf export.
+- Add more examples of html code highlighting.
+- Small fixes.
+- Add syntax highlighting for code blocks.
+- More examples blockquote.
+- Add html2png conversion.
+- Add stylesheets to html output.
+- Add plugin for gfm tasklists.
+- Finish table API with tests.
+- Implement api for alinex-table.
+- Finish html, text and console output for table.
+- Add more colors to console output.
+- Implement ansi escapes.
+- Allow escaped pipe in table.
+- Add strikethrough implementation.
+- Api for raw, link and image.
+- Support keep breaks (softbreak) setting in html output.
+- Allow switch to use references on markdown output.
+- All commonmark tests added.
+- Add tests for linebreaks.
+- More tests for autolink and inline html.
+- More tests.
+- Complete all element tests.
+- Add more text escape tests.
+- Merge branch 'v3' of https://github.com/alinex/node-report into v3
+- Add image markdown tests.
+- Complete link tests.
+- Complete tests for html blocks.
+- Added html tag transforming from/to markdown.
+- Complete link markdown tests.
+- Fix formatting of image and link also if nested.
+- Some more link tests ans initial image parser implementation.
+- Implement links in markdown.
+- Finished markdown emphasis tests.
+- More emphasis tests.
+- Some emphasis/strong tests.
+- Optimize API and add fixed().
+- Optimize masking of characters.
+- Finish list tests.
+- Implement loose and tight lists with more tokenlist elements.
+- Support tight list parsing and writting.
+- A lot more list tests.
+- Start list tests.
+- Add tests for text (tabs).
+- Update all blockquote tests.
+- Add tests for paragraph.
+- Fix set after close of token.
+- Small fixes in man conversion of code and preformatted.
+- Added markdown parsing tests for fixed.
+- Run all current tests.
+- Only rtrim newlines in preformatted text.
+- Complete thematic break tests.
+- Start tests for thematic break.
+- Work with complete heading api.
+- Set marker on api close of heading.
+- Heading with API in one step.
+- First heading API tests with new structure.
+- Support more heading specifica.
+- Add support for preformatted, softbreak and hardbreak.
+- Fix duplicate masking of # to prevent heading.
+- First tests to pass reparse check with markdown.
+- Integrate parsing through markdown-it into own tokenlist.
+- redesign.
+- Next redesign phase started.
+- Some more tests.
+- Small fix.
+- Made all current tests pass.
+- Redesign with some running tests.
+- Redesign emphasis rules.
+- Allow inner marker in underscore.
+- Some more tests.
+- First tests for strong.
+- Completed fixed style tests.
+- First tests for fixed style.
+- Finished code tests.
+- More tests for code blocks.
+- Closing code block at end of document automatically.
+- Enable language definition in code tags and alias through config.
+- Change code parser.
+- New element code added.
+- Simplified list RegExp.
+- Added more tests for lists.
+- Add more list tests.
+- Add some fixes for lists.
+- Add more tests for lists.
+- Run all tests for blockquotes.
+- Fix some more blockquote problems with lazyness.
+- Add some blockquote tests.
+- More debug output in formatter.
+- Optimize token list display in test.
+- Complete tests for preformatted.
+- Blank lines won't break current predefined section.
+- Add moment.js package.
+- Add more roff formatters.
+- Add more tests for preformatted text.
+- Run first tests for preformatted text.
+- Trim text output.
+- Fix output for formats without page header and footer.
+- update todo list
+- Update documentation.
+- Complete thematic break tests.
+- Run all commonmark examples for headings.
+- Allow relative paths in include.
+- Basic implementation of includes.
+- Add anchor to headings for direct call within links.
+- Fixed list to work with list -> item -> paragraph -> text.
+- Add rudimentary list support.
+- Added basic blockquote support.
+- Made all current tests working again.
+- Use post formatters and collect in reverse order (deepest first).
+- Prepare new formatter step with post rules.
+- Added todo overview.
+- Fixes found out by more tests.
+- Add more tests for text element.
+- Optimize autoclose to throw error if specified.
+- Improve autoclose to include into heading api.
+- Restructure API into multiple files.
+- Remove possibility to show current parsing position because not possible if includes are used.
+- Restructure for new preformatted element.
+- Change graphical overview.
+- Change for better html output.
+- Updated overview graphics for documentation.
+- Added paragraph tests.
+- Restructure API coding.
+- Update tests for thematic breaks.
+- Completed heading tests excluding ones depending on other elements.
+- Run all commonmark examples for atx headings in test.
+- More tests for heading rewritten.
+- Support format in headings.
+- Also allow document header/footer in text output per config.
+- Support templates for the html output in configuration.
+- Finished toFile() method.
+- Heading passing more tests again and new format element implementation.
+- Move old files away and fix lint errors.
+- Upgrade clean-css@3.4.23, debug@2.6.0, highlight.js@9.9.0, alinex-builder@2.4.1
+- Changed heading tests.
+- Added element test for heading 2-6.
+- Add format support table to documentation.
+- Add extension to formatter setting as default file extension.
+- Add support for rtf output.
+- Add pre formatter run.
+- Add pre run to formatter to detect title.
+- Add tests for api creation.
+- Add title to html.
+- Add output for man pages.
+- Add text formating output.
+- Cleanup src directory.
+- Add configuration to formatters.
+- Run formatter through tests and create examples.
+- Create structure for formatter.
+- Completely working again.
+- Better debugging.
+- More tests for setext heading.
+- Fully support paragraph parsing.
+- Simplify check conditions in test tool.
+- Fixed parsing of headings.
+- Support laiy block continuing.
+- Support full ATX headings from commonmark.
+- Add first post processing rule tp parser.
+- Parse markdown with thematic_break and ATX heading.
+- Reenable parsing with new structure.
+- Done implementing parser pre optimizations.
+- Merge branch 'v3' of https://github.com/alinex/node-report into v3
+- Restructure project to make it more modular.
+- Add initial transformer.
+- Support domain in state and document tokens.
+- Add graph of lexer states.
+- Add cleanup rules, run before parsing.
+- Implement autoclose and added first automatic tests.
+- Optimized debugging output and added code comments.
+- Parsing with different state.
+- Throw error message on parse problems.
+- Merge branch 'v3' of https://github.com/alinex/node-report into v3
+- Basic parser.
+- Initial lexer test.
+- Added information for version 2.2.2
+- Fixed test for title in table of contents.
+- Remove empty lines from handlebars templates.
+- Update phantomjs-prebuilt@2.1.14
+- Fixed: Tables were being removed in the process of putting boxes into tabs.
+- Optimize table of contents display and box titles.
+- Smaller fixes in html style.
+- Added information for version 2.2.1
+- Bug fix include of trans submodule.
+- Add documentation of themes.
+- Fix links of general examples.
+
 Version 3.0.0 (2017-04-07)
 -------------------------------------------------
 New major realease with completely changed internal structure and some special features missing.
