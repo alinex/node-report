@@ -51,17 +51,20 @@ typo = (text, tokens) ->
     text.replace ///
       # value before symbol
       (\d\ ?)         # 1: before
-      ([A-Z]{3})      # 2: symbol
+      ([A-Za-z]{3})   # 2: symbol
       ([\ ,:);.]|$)   # 3: after
       | # value after
-      (^|[\ (]|$)   # 1: before
-      ([A-Z]{3})      # 2: symbol
+      (^|[\ (])       # 1: before
+      ([A-Za-z]{3})   # 2: symbol
       (\d\ ?)         # 3: after
+      | # no value
+      (^|[\ (])       # 1: before
+      ([A-Z]{3})      # 2: symbol
+      ([\ ,:);.]|$)   # 3: after
       ///g, (orig, before, symbol, after) ->
-      if ch = currencyDB[symbol.toUpperCase()]
+      if symbol and ch = currencyDB[symbol.toUpperCase()]
         return "#{before}#{ch}#{after}"
       orig
-  text
 
 
 # Transformer rules
