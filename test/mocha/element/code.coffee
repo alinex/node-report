@@ -792,6 +792,23 @@ describe "code", ->
         ```
       """, null, true, cb
 
+    it "should make example for shell", (cb) ->
+      test.markdown 'code/shell', """
+        ``` shell
+        $ echo $EDITOR
+        vim
+        $ git checkout master
+        Switched to branch 'master'
+        Your branch is up-to-date with 'origin/master'.
+        $ git push
+        Everything up-to-date
+        $ echo 'All
+        > done!'
+        All
+        done!
+        ```
+      """, null, true, cb
+
     it "should make example for sql", (cb) ->
       test.markdown 'code/sql', """
         ``` sql

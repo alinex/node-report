@@ -6,7 +6,7 @@ individual versions:
 
 Version 3.0.0 (2017-04-19)
 -------------------------------------------------
-Complete rewrite of API and formatter.
+Lots of fixes to the new version.
 
 - Revert version number.
 - Fix typographic replacement.

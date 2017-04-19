@@ -11,8 +11,7 @@ alias:
   latex: tex
   make: makefile
   md: markdown
-  sh: bash
-  shell: bash
+  sh: shell
   yml: yaml
 
 title:
