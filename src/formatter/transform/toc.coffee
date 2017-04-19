@@ -26,7 +26,7 @@ module.exports =
       nl = if @setup.compress then '' else '\n'
       token.out = "<ul class=\"table-of-contents\" aria-hidden=\"true\">#{nl}" +
       "<header>Index<a href=\"#top\" class=\"fa fa-arrow-up toplink\"></a></header>#{nl}"
-      start = level = @setup.toc.startLevel
+      start = level = @setup.toc?.startLevel ? 1
       for link, t of @tokens.data[0].heading
         continue if start > t.heading
         continue unless t.title # ignore empty headings
