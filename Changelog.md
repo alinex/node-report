@@ -4,6 +4,29 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 3.1.0 (2017-04-19)
+-------------------------------------------------
+- Add support for new shell highlighting.
+- Added information for version 3.0.0
+- Revert version number.
+- Fix typographic replacement.
+- Make message about not able to highlighting a debug warning.
+- Fix highlighting of multiline comments in html.
+- Replace typographic currency with own implementation.
+- Fox for missing toc settings.
+- Make typographic setting selectable.
+- Fix example name.
+- Make all code display bold in default style.
+- Allow setting start level for toc through config.
+- Fix display of pre and code.
+- Allow styles to be defined as object.
+- Rename container class to box-container because of name conflict with bootstrap.
+- Fix word break.
+- Merge branch 'master' of https://github.com/alinex/node-report
+- Add raw test.
+- Inline raw html without newlines arround.
+- Enhance spacing before level 1+2 heading in markdown to two lines.
+
 Version 3.0.0 (2017-04-19)
 -------------------------------------------------
 Lots of fixes to the new version.
