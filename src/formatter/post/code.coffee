@@ -2,6 +2,7 @@
 # =================================================
 
 
+debug = require('debug') 'report:highlight'
 chalk = require 'chalk'
 hljs = null # load on demand
 util = require 'alinex-util'
@@ -96,7 +97,7 @@ module.exports =
         # syntax highlighting
         hljs ?= require 'highlight.js'
         unless hljs.getLanguage token.language
-          console.error "Could not highlight #{token.language} language!"
+          debug chalk.magenta "Could not highlight #{token.language} language!"
         else
           try
             chalk = new chalk.constructor {enabled: true}
@@ -120,7 +121,7 @@ module.exports =
       # syntax highlighting
       hljs ?= require 'highlight.js'
       unless hljs.getLanguage token.language
-        console.error "Could not highlight #{token.language} language!"
+        debug chalk.magenta "Could not highlight #{token.language} language!"
         return
       try
         token.collect = hljs.highlight(token.language, token.collect, true).value
