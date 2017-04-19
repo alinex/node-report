@@ -1,0 +1,16 @@
+# Default settings for code highlighting
+# ============================================
+
+apostrophes: true
+apostrophesForPlurals: true
+arrows: true
+copyright: true
+currency: true
+ellipses: true
+emDashes: true
+enDashes: true
+mathSymbols: true
+quotes: true
+registeredTrademark: true
+singleSpaces: true
+trademark: true

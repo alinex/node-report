@@ -188,7 +188,7 @@ describe "box", ->
         {format: 'md', text: "::: detail Detail\nfoo\n:::"}
         {format: 'text', text: '#########\n# Detail #\n#--------#\n# foo    #\n##########'}
         {format: 'console', text: '\u001b[37m╔════════╗\u001b[39m\n\u001b[37m║ \u001b[1mDetail\u001b[22m ║\u001b[39m\n\u001b[37m╟────────╢\u001b[39m\n\u001b[37m║\u001b[39m foo    \u001b[37m║\u001b[39m\n\u001b[37m╚════════╝\u001b[39m\n'}
-        {format: 'html', text: '<div class="container">\n<input name="tabs1" class="tab tab1" id="tab1-1" checked="" type="radio">\n<label for="tab1-1" class="detail" title="Switch tab">Detail</label><div class="box box1 detail">\n<p>foo</p>\n</div>\n</div>'}
+        {format: 'html', text: '<div class="box-container">\n<input name="tabs1" class="tab tab1" id="tab1-1" checked="" type="radio">\n<label for="tab1-1" class="detail" title="Switch tab">Detail</label><div class="box box1 detail">\n<p>foo</p>\n</div>\n</div>'}
       ], cb
 
     it "should create info box", (cb) ->

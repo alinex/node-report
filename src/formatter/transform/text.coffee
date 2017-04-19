@@ -2,18 +2,48 @@
 # =================================================
 
 util = require 'alinex-util'
-typo = require 'typographic-base'
+config = require 'alinex-config'
+# typograph modules
+Textr = require 'textr'
+apostrophes = require 'typographic-apostrophes'
+apostrophesForPlurals = require 'typographic-apostrophes-for-possessive-plurals'
+arrows = require 'typographic-arrows'
+copyright = require 'typographic-copyright'
+currency = require 'typographic-currency'
+ellipses = require 'typographic-ellipses'
+emDashes = require 'typographic-em-dashes'
+enDashes = require 'typographic-en-dashes'
+mathSymbols = require 'typographic-math-symbols'
+quotes = require 'typographic-quotes'
+registeredTrademark = require 'typographic-registered-trademark'
+singleSpaces = require 'typographic-single-spaces'
+trademark = require 'typographic-trademark'
 
 
 TYPO_LANG =
   en: 'en-us'
 
 
-
-typoOption = (tokens) ->
+typo = (text, tokens) ->
+  conf = config.get '/report/typograph'
+  textr = Textr()
+  textr.use apostrophes if conf.apostrophes
+  textr.use quotes if conf.quotes
+  textr.use apostrophesForPlurals if conf.apostrophesForPlurals
+  textr.use arrows if conf.arrows
+  textr.use copyright if conf.copyright
+  textr.use currency.default if conf.currency
+  textr.use ellipses if conf.ellipses
+  textr.use emDashes if conf.emDashes
+  textr.use enDashes if conf.enDashes
+  textr.use mathSymbols if conf.mathSymbols
+  textr.use registeredTrademark if conf.registeredTrademark
+  textr.use singleSpaces if conf.singleSpaces
+  textr.use trademark if conf.trademark
   lang = tokens.get(0).html?.lang ? 'en'
-  locale:
-    TYPO_LANG[lang] ? lang
+  textr text,
+    locale:
+      TYPO_LANG[lang] ? lang
 
 
 # Transformer rules
@@ -47,7 +77,7 @@ module.exports =
       token.out = token.content
       return if token.parent.type is 'code'
       unless token.parent.type is 'preformatted'
-        token.out = typo token.out, typoOption @tokens
+        token.out = typo token.out, @tokens
       token.out = util.string.htmlEncode token.out
       return if token.parent.type is 'preformatted'
       token.out = token.out
@@ -72,4 +102,4 @@ module.exports =
     format: ['text', 'latex', 'rtf']
     type: 'text'
     fn: (num, token) ->
-      token.out = typo token.content, typoOption @tokens
+      token.out = typo token.content, @tokens

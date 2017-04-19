@@ -340,3 +340,74 @@ module.exports =
           rtf
         ]
       ]
+    typograph:
+      title: "Enable Typograph"
+      description: "the options to enable/disable typographic elements"
+      type: 'object'
+      allowedKeys: true
+      keys:
+        apostrophes:
+          title: ""
+          description: ""
+          type: 'boolean'
+          default: true
+        apostrophesForPlurals:
+          title: ""
+          description: ""
+          type: 'boolean'
+          default: true
+        arrows:
+          title: ""
+          description: ""
+          type: 'boolean'
+          default: true
+        copyright:
+          title: ""
+          description: ""
+          type: 'boolean'
+          default: true
+        currency:
+          title: ""
+          description: ""
+          type: 'boolean'
+          default: true
+        ellipses:
+          title: ""
+          description: ""
+          type: 'boolean'
+          default: true
+        emDashes:
+          title: ""
+          description: ""
+          type: 'boolean'
+          default: true
+        enDashes:
+          title: ""
+          description: ""
+          type: 'boolean'
+          default: true
+        mathSymbols:
+          title: ""
+          description: ""
+          type: 'boolean'
+          default: true
+        quotes:
+          title: ""
+          description: ""
+          type: 'boolean'
+          default: true
+        registeredTrademark:
+          title: ""
+          description: ""
+          type: 'boolean'
+          default: true
+        singleSpaces:
+          title: ""
+          description: ""
+          type: 'boolean'
+          default: true
+        trademark:
+          title: ""
+          description: ""
+          type: 'boolean'
+          default: true
