@@ -19,7 +19,7 @@ describe "text", ->
         And a hard break before this.
       """, null, true, cb
 
-    it "should make typographic replacements", (cb) ->
+    it.only "should make typographic replacements", (cb) ->
       test.markdown 'text/typographic', """
         I\'m looking forward.\\
         foo "foo 'inside' bar" bar\\

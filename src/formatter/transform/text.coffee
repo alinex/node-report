@@ -8,8 +8,8 @@ Textr = require 'textr'
 apostrophes = require 'typographic-apostrophes'
 apostrophesForPlurals = require 'typographic-apostrophes-for-possessive-plurals'
 arrows = require 'typographic-arrows'
+currencyDB = null # loaded on demand
 copyright = require 'typographic-copyright'
-currency = require 'typographic-currency'
 ellipses = require 'typographic-ellipses'
 emDashes = require 'typographic-em-dashes'
 enDashes = require 'typographic-en-dashes'
@@ -25,14 +25,15 @@ TYPO_LANG =
 
 
 typo = (text, tokens) ->
+  return text unless text
   conf = config.get '/report/typograph'
   textr = Textr()
   textr.use apostrophes if conf.apostrophes
   textr.use quotes if conf.quotes
   textr.use apostrophesForPlurals if conf.apostrophesForPlurals
   textr.use arrows if conf.arrows
+  # currency is handled separately, below
   textr.use copyright if conf.copyright
-  textr.use currency.default if conf.currency
   textr.use ellipses if conf.ellipses
   textr.use emDashes if conf.emDashes
   textr.use enDashes if conf.enDashes
@@ -41,9 +42,26 @@ typo = (text, tokens) ->
   textr.use singleSpaces if conf.singleSpaces
   textr.use trademark if conf.trademark
   lang = tokens.get(0).html?.lang ? 'en'
-  textr text,
+  text = textr text,
     locale:
       TYPO_LANG[lang] ? lang
+  # currency
+  if conf.currency
+    currencyDB ?= require 'typographic-currency-db'
+    text.replace ///
+      # value before symbol
+      (\d\ ?)         # 1: before
+      ([A-Z]{3})      # 2: symbol
+      ([\ ,:);.]|$)   # 3: after
+      | # value after
+      (^|[\ (]|$)   # 1: before
+      ([A-Z]{3})      # 2: symbol
+      (\d\ ?)         # 3: after
+      ///g, (orig, before, symbol, after) ->
+      if ch = currencyDB[symbol.toUpperCase()]
+        return "#{before}#{ch}#{after}"
+      orig
+  text
 
 
 # Transformer rules
