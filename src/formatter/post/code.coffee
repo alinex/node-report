@@ -124,5 +124,16 @@ module.exports =
         return
       try
         token.collect = hljs.highlight(token.language, token.collect, true).value
-      # brek code on newlines
-      token.collect = token.collect.replace /\n/g , '</code>\n<code>'
+      # break code on newlines
+      token.collect = token.collect
+      .replace ///
+        (<span.*?>)
+        (
+          [\s\S]*?
+          <span\ class="hljs-doctag">@\w+</span>
+          [\s\S]*?
+        )
+        <\/span>
+        ///g, (_, span, text) ->
+        span + text.replace(/\n/g, "</span>\n#{span}") + '</span>'
+      .replace /\n/g, '</code>\n<code>'

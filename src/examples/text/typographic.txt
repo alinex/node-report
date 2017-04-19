@@ -3,7 +3,7 @@ foo “foo ‘inside’ bar” bar
 My sisters’ friends’ investments
 © 2017 Alexander Schilling
 2013 Intel ®; 2013 Intel™
-Tickets cost 20 $ in Australia or 19 € in Germany
+Tickets cost 20 usd in Australia or 19 EUR in Germany
 foo…bar
 foo — bar and foo — bar
 Kurt Cobain (1967–1994)

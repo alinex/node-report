@@ -1,3 +1,5 @@
 ::: info
-And a little information to help you...
+foo
+::: ok
+bar
 :::

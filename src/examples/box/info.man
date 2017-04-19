@@ -1,2 +1,4 @@
 .P
-And a little information to help you...
+foo
+.P
+bar
