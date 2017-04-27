@@ -4,6 +4,13 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 3.1.0 (2017-04-27)
+-------------------------------------------------
+- Fix version number.
+- Updated debug@2.6.4, typographic-arrows@1.0.3
+- Added information for version 3.1.0
+- Add support for new shell highlighting.
+
 Version 3.1.0 (2017-04-19)
 -------------------------------------------------
 - Add support for new shell highlighting.
