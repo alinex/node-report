@@ -4,6 +4,10 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 3.1.1 (2017-04-27)
+-------------------------------------------------
+- 
+
 Version 3.1.0 (2017-04-27)
 -------------------------------------------------
 - Fix version number.
