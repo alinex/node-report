@@ -4,6 +4,10 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 3.1.2 (2017-06-26)
+-------------------------------------------------
+- Fix table highlight color.
+
 Version 3.1.1 (2017-04-27)
 -------------------------------------------------
 - 
