@@ -105,8 +105,8 @@ module.exports =
               lines[num] = "#{lines[num][0..m.index-1]}│#{lines[num][m.index+1..]}"
       if @setup.ansi_escape
         for line, num in lines
-          if 2 < num < lines.length - 2 and num % 2 is 0
-            lines[num] = "#{line[0]}#{chalk.bgBlue line[1..-2]}#{line[-1..]}"
+          if 2 < num < lines.length - 2 and num % 2 isnt 0
+            lines[num] = "#{line[0]}#{chalk.bgBlack line[1..-2]}#{line[-1..]}"
 #            lines[num] = chalk.bgBlack.yellow lines[num]
       # rejoin content
       token.collect = lines.join '\n'
