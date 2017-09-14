@@ -4,6 +4,12 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 3.1.3 (2017-09-14)
+-------------------------------------------------
+- Remove m/n dash transforms
+- Remove m/n dash transforms
+- Remove m/n dash transforms
+
 Version 3.1.2 (2017-06-26)
 -------------------------------------------------
 - Fix table highlight color.
