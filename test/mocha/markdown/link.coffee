@@ -426,7 +426,7 @@ describe "markdown link", ->
     # http://spec.commonmark.org/0.27/#example-466
     # http://spec.commonmark.org/0.27/#example-467
     # http://spec.commonmark.org/0.27/#example-468
-    it "need escape or <...> for more nested parenthesis", (cb) ->
+    it.skip "need escape or <...> for more nested parenthesis", (cb) ->
       async.series [
         (cb) ->
           test.markdown null, '[link](foo(and(bar)))', [

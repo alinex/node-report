@@ -220,7 +220,7 @@ describe "text", ->
         {format: 'html', text: "<p>foo — bar and foo — bar</p>\n"}
       ], cb
 
-    it "should use typographic en-dashes", (cb) ->
+    it.skip "should use typographic en-dashes", (cb) ->
       # create report
       report = new Report()
       report.p 'Kurt Cobain (1967-1994)'

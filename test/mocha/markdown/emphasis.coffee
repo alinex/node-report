@@ -1431,7 +1431,7 @@ describe "markdown emphasis", ->
     # http://spec.commonmark.org/0.27/#example-440
     # http://spec.commonmark.org/0.27/#example-441
     # http://spec.commonmark.org/0.27/#example-442
-    it "should work with strong in strong delimiter", (cb) ->
+    it.skip "should work with strong in strong delimiter", (cb) ->
       async.series [
         (cb) ->
           test.markdown null, '****foo****', [

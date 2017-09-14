@@ -11,7 +11,7 @@ arrows = require 'typographic-arrows'
 currencyDB = null # loaded on demand
 copyright = require 'typographic-copyright'
 ellipses = require 'typographic-ellipses'
-#emDashes = require 'typographic-em-dashes'
+emDashes = require 'typographic-em-dashes'
 #enDashes = require 'typographic-en-dashes'
 mathSymbols = require 'typographic-math-symbols'
 quotes = require 'typographic-quotes'
@@ -35,7 +35,7 @@ typo = (text, tokens) ->
   # currency is handled separately, below
   textr.use copyright if conf.copyright
   textr.use ellipses if conf.ellipses
-#  textr.use emDashes if conf.emDashes
+  textr.use emDashes if conf.emDashes
 #  textr.use enDashes if conf.enDashes
   textr.use mathSymbols if conf.mathSymbols
   textr.use registeredTrademark if conf.registeredTrademark
