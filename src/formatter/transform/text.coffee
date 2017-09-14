@@ -123,5 +123,4 @@ module.exports =
     format: ['text', 'latex', 'rtf']
     type: 'text'
     fn: (num, token) ->
-      unless token.parent.type is 'preformatted'
-        token.out = typo token.content, @tokens
+      token.out = typo token.content, @tokens
